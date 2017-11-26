@@ -1,0 +1,32 @@
+
+alias sa='source activate'
+alias sd='source deactivate'
+alias zshrc='subl ~/.zshrc'
+alias reload="source ~/.zshrc"
+alias rr="rm -rf"
+
+is-executable hub && eval "$(hub alias -s)" # alias git=hub
+
+# List declared aliases, functions, paths
+
+alias aliases="alias | sed 's/=.*//'"
+alias functions="declare -f | grep '^[a-z].* ()' | sed 's/{$//'"
+alias paths='echo -e ${PATH//:/\\n}'
+
+# Python / Pip
+alias pipcache='pip download --dest ${HOME}/.pip/packages/'  # --cache-dir ${HOME}/.pip/cache
+alias pipinstall='pip install --no-index --find-links=file://${HOME}/.pip/packages'
+
+# Git
+alias gs='git status'
+
+# Finder
+alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
+
+# Network
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+
+# Miscellaneous
+alias hosts="sudo $EDITOR /etc/hosts"
+alias week="date +%V"
+alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'

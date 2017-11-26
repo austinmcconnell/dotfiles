@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# Call Pylint
+git-pylint-commit-hook
+
+# Run PyDocStyle
+#pydocstyle --add-ignore D100,D101,D102,D103,D104
+
+# Add other pre-commit hooks

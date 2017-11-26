@@ -1,0 +1,27 @@
+[user]
+	name = Austin McConnell
+	email = austin.s.mcconnell@gmail.com
+
+[credential]
+	helper = osxkeychain
+
+[core]
+	excludesfile = ~/.gitignore_global
+	editor = nano
+
+[push]
+	default = simple
+	followTags = true
+
+[merge]
+	ff = True
+
+[fetch]
+ 	prune = true
+
+[alias]
+	history = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	unstage = reset --hard HEAD
+
+[init]
+	templatedir = ~/.git-templates
