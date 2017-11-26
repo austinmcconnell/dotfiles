@@ -83,7 +83,7 @@ function git_time_since_commit() {
             elif [ "$MINUTES" -gt 60 ]; then
                 echo "($(rvm_gemset)$COLOR${HOURS}h ${SUB_MINUTES}m %{$reset_color%}|"
             else
-                echo "($(rvm_gemset)$COLOR${MINUTES}m %{$reset_color%}|"
+                echo "($(rvm_gemset)$COLOR${MINUTES}m%{$reset_color%}|"
             fi
         else
             COLOR="$ZSH_THEME_GIT_TIME_SINCE_COMMIT_NEUTRAL"
