@@ -6,7 +6,7 @@ ENABLE_CORRECTION="false"
 
 COMPLETION_WAITING_DOTS="true"
 
-plugins=(autoenv brew docker docker-compose git kubectl pylint heroku)
+plugins=(autoenv brew docker docker-compose git kubectl pip pylint heroku httpie)
 
 # User configuration
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin"
