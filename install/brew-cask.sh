@@ -12,11 +12,15 @@ apps=(
   dropbox
   flux
   google-chrome
+  hazel
   macdown
+  oversight
   slack
+  spectacle
   spotify
   sublime-text
   transmit
+  viscosity
 )
 
 brew cask install "${apps[@]}"
