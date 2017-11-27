@@ -1,32 +1,60 @@
-
-alias sa='source activate'
+##############################
+# Virtual Environments
+##############################
 alias sd='source deactivate'
+alias sa='source activate'
+
+
+##############################
+# Version Control
+##############################
+alias gs='git status'
+alias gfa='git fetch --all'
+alias gg='git grep -n'
+
+
+##############################
+# Python
+##############################
+alias pipcache='pip download --dest ${HOME}/.pip/packages'
+alias pipinstall='pip install --no-index --find-links=file://${HOME}/.pip/packages/'
+
+
+##############################
+# Sublime Text
+##############################
 alias zshrc='subl ~/.zshrc'
+alias hosts="sudo $EDITOR /etc/hosts"
+
+
+##############################
+# Filesystem
+##############################
 alias reload="source ~/.zshrc"
 alias rr="rm -rf"
-
-is-executable hub && eval "$(hub alias -s)" # alias git=hub
-
-# List declared aliases, functions, paths
-
 alias aliases="alias | sed 's/=.*//'"
 alias functions="declare -f | grep '^[a-z].* ()' | sed 's/{$//'"
 alias paths='echo -e ${PATH//:/\\n}'
-
-# Python / Pip
-alias pipcache='pip download --dest ${HOME}/.pip/packages/'  # --cache-dir ${HOME}/.pip/cache
-alias pipinstall='pip install --no-index --find-links=file://${HOME}/.pip/packages'
-
-# Git
-alias gs='git status'
-
-# Finder
 alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
+alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
 
-# Network
+
+##############################
+# Networking
+##############################
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 
-# Miscellaneous
-alias hosts="sudo $EDITOR /etc/hosts"
+
+##############################
+# Calendar
+##############################
 alias week="date +%V"
-alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
+
+
+##############################
+# Kubernetes
+##############################
+alias kc='kubectl'
+alias kui='kc proxy & sleep 2 && open -a "/Applications/Google Chrome.app" "http://localhost:8001/ui"'
+
+is-executable hub && eval "$(hub alias -s)" # alias git=hub
