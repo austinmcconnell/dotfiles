@@ -57,4 +57,4 @@ alias week="date +%V"
 alias kc='kubectl'
 alias kui='kc proxy & sleep 2 && open -a "/Applications/Google Chrome.app" "http://localhost:8001/ui"'
 
-is-executable hub && eval "$(hub alias -s)" # alias git=hub
+# is-executable hub && eval "$(hub alias -s)" # alias git=hub
