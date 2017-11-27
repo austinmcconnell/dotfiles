@@ -13,6 +13,7 @@ apps=(
   flux
   google-chrome
   hazel
+  iterm2
   macdown
   oversight
   slack
