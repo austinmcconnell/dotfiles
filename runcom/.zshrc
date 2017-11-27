@@ -21,7 +21,7 @@ export LANG=en_US.UTF-8
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='nano'
 else
-  export EDITOR='subl'
+  export EDITOR='subl --new-window --wait'
 fi
 
 export SSH_KEY_PATH="~/.ssh/id_macbookpro"
