@@ -1,6 +1,6 @@
 export ZSH=~/.oh-my-zsh
 
-ZSH_THEME="Soliah-austinized"
+ZSH_THEME="austin"
 
 ENABLE_CORRECTION="false"
 
