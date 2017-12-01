@@ -22,6 +22,7 @@
 [alias]
 	history = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	unstage = reset --hard HEAD
+	diff = diff --word-diff
 
 [init]
 	templatedir = ~/.git-templates
