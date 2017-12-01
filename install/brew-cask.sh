@@ -20,6 +20,8 @@ apps=(
   spectacle
   spotify
   sublime-text
+  textual
+  transmission
   transmit
   viscosity
 )
