@@ -9,6 +9,7 @@ brew tap caskroom/fonts
 # Install packages
 
 apps=(
+  dashlane
   dropbox
   flux
   google-chrome
