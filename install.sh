@@ -29,6 +29,10 @@ ln -sfv "$DOTFILES_DIR/git/.gitignore_global" ~
 . "$DOTFILES_DIR/install/zsh.sh"
 . "$DOTFILES_DIR/install/brew-cask.sh"
 
+# Run tests
+
+if is-executable bats; then bats test/*.bats; else echo "Skipped: tests (missing: bats)"; fi
+
 # Install extra stuff
 
 if [ -d "$DOTFILES_EXTRA_DIR" -a -f "$DOTFILES_EXTRA_DIR/install.sh" ]; then
