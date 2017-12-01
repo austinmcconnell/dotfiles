@@ -13,6 +13,7 @@ brew upgrade
 
 apps=(
   autoenv
+  bats
   battery
   coreutils
   diff-so-fancy
