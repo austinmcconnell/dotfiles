@@ -12,6 +12,7 @@ apps=(
   betterzip
   dashlane
   dropbox
+  exodus
   flux
   google-chrome
   hazel

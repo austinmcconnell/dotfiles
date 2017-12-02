@@ -17,5 +17,6 @@ dockutil --no-restart --add "/Applications/MacDown.app"
 dockutil --no-restart --add "/Applications/Transmit.app"
 dockutil --no-restart --add "/Applications/Postico.app"
 dockutil --no-restart --add "/Applications/Dashlane.app"
+dockutil --no-restart --add "/Applications/Exodus.app"
 
 killall Dock
