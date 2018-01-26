@@ -4,17 +4,9 @@ ZSH_THEME="austin"
 
 plugins=(autoenv brew docker docker-compose git kubectl pip pylint heroku httpie)
 
-# User configuration
-export PATH="~/miniconda/bin:$PATH"
-
 source $ZSH/oh-my-zsh.sh
 
 export SSH_KEY_PATH="~/.ssh/id_macbookpro"
-
-# Sources
-source '/Users/Austin/google-cloud-sdk/completion.zsh.inc'
-source '/Users/Austin/google-cloud-sdk/path.zsh.inc'
-source /Users/Austin/.travis/travis.sh
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
@@ -41,7 +33,7 @@ DOTFILES_CACHE="$DOTFILES_DIR/.cache.sh"
 [ -f "$DOTFILES_CACHE" ] && . "$DOTFILES_CACHE"
 
 # Finally we can source the dotfiles (order matters)
-for DOTFILE in "$DOTFILES_DIR"/system/.{alias,env,function,path}; do
+for DOTFILE in "$DOTFILES_DIR"/system/.{env,alias,function,path}; do
   [ -f "$DOTFILE" ] && . "$DOTFILE"
 done
 
@@ -50,3 +42,12 @@ unset READLINK CURRENT_SCRIPT SCRIPT_PATH DOTFILE EXTRAFILE
 
 # Export
 export DOTFILES_DIR DOTFILES_EXTRA_DIR
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc' ]; then source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc' ]; then source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'; fi
+
+# User configuration
+prepend-path ~/miniconda3/bin

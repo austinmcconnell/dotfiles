@@ -9,6 +9,7 @@ brew tap caskroom/fonts
 # Install packages
 
 apps=(
+  betterzip
   dashlane
   dropbox
   flux
@@ -30,4 +31,4 @@ apps=(
 brew cask install "${apps[@]}"
 
 # Quick Look Plugins (https://github.com/sindresorhus/quick-look-plugins)
-brew cask install qlcolorcode qlstephen qlmarkdown quicklook-json qlprettypatch quicklook-csv betterzipql qlimagesize webpquicklook
+brew cask install qlcolorcode qlstephen qlmarkdown quicklook-json qlprettypatch quicklook-csv qlimagesize webpquicklook
