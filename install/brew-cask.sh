@@ -9,11 +9,8 @@ brew tap caskroom/fonts
 # Install packages
 
 apps=(
-<<<<<<< HEAD
   betterzip
-=======
   authy
->>>>>>> Added authy app
   dashlane
   dropbox
   exodus
