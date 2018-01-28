@@ -2,11 +2,11 @@ export ZSH=~/.oh-my-zsh
 
 ZSH_THEME="austin"
 
-plugins=(autoenv brew docker docker-compose git kubectl pip pylint heroku httpie)
+plugins=(autoenv brew docker docker-compose git kubectl nvm pip pylint heroku httpie)
 
 source $ZSH/oh-my-zsh.sh
 
-export SSH_KEY_PATH="~/.ssh/id_macbookpro"
+export SSH_KEY_PATH=~/.ssh/id_macbookpro
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
