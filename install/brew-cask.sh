@@ -18,6 +18,7 @@ apps=(
   google-chrome
   hazel
   iterm2
+  keepingyouawake
   macdown
   oversight
   slack
