@@ -1,0 +1,2 @@
+0 8 * * * $DOTFILES_DIR/scripts/brew_update.sh
+0 15 * * 5 $DOTFILES_DIR/scripts/brew_cleanup.sh
