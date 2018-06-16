@@ -2,7 +2,7 @@ export ZSH=~/.oh-my-zsh
 
 ZSH_THEME="austin"
 
-plugins=(autoenv brew docker docker-compose git kubectl nvm pip pipenv pylint heroku httpie yarn)
+plugins=(autoenv brew docker docker-compose git kubectl pip pipenv pylint heroku httpie yarn)
 
 source $ZSH/oh-my-zsh.sh
 
