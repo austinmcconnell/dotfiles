@@ -11,6 +11,7 @@ brew tap caskroom/fonts
 apps=(
   authy
   betterzip
+  betterzipql
   dashlane
   dropbox
   exodus
