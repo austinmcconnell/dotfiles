@@ -25,9 +25,9 @@ alias pipinstall='pip install --no-index --find-links=file://${HOME}/.pip/packag
 alias cask="brew cask"
 
 ##############################
-# Sublime Text
+# Atom
 ##############################
-alias zshrc='subl ~/.zshrc'
+alias zshrc='atom ~/.zshrc'
 alias hosts="sudo $EDITOR /etc/hosts"
 
 

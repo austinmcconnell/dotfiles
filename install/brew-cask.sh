@@ -9,6 +9,7 @@ brew tap caskroom/fonts
 # Install packages
 
 apps=(
+  atom
   authy
   betterzip
   betterzipql
@@ -25,7 +26,6 @@ apps=(
   slack
   spectacle
   spotify
-  sublime-text
   textual
   transmission
   transmit
