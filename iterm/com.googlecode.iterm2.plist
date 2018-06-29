@@ -819,7 +819,7 @@
 			<key>Window Type</key>
 			<integer>0</integer>
 			<key>Working Directory</key>
-			<string>/Users/mcconnell/projects</string>
+			<string>~/projects</string>
 		</dict>
 		<dict>
 			<key>ASCII Anti Aliased</key>
