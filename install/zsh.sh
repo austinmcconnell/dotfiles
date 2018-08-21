@@ -10,4 +10,4 @@ chsh -s /usr/local/bin/zsh
 
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
-ln -sfv "$DOTFILES_DIR/zsh/Soliah-austinized.zsh-theme" ~/.oh-my-zsh/custom/themes/
+ln -sfv "$DOTFILES_DIR/zsh/austin.zsh-theme" ~/.oh-my-zsh/custom/themes/
