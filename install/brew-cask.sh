@@ -12,7 +12,6 @@ apps=(
   atom
   authy
   betterzip
-  betterzipql
   dashlane
   dropbox
   exodus
