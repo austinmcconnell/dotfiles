@@ -6,7 +6,9 @@ fi
 brew install zsh
 
 grep "/usr/local/bin/zsh" /private/etc/shells &>/dev/null || sudo zsh -c "echo /usr/local/bin/zsh  >> /private/etc/shells"
-chsh -s /usr/local/bin/zsh
+if [ "$SHELL" != "/usr/local/bin/zsh" ]; then
+  chsh -s /usr/local/bin/zsh
+fi
 
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
