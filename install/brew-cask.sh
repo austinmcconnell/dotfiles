@@ -20,6 +20,7 @@ apps=(
   keepingyouawake
   macdown
   oversight
+  postico
   slack
   spectacle
   transmission
