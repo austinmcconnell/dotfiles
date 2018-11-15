@@ -9,6 +9,7 @@ if ! is-executable brew; then
 fi
 
 brew tap Goles/battery
+brew tap heroku/brew
 brew update
 brew upgrade
 
