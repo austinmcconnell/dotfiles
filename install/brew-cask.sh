@@ -13,6 +13,7 @@ apps=(
   authy
   betterzip
   dropbox
+  evernote
   flux
   google-chrome
   hazel
