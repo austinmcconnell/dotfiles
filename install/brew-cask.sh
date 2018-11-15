@@ -12,9 +12,7 @@ apps=(
   atom
   authy
   betterzip
-  dashlane
   dropbox
-  exodus
   flux
   google-chrome
   hazel
@@ -24,10 +22,7 @@ apps=(
   oversight
   slack
   spectacle
-  spotify
-  textual
   transmission
-  transmit
   viscosity
 )
 
