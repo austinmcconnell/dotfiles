@@ -44,7 +44,13 @@ apps=(
 
 brew install "${apps[@]}"
 
-eval "git clone git://github.com/concordusapps/pyenv-implict.git ~/.pyenv/plugins/pyenv-implict"
+PYENV_PLUGIN_DIR="$HOME/.pyenv/plugins"
+if [ -d "$PYENV_PLUGIN_DIR/pyenv-implicit/.git" ] ; then
+	git --work-tree="$PYENV_PLUGIN_DIR/pyenv-implicit" --git-dir="$PYENV_PLUGIN_DIR/pyenv-implicit/.git" pull origin master;
+else
+  git clone git://github.com/pyenv/pyenv-implicit.git "$PYENV_PLUGIN_DIR/pyenv-implicit"
+fi
+
 
 export DOTFILES_BREW_PREFIX_COREUTILS=`brew --prefix coreutils`
 set-config "DOTFILES_BREW_PREFIX_COREUTILS" "$DOTFILES_BREW_PREFIX_COREUTILS" "$DOTFILES_CACHE"
