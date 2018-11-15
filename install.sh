@@ -24,5 +24,6 @@ ln -sfv "$DOTFILES_DIR/runcom/.zshrc" ~
 . "$DOTFILES_DIR/install/brew-cask.sh"
 . "$DOTFILES_DIR/install/crontab.sh"
 
+mkdir ~/.config
 # Run tests
 if is-executable bats; then bats test/*.bats; else echo "Skipped: tests (missing: bats)"; fi
