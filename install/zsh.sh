@@ -12,4 +12,4 @@ fi
 
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
-ln -sfv "$DOTFILES_DIR/zsh/austin.zsh-theme" ~/.oh-my-zsh/custom/themes/
+ln -sfv "$DOTFILES_DIR/etc/zsh/austin.zsh-theme" ~/.oh-my-zsh/custom/themes/
