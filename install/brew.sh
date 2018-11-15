@@ -51,8 +51,6 @@ else
   git clone git://github.com/pyenv/pyenv-implicit.git "$PYENV_PLUGIN_DIR/pyenv-implicit"
 fi
 
-
 export DOTFILES_BREW_PREFIX_COREUTILS=`brew --prefix coreutils`
-set-config "DOTFILES_BREW_PREFIX_COREUTILS" "$DOTFILES_BREW_PREFIX_COREUTILS" "$DOTFILES_CACHE"
 
 ln -sfv "$DOTFILES_DIR/etc/mackup/.mackup.cfg" ~
