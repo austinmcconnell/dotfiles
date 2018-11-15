@@ -34,7 +34,6 @@ apps=(
   postgresql --with-python3
   psgrep
   pyenv
-  python3
   shellcheck
   ssh-copy-id
   tree
