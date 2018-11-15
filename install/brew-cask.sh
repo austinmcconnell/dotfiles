@@ -22,6 +22,7 @@ apps=(
   oversight
   postico
   slack
+  steam
   spectacle
   transmission
   viscosity
