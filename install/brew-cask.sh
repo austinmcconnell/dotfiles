@@ -12,6 +12,7 @@ apps=(
   atom
   authy
   betterzip
+  docker
   dropbox
   evernote
   flux
