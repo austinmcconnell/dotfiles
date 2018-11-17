@@ -1,48 +1,40 @@
-if ! is-macos -o ! is-executable ruby -o ! is-executable curl -o ! is-executable git; then
-  echo "Skipped: Homebrew (missing: ruby, curl and/or git)"
-  return
-fi
-
 if ! is-executable brew; then
-  echo "Homebrew already installed. Skipping install..."
-  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  echo "Skipping Brew Installs: Homebrew not installed"
+  return
+else
+  echo "**************************************************"
+  echo "Installing Homebrew packages"
+  echo "**************************************************"
 fi
 
 brew tap Goles/battery
 brew tap heroku/brew
-brew update
-brew upgrade
 
 # Install packages
-
-apps=(
-  autoenv
-  bats
-  battery
-  coreutils
-  diff-so-fancy
-  docker
-  dockutil
-  git
-  git-extras
-  grep --with-default-names
-  heroku
-  httpie
-  hub
-  mackup
-  nano
-  postgresql --with-python3
-  psgrep
-  pyenv
-  shellcheck
-  ssh-copy-id
-  tree
-  unar
-  wget
-  wifi-password
-)
-
-brew install "${apps[@]}"
+brew install autoenv
+brew install bats
+brew install battery
+brew install coreutils
+brew install diff-so-fancy
+brew install docker
+brew install dockutil
+brew install git
+brew install git-extras
+brew install grep --with-default-names
+brew install heroku
+brew install httpie
+brew install hub
+brew install mackup
+brew install nano
+brew install postgresql --with-python3
+brew install psgrep
+brew install pyenv
+brew install shellcheck
+brew install ssh-copy-id
+brew install tree
+brew install unar
+brew install wget
+brew install wifi-password
 
 PYENV_PLUGIN_DIR="$HOME/.pyenv/plugins"
 if [ -d "$PYENV_PLUGIN_DIR/pyenv-implicit/.git" ] ; then
@@ -50,7 +42,3 @@ if [ -d "$PYENV_PLUGIN_DIR/pyenv-implicit/.git" ] ; then
 else
   git clone git://github.com/pyenv/pyenv-implicit.git "$PYENV_PLUGIN_DIR/pyenv-implicit"
 fi
-
-export DOTFILES_BREW_PREFIX_COREUTILS=`brew --prefix coreutils`
-
-ln -sfv "$DOTFILES_DIR/etc/mackup/.mackup.cfg" ~
