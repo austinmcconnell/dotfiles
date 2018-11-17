@@ -1,7 +1,3 @@
-# Get named var (usage: get "VAR_NAME")
-get() {
-  echo "${!1}"
-}
 
 # Add to path
 prepend-path() {

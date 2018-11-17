@@ -1,11 +1,4 @@
 ##############################
-# Virtual Environments
-##############################
-alias sd='source deactivate'
-alias sa='source activate'
-
-
-##############################
 # Version Control
 ##############################
 alias gs='git status'
@@ -31,6 +24,8 @@ alias dclogs='docker-compose -f ./docker-compose.yml logs -tf --tail="50" '
 # Applications
 ##############################
 alias cask="brew cask"
+alias tap="brew tap"
+
 
 ##############################
 # Atom
@@ -49,7 +44,7 @@ alias functions="declare -f | grep '^[a-z].* ()' | sed 's/{$//'"
 alias paths='echo -e ${PATH//:/\\n}'
 alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
 alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
-alias df='df -h -x aufs -x tmpfs -x udev'
+alias df='df -H -l'
 
 # Log off
 alias logoff="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
@@ -66,7 +61,6 @@ alias killfinder="killall Finder"
 alias killdock="killall Dock"
 alias killmenubar="killall SystemUIServer NotificationCenter"
 alias killos="killfinder && killdock && killmenubar"
-
 
 
 ##############################
@@ -86,5 +80,3 @@ alias week="date +%V"
 ##############################
 alias kc='kubectl'
 alias kui='kc proxy & sleep 2 && open -a "/Applications/Google Chrome.app" "http://localhost:8001/ui"'
-
-# is-executable hub && eval "$(hub alias -s)" # alias git=hub
