@@ -21,6 +21,7 @@ apps=(
   iterm2
   keepingyouawake
   macdown
+  nextcloud
   oversight
   postico
   slack
