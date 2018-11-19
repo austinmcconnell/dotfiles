@@ -1,3 +1,5 @@
+#!/bin/sh
+
 if ! is-executable brew; then
   echo "Skipping Brew Installs: Homebrew not installed"
   return

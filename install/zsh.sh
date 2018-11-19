@@ -1,3 +1,5 @@
+#!/bin/sh
+
 if ! is-macos -o ! is-executable brew; then
   echo "Skipped: zsh 4"
   return
