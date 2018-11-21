@@ -20,6 +20,7 @@ brew cask install docker
 brew cask install dropbox
 brew cask install evernote
 brew cask install flux
+brew cask install font-source-code-pro
 brew cask install google-chrome
 brew cask install hazel
 brew cask install iterm2
