@@ -375,7 +375,7 @@
 	<key>LoadPrefsFromCustomFolder</key>
 	<true/>
 	<key>NSNavLastRootDirectory</key>
-	<string>~/projects/dotfiles</string>
+	<string>~/projects/dotfiles/etc/iterm</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
 	<string>{712, 448}</string>
 	<key>NSQuotedKeystrokeBinding</key>
@@ -393,7 +393,7 @@
 	gAKACoAN0xAJChEVGVdOUy5rZXlzoxITFIADgASABaMWFxiABoAHgAiACVpJZGVudGlm
 	aWVyVVdpZHRoVkhpZGRlblEwI0BowAAAAAAACNIhIiMkWiRjbGFzc25hbWVYJGNsYXNz
 	ZXNcTlNEaWN0aW9uYXJ5oiMlWE5TT2JqZWN00xAJCicrGaMSExSAA4AEgAWjLC0YgAuA
-	DIAIgAlRMSNAdKAAAAAAANIhIjM0Xk5TTXV0YWJsZUFycmF5ozM1JVdOU0FycmF5XxAP
+	DIAIgAlRMSNAdKGdsi0OVtIhIjM0Xk5TTXV0YWJsZUFycmF5ozM1JVdOU0FycmF5XxAP
 	TlNLZXllZEFyY2hpdmVy0Tg5VUFycmF5gAEACAARABoAIwAtADIANwBGAEwAUQBcAGMA
 	ZgBoAGoAbABzAHsAfwCBAIMAhQCJAIsAjQCPAJEAnACiAKkAqwC0ALUAugDFAM4A2wDe
 	AOcA7gDyAPQA9gD4APwA/gEAAQIBBAEGAQ8BFAEjAScBLwFBAUQBSgAAAAAAAAIBAAAA
@@ -409,37 +409,22 @@
 	</data>
 	<key>NSTableView Supports v2 KeyBingingTable</key>
 	<true/>
-	<key>NSToolbar Configuration com.apple.NSColorPanel</key>
-	<dict>
-		<key>TB Is Shown</key>
-		<integer>1</integer>
-	</dict>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>929 110 445 213 0 0 1440 877 </string>
-	<key>NSWindow Frame Preferences</key>
-	<string>533 789 606 456 0 0 2560 1417 </string>
+	<string>2995 644 445 77 0 0 3840 1577 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
-	<string>970 791 620 392 0 0 2560 1417 </string>
-	<key>NSWindow Frame SessionsPreferences</key>
-	<string>630 335 606 469 0 0 2560 1417 </string>
+	<string>1610 908 620 392 0 0 3840 1577 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>1520 591 958 451 0 0 2560 1417 </string>
-	<key>NSWindow Frame UKCrashReporter</key>
-	<string>-2330 293 592 584 -2560 -540 2560 1417 </string>
+	<string>2581 776 796 486 0 0 3840 1577 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 754 910 527 0 0 2560 1417 </string>
+	<string>1394 221 810 452 0 0 3840 1577 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>1026 890 910 527 0 0 2560 1417 </string>
+	<string>2031 1010 570 452 0 0 3840 1577 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
-	<string>130 427 910 527 0 0 2560 1417 </string>
+	<string>2737 1007 570 452 0 0 3840 1577 </string>
 	<key>NSWindow Frame iTerm Window 3</key>
-	<string>28 351 910 527 0 0 2560 1417 </string>
+	<string>1394 221 570 452 0 0 3840 1577 </string>
 	<key>NSWindow Frame iTerm Window 4</key>
-	<string>199 242 910 527 0 0 2560 1417 </string>
-	<key>NSWindow Frame iTerm Window 5</key>
-	<string>1280 89 1279 1328 0 0 2560 1417 </string>
-	<key>NSWindow Frame iTerm Window 6</key>
-	<string>149 767 919 527 0 0 2560 1417 </string>
+	<string>1972 398 570 452 0 0 3840 1577 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -755,7 +740,7 @@
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>SauceCodePowerline-Bold 15</string>
+			<string>Menlo-Regular 14</string>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
 			<key>Prompt Before Closing 2</key>
@@ -767,7 +752,7 @@
 			<key>Screen</key>
 			<integer>-1</integer>
 			<key>Scrollback Lines</key>
-			<integer>1000</integer>
+			<integer>0</integer>
 			<key>Selected Text Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -1205,108 +1190,20 @@
 			<string>/Users/mcconnell/projects</string>
 		</dict>
 	</array>
-	<key>NoSyncCommandHistoryHasEverBeenUsed</key>
+	<key>NoSyncHaveRequestedFullDiskAccess</key>
 	<true/>
-	<key>NoSyncDoNotWarnBeforeMultilinePaste</key>
+	<key>NoSyncHaveWarnedAboutPasteConfirmationChange</key>
 	<true/>
-	<key>NoSyncDoNotWarnBeforeMultilinePaste_selection</key>
-	<integer>0</integer>
-	<key>NoSyncHaveWarnedAboutIncompatibleSoftware</key>
-	<true/>
-	<key>NoSyncInstallUtilitiesPackage</key>
-	<true/>
-	<key>NoSyncInstallUtilitiesPackage_selection</key>
-	<integer>0</integer>
 	<key>NoSyncInstallationId</key>
-	<string>52A9D618-8F8F-48BB-B5B5-E212164EEDC2</string>
-	<key>NoSyncLastTipTime</key>
-	<real>528301744.04084301</real>
-	<key>NoSyncNeverAskAboutSettingAlternateMouseScroll</key>
-	<true/>
+	<string>D5EB8A97-5052-4774-BA85-1BEFD5E51FC4</string>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
 	<integer>0</integer>
 	<key>NoSyncPermissionToShowTip</key>
-	<true/>
+	<false/>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
-	<real>517162917.79193002</real>
-	<key>NoSyncTipsToNotShow</key>
-	<array>
-		<string>000</string>
-		<string>0000</string>
-		<string>0001</string>
-		<string>0002</string>
-		<string>0003</string>
-		<string>0004</string>
-		<string>0005</string>
-		<string>0006</string>
-		<string>0007</string>
-		<string>0008</string>
-		<string>0009</string>
-		<string>0010</string>
-		<string>0011</string>
-		<string>0012</string>
-		<string>0013</string>
-		<string>0014</string>
-		<string>0015</string>
-		<string>0016</string>
-		<string>0017</string>
-		<string>0018</string>
-		<string>0019</string>
-		<string>0020</string>
-		<string>0021</string>
-		<string>0022</string>
-		<string>0023</string>
-		<string>0024</string>
-		<string>0025</string>
-		<string>0026</string>
-		<string>0027</string>
-		<string>0028</string>
-		<string>0029</string>
-		<string>0030</string>
-		<string>0031</string>
-		<string>0032</string>
-		<string>0033</string>
-		<string>0034</string>
-		<string>0035</string>
-		<string>0036</string>
-		<string>0037</string>
-		<string>0038</string>
-		<string>0039</string>
-		<string>0040</string>
-		<string>0041</string>
-		<string>0042</string>
-		<string>0043</string>
-		<string>0044</string>
-		<string>0045</string>
-		<string>0046</string>
-		<string>0047</string>
-		<string>0048</string>
-		<string>0049</string>
-		<string>0050</string>
-		<string>0051</string>
-		<string>0052</string>
-		<string>0053</string>
-		<string>0054</string>
-		<string>0055</string>
-		<string>0056</string>
-		<string>0057</string>
-		<string>0058</string>
-		<string>0059</string>
-		<string>0060</string>
-		<string>0061</string>
-		<string>0062</string>
-		<string>0063</string>
-		<string>0064</string>
-		<string>0065</string>
-		<string>0066</string>
-		<string>0067</string>
-		<string>0068</string>
-		<string>0069</string>
-		<string>0070</string>
-		<string>0071</string>
-	</array>
+	<real>556560046.49285305</real>
 	<key>OpenArrangementAtStartup</key>
 	<true/>
 	<key>OpenNoWindowsAtStartup</key>
@@ -1349,9 +1246,11 @@
 		</dict>
 	</dict>
 	<key>PrefsCustomFolder</key>
-	<string>/Users/mcconnell/projects/dotfiles/iterm</string>
+	<string>/Users/austinmcconnell/projects/dotfiles/etc/iterm</string>
 	<key>Print In Black And White</key>
 	<true/>
+	<key>PromptOnQuit</key>
+	<false/>
 	<key>RunJobsInServers</key>
 	<true/>
 	<key>SUEnableAutomaticChecks</key>
@@ -1359,11 +1258,11 @@
 	<key>SUFeedAlternateAppNameKey</key>
 	<string>iTerm</string>
 	<key>SUFeedURL</key>
-	<string>https://iterm2.com/appcasts/final.xml?shard=11</string>
+	<string>https://iterm2.com/appcasts/final.xml?shard=89</string>
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2018-06-07T15:18:33Z</date>
+	<date>2018-11-19T17:07:47Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>ShowFullScreenTabBar</key>
@@ -1380,8 +1279,6 @@
 	<array>
 		<string>Profiles</string>
 	</array>
-	<key>UKCrashReporterLastCrashReportDate</key>
-	<real>1495545472</real>
 	<key>Window Arrangements</key>
 	<dict/>
 	<key>WordCharacters</key>
@@ -1393,7 +1290,7 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.1.6</string>
+	<string>3.2.5</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
