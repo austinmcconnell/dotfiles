@@ -4,6 +4,7 @@ ZSH_THEME="austin"
 
 plugins=(autoenv brew docker docker-compose git kubectl pip pipenv heroku httpie)
 
+source /usr/local/etc/zsh-kubectl-prompt/kubectl.zsh
 source $ZSH/oh-my-zsh.sh
 
 export SSH_KEY_PATH=~/.ssh/id_macbookpro

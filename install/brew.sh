@@ -11,6 +11,7 @@ fi
 
 brew tap Goles/battery
 brew tap heroku/brew
+brew tap superbrothers/zsh-kubectl-prompt
 
 # Install packages
 brew install autoenv
@@ -37,6 +38,7 @@ brew install tree
 brew install unar
 brew install wget
 brew install wifi-password
+brew install zsh-kubectl-prompt
 
 PYENV_PLUGIN_DIR="$HOME/.pyenv/plugins"
 if [ -d "$PYENV_PLUGIN_DIR/pyenv-implicit/.git" ] ; then
