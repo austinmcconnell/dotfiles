@@ -26,6 +26,7 @@ brew install git-extras
 brew install grep --with-default-names
 brew install heroku
 brew install httpie
+brew install kubectx
 brew install hub
 brew install mackup
 brew install nano

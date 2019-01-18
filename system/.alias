@@ -82,4 +82,6 @@ alias week="date +%V"
 # Kubernetes
 ##############################
 alias kc='kubectl'
+alias kctx='kubectx'
+alias kns='kubens'
 alias kui='kc proxy & sleep 2 && open -a "/Applications/Google Chrome.app" "http://localhost:8001/ui"'
