@@ -31,5 +31,7 @@ fi
 . "$DOTFILES_DIR/install/crontab.sh"
 
 mkdir ~/.config
+touch ~/.hushlogin
+
 # Run tests
 if is-executable bats; then bats test/*.bats; else echo "Skipped: tests (missing: bats)"; fi
