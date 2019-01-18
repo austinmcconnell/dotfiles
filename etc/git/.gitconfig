@@ -1,6 +1,7 @@
 [user]
 	name = Austin McConnell
 	email = austin.s.mcconnell@gmail.com
+	signingkey = D10D0D7DE28CE6C6
 
 [credential]
 	helper = osxkeychain
@@ -41,3 +42,5 @@
 	old = red bold
 	new = green bold
 	whitespace = red reverse
+[commit]
+	gpgsign = true
