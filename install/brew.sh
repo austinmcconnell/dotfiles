@@ -30,6 +30,8 @@ brew install kubectx
 brew install hub
 brew install mackup
 brew install nano
+brew install node
+brew install nvm
 brew install postgresql --with-python3
 brew install psgrep
 brew install pyenv
