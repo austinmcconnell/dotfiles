@@ -2,6 +2,7 @@
 # Version Control
 ##############################
 alias gs='git status'
+alias gh='git history'
 alias gfa='git fetch --all'
 alias gg='git grep -n'
 
