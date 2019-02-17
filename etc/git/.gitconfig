@@ -16,7 +16,7 @@
 	followTags = true
 
 [merge]
-	ff = True
+	ff = only
 
 [fetch]
  	prune = true
