@@ -35,6 +35,7 @@ brew install nvm
 brew install postgresql --with-python3
 brew install psgrep
 brew install pyenv
+brew install ruby
 brew install shellcheck
 brew install ssh-copy-id
 brew install tree

@@ -8,6 +8,7 @@ is-executable getconf && PATH=$(`command -v getconf` PATH)
 prepend-path "/bin"
 prepend-path "/usr/bin"
 prepend-path "/usr/local/bin"
+prepend-path "/usr/local/opt/ruby/bin"
 prepend-path "$DOTFILES_BREW_PREFIX_COREUTILS/libexec/gnubin"
 prepend-path "$DOTFILES_DIR/bin"
 prepend-path "$HOME/bin"
@@ -15,6 +16,7 @@ prepend-path "/sbin"
 prepend-path "/usr/sbin"
 prepend-path "/usr/local/sbin"
 prepend-path ~/.pyenv/shims
+prepend-path "$GEM_HOME/bin"
 
 # Remove duplicates (preserving prepended items)
 # Source: http://unix.stackexchange.com/a/40755
