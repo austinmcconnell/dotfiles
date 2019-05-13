@@ -59,3 +59,6 @@ load-nvmrc() {
 }
 add-zsh-hook chpwd load-nvmrc
 load-nvmrc
+
+# Stern (kubernetes log streaming)
+source <(stern --completion=zsh)
