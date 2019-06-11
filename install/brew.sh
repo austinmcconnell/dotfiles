@@ -12,11 +12,13 @@ fi
 brew tap Goles/battery
 brew tap heroku/brew
 brew tap superbrothers/zsh-kubectl-prompt
+brew tap Yleisradio/terraforms
 
 # Install packages
 brew install autoenv
 brew install bats
 brew install battery
+brew install chtf
 brew install coreutils
 brew install diff-so-fancy
 brew install docker

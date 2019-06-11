@@ -62,3 +62,8 @@ load-nvmrc
 
 # Stern (kubernetes log streaming)
 source <(stern --completion=zsh)
+
+# Source chtf
+if [[ -f /usr/local/share/chtf/chtf.sh ]]; then
+    source "/usr/local/share/chtf/chtf.sh"
+fi
