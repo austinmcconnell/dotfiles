@@ -42,6 +42,7 @@ brew install shellcheck
 brew install ssh-copy-id
 brew install tree
 brew install unar
+brew install vim
 brew install wget
 brew install wifi-password
 brew install zsh-kubectl-prompt
