@@ -28,6 +28,7 @@ brew install git-extras
 brew install grep --with-default-names
 brew install heroku
 brew install httpie
+brew install jq
 brew install kubectx
 brew install hub
 brew install mackup
@@ -40,6 +41,7 @@ brew install pyenv
 brew install ruby
 brew install shellcheck
 brew install ssh-copy-id
+brew install stern
 brew install tree
 brew install unar
 brew install vim
