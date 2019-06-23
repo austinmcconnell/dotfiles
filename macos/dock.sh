@@ -14,6 +14,6 @@ dockutil --no-restart --add "/Applications/Evernote.app"
 dockutil --no-restart --add "/Applications/Simplenote.app"
 dockutil --no-restart --add "/Applications/MacDown.app"
 dockutil --no-restart --add "/Applications/Postico.app"
-dockutil --no-restart --add "/Applications/Luminar 2018.app"
+dockutil --no-restart --add "/Applications/Luminar 3.app"
 
 killall Dock
