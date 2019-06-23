@@ -7,7 +7,9 @@
 
 @test "json" {
 	ACTUAL=$(echo '{"x":1}' | json)
-	EXPECTED=$'{ "x": 1 }'
+	EXPECTED=$'{
+  "x": 1
+}'
 	[ "$ACTUAL" = "$EXPECTED" ]
 }
 
@@ -32,11 +34,21 @@
 }
 
 @test "set-config" {
+	echo "********************"
 	run set-config KEY_A VALUE_1 MYFILE
+	ACTUAL=`cat MYFILE`
+	echo "$ACTUAL"
+	echo "********************"
 	run set-config KEY_B VALUE_2 MYFILE
+	ACTUAL=`cat MYFILE`
+	echo "$ACTUAL"
+	echo "********************"
 	run set-config KEY_A VALUE_3 MYFILE
 	ACTUAL=`cat MYFILE`
+	echo "$ACTUAL"
+	echo "********************"
 	EXPECTED=$'export KEY_A="VALUE_3"\nexport KEY_B="VALUE_2"'
+	# echo "$EXPECTED"
 	[ "$ACTUAL" = "$EXPECTED" ]
 	run rm MYFILE
 }

@@ -20,4 +20,4 @@ else
   INPUT=$(cat -)
 fi
 
-echo "$INPUT" | underscore print "$OPT_COLOR"
+echo "$INPUT" | jq "$OPT_COLOR"

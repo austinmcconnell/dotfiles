@@ -1,7 +1,9 @@
 #!/bin/sh
 
 if ! is-executable brew; then
+  echo "**************************************************"
   echo "Skipping Brew Installs: Homebrew not installed"
+  echo "**************************************************"
   return
 else
   echo "**************************************************"
@@ -11,7 +13,6 @@ fi
 
 brew tap Goles/battery
 brew tap heroku/brew
-brew tap superbrothers/zsh-kubectl-prompt
 brew tap Yleisradio/terraforms
 
 # Install packages
@@ -35,7 +36,6 @@ brew install hub
 brew install mackup
 brew install nano
 brew install node
-brew install nvm
 brew install postgresql
 brew install psgrep
 brew install pyenv
@@ -48,7 +48,6 @@ brew install unar
 brew install vim
 brew install wget
 brew install wifi-password
-brew install zsh-kubectl-prompt
 
 PYENV_PLUGIN_DIR="$HOME/.pyenv/plugins"
 if [ -d "$PYENV_PLUGIN_DIR/pyenv-implicit/.git" ] ; then

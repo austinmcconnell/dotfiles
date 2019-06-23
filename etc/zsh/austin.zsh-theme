@@ -6,7 +6,6 @@ local kubernetes_string='%{$fg[blue]%}($ZSH_KUBECTL_PROMPT)%{$reset_color%}'
 
 PROMPT='${user} on ${host} in ${path_string}$(git_time_since_commit)$(check_git_prompt_info)
 $ '
-# $(kubecontext)$(gcloudproject)
 RPROMPT="${kubernetes_string}${battery_string}"
 
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[white]%}"
@@ -92,26 +91,4 @@ function git_time_since_commit() {
             echo "($(rvm_gemset)$COLOR~|"
         fi
     fi
-}
-
-# Add kubernetes context to prompt
-function kubecontext() {
-    if [[ $(kubectl config current-context) == *"sandbox"* ]]; then
-        echo "\nkubernetes: %{$fg[green]%}sandbox%{$reset_color%}"
-    elif [[ $(kubectl config current-context) == *"staging"* ]]; then
-        echo "\nkubernetes: %{$fg[yellow]%}staging%{$reset_color%}"
-    elif [[ $(kubectl config current-context) == *"prod"* ]]; then
-        echo "\nkubernetes: %{$fg[red]%}production%{$reset_color%}"
-  fi
-}
-
-# Add gcloud project to prompt
-function gcloudproject() {
-    if [[ $(gcloud config list --format 'value(core.project)') == *"sandbox"* ]]; then
-        echo "  gcloud: %{$fg[green]%}sandbox%{$reset_color%}"
-    elif [[ $(gcloud config list --format 'value(core.project)') == *"staging"* ]]; then
-        echo "  gcloud: %{$fg[yellow]%}staging%{$reset_color%}"
-    elif [[ $(gcloud config list --format 'value(core.project)') == *"prod"* ]]; then
-        echo "  gcloud: %{$fg[red]%}production%{$reset_color%}"
-  fi
 }

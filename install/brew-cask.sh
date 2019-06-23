@@ -1,7 +1,9 @@
 #!/bin/sh
 
 if ! is-executable brew; then
+  echo "**************************************************"
   echo "Skipping Brew Cask Installs: Homebrew not installed"
+  echo "**************************************************"
   return
 else
   echo "**************************************************"

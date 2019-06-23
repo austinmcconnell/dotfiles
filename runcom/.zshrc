@@ -2,9 +2,8 @@ export ZSH=~/.oh-my-zsh
 
 ZSH_THEME="austin"
 
-plugins=(autoenv brew docker docker-compose git kubectl pip pipenv heroku httpie)
+plugins=(autoenv brew docker docker-compose git kubectl pip pipenv heroku httpie zsh-kubectl-prompt zsh-nvm)
 
-source /usr/local/etc/zsh-kubectl-prompt/kubectl.zsh
 source $ZSH/oh-my-zsh.sh
 
 export SSH_KEY_PATH=~/.ssh/id_macbookpro
@@ -35,30 +34,8 @@ if [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion
 eval "$(pyenv init -)"
 
 #NVM
-[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-#[ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
-
-# place this after nvm initialization!
-autoload -U add-zsh-hook
-load-nvmrc() {
-  local node_version="$(nvm version)"
-  local nvmrc_path="$(nvm_find_nvmrc)"
-
-  if [ -n "$nvmrc_path" ]; then
-    local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
-
-    if [ "$nvmrc_node_version" = "N/A" ]; then
-      nvm install
-    elif [ "$nvmrc_node_version" != "$node_version" ]; then
-      nvm use
-    fi
-  elif [ "$node_version" != "$(nvm version default)" ]; then
-    echo "Reverting to nvm default version"
-    nvm use default
-  fi
-}
-add-zsh-hook chpwd load-nvmrc
-load-nvmrc
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # Stern (kubernetes log streaming)
 source <(stern --completion=zsh)
