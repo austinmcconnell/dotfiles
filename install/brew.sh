@@ -25,7 +25,7 @@ brew install docker
 brew install dockutil
 brew install git
 brew install git-extras
-brew install grep --with-default-names
+brew install grep
 brew install heroku
 brew install httpie
 brew install jq
@@ -35,7 +35,7 @@ brew install mackup
 brew install nano
 brew install node
 brew install nvm
-brew install postgresql --with-python3
+brew install postgresql --with-python3 #fixme
 brew install psgrep
 brew install pyenv
 brew install ruby
