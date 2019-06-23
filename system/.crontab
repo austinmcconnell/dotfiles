@@ -1,2 +1,0 @@
-0 8 * * * bash -l -c "~/projects/dotfiles/scripts/brew_update.sh >>/tmp/cron_stdout.log 2>>/tmp/cron_stderr.log"
-0 15 * * 5 bash -l -c "~/projects/dotfiles/scripts/brew_cleanup.sh  >>/tmp/cron_stdout.log 2>>/tmp/cron_stderr.log"
