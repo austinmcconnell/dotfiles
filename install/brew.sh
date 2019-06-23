@@ -16,6 +16,7 @@ brew tap Yleisradio/terraforms
 
 # Install packages
 brew install autoenv
+brew install bash
 brew install bats
 brew install battery
 brew install chtf
@@ -35,7 +36,7 @@ brew install mackup
 brew install nano
 brew install node
 brew install nvm
-brew install postgresql --with-python3 #fixme
+brew install postgresql
 brew install psgrep
 brew install pyenv
 brew install ruby
