@@ -1,6 +1,8 @@
 #!/bin/sh
 
-# Run tests
-pytest --quiet --tb=no --strict --exitfirst
+# Run tests if there is a test directory
+if [ -e "tests" ]; then
+    pytest --quiet --quiet --tb=no --strict --exitfirst --disable-warnings
+fi
 
 # Add other pre-push hooks
