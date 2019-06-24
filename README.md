@@ -28,8 +28,8 @@ Use the [Makefile](./Makefile) to install everything [listed above](#package-ove
 * `dotfiles macos` (set [macOS defaults](./macos/defaults.sh))
 * Mackup
 	* Log in to Dropbox
-	* `mackup restore`
 	* `ln -s ~/.config/mackup/.mackup.cfg ~` (until [#632](https://github.com/lra/mackup/pull/632) is fixed)
+	* `mackup restore`
 
 ## The `dotfiles` command
 
