@@ -14,10 +14,9 @@ fi
 NVM_DIR="$HOME/.nvm"
 
 if [ ! -d "$HOME/.nvm" ] ; then
+    mkdir $NVM_DIR
   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
 fi
-
-mkdir $NVM_DIR
 
 . "$NVM_DIR/nvm.sh"; nvm install --lts
 . "$NVM_DIR/nvm.sh"; nvm alias default lts/*
