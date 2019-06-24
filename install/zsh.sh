@@ -11,10 +11,7 @@ else
   echo "**************************************************"
 fi
 
-# brew tap superbrothers/zsh-kubectl-prompt
-
 brew install zsh
-# brew install zsh-kubectl-prompt
 
 grep "/usr/local/bin/zsh" /private/etc/shells &>/dev/null || sudo zsh -c "echo /usr/local/bin/zsh  >> /private/etc/shells"
 if [ "$SHELL" != "/usr/local/bin/zsh" ]; then
