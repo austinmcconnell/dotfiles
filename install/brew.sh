@@ -32,6 +32,7 @@ brew install heroku
 brew install httpie
 brew install jq
 brew install kubectx
+brew install kubernetes-helm
 brew install hub
 brew install mackup
 brew install nano
