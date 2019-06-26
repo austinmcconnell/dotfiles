@@ -50,7 +50,6 @@ brew install stern
 brew install terraform
 brew install tree
 brew install unar
-brew install vim
 brew install wget
 brew install wifi-password
 
