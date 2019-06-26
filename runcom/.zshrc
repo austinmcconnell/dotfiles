@@ -12,7 +12,7 @@ for DOTFILE in "$DOTFILES_DIR"/system/.{env,alias,function,path}; do
   [ -f "$DOTFILE" ] && . "$DOTFILE"
 done
 
-plugins=(autoenv brew docker docker-compose git kubectl pip pipenv heroku httpie zsh-kubectl-prompt zsh-nvm)
+plugins=(autoenv brew docker docker-compose git heroku httpie kubectl pip pipenv pyenv terraform zsh-kubectl-prompt zsh-nvm)
 
 source $ZSH/oh-my-zsh.sh
 
