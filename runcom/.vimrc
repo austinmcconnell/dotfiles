@@ -1,9 +1,11 @@
 
 set nocompatible            " don't worry about compatibility with vi
 
+
 " Colors
 syntax enable               " enable syntax highlighting
 colorscheme darcula         " awesome colorscheme
+let python_highlight_all=1  " enable all Python syntax highlighting features
 
 
 " Spaces & Tabs
@@ -13,9 +15,12 @@ set expandtab       " tabs are spaces
 set autoindent      " indent when moving to next line of code
 set smartindent     " indent after if and for statements
 
+
 " UI Config
 set number              " show line numbers
+set ruler               " show cursor line and column number
 set showmatch           " highlight matching [{()}]
+
 
 " Searching
 set incsearch           " search as characters are entered
@@ -24,9 +29,17 @@ set path+=**            " search down into subfolders
 set wildmenu            " display all matching files when I tab complete
 set wildignore=*.pyc    " ignore these when searching
 
+
 " Split Navigation
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
- 
+
+
+" Folding
+set foldenable          " enable folding
+set foldmethod=indent   " fold based on indent level
+set foldlevelstart=10   " open most folds by default
+set foldnestmax=10      " 10 nested fold max
+nnoremap <space> za   " fold via spacebar
