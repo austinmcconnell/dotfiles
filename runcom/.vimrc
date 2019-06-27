@@ -8,6 +8,10 @@ colorscheme darcula         " awesome colorscheme
 let python_highlight_all=1  " enable all Python syntax highlighting features
 
 
+" Editing
+set backspace=indent,eol,start  " make backspace behave like normal in insert mode
+
+
 " Spaces & Tabs
 set tabstop=4       " number of visual spaces per TAB
 set softtabstop=4   " number of spaces in tab when editing
