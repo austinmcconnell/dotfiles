@@ -47,3 +47,9 @@ set foldmethod=indent   " fold based on indent level
 set foldlevelstart=10   " open most folds by default
 set foldnestmax=10      " 10 nested fold max
 nnoremap <space> za   " fold via spacebar
+
+
+" NERDTree
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif   " open NERDTree if no file specified
+let NERDTreeIgnore = ['\.pyc$', '\.egg-info$', '__pycache__']  " ignore certain files and directories
