@@ -1,6 +1,8 @@
 
 set nocompatible            " don't worry about compatibility with vi
-
+filetype on                 " try to detect filetype when opening a file
+filetype plugin on          " load plugin for related filetype
+filetype indent on          " load indent standards for related filetype
 
 " Colors
 syntax enable               " enable syntax highlighting
