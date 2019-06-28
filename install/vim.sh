@@ -35,3 +35,18 @@ if [ -d "$HOME/.vim/pack/bundle/start/nerdtree/.git" ] ; then
 else
   git clone git@github.com:scrooloose/nerdtree.git $HOME/.vim/pack/bundle/start/nerdtree
 fi
+
+if [ -d "$HOME/.vim/pack/bundle/start/jedi-vim/.git" ] ; then
+	git --work-tree="$HOME/.vim/pack/bundle/start/jedi-vim" --git-dir="$HOME/.vim/pack/bundle/start/jedi-vim/.git" pull origin master;
+  (cd "$HOME/.vim/pack/bundle/start/jedi-vim" && git submodule update --init --recursive;)
+else
+  git clone git@github.com:davidhalter/jedi-vim.git $HOME/.vim/pack/bundle/start/jedi-vim
+  (cd "$HOME/.vim/pack/bundle/start/jedi-vim" && git submodule update --init --recursive;)
+fi
+
+if [ -d "$HOME/.vim/pack/bundle/start/supertab/.git" ] ; then
+	git --work-tree="$HOME/.vim/pack/bundle/start/supertab" --git-dir="$HOME/.vim/pack/bundle/start/supertab/.git" pull origin master;
+else
+  git clone git@github.com:ervandew/supertab.git $HOME/.vim/pack/bundle/start/supertab
+fi
+https://github.com/ervandew/supertab
