@@ -56,3 +56,6 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif   " open NERDTree if no file specified
 let NERDTreeIgnore = ['\.pyc$', '\.egg-info$', '__pycache__']  " ignore certain files and directories
 let NERDTreeShowHidden=1
+
+" Supertab
+let g:SuperTabDefaultCompletionType = "<c-n>"   " tab down completion list instead of up
