@@ -12,6 +12,12 @@ for DOTFILE in "$DOTFILES_DIR"/system/.{env,alias,function,path}; do
   [ -f "$DOTFILE" ] && . "$DOTFILE"
 done
 
+if is-macos; then
+  for DOTFILE in "$DOTFILES_DIR"/system/.{env,alias,function,path}.macos; do
+    [ -f "$DOTFILE" ] && . "$DOTFILE"
+  done
+fi
+
 # Hook for extra/custom stuff
 DOTFILES_EXTRA_DIR="$HOME/.extra"
 
