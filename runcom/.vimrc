@@ -6,6 +6,7 @@ filetype indent on          " load indent standards for related filetype
 
 " Colors
 syntax enable               " enable syntax highlighting
+set termguicolors           " enable true colors (24 bit)
 colorscheme darcula         " awesome colorscheme
 let python_highlight_all=1  " enable all Python syntax highlighting features
 
