@@ -1,5 +1,6 @@
 
 set nocompatible            " don't worry about compatibility with vi
+set encoding=utf8           " set encoding to UTF-8
 filetype on                 " try to detect filetype when opening a file
 filetype plugin on          " load plugin for related filetype
 filetype indent on          " load indent standards for related filetype
@@ -61,5 +62,6 @@ let NERDTreeShowHidden=1
 " Supertab
 let g:SuperTabDefaultCompletionType = "<c-n>"   " tab down completion list instead of up
 
-" Tags
+" Tagging
 set tags+=.git/tags
+nnoremap <leader>t :TagbarToggle<CR>

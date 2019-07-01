@@ -49,4 +49,10 @@ if [ -d "$HOME/.vim/pack/bundle/start/supertab/.git" ] ; then
 else
   git clone git@github.com:ervandew/supertab.git $HOME/.vim/pack/bundle/start/supertab
 fi
-https://github.com/ervandew/supertab
+
+if [ -d "$HOME/.vim/pack/bundle/start/tagbar/.git" ] ; then
+	git --work-tree="$HOME/.vim/pack/bundle/start/tagbar" --git-dir="$HOME/.vim/pack/bundle/start/tagbar/.git" pull origin master;
+else
+  git clone git@github.com:majutsushi/tagbar.git $HOME/.vim/pack/bundle/start/tagbar
+fi
+
