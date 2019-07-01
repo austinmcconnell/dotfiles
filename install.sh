@@ -16,6 +16,7 @@ fi
 
 # Bunch of symlinks
 ln -sfv "$DOTFILES_DIR/runcom/.zshrc" ~
+ln -sfv "$DOTFILES_DIR/runcom/.ctags" ~
 ln -sfv "$DOTFILES_DIR/etc/mackup/.mackup.cfg" ~
 
 if ! is-executable brew; then

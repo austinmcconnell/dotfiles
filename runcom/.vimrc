@@ -60,3 +60,6 @@ let NERDTreeShowHidden=1
 
 " Supertab
 let g:SuperTabDefaultCompletionType = "<c-n>"   " tab down completion list instead of up
+
+" Tags
+set tags+=.git/tags

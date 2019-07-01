@@ -26,6 +26,7 @@
 	ci = commit
 	co = checkout
 	contrib = shortlog --summary --numbered
+    ctags = !.git/hooks/ctags
 	history = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	unstage = reset --hard HEAD
 	wdiff = diff --word-diff
