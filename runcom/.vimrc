@@ -55,12 +55,13 @@ nnoremap <space> za   " fold via spacebar
 
 " NERDTree
 autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif   " open NERDTree if no file specified
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif    " open NERDTree when opening a directory
 let NERDTreeIgnore = ['\.pyc$', '\.egg-info$', '__pycache__']  " ignore certain files and directories
 let NERDTreeShowHidden=1
 
 " Supertab
-let g:SuperTabDefaultCompletionType = "<c-n>"   " tab down completion list instead of up
+let g:SuperTabDefaultCompletionType = "<c-n>"               " tab down completion list instead of up
+let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"   " force Supertab to always use omni-completion
 
 " Tagging
 set tags+=.git/tags
