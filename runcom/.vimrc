@@ -1,13 +1,17 @@
 
 set nocompatible            " don't worry about compatibility with vi
 set encoding=utf8           " set encoding to UTF-8
+
+" Filetypes
 filetype on                 " try to detect filetype when opening a file
 filetype plugin on          " load plugin for related filetype
 filetype indent on          " load indent standards for related filetype
 
+
 " Colors
 syntax enable               " enable syntax highlighting
 set termguicolors           " enable true colors (24 bit)
+set background=dark         " set dark mode
 colorscheme darcula         " awesome colorscheme
 let python_highlight_all=1  " enable all Python syntax highlighting features
 
@@ -60,9 +64,11 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in
 let NERDTreeIgnore = ['\.pyc$', '\.egg-info$', '__pycache__']  " ignore certain files and directories
 let NERDTreeShowHidden=1
 
+
 " Supertab
 let g:SuperTabDefaultCompletionType = "<c-n>"               " tab down completion list instead of up
 let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"   " force Supertab to always use omni-completion
+
 
 " Tagbar
 set tags+=.git/tags                                     " add custom tags build location to tags search path
