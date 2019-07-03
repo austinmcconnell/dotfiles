@@ -1,6 +1,7 @@
 
 set nocompatible            " don't worry about compatibility with vi
 set encoding=utf8           " set encoding to UTF-8
+set updatetime=250
 
 " Filetypes
 filetype on                 " try to detect filetype when opening a file
