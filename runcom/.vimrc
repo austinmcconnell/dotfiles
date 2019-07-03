@@ -28,6 +28,7 @@ set smartindent     " indent after if and for statements
 set number              " show line numbers
 set ruler               " show cursor line and column number
 set showmatch           " highlight matching [{()}]
+set laststatus=2        " always show statusline
 
 
 " Searching
