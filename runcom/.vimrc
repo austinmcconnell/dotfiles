@@ -64,6 +64,7 @@ let NERDTreeShowHidden=1
 let g:SuperTabDefaultCompletionType = "<c-n>"               " tab down completion list instead of up
 let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"   " force Supertab to always use omni-completion
 
-" Tagging
-set tags+=.git/tags
+" Tagbar
+set tags+=.git/tags                                     " add custom tags build location to tags search path
 nnoremap <leader>t :TagbarToggle<CR>
+autocmd FileType python  nested :call tagbar#autoopen(0)       " show Tagbar when opening python files
