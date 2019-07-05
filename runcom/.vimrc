@@ -10,9 +10,9 @@ filetype indent on          " load indent standards for related filetype
 
 " Colors
 syntax enable               " enable syntax highlighting
-set termguicolors           " enable true colors (24 bit)
+"set termguicolors           " enable true colors (24 bit)
 set background=dark         " set dark mode
-colorscheme darcula         " awesome colorscheme
+colorscheme solarized       " awesome colorscheme
 let python_highlight_all=1  " enable all Python syntax highlighting features
 
 

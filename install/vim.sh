@@ -23,6 +23,10 @@ if [ ! -f "$HOME/.vim/colors/darcula.vim" ] ; then
   curl --create-dirs --output "$HOME/.vim/colors/darcula.vim" https://raw.githubusercontent.com/blueshirts/darcula/master/colors/darcula.vim
 fi
 
+if [ ! -f "$HOME/.vim/colors/solarized.vim" ] ; then
+  curl --create-dirs --output "$HOME/.vim/colors/solarized.vim" https://raw.githubusercontent.com/altercation/vim-colors-solarized/master/colors/solarized.vim
+fi
+
 ## Add plugins
 if [ -d "$HOME/.vim/pack/bundle/start/auto-pairs/.git" ] ; then
 	git --work-tree="$HOME/.vim/pack/bundle/start/auto-pairs" --git-dir="$HOME/.vim/pack/bundle/start/auto-pairs/.git" pull origin master;
