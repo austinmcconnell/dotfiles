@@ -74,3 +74,7 @@ let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"   " force Supertab to 
 set tags+=.git/tags                                     " add custom tags build location to tags search path
 nnoremap <leader>t :TagbarToggle<CR>
 autocmd FileType python  nested :call tagbar#autoopen(0)       " show Tagbar when opening python files
+
+" Lightline
+set noshowmode
+let g:lightline = {'colorscheme': 'solarized'}

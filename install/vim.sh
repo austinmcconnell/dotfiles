@@ -60,3 +60,8 @@ else
   git clone git@github.com:majutsushi/tagbar.git $HOME/.vim/pack/bundle/start/tagbar
 fi
 
+if [ -d "$HOME/.vim/pack/bundle/start/lightline/.git" ] ; then
+	git --work-tree="$HOME/.vim/pack/bundle/start/lightline" --git-dir="$HOME/.vim/pack/bundle/start/lightline/.git" pull origin master;
+else
+  git clone git@github.com:itchyny/lightline.vim.git $HOME/.vim/pack/bundle/start/lightline
+fi
