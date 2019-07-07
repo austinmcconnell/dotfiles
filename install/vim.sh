@@ -16,6 +16,7 @@ brew install vim
 touch ~/.vimrc
 mkdir -p ~/.vim/pack/bundle/start
 mkdir -p ~/.vim/pack/bundle/opt
+mkdir -p ~/.vim/spell
 
 ln -sfv "$DOTFILES_DIR/runcom/.vimrc" ~
 

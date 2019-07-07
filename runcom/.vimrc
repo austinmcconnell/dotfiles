@@ -18,7 +18,9 @@ let python_highlight_all=1  " enable all Python syntax highlighting features
 
 
 " Editing
-set backspace=indent,eol,start  " make backspace behave like normal in insert mode
+set backspace=indent,eol,start             " make backspace behave like normal in insert mode
+set spell                                  " enable spellchecking
+set spellfile=~/.vim/spell/en.utf-8.add    " Set custom dictionary file location
 
 
 " Spaces & Tabs
