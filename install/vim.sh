@@ -32,43 +32,43 @@ fi
 if [ -d "$HOME/.vim/pack/bundle/start/auto-pairs/.git" ] ; then
 	git --work-tree="$HOME/.vim/pack/bundle/start/auto-pairs" --git-dir="$HOME/.vim/pack/bundle/start/auto-pairs/.git" pull origin master;
 else
-  git clone git@github.com:jiangmiao/auto-pairs.git $HOME/.vim/pack/bundle/start/auto-pairs
+  git clone git@github.com:jiangmiao/auto-pairs.git "$HOME/.vim/pack/bundle/start/auto-pairs"
 fi
 
 if [ -d "$HOME/.vim/pack/bundle/start/nerdtree/.git" ] ; then
 	git --work-tree="$HOME/.vim/pack/bundle/start/nerdtree" --git-dir="$HOME/.vim/pack/bundle/start/nerdtree/.git" pull origin master;
 else
-  git clone git@github.com:scrooloose/nerdtree.git $HOME/.vim/pack/bundle/start/nerdtree
+  git clone git@github.com:scrooloose/nerdtree.git "$HOME/.vim/pack/bundle/start/nerdtree"
 fi
 
 if [ -d "$HOME/.vim/pack/bundle/start/jedi-vim/.git" ] ; then
 	git --work-tree="$HOME/.vim/pack/bundle/start/jedi-vim" --git-dir="$HOME/.vim/pack/bundle/start/jedi-vim/.git" pull origin master;
   (cd "$HOME/.vim/pack/bundle/start/jedi-vim" && git submodule update --init --recursive;)
 else
-  git clone git@github.com:davidhalter/jedi-vim.git $HOME/.vim/pack/bundle/start/jedi-vim
+  git clone git@github.com:davidhalter/jedi-vim.git "$HOME/.vim/pack/bundle/start/jedi-vim"
   (cd "$HOME/.vim/pack/bundle/start/jedi-vim" && git submodule update --init --recursive;)
 fi
 
 if [ -d "$HOME/.vim/pack/bundle/start/supertab/.git" ] ; then
 	git --work-tree="$HOME/.vim/pack/bundle/start/supertab" --git-dir="$HOME/.vim/pack/bundle/start/supertab/.git" pull origin master;
 else
-  git clone git@github.com:ervandew/supertab.git $HOME/.vim/pack/bundle/start/supertab
+  git clone git@github.com:ervandew/supertab.git "$HOME/.vim/pack/bundle/start/supertab"
 fi
 
 if [ -d "$HOME/.vim/pack/bundle/start/tagbar/.git" ] ; then
 	git --work-tree="$HOME/.vim/pack/bundle/start/tagbar" --git-dir="$HOME/.vim/pack/bundle/start/tagbar/.git" pull origin master;
 else
-  git clone git@github.com:majutsushi/tagbar.git $HOME/.vim/pack/bundle/start/tagbar
+  git clone git@github.com:majutsushi/tagbar.git "$HOME/.vim/pack/bundle/start/tagbar"
 fi
 
 if [ -d "$HOME/.vim/pack/bundle/start/gitgutter/.git" ] ; then
 	git --work-tree="$HOME/.vim/pack/bundle/start/gitgutter" --git-dir="$HOME/.vim/pack/bundle/start/gitgutter/.git" pull origin master;
 else
-  git clone git@github.com:airblade/vim-gitgutter.git $HOME/.vim/pack/bundle/start/gitgutter
+  git clone git@github.com:airblade/vim-gitgutter.git "$HOME/.vim/pack/bundle/start/gitgutter"
 fi
 
 if [ -d "$HOME/.vim/pack/bundle/start/lightline/.git" ] ; then
 	git --work-tree="$HOME/.vim/pack/bundle/start/lightline" --git-dir="$HOME/.vim/pack/bundle/start/lightline/.git" pull origin master;
 else
-  git clone git@github.com:itchyny/lightline.vim.git $HOME/.vim/pack/bundle/start/lightline
+  git clone git@github.com:itchyny/lightline.vim.git "$HOME/.vim/pack/bundle/start/lightline"
 fi
