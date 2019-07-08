@@ -80,4 +80,16 @@ autocmd FileType python  nested :call tagbar#autoopen(0)       " show Tagbar whe
 
 " Lightline
 set noshowmode
-let g:lightline = {'colorscheme': 'solarized'}
+let g:lightline = {
+      \ 'colorscheme': 'solarized',
+      \ 'active': {
+      \     'left': [ [ 'mode', 'paste' ],
+      \               [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
+      \     'right':[ [ 'lineinfo' ],
+      \               [ 'percent' ],
+      \               [ 'fileformat', 'fileencoding', 'filetype' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head'
+      \ },
+      \ }
