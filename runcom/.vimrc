@@ -39,11 +39,13 @@ set laststatus=2        " always show statusline
 
 
 " Searching
-set incsearch           " search as characters are entered
-set hlsearch            " highlight matches
-set path+=**            " search down into subfolders
-set wildmenu            " display all matching files when I tab complete
-set wildignore=*.pyc    " ignore these when searching
+set incsearch                        " search as characters are entered
+set hlsearch                         " highlight matches
+set path+=**                         " search down into subfolders
+set wildmenu                         " display all matching files when I tab complete
+set wildignore+=*.pyc                " ignore python cache files  when searching
+set wildignore+=**/.venv/**          " ignore .venv directory when searching
+set wildignore+=**/node_modules/**   " ignore node_modules directory when searching
 
 
 " Split Navigation
