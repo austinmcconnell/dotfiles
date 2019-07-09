@@ -79,6 +79,9 @@ set tags+=.git/tags                                     " add custom tags build 
 nnoremap <leader>t :TagbarToggle<CR>
 autocmd FileType python  nested :call tagbar#autoopen(0)       " show Tagbar when opening python files
 
+" Gutentags
+let g:gutentags_ctags_tagfile='.git/tags'
+
 " Lightline
 set noshowmode
 let g:lightline = {
