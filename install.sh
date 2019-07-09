@@ -18,6 +18,8 @@ fi
 ln -sfv "$DOTFILES_DIR/runcom/.zshrc" ~
 ln -sfv "$DOTFILES_DIR/runcom/.ctags" ~
 ln -sfv "$DOTFILES_DIR/etc/mackup/.mackup.cfg" ~
+ln -sfv "$DOTFILES_DIR/etc/python/flake8" ~/.config
+ln -sfv "$DOTFILES_DIR/etc/python/pylintrc" ~/.config
 
 if ! is-executable brew; then
   echo "Homebrew not found. Installing..."

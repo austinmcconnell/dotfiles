@@ -18,6 +18,8 @@ mkdir -p ~/.vim/pack/bundle/start
 mkdir -p ~/.vim/pack/bundle/opt
 mkdir -p ~/.vim/spell
 
+ln -sfv "$DOTFILES_DIR/etc/vim/ftplugin" ~/.vim
+
 ln -sfv "$DOTFILES_DIR/runcom/.vimrc" ~
 
 if [ ! -f "$HOME/.vim/colors/darcula.vim" ] ; then
@@ -83,4 +85,16 @@ if [ -d "$HOME/.vim/pack/bundle/start/gutentags/.git" ] ; then
 	git --work-tree="$HOME/.vim/pack/bundle/start/gutentags" --git-dir="$HOME/.vim/pack/bundle/start/gutentags/.git" pull origin master;
 else
   git clone git@github.com:ludovicchabant/vim-gutentags.git "$HOME/.vim/pack/bundle/start/gutentags"
+fi
+
+if [ -d "$HOME/.vim/pack/bundle/start/ale/.git" ] ; then
+	git --work-tree="$HOME/.vim/pack/bundle/start/ale" --git-dir="$HOME/.vim/pack/bundle/start/ale/.git" pull origin master;
+else
+  git clone git@github.com:w0rp/ale.git "$HOME/.vim/pack/bundle/start/ale"
+fi
+
+if [ -d "$HOME/.vim/pack/bundle/start/lightline-ale/.git" ] ; then
+	git --work-tree="$HOME/.vim/pack/bundle/start/lightline-ale" --git-dir="$HOME/.vim/pack/bundle/start/lightline-ale/.git" pull origin master;
+else
+  git clone git@github.com:maximbaz/lightline-ale.git "$HOME/.vim/pack/bundle/start/lightline-ale"
 fi
