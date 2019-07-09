@@ -58,8 +58,7 @@ nnoremap <C-H> <C-W><C-H>
 " Folding
 set foldenable          " enable folding
 set foldmethod=indent   " fold based on indent level
-set foldlevelstart=10   " open most folds by default
-set foldnestmax=10      " 10 nested fold max
+set foldlevelstart=99   " open all folds by default
 nnoremap <space> za   " fold via spacebar
 
 
