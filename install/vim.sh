@@ -78,3 +78,9 @@ if [ -d "$HOME/.vim/pack/bundle/start/fugitive/.git" ] ; then
 else
   git clone git@github.com:tpope/vim-fugitive.git "$HOME/.vim/pack/bundle/start/fugitive"
 fi
+
+if [ -d "$HOME/.vim/pack/bundle/start/gutentags/.git" ] ; then
+	git --work-tree="$HOME/.vim/pack/bundle/start/gutentags" --git-dir="$HOME/.vim/pack/bundle/start/gutentags/.git" pull origin master;
+else
+  git clone git@github.com:ludovicchabant/vim-gutentags.git "$HOME/.vim/pack/bundle/start/gutentags"
+fi
