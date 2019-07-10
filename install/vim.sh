@@ -98,3 +98,15 @@ if [ -d "$HOME/.vim/pack/bundle/start/lightline-ale/.git" ] ; then
 else
   git clone git@github.com:maximbaz/lightline-ale.git "$HOME/.vim/pack/bundle/start/lightline-ale"
 fi
+
+if [ -d "$HOME/.vim/pack/bundle/start/goyo/.git" ] ; then
+	git --work-tree="$HOME/.vim/pack/bundle/start/goyo" --git-dir="$HOME/.vim/pack/bundle/start/goyo/.git" pull origin master;
+else
+  git clone git@github.com:junegunn/goyo.vim.git "$HOME/.vim/pack/bundle/start/goyo"
+fi
+
+if [ -d "$HOME/.vim/pack/bundle/start/limelight/.git" ] ; then
+	git --work-tree="$HOME/.vim/pack/bundle/start/limelight" --git-dir="$HOME/.vim/pack/bundle/start/limelight/.git" pull origin master;
+else
+  git clone git@github.com:junegunn/limelight.vim.git "$HOME/.vim/pack/bundle/start/limelight"
+fi

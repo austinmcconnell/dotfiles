@@ -20,7 +20,9 @@ let python_highlight_all=1  " enable all Python syntax highlighting features
 " Editing
 set backspace=indent,eol,start             " make backspace behave like normal in insert mode
 set spell                                  " enable spellchecking
-set spellfile=~/.vim/spell/en.utf-8.add    " Set custom dictionary file location
+set spellfile=~/.vim/spell/en.utf-8.add    " set custom dictionary file location
+nnoremap j gj|                             " move cursor visually down one line even when text is wrapped
+nnoremap k gk|                             " move cursor visually up one line even when text is wrapped
 
 
 " Spaces & Tabs
@@ -117,3 +119,13 @@ let g:lightline.active = {
 let g:ale_fix_on_save = 1
 let g:ale_open_list=1
 let g:ale_lint_on_text_changed='always'
+
+
+" Goyo/Limelight
+nnoremap <Leader>gy :Goyo<CR>
+
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
+
+let g:limelight_conceal_ctermfg = '240'
+
