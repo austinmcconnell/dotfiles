@@ -51,10 +51,10 @@ set wildignore+=**/node_modules/**   " ignore node_modules directory when search
 
 
 " Split Navigation
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
+nnoremap <C-J> <C-W><C-J>|      " jump to split below current
+nnoremap <C-K> <C-W><C-K>|      " jump to split above current
+nnoremap <C-L> <C-W><C-L>|      " jump to split to the right of current
+nnoremap <C-H> <C-W><C-H>|      " jump to split to the left of current
 
 
 " Folding
