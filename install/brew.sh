@@ -42,7 +42,6 @@ brew install nano
 brew install node
 brew install postgresql
 brew install psgrep
-brew install pyenv
 brew install redis
 brew install ruby
 brew install shellcheck
@@ -53,10 +52,3 @@ brew install tree
 brew install unar
 brew install wget
 brew install wifi-password
-
-PYENV_PLUGIN_DIR="$HOME/.pyenv/plugins"
-if [ -d "$PYENV_PLUGIN_DIR/pyenv-implicit/.git" ] ; then
-	git --work-tree="$PYENV_PLUGIN_DIR/pyenv-implicit" --git-dir="$PYENV_PLUGIN_DIR/pyenv-implicit/.git" pull origin master;
-else
-  git clone git://github.com/pyenv/pyenv-implicit.git "$PYENV_PLUGIN_DIR/pyenv-implicit"
-fi
