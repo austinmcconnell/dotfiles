@@ -81,8 +81,10 @@ set tags+=.git/tags                                     " add custom tags build 
 nnoremap <leader>t :TagbarToggle<CR>
 autocmd FileType python  nested :call tagbar#autoopen(0)       " show Tagbar when opening python files
 
+
 " Gutentags
 let g:gutentags_ctags_tagfile='.git/tags'
+
 
 " Lightline
 set noshowmode
@@ -119,6 +121,9 @@ let g:lightline.active = {
 let g:ale_fix_on_save = 1
 let g:ale_open_list=1
 let g:ale_lint_on_text_changed='always'
+let g:ale_completion_enabled = 1
+set omnifunc=ale#completion#OmniFunc
+set complete=.,w,b,u,t
 
 
 " Goyo/Limelight
