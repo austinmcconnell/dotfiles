@@ -134,3 +134,9 @@ autocmd! User GoyoLeave Limelight!
 
 let g:limelight_conceal_ctermfg = '240'
 
+
+" Ack
+let g:ackprg = 'ag --nogroup --nocolor --column'        " tell ack to use ag for searching
+let g:ackhighlight = 1                                  " highlight search in files
+nnoremap <Leader>f :Ack!<SPACE>
+set shellpipe=>                                         " prevent ack results from echoing to terminal

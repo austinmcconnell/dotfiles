@@ -47,6 +47,7 @@ brew install ruby
 brew install shellcheck
 brew install ssh-copy-id
 brew install stern
+brew install the_silver_searcher
 brew install terraform
 brew install tree
 brew install unar
