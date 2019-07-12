@@ -140,3 +140,11 @@ let g:ackprg = 'ag --nogroup --nocolor --column'        " tell ack to use ag for
 let g:ackhighlight = 1                                  " highlight search in files
 nnoremap <Leader>f :Ack!<SPACE>
 set shellpipe=>                                         " prevent ack results from echoing to terminal
+
+
+" VimWiki
+let wiki_1 = {}
+let wiki_1.path = '~/dropbox/wiki/' 
+let wiki_1.syntax = 'markdown'
+let wiki_1.ext = '.md'
+let g:vimwiki_list = [wiki_1]
