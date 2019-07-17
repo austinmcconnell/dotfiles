@@ -38,6 +38,8 @@ set number              " show line numbers
 set ruler               " show cursor line and column number
 set showmatch           " highlight matching [{()}]
 set laststatus=2        " always show statusline
+set list
+set listchars=tab:>.,trail:.,extends:#,nbsp:.
 
 
 " Searching
