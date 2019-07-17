@@ -65,6 +65,8 @@ set ruler               " show cursor line and column number
 set showmatch           " highlight matching [{()}]
 syntax enable           " enable syntax highlighting
 set laststatus=2        " always show statusline
+set list
+set listchars=tab:>.,trail:.,extends:#,nbsp:.
 
 " Searching
 " nnoremap <leader>f :find<Space>
