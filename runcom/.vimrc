@@ -50,7 +50,9 @@ set wildignore+=**/.venv/**          " ignore .venv directory when searching
 set wildignore+=**/node_modules/**   " ignore node_modules directory when searching
 
 
-" Split Navigation
+" Splits
+set splitbelow                  " open new split below
+set splitright                  " open new split to the right
 nnoremap <C-J> <C-W><C-J>|      " jump to split below current
 nnoremap <C-K> <C-W><C-K>|      " jump to split above current
 nnoremap <C-L> <C-W><C-L>|      " jump to split to the right of current
