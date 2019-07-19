@@ -13,6 +13,8 @@ fi
 
 ln -sfv "$DOTFILES_DIR/etc/python/flake8" ~/.config
 ln -sfv "$DOTFILES_DIR/etc/python/pylintrc" ~/.config
+mkdir -p ~/.config/proselint
+ln -sfv "$DOTFILES_DIR/etc/python/proselint" ~/.config/proselint/config
 
 DEFAULT_PYTHON_VERSION=3.7.4
 
