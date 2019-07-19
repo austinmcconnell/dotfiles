@@ -153,3 +153,8 @@ let wiki_1.path = '~/dropbox/wiki/'
 let wiki_1.syntax = 'markdown'
 let wiki_1.ext = '.md'
 let g:vimwiki_list = [wiki_1]
+
+
+" Markdown
+autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
+
