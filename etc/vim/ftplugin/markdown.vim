@@ -1,5 +1,6 @@
 " Enable linters
 let b:ale_linters = [
+  \ 'markdownlint',
   \ 'proselint',
   \ ]
 

@@ -13,6 +13,8 @@ fi
 
 NVM_DIR="$HOME/.nvm"
 
+ln -sfv "$DOTFILES_DIR/etc/node/markdownlint" ~/.markdownlintrc
+
 if [ ! -d "$HOME/.nvm" ] ; then
     mkdir "$NVM_DIR"
   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
