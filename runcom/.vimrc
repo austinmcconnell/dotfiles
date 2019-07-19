@@ -1,7 +1,7 @@
-
 set nocompatible            " don't worry about compatibility with vi
 set encoding=utf8           " set encoding to UTF-8
 set updatetime=250
+
 
 " Filetypes
 filetype on                 " try to detect filetype when opening a file
@@ -11,18 +11,21 @@ filetype indent on          " load indent standards for related filetype
 
 " Colors
 syntax enable               " enable syntax highlighting
-"set termguicolors           " enable true colors (24 bit)
 set background=dark         " set dark mode
 colorscheme solarized       " awesome colorscheme
 let python_highlight_all=1  " enable all Python syntax highlighting features
 
 
 " Editing
-set backspace=indent,eol,start             " make backspace behave like normal in insert mode
-set spell                                  " enable spellchecking
-set spellfile=~/.vim/spell/en.utf-8.add    " set custom dictionary file location
-nnoremap j gj|                             " move cursor visually down one line even when text is wrapped
-nnoremap k gk|                             " move cursor visually up one line even when text is wrapped
+set backspace=indent,eol,start                               " make backspace behave like normal in insert mode
+set spell                                                    " enable spellchecking
+set spellfile=~/.vim/spell/en.utf-8.add                      " set custom dictionary file location
+nnoremap j gj|                                               " move cursor visually down one line even when text is wrapped
+nnoremap k gk|                                               " move cursor visually up one line even when text is wrapped
+set scrolloff=1                                              " show at least one line below cursor
+set list                                                     " display whitespace
+set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+    " set whitespace characters to highlight
+set autoread                                                 " auto load external changes to file 
 
 
 " Spaces & Tabs
@@ -63,7 +66,7 @@ nnoremap <C-H> <C-W><C-H>|      " jump to split to the left of current
 set foldenable          " enable folding
 set foldmethod=indent   " fold based on indent level
 set foldlevelstart=99   " open all folds by default
-nnoremap <space> za   " fold via spacebar
+nnoremap <space> za|    " fold via spacebar
 
 
 " NERDTree
@@ -79,13 +82,13 @@ let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"   " force Supertab to 
 
 
 " Tagbar
-set tags+=.git/tags                                     " add custom tags build location to tags search path
+set tags+=.git/tags                                            " add custom tags build location to tags search path
 nnoremap <leader>t :TagbarToggle<CR>
 autocmd FileType python  nested :call tagbar#autoopen(0)       " show Tagbar when opening python files
 
 
 " Gutentags
-let g:gutentags_ctags_tagfile='.git/tags'
+let g:gutentags_ctags_tagfile='.git/tags'    " set tagfile location
 
 
 " Lightline
@@ -121,12 +124,12 @@ let g:lightline.active = {
 
 " Ale
 let g:ale_fix_on_save = 1
-let g:ale_open_list=1
-let g:ale_lint_on_text_changed='always'
-let g:ale_completion_enabled = 1
-set omnifunc=ale#completion#OmniFunc
-set complete=.,w,b,u,t
-
+let g:ale_open_list=1                         " automatically open list when issues found
+let g:ale_lint_on_text_changed='always'       " run linter when text changed in insert or normal mode
+let g:ale_completion_enabled = 1              " turn on ale completion
+set omnifunc=ale#completion#OmniFunc          " use ale for insert auto-completion
+set complete-=i                               " don't scan system/language included files
+set complete+=kspell                          " match dictionary words
 
 " Goyo/Limelight
 nnoremap <Leader>gy :Goyo<CR>
@@ -134,7 +137,7 @@ nnoremap <Leader>gy :Goyo<CR>
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
 
-let g:limelight_conceal_ctermfg = '240'
+let g:limelight_conceal_ctermfg = '240'    " set foreground conceal color
 
 
 " Ack
@@ -146,7 +149,7 @@ set shellpipe=>                                         " prevent ack results fr
 
 " VimWiki
 let wiki_1 = {}
-let wiki_1.path = '~/dropbox/wiki/' 
+let wiki_1.path = '~/dropbox/wiki/'
 let wiki_1.syntax = 'markdown'
 let wiki_1.ext = '.md'
 let g:vimwiki_list = [wiki_1]
