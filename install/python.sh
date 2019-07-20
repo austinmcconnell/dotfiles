@@ -20,11 +20,20 @@ DEFAULT_PYTHON_VERSION=3.7.4
 
 brew install pyenv
 
+ln -sfv "$DOTFILES_DIR/etc/python/default-packages" ~/.pyenv
+
 PYENV_PLUGIN_DIR="$HOME/.pyenv/plugins"
+
 if [ -d "$PYENV_PLUGIN_DIR/pyenv-implicit/.git" ] ; then
 	git --work-tree="$PYENV_PLUGIN_DIR/pyenv-implicit" --git-dir="$PYENV_PLUGIN_DIR/pyenv-implicit/.git" pull origin master;
 else
   git clone git://github.com/pyenv/pyenv-implicit.git "$PYENV_PLUGIN_DIR/pyenv-implicit"
+fi
+
+if [ -d "$PYENV_PLUGIN_DIR/pyenv-default-packages/.git" ] ; then
+	git --work-tree="$PYENV_PLUGIN_DIR/pyenv-default-packages" --git-dir="$PYENV_PLUGIN_DIR/pyenv-default-packages/.git" pull origin master;
+else
+  git clone git://github.com/jawshooah/pyenv-default-packages.git "$PYENV_PLUGIN_DIR/pyenv-default-packages"
 fi
 
 pyenv install --skip-existing $DEFAULT_PYTHON_VERSION
