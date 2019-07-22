@@ -2,6 +2,7 @@
 let b:ale_linters = [
   \ 'markdownlint',
   \ 'proselint',
+  \ 'writegood',
   \ ]
 
 " Enable fixers

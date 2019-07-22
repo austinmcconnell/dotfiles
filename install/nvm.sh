@@ -14,6 +14,7 @@ fi
 NVM_DIR="$HOME/.nvm"
 
 ln -sfv "$DOTFILES_DIR/etc/node/markdownlint" ~/.markdownlintrc
+ln -sfv "$DOTFILES_DIR/etc/node/default-packages" "$NVM_DIR"
 
 if [ ! -d "$HOME/.nvm" ] ; then
     mkdir "$NVM_DIR"
