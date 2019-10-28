@@ -1,0 +1,130 @@
+<application>
+  <component name="StatisticsApplicationUsages">
+    <group name="Git">
+      <project id="backpacking" values="config.warn.about.crlf.enabled,config.save.policy.STASH,config.force.push.enabled,config.cherry-pick.autocommit.disabled,config.warn.about.detached.enabled,config.ssh.enabled,config.repo.sync.NOT_DECIDED,config.push.autoupdate.disabled,config.update.type.BRANCH_DEFAULT,config.push.update.all.roots.enabled" collectionTime="1467754000570" />
+      <project id="scrapytest" values="config.repo.sync.NOT_DECIDED,config.force.push.enabled,config.warn.about.detached.enabled,config.cherry-pick.autocommit.disabled,config.push.update.all.roots.enabled,config.ssh.enabled,config.update.type.BRANCH_DEFAULT,config.push.autoupdate.disabled,config.save.policy.STASH,config.warn.about.crlf.enabled" collectionTime="1467564526626" />
+      <project id="paper_streets" values="config.warn.about.detached.enabled,config.push.autoupdate.disabled,config.cherry-pick.autocommit.disabled,config.update.type.BRANCH_DEFAULT,config.repo.sync.NOT_DECIDED,data.remote.branches.count.1,config.push.update.all.roots.enabled,config.force.push.enabled,data.local.branches.count.1,config.warn.about.crlf.enabled,data.remotes.in.project.1,config.ssh.enabled,config.save.policy.STASH" collectionTime="1470189762815" />
+      <project id="tadVisualizer" values="config.push.update.all.roots.enabled,data.local.branches.count.0,data.remote.branches.count.0,config.update.type.BRANCH_DEFAULT,config.force.push.enabled,config.save.policy.STASH,config.push.autoupdate.disabled,config.repo.sync.NOT_DECIDED,data.remotes.in.project.0,config.warn.about.crlf.enabled,config.ssh.enabled,config.cherry-pick.autocommit.disabled,config.warn.about.detached.enabled" collectionTime="1469818718796" />
+      <project id="sponsors" values="config.force.push.enabled,config.update.type.BRANCH_DEFAULT,config.warn.about.detached.enabled,config.push.update.all.roots.enabled,config.warn.about.crlf.enabled,config.push.autoupdate.disabled,config.repo.sync.NOT_DECIDED,config.ssh.enabled,config.save.policy.STASH,data.remotes.in.project.1,config.cherry-pick.autocommit.disabled,data.local.branches.count.1,data.remote.branches.count.1" collectionTime="1469909559960" />
+      <project id="hudhomestore" values="config.repo.sync.NOT_DECIDED,config.warn.about.detached.enabled,config.warn.about.crlf.enabled,config.save.policy.STASH,config.force.push.enabled,config.ssh.enabled,config.update.type.BRANCH_DEFAULT,config.push.update.all.roots.enabled,config.cherry-pick.autocommit.disabled,config.push.autoupdate.disabled" collectionTime="1484102953159" />
+      <project id="hudspider2" values="config.cherry-pick.autocommit.disabled,config.warn.about.crlf.enabled,config.force.push.enabled,config.warn.about.detached.enabled,config.push.update.all.roots.enabled,config.ssh.enabled,config.push.autoupdate.disabled,config.update.type.BRANCH_DEFAULT,config.save.policy.STASH,config.repo.sync.NOT_DECIDED" collectionTime="1467561119167" />
+      <project id="scraper" values="config.save.policy.STASH,config.force.push.enabled,config.warn.about.crlf.enabled,config.warn.about.detached.enabled,config.cherry-pick.autocommit.disabled,config.ssh.enabled,config.push.autoupdate.disabled,config.repo.sync.NOT_DECIDED,config.push.update.all.roots.enabled,config.update.type.BRANCH_DEFAULT" collectionTime="1468678676329" />
+      <project id="hudspider" values="config.warn.about.crlf.enabled,config.push.autoupdate.disabled,config.warn.about.detached.enabled,config.ssh.enabled,config.save.policy.STASH,config.push.update.all.roots.enabled,config.repo.sync.NOT_DECIDED,config.update.type.BRANCH_DEFAULT,config.cherry-pick.autocommit.disabled,config.force.push.enabled" collectionTime="1479480202296" />
+      <project id="remath" values="config.ssh.enabled,data.local.branches.count.1,config.force.push.enabled,config.push.autoupdate.disabled,config.push.update.all.roots.enabled,data.remotes.in.project.1,config.warn.about.crlf.enabled,config.warn.about.detached.enabled,config.update.type.BRANCH_DEFAULT,config.cherry-pick.autocommit.disabled,config.save.policy.STASH,config.repo.sync.NOT_DECIDED,data.remote.branches.count.1" collectionTime="1484327541712" />
+      <project id="titanic" values="config.push.autoupdate.disabled,config.push.update.all.roots.enabled,config.ssh.enabled,config.warn.about.crlf.enabled,config.save.policy.STASH,config.cherry-pick.autocommit.disabled,config.update.type.BRANCH_DEFAULT,config.repo.sync.NOT_DECIDED,config.warn.about.detached.enabled,config.force.push.enabled" collectionTime="1474637861066" />
+    </group>
+    <group name="vcs">
+      <project id="diplomacy" values="Git" collectionTime="0" />
+      <project id="bookwatcher" values="Git" collectionTime="1441973596852" />
+      <project id="paper_streets" values="Git" collectionTime="1470189762734" />
+      <project id="tadVisualizer" values="Git" collectionTime="1469818718710" />
+      <project id="aioserver" values="Git" collectionTime="1443199574277" />
+      <project id="sponsors" values="Git" collectionTime="1469909559864" />
+      <project id="realestatemath" values="Git" collectionTime="1443317226114" />
+      <project id="remath" values="Git" collectionTime="1484327541292" />
+      <project id="machinelearning" values="Git" collectionTime="1443234003331" />
+    </group>
+    <group name="run-configuration-type-temp">
+      <project id="diplomacy" values="PythonConfigurationType" collectionTime="0" />
+      <project id="titanic" values="PythonConfigurationType" collectionTime="1474637860929" />
+      <project id="backpacking" values="PythonConfigurationType" collectionTime="1467754000561" />
+      <project id="paper_streets" values="PythonConfigurationType" collectionTime="1470189762736" />
+      <project id="tadVisualizer" values="PythonConfigurationType" collectionTime="1469818718712" />
+      <project id="aioserver" values="PythonConfigurationType" collectionTime="1443199574278" />
+      <project id="scraper" values="PythonConfigurationType" collectionTime="1468678676285" />
+      <project id="hudspider" values="PythonConfigurationType" collectionTime="1479480202029" />
+    </group>
+    <group name="py-interpreter">
+      <project id="stocks" values="Python 3.5.0" collectionTime="1454558755800" />
+      <project id="diplomacy" values="Python 3.4.2" collectionTime="0" />
+      <project id="scraper" values="Python 3.5.1 [condavenv]" collectionTime="1468678676326" />
+      <project id="remath" values="Python 3.5.2 [condavenv]" collectionTime="1484327541474" />
+      <project id="spiderexample" values="Python 2.7.10" collectionTime="1438349442361" />
+      <project id="scrapytest" values="Python 3.5.1 [condavenv]" collectionTime="1467564526625" />
+      <project id="machinelearning" values="Python 3.5.0" collectionTime="1443234003926" />
+      <project id="hudspider2" values="Python 3.5.0 [virtualenv]" collectionTime="1467561119165" />
+      <project id="bookwatcher" values="Python 3.4.1" collectionTime="1441973596995" />
+      <project id="paper_streets" values="Python 3.5.2 [condavenv]" collectionTime="1470189762812" />
+      <project id="hudhomestore" values="Python 3.5.2 [condavenv]" collectionTime="1484102953156" />
+      <project id="hudspider" values="Python 3.5.0 [virtualenv]" collectionTime="1479480202291" />
+      <project id="aioserver" values="Python 3.5.0" collectionTime="1443199574309" />
+      <project id="realestatemath" values="Python 3.4.3" collectionTime="1443317226269" />
+      <project id="titanic" values="Python 3.5.2 [condavenv]" collectionTime="1474637861064" />
+      <project id="sponsors" values="Python 3.5.2 [condavenv]" collectionTime="1469909559957" />
+      <project id="backpacking" values="Python 3.5.1 [condavenv]" collectionTime="1467754000570" />
+      <project id="tadVisualizer" values="Python 3.5.1 [condavenv]" collectionTime="1469818718793" />
+    </group>
+    <group name="file-type">
+      <project id="stocks" values="Python,HTML,UNKNOWN,CSS,PLAIN_TEXT,JavaScript,XML" collectionTime="1454558755795" />
+      <project id="diplomacy" values="PLAIN_TEXT,XML,Python,UNKNOWN" collectionTime="0" />
+      <project id="scraper" values="Python" collectionTime="1468678676320" />
+      <project id="remath" values="Python,ReST,UNKNOWN,JavaScript,ARCHIVE,JSON,CSS,HTML,PLAIN_TEXT,Images" collectionTime="1484327541470" />
+      <project id="spiderexample" values="XML,Python,UNKNOWN,PLAIN_TEXT" collectionTime="1438349442354" />
+      <project id="scrapytest" values="Python" collectionTime="1467564526622" />
+      <project id="machinelearning" values="UNKNOWN,IPNB,PLAIN_TEXT,XML,Native" collectionTime="1443234003914" />
+      <project id="hudspider2" values="IPNB,Python" collectionTime="1467561119158" />
+      <project id="bookwatcher" values="Python,PLAIN_TEXT,JSON,UNKNOWN,XML" collectionTime="1441973596994" />
+      <project id="paper_streets" values="Python,PLAIN_TEXT,Images,IPNB" collectionTime="1470189762807" />
+      <project id="hudhomestore" values="Python" collectionTime="1484102953150" />
+      <project id="hudspider" values="Python,PLAIN_TEXT" collectionTime="1479480202282" />
+      <project id="aioserver" values="XML,Python,UNKNOWN,PLAIN_TEXT" collectionTime="1443199574295" />
+      <project id="realestatemath" values="ReST,UNKNOWN,Python,XML,PLAIN_TEXT" collectionTime="1443317226262" />
+      <project id="titanic" values="IPNB,Python,PLAIN_TEXT" collectionTime="1474637861010" />
+      <project id="sponsors" values="UNKNOWN,Python,PLAIN_TEXT" collectionTime="1469909559950" />
+      <project id="backpacking" values="Python,PLAIN_TEXT,XML" collectionTime="1467754000569" />
+      <project id="tadVisualizer" values="Python,ARCHIVE,IPNB,PLAIN_TEXT,Images" collectionTime="1469818718788" />
+    </group>
+    <group name="module type">
+      <project id="stocks" values="PYTHON_MODULE" collectionTime="1454558755670" />
+      <project id="diplomacy" values="PYTHON_MODULE" collectionTime="0" />
+      <project id="scraper" values="PYTHON_MODULE" collectionTime="1468678676285" />
+      <project id="remath" values="PYTHON_MODULE" collectionTime="1484327541294" />
+      <project id="spiderexample" values="PYTHON_MODULE" collectionTime="1438349442312" />
+      <project id="scrapytest" values="PYTHON_MODULE" collectionTime="1467564526595" />
+      <project id="machinelearning" values="PYTHON_MODULE" collectionTime="1443234003332" />
+      <project id="hudspider2" values="PYTHON_MODULE" collectionTime="1467561119140" />
+      <project id="bookwatcher" values="PYTHON_MODULE" collectionTime="1441973596853" />
+      <project id="paper_streets" values="PYTHON_MODULE" collectionTime="1470189762735" />
+      <project id="hudhomestore" values="PYTHON_MODULE" collectionTime="1484102952935" />
+      <project id="hudspider" values="PYTHON_MODULE" collectionTime="1479480202028" />
+      <project id="aioserver" values="PYTHON_MODULE" collectionTime="1443199574277" />
+      <project id="realestatemath" values="PYTHON_MODULE" collectionTime="1443317226115" />
+      <project id="titanic" values="PYTHON_MODULE" collectionTime="1474637860928" />
+      <project id="sponsors" values="PYTHON_MODULE" collectionTime="1469909559865" />
+      <project id="backpacking" values="PYTHON_MODULE" collectionTime="1467754000561" />
+      <project id="tadVisualizer" values="PYTHON_MODULE" collectionTime="1469818718711" />
+    </group>
+    <group name="py-packages">
+      <project id="bookwatcher" values="httplib2,google-api-python-client" collectionTime="1441973597137" />
+      <project id="aioserver" values="click,aiohttp" collectionTime="1443199574437" />
+      <project id="realestatemath" values="six,Sphinx,virtualenv,docutils,coverage,pytest-cov,MarkupSafe,snowballstemmer,pytz,tox,cov-core,alabaster,pytest,Babel,Cheesecake,Jinja2,py,Pygments" collectionTime="1443317226698" />
+      <project id="remath" values="pydocstyle,pylint,pytest,pycodestyle,coverage" collectionTime="1484327541712" />
+    </group>
+  </component>
+  <component name="UsageTrigger">
+    <counts>
+      <entry feature="AbstractNewProjectStep.Pure Python" count="5" />
+      <entry feature="CreateFile.CreateFileAction" count="1" />
+      <entry feature="OpenInBrowser.Chrome" count="1" />
+      <entry feature="execute.PythonConfigurationType.Run" count="722" />
+      <entry feature="ide.settings.Appearance" count="1" />
+      <entry feature="ide.settings.Code_Style" count="2" />
+      <entry feature="ide.settings.Colors_&amp;_Fonts" count="30" />
+      <entry feature="ide.settings.Console_Font" count="1" />
+      <entry feature="ide.settings.Font" count="5" />
+      <entry feature="ide.settings.General" count="3" />
+      <entry feature="ide.settings.Inspections" count="3" />
+      <entry feature="ide.settings.Project_Interpreter" count="5" />
+      <entry feature="ide.settings.Python" count="1" />
+      <entry feature="ide.settings.Python_Console" count="2" />
+      <entry feature="ide.settings.Terminal" count="1" />
+      <entry feature="ide.settings.Version_Control" count="1" />
+      <entry feature="ideaapp.started" count="115" />
+      <entry feature="python.console.local" count="1" />
+      <entry feature="tips.of.the.day.next" count="4" />
+      <entry feature="tips.of.the.day.prev" count="1" />
+      <entry feature="welcome.screen.WelcomeScreen.OpenDirectoryProject" count="3" />
+      <entry feature="welcome.screen.null" count="12" />
+    </counts>
+  </component>
+</application>

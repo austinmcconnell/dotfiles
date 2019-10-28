@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Contents</key>
+	<dict>
+		<key>Notes</key>
+		<dict>
+			<key>File ID</key>
+			<string>42574882</string>
+			<key>Predicted Process Time</key>
+			<real>594245181</real>
+			<key>Uninstall Prompted Date</key>
+			<date>2019-10-24T20:06:24Z</date>
+		</dict>
+	</dict>
+	<key>File Map</key>
+	<dict>
+		<key>42574882</key>
+		<dict>
+			<key>Name</key>
+			<string>Notes</string>
+		</dict>
+	</dict>
+	<key>Last Poll Time</key>
+	<date>2019-10-24T20:06:24Z</date>
+	<key>Version</key>
+	<integer>3</integer>
+</dict>
+</plist>

@@ -1,0 +1,73 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number: 2 (0x2)
+    Signature Algorithm: sha1WithRSAEncryption
+        Issuer: C=US, ST=CA, L=Irvine, O=Linksys, OU=Belkin, CN=Mamba/name=BlackMamba/emailAddress=support@linksys.com
+        Validity
+            Not Before: Feb 17 21:22:43 2018 GMT
+            Not After : Feb 15 21:22:43 2028 GMT
+        Subject: C=US, ST=CA, L=Irvine, O=Linksys, OU=Belkin, CN=client/name=BlackMamba/emailAddress=support@linksys.com
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (1024 bit)
+                Modulus:
+                    00:a4:d9:91:10:dc:66:44:41:e3:cd:e7:ab:c6:8d:
+                    e0:bd:c9:21:1b:be:4f:9c:50:67:78:b3:3f:c3:b1:
+                    da:bc:80:be:7b:a1:c0:7f:6d:d9:46:6e:00:1f:12:
+                    c5:ed:86:17:0a:cb:ff:eb:12:ae:0d:18:53:97:c8:
+                    31:54:88:cf:2f:9a:84:74:42:cb:74:ea:f2:f1:37:
+                    0a:11:5c:6a:81:eb:f9:79:f4:2d:67:c8:41:b6:b8:
+                    85:a9:6d:be:f8:1c:d5:c9:0f:b7:06:e0:d0:fc:78:
+                    7b:78:f2:96:90:0b:d2:62:27:59:63:15:67:06:0d:
+                    da:9e:31:c1:66:16:29:29:e5
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Basic Constraints: 
+                CA:FALSE
+            Netscape Comment: 
+                Easy-RSA Generated Certificate
+            X509v3 Subject Key Identifier: 
+                5E:29:08:BD:77:C7:87:E3:A2:14:8D:5D:44:DB:5E:1C:88:89:70:7E
+            X509v3 Authority Key Identifier: 
+                keyid:26:B8:2A:00:9A:6A:00:63:2D:5A:52:36:51:B7:AE:08:59:1F:45:23
+                DirName:/C=US/ST=CA/L=Irvine/O=Linksys/OU=Belkin/CN=Mamba/name=BlackMamba/emailAddress=support@linksys.com
+                serial:C3:B0:5F:CC:17:84:A0:90
+
+            X509v3 Extended Key Usage: 
+                TLS Web Client Authentication
+            X509v3 Key Usage: 
+                Digital Signature
+    Signature Algorithm: sha1WithRSAEncryption
+         35:d6:c4:56:f6:de:47:76:8c:9e:eb:97:0f:ba:16:e2:fb:a4:
+         53:3d:e2:01:00:6c:86:b9:20:4f:b8:80:d0:58:4a:d3:e4:07:
+         25:2b:4a:97:9b:44:46:25:12:2c:94:54:50:dd:02:35:72:ac:
+         8d:04:76:11:e8:41:84:2f:cf:b7:7d:5c:05:84:78:5e:56:bc:
+         54:e8:cc:5b:ef:10:64:86:9a:b9:e3:78:b4:89:e3:de:12:c8:
+         29:ee:ca:c3:16:bd:a8:33:9d:50:60:6f:32:3d:ac:2b:cc:ec:
+         54:ee:93:cb:8b:c9:f6:68:4d:47:e4:af:86:22:ff:7b:90:b9:
+         d6:15
+-----BEGIN CERTIFICATE-----
+MIID9zCCA2CgAwIBAgIBAjANBgkqhkiG9w0BAQUFADCBlzELMAkGA1UEBhMCVVMx
+CzAJBgNVBAgTAkNBMQ8wDQYDVQQHEwZJcnZpbmUxEDAOBgNVBAoTB0xpbmtzeXMx
+DzANBgNVBAsTBkJlbGtpbjEOMAwGA1UEAxMFTWFtYmExEzARBgNVBCkTCkJsYWNr
+TWFtYmExIjAgBgkqhkiG9w0BCQEWE3N1cHBvcnRAbGlua3N5cy5jb20wHhcNMTgw
+MjE3MjEyMjQzWhcNMjgwMjE1MjEyMjQzWjCBmDELMAkGA1UEBhMCVVMxCzAJBgNV
+BAgTAkNBMQ8wDQYDVQQHEwZJcnZpbmUxEDAOBgNVBAoTB0xpbmtzeXMxDzANBgNV
+BAsTBkJlbGtpbjEPMA0GA1UEAxMGY2xpZW50MRMwEQYDVQQpEwpCbGFja01hbWJh
+MSIwIAYJKoZIhvcNAQkBFhNzdXBwb3J0QGxpbmtzeXMuY29tMIGfMA0GCSqGSIb3
+DQEBAQUAA4GNADCBiQKBgQCk2ZEQ3GZEQePN56vGjeC9ySEbvk+cUGd4sz/Dsdq8
+gL57ocB/bdlGbgAfEsXthhcKy//rEq4NGFOXyDFUiM8vmoR0Qst06vLxNwoRXGqB
+6/l59C1nyEG2uIWpbb74HNXJD7cG4ND8eHt48paQC9JiJ1ljFWcGDdqeMcFmFikp
+5QIDAQABo4IBTjCCAUowCQYDVR0TBAIwADAtBglghkgBhvhCAQ0EIBYeRWFzeS1S
+U0EgR2VuZXJhdGVkIENlcnRpZmljYXRlMB0GA1UdDgQWBBReKQi9d8eH46IUjV1E
+214ciIlwfjCBzAYDVR0jBIHEMIHBgBQmuCoAmmoAYy1aUjZRt64IWR9FI6GBnaSB
+mjCBlzELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMQ8wDQYDVQQHEwZJcnZpbmUx
+EDAOBgNVBAoTB0xpbmtzeXMxDzANBgNVBAsTBkJlbGtpbjEOMAwGA1UEAxMFTWFt
+YmExEzARBgNVBCkTCkJsYWNrTWFtYmExIjAgBgkqhkiG9w0BCQEWE3N1cHBvcnRA
+bGlua3N5cy5jb22CCQDDsF/MF4SgkDATBgNVHSUEDDAKBggrBgEFBQcDAjALBgNV
+HQ8EBAMCB4AwDQYJKoZIhvcNAQEFBQADgYEANdbEVvbeR3aMnuuXD7oW4vukUz3i
+AQBshrkgT7iA0FhK0+QHJStKl5tERiUSLJRUUN0CNXKsjQR2EehBhC/Pt31cBYR4
+Xla8VOjMW+8QZIaaueN4tInj3hLIKe7Kwxa9qDOdUGBvMj2sK8zsVO6Ty4vJ9mhN
+R+SvhiL/e5C51hU=
+-----END CERTIFICATE-----

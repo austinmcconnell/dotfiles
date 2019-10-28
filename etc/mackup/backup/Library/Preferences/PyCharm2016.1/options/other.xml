@@ -1,0 +1,70 @@
+<application>
+  <component name="AppInspectionProfilesVisibleTreeState">
+    <entry key="Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>Python</id>
+          </State>
+          <State>
+            <id>Spelling</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>PyShadowingNamesInspection</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="CodeStyleSchemes">
+    <option name="CURRENT_SCHEME_NAME" value="Default" />
+  </component>
+  <component name="PyTestFrameworkService">
+    <option name="SDK_TO_PYTEST">
+      <map>
+        <entry key="$USER_HOME$/.virtualenvs/bookwatcher/bin/python" value="false" />
+        <entry key="$USER_HOME$/.virtualenvs/diplomacy/bin/python" value="false" />
+        <entry key="$USER_HOME$/.virtualenvs/hudspider/bin/python" value="false" />
+        <entry key="$USER_HOME$/.virtualenvs/machinelearning/bin/python" value="false" />
+        <entry key="$USER_HOME$/.virtualenvs/remath/bin/python" value="true" />
+        <entry key="$USER_HOME$/anaconda/bin/python" value="true" />
+        <entry key="$USER_HOME$/anaconda/envs/paper_streets/bin/python" value="false" />
+        <entry key="$USER_HOME$/anaconda/envs/remath/bin/python" value="true" />
+        <entry key="$USER_HOME$/anaconda/envs/scrapy/bin/python" value="false" />
+        <entry key="$USER_HOME$/anaconda/envs/sponsors/bin/python" value="false" />
+        <entry key="$USER_HOME$/anaconda/envs/titanic/bin/python" value="false" />
+      </map>
+    </option>
+    <option name="SDK_TO_NOSETEST">
+      <map>
+        <entry key="$USER_HOME$/.virtualenvs/bookwatcher/bin/python" value="false" />
+        <entry key="$USER_HOME$/.virtualenvs/diplomacy/bin/python" value="false" />
+        <entry key="$USER_HOME$/.virtualenvs/titanic/bin/python3.4" value="true" />
+        <entry key="$USER_HOME$/anaconda/envs/remath/bin/python" value="false" />
+        <entry key="$USER_HOME$/anaconda/envs/titanic/bin/python" value="false" />
+      </map>
+    </option>
+    <option name="SDK_TO_ATTEST">
+      <map>
+        <entry key="$USER_HOME$/.virtualenvs/bookwatcher/bin/python" value="false" />
+        <entry key="$USER_HOME$/.virtualenvs/diplomacy/bin/python" value="false" />
+        <entry key="$USER_HOME$/anaconda/envs/remath/bin/python" value="false" />
+        <entry key="$USER_HOME$/anaconda/envs/titanic/bin/python" value="false" />
+      </map>
+    </option>
+  </component>
+  <component name="com.intellij.ide.fileTemplates.impl.FileTemplateManagerImpl">
+    <recent_templates>
+      <option name="RECENT_TEMPLATES">
+        <value>
+          <list size="0" />
+        </value>
+      </option>
+    </recent_templates>
+  </component>
+</application>

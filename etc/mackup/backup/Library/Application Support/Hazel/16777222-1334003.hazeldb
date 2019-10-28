@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Contents</key>
+	<dict>
+		<key>Screen Shot 2019-08-24 at 3.04.06 PM.png</key>
+		<dict>
+			<key>File ID</key>
+			<string>14351307</string>
+			<key>Predicted Process Time</key>
+			<real>591048252.32420015</real>
+		</dict>
+		<key>Screen Shot 2019-08-28 at 7.39.10 PM.png</key>
+		<dict>
+			<key>File ID</key>
+			<string>14445586</string>
+			<key>Predicted Process Time</key>
+			<real>591410356.41706729</real>
+		</dict>
+		<key>Screen Shot 2019-08-30 at 5.43.39 PM.png</key>
+		<dict>
+			<key>File ID</key>
+			<string>14524602</string>
+			<key>Predicted Process Time</key>
+			<real>591576225.46103096</real>
+		</dict>
+		<key>Screen Shot 2019-08-31 at 8.44.54 PM.png</key>
+		<dict>
+			<key>File ID</key>
+			<string>14595762</string>
+			<key>Predicted Process Time</key>
+			<real>591587097.94359803</real>
+		</dict>
+		<key>Screen Shot 2019-08-31 at 8.44.57 PM.png</key>
+		<dict>
+			<key>File ID</key>
+			<string>14595792</string>
+			<key>Predicted Process Time</key>
+			<real>591587103.11964798</real>
+		</dict>
+		<key>Screen Shot 2019-09-07 at 2.32.57 PM.png</key>
+		<dict>
+			<key>File ID</key>
+			<string>14740051</string>
+			<key>Predicted Process Time</key>
+			<real>592169582.78874528</real>
+		</dict>
+		<key>Screen Shot 2019-09-12 at 10.03.35 PM.png</key>
+		<dict>
+			<key>File ID</key>
+			<string>15004684</string>
+			<key>Predicted Process Time</key>
+			<real>592628621.5045526</real>
+		</dict>
+	</dict>
+	<key>File Map</key>
+	<dict>
+		<key>14351307</key>
+		<dict>
+			<key>Name</key>
+			<string>Screen Shot 2019-08-24 at 3.04.06 PM.png</string>
+		</dict>
+		<key>14445586</key>
+		<dict>
+			<key>Name</key>
+			<string>Screen Shot 2019-08-28 at 7.39.10 PM.png</string>
+		</dict>
+		<key>14524602</key>
+		<dict>
+			<key>Name</key>
+			<string>Screen Shot 2019-08-30 at 5.43.39 PM.png</string>
+		</dict>
+		<key>14595762</key>
+		<dict>
+			<key>Name</key>
+			<string>Screen Shot 2019-08-31 at 8.44.54 PM.png</string>
+		</dict>
+		<key>14595792</key>
+		<dict>
+			<key>Name</key>
+			<string>Screen Shot 2019-08-31 at 8.44.57 PM.png</string>
+		</dict>
+		<key>14740051</key>
+		<dict>
+			<key>Name</key>
+			<string>Screen Shot 2019-09-07 at 2.32.57 PM.png</string>
+		</dict>
+		<key>15004684</key>
+		<dict>
+			<key>Name</key>
+			<string>Screen Shot 2019-09-12 at 10.03.35 PM.png</string>
+		</dict>
+	</dict>
+	<key>Last Poll Time</key>
+	<date>2019-09-15T15:15:40Z</date>
+	<key>Version</key>
+	<integer>3</integer>
+</dict>
+</plist>

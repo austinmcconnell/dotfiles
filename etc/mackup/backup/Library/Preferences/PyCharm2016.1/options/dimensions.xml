@@ -1,0 +1,33 @@
+<application>
+  <component name="DimensionService">
+    <location key="OptionsEditor.0.0.1280.800" x="54" y="22" />
+    <location key="WELCOME_SCREEN.0.0.1280.800" x="639" y="230" />
+    <location key="com.intellij.ide.util.TipDialog.0.0.1280.800" x="434" y="210" />
+    <location key="#Updates.0.0.1280.800" x="192" y="255" />
+    <location key="SettingsEditor.0.0.1280.800" x="209" y="74" />
+    <location key="#Scopes.0.0.1280.800" x="440" y="241" />
+    <location key="#com.intellij.execution.impl.EditConfigurationsDialog.0.0.1280.800" x="104" y="38" />
+    <location key="#com.intellij.ide.actions.ChooseComponentsToExportDialog.0.0.1280.800" x="355" y="253" />
+    <location key="#Inspections.0.0.1280.800" x="280" y="56" />
+    <location key="#com.intellij.fileTypes.FileTypeChooser.0.0.1280.800" x="369" y="185" />
+    <location key="ProcessPopupWindow.0.0.1280.800" x="402" y="166" />
+    <location key="save.file.as.template.dialog.0.0.1280.800" x="388" y="191" />
+    <location key="WELCOME_SCREEN.0.0.1920.1080" x="959" y="230" />
+    <location key="com.intellij.ide.util.TipDialog.0.0.1920.1080" x="1319" y="308" />
+    <location key="ProcessPopupWindow.0.0.1920.1080" x="418" y="274" />
+    <location key="SettingsEditor.0.0.1920.1080" x="329" y="219" />
+    <location key="FileChooserDialogImpl.0.0.1920.1080" x="748" y="281" />
+    <location key="FileChooserDialogImpl.0.0.1280.800" x="522" y="210" />
+    <size key="SettingsEditor.0.0.1280.800" width="1037" height="618" />
+    <size key="GridCell.Tab.0.left.0.0.1280.800" width="962" height="182" />
+    <size key="GridCell.Tab.0.center.0.0.1280.800" width="962" height="182" />
+    <size key="GridCell.Tab.0.right.0.0.1280.800" width="962" height="182" />
+    <size key="GridCell.Tab.0.bottom.0.0.1280.800" width="962" height="182" />
+    <size key="ProcessPopupWindow.0.0.1280.800" width="580" height="200" />
+    <size key="ProcessPopupWindow.0.0.1920.1080" width="365" height="167" />
+    <size key="GridCell.Tab.0.left.0.0.1920.1080" width="1259" height="178" />
+    <size key="GridCell.Tab.0.center.0.0.1920.1080" width="1259" height="178" />
+    <size key="GridCell.Tab.0.right.0.0.1920.1080" width="1259" height="178" />
+    <size key="GridCell.Tab.0.bottom.0.0.1920.1080" width="1259" height="178" />
+  </component>
+</application>
