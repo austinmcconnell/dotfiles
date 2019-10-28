@@ -27,7 +27,7 @@ if [ -d "$DOTFILES_EXTRA_DIR" ]; then
     done
 fi
 
-plugins=(autoenv brew docker docker-compose git heroku httpie kubectl pip pipenv pyenv terraform zsh-kubectl-prompt zsh-nvm)
+plugins=(autoenv brew docker docker-compose git heroku httpie kubectl pip pipenv pyenv terraform zsh-kubectl-prompt)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -43,8 +43,8 @@ if [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion
 eval "$(pyenv init -)"
 
 #NVM
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # Stern (kubernetes log streaming)
 source <(stern --completion=zsh)
