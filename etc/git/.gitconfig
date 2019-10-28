@@ -35,17 +35,17 @@
 	templatedir = ~/.git-templates
 
 [color "diff-highlight"]
-	oldNormal = red 
+	oldNormal = red
 	oldHighlight = red 52
-	newNormal = green 
+	newNormal = green
 	newHighlight = green 22
 
 [color "diff"]
 	meta = 227
-	frag = magenta 
-	commit = 227 
-	old = red 
-	new = green 
+	frag = magenta
+	commit = 227
+	old = red
+	new = green
 	whitespace = red reverse
 [commit]
 	gpgsign = true
