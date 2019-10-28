@@ -23,6 +23,7 @@ DEFAULT_PYTHON_VERSION=3.7.4
 
 brew install pyenv
 
+mkdir -p ~/.pyenv
 ln -sfv "$DOTFILES_DIR/etc/python/default-packages" ~/.pyenv
 
 PYENV_PLUGIN_DIR="$HOME/.pyenv/plugins"
