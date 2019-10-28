@@ -24,6 +24,7 @@ brew cask install evernote
 brew cask install flux
 brew cask install font-source-code-pro
 brew cask install google-chrome
+brew cask install gpg-suite
 brew cask install hazel
 brew cask install iterm2
 brew cask install keepingyouawake
@@ -31,6 +32,7 @@ brew cask install macdown
 brew cask install nextcloud
 brew cask install oversight
 brew cask install postico
+brew cask install pycharm
 brew cask install slack
 brew cask install steam
 brew cask install spectacle
