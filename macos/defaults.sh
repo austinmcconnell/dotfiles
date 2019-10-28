@@ -1,4 +1,4 @@
-COMPUTER_NAME="Austin_MBP"
+# COMPUTER_NAME="Austin_MBP"
 
 osascript -e 'tell application "System Preferences" to quit'
 
@@ -13,10 +13,10 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 ###############################################################################
 
 # Set computer name (as done via System Preferences → Sharing)
-sudo scutil --set ComputerName "$COMPUTER_NAME"
-sudo scutil --set HostName "$COMPUTER_NAME"
-sudo scutil --set LocalHostName "$COMPUTER_NAME"
-sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "$COMPUTER_NAME"
+# sudo scutil --set ComputerName "$COMPUTER_NAME"
+# sudo scutil --set HostName "$COMPUTER_NAME"
+# sudo scutil --set LocalHostName "$COMPUTER_NAME"
+# sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "$COMPUTER_NAME"
 
 # Expand save panel by default
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
