@@ -17,8 +17,8 @@ alias pipinstall='pip install --no-index --find-links=file://${HOME}/.pip/packag
 ##############################
 # Docker Compose
 ##############################
-alias dc='docker-compose -f ./docker-compose.yml '
-alias dclogs='docker-compose -f ./docker-compose.yml logs -tf --tail="50" '
+alias dc='docker-compose'
+alias dclogs='docker-compose logs -tf --tail="50" '
 
 
 ##############################
