@@ -14,12 +14,13 @@ fi
 NVM_DIR="$HOME/.nvm"
 
 ln -sfv "$DOTFILES_DIR/etc/node/markdownlint" ~/.markdownlintrc
-ln -sfv "$DOTFILES_DIR/etc/node/default-packages" "$NVM_DIR"
 
 if [ ! -d "$HOME/.nvm" ] ; then
     mkdir "$NVM_DIR"
   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
 fi
+
+ln -sfv "$DOTFILES_DIR/etc/node/default-packages" "$NVM_DIR"
 
 . "$NVM_DIR/nvm.sh"; nvm install --lts
 . "$NVM_DIR/nvm.sh"; nvm alias default lts/*
