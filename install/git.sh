@@ -11,8 +11,8 @@ else
   echo "**************************************************"
 fi
 
-mkdir ~/.git-templates
+mkdir -p ~/.git-templates/hooks
 
 ln -sfv "$DOTFILES_DIR/etc/git/.gitconfig" ~
 ln -sfv "$DOTFILES_DIR/etc/git/.gitignore_global" ~
-ln -sfv "$DOTFILES_DIR/etc/git/hooks" ~/.git-templates
+ln -sfv "$DOTFILES_DIR/etc/git/hooks/pre-push" ~/.git-templates/hooks/pre-push
