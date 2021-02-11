@@ -44,3 +44,53 @@ Use the [Makefile](./Makefile) to install everything [listed above](#package-ove
        macos            Apply macOS system defaults
        test             Run tests
        update           Update packages and pkg managers (OS, brew, npm, gem)
+
+## Vim
+
+Practice by running `vimtutor`
+
+Remember these things
+
+- Jump between splits by using Control plus direction (j,k.l,h)
+
+Leader Mappings
+- Leader (\) + t    --> toggle tagbar
+- Leader (\) + n    --> toggle nerdtree
+- Leader (\) + gy   --> enable goyo/limelight
+- Leader (\) + f    --> search via ack
+- Leader (\) + ww   --> launch wiki
+
+Using tabs
+- Open multiple files in tabs by using -p. E.g. `vim -p file1.txt file2.txt`
+- In NerdTREE
+  - open highlighted file in a tab by `t:`
+  - silently open highlighted file in a tab by `T:`
+- Switch between tabs with `gt` in normal mode, or `:tabn` and `:tabn`
+
+NERDTree
+- Move to NERDTree window (control + direction) and type `?`
+Commands
+t: open in new tab
+T: open in new tab silently
+
+### Plugins
+
+General
+  - [Nerd Tree](https://github.com/preservim/nerdtree)
+  - [Lightline](https://github.com/itchyny/lightline.vim)
+  - [Supertab](https://github.com/ervandew/supertab)
+  - [Ack](https://github.com/mileszs/ack.vim)
+
+Coding plugins
+  - [Ale](https://github.com/dense-analysis/ale)
+  - [Auto Pairs](https://github.com/jiangmiao/auto-pairs)
+  - [Fugitive](https://github.com/tpope/vim-fugitive)
+  - [Git Gutter](https://github.com/airblade/vim-gitgutter)
+  - [Gutentags](https://github.com/ludovicchabant/vim-gutentags)
+  - [Jedi Vim](https://github.com/davidhalter/jedi-vim)
+  - [Tagbar](https://github.com/preservim/tagbar)
+
+Writing
+  - [Goyo](https://github.com/junegunn/goyo.vim)
+  - [Limelight](https://github.com/junegunn/limelight.vim)
+  - [Vim Wiki](https://github.com/vimwiki/vimwiki)
