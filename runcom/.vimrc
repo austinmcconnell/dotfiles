@@ -25,7 +25,7 @@ nnoremap k gk|                                               " move cursor visua
 set scrolloff=1                                              " show at least one line below cursor
 set list                                                     " display whitespace
 set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+    " set whitespace characters to highlight
-set autoread                                                 " auto load external changes to file 
+set autoread                                                 " auto load external changes to file
 
 
 " Spaces & Tabs
