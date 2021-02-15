@@ -49,6 +49,10 @@ Use the [Makefile](./Makefile) to install everything [listed above](#package-ove
 
 Practice by running `vimtutor`
 
+Host Key Mapping
+- Map `Caps Lock` key to `Ctrl`
+- To exit vim's insert mode, use either `Ctrl + c` or `Ctrl + [`
+
 Remember these things
 
 - Jump between splits by using Control plus direction (j,k.l,h)
