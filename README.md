@@ -73,6 +73,8 @@ Commands
 t: open in new tab
 T: open in new tab silently
 
+Launch plain/vanilla vim with the following command `vanillavim`
+
 ### Plugins
 
 General

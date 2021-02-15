@@ -69,3 +69,9 @@ alias kui='kc proxy & sleep 2 && open -a "/Applications/Google Chrome.app" "http
 # Terraform
 ##############################
 alias tf='terraform'
+
+
+##############################
+# Vim
+##############################
+alias vanillavim='vim --noplugins -u NONE'
