@@ -67,6 +67,10 @@ Using tabs
   - silently open highlighted file in a tab by `T:`
 - Switch between tabs with `gt` in normal mode, or `:tabn` and `:tabn`
 
+Using tags
+- When on a function you want to know more about, jump to it's tag with `Ctrl + ]`.
+- Return to previous position/tag with `Ctrl + t`
+
 NERDTree
 - Move to NERDTree window (control + direction) and type `?`
 Commands
