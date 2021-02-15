@@ -58,11 +58,12 @@ Remember these things
 - Jump between splits by using Control plus direction (j,k.l,h)
 
 Leader Mappings
-- Leader (\) + t    --> toggle tagbar
-- Leader (\) + n    --> toggle nerdtree
-- Leader (\) + gy   --> enable goyo/limelight
-- Leader (\) + f    --> search via ack
-- Leader (\) + ww   --> launch wiki
+- Leader key is mapped to `;`
+- Leader + t    --> toggle tagbar
+- Leader + n    --> toggle nerdtree
+- Leader + gy   --> enable goyo/limelight
+- Leader + f    --> search via ack
+- Leader + ww   --> launch wiki
 
 Using tabs
 - Open multiple files in tabs by using -p. E.g. `vim -p file1.txt file2.txt`
