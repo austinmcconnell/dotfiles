@@ -71,6 +71,10 @@ Using tags
 - When on a function you want to know more about, jump to it's tag with `Ctrl + ]`.
 - Return to previous position/tag with `Ctrl + t`
 
+Using buffers
+- View all buffers with `:ls`
+- Jump to a given buffer by using `:b #` where # is the number of the buffer from the list
+
 NERDTree
 - Move to NERDTree window (control + direction) and type `?`
 Commands
