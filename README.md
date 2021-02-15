@@ -55,7 +55,7 @@ Host Key Mapping
 
 Remember these things
 
-- Jump between splits by using Control plus direction (j,k.l,h)
+- Jump between splits by using `Ctrl` plus direction (j,k.l,h)
 
 Leader Mappings
 - Leader key is mapped to `;`
@@ -81,7 +81,7 @@ Using buffers
 - Jump to a given buffer by using `:b #` where # is the number of the buffer from the list
 
 NERDTree
-- Move to NERDTree window (control + direction) and type `?`
+- Move to NERDTree window (Ctrl + direction) and type `?`
 Commands
 t: open in new tab
 T: open in new tab silently
