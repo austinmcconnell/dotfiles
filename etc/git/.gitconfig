@@ -49,3 +49,5 @@
 	whitespace = red reverse
 [commit]
 	gpgsign = false
+[pull]
+	ff = only
