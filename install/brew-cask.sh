@@ -11,42 +11,42 @@ else
   echo "**************************************************"
 fi
 
-brew tap caskroom/cask
-brew tap caskroom/fonts
+brew tap homebrew/cask
+brew tap homebrew/cask-fonts
 
 # Install applications
-brew cask install atom
-brew cask install authy
-brew cask install betterzip
-brew cask install docker
-brew cask install dropbox
-brew cask install evernote
-brew cask install flux
-brew cask install font-source-code-pro
-brew cask install google-chrome
-brew cask install google-cloud-sdk
-brew cask install gpg-suite
-brew cask install hazel
-brew cask install iterm2
-brew cask install keepingyouawake
-brew cask install macdown
-brew cask install nextcloud
-brew cask install oversight
-brew cask install postico
-brew cask install pritunl
-brew cask install pycharm
-brew cask install slack
-brew cask install steam
-brew cask install spectacle
-brew cask install transmission
-brew cask install viscosity
+brew install --cask atom
+brew install --cask authy
+brew install --cask betterzip
+brew install --cask docker
+brew install --cask dropbox
+brew install --cask evernote
+brew install --cask flux
+brew install --cask font-source-code-pro
+brew install --cask google-chrome
+brew install --cask google-cloud-sdk
+brew install --cask gpg-suite
+brew install --cask hazel
+brew install --cask iterm2
+brew install --cask keepingyouawake
+brew install --cask macdown
+brew install --cask nextcloud
+brew install --cask oversight
+brew install --cask postico
+brew install --cask pritunl
+brew install --cask pycharm
+brew install --cask slack
+brew install --cask steam
+brew install --cask spectacle
+brew install --cask transmission
+brew install --cask viscosity
 
 # Quick Look Plugins (https://github.com/sindresorhus/quick-look-plugins)
-brew cask install qlcolorcode
-brew cask install qlstephen
-brew cask install qlmarkdown
-brew cask install quicklook-json
-brew cask install qlprettypatch
-brew cask install quicklook-csv
-brew cask install qlimagesize
-brew cask install webpquicklook
+brew install --cask qlcolorcode
+brew install --cask qlstephen
+brew install --cask qlmarkdown
+brew install --cask quicklook-json
+brew install --cask qlprettypatch
+brew install --cask quicklook-csv
+brew install --cask qlimagesize
+brew install --cask webpquicklook
