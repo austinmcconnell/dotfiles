@@ -30,7 +30,6 @@ brew install bats
 brew install chtf
 brew install circleci
 brew install coreutils
-brew install diff-so-fancy
 brew install docker
 brew install dockutil
 brew install git
