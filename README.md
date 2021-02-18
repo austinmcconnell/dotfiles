@@ -84,8 +84,13 @@ Using tags
 - Return to previous position/tag with `Ctrl + t`
 
 Using buffers
-- View all buffers with `:ls`
-- Jump to a given buffer by using `:b #` where # is the number of the buffer from the list
+- List all open buffers with `:ls`
+- Move to a specific buffer number with `:b#` (e.g. :b3 takes you to the third buffer)
+- Switch to next buffer with `:bn`
+- Switch to previous buffer with `:bp`
+- Close a buffer with `:bd`
+- Open a new file and splits your screen horizontally to show more than one buffer with `:sp [filename]`
+- Open a new file and splits your screen vertically to show more than one buffer with `:vsp [filename]`
 
 NERDTree
 - Move to NERDTree window (Ctrl + direction) and type `?`
