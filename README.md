@@ -66,31 +66,26 @@ Leader Mappings
 - Leader + ww   --> launch wiki
 
 Using tabs
-- Open multiple files in tabs by using -p. E.g. `vim -p file1.txt file2.txt`
-- In NerdTREE
-  - open highlighted file in a tab by `t:`
-  - silently open highlighted file in a tab by `T:`
-- open a new tab and edit a file with `:tabedit file` (need to pass relative path to file)
+- List all open tabs with `:tabs`
+- Edit a file in a new tab with `:tabedit [filename]`
 - move to the next tab with `gt`
 - move to the previous tab with `gT`
 - move to a specific tab number  with `#gt` (e.g. 2gt takes you to the second tab)
-- list all open tabs with `:tabs`
 - close a single tab with `:tabclose`
 
-
+Using buffers
+- List all open buffers with `:ls`
+- Edit a file with `:e [filename]`
+- Switch to next buffer with `:bn`
+- Switch to previous buffer with `:bp`
+- Move to a specific buffer number with `:b#` (e.g. :b7 takes you to the third buffer)
+- Close a buffer with `:bd`
+- Open a new file and splits your screen horizontally to show more than one buffer with `:sp [filename]`
+- Open a new file and splits your screen vertically to show more than one buffer with `:vsp [filename]`
 
 Using tags
 - When on a function you want to know more about, jump to it's tag with `Ctrl + ]`.
 - Return to previous position/tag with `Ctrl + t`
-
-Using buffers
-- List all open buffers with `:ls`
-- Move to a specific buffer number with `:b#` (e.g. :b3 takes you to the third buffer)
-- Switch to next buffer with `:bn`
-- Switch to previous buffer with `:bp`
-- Close a buffer with `:bd`
-- Open a new file and splits your screen horizontally to show more than one buffer with `:sp [filename]`
-- Open a new file and splits your screen vertically to show more than one buffer with `:vsp [filename]`
 
 NERDTree
 - Move to NERDTree window (Ctrl + direction) and type `?`
