@@ -17,6 +17,7 @@ prepend-path "/sbin"
 prepend-path "/usr/sbin"
 prepend-path "/usr/local/sbin"
 prepend-path ~/.pyenv/shims
+prepend-path ~/.pyenv/bin
 prepend-path "$GEM_HOME/bin"
 
 # Remove duplicates (preserving prepended items)
