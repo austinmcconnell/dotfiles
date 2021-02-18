@@ -37,7 +37,6 @@ brew install hub
 brew install jq
 brew install kubectx
 brew install kubernetes-helm
-brew install mackup
 brew install nano
 brew install node
 brew install postgresql
