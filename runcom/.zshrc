@@ -27,7 +27,7 @@ if [ -d "$DOTFILES_EXTRA_DIR" ]; then
     done
 fi
 
-plugins=(autoenv brew docker docker-compose git httpie pip pipenv pyenv terraform zsh-nvm)
+plugins=(brew docker docker-compose git httpie pip pipenv pyenv terraform zsh-nvm)
 
 source $ZSH/oh-my-zsh.sh
 
