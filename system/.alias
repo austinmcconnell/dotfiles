@@ -57,6 +57,11 @@ alias week="date +%V"
 
 
 ##############################
+# HTTPie
+##############################
+alias https="http --default-scheme=https"
+
+##############################
 # Kubernetes
 ##############################
 alias kc='kubectl'
