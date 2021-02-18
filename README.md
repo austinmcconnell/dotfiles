@@ -53,7 +53,27 @@ Host Key Mapping
 - Map `Caps Lock` key to `Ctrl`
 - To exit vim's insert mode, use either `Ctrl + c` or `Ctrl + [`
 
-Remember these things
+Movement commands
+- Put the cursor at the top of the screen with `H`
+- Put the cursor in the middle of the screen with `M`
+- Put the cursor at the bottom of the screen with `L`
+
+- Put the cursor at the start of the next word with `w`
+- Put the cursor at the start of the previous word with `b`
+- Put the cursor at the end of a word with `e`
+
+- Put the cursor at the beginning of a line with `0`
+- Put the cursor at the end of a line with `$`
+
+- Takes you to the start of the next sentence with `)`
+- Takes you to the start of the previous sentence with `(`
+- Takes you to the start of the next paragraph or block of text with `}`
+- Takes you to the start of the previous paragraph or block of text with `{`
+
+- Put the cursor at the start of the file with `gg`
+- Put the cursor at the end of the file with `G`
+- Put the cursor at a specific line number with `#G`
+
 
 - Jump between splits by using `Ctrl` plus direction (j,k.l,h)
 
