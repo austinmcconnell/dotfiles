@@ -32,7 +32,7 @@ alias hosts="sudo $EDITOR /etc/hosts"
 ##############################
 # Filesystem
 ##############################
-alias reload="source ~/.zshrc"
+alias reload="exec zsh"
 alias rr="rm -rf"
 alias aliases="alias | sed 's/=.*//'"
 alias functions="declare -f | grep '^[a-z].* ()' | sed 's/{$//'"
