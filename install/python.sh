@@ -1,14 +1,29 @@
 #!/bin/sh
 
-if ! is-executable brew; then
+if is-executable pyenv; then
   echo "**************************************************"
-  echo "Skipping Python Install: Homebrew not installed"
+  echo "Configuring Python"
   echo "**************************************************"
-  return
 else
-  echo "**************************************************"
-  echo "Installing Python"
-  echo "**************************************************"
+  if is-macos; then
+    echo "**************************************************"
+    echo "Installing Python"
+    echo "**************************************************"
+    brew install pyenv
+  elif is-debian; then
+    echo "**************************************************"
+    echo "Installing Python"
+    echo "**************************************************"
+    sudo apt-get install -y build-essential libssl-dev zlib1g-dev libbz2-dev \
+libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
+xz-utils tk-dev libffi-dev liblzma-dev python-openssl git
+    curl https://pyenv.run | bash
+  else
+    echo "**************************************************"
+    echo "Skipping Python installation: Unidentified OS"
+    echo "**************************************************"
+    return
+  fi
 fi
 
 mkdir -p ~/.config/proselint
@@ -20,8 +35,6 @@ ln -sfv "$DOTFILES_DIR/etc/python/proselint" ~/.config/proselint/config
 ln -sfv "$DOTFILES_DIR/etc/python/mypy" ~/.config/mypy/config
 
 DEFAULT_PYTHON_VERSION=3.7.4
-
-brew install pyenv
 
 mkdir -p ~/.pyenv
 ln -sfv "$DOTFILES_DIR/etc/python/default-packages" ~/.pyenv
