@@ -14,6 +14,8 @@ if is-executable git -a -d "$DOTFILES_DIR/.git"; then
 	git --work-tree="$DOTFILES_DIR" --git-dir="$DOTFILES_DIR/.git" pull origin master;
 fi
 
+mkdir -p ~/.config
+
 # Bunch of symlinks
 ln -sfv "$DOTFILES_DIR/runcom/.zshrc" ~
 
@@ -25,8 +27,6 @@ ln -sfv "$DOTFILES_DIR/runcom/.zshrc" ~
 # . "$DOTFILES_DIR/install/nvm.sh"
 . "$DOTFILES_DIR/install/vim.sh"
 
-
-mkdir ~/.config
 touch ~/.hushlogin
 
 # Run tests
