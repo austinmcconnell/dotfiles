@@ -1,12 +1,11 @@
 local user="%{$fg[blue]%}%n%{$reset_color%}"
 local host="%{$fg[red]%}%M%{$reset_color%}"
 local path_string="%{$fg[blue]%}%~%b%{$reset_color%}"
-local battery_string='$(battery -z -p)%{$reset_color%}'
 local kubernetes_string='%{$fg[blue]%}($ZSH_KUBECTL_PROMPT)%{$reset_color%}'
 
 PROMPT='${user} on ${host} in ${path_string}$(git_time_since_commit)$(check_git_prompt_info)
 $ '
-RPROMPT="${kubernetes_string}${battery_string}"
+RPROMPT="${kubernetes_string}"
 
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[white]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%})"

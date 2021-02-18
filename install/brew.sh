@@ -20,7 +20,6 @@ fi
 # Add taps
 brew tap homebrew/cask
 brew tap homebrew/cask-fonts
-brew tap Goles/battery
 brew tap heroku/brew
 brew tap Yleisradio/terraforms
 
@@ -28,7 +27,6 @@ brew tap Yleisradio/terraforms
 brew install autoenv
 brew install bash
 brew install bats
-brew install battery
 brew install chtf
 brew install circleci
 brew install coreutils
