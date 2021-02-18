@@ -70,7 +70,14 @@ Using tabs
 - In NerdTREE
   - open highlighted file in a tab by `t:`
   - silently open highlighted file in a tab by `T:`
-- Switch between tabs with `gt` in normal mode, or `:tabn` and `:tabn`
+- open a new tab and edit a file with `:tabedit file` (need to pass relative path to file)
+- move to the next tab with `gt`
+- move to the previous tab with `gT`
+- move to a specific tab number  with `#gt` (e.g. 2gt takes you to the second tab)
+- list all open tabs with `:tabs`
+- close a single tab with `:tabclose`
+
+
 
 Using tags
 - When on a function you want to know more about, jump to it's tag with `Ctrl + ]`.
