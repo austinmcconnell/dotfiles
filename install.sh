@@ -16,9 +16,6 @@ fi
 
 mkdir -p ~/.config
 
-# Bunch of symlinks
-ln -sfv "$DOTFILES_DIR/runcom/.zshrc" ~
-
 # Package managers & packages
 . "$DOTFILES_DIR/install/git.sh"
 . "$DOTFILES_DIR/install/zsh.sh"

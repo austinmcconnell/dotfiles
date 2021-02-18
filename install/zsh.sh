@@ -23,6 +23,8 @@ else
   fi
 fi
 
+ln -sfv "$DOTFILES_DIR/runcom/.zshrc" ~
+
 grep "$(which zsh)" /etc/shells &>/dev/null || sudo zsh -c "echo $(which zsh) >> /etc/shells"
 
 if [ "$SHELL" != "$(which zsh)" ]; then
