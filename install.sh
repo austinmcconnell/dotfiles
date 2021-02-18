@@ -16,7 +16,6 @@ fi
 
 # Bunch of symlinks
 ln -sfv "$DOTFILES_DIR/runcom/.zshrc" ~
-ln -sfv "$DOTFILES_DIR/runcom/.ctags" ~
 
 # Package managers & packages
 . "$DOTFILES_DIR/install/git.sh"
