@@ -24,8 +24,8 @@ if ! is-executable brew; then
 fi
 
 # Package managers & packages
-. "$DOTFILES_DIR/install/zsh.sh"
 . "$DOTFILES_DIR/install/git.sh"
+. "$DOTFILES_DIR/install/zsh.sh"
 . "$DOTFILES_DIR/install/brew.sh"
 . "$DOTFILES_DIR/install/brew-cask.sh"
 . "$DOTFILES_DIR/install/python.sh"

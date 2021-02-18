@@ -1,14 +1,26 @@
 #!/bin/sh
 
-if ! is-executable git; then
-  echo "**************************************************"
-  echo "Skipping Git Configuration: Git not installed"
-  echo "**************************************************"
-  return
-else
+if is-executable git; then
   echo "**************************************************"
   echo "Configuring Git"
   echo "**************************************************"
+else
+  if is-macos; then
+    echo "**************************************************"
+    echo "Installing Git with brew"
+    echo "**************************************************"
+    brew install git
+  elif is-debian; then
+    echo "**************************************************"
+    echo "Installing Git with apt"
+    echo "**************************************************"
+    sudo apt install git
+  else
+    echo "**************************************************"
+    echo "Skipping Git installation: Unidentified OS"
+    echo "**************************************************"
+    return
+  fi
 fi
 
 mkdir -p ~/.git-templates/hooks
