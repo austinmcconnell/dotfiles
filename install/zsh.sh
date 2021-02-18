@@ -1,31 +1,44 @@
 #!/bin/sh
 
-if ! is-executable brew; then
+if is-executable zsh; then
   echo "**************************************************"
-  echo "Skipping ZSH Installs: Homebrew not installed"
+  echo "Configuring Zsh"
   echo "**************************************************"
-  return
 else
-  echo "**************************************************"
-  echo "Installing ZSH packages"
-  echo "**************************************************"
+  if is-macos; then
+    echo "**************************************************"
+    echo "Installing Zsh with brew"
+    echo "**************************************************"
+    brew install zsh
+  elif is-debian; then
+    echo "**************************************************"
+    echo "Installing Zsh with apt"
+    echo "**************************************************"
+    sudo apt install -y zsh
+  else
+    echo "**************************************************"
+    echo "Skipping Zsh installation: Unidentified OS"
+    echo "**************************************************"
+    return
+  fi
 fi
 
-brew install zsh
+grep "$(which zsh)" /etc/shells &>/dev/null || sudo zsh -c "echo $(which zsh) >> /etc/shells"
 
-grep "/usr/local/bin/zsh" /private/etc/shells &>/dev/null || sudo zsh -c "echo /usr/local/bin/zsh  >> /private/etc/shells"
-if [ "$SHELL" != "/usr/local/bin/zsh" ]; then
-  chsh -s /usr/local/bin/zsh
+if [ "$SHELL" != "$(which zsh)" ]; then
+  chsh --shell $(which zsh) $USER
 fi
 
-sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+if [ ! -d "$HOME/.oh-my-zsh" ] ; then
+  sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+fi
 
 ln -sfv "$DOTFILES_DIR/etc/zsh/austin.zsh-theme" ~/.oh-my-zsh/custom/themes/
 
 if [ -d "$HOME/.oh-my-zsh/custom/plugins/zsh-kubectl-prompt/.git" ] ; then
 	git --work-tree="$HOME/.oh-my-zsh/custom/plugins/zsh-kubectl-prompt" --git-dir="$HOME/.oh-my-zsh/custom/plugins/zsh-kubectl-prompt/.git" pull origin master;
 else
-  git clone git@github.com:superbrothers/zsh-kubectl-prompt.git "$HOME/.oh-my-zsh/custom/plugins/zsh-kubectl-prompt"
+  git clone https://github.com/superbrothers/zsh-kubectl-prompt.git "$HOME/.oh-my-zsh/custom/plugins/zsh-kubectl-prompt"
 fi
 
 
@@ -35,4 +48,4 @@ else
   git clone https://github.com/lukechilds/zsh-nvm "$HOME/.oh-my-zsh/custom/plugins/zsh-nvm"
 fi
 
-rm ~/.zcompdump*
+#rm ~/.zcompdump*
