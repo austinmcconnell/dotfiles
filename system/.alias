@@ -3,6 +3,8 @@
 ##############################
 alias gs='git status'
 alias gh='git history'
+alias gd='git diff'
+alias gdc='git diff --cached'
 alias gfa='git fetch --all'
 alias gg='git grep -n'
 
