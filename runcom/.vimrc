@@ -30,6 +30,10 @@ set autoread                                                 " auto load externa
 set undofile                                                 " Maintain undo history between sessions
 set undodir=~/.vim/undodir                                   " Store all undo history files in a single directory
 
+let g:auto_save         = 1
+let g:auto_save_silent  = 1
+let g:auto_save_events  = ["InsertLeave", "TextChanged", "FocusLost"]
+
 " Spaces & Tabs
 set tabstop=4       " number of visual spaces per TAB
 set softtabstop=4   " number of spaces in tab when editing

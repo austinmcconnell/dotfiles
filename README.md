@@ -118,10 +118,12 @@ Launch plain/vanilla vim with the following command `vanillavim`
 ### Plugins
 
 General
+  - [Ack](https://github.com/mileszs/ack.vim)
+  - [auto-save](https://github.com/907th/vim-auto-save)
   - [Nerd Tree](https://github.com/preservim/nerdtree)
   - [Lightline](https://github.com/itchyny/lightline.vim)
   - [Supertab](https://github.com/ervandew/supertab)
-  - [Ack](https://github.com/mileszs/ack.vim)
+
 
 Coding plugins
   - [Ale](https://github.com/dense-analysis/ale)

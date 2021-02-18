@@ -123,3 +123,9 @@ if [ -d "$HOME/.vim/pack/bundle/start/wiki/.git" ] ; then
 else
   git clone git@github.com:vimwiki/vimwiki.git "$HOME/.vim/pack/bundle/start/wiki"
 fi
+
+if [ -d "$HOME/.vim/pack/bundle/start/autosave/.git" ] ; then
+	git --work-tree="$HOME/.vim/pack/bundle/start/autosave" --git-dir="$HOME/.vim/pack/bundle/start/autosave/.git" pull origin master;
+else
+  git clone git@github.com:907th/vim-auto-save "$HOME/.vim/pack/bundle/start/autosave"
+fi
