@@ -9,7 +9,8 @@ else
     echo "**************************************************"
     echo "Installing Python"
     echo "**************************************************"
-    brew install pyenv
+    brew install readline xz
+    curl https://pyenv.run | bash
   elif is-debian; then
     echo "**************************************************"
     echo "Installing Python"
