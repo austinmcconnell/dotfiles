@@ -17,6 +17,7 @@ touch ~/.vimrc
 mkdir -p ~/.vim/pack/bundle/start
 mkdir -p ~/.vim/pack/bundle/opt
 mkdir -p ~/.vim/spell
+mkdir -p ~/.vim/undodir
 
 ln -sfv "$DOTFILES_DIR/etc/vim/ftplugin" ~/.vim
 

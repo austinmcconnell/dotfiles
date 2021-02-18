@@ -27,7 +27,8 @@ set scrolloff=1                                              " show at least one
 set list                                                     " display whitespace
 set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+    " set whitespace characters to highlight
 set autoread                                                 " auto load external changes to file
-
+set undofile                                                 " Maintain undo history between sessions
+set undodir=~/.vim/undodir                                   " Store all undo history files in a single directory
 
 " Spaces & Tabs
 set tabstop=4       " number of visual spaces per TAB
