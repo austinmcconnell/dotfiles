@@ -18,11 +18,6 @@ fi
 ln -sfv "$DOTFILES_DIR/runcom/.zshrc" ~
 ln -sfv "$DOTFILES_DIR/runcom/.ctags" ~
 
-if ! is-executable brew; then
-  echo "Homebrew not found. Installing..."
-  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-fi
-
 # Package managers & packages
 . "$DOTFILES_DIR/install/git.sh"
 . "$DOTFILES_DIR/install/zsh.sh"

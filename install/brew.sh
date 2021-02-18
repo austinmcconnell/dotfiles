@@ -1,14 +1,20 @@
 #!/bin/sh
-
-if ! is-executable brew; then
+if is-executable brew; then
   echo "**************************************************"
-  echo "Skipping Brew Installs: Homebrew not installed"
+  echo "Configuring Homebrew"
   echo "**************************************************"
-  return
 else
-  echo "**************************************************"
-  echo "Installing Homebrew packages"
-  echo "**************************************************"
+  if is-macos; then
+    echo "**************************************************"
+    echo "Installing Homebrew"
+    echo "**************************************************"
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  else
+    echo "**************************************************"
+    echo "Skipping Homebrew installation: Not macOS"
+    echo "**************************************************"
+    return
+  fi
 fi
 
 brew tap Goles/battery
