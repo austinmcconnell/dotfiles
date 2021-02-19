@@ -108,6 +108,8 @@ Terminal mode
 - Terminal starts in insert mode. Get to terminal-normal mode with `Ctrl + [` (i.e. `Esc`). Go back to insert mode by using `i`.
 - Close the terminal by typing `exit` or using `Ctrl + D`
 
+Documentation
+- (re)generate help docs for all plugins (including newly installed ones) with `:helptags ALL` 
 
 NERDTree
 - Move to NERDTree window (Ctrl + direction) and type `?`
