@@ -103,13 +103,33 @@ Using tags
  with `Ctrl + ]`.
 - Return to previous position/tag with `Ctrl + t`
 
+Quickfix List
+- Scope is the entire project
+- Open the quickfix list window with `:copen`
+- Close the quickfix list window with `:cclose`
+- Go to the next item on the list with `:cnext`
+- Go to the previous item on the list with `:cprev`
+- Go to the first item on the list with `:cfirst`
+- Go to the last item on the list with `:clast`
+- Go to the nth item with `:cc #`
+
+Location List
+- Scope is the current window
+- Open location list window with `:lopen`
+- Close location list window with `:lclose`
+- Go to the next item on the list with `:lnext`
+- Go to the previous item on the list with `:lprev`
+- Go to the first item on the list with `:lfirst`
+- Go to the last item on the list `:llast`
+- Go to the nth item with `:ll #`
+
 Terminal mode
 - Launch a split-screen terminal with `:term`
 - Terminal starts in insert mode. Get to terminal-normal mode with `Ctrl + [` (i.e. `Esc`). Go back to insert mode by using `i`.
 - Close the terminal by typing `exit` or using `Ctrl + D`
 
 Documentation
-- (re)generate help docs for all plugins (including newly installed ones) with `:helptags ALL` 
+- (re)generate help docs for all plugins (including newly installed ones) with `:helptags ALL`
 
 NERDTree
 - Move to NERDTree window (Ctrl + direction) and type `?`
