@@ -141,7 +141,7 @@ let g:lightline = {
 
 " Ale
 let g:ale_fix_on_save = 1
-let g:ale_open_list=1                         " automatically open list when issues found
+let g:ale_open_list=0                         " automatically open location list when issues found
 let g:ale_lint_on_text_changed='always'       " run linter when text changed in insert or normal mode
 let g:ale_completion_enabled = 1              " turn on ale completion
 set omnifunc=ale#completion#OmniFunc          " use ale for insert auto-completion
