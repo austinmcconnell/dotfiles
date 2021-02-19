@@ -47,6 +47,7 @@ set number              " show line numbers
 set ruler               " show cursor line and column number
 set showmatch           " highlight matching [{()}]
 set laststatus=2        " always show statusline
+set showtabline=2       " always show tabline
 
 
 " Searching
