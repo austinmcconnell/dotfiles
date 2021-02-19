@@ -66,6 +66,10 @@ nnoremap <C-J> <C-W><C-J>|      " jump to split below current
 nnoremap <C-K> <C-W><C-K>|      " jump to split above current
 nnoremap <C-L> <C-W><C-L>|      " jump to split to the right of current
 nnoremap <C-H> <C-W><C-H>|      " jump to split to the left of current
+tnoremap <C-J> <C-W><C-J>|      " jump to split below current
+tnoremap <C-K> <C-W><C-K>|      " jump to split above current
+tnoremap <C-L> <C-W><C-L>|      " jump to split to the right of current
+tnoremap <C-H> <C-W><C-H>|      " jump to split to the left of current
 
 
 " Folding
@@ -73,6 +77,11 @@ set foldenable          " enable folding
 set foldmethod=indent   " fold based on indent level
 set foldlevelstart=99   " open all folds by default
 nnoremap <space> za|    " fold via spacebar
+
+
+" Terminal
+tnoremap <Esc> <C-\><C-n>|      " get to terminal normal mode
+map <Leader>t :term <cr>|       " vim-powered terminal in split window
 
 
 " NERDTree
@@ -92,7 +101,7 @@ let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"   " force Supertab to 
 
 " Tagbar
 set tags+=.git/tags                                            " add custom tags build location to tags search path
-nnoremap <leader>t :TagbarToggle<CR>
+nnoremap <leader>T :TagbarToggle<CR>
 autocmd FileType python  nested :call tagbar#autoopen(0)       " show Tagbar when opening python files
 
 

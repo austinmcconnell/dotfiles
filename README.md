@@ -100,8 +100,14 @@ Using buffers
 - Open a new file and splits your screen vertically to show more than one buffer with `:vsp [filename]`
 
 Using tags
-- When on a function you want to know more about, jump to it's tag with `Ctrl + ]`.
+ with `Ctrl + ]`.
 - Return to previous position/tag with `Ctrl + t`
+
+Terminal mode
+- Launch a split-screen terminal with `:term`
+- Terminal starts in insert mode. Get to terminal-normal mode with `Ctrl + [` (i.e. `Esc`). Go back to insert mode by using `i`.
+- Close the terminal by typing `exit` or using `Ctrl + D`
+
 
 NERDTree
 - Move to NERDTree window (Ctrl + direction) and type `?`
