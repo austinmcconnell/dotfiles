@@ -12,7 +12,8 @@ sub_help () {
   echo "   dock             Apply macOS Dock settings"
   echo "   edit             Open dotfiles in IDE ($DOTFILES_IDE) and Git GUI ($DOTFILES_GIT_GUI)"
   echo "   help             This help message"
-  echo "   macos            Apply macOS system defaults"
+  echo "   mac-defaults     Apply macOS system defaults"
+  echo "   mac-apps         Install macOS applications"
   echo "   test             Run tests"
   echo "   update           Update packages and pkg managers (OS, brew)"
 }
@@ -37,11 +38,15 @@ sub_clean () {
   brew cask cleanup
 }
 
-sub_macos () {
+sub_mac-defaults () {
   for DEFAULTS_FILE in "${DOTFILES_DIR}"/macos/defaults*.sh; do
     echo "Applying ${DEFAULTS_FILE}" && . "${DEFAULTS_FILE}"
   done
   echo "Done. Some changes may require a logout/restart to take effect."
+}
+
+sub_mac-apps () {
+  . "${DOTFILES_DIR}/macos/apps.sh"
 }
 
 sub_dock () {
