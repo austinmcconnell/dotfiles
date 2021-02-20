@@ -38,6 +38,7 @@ set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+    " set whitespace ch
 set autoread                                                 " auto load external changes to file
 set undofile                                                 " Maintain undo history between sessions
 set undodir=~/.vim/undodir                                   " Store all undo history files in a single directory
+nnoremap <leader>u :UndotreeToggle<CR>|                      " Toggle undotree
 
 let g:auto_save         = 1
 let g:auto_save_silent  = 1

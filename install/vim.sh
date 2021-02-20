@@ -142,3 +142,9 @@ if [ -d "$HOME/.vim/pack/bundle/start/autosave/.git" ] ; then
 else
   git clone https://github.com/907th/vim-auto-save "$HOME/.vim/pack/bundle/start/autosave"
 fi
+
+if [ -d "$HOME/.vim/pack/bundle/start/undotree/.git" ] ; then
+	git --work-tree="$HOME/.vim/pack/bundle/start/undotree" --git-dir="$HOME/.vim/pack/bundle/start/undotree/.git" pull origin master;
+else
+  git clone https://github.com/mbbill/undotree "$HOME/.vim/pack/bundle/start/undotree"
+fi

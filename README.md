@@ -174,6 +174,7 @@ Leader Mappings
 - Leader + f    --> search via ack
 - Leader + ww   --> launch wiki
 - Leader + s    --> toggle spellcheck
+- Leader + u    --> toggle undotree
 
 Using tabs
 - List all open tabs with `:tabs`
