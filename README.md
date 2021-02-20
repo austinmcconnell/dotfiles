@@ -160,8 +160,10 @@ Spelling
 - zw: mark a good word as misspelled
 
 Substitution
-- %s/foo/bar/g: change "foo" to "bar" on every line
-- %s/foo/bar/gc: change "foo" to "bar" on every line and confirm each change
+- s/foo/bar/g: change each "foo" to "bar" on current line
+- %s/foo/bar/g: change each "foo" to "bar" on every line
+- %s/foo/bar/gc: change each "foo" to "bar" on every line and confirm each change
+- `:s` or `&``: repeat the last substitution
 
 Leader Mappings
 - Leader key is mapped to `;`
