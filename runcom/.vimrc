@@ -53,6 +53,7 @@ set showtabline=2       " always show tabline
 
 " Searching
 set incsearch                        " search as characters are entered
+set ignorecase                       " perform case-insensitive searches
 set hlsearch                         " highlight matches
 set path+=**                         " search down into subfolders
 set wildmenu                         " display all matching files when I tab complete
