@@ -163,6 +163,7 @@ Leader Mappings
 - Leader + gy   --> enable goyo/limelight
 - Leader + f    --> search via ack
 - Leader + ww   --> launch wiki
+- Leader + s    --> toggle spellcheck
 
 Using tabs
 - List all open tabs with `:tabs`
