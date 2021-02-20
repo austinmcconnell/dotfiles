@@ -22,6 +22,7 @@ set backspace=indent,eol,start                               " make backspace be
 set spell                                                    " enable spellchecking
 nnoremap <leader>s :set spell!<CR>|                          " toggle spellchecking
 set spellfile=~/.vim/spell/en.utf-8.add                      " set custom dictionary file location
+hi SpellBad ctermfg=206
 nnoremap j gj|                                               " move cursor visually down one line even when text is wrapped
 nnoremap k gk|                                               " move cursor visually up one line even when text is wrapped
 set scrolloff=1                                              " show at least one line below cursor
