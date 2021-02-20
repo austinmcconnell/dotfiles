@@ -9,6 +9,13 @@ filetype on                 " try to detect filetype when opening a file
 filetype plugin on          " load plugin for related filetype
 filetype indent on          " load indent standards for related filetype
 
+augroup my_colours
+  autocmd!
+  autocmd ColorScheme solarized hi SpellBad ctermfg=206
+  autocmd ColorScheme solarized hi SpellCap ctermfg=77
+  autocmd ColorScheme solarized hi SpellRare ctermfg=77
+  autocmd ColorScheme solarized hi SpellLocal ctermfg=77
+augroup END
 
 " Colors
 syntax enable               " enable syntax highlighting
@@ -22,7 +29,6 @@ set backspace=indent,eol,start                               " make backspace be
 set spell                                                    " enable spellchecking
 nnoremap <leader>s :set spell!<CR>|                          " toggle spellchecking
 set spellfile=$HOME/Dropbox/vim/spell/en.utf-8.add           " set custom dictionary file location
-hi SpellBad ctermfg=206
 nnoremap j gj|                                               " move cursor visually down one line even when text is wrapped
 nnoremap k gk|                                               " move cursor visually up one line even when text is wrapped
 set scrolloff=1                                              " show at least one line below cursor
