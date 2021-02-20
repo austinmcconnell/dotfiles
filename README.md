@@ -43,39 +43,122 @@ Use the [Makefile](./Makefile) to install everything [listed above](#package-ove
 
 ## Vim
 
-Practice by running `vimtutor`
-
 Host Key Mapping
 - Map `Caps Lock` key to `Ctrl`
 - To exit vim's insert mode, use either `Ctrl + c` or `Ctrl + [`
 
-Movement commands
-- Put the cursor at the top of the screen with `H`
-- Put the cursor in the middle of the screen with `M`
-- Put the cursor at the bottom of the screen with `L`
+Practice by running `vimtutor`
 
-- Put the cursor at the start of the next word with `w`
-- Put the cursor at the start of the previous word with `b`
-- Put the cursor at the end of a word with `e`
+Verbs
+- d: delete
+- c: change
+- y: yank (copy)
+- v: visually select characters (V for lines)
 
-- Put the cursor at the beginning of a line with `0`
-- Put the cursor at the end of a line with `$`
+Modifiers
+- i: inside
+- a: around
+- NUM: number (e.g. 1,2,5)
+- t: search for something and stop before it
+- f: search for something and stop on it
 
-- Takes you to the start of the next sentence with `)`
-- Takes you to the start of the previous sentence with `(`
-- Takes you to the start of the next paragraph or block of text with `}`
-- Takes you to the start of the previous paragraph or block of text with `{`
+Nouns
+- w: word
+- s: sentence
+- ): sentence (another way of doing it)
+- p: paragraph
+- }: paragraph (another way of doing it)
+- t: tag (like HTML tags)
+- b: block (like programming blocks)
+-
+Searching
+- /{string}: search for string
+- t: jump to a character
+- f: jump onto a character
+- *: search for other instances of the word under your cursor
+- n: go to the next instance (when you've searched for a string)
+- N: go to the previous instance (when you've searched for a string)
+- ;: go to the next instance (when you've jumped to a character)
+- ,: go to the previous instance (when you've jumped to a character)
 
-- Put the cursor at the start of the file with `gg`
-- Put the cursor at the end of the file with `G`
-- Put the cursor at a specific line number with `#G`
+Motions
+- j: move down one line
+- k: move up one line
+- h: move left one character
+- l: move right one character
+- 0: move to the beginning of the line
+- $: move to the end of the line
+- ^: move to the first non-blank character in the line
+- w: move forward one word
+- b: move back one word
+- e: move to the end of your word
+- ): move forward one sentence
+- (: move back one sentence
+- }: move forward one paragraph
+- {: move back one paragraph
+- H: move to the top of the screen
+- M: move to the middle of the screen
+- L: move to the bottom of the screen
+- gg: go to the top of the file
+- G: go to the bottom of the file
+- #G: go to a line number
+- ^U: move up half a screen
+- ^D: move down half a screen
+- ^F: page down
+- ^B: page up
+- Ctrl-i: jump to your previous navigation location
+- Ctrl-o: jump back to where you were
+- Ctrl-j: jump to the split above current window
+- Ctrl-k: jump to the split below current window
+- Ctrl-h: jump to the split to the right of current window
+- Ctrl-l: jump to the split to the left of current window
 
+Switching to Insert Mode
+- i: insert before the cursor
+- a: append after the cursor
+- I: insert at the beginning of the line
+- A: append at the end of the line
+- o: open a new line below the current one
+- O: Open a new line above the current one
+- r: replace the character under your cursor
+- R: replace the character under your cursor and keep typing
+- cm: change whatever you define as a movement (e.g. word, sentence, paragraph)
+- C: change the current line starting from cursor
+- ct?: change up to the question mark
+- s: substitute from where you are to the next command (noun)
+- S: substitute the entire current line
 
-- Jump between splits by using `Ctrl` plus direction (j,k.l,h)
+Deleting text
+- x: exterminate (delete) the character under your cursor
+- X: exterminate (delete) the character before the cursor
+- dm: delete whatever you define as a movement (e.g. word, sentence, paragraph)
+- dd: delete the current line
+- dt?: delete from where you are to the question mark
+- D: delete to the end of the line
+- J: join the current line with the next one (delete what's between)
+
+Undo and Redo
+- u: undo your last action
+- Ctrl-r: redo the last action
+
+Repeating actions
+- .: repeat your last action
+
+Spelling
+- ]s: go to next misspelled word
+- [s: go to previous misspelled word
+- z=: get suggestions for misspelled word
+- zg: mark misspelled word as correct
+- zw: mark a good word as misspelled
+
+Substitution
+- %s/foo/bar/g: change "foo" to "bar" on every line
+- %s/foo/bar/gc: change "foo" to "bar" on every line and confirm each change
 
 Leader Mappings
 - Leader key is mapped to `;`
-- Leader + t    --> toggle tagbar
+- Leader + t    --> launch a terminal window
+- Leader + T    --> toggle tagbar
 - Leader + n    --> toggle nerdtree
 - Leader + gy   --> enable goyo/limelight
 - Leader + f    --> search via ack
@@ -162,3 +245,6 @@ Writing
   - [Goyo](https://github.com/junegunn/goyo.vim)
   - [Limelight](https://github.com/junegunn/limelight.vim)
   - [Vim Wiki](https://github.com/vimwiki/vimwiki)
+
+### [References](References)
+  - https://danielmiessler.com/study/vim/
