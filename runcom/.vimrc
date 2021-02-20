@@ -27,6 +27,7 @@ let python_highlight_all=1  " enable all Python syntax highlighting features
 " Editing
 set backspace=indent,eol,start                               " make backspace behave like normal in insert mode
 set spell                                                    " enable spellchecking
+set spelllang=en_us                                          " set spell language to US English
 nnoremap <leader>s :set spell!<CR>|                          " toggle spellchecking
 set spellfile=$HOME/Dropbox/vim/spell/en.utf-8.add           " set custom dictionary file location
 nnoremap j gj|                                               " move cursor visually down one line even when text is wrapped
