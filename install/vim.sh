@@ -131,12 +131,6 @@ else
   git clone https://github.com/mileszs/ack.vim.git "$HOME/.vim/pack/bundle/start/ack"
 fi
 
-if [ -d "$HOME/.vim/pack/bundle/start/wiki/.git" ] ; then
-	git --work-tree="$HOME/.vim/pack/bundle/start/wiki" --git-dir="$HOME/.vim/pack/bundle/start/wiki/.git" pull origin master;
-else
-  git clone https://github.com/vimwiki/vimwiki.git "$HOME/.vim/pack/bundle/start/wiki"
-fi
-
 if [ -d "$HOME/.vim/pack/bundle/start/autosave/.git" ] ; then
 	git --work-tree="$HOME/.vim/pack/bundle/start/autosave" --git-dir="$HOME/.vim/pack/bundle/start/autosave/.git" pull origin master;
 else
