@@ -194,6 +194,9 @@ let wiki_1.ext = '.md'
 let g:vimwiki_list = [wiki_1]
 
 
+" GitGutter
+highlight! link SignColumn LineNr
+
 " Markdown
 autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 
