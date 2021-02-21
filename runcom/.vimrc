@@ -57,8 +57,8 @@ set number              " show line numbers
 set ruler               " show cursor line and column number
 set showmatch           " highlight matching [{()}]
 set laststatus=2        " always show statusline
-set showtabline=2       " always show tabline
-
+"set showtabline=2       " always show tabline
+"^commenting out showtabline while using vim-buftabline plugin
 
 " Searching
 set incsearch                        " search as characters are entered
@@ -94,6 +94,9 @@ nnoremap <space> za|    " fold via spacebar
 " Terminal
 tnoremap <Esc> <C-\><C-n>|      " get to terminal normal mode
 map <Leader>t :term <cr>|       " vim-powered terminal in split window
+
+" Buftabline
+let g:buftabline_numbers=1      "use buffer number as buffer label
 
 
 " NERDTree

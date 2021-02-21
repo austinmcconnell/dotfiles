@@ -142,3 +142,9 @@ if [ -d "$HOME/.vim/pack/bundle/start/undotree/.git" ] ; then
 else
   git clone https://github.com/mbbill/undotree "$HOME/.vim/pack/bundle/start/undotree"
 fi
+
+if [ -d "$HOME/.vim/pack/bundle/start/buftabline/.git" ] ; then
+	git --work-tree="$HOME/.vim/pack/bundle/start/buftabline" --git-dir="$HOME/.vim/pack/bundle/start/buftabline/.git" pull origin master;
+else
+  git clone https://github.com/ap/vim-buftabline "$HOME/.vim/pack/bundle/start/buftabline"
+fi
