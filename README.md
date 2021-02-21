@@ -187,6 +187,8 @@ Using tabs
 Using buffers
 - List all open buffers with `:ls`
 - Edit a file with `:e [filename]`
+- Reload external changes to a file with `:e`
+- Reload external changes and discard unsaved work with `:e!`
 - Switch to next buffer with `:bn`
 - Switch to previous buffer with `:bp`
 - Move to a specific buffer number with `:b#` (e.g. :b7 takes you to the third buffer)
