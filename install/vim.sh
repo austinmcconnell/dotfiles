@@ -54,7 +54,7 @@ fi
 if [ -d "$HOME/.vim/pack/bundle/start/nerdtree/.git" ] ; then
 	git --work-tree="$HOME/.vim/pack/bundle/start/nerdtree" --git-dir="$HOME/.vim/pack/bundle/start/nerdtree/.git" pull origin master;
 else
-  git clone https://github.com/scrooloose/nerdtree.git "$HOME/.vim/pack/bundle/start/nerdtree"
+  git clone https://github.com/preservim/nerdtree.git "$HOME/.vim/pack/bundle/start/nerdtree"
 fi
 
 if [ -d "$HOME/.vim/pack/bundle/start/nerdtree-git/.git" ] ; then
