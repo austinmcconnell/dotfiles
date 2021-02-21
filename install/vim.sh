@@ -65,12 +65,6 @@ else
   (cd "$HOME/.vim/pack/bundle/start/jedi-vim" && git submodule update --init --recursive;)
 fi
 
-if [ -d "$HOME/.vim/pack/bundle/start/supertab/.git" ] ; then
-	git --work-tree="$HOME/.vim/pack/bundle/start/supertab" --git-dir="$HOME/.vim/pack/bundle/start/supertab/.git" pull origin master;
-else
-  git clone https://github.com/ervandew/supertab.git "$HOME/.vim/pack/bundle/start/supertab"
-fi
-
 if [ -d "$HOME/.vim/pack/bundle/start/tagbar/.git" ] ; then
 	git --work-tree="$HOME/.vim/pack/bundle/start/tagbar" --git-dir="$HOME/.vim/pack/bundle/start/tagbar/.git" pull origin master;
 else
