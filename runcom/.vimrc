@@ -36,6 +36,7 @@ set scrolloff=1                                              " show at least one
 set list                                                     " display whitespace
 set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+    " set whitespace characters to highlight
 set autoread                                                 " auto load external changes to file
+set autowriteall                                             " automatically write to file
 set undofile                                                 " Maintain undo history between sessions
 set undodir=~/.vim/undodir                                   " Store all undo history files in a single directory
 nnoremap <leader>u :UndotreeToggle<CR>|                      " Toggle undotree
@@ -90,6 +91,8 @@ set foldmethod=indent   " fold based on indent level
 set foldlevelstart=99   " open all folds by default
 nnoremap <space> za|    " fold via spacebar
 
+" Buffers
+nnoremap <Leader>b :buffers<CR>:buffer<Space>
 
 " Terminal
 tnoremap <Esc> <C-\><C-n>|      " get to terminal normal mode
