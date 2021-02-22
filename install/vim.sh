@@ -63,14 +63,6 @@ else
   git clone https://github.com/Xuyuanp/nerdtree-git-plugin.git "$HOME/.vim/pack/bundle/start/nerdtree-git"
 fi
 
-if [ -d "$HOME/.vim/pack/bundle/start/jedi-vim/.git" ] ; then
-	git --work-tree="$HOME/.vim/pack/bundle/start/jedi-vim" --git-dir="$HOME/.vim/pack/bundle/start/jedi-vim/.git" pull origin master;
-  (cd "$HOME/.vim/pack/bundle/start/jedi-vim" && git submodule update --init --recursive;)
-else
-  git clone https://github.com/davidhalter/jedi-vim.git "$HOME/.vim/pack/bundle/start/jedi-vim"
-  (cd "$HOME/.vim/pack/bundle/start/jedi-vim" && git submodule update --init --recursive;)
-fi
-
 if [ -d "$HOME/.vim/pack/bundle/start/tagbar/.git" ] ; then
 	git --work-tree="$HOME/.vim/pack/bundle/start/tagbar" --git-dir="$HOME/.vim/pack/bundle/start/tagbar/.git" pull origin master;
 else
