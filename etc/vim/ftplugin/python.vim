@@ -14,3 +14,5 @@ let b:ale_fixers = [
   \ ]
 
 let g:ale_python_auto_pipenv=1
+
+let g:ale_python_isort_options = '--settings-path ~/.config/isort/.isort.cfg'

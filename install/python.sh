@@ -29,11 +29,13 @@ fi
 
 mkdir -p ~/.config/proselint
 mkdir -p ~/.config/mypy
+mkdir -p ~/.config/isort/
 
 ln -sfv "$DOTFILES_DIR/etc/python/flake8" ~/.config
 ln -sfv "$DOTFILES_DIR/etc/python/pylintrc" ~/.config
 ln -sfv "$DOTFILES_DIR/etc/python/proselint" ~/.config/proselint/config
 ln -sfv "$DOTFILES_DIR/etc/python/mypy" ~/.config/mypy/config
+ln -sfv "$DOTFILES_DIR/etc/python/.isort.cfg" ~/.config/isort/.isort.cfg
 
 DEFAULT_PYTHON_VERSION=3.7.4
 
