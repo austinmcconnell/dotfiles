@@ -93,7 +93,7 @@ nnoremap <Leader>b :buffers<CR>:buffer<Space>
 
 " Terminal
 tnoremap <Esc> <C-\><C-n>|      " get to terminal normal mode
-map <Leader>t :term <cr>|       " vim-powered terminal in split window
+map <Leader>T :term <cr>|       " vim-powered terminal in split window
 
 " Buftabline
 let g:buftabline_numbers=1      "use buffer number as buffer label
@@ -113,7 +113,7 @@ nnoremap <leader>n :NERDTreeToggle<CR>
 
 " Tagbar
 set tags+=.git/tags                                            " add custom tags build location to tags search path
-nnoremap <leader>T :TagbarToggle<CR>
+nnoremap <leader>t :TagbarToggle<CR>
 autocmd FileType python  nested :call tagbar#autoopen(0)       " show Tagbar when opening python files
 
 
