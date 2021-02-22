@@ -100,12 +100,9 @@ let g:buftabline_numbers=1      "use buffer number as buffer label
 
 
 " NERDTree
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif    " open NERDTree when opening a directory
 let NERDTreeIgnore = ['\.pyc$', '\.egg-info$', '__pycache__']  " ignore certain files and directories
 let NERDTreeShowHidden=1
-nnoremap <leader>n :NERDTreeMirror<CR>:NERDTreeToggle<CR>
-"autocmd BufWinEnter * silent NERDTreeMirror                " Open the existing NERDTree on each new tab
+nnoremap <leader>n :NERDTreeToggle<CR>
 
 
 
