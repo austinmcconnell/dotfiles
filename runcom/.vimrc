@@ -41,9 +41,6 @@ set undofile                                                 " Maintain undo his
 set undodir=~/.vim/undodir                                   " Store all undo history files in a single directory
 nnoremap <leader>u :UndotreeToggle<CR>|                      " Toggle undotree
 
-let g:auto_save         = 1
-let g:auto_save_silent  = 1
-let g:auto_save_events  = ["InsertLeave", "TextChanged"]
 
 " Spaces & Tabs
 set tabstop=4       " number of visual spaces per TAB
