@@ -2,5 +2,4 @@
 --tag-relative=yes
 --python-kinds=-i
 --exclude=.git
---exclude=.venv
 --exclude=node_modules
