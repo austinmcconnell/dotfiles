@@ -114,8 +114,6 @@ Motions
 - ^D: move down half a screen
 - ^F: page down
 - ^B: page up
-- <C-i>: jump to your previous navigation location
-- <C-o>: jump back to where you were
 - <C-j>: jump to the split above current window
 - <C-k>: jump to the split below current window
 - <C-h>: jump to the split to the right of current window
@@ -202,6 +200,13 @@ Using buffers
 - `:sp [filename]`: horizontally screen window in two and load or create [filname] buffer
 - `:vsp`: vertically split window in two. The result is two viewports on the same file
 - `:vsp [filename]`: vertically split window in two and load or create [filename] buffer
+
+Using jumps
+- A "jump" is a command that moves the cursor to another location (e.g. G, %, ), ],})
+- There is a separate jump list for each window
+- <C-o>: go to previous position in the jump list
+- <C-i>: go to next position in the jump list
+- `:jumps`: show the contents of the jump list`
 
 Using tags
 - <C-]>: jump to tag
