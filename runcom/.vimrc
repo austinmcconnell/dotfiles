@@ -200,8 +200,6 @@ set shellpipe=>                                         " prevent ack results fr
 " GitGutter
 highlight! link SignColumn LineNr
 
-" Markdown
-autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 
 " Auto quit Vim when actual files are closed
 function! CheckLeftBuffers()
