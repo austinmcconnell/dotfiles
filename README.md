@@ -83,7 +83,7 @@ Searching
 - /{string}: search for string
 - t: jump to a character
 - f: jump onto a character
-- *: search for other instances of the word under your cursor
+- \*: search for other instances of the word under your cursor
 - n: go to the next instance (when you've searched for a string)
 - N: go to the previous instance (when you've searched for a string)
 - ;: go to the next instance (when you've jumped to a character)
