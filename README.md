@@ -206,7 +206,8 @@ Using buffers
 Using tags
 - <C-]>: jump to tag
 - g<C-]>: show all matching tags
-- <C-t>: return to previous position
+- <C-t>: jump to previous position in the tag stack
+- `:tags`: show the contents of the tag stack
 
 Quickfix List
 - Scope is the entire project
