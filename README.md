@@ -53,7 +53,7 @@ Use the [Makefile](./Makefile) to install everything [listed above](#package-ove
 
 Host Key Mapping
 - Map `Caps Lock` key to `Ctrl`
-- To exit vim's insert mode, use either `Ctrl + c` or `Ctrl + [`
+- To exit vim's insert mode, use either `<C-c>` or `<C-[>`
 
 Practice by running `vimtutor`
 
@@ -114,12 +114,12 @@ Motions
 - ^D: move down half a screen
 - ^F: page down
 - ^B: page up
-- Ctrl-i: jump to your previous navigation location
-- Ctrl-o: jump back to where you were
-- Ctrl-j: jump to the split above current window
-- Ctrl-k: jump to the split below current window
-- Ctrl-h: jump to the split to the right of current window
-- Ctrl-l: jump to the split to the left of current window
+- <C-i>: jump to your previous navigation location
+- <C-o>: jump back to where you were
+- <C-j>: jump to the split above current window
+- <C-k>: jump to the split below current window
+- <C-h>: jump to the split to the right of current window
+- <C-l>: jump to the split to the left of current window
 
 Switching to Insert Mode
 - i: insert before the cursor
@@ -147,7 +147,7 @@ Deleting text
 
 Undo and Redo
 - u: undo your last action
-- Ctrl-r: redo the last action
+- <C-r>: redo the last action
 
 Repeating actions
 - .: repeat your last action
@@ -181,63 +181,62 @@ Leader Mappings
 - Leader + s    --> toggle spellcheck
 - Leader + u    --> toggle undotree
 
-Using tabs
-- List all open tabs with `:tabs`
-- Edit a file in a new tab with `:tabedit [filename]`
-- move to the next tab with `gt`
-- move to the previous tab with `gT`
-- move to a specific tab number  with `#gt` (e.g. 2gt takes you to the second tab)
-- close a single tab with `:tabclose`
+Using tabs (think of these as 'layouts' or 'workspaces' instead of a browser or file editor 'tab')
+- `:tabs`: list all open tabs
+- `:tabedit [filename]`: edit a file in a new tab
+- gt: move to the next tab
+- gT: move to the previous tab
+- {num}gt: move to a specific tab number
+- `:tabclose`: close a single tab
 
 Using buffers
-- List all open buffers with `:ls`
-- Edit a file with `:e [filename]`
-- Reload external changes to a file with `:e`
-- Reload external changes and discard unsaved work with `:e!`
-- Switch to next buffer with `:bn`
-- Switch to previous buffer with `:bp`
-- Move to a specific buffer number with `:b#` (e.g. :b7 takes you to the third buffer)
-- Close a buffer with `:bd`
-- Open a new file and splits your screen horizontally to show more than one buffer with `:sp [filename]`
-- Open a new file and splits your screen vertically to show more than one buffer with `:vsp [filename]`
+- `:ls`: list all open buffers
+- `:e` {char}`: edit a file
+- `:e`: reload external changes to a file
+- `:e!`: reload external changes and discard unsaved work in buffer
+- `:bn`: switch to next buffer
+- `:bp`: switch to previous buffer
+- `:b{num}`: move to the specified buffer
+- `:bd`: close/delete a buffer
+- `:sp`: horizontally split window in two. The result is two viewports on the same file
+- `:sp [filename]`: horizontally screen window in two and load or create [filname] buffer
+- `:vsp`: vertically split window in two. The result is two viewports on the same file
+- `:vsp [filename]`: vertically split window in two and load or create [filename] buffer
 
 Using tags
- with `Ctrl + ]`.
-- Return to previous position/tag with `Ctrl + t`
+- <C-]>: jump to tag
+- g<C-]>: show all matching tags
+- <C-t>: return to previous position
 
 Quickfix List
 - Scope is the entire project
-- Open the quickfix list window with `:copen`
-- Close the quickfix list window with `:cclose`
-- Go to the next item on the list with `:cnext`
-- Go to the previous item on the list with `:cprev`
-- Go to the first item on the list with `:cfirst`
-- Go to the last item on the list with `:clast`
-- Go to the nth item with `:cc #`
+- `:copen`: open the quickfix list window
+- `:cclose`: close the quickfix list window
+- `:cnext`: go to the next item on the list
+- `:cprev`: go to the previous item on the list
+- `:cfirst`: go to the first item on the list
+- `:clast`: go to the last item on the list
+- `:cc{num}`: go to the nth item on the list
 
 Location List
 - Scope is the current window
-- Open location list window with `:lopen`
-- Close location list window with `:lclose`
-- Go to the next item on the list with `:lnext`
-- Go to the previous item on the list with `:lprev`
-- Go to the first item on the list with `:lfirst`
-- Go to the last item on the list `:llast`
-- Go to the nth item with `:ll #`
+- `:lopen`: open location list window
+- `:lclose`: close location list window
+- `:lnext`: go to the next item on the list
+- `:lprev`: go to the previous item on the list
+- `:lfirst`: go to the first item on the list
+- `:llast`: go to the last item on the list
+- `:ll{num}`: go to the nth item on the list
 
 Terminal mode
-- Launch a split-screen terminal with `:term`
-- Terminal starts in insert mode. Get to terminal-normal mode with `Ctrl + [` (i.e. `Esc`). Go back to insert mode by using `i`.
-- Close the terminal by typing `exit` or using `Ctrl + D`
+- Terminal starts in insert mode
+- `:term`: launch a split-screen terminal
+- <C-[>: enter terminal-normal mode
+- i: enter insert mode
+- <C-D> or exit: close the terminal window
 
 Documentation
-- (re)generate help docs for all plugins (including newly installed ones) with `:helptags ALL`
-
-NERDTree
-- Move to NERDTree window (Ctrl + direction) and type `?`
-Commands
-t: open in new tab
-T: open in new tab silently
+- `:helptags ALL`: regenerate help docs for all plugins
 
 Launch plain/vanilla vim with the following command `vanillavim`
 
