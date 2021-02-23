@@ -165,6 +165,11 @@ Substitution
 - %s/foo/bar/gc: change each "foo" to "bar" on every line and confirm each change
 - `:s` or `&``: repeat the last substitution
 
+Completion in Insert Mode
+- <C-n>: find next match from 'complete' option
+- <C-p>: find prev match from 'complete' option
+- <C-x><C-o>: find matches from 'omnicomplete' (smart autocomplete for programs)
+
 Leader Mappings
 - Leader key is mapped to `;`
 - Leader + t    --> launch a terminal window
