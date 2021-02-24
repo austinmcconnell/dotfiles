@@ -117,12 +117,6 @@ else
   git clone https://github.com/junegunn/limelight.vim.git "$HOME/.vim/pack/bundle/start/limelight"
 fi
 
-if [ -d "$HOME/.vim/pack/bundle/start/ack/.git" ] ; then
-	git --work-tree="$HOME/.vim/pack/bundle/start/ack" --git-dir="$HOME/.vim/pack/bundle/start/ack/.git" pull origin master;
-else
-  git clone https://github.com/mileszs/ack.vim.git "$HOME/.vim/pack/bundle/start/ack"
-fi
-
 if [ -d "$HOME/.vim/pack/bundle/start/undotree/.git" ] ; then
 	git --work-tree="$HOME/.vim/pack/bundle/start/undotree" --git-dir="$HOME/.vim/pack/bundle/start/undotree/.git" pull origin master;
 else

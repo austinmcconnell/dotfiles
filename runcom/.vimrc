@@ -184,13 +184,6 @@ autocmd! User GoyoLeave Limelight!
 let g:limelight_conceal_ctermfg = '240'    " set foreground conceal color
 
 
-" Ack
-let g:ackprg = 'ag --nogroup --nocolor --column'        " tell ack to use ag for searching
-let g:ackhighlight = 1                                  " highlight search in files
-nnoremap <Leader>f :Ack!<SPACE>
-set shellpipe=>                                         " prevent ack results from echoing to terminal
-
-
 " VimWiki
 "let wiki_1 = {}
 "let wiki_1.path = '~/dropbox/wiki/'
