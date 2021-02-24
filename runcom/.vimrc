@@ -184,6 +184,10 @@ autocmd! User GoyoLeave Limelight!
 let g:limelight_conceal_ctermfg = '240'    " set foreground conceal color
 
 
+" Grepper
+nnoremap <leader>f :Grepper -highlight<cr>
+
+
 " VimWiki
 "let wiki_1 = {}
 "let wiki_1.path = '~/dropbox/wiki/'

@@ -9,15 +9,14 @@ else
     echo "**************************************************"
     echo "Installing Vim"
     echo "**************************************************"
-    brew install vim
-    brew install ctags
+    brew install vim ctags the_silver_searcher
   elif is-debian; then
     echo "**************************************************"
     echo "Installing Vim"
     echo "**************************************************"
     sudo add-apt-repository -y ppa:jonathonf/vim
     sudo apt update
-    sudo apt install -y vim ctags
+    sudo apt install -y vim ctags silversearcher-ag
   else
     echo "**************************************************"
     echo "Skipping Vim installation: Unidentified OS"
@@ -127,4 +126,10 @@ if [ -d "$HOME/.vim/pack/bundle/start/buftabline/.git" ] ; then
 	git --work-tree="$HOME/.vim/pack/bundle/start/buftabline" --git-dir="$HOME/.vim/pack/bundle/start/buftabline/.git" pull origin master;
 else
   git clone https://github.com/ap/vim-buftabline "$HOME/.vim/pack/bundle/start/buftabline"
+fi
+
+if [ -d "$HOME/.vim/pack/bundle/start/grepper/.git" ] ; then
+	git --work-tree="$HOME/.vim/pack/bundle/start/grepper" --git-dir="$HOME/.vim/pack/bundle/start/grepper/.git" pull origin master;
+else
+  git clone https://github.com/mhinz/vim-grepper  "$HOME/.vim/pack/bundle/start/grepper"
 fi
