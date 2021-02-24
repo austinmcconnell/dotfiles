@@ -157,6 +157,11 @@ Useful text objects
 - i' and a': inside singe quotes and around single quotes
 - i" and a": inside double quotes and around double quotes
 
+Visual mode
+- v: character based visual mode
+- V: line based visual mode
+- <C-v>: paragraph based visual mode
+
 Spelling
 - ]s: go to next misspelled word
 - [s: go to previous misspelled word
