@@ -65,6 +65,7 @@ set hlsearch                         " highlight matches
 set path+=**                         " search down into subfolders
 set wildmenu                         " display all matching files when I tab complete
 set wildignore+=*.pyc                " ignore python cache files  when searching
+set wildignore+=*/__pycache__/*      " ignore __pycache__ directory when searching
 set wildignore+=*/.venv/*            " ignore .venv directory when searching
 set wildignore+=*/venv/*             " ignore venv directory when searching
 set wildignore+=*/build/*            " ignore build directory when searching
