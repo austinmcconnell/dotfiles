@@ -150,6 +150,13 @@ Undo and Redo
 Repeating actions
 - .: repeat your last action
 
+Useful text objects
+- iw and aw: inside word and around word
+- is and as: inside sentence and around sentence
+- ip and ap: inside paragraph and around paragraph
+- i' and a': inside singe quotes and around single quotes
+- i" and a": inside double quotes and around double quotes
+
 Spelling
 - ]s: go to next misspelled word
 - [s: go to previous misspelled word
