@@ -32,6 +32,7 @@ nnoremap <leader>s :set spell!<CR>|                          " toggle spellcheck
 set spellfile=$HOME/Dropbox/vim/spell/en.utf-8.add           " set custom dictionary file location
 nnoremap j gj|                                               " move cursor visually down one line even when text is wrapped
 nnoremap k gk|                                               " move cursor visually up one line even when text is wrapped
+vnoremap . :norm.<CR>|                                       " use period to execute a stored action in visual mode
 set scrolloff=1                                              " show at least one line below cursor
 set list                                                     " display whitespace
 set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+    " set whitespace characters to highlight
