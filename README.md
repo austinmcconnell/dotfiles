@@ -67,8 +67,6 @@ Modifiers
 - i: inside
 - a: around
 - NUM: number (e.g. 1,2,5)
-- t: search for something and stop before it
-- f: search for something and stop on it
 
 Nouns
 - w: word
@@ -81,13 +79,15 @@ Nouns
 -
 Searching
 - /{string}: search for string
-- t: jump to a character
-- f: jump onto a character
-- \*: search for other instances of the word under your cursor
 - n: go to the next instance (when you've searched for a string)
 - N: go to the previous instance (when you've searched for a string)
-- ;: go to the next instance (when you've jumped to a character)
-- ,: go to the previous instance (when you've jumped to a character)
+- \*: search for other instances of the word under your cursor
+- t: jump forward to a character
+- T: jump backward to a character
+- f: jump forward onto a character
+- F: jump backward onto a character
+- ;: repeat the last f, F, t, or T action
+- ,: repeat the last f, F, t, or T action in the opposite direction
 
 Motions
 - j: move down one line
@@ -148,7 +148,10 @@ Undo and Redo
 - <C-r>: redo the last action
 
 Repeating actions
-- .: repeat your last action
+- .: repeat the last change
+- & or `:s`: repeat the last substitution
+- ;: repeat the last f, F, t, or T action
+- ,: repeat the last f, F, t, or T action in the opposite direction
 
 Useful text objects
 - iw and aw: inside word and around word
