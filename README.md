@@ -203,7 +203,8 @@ Using tabs (think of these as 'layouts' or 'workspaces' instead of a browser or 
 - `:tabclose`: close a single tab
 
 Using buffers
-- `:ls`: list all open buffers
+- `:ls`: show all buffers
+- `:ls!`: show all buffers including unlisted buffers
 - `:e` {char}`: edit a file
 - `:e`: reload external changes to a file
 - `:e!`: reload external changes and discard unsaved work in buffer
