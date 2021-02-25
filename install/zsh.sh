@@ -31,7 +31,9 @@ if [ "$SHELL" != "$(which zsh)" ]; then
   chsh --shell $(which zsh) $USER
 fi
 
-if [ ! -d "$HOME/.oh-my-zsh" ] ; then
+if [ -d "$HOME/.oh-my-zsh" ] ; then
+  git --work-tree="$HOME/.oh-my-zsh" --git-dir="$HOME/.oh-my-zsh/.git" pull origin master;
+else
   sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 fi
 
