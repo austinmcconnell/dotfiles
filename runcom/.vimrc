@@ -40,7 +40,6 @@ set autoread                                                 " auto load externa
 set autowriteall                                             " automatically write to file
 set undofile                                                 " Maintain undo history between sessions
 set undodir=~/.vim/undodir                                   " Store all undo history files in a single directory
-nnoremap <leader>u :UndotreeToggle<CR>|                      " Toggle undotree
 
 
 " Spaces & Tabs
@@ -109,6 +108,10 @@ let NERDTreeIgnore = ['\.pyc$', '\.egg-info$', '__pycache__']  " ignore certain 
 let NERDTreeShowHidden=1
 nnoremap <leader>n :NERDTreeToggle<CR>
 
+
+" Undotree
+let g:undotree_SetFocusWhenToggle = 1 
+nnoremap <leader>u :UndotreeToggle<CR>
 
 
 " Supertab
