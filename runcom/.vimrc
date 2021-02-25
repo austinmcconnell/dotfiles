@@ -84,6 +84,7 @@ tnoremap <C-J> <C-W><C-J>|      " jump to split below current
 tnoremap <C-K> <C-W><C-K>|      " jump to split above current
 tnoremap <C-L> <C-W><C-L>|      " jump to split to the right of current
 tnoremap <C-H> <C-W><C-H>|      " jump to split to the left of current
+autocmd VimResized * wincmd =|  " auto resize splits when window size changes
 
 
 " Folding
