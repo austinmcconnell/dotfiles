@@ -133,3 +133,9 @@ if [ -d "$HOME/.vim/pack/bundle/start/grepper/.git" ] ; then
 else
   git clone https://github.com/mhinz/vim-grepper  "$HOME/.vim/pack/bundle/start/grepper"
 fi
+
+if [ -d "$HOME/.vim/pack/bundle/start/hardtime/.git" ] ; then
+    git --work-tree="$HOME/.vim/pack/bundle/start/hardtime" --git-dir="$HOME/.vim/pack/bundle/start/hardtime/.git" pull origin master;
+else
+    git clone https://github.com/takac/vim-hardtime "$HOME/.vim/pack/bundle/start/hardtime"
+fi
