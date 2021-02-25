@@ -9,7 +9,7 @@ else
     echo "**************************************************"
     echo "Installing Zsh with brew"
     echo "**************************************************"
-    brew install zsh
+    brew install zsh kube-ps1
   elif is-debian; then
     echo "**************************************************"
     echo "Installing Zsh with apt"

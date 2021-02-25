@@ -30,6 +30,7 @@ fi
 plugins=(brew docker docker-compose git httpie pip pipenv terraform)
 
 source $ZSH/oh-my-zsh.sh
+source "/usr/local/opt/kube-ps1/share/kube-ps1.sh"
 
 export SSH_KEY_PATH=~/.ssh/id_macbookpro
 

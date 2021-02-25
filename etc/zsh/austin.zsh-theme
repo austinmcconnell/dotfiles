@@ -4,6 +4,8 @@ local path_string="%{$fg[blue]%}%~%b%{$reset_color%}"
 
 PROMPT='${user} on ${host} in ${path_string}$(git_time_since_commit)$(check_git_prompt_info)
 $ '
+# RPROMPT='$(kube_ps1)'
+PROMPT='$(kube_ps1)'$PROMPT
 
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[white]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%})"
