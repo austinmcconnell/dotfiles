@@ -39,6 +39,10 @@ defaults write com.apple.menuextra.battery ShowPercent YES
 # Set mouse scaling rate
 defaults write -g com.apple.mouse.scaling 7.0
 
+# Set key repeat rate
+defaults write -g InitialKeyRepeat -int 25
+defaults write -g KeyRepeat -int 2
+
 # Trackpad: enable tap to click for this user and for the login screen
 defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
