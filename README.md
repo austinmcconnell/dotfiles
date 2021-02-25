@@ -253,9 +253,15 @@ Location List
 Terminal mode
 - Terminal starts in insert mode
 - `:term`: launch a split-screen terminal
-- <C-[>: enter terminal-normal mode
+- <C-[> or `:sus`: enter terminal-normal mode
 - i: enter insert mode
 - <C-D> or exit: close the terminal window
+
+Suspending vim
+- <C-z>: get back to terminal without quitting vim (sends vim to background)
+- fg: type in terminal to return to session (if only one session is suspended)
+- fg [job_id]: return to a speific vim session
+- jobs: type in terminal to list all suspended vim sessions
 
 Documentation
 - `:helptags ALL`: regenerate help docs for all plugins
