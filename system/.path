@@ -5,6 +5,9 @@ is-executable getconf && PATH=$(`command -v getconf` PATH)
 
 # Prepend new items to path (if directory exists)
 
+lts_name=`cat $NVM_DIR/alias/lts/'*'`
+lts_version=`cat $NVM_DIR/alias/$lts_name`
+
 prepend-path "/bin"
 prepend-path "/usr/bin"
 prepend-path "/usr/local/bin"
@@ -18,6 +21,7 @@ prepend-path "/usr/sbin"
 prepend-path "/usr/local/sbin"
 prepend-path ~/.pyenv/shims
 prepend-path ~/.pyenv/bin
+prepend-path "$NVM_DIR/versions/node/$lts_version/bin"
 prepend-path "$GEM_HOME/bin"
 
 # Remove duplicates (preserving prepended items)
