@@ -27,7 +27,7 @@ if [ -d "$DOTFILES_EXTRA_DIR" ]; then
     done
 fi
 
-plugins=(brew docker docker-compose git httpie pip pipenv terraform)
+plugins=(brew docker docker-compose git httpie nvm pip pipenv terraform)
 
 source $ZSH/oh-my-zsh.sh
 source "/usr/local/opt/kube-ps1/share/kube-ps1.sh"
@@ -39,10 +39,6 @@ if [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.i
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc' ]; then source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'; fi
-
-#NVM
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # Source chtf
 if [[ -f /usr/local/share/chtf/chtf.sh ]]; then

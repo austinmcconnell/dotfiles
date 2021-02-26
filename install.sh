@@ -21,7 +21,7 @@ mkdir -p ~/.config
 . "$DOTFILES_DIR/install/zsh.sh"
 . "$DOTFILES_DIR/install/brew.sh"
 . "$DOTFILES_DIR/install/python.sh"
-# . "$DOTFILES_DIR/install/nvm.sh"
+. "$DOTFILES_DIR/install/nvm.sh"
 . "$DOTFILES_DIR/install/vim.sh"
 
 touch ~/.hushlogin
