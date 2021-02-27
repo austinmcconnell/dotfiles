@@ -1,3 +1,5 @@
+set colorcolumn=101
+
 " Enable Python linters
 let b:ale_linters = [
   \ 'flake8',
