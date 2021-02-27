@@ -1,10 +1,19 @@
 set colorcolumn=101
 
+if executable('pyls')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'whitelist': ['python'],
+        \ })
+endif
+
 " Enable Python linters
 let b:ale_linters = [
   \ 'flake8',
   \ 'mypy',
   \ 'pylint',
+  \ 'pyls',
   \ ]
 
 " Enable Python fixers
