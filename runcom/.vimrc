@@ -175,6 +175,11 @@ let g:ale_fix_on_save = 1
 let g:ale_open_list=0                         " automatically open location list when issues found
 let g:ale_lint_on_text_changed='always'       " run linter when text changed in insert or normal mode
 let g:ale_completion_enabled = 1              " turn on ale completion
+let g:ale_set_balloons=1                      " show help documentation in popups
+nnoremap gd :ALEGoToDefinition<CR>
+nnoremap <leader>fr :ALEFindReferences<CR>
+nnoremap K :ALEHover<CR>
+nnoremap <leader>r :ALERename<CR>
 set omnifunc=ale#completion#OmniFunc          " use ale for insert auto-completion
 set complete-=i                               " don't scan system/language included files
 set complete+=kspell                          " match dictionary words
