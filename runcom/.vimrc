@@ -141,13 +141,6 @@ let g:gutentags_ctags_tagfile='.git/tags'    " set tagfile location
 " GitGutter
 highlight! link SignColumn LineNr
 
-
-" Hardtime
-let g:hardtime_default_on = 1
-let g:hardtime_showmsg = 1
-let g:hardtime_ignore_buffer_patterns = [ "NERD.*", "undotree*", "Tagbar" ]
-let g:hardtime_ignore_quickfix = 1
-
 " Auto quit Vim when actual files are closed
 function! CheckLeftBuffers()
   if tabpagenr('$') == 1
