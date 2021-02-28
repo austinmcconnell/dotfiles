@@ -130,16 +130,6 @@ autocmd FileType python  nested :call tagbar#autoopen(0)       " show Tagbar whe
 " Gutentags
 let g:gutentags_ctags_tagfile='.git/tags'    " set tagfile location
 
-
-" Goyo/Limelight
-nnoremap <Leader>gy :Goyo<CR>
-
-autocmd! User GoyoEnter Limelight
-autocmd! User GoyoLeave Limelight!
-
-let g:limelight_conceal_ctermfg = '240'    " set foreground conceal color
-
-
 " Grepper
 nnoremap <leader>f :Grepper -highlight<cr>
 
