@@ -1,4 +1,5 @@
-set colorcolumn=101
+set colorcolumn=101               "highlight column showing longer than 100 chars
+let python_highlight_all=1        " enable all Python syntax highlighting features
 
 if executable('pyls')
     au User lsp_setup call lsp#register_server({

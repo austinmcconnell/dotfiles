@@ -1,3 +1,4 @@
+" General
 set nocompatible            " don't worry about compatibility with vi
 set encoding=utf8           " set encoding to UTF-8
 set updatetime=250
@@ -9,6 +10,7 @@ filetype on                 " try to detect filetype when opening a file
 filetype plugin on          " load plugin for related filetype
 filetype indent on          " load indent standards for related filetype
 
+" Colors
 augroup my_colours
   autocmd!
   autocmd ColorScheme solarized hi SpellBad ctermfg=206
@@ -16,13 +18,8 @@ augroup my_colours
   autocmd ColorScheme solarized hi SpellRare ctermfg=77
   autocmd ColorScheme solarized hi SpellLocal ctermfg=77
 augroup END
-
-" Colors
-syntax enable               " enable syntax highlighting
 set background=dark         " set dark mode
 colorscheme solarized       " awesome colorscheme
-let python_highlight_all=1  " enable all Python syntax highlighting features
-
 
 " Editing
 set backspace=indent,eol,start                               " make backspace behave like normal in insert mode
@@ -54,9 +51,8 @@ set smartindent     " indent after if and for statements
 set number              " show line numbers
 set ruler               " show cursor line and column number
 set showmatch           " highlight matching [{()}]
+syntax enable           " enable syntax highlighting
 set laststatus=2        " always show statusline
-"set showtabline=2       " always show tabline
-"^commenting out showtabline while using vim-buftabline plugin
 
 " Searching
 set incsearch                        " search as characters are entered
@@ -72,6 +68,9 @@ set wildignore+=*/build/*            " ignore build directory when searching
 set wildignore+=*/dist/*             " ignore dist directory when searching
 set wildignore+=*/node_modules/*     " ignore node_modules directory when searching
 
+" Completion
+set complete-=i                               " don't scan system/language included files
+set complete+=kspell                          " match dictionary words
 
 " Splits
 set splitbelow                  " open new split below
@@ -100,8 +99,10 @@ nnoremap <Leader>b :buffers<CR>:buffer<Space>
 tnoremap <Esc> <C-\><C-n>|      " get to terminal normal mode
 map <Leader>T :term <cr>|       " vim-powered terminal in split window
 
+" Plugins
 " Buftabline
 let g:buftabline_numbers=1      "use buffer number as buffer label
+let g:buftabline_indicators=1   " indicate whether modified in buffer label
 
 
 " NERDTree
@@ -111,7 +112,7 @@ nnoremap <leader>n :NERDTreeToggle<CR>
 
 
 " Undotree
-let g:undotree_SetFocusWhenToggle = 1 
+let g:undotree_SetFocusWhenToggle = 1
 nnoremap <leader>u :UndotreeToggle<CR>
 
 
@@ -180,8 +181,6 @@ nnoremap gd :ALEGoToDefinition<CR>
 nnoremap <leader>fr :ALEFindReferences<CR>
 nnoremap K :ALEHover<CR>
 nnoremap <leader>r :ALERename<CR>
-set complete-=i                               " don't scan system/language included files
-set complete+=kspell                          " match dictionary words
 
 " Goyo/Limelight
 nnoremap <Leader>gy :Goyo<CR>
