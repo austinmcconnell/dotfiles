@@ -104,11 +104,6 @@ map <Leader>T :term <cr>|       " vim-powered terminal in split window
 let g:buftabline_numbers=1      "use buffer number as buffer label
 let g:buftabline_indicators=1   " indicate whether modified in buffer label
 
-" Undotree
-let g:undotree_SetFocusWhenToggle = 1
-nnoremap <leader>u :UndotreeToggle<CR>
-
-
 " Supertab
 "let g:SuperTabDefaultCompletionType = "<c-n>"               " tab down completion list instead of up
 "let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"   " force Supertab to always use omni-completion
