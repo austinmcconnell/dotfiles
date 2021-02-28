@@ -130,10 +130,6 @@ autocmd FileType python  nested :call tagbar#autoopen(0)       " show Tagbar whe
 " Gutentags
 let g:gutentags_ctags_tagfile='.git/tags'    " set tagfile location
 
-" Grepper
-nnoremap <leader>f :Grepper -highlight<cr>
-
-
 " VimWiki
 "let wiki_1 = {}
 "let wiki_1.path = '~/dropbox/wiki/'
