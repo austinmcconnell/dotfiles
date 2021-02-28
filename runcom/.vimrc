@@ -180,7 +180,6 @@ nnoremap gd :ALEGoToDefinition<CR>
 nnoremap <leader>fr :ALEFindReferences<CR>
 nnoremap K :ALEHover<CR>
 nnoremap <leader>r :ALERename<CR>
-set omnifunc=ale#completion#OmniFunc          " use ale for insert auto-completion
 set complete-=i                               " don't scan system/language included files
 set complete+=kspell                          " match dictionary words
 
