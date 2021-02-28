@@ -100,9 +100,6 @@ tnoremap <Esc> <C-\><C-n>|      " get to terminal normal mode
 map <Leader>T :term <cr>|       " vim-powered terminal in split window
 
 " Plugins
-" Buftabline
-let g:buftabline_numbers=1      "use buffer number as buffer label
-let g:buftabline_indicators=1   " indicate whether modified in buffer label
 
 " Supertab
 "let g:SuperTabDefaultCompletionType = "<c-n>"               " tab down completion list instead of up
