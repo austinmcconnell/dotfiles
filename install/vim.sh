@@ -32,6 +32,7 @@ mkdir -p ~/.vim/spell
 mkdir -p ~/.vim/undodir
 
 ln -sfv "$DOTFILES_DIR/etc/vim/ftplugin" ~/.vim
+ln -sfv "$DOTFILES_DIR/etc/vim/plugin" ~/.vim
 ln -sfv "$DOTFILES_DIR/runcom/.vimrc" ~
 ln -sfv "$DOTFILES_DIR/runcom/.ctags" ~
 
