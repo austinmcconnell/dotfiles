@@ -104,13 +104,6 @@ map <Leader>T :term <cr>|       " vim-powered terminal in split window
 let g:buftabline_numbers=1      "use buffer number as buffer label
 let g:buftabline_indicators=1   " indicate whether modified in buffer label
 
-
-" NERDTree
-let NERDTreeIgnore = ['\.pyc$', '\.egg-info$', '__pycache__']  " ignore certain files and directories
-let NERDTreeShowHidden=1
-nnoremap <leader>n :NERDTreeToggle<CR>
-
-
 " Undotree
 let g:undotree_SetFocusWhenToggle = 1
 nnoremap <leader>u :UndotreeToggle<CR>
