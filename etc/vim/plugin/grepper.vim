@@ -1,1 +1,1 @@
-nnoremap <leader>f :Grepper -highlight<cr>
+nnoremap <leader>F :Grepper -highlight<cr>

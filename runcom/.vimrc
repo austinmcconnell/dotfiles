@@ -55,6 +55,7 @@ syntax enable           " enable syntax highlighting
 set laststatus=2        " always show statusline
 
 " Searching
+nnoremap <leader>f :find<Space>
 set incsearch                        " search as characters are entered
 set ignorecase                       " perform case-insensitive searches
 set hlsearch                         " highlight matches
