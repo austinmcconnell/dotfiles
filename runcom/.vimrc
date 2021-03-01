@@ -111,10 +111,6 @@ set tags+=.git/tags                                            " add custom tags
 nnoremap <leader>t :TagbarToggle<CR>
 autocmd FileType python  nested :call tagbar#autoopen(0)       " show Tagbar when opening python files
 
-
-" Gutentags
-let g:gutentags_ctags_tagfile='.git/tags'    " set tagfile location
-
 " VimWiki
 "let wiki_1 = {}
 "let wiki_1.path = '~/dropbox/wiki/'
