@@ -101,10 +101,6 @@ map <Leader>T :term <cr>|       " vim-powered terminal in split window
 
 " Plugins
 
-" Supertab
-"let g:SuperTabDefaultCompletionType = "<c-n>"               " tab down completion list instead of up
-"let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"   " force Supertab to always use omni-completion
-
 
 set tags+=.git/tags                                            " add custom tags build location to tags search path
 
