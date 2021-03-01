@@ -99,9 +99,5 @@ nnoremap <Leader>b :buffers<CR>:buffer<Space>
 tnoremap <Esc> <C-\><C-n>|      " get to terminal normal mode
 map <Leader>T :term <cr>|       " vim-powered terminal in split window
 
-" Plugins
-
-
 set tags+=.git/tags                                            " add custom tags build location to tags search path
-
 autocmd BufEnter * call CheckLeftBuffers()               " Auto quit Vim when actual files are closed
