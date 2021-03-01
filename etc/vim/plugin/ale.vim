@@ -9,6 +9,11 @@ nnoremap gr :ALEFindReferences<CR>
 nnoremap gR :ALERename<CR>
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
+nmap [w <Plug>(ale_previous)
+nmap ]w <Plug>(ale_next)
+nmap [W <Plug>(ale_first)
+nmap ]W <Plug>(ale_last)
+
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
