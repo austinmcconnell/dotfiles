@@ -122,10 +122,6 @@ let g:gutentags_ctags_tagfile='.git/tags'    " set tagfile location
 "let wiki_1.ext = '.md'
 "let g:vimwiki_list = [wiki_1]
 
-
-" GitGutter
-highlight! link SignColumn LineNr
-
 " Auto quit Vim when actual files are closed
 function! CheckLeftBuffers()
   if tabpagenr('$') == 1
