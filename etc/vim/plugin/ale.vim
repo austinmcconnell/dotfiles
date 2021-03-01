@@ -7,4 +7,12 @@ let g:ale_set_balloons=1                      " show help documentation in popup
 nnoremap gd :ALEGoToDefinition<CR>
 nnoremap gr :ALEFindReferences<CR>
 nnoremap gR :ALERename<CR>
-nnoremap K :ALEHover<CR>
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call ALEHover
+  endif
+endfunction
