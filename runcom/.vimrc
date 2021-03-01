@@ -106,9 +106,6 @@ map <Leader>T :term <cr>|       " vim-powered terminal in split window
 "let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"   " force Supertab to always use omni-completion
 
 
-" Tagbar
 set tags+=.git/tags                                            " add custom tags build location to tags search path
-nnoremap <leader>t :TagbarToggle<CR>
-autocmd FileType python  nested :call tagbar#autoopen(0)       " show Tagbar when opening python files
 
 autocmd BufEnter * call CheckLeftBuffers()               " Auto quit Vim when actual files are closed
