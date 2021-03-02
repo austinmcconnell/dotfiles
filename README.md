@@ -310,6 +310,16 @@ Coding plugins
 * [Auto Pairs](https://github.com/jiangmiao/auto-pairs)
 * [Fugitive](https://github.com/tpope/vim-fugitive)
 * [Git Gutter](https://github.com/airblade/vim-gitgutter)
+  * ]h: jump to next hunk
+  * [h: jump to previous hunk
+  * `<leader>hp`: preview hunk
+  * `<leader>hs`: stage hunk
+  * `<leader>hu`: undo hunk
+  * To stage part of any hunk:
+    * preview the hunk
+    * move to the preview window
+    * delete the lines you do not want to stage;
+    * stage the remaining lines: either write (:w) the window or stage hunk
 * [Gutentags](https://github.com/ludovicchabant/vim-gutentags)
 * [Jedi Vim](https://github.com/davidhalter/jedi-vim)
 * [Tagbar](https://github.com/preservim/tagbar)
