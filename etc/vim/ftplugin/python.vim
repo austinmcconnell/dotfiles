@@ -19,7 +19,6 @@ let b:ale_linters = [
 
 " Enable Python fixers
 let b:ale_fixers = [
-  \ 'autopep8',
   \ 'isort',
   \ 'remove_trailing_lines',
   \ 'trim_whitespace',
