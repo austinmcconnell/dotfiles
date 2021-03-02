@@ -309,6 +309,15 @@ Coding plugins
 * [Ale](https://github.com/dense-analysis/ale)
 * [Auto Pairs](https://github.com/jiangmiao/auto-pairs)
 * [Fugitive](https://github.com/tpope/vim-fugitive)
+  * In the fugitive-summary buffer
+    * `<C-n>`: jump to the next file, hunk, or revision
+    * `<C-p>`: jump to the previous file, hunk, or revision
+    * enter: open the file under the cursor
+    * s: stage the file or hunk under the cursor
+    * u: unstage the file or hunk under the cursor
+    * U: unstage everything
+    * x: Discard the change under the cursor
+    * P: Invoke `:Git add --patch` on the file under the cursor
 * [Git Gutter](https://github.com/airblade/vim-gitgutter)
   * ]h: jump to next hunk
   * [h: jump to previous hunk
