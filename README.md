@@ -325,6 +325,11 @@ Coding plugins
     * U: unstage everything
     * x: Discard the change under the cursor
     * P: Invoke `:Git add --patch` on the file under the cursor
+  * In the fugitive Diff view
+    * ]c: jump to next change
+    * [c: jump to previous change
+    * dp or `:diffput` to push changes to the other buffer
+    * do or `:diffget` to pull changes from the other buffer
 * [Git Gutter](https://github.com/airblade/vim-gitgutter)
   * ]c: jump to next change
   * [c: jump to previous change
