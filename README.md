@@ -328,8 +328,12 @@ Coding plugins
   * In the fugitive Diff view
     * ]c: jump to next change
     * [c: jump to previous change
-    * dp or `:diffput` to push changes to the other buffer
-    * do or `:diffget` to pull changes from the other buffer
+    * `:diffput [bufspec]` or dp: push changes to another buffer
+    * `:diffget [bufspec]` or do: pull changes from another buffer
+    * `:diffupdate`: Update the diff highlighting and folds
+    * For a 3-way diff (merge conflict)
+      * `//2`: bufspec for target version
+      * `//3`: bufspec for merge version
 * [Git Gutter](https://github.com/airblade/vim-gitgutter)
   * ]c: jump to next change
   * [c: jump to previous change
