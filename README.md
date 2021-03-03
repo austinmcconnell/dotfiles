@@ -281,6 +281,13 @@ Terminal mode
 * i: enter insert mode
 * `<C-D>` or exit: close the terminal window
 
+Folds
+
+* zo: open one fold under the cursor
+* zO: open all folds under the cursor recursively
+* zc: close one fold under the cursor
+* zC: close all fold under the cursor recursively
+
 Suspending vim
 
 * ``C-z>`: get back to terminal without quitting vim (sends vim to background)
