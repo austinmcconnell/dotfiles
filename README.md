@@ -326,8 +326,8 @@ Coding plugins
     * x: Discard the change under the cursor
     * P: Invoke `:Git add --patch` on the file under the cursor
 * [Git Gutter](https://github.com/airblade/vim-gitgutter)
-  * ]h: jump to next hunk
-  * [h: jump to previous hunk
+  * ]c: jump to next change
+  * [c: jump to previous change
   * `<leader>hp`: preview hunk
   * `<leader>hs`: stage hunk
   * `<leader>hu`: undo hunk
