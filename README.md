@@ -316,6 +316,13 @@ Coding plugins
 * [Ale](https://github.com/dense-analysis/ale)
 * [Auto Pairs](https://github.com/jiangmiao/auto-pairs)
 * [Fugitive](https://github.com/tpope/vim-fugitive)
+  * `:Gedit`: view any blob, tree, commit, or tag in the repository
+  * `:Gdiffsplit`: bring up staged version of the file side-by-side with the working tree version. Use Vim's diff handling capabilities to apply changes.
+  * `:Gread`: a variant of `git checkout -- filename` that operates on the buffer rather than the file (can undo it without warnings about the file changing)
+  * `:Gwrite`: writes to both the working tree and index versions of a file
+  * `:GMove`: does a `git mv` on the file and changes the buffer name to match
+  * `:GDelete`: does a `git rm` on the current file and deletes the buffer
+  * `:GBrowse`: opens the current file on the web front-end of your hosting provider (optionally can use line range. Try in visual mode)
   * In the fugitive-summary buffer
     * `<C-n>`: jump to the next file, hunk, or revision
     * `<C-p>`: jump to the previous file, hunk, or revision
