@@ -51,3 +51,5 @@
 	gpgsign = false
 [pull]
 	ff = only
+[blame]
+	date = short
