@@ -224,7 +224,7 @@ Using buffers
 
 * `:ls`: show all buffers
 * `:ls!`: show all buffers including unlisted buffers
-* `:e` {char}`: edit a file
+* `:e {char}`: edit a file
 * `:e`: reload external changes to a file
 * `:e!`: reload external changes and discard unsaved work in buffer
 * `:bn`: switch to next buffer
@@ -290,7 +290,7 @@ Folds
 
 Suspending vim
 
-* ``C-z>`: get back to terminal without quitting vim (sends vim to background)
+* `C-z>`: get back to terminal without quitting vim (sends vim to background)
 * fg: type in terminal to return to session (if there is a single backgrounded session)
 * fg [job_id]: return to a speific vim session
 * jobs: type in terminal to list all suspended vim sessions
