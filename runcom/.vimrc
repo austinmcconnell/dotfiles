@@ -26,7 +26,7 @@ set backspace=indent,eol,start                               " make backspace be
 set spell                                                    " enable spellchecking
 set spelllang=en_us                                          " set spell language to US English
 nnoremap <leader>s :set spell!<CR>|                          " toggle spellchecking
-set spellfile=$HOME/Dropbox/vim/spell/en.utf-8.add           " set custom dictionary file location
+set spellfile=$PWD/etc/vim/spell/en.utf-8.add                " set custom dictionary file location
 nnoremap j gj|                                               " move cursor visually down one line even when text is wrapped
 nnoremap k gk|                                               " move cursor visually up one line even when text is wrapped
 vnoremap . :norm.<CR>|                                       " use period to execute a stored action in visual mode
