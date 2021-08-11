@@ -40,6 +40,12 @@ set spelllang=en_us                                          " set spell languag
 nnoremap <leader>s :set spell!<CR>|                          " toggle spellchecking
 set spellfile=$PWD/etc/vim/spell/en.utf-8.add                " set custom dictionary file location
 
+for d in glob('$PWD/etc/vim/spell/*.add', 1, 1)
+    if filereadable(d) && (!filereadable(d . '.spl') || getftime(d) > getftime(d . '.spl'))
+        exec 'mkspell! ' . fnameescape(d)
+    endif
+endfor
+
 " Spaces & Tabs
 set tabstop=4       " number of visual spaces per TAB
 set softtabstop=4   " number of spaces in tab when editing
