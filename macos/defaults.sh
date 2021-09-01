@@ -32,6 +32,9 @@ defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
 # Menu bar: show battery percentage
 defaults write com.apple.menuextra.battery ShowPercent YES
 
+# Remove date and time from screenshots
+defaults write com.apple.screencapture "include-date" 0
+
 ###############################################################################
 # Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #
 ###############################################################################
