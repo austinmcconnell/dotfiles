@@ -9,7 +9,7 @@ else
     echo "**************************************************"
     echo "Installing Zsh with brew"
     echo "**************************************************"
-    brew install zsh kube-ps1
+    brew install zsh
   elif is-debian; then
     echo "**************************************************"
     echo "Installing Zsh with apt"
@@ -38,6 +38,12 @@ else
 fi
 
 ln -sfv "$DOTFILES_DIR/etc/zsh/austin.zsh-theme" ~/.oh-my-zsh/custom/themes/
+
+if [ -d "/usr/local/kube-ps1" ] ; then
+  sudo git --work-tree="/usr/local/kube-ps1" --git-dir="/usr/local/kube-ps1/.git" pull origin master;
+else
+  sudo git clone https://github.com/jonmosco/kube-ps1.git "/usr/local/kube-ps1"
+fi
 
 # if [ -d "$HOME/.oh-my-zsh/custom/plugins/zsh-kubectl-prompt/.git" ] ; then
 	# git --work-tree="$HOME/.oh-my-zsh/custom/plugins/zsh-kubectl-prompt" --git-dir="$HOME/.oh-my-zsh/custom/plugins/zsh-kubectl-prompt/.git" pull origin master;
