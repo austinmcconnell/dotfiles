@@ -33,6 +33,7 @@
 
 [init]
 	templatedir = ~/.git-templates
+	defaultBranch = main
 
 [color "diff-highlight"]
 	oldNormal = red
