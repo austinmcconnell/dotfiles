@@ -37,3 +37,4 @@ brew install --cask steam
 brew install --cask spectacle
 brew install --cask transmission
 brew install --cask viscosity
+brew install --cask visual-studio-code

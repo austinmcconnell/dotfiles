@@ -56,5 +56,4 @@ brew install --cask quicklook-json
 brew install --cask qlprettypatch
 brew install --cask quicklook-csv
 brew install --cask qlimagesize
-brew install --cask visual-studio-code
 brew install --cask webpquicklook
