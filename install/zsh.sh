@@ -10,11 +10,15 @@ else
     echo "Installing Zsh with brew"
     echo "**************************************************"
     brew install zsh
+    brew install --cask font-fira-code
   elif is-debian; then
     echo "**************************************************"
     echo "Installing Zsh with apt"
     echo "**************************************************"
+    sudo add-apt-repository -y universe
+    sudo apt update
     sudo apt install -y zsh
+    sudo apt install fonts-firacode
   else
     echo "**************************************************"
     echo "Skipping Zsh installation: Unidentified OS"
