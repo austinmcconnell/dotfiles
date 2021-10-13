@@ -49,6 +49,13 @@ else
   sudo git clone https://github.com/jonmosco/kube-ps1.git "/usr/local/kube-ps1"
 fi
 
+if [ -d "$ZSH/themes/spaceship-prompt" ] ; then
+  git --work-tree="$ZSH/themes/spaceship-prompt" --git-dir="$ZSH/themes/spaceship-prompt/.git" pull origin master;
+else
+  git clone https://github.com/spaceship-prompt/spaceship-prompt.git "$ZSH/themes/spaceship-prompt" --depth=1
+  ln -s "$ZSH/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH/themes/spaceship.zsh-theme"
+fi
+
 # if [ -d "$HOME/.oh-my-zsh/custom/plugins/zsh-kubectl-prompt/.git" ] ; then
 	# git --work-tree="$HOME/.oh-my-zsh/custom/plugins/zsh-kubectl-prompt" --git-dir="$HOME/.oh-my-zsh/custom/plugins/zsh-kubectl-prompt/.git" pull origin master;
 #else

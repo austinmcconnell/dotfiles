@@ -1,6 +1,6 @@
 export ZSH=~/.oh-my-zsh
 
-ZSH_THEME="austin"
+ZSH_THEME="spaceship"
 
 DOTFILES_DIR="$HOME/projects/dotfiles"
 export DOTFILES_DIR
@@ -51,3 +51,11 @@ timezsh() {
   for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
 }
 zmodload zsh/zprof  # Call zprof to get startup profiling
+
+SPACESHIP_DOCKER_SHOW=false
+SPACESHIP_GCLOUD_SHOW=false
+SPACESHIP_NODE_SHOW=false
+# SPACESHIP_KUBECTL_SHOW=true
+SPACESHIP_KUBECTL_VERSION_SHOW=false
+SPACESHIP_VENV_GENERIC_NAMES=()
+SPACESHIP_BATTERY_THRESHOLD=20
