@@ -160,3 +160,9 @@ if [ -d "$HOME/.vim/pack/bundle/start/indentline/.git" ] ; then
 else
     git clone https://github.com/Yggdroot/indentLine "$HOME/.vim/pack/bundle/start/indentline"
 fi
+
+if [ -d "$HOME/.vim/pack/bundle/start/yaml-folds/.git" ] ; then
+    git --work-tree="$HOME/.vim/pack/bundle/start/yaml-folds" --git-dir="$HOME/.vim/pack/bundle/start/yaml-folds/.git" pull origin master;
+else
+    git clone https://github.com/pedrohdz/vim-yaml-folds "$HOME/.vim/pack/bundle/start/yaml-folds"
+fi
