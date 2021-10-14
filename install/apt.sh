@@ -12,3 +12,4 @@ fi
 
 sudo apt install kubernetes
 sudo apt install tree
+sudo apt install yamllint

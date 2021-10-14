@@ -48,6 +48,7 @@ brew install tree
 brew install unar
 brew install wget
 brew install wifi-password
+brew install yamllint
 
 # Quick Look Plugins (https://github.com/sindresorhus/quick-look-plugins)
 brew install --cask qlcolorcode
