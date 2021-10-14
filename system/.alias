@@ -42,6 +42,7 @@ alias paths='echo -e ${PATH//:/\\n}'
 alias df='df -H -l'
 alias cleanupnode="find . -name 'node_modules' -exec rm -rf '{}' +"
 alias cleanupvenv="find . -name '.venv' -exec rm -rf '{}' +"
+alias please='sudo $(fc -ln -1)'
 
 
 ##############################
