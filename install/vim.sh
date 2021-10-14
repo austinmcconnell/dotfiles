@@ -36,12 +36,19 @@ ln -sfv "$DOTFILES_DIR/etc/vim/plugin" ~/.vim
 ln -sfv "$DOTFILES_DIR/runcom/.vimrc" ~
 ln -sfv "$DOTFILES_DIR/runcom/.ctags" ~
 
-if [ ! -f "$HOME/.vim/colors/darcula.vim" ] ; then
-  curl --create-dirs --output "$HOME/.vim/colors/darcula.vim" https://raw.githubusercontent.com/blueshirts/darcula/master/colors/darcula.vim
+## Add colorschemes
+if [ -d "$HOME/.vim/colors/darcula/.git" ] ; then
+    git --work-tree="$HOME/.vim/colors/darcula" --git-dir="$HOME/.vim/colors/darcula/.git" pull origin master;
+else
+    git clone https://github.com/blueshirts/darcula "$HOME/.vim/colors/darcula/"
+    ln -sfv "$HOME/.vim/colors/darcula/colors/darcula.vim" "$HOME/.vim/colors/darcula.vim"
 fi
 
-if [ ! -f "$HOME/.vim/colors/solarized.vim" ] ; then
-  curl --create-dirs --output "$HOME/.vim/colors/solarized.vim" https://raw.githubusercontent.com/altercation/vim-colors-solarized/master/colors/solarized.vim
+if [ -d "$HOME/.vim/colors/solarized/.git" ] ; then
+    git --work-tree="$HOME/.vim/colors/solarized" --git-dir="$HOME/.vim/colors/solarized/.git" pull origin master;
+else
+    git clone https://github.com/altercation/vim-colors-solarized "$HOME/.vim/colors/solarized/"
+    ln -sfv "$HOME/.vim/colors/solarized/colors/solarized.vim" "$HOME/.vim/colors/solarized.vim"
 fi
 
 if [ -d "$HOME/.vim/colors/nord/.git" ] ; then
