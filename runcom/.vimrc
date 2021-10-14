@@ -11,12 +11,16 @@ filetype plugin on          " load plugin for related filetype
 filetype indent on          " load indent standards for related filetype
 
 " Colors
-augroup my_colours
+augroup solarized-overrides
   autocmd!
   autocmd ColorScheme solarized hi SpellBad ctermfg=206
   autocmd ColorScheme solarized hi SpellCap ctermfg=77
   autocmd ColorScheme solarized hi SpellRare ctermfg=77
   autocmd ColorScheme solarized hi SpellLocal ctermfg=77
+augroup END
+augroup nord-overrides
+  autocmd!
+  autocmd ColorScheme nord highlight Folded ctermbg=DarkGrey ctermfg=white
 augroup END
 set background=dark         " set dark mode
 colorscheme nord
