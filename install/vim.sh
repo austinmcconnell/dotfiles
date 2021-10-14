@@ -30,11 +30,13 @@ mkdir -p ~/.vim/pack/bundle/start
 mkdir -p ~/.vim/pack/bundle/opt
 mkdir -p ~/.vim/spell
 mkdir -p ~/.vim/undodir
+mkdir -p ~/.config/yamllint/
 
 ln -sfv "$DOTFILES_DIR/etc/vim/ftplugin" ~/.vim
 ln -sfv "$DOTFILES_DIR/etc/vim/plugin" ~/.vim
 ln -sfv "$DOTFILES_DIR/runcom/.vimrc" ~
 ln -sfv "$DOTFILES_DIR/runcom/.ctags" ~
+ln -sfv "$DOTFILES_DIR/etc/yaml/yamllint" ~/.config/yamllint/config
 
 ## Add colorschemes
 if [ -d "$HOME/.vim/colors/darcula/.git" ] ; then
