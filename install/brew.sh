@@ -37,6 +37,7 @@ brew install git-extras
 brew install grep
 brew install httpie
 brew install jq
+brew install kubernetes-cli
 brew install nano
 brew install postgresql
 brew install redis
