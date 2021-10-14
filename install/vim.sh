@@ -44,6 +44,13 @@ if [ ! -f "$HOME/.vim/colors/solarized.vim" ] ; then
   curl --create-dirs --output "$HOME/.vim/colors/solarized.vim" https://raw.githubusercontent.com/altercation/vim-colors-solarized/master/colors/solarized.vim
 fi
 
+if [ -d "$HOME/.vim/colors/nord/.git" ] ; then
+    git --work-tree="$HOME/.vim/colors/nord" --git-dir="$HOME/.vim/colors/nord/.git" pull origin master;
+else
+    git clone https://github.com/arcticicestudio/nord-vim "$HOME/.vim/colors/nord/"
+    ln -sfv "$HOME/.vim/colors/nord/colors/nord.vim" "$HOME/.vim/colors/nord.vim"
+fi
+
 ## Add plugins
 if [ -d "$HOME/.vim/pack/bundle/start/auto-pairs/.git" ] ; then
 	git --work-tree="$HOME/.vim/pack/bundle/start/auto-pairs" --git-dir="$HOME/.vim/pack/bundle/start/auto-pairs/.git" pull origin master;
