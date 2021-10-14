@@ -140,3 +140,9 @@ if [ -d "$HOME/.vim/pack/bundle/start/hardtime/.git" ] ; then
 else
     git clone https://github.com/takac/vim-hardtime "$HOME/.vim/pack/bundle/start/hardtime"
 fi
+
+if [ -d "$HOME/.vim/pack/bundle/start/indentline/.git" ] ; then
+    git --work-tree="$HOME/.vim/pack/bundle/start/indentline" --git-dir="$HOME/.vim/pack/bundle/start/indentline/.git" pull origin master;
+else
+    git clone https://github.com/Yggdroot/indentLine "$HOME/.vim/pack/bundle/start/indentline"
+fi
