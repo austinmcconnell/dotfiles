@@ -11,3 +11,4 @@ else
 fi
 
 sudo apt install kubernetes
+sudo apt install tree
