@@ -19,7 +19,7 @@ augroup my_colours
   autocmd ColorScheme solarized hi SpellLocal ctermfg=77
 augroup END
 set background=dark         " set dark mode
-colorscheme solarized       " awesome colorscheme
+colorscheme nord
 
 " Editing
 set backspace=indent,eol,start                               " make backspace behave like normal in insert mode
