@@ -1,7 +1,7 @@
 #!/bin/sh
 if is-executable brew; then
   echo "**************************************************"
-  echo "Configuring Homebrew"
+  echo "Installing macOS services"
   echo "**************************************************"
 else
   if is-macos; then
@@ -43,6 +43,7 @@ brew install postgresql
 brew install redis
 brew install shellcheck
 brew install ssh-copy-id
+brew install svn
 brew install terraform
 brew install tree
 brew install unar
