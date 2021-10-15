@@ -29,7 +29,6 @@ brew install bash
 brew install bats
 brew install chtf
 brew install coreutils
-brew install docker
 brew install dockutil
 brew install git
 brew install git-crypt
