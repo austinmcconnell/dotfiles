@@ -39,3 +39,5 @@ brew install --cask spectacle
 brew install --cask transmission
 brew install --cask viscosity
 brew install --cask visual-studio-code
+
+ln -sfv "$DOTFILES_DIR/etc/hyper/.hyper.js" ~
