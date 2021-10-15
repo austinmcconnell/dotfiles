@@ -37,7 +37,7 @@ brew install grep
 brew install httpie
 brew install jq
 brew install kubernetes-cli
-brew install nano
+brew install --formula nano
 brew install postgresql
 brew install redis
 brew install shellcheck
