@@ -310,6 +310,9 @@ General
 * [Nerd Tree](https://github.com/preservim/nerdtree)
 * [Lightline](https://github.com/itchyny/lightline.vim)
 * [Supertab](https://github.com/ervandew/supertab)
+* [ListToggle](https://github.com/Valloric/ListToggle)
+  * `<leader>l`: Toggle the location list
+  * `<leader>l`: Toggle the quickfix list
 
 Coding plugins
 

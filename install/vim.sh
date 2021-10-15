@@ -168,3 +168,9 @@ if [ -d "$HOME/.vim/pack/bundle/start/yaml-folds/.git" ] ; then
 else
     git clone https://github.com/pedrohdz/vim-yaml-folds "$HOME/.vim/pack/bundle/start/yaml-folds"
 fi
+
+if [ -d "$HOME/.vim/pack/bundle/start/list-toggle/.git" ] ; then
+    git --work-tree="$HOME/.vim/pack/bundle/start/list-toggle" --git-dir="$HOME/.vim/pack/bundle/start/list-toggle/.git" pull origin master;
+else
+    git clone https://github.com/Valloric/ListToggle "$HOME/.vim/pack/bundle/start/list-toggle"
+fi
