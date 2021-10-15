@@ -20,6 +20,7 @@ mkdir -p ~/.config
 . "$DOTFILES_DIR/install/git.sh"
 . "$DOTFILES_DIR/install/zsh.sh"
 . "$DOTFILES_DIR/install/brew.sh"
+. "$DOTFILES_DIR/macos/apps.sh"
 . "$DOTFILES_DIR/install/apt.sh"
 . "$DOTFILES_DIR/install/python.sh"
 . "$DOTFILES_DIR/install/node.sh"
