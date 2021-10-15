@@ -24,6 +24,7 @@ brew install --cask google-chrome
 brew install --cask google-cloud-sdk
 brew install --cask gpg-suite
 brew install --cask hazel
+brew install --cask hyper
 brew install --cask iterm2
 brew install --cask keepingyouawake
 brew install --cask macdown
