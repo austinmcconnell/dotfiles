@@ -4,4 +4,4 @@ mypy
 pipenv
 proselint
 pylint
-python-language-server[all]
+python-lsp-server[all]
