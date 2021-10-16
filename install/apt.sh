@@ -15,3 +15,5 @@ sudo apt install kubernetes
 sudo apt install shellcheck
 sudo apt install tree
 sudo apt install yamllint
+
+sudo snap install shfmt

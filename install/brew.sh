@@ -41,6 +41,7 @@ brew install --formula nano
 brew install postgresql
 brew install redis
 brew install shellcheck
+brew install shfmt
 brew install ssh-copy-id
 brew install svn
 brew install terraform
