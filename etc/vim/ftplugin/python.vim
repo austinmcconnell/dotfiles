@@ -6,7 +6,7 @@ let b:ale_linters = [
   \ 'flake8',
   \ 'mypy',
   \ 'pylint',
-  \ 'pylsp',
+  \ 'pyright',
   \ ]
 
 " Enable Python fixers
