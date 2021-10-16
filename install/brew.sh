@@ -36,7 +36,6 @@ brew install git-extras
 brew install grep
 brew install httpie
 brew install jq
-brew install jsonlint
 brew install kubernetes-cli
 brew install --formula nano
 brew install postgresql

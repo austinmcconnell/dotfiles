@@ -11,7 +11,6 @@ else
 fi
 
 sudo apt install jq
-sudo apt install jsonlint
 sudo apt install kubernetes
 sudo apt install tree
 sudo apt install yamllint
