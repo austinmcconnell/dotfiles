@@ -12,5 +12,6 @@ fi
 
 sudo apt install jq
 sudo apt install kubernetes
+sudo apt install shellcheck
 sudo apt install tree
 sudo apt install yamllint
