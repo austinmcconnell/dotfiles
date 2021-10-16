@@ -174,3 +174,10 @@ if [ -d "$HOME/.vim/pack/bundle/start/list-toggle/.git" ] ; then
 else
     git clone https://github.com/Valloric/ListToggle "$HOME/.vim/pack/bundle/start/list-toggle"
 fi
+
+
+if [ -d "$HOME/.vim/pack/bundle/start/supertab/.git" ] ; then
+    git --work-tree="$HOME/.vim/pack/bundle/start/supertab" --git-dir="$HOME/.vim/pack/bundle/start/supertab/.git" pull origin master;
+else
+    git clone https://github.com/ervandew/supertab "$HOME/.vim/pack/bundle/start/supertab"
+fi
