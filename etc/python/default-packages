@@ -5,3 +5,4 @@ pipenv
 proselint
 pylint
 python-lsp-server[all]
+yamllint
