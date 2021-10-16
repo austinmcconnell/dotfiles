@@ -1,4 +1,5 @@
 @stoplight/spectral-cli
+bash-language-server
 jsonlint
 markdownlint-cli
 proselint
