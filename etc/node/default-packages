@@ -1,3 +1,4 @@
+@stoplight/spectral-cli
 markdownlint-cli
 proselint
 pyright
