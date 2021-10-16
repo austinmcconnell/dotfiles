@@ -5,6 +5,7 @@ setlocal ts=4 sts=4 sw=4 expandtab
 let b:ale_linters = [
   \ 'bashate',
   \ 'shellcheck',
+  \ 'language_server',
   \ ]
 
 " Enable fixers
