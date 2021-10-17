@@ -23,3 +23,17 @@ function! s:show_documentation()
     call ale#hover#ShowAtCursor()
   endif
 endfunction
+
+
+" Enable linters
+let g:ale_linters = {
+\   'json': ['jq', 'jsonlint', 'spectral']
+\}
+
+" Enable fixers
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'json': ['jq']
+\}
+
+let g:ale_json_jq_options = '--indent 4'
