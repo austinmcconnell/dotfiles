@@ -27,7 +27,8 @@ endfunction
 
 " Enable linters
 let g:ale_linters = {
-\   'json': ['jq', 'jsonlint', 'spectral']
+\   'json': ['jq', 'jsonlint', 'spectral'],
+\   'markdown': ['markdownlint', 'proselint', 'writegood']
 \}
 
 " Enable fixers
