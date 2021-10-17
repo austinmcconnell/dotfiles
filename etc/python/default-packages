@@ -3,6 +3,7 @@ flake8
 isort
 mypy
 pipenv
+pre-commit
 proselint
 pylint
 python-lsp-server[all]
