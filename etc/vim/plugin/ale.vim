@@ -29,14 +29,16 @@ endfunction
 let g:ale_linters = {
 \   'json': ['jq', 'jsonlint', 'spectral'],
 \   'markdown': ['markdownlint', 'proselint', 'writegood'],
-\   'python': ['flake8', 'mypy', 'pylint', 'pyright']
+\   'python': ['flake8', 'mypy', 'pylint', 'pyright'],
+\   'sh': ['bashate', 'shellcheck', 'language_server']
 \}
 
 " Enable fixers
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'json': ['jq'],
-\   'python': ['isort']
+\   'python': ['isort'],
+\   'sh': ['shfmt']
 \}
 
 let g:ale_json_jq_options = '--indent 4'
@@ -47,3 +49,5 @@ let g:ale_python_isort_options = '--settings-path ~/.config/isort/.isort.cfg'
 
 let g:ale_python_mypy_auto_pipenv = 1
 let g:ale_python_mypy_ignore_invalid_syntax = 1
+
+let g:ale_sh_bashate_options = '--max-line-length 100'
