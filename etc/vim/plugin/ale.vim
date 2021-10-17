@@ -30,7 +30,8 @@ let g:ale_linters = {
 \   'json': ['jq', 'jsonlint', 'spectral'],
 \   'markdown': ['markdownlint', 'proselint', 'writegood'],
 \   'python': ['flake8', 'mypy', 'pylint', 'pyright'],
-\   'sh': ['bashate', 'shellcheck', 'language_server']
+\   'sh': ['bashate', 'shellcheck', 'language_server'],
+\   'yaml': ['spectral', 'yamllint']
 \}
 
 " Enable fixers
@@ -38,7 +39,8 @@ let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'json': ['jq'],
 \   'python': ['isort'],
-\   'sh': ['shfmt']
+\   'sh': ['shfmt'],
+\   'yaml': ['yamlfix']
 \}
 
 let g:ale_json_jq_options = '--indent 4'
