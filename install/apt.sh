@@ -1,13 +1,13 @@
 #!/bin/sh
 if is-debian && is-executable apt; then
-  echo "**************************************************"
-  echo "Configuring services with apt"
-  echo "**************************************************"
+    echo "**************************************************"
+    echo "Configuring services with apt"
+    echo "**************************************************"
 else
-  echo "**************************************************"
-  echo "Skipping apt packages installation: Not linux"
-  echo "**************************************************"
-  return
+    echo "**************************************************"
+    echo "Skipping apt packages installation: Not linux"
+    echo "**************************************************"
+    return
 fi
 
 sudo apt install jq

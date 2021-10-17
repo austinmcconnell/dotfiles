@@ -1,14 +1,14 @@
 #!/bin/sh
 
 if ! is-executable brew; then
-  echo "**************************************************"
-  echo "Skipping macOS installs: Homebrew not installed"
-  echo "**************************************************"
-  return
+    echo "**************************************************"
+    echo "Skipping macOS installs: Homebrew not installed"
+    echo "**************************************************"
+    return
 else
-  echo "**************************************************"
-  echo "Installing macOS apps"
-  echo "**************************************************"
+    echo "**************************************************"
+    echo "Installing macOS apps"
+    echo "**************************************************"
 fi
 
 # Install applications
