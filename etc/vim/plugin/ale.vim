@@ -31,6 +31,7 @@ let g:ale_linters = {
 \   'markdown': ['markdownlint', 'proselint', 'writegood'],
 \   'python': ['flake8', 'mypy', 'pylint', 'pyright'],
 \   'sh': ['bashate', 'shellcheck', 'language_server'],
+\   'terraform': ['terraform'],
 \   'yaml': ['spectral', 'yamllint']
 \}
 
@@ -40,6 +41,7 @@ let g:ale_fixers = {
 \   'json': ['jq'],
 \   'python': ['isort'],
 \   'sh': ['shfmt'],
+\   'terraform': ['terraform'],
 \   'yaml': ['yamlfix']
 \}
 
