@@ -15,6 +15,7 @@ fi
 brew install --cask atom
 brew install --cask betterzip
 brew install --cask docker
+brew install --cask dozer
 brew install --cask dropbox
 brew install --cask evernote
 brew install --cask flux
