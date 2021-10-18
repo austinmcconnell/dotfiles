@@ -9,7 +9,7 @@ else
     echo "**************************************************"
     echo "Installing Vim"
     echo "**************************************************"
-    brew install vim ctags the_silver_searcher hadolint
+    brew install vim ctags the_silver_searcher
   elif is-debian; then
     echo "**************************************************"
     echo "Installing Vim"
