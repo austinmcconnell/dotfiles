@@ -27,6 +27,7 @@ endfunction
 
 " Enable linters
 let g:ale_linters = {
+\   'dockerfile': ['hadolint'],
 \   'json': ['jq', 'jsonlint', 'spectral'],
 \   'markdown': ['markdownlint', 'proselint', 'writegood'],
 \   'python': ['flake8', 'mypy', 'pylint', 'pyright'],
