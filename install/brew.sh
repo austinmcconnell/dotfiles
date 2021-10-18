@@ -1,20 +1,20 @@
 #!/bin/sh
 if is-executable brew; then
-  echo "**************************************************"
-  echo "Installing macOS services"
-  echo "**************************************************"
+    echo "**************************************************"
+    echo "Installing macOS services"
+    echo "**************************************************"
 else
-  if is-macos; then
-    echo "**************************************************"
-    echo "Installing Homebrew"
-    echo "**************************************************"
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-  else
-    echo "**************************************************"
-    echo "Skipping Homebrew installation: Not macOS"
-    echo "**************************************************"
-    return
-  fi
+    if is-macos; then
+        echo "**************************************************"
+        echo "Installing Homebrew"
+        echo "**************************************************"
+        ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    else
+        echo "**************************************************"
+        echo "Skipping Homebrew installation: Not macOS"
+        echo "**************************************************"
+        return
+    fi
 fi
 
 # Add taps
