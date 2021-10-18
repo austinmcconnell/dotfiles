@@ -1,0 +1,4 @@
+failure-threshold: ignore
+
+trustedRegistries:
+  - docker.io

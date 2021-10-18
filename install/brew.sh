@@ -34,6 +34,7 @@ brew install git
 brew install git-crypt
 brew install git-extras
 brew install grep
+brew install hadolint
 brew install httpie
 brew install jq
 brew install kubernetes-cli
@@ -60,3 +61,5 @@ brew install --cask qlprettypatch
 brew install --cask quicklook-csv
 brew install --cask qlimagesize
 brew install --cask webpquicklook
+
+ln -sfv "$DOTFILES_DIR/etc/misc/hadolint.yaml" ~/.config
