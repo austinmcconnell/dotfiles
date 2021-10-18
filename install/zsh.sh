@@ -75,3 +75,9 @@ mkdir -p "$HOME"/.terminfo
 tic -o "$HOME"/.terminfo "$DOTFILES_DIR"/etc/terminfo/tmux.terminfo
 tic -o "$HOME"/.terminfo "$DOTFILES_DIR"/etc/terminfo/tmux-256color.terminfo
 tic -o "$HOME"/.terminfo "$DOTFILES_DIR"/etc/terminfo/xterm-256color.terminfo
+
+# Manually add docker-compose completions (the oh-my-zsh docker-compose plugin is really slow)
+mkdir -p ~/.oh-my-zsh/completions
+curl \
+    -L https://raw.githubusercontent.com/docker/compose/1.29.2/contrib/completion/zsh/_docker-compose \
+    -o ~/.oh-my-zsh/completions/_docker-compose

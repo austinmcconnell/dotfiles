@@ -27,7 +27,7 @@ if [ -d "$DOTFILES_EXTRA_DIR" ]; then
     done
 fi
 
-plugins=(brew docker docker-compose git httpie nvm pip pipenv terraform)
+plugins=(brew docker git httpie nvm pip pipenv terraform)
 
 source $ZSH/oh-my-zsh.sh
 source "$HOME/.repositories/kube-ps1/kube-ps1.sh"
