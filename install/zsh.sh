@@ -49,11 +49,11 @@ else
     git clone https://github.com/jonmosco/kube-ps1.git "$HOME/.repositories/kube-ps1"
 fi
 
-if [ -d "$ZSH_CUSTOM/themes/spaceship-prompt" ]; then
-    git --work-tree="$ZSH_CUSTOM/themes/spaceship-prompt" --git-dir="$ZSH_CUSTOM/themes/spaceship-prompt/.git" pull origin master
+if [ -d "$HOME/.oh-my-zsh/custom/themes/spaceship-prompt" ]; then
+    git --work-tree="$HOME/.oh-my-zsh/custom/themes/spaceship-prompt" --git-dir="$HOME/.oh-my-zsh/custom/themes/spaceship-prompt/.git" pull origin master
 else
-    git clone https://github.com/spaceship-prompt/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt" --depth=1
-    ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
+    git clone https://github.com/spaceship-prompt/spaceship-prompt.git "$HOME/.oh-my-zsh/custom/themes/spaceship-prompt" --depth=1
+    ln -s "$HOME/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme" "$HOME/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
 fi
 
 # if [ -d "$HOME/.oh-my-zsh/custom/plugins/zsh-kubectl-prompt/.git" ] ; then
