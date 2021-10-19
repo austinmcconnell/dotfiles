@@ -116,6 +116,7 @@ Motions
 * L: move to the bottom of the screen
 * gg: go to the top of the file
 * G: go to the bottom of the file
+* gf: edit the file whose name is under the cursor
 * #G: go to a line number
 * ^U: move up half a screen
 * ^D: move down half a screen
