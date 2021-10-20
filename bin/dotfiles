@@ -9,9 +9,9 @@ sub_help() {
     echo
     echo "Commands:"
     echo "   clean            Clean up caches (brew)"
-    echo "   dock             Apply macOS Dock settings"
     echo "   edit             Open dotfiles in IDE ($DOTFILES_IDE) and Git GUI ($DOTFILES_GIT_GUI)"
     echo "   help             This help message"
+    echo "   mac-dock         Apply macOS Dock settings"
     echo "   mac-defaults     Apply macOS system defaults"
     echo "   mac-apps         Install macOS applications"
     echo "   test             Run tests"
@@ -49,7 +49,7 @@ sub_mac-apps() {
     . "${DOTFILES_DIR}/macos/apps.sh"
 }
 
-sub_dock() {
+sub_mac-dock() {
     . "${DOTFILES_DIR}/macos/dock.sh" && echo "Dock reloaded."
 }
 
