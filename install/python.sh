@@ -36,6 +36,8 @@ ln -sfv "$DOTFILES_DIR/etc/python/pylintrc" ~/.config
 ln -sfv "$DOTFILES_DIR/etc/python/proselint" ~/.config/proselint/config
 ln -sfv "$DOTFILES_DIR/etc/python/mypy" ~/.config/mypy/config
 ln -sfv "$DOTFILES_DIR/etc/python/.isort.cfg" ~/.config/isort/.isort.cfg
+ln -sfv "$DOTFILES_DIR/scripts/reinitialize-git-repositories.py" ~/projects
+ln -sfv "$DOTFILES_DIR/scripts/sort-git-repos-by-owner.py" ~/projects
 
 DEFAULT_PYTHON_VERSION=3.7.4
 
