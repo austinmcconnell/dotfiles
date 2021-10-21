@@ -38,6 +38,7 @@ brew install hadolint
 brew install httpie
 brew install jq
 brew install kubernetes-cli
+brew install mas
 brew install --formula nano
 brew install postgresql
 brew install redis

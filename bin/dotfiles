@@ -29,6 +29,7 @@ sub_test() {
 
 sub_update() {
     sudo softwareupdate -i -a
+    mas upgrade
     brew update
     brew upgrade
 }
