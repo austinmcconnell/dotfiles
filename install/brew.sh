@@ -31,7 +31,6 @@ brew install chtf
 brew install coreutils
 brew install dockutil
 brew install git
-brew install git-crypt
 brew install git-extras
 brew install grep
 brew install hadolint
@@ -40,8 +39,6 @@ brew install jq
 brew install kubernetes-cli
 brew install mas
 brew install --formula nano
-brew install postgresql
-brew install redis
 brew install shellcheck
 brew install shfmt
 brew install ssh-copy-id
@@ -53,17 +50,8 @@ brew install wget
 brew install wifi-password
 brew install yamllint
 
-# Quick Look Plugins (https://github.com/sindresorhus/quick-look-plugins)
-brew install --cask qlcolorcode
-brew install --cask qlstephen
-brew install --cask qlmarkdown
-brew install --cask quicklook-json
-brew install --cask qlprettypatch
-brew install --cask quicklook-csv
-brew install --cask qlimagesize
-brew install --cask webpquicklook
-
 # Install applications
+brew install --cask alfred
 brew install --cask atom
 brew install --cask betterzip
 brew install --cask docker
@@ -72,6 +60,7 @@ brew install --cask dropbox
 brew install --cask evernote
 brew install --cask flux
 brew install --cask font-source-code-pro
+brew install --cask font-fira-code
 brew install --cask google-chrome
 brew install --cask google-cloud-sdk
 brew install --cask gpg-suite
@@ -79,14 +68,20 @@ brew install --cask hazel
 brew install --cask hyper
 brew install --cask iterm2
 brew install --cask keepingyouawake
+brw install --cask keybase
 brew install --cask macdown
+brew install --cask multipass
 brew install --cask oversight
 brew install --cask postico
-brew install --cask pycharm
 brew install --cask slack
 brew install --cask spectacle
+brew install --cask spotify
+brew install --cask steam
+brew install --cask tableplus
+brew install --cask vagrant
 brew install --cask viscosity
 brew install --cask visual-studio-code
+brew install --cask zoom
 
 # Uninstall
 brew uninstall svn # Only needed to install font-source-code-pro. Safe to delete after font installed.
