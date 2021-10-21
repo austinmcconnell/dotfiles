@@ -88,6 +88,9 @@ brew install --cask spectacle
 brew install --cask viscosity
 brew install --cask visual-studio-code
 
+# Uninstall
+brew uninstall svn # Only needed to install font-source-code-pro. Safe to delete after font installed.
+
 # Create symlinks
 ln -sfv "$DOTFILES_DIR/etc/hyper/.hyper.js" ~
 ln -sfv "$DOTFILES_DIR/etc/misc/hadolint.yaml" ~/.config
