@@ -32,11 +32,12 @@ sub_update() {
     mas upgrade
     brew update
     brew upgrade
+    sub_clean
 }
 
 sub_clean() {
     brew cleanup
-    brew cask cleanup
+    brew autoremove
 }
 
 sub_mac-defaults() {
