@@ -3,7 +3,7 @@
 ##############################
 alias cask="brew cask"
 alias tap="brew tap"
-
+alias leaves="brew leaves | xargs brew deps --installed --for-each | sed \"s/^.*:/$(tput setaf 4)&$(tput sgr0)/\""
 
 ##############################
 # Filesystem
