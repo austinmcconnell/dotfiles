@@ -10,6 +10,7 @@ else
     return
 fi
 
+sudo apt install fonts-firacode
 sudo apt install jq
 sudo apt install kubernetes
 sudo apt install shellcheck
