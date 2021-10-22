@@ -24,31 +24,31 @@ brew tap heroku/brew
 brew tap Yleisradio/terraforms
 
 # Install packages
-brew install autoenv
-brew install bash
-brew install bats
-brew install chtf
-brew install coreutils
-brew install dive
-brew install dockutil
-brew install git
-brew install grep
-brew install hadolint
-brew install httpie
-brew install jq
-brew install kubernetes-cli
-brew install mas
+brew install --formula autoenv
+brew install --formula bash
+brew install --formula bats
+brew install --formula chtf
+brew install --formula coreutils
+brew install --formula dive
+brew install --formula dockutil
+brew install --formula git
+brew install --formula grep
+brew install --formula hadolint
+brew install --formula httpie
+brew install --formula jq
+brew install --formula kubernetes-cli
+brew install --formula mas
 brew install --formula nano
-brew install shellcheck
-brew install shfmt
-brew install ssh-copy-id
-brew install svn
-brew install terraform
-brew install tree
-brew install unar
-brew install wget
-brew install wifi-password
-brew install yamllint
+brew install --formula shellcheck
+brew install --formula shfmt
+brew install --formula ssh-copy-id
+brew install --formula svn
+brew install --formula terraform
+brew install --formula tree
+brew install --formula unar
+brew install --formula wget
+brew install --formula wifi-password
+brew install --formula yamllint
 
 # Install applications
 brew install --cask alfred
