@@ -10,11 +10,11 @@ else
     return
 fi
 
-sudo apt install fonts-firacode
-sudo apt install jq
-sudo apt install kubernetes
-sudo apt install shellcheck
-sudo apt install tree
-sudo apt install yamllint
+sudo apt install -y fonts-firacode
+sudo apt install -y jq
+sudo apt install -y kubernetes
+sudo apt install -y shellcheck
+sudo apt install -y tree
+sudo apt install -y yamllint
 
 sudo snap install shfmt
