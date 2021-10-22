@@ -23,6 +23,7 @@ prepend-path ~/.pyenv/shims
 prepend-path ~/.pyenv/bin
 prepend-path "$NVM_DIR/versions/node/$lts_version/bin"
 prepend-path "$GEM_HOME/bin"
+prepend-path "/snap/bin"
 
 # Remove duplicates (preserving prepended items)
 # Source: http://unix.stackexchange.com/a/40755
