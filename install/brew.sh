@@ -70,6 +70,7 @@ brew install --cask iterm2
 brew install --cask keepingyouawake
 brew install --cask keybase
 brew install --cask macdown
+brew install --cask monitorcontrol
 brew install --cask multipass
 brew install --cask oversight
 brew install --cask postico
