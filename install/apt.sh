@@ -18,6 +18,7 @@ echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https:/
 sudo apt-get update
 
 # Install packages
+sudo apt install -y bats
 sudo apt install -y fonts-firacode
 sudo apt install -y jq
 sudo apt install -y kubectl
