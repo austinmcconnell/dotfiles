@@ -68,7 +68,7 @@ brew install --cask hazel
 brew install --cask hyper
 brew install --cask iterm2
 brew install --cask keepingyouawake
-brw install --cask keybase
+brew install --cask keybase
 brew install --cask macdown
 brew install --cask multipass
 brew install --cask oversight
