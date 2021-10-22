@@ -28,16 +28,28 @@ sub_test() {
 }
 
 sub_update() {
-    sudo softwareupdate -i -a
-    mas upgrade
-    brew update
-    brew upgrade
+    if is-is-macos; then
+        sudo softwareupdate -i -a
+        mas upgrade
+        brew update
+        brew upgrade
+    fi
+    if is-debian; then
+        sudo apt update
+        sudo apt upgrade -y
+    fi
     sub_clean
 }
 
 sub_clean() {
-    brew cleanup
-    brew autoremove
+    if is-macos; then
+        brew cleanup
+        brew autoremove
+    fi
+    if is-debian; then
+        sudo apt clean
+        sudo apt autoremove
+    fi
 }
 
 sub_mac-defaults() {
