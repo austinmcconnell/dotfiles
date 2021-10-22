@@ -9,20 +9,26 @@ else
         echo "**************************************************"
         echo "Installing Vim"
         echo "**************************************************"
-        brew install vim ctags the_silver_searcher
+        brew install vim
     elif is-debian; then
         echo "**************************************************"
         echo "Installing Vim"
         echo "**************************************************"
-        sudo add-apt-repository -y ppa:jonathonf/vim
         sudo apt update
-        sudo apt install -y vim ctags silversearcher-ag
+        sudo apt install -y vim
     else
         echo "**************************************************"
         echo "Skipping Vim installation: Unidentified OS"
         echo "**************************************************"
         return
     fi
+fi
+
+if is-macos; then
+    brew install ctags the_silver_searcher
+elif is-debian; then
+    sudo apt update
+    sudo apt install -y ctags silversearcher-ag
 fi
 
 touch ~/.vimrc
