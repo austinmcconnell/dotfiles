@@ -31,7 +31,6 @@ brew install chtf
 brew install coreutils
 brew install dockutil
 brew install git
-brew install git-extras
 brew install grep
 brew install hadolint
 brew install httpie
