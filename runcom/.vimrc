@@ -42,9 +42,9 @@ set undodir=~/.vim/undodir                                   " Store all undo hi
 set spell                                                    " enable spellchecking
 set spelllang=en_us                                          " set spell language to US English
 nnoremap <leader>s :set spell!<CR>|                          " toggle spellchecking
-set spellfile=$PWD/etc/vim/spell/en.utf-8.add                " set custom dictionary file location
+set spellfile=$DOTFILES_DIR/etc/vim/spell/en.utf-8.add                " set custom dictionary file location
 
-for d in glob('$PWD/etc/vim/spell/*.add', 1, 1)
+for d in glob('DOTFILES_DIR/etc/vim/spell/*.add', 1, 1)
     if filereadable(d) && (!filereadable(d . '.spl') || getftime(d) > getftime(d . '.spl'))
         exec 'mkspell! ' . fnameescape(d)
     endif
