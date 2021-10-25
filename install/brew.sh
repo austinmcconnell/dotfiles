@@ -39,6 +39,7 @@ brew install --formula jq
 brew install --formula kubernetes-cli
 brew install --formula mas
 brew install --formula nano
+brew install --formula openssl # Used for compiling (e.g. pyenv building python versions from source)
 brew install --formula shellcheck
 brew install --formula shfmt
 brew install --formula ssh-copy-id
@@ -49,6 +50,7 @@ brew install --formula unar
 brew install --formula wget
 brew install --formula wifi-password
 brew install --formula yamllint
+brew install --formula zlib # Used for compiling (e.g. pyenv building python versions from source)
 
 # Install applications
 brew install --cask alfred
