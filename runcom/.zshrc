@@ -33,8 +33,6 @@ source $ZSH/oh-my-zsh.sh
 source "$HOME/.repositories/kube-ps1/kube-ps1.sh"
 source <(kubectl completion zsh)
 
-export SSH_KEY_PATH=~/.ssh/id_macbookpro
-
 # Source chtf
 if [[ -f /usr/local/share/chtf/chtf.sh ]]; then
     source "/usr/local/share/chtf/chtf.sh"
