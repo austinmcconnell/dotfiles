@@ -33,7 +33,8 @@ let g:ale_linters = {
 \   'python': ['flake8', 'mypy', 'pylint', 'pyright'],
 \   'sh': ['bashate', 'shellcheck', 'language_server'],
 \   'terraform': ['terraform'],
-\   'yaml': ['spectral', 'yamllint']
+\   'yaml': ['spectral', 'yamllint'],
+\   'zsh': ['bashate', 'shellcheck', 'language_server'],
 \}
 
 " Enable fixers
@@ -43,7 +44,8 @@ let g:ale_fixers = {
 \   'python': ['isort'],
 \   'sh': ['shfmt'],
 \   'terraform': ['terraform'],
-\   'yaml': ['yamlfix']
+\   'yaml': ['yamlfix'],
+\   'zsh': ['shfmt'],
 \}
 
 let g:ale_json_jq_options = '--indent 4'
