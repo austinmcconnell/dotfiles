@@ -27,23 +27,13 @@ if [ -d "$DOTFILES_EXTRA_DIR" ]; then
     done
 fi
 
-plugins=(brew docker git httpie nvm pip pipenv terraform)
+plugins=(brew docker gcloud git httpie nvm pip pipenv terraform)
 
 source $ZSH/oh-my-zsh.sh
 source "$HOME/.repositories/kube-ps1/kube-ps1.sh"
 source <(kubectl completion zsh)
 
 export SSH_KEY_PATH=~/.ssh/id_macbookpro
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc' ]; then
-    source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
-fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc' ]; then
-    source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
-fi
 
 # Source chtf
 if [[ -f /usr/local/share/chtf/chtf.sh ]]; then
