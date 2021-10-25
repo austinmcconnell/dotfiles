@@ -27,3 +27,8 @@ repos:
     rev: v1.0.4
     hooks:
       - id: write-good
+  - repo: https://github.com/amperser/proselint
+    rev: 0.12.0
+    hooks:
+      - id: proselint
+        files: "\\.(rst|md|markdown|mdown|mkdn)$"
