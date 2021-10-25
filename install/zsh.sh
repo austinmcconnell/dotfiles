@@ -33,25 +33,28 @@ if [ "$SHELL" != "$(which zsh)" ]; then
     chsh --shell $(which zsh) $USER
 fi
 
-if [ -d "$HOME/.oh-my-zsh" ]; then
-    git --work-tree="$HOME/.oh-my-zsh" --git-dir="$HOME/.oh-my-zsh/.git" pull origin master
+REPO_DIR="$HOME/.oh-my-zsh"
+if [ -d "$REPO_DIR/.git" ]; then
+    git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin master
 else
     sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 fi
 
 ln -sfv "$DOTFILES_DIR/etc/zsh/austin.zsh-theme" ~/.oh-my-zsh/custom/themes/
 
-if [ -d "$HOME/.repositories/kube-ps1/.git" ]; then
-    git --work-tree="$HOME/.repositories/kube-ps1" --git-dir="$HOME/.repositories/kube-ps1/.git" pull origin master
+REPO_DIR="$HOME/.repositories/kube-ps1"
+if [ -d "$REPO_DIR/.git" ]; then
+    git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin master
 else
-    git clone https://github.com/jonmosco/kube-ps1.git "$HOME/.repositories/kube-ps1"
+    git clone https://github.com/jonmosco/kube-ps1.git "$REPO_DIR"
 fi
 
-if [ -d "$HOME/.oh-my-zsh/custom/themes/spaceship-prompt" ]; then
-    git --work-tree="$HOME/.oh-my-zsh/custom/themes/spaceship-prompt" --git-dir="$HOME/.oh-my-zsh/custom/themes/spaceship-prompt/.git" pull origin master
+REPO_DIR="$HOME/.oh-my-zsh/custom/themes/spaceship-prompt"
+if [ -d "$REPO_DIR/.git" ]; then
+    git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin master
 else
-    git clone https://github.com/spaceship-prompt/spaceship-prompt.git "$HOME/.oh-my-zsh/custom/themes/spaceship-prompt" --depth=1
-    ln -s "$HOME/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme" "$HOME/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
+    git clone https://github.com/spaceship-prompt/spaceship-prompt.git "$REPO_DIR" --depth=1
+    ln -s "$REPO_DIR/spaceship.zsh-theme" "$HOME/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
 fi
 
 # if [ -d "$HOME/.oh-my-zsh/custom/plugins/zsh-kubectl-prompt/.git" ] ; then
