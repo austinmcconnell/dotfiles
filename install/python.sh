@@ -44,18 +44,18 @@ DEFAULT_PYTHON_VERSION=3.7.4
 mkdir -p ~/.pyenv
 ln -sfv "$DOTFILES_DIR/etc/python/default-packages" ~/.pyenv
 
-PYENV_PLUGIN_DIR="$HOME/.pyenv/plugins"
-
-if [ -d "$PYENV_PLUGIN_DIR/pyenv-implicit/.git" ]; then
-    git --work-tree="$PYENV_PLUGIN_DIR/pyenv-implicit" --git-dir="$PYENV_PLUGIN_DIR/pyenv-implicit/.git" pull origin master
+REPO_DIR="$HOME/.pyenv/plugins/pyenv-implicit"
+if [ -d "$REPO_DIR/.git" ]; then
+    git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin master
 else
-    git clone git://github.com/pyenv/pyenv-implicit.git "$PYENV_PLUGIN_DIR/pyenv-implicit"
+    git clone git://github.com/pyenv/pyenv-implicit.git "$REPO_DIR"
 fi
 
-if [ -d "$PYENV_PLUGIN_DIR/pyenv-default-packages/.git" ]; then
-    git --work-tree="$PYENV_PLUGIN_DIR/pyenv-default-packages" --git-dir="$PYENV_PLUGIN_DIR/pyenv-default-packages/.git" pull origin master
+REPO_DIR="$HOME/.pyenv/plugins/pyenv-default-packages"
+if [ -d "$REPO_DIR/.git" ]; then
+    git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin master
 else
-    git clone git://github.com/jawshooah/pyenv-default-packages.git "$PYENV_PLUGIN_DIR/pyenv-default-packages"
+    git clone git://github.com/jawshooah/pyenv-default-packages.git "$REPO_DIR"
 fi
 
 pyenv install --skip-existing $DEFAULT_PYTHON_VERSION
