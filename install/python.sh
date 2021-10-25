@@ -54,14 +54,14 @@ REPO_DIR="$HOME/.pyenv/plugins/pyenv-implicit"
 if [ -d "$REPO_DIR/.git" ]; then
     git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin master
 else
-    git clone git://github.com/pyenv/pyenv-implicit.git "$REPO_DIR"
+    git clone https://github.com/pyenv/pyenv-implicit.git "$REPO_DIR"
 fi
 
 REPO_DIR="$HOME/.pyenv/plugins/pyenv-default-packages"
 if [ -d "$REPO_DIR/.git" ]; then
     git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin master
 else
-    git clone git://github.com/jawshooah/pyenv-default-packages.git "$REPO_DIR"
+    git clone https://github.com/jawshooah/pyenv-default-packages.git "$REPO_DIR"
 fi
 
 pyenv install --skip-existing $DEFAULT_PYTHON_VERSION
