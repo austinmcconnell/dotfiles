@@ -10,7 +10,6 @@ else
         echo "Installing Python"
         echo "**************************************************"
         brew install readline xz
-        curl https://pyenv.run | bash
     elif is-debian; then
         echo "**************************************************"
         echo "Installing Python"
@@ -18,7 +17,6 @@ else
         sudo apt-get install -y build-essential libssl-dev zlib1g-dev libbz2-dev \
             libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
             xz-utils tk-dev libffi-dev liblzma-dev python-openssl git
-        curl https://pyenv.run | bash
     else
         echo "**************************************************"
         echo "Skipping Python installation: Unidentified OS"
@@ -42,6 +40,14 @@ ln -sfv "$DOTFILES_DIR/scripts/sort-git-repos-by-owner.py" ~/projects
 DEFAULT_PYTHON_VERSION=3.7.4
 
 mkdir -p ~/.pyenv
+
+REPO_DIR="$HOME/.pyenv"
+if [ -d "$REPO_DIR/.git" ]; then
+    git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin master
+else
+    git clone https://github.com/pyenv/pyenv.git "$REPO_DIR"
+fi
+
 ln -sfv "$DOTFILES_DIR/etc/python/default-packages" ~/.pyenv
 
 REPO_DIR="$HOME/.pyenv/plugins/pyenv-implicit"
