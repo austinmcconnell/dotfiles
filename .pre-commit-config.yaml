@@ -23,3 +23,7 @@ repos:
         entry: shfmt
         args: ["-w", "-i", "4"]
         types: [shell]
+  - repo: https://github.com/btford/write-good
+    rev: v1.0.4
+    hooks:
+      - id: write-good
