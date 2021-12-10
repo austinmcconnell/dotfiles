@@ -23,3 +23,6 @@ alias killfinder="killall Finder"
 alias killdock="killall Dock"
 alias killmenubar="killall SystemUIServer NotificationCenter"
 alias killos="killfinder && killdock && killmenubar"
+
+# sleepWake reasons
+alias wakereason="log show --style syslog --last 3h | fgrep \"[powerd:sleepWake]\""
