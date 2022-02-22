@@ -30,7 +30,7 @@ fi
 plugins=(autoenv brew docker git helm httpie nvm pip pipenv terraform)
 
 source $ZSH/oh-my-zsh.sh
-source "$HOME/.repositories/kube-ps1/kube-ps1.sh"
+# source "$HOME/.repositories/kube-ps1/kube-ps1.sh"  # Only needed for custom Austin.zsh theme
 source <(kubectl completion zsh)
 
 # Source chtf
