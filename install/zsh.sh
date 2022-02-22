@@ -38,7 +38,7 @@ REPO_DIR="$HOME/.oh-my-zsh"
 if [ -d "$REPO_DIR/.git" ]; then
     git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin master
 else
-    sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 fi
 
 ln -sfv "$DOTFILES_DIR/etc/zsh/austin.zsh-theme" ~/.oh-my-zsh/custom/themes/
