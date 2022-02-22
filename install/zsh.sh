@@ -15,7 +15,7 @@ else
         echo "Installing Zsh with apt"
         echo "**************************************************"
         sudo apt update
-        sudo apt install software-properties-common curl
+        sudo apt install -y software-properties-common curl
         sudo add-apt-repository -y universe
         sudo apt install -y zsh
     else
