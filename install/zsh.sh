@@ -31,7 +31,7 @@ ln -sfv "$DOTFILES_DIR/runcom/.zshrc" ~
 grep "$(which zsh)" /etc/shells &>/dev/null || sudo zsh -c "echo $(which zsh) >> /etc/shells"
 
 if [ "$SHELL" != "$(which zsh)" ]; then
-    chsh --shell $(which zsh) $USER
+    sudo chsh --shell $(which zsh) $USER
 fi
 
 REPO_DIR="$HOME/.oh-my-zsh"
