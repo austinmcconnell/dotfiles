@@ -69,7 +69,7 @@ fi
 # git clone https://github.com/lukechilds/zsh-nvm "$HOME/.oh-my-zsh/custom/plugins/zsh-nvm"
 # fi
 
-#rm ~/.zcompdump*
+rm ~/.zcompdump*
 
 # Setup terminfo
 mkdir -p "$HOME"/.terminfo
