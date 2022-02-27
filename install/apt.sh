@@ -21,7 +21,6 @@ sudo apt-get update
 sudo apt install -y bats
 sudo apt install -y fonts-firacode
 sudo apt install -y jq
-sudo apt install -y kubectl
 sudo apt install -y shellcheck
 sudo apt install -y tree
 sudo apt install -y yamllint

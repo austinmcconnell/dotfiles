@@ -18,6 +18,7 @@ else
         echo "Installing Kubernetes"
         echo "**************************************************"
         sudo snap install microk8s --classic
+        sudo apt install -y kubectl
     else
         echo "**************************************************"
         echo "Skipping Kubernetes installation: Unidentified OS"
