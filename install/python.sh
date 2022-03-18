@@ -29,6 +29,8 @@ mkdir -p ~/.config/proselint
 mkdir -p ~/.config/mypy
 mkdir -p ~/.config/isort/
 mkdir -p ~/projects/scripts
+mkdir -p ~/.pyenv
+mkdir -p ~/.git-templates
 
 ln -sfv "$DOTFILES_DIR/etc/python/flake8" ~/.config
 ln -sfv "$DOTFILES_DIR/etc/python/pylintrc" ~/.config
@@ -39,8 +41,6 @@ ln -sfv "$DOTFILES_DIR/scripts/reinitialize-git-repositories.py" ~/projects/scri
 ln -sfv "$DOTFILES_DIR/scripts/sort-git-repos-by-owner.py" ~/projects/scripts
 
 DEFAULT_PYTHON_VERSION=3.7.4
-
-mkdir -p ~/.pyenv
 
 REPO_DIR="$HOME/.pyenv"
 if [ -d "$REPO_DIR/.git" ]; then
@@ -67,3 +67,5 @@ fi
 
 pyenv install --skip-existing $DEFAULT_PYTHON_VERSION
 pyenv global $DEFAULT_PYTHON_VERSION
+
+pre-commit init-templatedir ~/.git-templates
