@@ -6,18 +6,19 @@ if is-executable microk8s; then
     echo "**************************************************"
     microk8s start
 else
+    KUBERNETES_VERSION=1.22/stable
     if is-macos; then
         echo "**************************************************"
         echo "Installing Kubernetes"
         echo "**************************************************"
         brew install ubuntu/microk8s/microk8s kubectl kubectx
-        microk8s install --cpu=4 --mem=8
+        microk8s install --cpu=4 --mem=8 --channel=$KUBERNETES_VERSION
         # If the install step fails, try disabling stealth mode in Security & Privacy -> Firewall -> Firewall Options, install again, then re-enable stealth mode
     elif is-debian; then
         echo "**************************************************"
         echo "Installing Kubernetes"
         echo "**************************************************"
-        sudo snap install microk8s --classic
+        sudo snap install microk8s --classic --channel=$KUBERNETES_VERSION
         sudo apt install -y kubectl
     else
         echo "**************************************************"
