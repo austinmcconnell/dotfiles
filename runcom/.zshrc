@@ -55,3 +55,6 @@ SPACESHIP_KUBECTL_VERSION_SHOW=false
 SPACESHIP_VENV_GENERIC_NAMES=()
 SPACESHIP_BATTERY_THRESHOLD=20
 SPACESHIP_JOBS_AMOUNT_THRESHOLD=0
+
+zstyle ':completion:*:*:docker:*' option-stacking yes
+zstyle ':completion:*:*:docker-*:*' option-stacking yes
