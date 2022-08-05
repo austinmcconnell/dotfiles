@@ -55,6 +55,7 @@ brew install --formula zlib # Used for compiling (e.g. pyenv building python ver
 
 # Install applications
 brew install --cask alfred
+brew install --cask backuploupe
 brew install --cask bartender
 brew install --cask docker
 brew install --cask evernote
