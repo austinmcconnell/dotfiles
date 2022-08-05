@@ -40,6 +40,7 @@ ln -sfv "$DOTFILES_DIR/etc/python/.isort.cfg" ~/.config/isort/.isort.cfg
 ln -sfv "$DOTFILES_DIR/scripts/reinitialize-git-repositories.py" ~/projects/scripts
 ln -sfv "$DOTFILES_DIR/scripts/sort-git-repos-by-owner.py" ~/projects/scripts
 ln -sfv "$DOTFILES_DIR/scripts/sort-docker-compose.py" ~/projects/scripts
+ln -sfv "$DOTFILES_DIR/scripts/free-space-alert.scpt" ~/projects/scripts
 
 DEFAULT_PYTHON_VERSION=3.7.4
 
