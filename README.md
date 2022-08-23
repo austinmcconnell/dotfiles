@@ -22,7 +22,7 @@ This will clone (using `git`), or download (using `curl` or `wget`), this repo t
     git clone https://github.com/austinmcconnell/dotfiles.git ~/.dotfiles
 ```
 
-Use the [Makefile](./Makefile) to install everything [listed above](#package-overview), and symlink [runcom](./runcom) and [config](./config) (using [stow](https://www.gnu.org/software/stow/)):
+Run setup script `install.sh`:
 
 ```shell
     cd ~/projects/dotfiles
@@ -313,7 +313,7 @@ General
 * [Supertab](https://github.com/ervandew/supertab)
 * [ListToggle](https://github.com/Valloric/ListToggle)
   * `<leader>l`: Toggle the location list
-  * `<leader>l`: Toggle the quickfix list
+  * `<leader>q`: Toggle the quickfix list
 
 Coding plugins
 
