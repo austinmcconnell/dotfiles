@@ -44,27 +44,30 @@ ln -sfv "$DOTFILES_DIR/scripts/free-space-alert.scpt" ~/projects/scripts
 
 DEFAULT_PYTHON_VERSION=3.7.4
 
-REPO_DIR="$HOME/.pyenv"
+REPO_DIR="$HOME/.repositories/pyenv"
 if [ -d "$REPO_DIR/.git" ]; then
     git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin master
 else
     git clone https://github.com/pyenv/pyenv.git "$REPO_DIR"
+    ln -sfv "$REPO_DIR" "$HOME/.pyenv"
 fi
 
 ln -sfv "$DOTFILES_DIR/etc/python/default-packages" ~/.pyenv
 
-REPO_DIR="$HOME/.pyenv/plugins/pyenv-implicit"
+REPO_DIR="$HOME/.repositories/pyenv-implicit"
 if [ -d "$REPO_DIR/.git" ]; then
     git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin master
 else
     git clone https://github.com/pyenv/pyenv-implicit.git "$REPO_DIR"
+    ln -sfv "$REPO_DIR" "$HOME/.pyenv/plugins/pyenv-implicit"
 fi
 
-REPO_DIR="$HOME/.pyenv/plugins/pyenv-default-packages"
+REPO_DIR="$HOME/.repositories/pyenv-default-packages"
 if [ -d "$REPO_DIR/.git" ]; then
     git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin master
 else
     git clone https://github.com/jawshooah/pyenv-default-packages.git "$REPO_DIR"
+    ln -sfv "$REPO_DIR" "$HOME/.pyenv/plugins/pyenv-default-packages"
 fi
 
 pyenv install --skip-existing $DEFAULT_PYTHON_VERSION
