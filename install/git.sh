@@ -24,7 +24,6 @@ else
 fi
 
 mkdir -p ~/.git-templates/hooks
-mkdir -p ~/.repositories
 
 ln -sfv "$DOTFILES_DIR/etc/git/.gitconfig" ~
 ln -sfv "$DOTFILES_DIR/etc/git/.gitignore_global" ~

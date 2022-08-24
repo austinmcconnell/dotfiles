@@ -14,6 +14,7 @@ if is-executable git -a -d "$DOTFILES_DIR/.git"; then
 fi
 
 mkdir -p ~/.config
+mkdir -p ~/.repositories
 
 # Package managers & packages
 . "$DOTFILES_DIR/install/git.sh"
