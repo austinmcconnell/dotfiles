@@ -58,3 +58,4 @@ let g:ale_python_mypy_auto_pipenv = 1
 let g:ale_python_mypy_ignore_invalid_syntax = 1
 
 let g:ale_sh_bashate_options = '--max-line-length 100'
+let g:ale_sh_shfmt_options = '--indent 4'
