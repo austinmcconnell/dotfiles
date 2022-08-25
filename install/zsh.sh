@@ -49,12 +49,13 @@ else
     git clone https://github.com/jonmosco/kube-ps1.git "$REPO_DIR"
 fi
 
-REPO_DIR="$HOME/.oh-my-zsh/custom/themes/spaceship-prompt"
+REPO_DIR="$HOME/.repositories/spaceship-prompt"
 if [ -d "$REPO_DIR/.git" ]; then
     git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin master
 else
     git clone https://github.com/spaceship-prompt/spaceship-prompt.git "$REPO_DIR" --depth=1
-    ln -s "$REPO_DIR/spaceship.zsh-theme" "$HOME/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
+    ln -sfv "$REPO_DIR" "$HOME/.oh-my-zsh/custom/themes/spaceship-prompt"
+    ln -sfv "$REPO_DIR/spaceship.zsh-theme" "$HOME/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
 fi
 
 # if [ -d "$HOME/.oh-my-zsh/custom/plugins/zsh-kubectl-prompt/.git" ] ; then
