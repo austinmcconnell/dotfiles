@@ -32,11 +32,12 @@ if [ "$SHELL" != "$(which zsh)" ]; then
     sudo chsh --shell $(which zsh) $USER
 fi
 
-REPO_DIR="$HOME/.oh-my-zsh"
+REPO_DIR="$HOME/.repositories/oh-my-zsh"
 if [ -d "$REPO_DIR/.git" ]; then
     git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin master
 else
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+    ZSH="$REPO_DIR" sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+    ln -sfv "$REPO_DIR" "$HOME/.oh-my-zsh"
 fi
 
 ln -sfv "$DOTFILES_DIR/runcom/.zshrc" ~
