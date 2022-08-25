@@ -38,7 +38,15 @@ sub_update() {
         sudo apt upgrade -y
         sudo snap refresh
     fi
+    sub_update-repositories
     sub_clean
+}
+
+sub_update-repositories() {
+    for REPO_DIR in "$HOME"/.repositories/*; do
+        echo Updating repository: "$(basename "$REPO_DIR")"
+        git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull
+    done
 }
 
 sub_clean() {
