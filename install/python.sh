@@ -29,7 +29,6 @@ mkdir -p ~/.config/proselint
 mkdir -p ~/.config/mypy
 mkdir -p ~/.config/isort/
 mkdir -p ~/projects/scripts
-mkdir -p ~/.pyenv
 mkdir -p ~/.git-templates
 
 ln -sfv "$DOTFILES_DIR/etc/python/flake8" ~/.config
