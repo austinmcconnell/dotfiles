@@ -41,7 +41,7 @@ ln -sfv "$DOTFILES_DIR/scripts/sort-git-repos-by-owner.py" ~/projects/scripts
 ln -sfv "$DOTFILES_DIR/scripts/sort-docker-compose.py" ~/projects/scripts
 ln -sfv "$DOTFILES_DIR/scripts/free-space-alert.scpt" ~/projects/scripts
 
-DEFAULT_PYTHON_VERSION=3.7.4
+DEFAULT_PYTHON_VERSION=3.10.6
 
 REPO_DIR="$HOME/.repositories/pyenv"
 if [ -d "$REPO_DIR/.git" ]; then
