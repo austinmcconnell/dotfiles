@@ -63,7 +63,7 @@ fi
 
 REPO_DIR="$HOME/.repositories/nord"
 if [ -d "$REPO_DIR/.git" ]; then
-    git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin develop
+    git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin main
 else
     git clone https://github.com/arcticicestudio/nord-vim "$REPO_DIR"
     ln -sfv "$REPO_DIR/colors/nord.vim" "$HOME/.vim/colors/nord.vim"
