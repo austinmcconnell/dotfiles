@@ -359,6 +359,18 @@ Coding plugins
 * [Gutentags](https://github.com/ludovicchabant/vim-gutentags)
 * [Jedi Vim](https://github.com/davidhalter/jedi-vim)
 * [Tagbar](https://github.com/preservim/tagbar)
+* [Surround](https://github.com/tpope/vim-surround)
+  * ds: delete surroundings
+    * ds(: delete surrounding parentheses
+  * cs: change surroundings
+    * cs"): change surrounding double quotes to parentheses
+  * ys: add surroundings (mnemonic is "you surround")
+    * ysiw": add double quotes around entire word
+    * ysiw(: add parentheses around
+    * yss": add double quotes to entire line ignoring leading whitespace
+  * when you use ), }, ], or >, the text is wrapped with the appropriate pair
+of characters
+  * when you use (, {, or [, the text is wrapped with the appropriate pair of characters and a space is appended on the inside
 
 Writing
 
