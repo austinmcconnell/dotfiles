@@ -30,7 +30,7 @@ fi
 
 microk8s status --wait-ready
 
-microk8s enable dashboard dns registry istio ingress
+microk8s enable dashboard dns registry istio ingress prometheus
 
 kubectl config set-cluster microk8s \
     --server=$(microk8s kubectl config view --raw -o 'jsonpath={.clusters[0].cluster.server}') \
