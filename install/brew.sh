@@ -8,8 +8,8 @@ else
         echo "**************************************************"
         echo "Installing Homebrew"
         echo "**************************************************"
-        ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    else
+         NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+     else
         echo "**************************************************"
         echo "Skipping Homebrew installation: Not macOS"
         echo "**************************************************"
