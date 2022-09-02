@@ -32,6 +32,7 @@ elif is-debian; then
 fi
 
 touch ~/.vimrc
+mkdir -p ~/.vim/colors
 mkdir -p ~/.vim/pack/bundle/start
 mkdir -p ~/.vim/pack/bundle/opt
 mkdir -p ~/.vim/spell
