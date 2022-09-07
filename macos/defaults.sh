@@ -24,6 +24,15 @@ done 2>/dev/null &
 # sudo scutil --set LocalHostName "$COMPUTER_NAME"
 # sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "$COMPUTER_NAME"
 
+# Dock settings
+defaults write com.apple.dock autohide -bool false
+defaults write com.apple.dock tilesize -int 48
+defaults write com.apple.dock magnification -bool false
+defaults write com.apple.dock largesize -int 64
+
+# Set appearance mode to Dark
+defaults write NSGlobalDomain AppleInterfaceStyle Dark
+
 # Expand save panel by default
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
