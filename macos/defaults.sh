@@ -29,6 +29,7 @@ defaults write com.apple.dock autohide -bool false
 defaults write com.apple.dock tilesize -int 48
 defaults write com.apple.dock magnification -bool false
 defaults write com.apple.dock largesize -int 64
+defaults write com.apple.dock show-recents -bool FALSE
 
 # Set appearance mode to Dark
 defaults write NSGlobalDomain AppleInterfaceStyle Dark
