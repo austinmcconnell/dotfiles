@@ -27,7 +27,7 @@ if [ -d "$DOTFILES_EXTRA_DIR" ]; then
     done
 fi
 
-plugins=(autoenv brew docker git helm httpie pip pipenv terraform)
+plugins=(autoenv httpie pip pipenv terraform)
 
 source $ZSH/oh-my-zsh.sh
 # source "$HOME/.repositories/kube-ps1/kube-ps1.sh"  # Only needed for custom Austin.zsh theme
