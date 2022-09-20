@@ -29,7 +29,6 @@ sub_test() {
 
 sub_update() {
     if is-macos; then
-        sudo softwareupdate -i -a
         mas upgrade
         brew update
         brew upgrade
