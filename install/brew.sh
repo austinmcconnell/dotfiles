@@ -44,7 +44,6 @@ brew install --formula openssl # Used for compiling (e.g. pyenv building python 
 brew install --formula shellcheck
 brew install --formula shfmt
 brew install --formula ssh-copy-id
-brew install --formula svn # Only needed to install font-source-code-pro. Safe to delete after font installed.
 brew install --formula terraform
 brew install --formula tree
 brew install --formula unar
@@ -61,7 +60,6 @@ brew install --cask docker
 brew install --cask evernote
 brew install --cask flux
 brew install --cask firefox
-brew install --cask font-source-code-pro
 brew install --cask font-fira-code
 brew install --cask gpg-suite
 brew install --cask hazel
@@ -83,9 +81,6 @@ brew install --cask vagrant
 brew install --cask viscosity
 brew install --cask visual-studio-code
 brew install --cask zoom
-
-# Uninstall
-brew uninstall svn # Only needed to install font-source-code-pro. Safe to delete after font installed.
 
 # Create symlinks
 ln -sfv "$DOTFILES_DIR/etc/hyper/.hyper.js" ~
