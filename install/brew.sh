@@ -62,8 +62,6 @@ brew install --cask evernote
 brew install --cask flux
 brew install --cask font-source-code-pro
 brew install --cask font-fira-code
-brew install --cask google-chrome
-brew install --cask google-cloud-sdk
 brew install --cask gpg-suite
 brew install --cask hazel
 brew install --cask iterm2
@@ -78,7 +76,6 @@ brew install --cask silicon
 brew install --cask slack
 brew install --cask spotify
 brew install --cask sublime-text
-brew install --cask steam
 brew install --cask tableplus
 brew install --cask the-unarchiver
 brew install --cask vagrant
