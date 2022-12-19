@@ -11,9 +11,9 @@ lts_version=`cat $NVM_DIR/alias/$lts_name`
 prepend-path "/bin"
 prepend-path "/usr/bin"
 prepend-path "/usr/local/bin"
-prepend-path "/usr/local/opt/ruby/bin"
-prepend-path "/usr/local/opt/coreutils/libexec/gnubin"
-prepend-path "usr/local/opt/grep/libexec/gnubin"
+prepend-path "$BREW_PREFIX/opt/ruby/bin"
+prepend-path "$BREW_PREFIX/opt/coreutils/libexec/gnubin"
+prepend-path "$BREW_PREFIX/opt/grep/libexec/gnubin"
 prepend-path "$DOTFILES_DIR/bin"
 prepend-path "$HOME/bin"
 prepend-path "/sbin"
@@ -23,7 +23,7 @@ prepend-path ~/.pyenv/shims
 prepend-path ~/.pyenv/bin
 prepend-path "$NVM_DIR/versions/node/$lts_version/bin"
 prepend-path "/snap/bin"
-prepend-path "/opt/homebrew/bin"
+prepend-path "$BREW_PREFIX/bin"
 prepend-path "$GEM_HOME/bin"
 
 # Remove duplicates (preserving prepended items)
