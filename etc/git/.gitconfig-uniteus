@@ -1,0 +1,6 @@
+[user]
+    email = austin.mcconnell@uniteus.com
+    signingkey = F4EDEC4AAE43C136
+
+[commit]
+	gpgsign = true

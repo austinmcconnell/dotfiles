@@ -28,6 +28,7 @@ mkdir -p ~/.git-templates/hooks
 ln -sfv "$DOTFILES_DIR/etc/git/.gitconfig" ~
 ln -sfv "$DOTFILES_DIR/etc/git/.gitignore_global" ~
 ln -sfv "$DOTFILES_DIR/etc/git/hooks/pre-push" ~/.git-templates/hooks/pre-push
+ln -sfv "$DOTFILES_DIR/etc/git/.gitconfig-uniteus" ~
 
 if [ -d "$HOME/.repositories/diff-so-fancy/.git" ]; then
     git --work-tree="$HOME/.repositories/diff-so-fancy/" --git-dir="$HOME/.repositories/diff-so-fancy/.git" pull origin master

@@ -55,3 +55,6 @@
 	ff = only
 [blame]
 	date = short
+
+[includeIf "gitdir:~/projects/unite-us/"]
+    path = ~/.gitconfig-uniteus
