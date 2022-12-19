@@ -58,3 +58,9 @@
 
 [includeIf "gitdir:~/projects/unite-us/"]
     path = ~/.gitconfig-uniteus
+
+[includeIf "gitdir:/Users"]
+    path = ~/.gitconfig-macos
+
+[includeIf "gitdir:/home"]
+    path = ~/.gitconfig-linux
