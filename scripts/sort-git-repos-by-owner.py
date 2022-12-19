@@ -29,11 +29,18 @@ for project in projects:
         continue
 
     output = subprocess.run(['git', 'remote', 'get-url', 'origin'], cwd=project, capture_output=True, universal_newlines=True)
-    fetch_url = output.stdout.strip('\n').strip('.git')
+    fetch_url = output.stdout.strip('\n').rstrip('.git')
     if fetch_url == '':
         continue
-    repo_owner = fetch_url.split('/')[-2]
-    repo_name = fetch_url.split('/')[-1]
+    if 'https' in fetch_url:
+        repo_owner = fetch_url.split('/')[-2]
+        repo_name = fetch_url.split('/')[-1]
+    elif 'git@' in fetch_url:
+        repo_owner = fetch_url.split('/')[-2].split(':')[1]
+        repo_name = fetch_url.split('/')[-1]
+    else:
+        print(f'URL: {fetch_url}')
+        raise Exception('Unknown url scheme')
     print(f'Owner: {repo_owner}\tName: {repo_name}')
 
     owner_dir = REPOSITORIES_DIR / repo_owner
