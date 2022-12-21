@@ -31,7 +31,6 @@ plugins=(autoenv httpie pip pipenv terraform)
 
 source $ZSH/oh-my-zsh.sh
 # source "$HOME/.repositories/kube-ps1/kube-ps1.sh"  # Only needed for custom Austin.zsh theme
-source <(kubectl completion zsh)
 
 # Source chtf
 if [[ -f /usr/local/share/chtf/chtf.sh ]]; then
@@ -49,3 +48,10 @@ zmodload zsh/zprof # Call zprof to get startup profiling
 
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
+
+autoload bashcompinit && bashcompinit
+autoload -Uz compinit && compinit && 
+
+# Add cli completions
+source <(kubectl completion zsh)
+complete -C '$BREW_PREFIX/bin/aws_completer' aws
