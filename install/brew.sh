@@ -52,6 +52,9 @@ brew install --formula wifi-password
 brew install --formula yamllint
 brew install --formula zlib # Used for compiling (e.g. pyenv building python versions from source)
 
+# Install cloud cli tools
+brew install --formula awscli
+
 # Install applications
 brew install --cask alfred
 brew install --cask backuploupe
