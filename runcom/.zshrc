@@ -27,6 +27,8 @@ if [ -d "$DOTFILES_EXTRA_DIR" ]; then
     done
 fi
 
+FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+
 plugins=(autoenv httpie pip pipenv terraform)
 
 source $ZSH/oh-my-zsh.sh
