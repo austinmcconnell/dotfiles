@@ -64,3 +64,5 @@
 
 [includeIf "gitdir:/home"]
     path = ~/.gitconfig-linux
+[submodule]
+	recurse = true
