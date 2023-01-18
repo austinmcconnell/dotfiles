@@ -52,7 +52,7 @@ zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
 
 autoload bashcompinit && bashcompinit
-autoload -Uz compinit && compinit && 
+autoload -Uz compinit && compinit
 
 # Add cli completions
 source <(kubectl completion zsh)
