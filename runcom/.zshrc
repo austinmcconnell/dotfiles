@@ -1,3 +1,5 @@
+zmodload zsh/zprof # Call zprof to get startup profiling
+
 export ZSH=~/.oh-my-zsh
 
 ZSH_THEME="spaceship"
@@ -46,7 +48,6 @@ timezsh() {
         /usr/bin/time $shell -i -c exit
     done
 }
-zmodload zsh/zprof # Call zprof to get startup profiling
 
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
