@@ -8,8 +8,8 @@ else
         echo "**************************************************"
         echo "Installing Homebrew"
         echo "**************************************************"
-         NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-     else
+        NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    else
         echo "**************************************************"
         echo "Skipping Homebrew installation: Not macOS"
         echo "**************************************************"
@@ -31,7 +31,7 @@ brew install --formula blueutil
 brew install --formula chtf
 brew install --formula coreutils
 brew install --formula dive
-brew install --formula dockutil
+# brew install --formula dockutil
 brew install --formula git
 brew install --formula grep
 brew install --formula hadolint
@@ -66,6 +66,7 @@ brew install --cask firefox
 brew install --cask font-fira-code
 brew install --cask gpg-suite
 brew install --cask hazel
+brew install --cask hpedrorodrigues/tools/dockutil
 brew install --cask iterm2
 brew install --cask keepingyouawake
 brew install --cask monitorcontrol
