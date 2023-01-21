@@ -71,8 +71,8 @@ sub_mac-apps() {
     . "${DOTFILES_DIR}/macos/apps.sh"
 }
 
-sub_mac-dock() {
-    . "${DOTFILES_DIR}/macos/dock.sh" && echo "Dock reloaded."
+sub_mac-dock-personal() {
+    . "${DOTFILES_DIR}/macos/dock-personal.sh" && echo "Dock reloaded."
 }
 
 # Make sure to keep this in sync with the available public commands
