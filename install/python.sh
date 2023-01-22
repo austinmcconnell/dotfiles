@@ -51,9 +51,8 @@ if [ -d "$REPO_DIR/.git" ]; then
 else
     git clone https://github.com/pyenv/pyenv.git "$REPO_DIR"
     ln -sfv "$REPO_DIR" "$HOME/.pyenv"
+    ln -sfv "$DOTFILES_DIR/etc/python/default-packages" "$HOME/.pyenv"
 fi
-
-ln -sfv "$DOTFILES_DIR/etc/python/default-packages" ~/.pyenv
 
 REPO_DIR="$HOME/.repositories/pyenv-implicit"
 if [ -d "$REPO_DIR/.git" ]; then
