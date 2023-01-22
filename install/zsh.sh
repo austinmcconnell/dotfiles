@@ -26,6 +26,15 @@ else
     fi
 fi
 
+mkdir -p "$HOME"/.config/zsh
+
+echo "ZDOTDIR=${ZDOTDIR:-~/.config/zsh}\nsource \$ZDOTDIR/.zshenv" >~/.zshenv
+
+ln -sfv "$DOTFILES_DIR/etc/zsh/.zlogin" "$ZDOTDIR"
+ln -sfv "$DOTFILES_DIR/etc/zsh/.zprofile" "$ZDOTDIR"
+ln -sfv "$DOTFILES_DIR/etc/zsh/.zshenv" "$ZDOTDIR"
+ln -sfv "$DOTFILES_DIR/etc/zsh/.zshrc" "$ZDOTDIR"
+
 grep "$(which zsh)" /etc/shells &>/dev/null || sudo zsh -c "echo $(which zsh) >> /etc/shells"
 
 if [ "$SHELL" != "$(which zsh)" ]; then
@@ -40,7 +49,6 @@ else
     ln -sfv "$REPO_DIR" "$HOME/.oh-my-zsh"
 fi
 
-ln -sfv "$DOTFILES_DIR/runcom/.zshrc" ~
 ln -sfv "$DOTFILES_DIR/etc/zsh/austin.zsh-theme" ~/.oh-my-zsh/custom/themes/
 
 REPO_DIR="$HOME/.repositories/kube-ps1"
