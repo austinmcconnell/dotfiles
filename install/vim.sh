@@ -41,7 +41,7 @@ mkdir -p ~/.config/yamllint/
 ln -sfv "$DOTFILES_DIR/etc/vim/ftplugin" ~/.vim
 ln -sfv "$DOTFILES_DIR/etc/vim/plugin" ~/.vim
 ln -sfv "$DOTFILES_DIR/etc/vim/.vimrc" ~
-ln -sfv "$DOTFILES_DIR/runcom/.ctags" ~
+ln -sfv "$DOTFILES_DIR/etc/vim/.ctags" ~
 ln -sfv "$DOTFILES_DIR/etc/yaml/yamllint" ~/.config/yamllint/config
 
 ## Add colorschemes
