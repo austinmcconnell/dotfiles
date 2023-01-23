@@ -23,17 +23,20 @@ else
     fi
 fi
 
-mkdir -p ~/.git-templates/hooks
+GIT_CONFIG_DIR="$HOME/.config/git"
 
-ln -sfv "$DOTFILES_DIR/etc/git/.gitconfig" ~
-ln -sfv "$DOTFILES_DIR/etc/git/.gitignore_global" ~
-ln -sfv "$DOTFILES_DIR/etc/git/hooks/pre-push" ~/.git-templates/hooks/pre-push
-ln -sfv "$DOTFILES_DIR/etc/git/.gitconfig-uniteus" ~
+mkdir -p "$GIT_CONFIG_DIR"
+mkdir -p "$GIT_CONFIG_DIR"/templates/hooks
+
+ln -sfv "$DOTFILES_DIR/etc/git/config" "$GIT_CONFIG_DIR"
+ln -sfv "$DOTFILES_DIR/etc/git/ignore" "$GIT_CONFIG_DIR"
+ln -sfv "$DOTFILES_DIR/etc/git/hooks/pre-push" "$GIT_CONFIG_DIR"/templates/hooks/pre-push
+ln -sfv "$DOTFILES_DIR/etc/git/config-uniteus" "$GIT_CONFIG_DIR"
 
 if is-macos; then
-    ln -sfv "$DOTFILES_DIR/etc/git/.gitconfig-macos" ~
+    ln -sfv "$DOTFILES_DIR/etc/git/config-macos" "$GIT_CONFIG_DIR"
 elif is-debian; then
-    ln -sfv "$DOTFILES_DIR/etc/git/.gitconfig-linux" ~
+    ln -sfv "$DOTFILES_DIR/etc/git/config-linux" "$GIT_CONFIG_DIR"
 fi
 
 if [ -d "$HOME/.repositories/diff-so-fancy/.git" ]; then

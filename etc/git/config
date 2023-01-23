@@ -7,7 +7,6 @@
 	helper = osxkeychain
 
 [core]
-	excludesfile = ~/.gitignore_global
 	pager = diff-so-fancy | less --tabs=4 -RFX
 
 [push]
@@ -33,7 +32,7 @@
 	wdiff = diff --word-diff
 
 [init]
-	templatedir = ~/.git-templates
+	templatedir = ~/.config/git/templates
 	defaultBranch = main
 
 [color "diff-highlight"]
@@ -57,12 +56,12 @@
 	date = short
 
 [includeIf "gitdir:~/projects/unite-us/"]
-    path = ~/.gitconfig-uniteus
+    path = ./config-uniteus
 
 [includeIf "gitdir:/Users"]
-    path = ~/.gitconfig-macos
+    path = ./config-macos
 
 [includeIf "gitdir:/home"]
-    path = ~/.gitconfig-linux
+    path = ./config-linux
 [submodule]
 	recurse = true

@@ -73,4 +73,4 @@ fi
 pyenv install --skip-existing $DEFAULT_PYTHON_VERSION
 pyenv global $DEFAULT_PYTHON_VERSION
 
-pre-commit init-templatedir ~/.git-templates
+pre-commit init-templatedir "$HOME"/.config/git/templates
