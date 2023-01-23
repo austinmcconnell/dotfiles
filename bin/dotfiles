@@ -8,15 +8,16 @@ sub_help() {
     echo "Usage: $BIN_NAME <command>"
     echo
     echo "Commands:"
-    echo "   edit             Open dotfiles in IDE ($DOTFILES_IDE)"
-    echo "   help             This help message"
-    echo "   mac-dock         Apply macOS Dock settings"
-    echo "   mac-defaults     Apply macOS system defaults"
-    echo "   mac-apps         Install macOS applications"
-    echo "   test             Run tests"
-    echo "   update           Update packages and pkg managers (e.g. OS, brew, apt)"
-    echo "   update-repos     Update repos in ~/.repositories"
-    echo "   clean            Clean up caches (e.g. brew, apt)"
+    echo "   edit                 Open dotfiles in IDE ($DOTFILES_IDE)"
+    echo "   help                 This help message"
+    echo "   mac-dock-personal    Apply personal macOS Dock settings"
+    echo "   mac-dock-work        Apply work macOS Dock settings"
+    echo "   mac-defaults         Apply macOS system defaults"
+    echo "   mac-apps             Install macOS applications"
+    echo "   test                 Run tests"
+    echo "   update               Update packages and pkg managers (e.g. OS, brew, apt)"
+    echo "   update-repos         Update repos in ~/.repositories"
+    echo "   clean                Clean up caches (e.g. brew, apt)"
 }
 
 sub_edit() {
@@ -73,6 +74,10 @@ sub_mac-apps() {
 
 sub_mac-dock-personal() {
     . "${DOTFILES_DIR}/macos/dock-personal.sh" && echo "Dock reloaded."
+}
+
+sub_mac-dock-work() {
+    . "${DOTFILES_DIR}/macos/dock-work.sh" && echo "Dock reloaded."
 }
 
 # Make sure to keep this in sync with the available public commands
