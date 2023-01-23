@@ -38,7 +38,7 @@ ln -sfv "$DOTFILES_DIR/etc/zsh/.zshrc" "$ZDOTDIR"
 grep "$(which zsh)" /etc/shells &>/dev/null || sudo zsh -c "echo $(which zsh) >> /etc/shells"
 
 if [ "$SHELL" != "$(which zsh)" ]; then
-    sudo chsh --shell $(which zsh) $USER
+    sudo chsh -s $(which zsh) $USER
 fi
 
 REPO_DIR="$HOME/.repositories/oh-my-zsh"
