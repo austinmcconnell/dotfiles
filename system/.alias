@@ -27,7 +27,7 @@ alias dclogs='docker-compose logs -tf --tail="50" '
 ##############################
 # Atom
 ##############################
-alias zshrc='$EDITOR ~/.zshrc'
+alias zshrc='$EDITOR $ZDOTDIR/.zshrc'
 alias vimrc='$EDITOR ~/.vimrc'
 alias hosts="sudo $EDITOR /etc/hosts"
 
