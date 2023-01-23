@@ -79,8 +79,6 @@ fi
 # git clone https://github.com/lukechilds/zsh-nvm "$HOME/.oh-my-zsh/custom/plugins/zsh-nvm"
 # fi
 
-rm ~/.zcompdump*
-
 # Setup terminfo
 mkdir -p "$HOME"/.terminfo
 tic -o "$HOME"/.terminfo "$DOTFILES_DIR"/etc/terminfo/tmux.terminfo
