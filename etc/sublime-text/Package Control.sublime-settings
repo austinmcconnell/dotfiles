@@ -1,13 +1,10 @@
 {
-	"bootstrapped": true,
-	"in_process_packages":
-	[
-	],
-	"installed_packages":
-	[
-		"Nord",
-		"Package Control",
-		"SublimeLinter",
-		"SublimeLinter-contrib-markdownlint",
-	],
+    "bootstrapped": true,
+    "in_process_packages": [],
+    "installed_packages": [
+        "Nord",
+        "Package Control",
+        "SublimeLinter",
+        "SublimeLinter-contrib-markdownlint"
+    ]
 }

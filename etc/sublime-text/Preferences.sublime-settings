@@ -1,9 +1,9 @@
-// Settings in here override those in "Default/Preferences.sublime-settings",
-// and are overridden in turn by syntax-specific settings.
 {
-	"font_face": "Fira Code",
-	"font_size": 14,
-	"ignored_packages": ["Vintage"],
-	"theme": "auto",
-	"color_scheme": "Nord.sublime-color-scheme",
+    "color_scheme": "Nord.sublime-color-scheme",
+    "font_face": "Fira Code",
+    "font_size": 14,
+    "ignored_packages": [
+        "Vintage"
+    ],
+    "theme": "auto"
 }

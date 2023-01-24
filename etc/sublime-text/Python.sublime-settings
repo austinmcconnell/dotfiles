@@ -1,5 +1,4 @@
-// These settings override both User and Default settings for the Python syntax
 {
-	"wrap_width": 100,
     "word_wrap": true,
+    "wrap_width": 100
 }

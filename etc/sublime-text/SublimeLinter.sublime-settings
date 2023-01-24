@@ -1,9 +1,10 @@
-// SublimeLinter Settings - User
 {
-	// "debug": true,
-	"linters": {
-		"markdownlint": {
-            "args": ["--config", "~/.markdownlintrc"]
+    "linters": {
+        "markdownlint": {
+            "args": [
+                "--config",
+                "~/.markdownlintrc"
+            ]
         }
-	}
+    }
 }
