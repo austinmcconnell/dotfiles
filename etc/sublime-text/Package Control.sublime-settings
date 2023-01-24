@@ -5,6 +5,10 @@
         "Nord",
         "Package Control",
         "SublimeLinter",
-        "SublimeLinter-contrib-markdownlint"
+        "SublimeLinter-contrib-markdownlint",
+        "SublimeLinter-json",
+        "SublimeLinter-pycodestyle",
+        "SublimeLinter-pydocstyle",
+        "SublimeLinter-pylint"
     ]
 }
