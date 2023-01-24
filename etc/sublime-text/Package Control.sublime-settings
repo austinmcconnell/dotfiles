@@ -7,5 +7,7 @@
 	[
 		"Nord",
 		"Package Control",
+		"SublimeLinter",
+		"SublimeLinter-contrib-markdownlint",
 	],
 }
