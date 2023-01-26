@@ -51,6 +51,9 @@ defaults write com.apple.menuextra.battery ShowPercent YES
 # Remove date and time from screenshots
 defaults write com.apple.screencapture "include-date" 0
 
+# Remove notification badge (about signing into iCloud) from system settings icon
+defaults delete com.apple.systempreferences AttentionPrefBundleIDs
+
 ###############################################################################
 # Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #
 ###############################################################################
