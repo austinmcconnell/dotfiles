@@ -29,7 +29,9 @@ if [ -d "$DOTFILES_EXTRA_DIR" ]; then
     done
 fi
 
-FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+if is-macos; then
+    FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+fi
 
 plugins=(autoenv httpie pip pipenv terraform)
 
@@ -56,5 +58,7 @@ autoload bashcompinit && bashcompinit
 autoload -Uz compinit && compinit
 
 # Add cli completions
-source <(kubectl completion zsh)
+if is-executable kubectl; then
+    source <(kubectl completion zsh)
+fi
 complete -C '$BREW_PREFIX/bin/aws_completer' aws
