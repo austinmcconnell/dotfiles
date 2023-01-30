@@ -26,9 +26,10 @@ else
     fi
 fi
 
-mkdir -p "$HOME"/.config/zsh
-
-echo "ZDOTDIR=${ZDOTDIR:-~/.config/zsh}\nsource \$ZDOTDIR/.zshenv" >~/.zshenv
+ZDOTDIR="$HOME"/.config/zsh
+mkdir -p "$ZDOTDIR"
+echo "ZDOTDIR=${ZDOTDIR:-~/.config/zsh}" >"$HOME"/.zshenv
+echo "source \$ZDOTDIR/.zshenv" >>"$HOME"/.zshenv
 
 ln -sfv "$DOTFILES_DIR/etc/zsh/.zlogin" "$ZDOTDIR"
 ln -sfv "$DOTFILES_DIR/etc/zsh/.zprofile" "$ZDOTDIR"
