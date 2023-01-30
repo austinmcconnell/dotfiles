@@ -1,3 +1,4 @@
+#!/usr/bin/osascript
 tell the application "Finder"
 	-- Change this if your drive is not called "Macintosh HD"
 	set drive_name to "Macintosh HD"
