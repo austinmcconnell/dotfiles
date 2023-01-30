@@ -4,7 +4,7 @@ export ZSH=~/.oh-my-zsh
 
 ZSH_THEME="spaceship"
 
-DOTFILES_DIR="$HOME/projects/dotfiles"
+DOTFILES_DIR="$HOME/.dotfiles"
 export DOTFILES_DIR
 # Make utilities available
 PATH="$DOTFILES_DIR/bin:$PATH"

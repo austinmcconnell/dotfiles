@@ -25,7 +25,7 @@ This will clone (using `git`), or download (using `curl` or `wget`), this repo t
 Run setup script `install.sh`:
 
 ```shell
-    cd ~/projects/dotfiles
+    cd ~/.dotfiles
     install.sh
 ```
 
