@@ -368,9 +368,9 @@ Coding plugins
     * ysiw": add double quotes around entire word
     * ysiw(: add parentheses around
     * yss": add double quotes to entire line ignoring leading whitespace
-  * when you use ), }, ], or >, the text is wrapped with the appropriate pair
+  * when you use ), }, ], or >, wrap the text with the appropriate pair
 of characters
-  * when you use (, {, or [, the text is wrapped with the appropriate pair of characters and a space is appended on the inside
+  * when you use (, {, or [, wrap the text with the appropriate pair of characters and append a space on the inside
 
 Writing
 
