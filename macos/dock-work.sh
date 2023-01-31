@@ -33,8 +33,11 @@ dockutil --no-restart --add "/Applications/DataGrip.app" --after "TablePlus"
 dockutil --no-restart --remove "/Applications/Postman.app"
 dockutil --no-restart --add "/Applications/Postman.app" --after "DataGrip"
 
+dockutil --no-restart --remove "/Applications/OpenLens.app"
+dockutil --no-restart --add "/Applications/OpenLens.app" --after "iTerm"
+
 dockutil --no-restart --remove "/Applications/iTerm.app"
-dockutil --no-restart --add "/Applications/iTerm.app" --after "Postman"
+dockutil --no-restart --add "/Applications/iTerm.app" --after "OpenLens"
 
 dockutil --no-restart --remove "/Applications/Sublime Text.app"
 dockutil --no-restart --add "/Applications/Sublime Text.app" --after "iTerm"
