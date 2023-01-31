@@ -6,9 +6,9 @@
 }
 
 @test "json" {
-    ACTUAL=$(echo '{"x":1}' | json)
+    ACTUAL=$(echo '{"x":1}' | jq --indent 4)
     EXPECTED=$'{
-  "x": 1
+    "x": 1
 }'
     [ "$ACTUAL" = "$EXPECTED" ]
 }

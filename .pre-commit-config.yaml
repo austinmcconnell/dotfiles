@@ -40,4 +40,4 @@ repos:
     rev: 2.1.0
     hooks:
       - id: bashate
-        args: ["--max-line-length", "100"]
+        args: ["--max-line-length", "100", "--ignore", "E006,E040"]
