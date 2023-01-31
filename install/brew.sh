@@ -74,6 +74,7 @@ brew install --cask multipass
 brew install --cask obsidian
 brew install --cask oversight
 brew install --cask postico
+brew install --cask postman
 brew install --cask rectangle
 brew install --cask silicon
 brew install --cask slack

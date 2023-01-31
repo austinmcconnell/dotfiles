@@ -30,8 +30,11 @@ dockutil --no-restart --add "/Applications/TablePlus.app" --after "Visual Studio
 dockutil --no-restart --remove "/Applications/DataGrip.app"
 dockutil --no-restart --add "/Applications/DataGrip.app" --after "TablePlus"
 
+dockutil --no-restart --remove "/Applications/Postman.app"
+dockutil --no-restart --add "/Applications/Postman.app" --after "DataGrip"
+
 dockutil --no-restart --remove "/Applications/iTerm.app"
-dockutil --no-restart --add "/Applications/iTerm.app" --after "DataGrip"
+dockutil --no-restart --add "/Applications/iTerm.app" --after "Postman"
 
 dockutil --no-restart --remove "/Applications/Sublime Text.app"
 dockutil --no-restart --add "/Applications/Sublime Text.app" --after "iTerm"
