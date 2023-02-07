@@ -4,6 +4,7 @@
     "installed_packages": [
         "Nord",
         "Package Control",
+        "Pretty JSON",
         "SublimeLinter",
         "SublimeLinter-contrib-markdownlint",
         "SublimeLinter-json",
