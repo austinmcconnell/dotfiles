@@ -49,8 +49,10 @@
 	whitespace = red reverse
 [commit]
 	gpgsign = false
+
 [pull]
 	ff = only
+
 [blame]
 	date = short
 
@@ -62,5 +64,9 @@
 
 [includeIf "gitdir:/home"]
     path = ./config-linux
+
 [submodule]
 	recurse = true
+
+[advice]
+	skippedCherryPicks = false
