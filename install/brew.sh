@@ -59,6 +59,7 @@ brew install --formula awscli
 brew install --cask alfred
 brew install --cask backuploupe
 brew install --cask bartender
+brew install --cask calibre
 brew install --cask docker
 brew install --cask evernote
 brew install --cask flux
