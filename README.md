@@ -177,7 +177,8 @@ Visual mode
 
 * v: character based visual mode
 * V: line based visual mode
-* `<C-v>`: paragraph based visual mode
+* `<C-v>`: block based visual mode
+  * I or A from within this mode will allow multi-line edits (e.g. commenting out more than one line at a time)
 
 Spelling
 
