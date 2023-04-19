@@ -22,12 +22,8 @@
 
 [alias]
 	amend = commit --amend --reuse-message=HEAD
-	br = branch
-	ci = commit
-	co = checkout
 	contrib = shortlog --summary --numbered
 	history = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-	unstage = reset --hard HEAD
 	wdiff = diff --word-diff
 
 [init]
