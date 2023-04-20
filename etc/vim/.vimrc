@@ -3,8 +3,8 @@ set nocompatible            " don't worry about compatibility with vi
 set encoding=utf8           " set encoding to UTF-8
 set updatetime=250
 let mapleader = ";"
-set ttimeoutlen=100          " time to wait for a key code or mapped key sequence to complete
-
+set ttimeoutlen=100         " time to wait for a key code or mapped key sequence to complete
+set nrformats -=octal       " don't treat numbers with leading zeros as octal numbers
 
 " Filetypes
 filetype on                 " try to detect filetype when opening a file
