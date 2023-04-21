@@ -54,35 +54,58 @@ Run setup script `install.sh`:
 
 Host Key Mapping
 
-* Map `Caps Lock` key to `Ctrl`
+* Map `Caps Lock` key to `Escape`
 * To exit vim's insert mode, use either `<C-c>` or `<C-[>`
 
 Practice by running `vimtutor`
 
-Verbs
+### Mode Operators
+
+#### Normal Mode
 
 * d: delete
 * c: change
 * y: yank (copy)
+* p: paste
+* \>: add indentation
+* <: remove indentation
+* =: format code
 * v: visually select characters (V for lines)
+* gU: make text uppercase
+* gu: make text lowercase
 
-Modifiers
+#### Visual Mode
 
-* i: inside
-* a: around
-* NUM: number (e.g. 1,2,5)
+Most normal mode operators still work in visual mode.
 
-Nouns
+* U: make uppercase (instead of gU)
+* u: make lowercase (instead of gu)
+* o: toggle the free end of a visual selection
+* gv: reselect the last visual selection
+
+### Text Objects
+
+Use Text objects in commands by specifying a modifier and then the text-object itself (like {a|i}{text-object})
+
+#### Modifiers
+
+* a: a text-object plus white space
+* i: inner object without whitespace
+
+#### Text Object Identifiers
 
 * w: word
 * s: sentence
-* ): sentence (another way of doing it)
 * p: paragraph
-* }: paragraph (another way of doing it)
 * t: tag (like HTML tags)
 * b: block (like programming blocks)
+* [: square bracket
+* {: curly bracket
+* (: parenthesis
+* ': single quote
+* ": double quote
 
-Searching
+### Searching
 
 * /{string}: search for string
 * n: go to the next instance (when you've searched for a string)
@@ -95,22 +118,26 @@ Searching
 * ;: repeat the last f, t, F, or T action
 * ,: repeat the last f, t, F, or T action in the opposite direction
 
-Motions
+### Motions
 
-* j: move down one line
-* k: move up one line
-* h: move left one character
-* l: move right one character
+#### Left-Right Motions
+
+* h: move left
+* l: move right
 * 0: move to the beginning of the line
 * $: move to the end of the line
 * ^: move to the first non-blank character in the line
-* w: move forward one word
-* b: move back one word
-* e: move to the end of your word
-* ): move forward one sentence
-* (: move back one sentence
-* }: move forward one paragraph
-* {: move back one paragraph
+* f{char}: jump to the right and stop on {char}
+* F{char}: jump to the left and stop on {char}
+* t{char}: jump to the right and stop before {char}
+* T{char}: jump to the left and stop before {char}
+* ;: repeat latest f, t, F, or T
+* ,: repeat latest f, t, F, or T in opposite direction
+
+#### Up-Down Motions
+
+* j: move down one line
+* k: move up one line
 * H: move to the top of the screen
 * M: move to the middle of the screen
 * L: move to the bottom of the screen
@@ -127,7 +154,20 @@ Motions
 * `<C-h>`: jump to the split to the right of current window
 * `<C-l>`: jump to the split to the left of current window
 
-Switching to Insert Mode
+### Word Motions
+
+* w: move forward one word
+* b: move back one word
+* e: move to the end of your word
+
+### Object Motions
+
+* ): move forward one sentence
+* (: move back one sentence
+* }: move forward one paragraph
+* {: move back one paragraph
+
+### Switching to Insert Mode
 
 * i: insert before the cursor
 * a: append after the cursor
@@ -143,7 +183,7 @@ Switching to Insert Mode
 * s: substitute from where you are to the next command (noun)
 * S: substitute the entire current line
 
-Deleting text
+### Deleting text
 
 * x: exterminate (delete) the character under your cursor
 * X: exterminate (delete) the character before the cursor
@@ -153,34 +193,28 @@ Deleting text
 * D: delete to the end of the line
 * J: join the current line with the next one (delete what's between)
 
-Undo and Redo
+### Undo and Redo
 
 * u: undo your last action
 * `<C-r>`: redo the last action
 
-Repeating actions
+### Repeating actions
 
 * .: repeat the last change
 * & or `:s`: repeat the last substitution
 * ;: repeat the last f, t, F, or T action
 * ,: repeat the last f, t, F, or T action in the opposite direction
 
-Useful text objects
-
-* iw and aw: inside word and around word
-* is and as: inside sentence and around sentence
-* ip and ap: inside paragraph and around paragraph
-* i' and a': inside singe quotes and around single quotes
-* i" and a": inside double quotes and around double quotes
-
-Visual mode
+### Visual mode
 
 * v: character based visual mode
 * V: line based visual mode
-* `<C-v>`: block based visual mode
-  * I or A from within this mode will allow multi-line edits (e.g. commenting out more than one line at a time)
+* `<c-v>`: block based visual mode
+  * i or a from within this mode will allow multi-line edits (e.g. commenting more than one line at a time)
 
-Spelling
+### Visual Mode Operators
+
+### Spelling
 
 * ]s: go to next misspelled word
 * [s: go to previous misspelled word
@@ -188,20 +222,20 @@ Spelling
 * zg: mark misspelled word as correct
 * zw: mark a good word as misspelled
 
-Substitution
+### Substitution
 
 * s/foo/bar/g: change each "foo" to "bar" on current line
 * %s/foo/bar/g: change each "foo" to "bar" on every line
 * %s/foo/bar/gc: change each "foo" to "bar" on every line and confirm each change
-* `:s` or `&``: repeat the last substitution
+* `:s` or `&`: repeat the last substitution
 
-Completion in Insert Mode
+### Completion in Insert Mode
 
 * `<C-n>`: find next match from 'complete' option
 * `<C-p>`: find prev match from 'complete' option
 * `<C-x><C-o>`: find matches from 'omnicomplete' (smart autocomplete for programs)
 
-Leader Mappings
+### Leader Mappings
 
 * Leader key mapped to `;`
 * Leader + t    --> launch a terminal window
@@ -213,7 +247,7 @@ Leader Mappings
 * Leader + s    --> toggle spellcheck
 * Leader + u    --> toggle undotree
 
-Using tabs (think of these as 'layouts' or 'workspaces' instead of a browser or file editor 'tab')
+### Using tabs (think of these as 'layouts' or 'workspaces' instead of a browser or file editor 'tab')
 
 * `:tabs`: list all open tabs
 * `:tabedit [filename]`: edit a file in a new tab
@@ -222,7 +256,7 @@ Using tabs (think of these as 'layouts' or 'workspaces' instead of a browser or 
 * {num}gt: move to a specific tab number
 * `:tabclose`: close a single tab
 
-Using buffers
+### Using buffers
 
 * `:ls`: show all buffers
 * `:ls!`: show all buffers including unlisted buffers
@@ -238,22 +272,22 @@ Using buffers
 * `:vsp`: vertically split window in two. The result is two viewports on the same file
 * `:vsp [filename]`: vertically split window in two and load or create [filename] buffer
 
-Using jumps
+### Using jumps
 
 * A "jump" is a command that moves the cursor to another location (e.g. G, %, ), ],})
 * There is a separate jump list for each window
 * `<C-o>`: go to previous position in the jump list
 * `<C-i>`: go to next position in the jump list
-* `:jumps`: show the contents of the jump list`
+* `:jumps`: show the contents of the jump list
 
-Using tags
+### Using tags
 
 * <C-]>: jump to tag
 * g<C-]>: show all matching tags
 * `<C-t>`: jump to previous position in the tag stack
 * `:tags`: show the contents of the tag stack
 
-Quickfix List
+### Quickfix List
 
 * Scope is the entire project
 * `:copen`: open the quickfix list window
@@ -264,7 +298,7 @@ Quickfix List
 * `:clast`: go to the last item on the list
 * `:cc{num}`: go to the nth item on the list
 
-Location List
+### Location List
 
 * Scope is the current window
 * `:lopen`: open location list window
@@ -275,7 +309,7 @@ Location List
 * `:llast`: go to the last item on the list
 * `:ll{num}`: go to the nth item on the list
 
-Terminal mode
+### Terminal mode
 
 * Terminal starts in insert mode
 * `:term`: launch a split*screen terminal
@@ -283,21 +317,21 @@ Terminal mode
 * i: enter insert mode
 * `<C-D>` or exit: close the terminal window
 
-Folds
+### Folds
 
 * zo: open one fold under the cursor
 * zO: open all folds under the cursor recursively
 * zc: close one fold under the cursor
 * zC: close all fold under the cursor recursively
 
-Suspending vim
+### Suspending vim
 
 * `C-z>`: get back to terminal without quitting vim (sends vim to background)
 * fg: type in terminal to return to session (if there is a single backgrounded session)
 * fg [job_id]: return to a speific vim session
 * jobs: type in terminal to list all suspended vim sessions
 
-Documentation
+### Documentation
 
 * `:helptags ALL`: regenerate help docs for all plugins
 
@@ -305,7 +339,7 @@ Launch plain/vanilla vim with the following command `vanillavim`
 
 ### Plugins
 
-General
+#### General
 
 * [Ack](https://github.com/mileszs/ack.vim)
 * [auto-save](https://github.com/907th/vim-auto-save)
@@ -316,7 +350,7 @@ General
   * `<leader>l`: Toggle the location list
   * `<leader>q`: Toggle the quickfix list
 
-Coding plugins
+#### Coding plugins
 
 * [Ale](https://github.com/dense-analysis/ale)
 * [Auto Pairs](https://github.com/jiangmiao/auto-pairs)
@@ -373,7 +407,7 @@ Coding plugins
 of characters
   * when you use (, {, or [, wrap the text with the appropriate pair of characters and append a space on the inside
 
-Writing
+#### Writing
 
 * [Goyo](https://github.com/junegunn/goyo.vim)
 * [Limelight](https://github.com/junegunn/limelight.vim)
