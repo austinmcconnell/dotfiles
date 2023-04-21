@@ -41,12 +41,16 @@ let g:ale_linters = {
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'json': ['jq'],
+\   'markdown': ['prettier'],
 \   'python': ['isort', 'yapf'],
 \   'sh': ['shfmt'],
 \   'terraform': ['terraform'],
 \   'yaml': ['yamlfix'],
 \   'zsh': ['shfmt'],
 \}
+
+
+let g:ale_javascript_prettier_options = '--config ~/.config/prettier.toml'
 
 let g:ale_json_jq_options = '--indent 4'
 

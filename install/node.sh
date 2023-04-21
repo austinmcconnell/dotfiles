@@ -14,6 +14,7 @@ NVM_DIR="$HOME/.nvm"
 
 ln -sfv "$DOTFILES_DIR/etc/node/default-packages" "$NVM_DIR"
 ln -sfv "$DOTFILES_DIR/etc/node/markdownlint" ~/.markdownlintrc
+ln -sfv "$DOTFILES_DIR/etc/node/prettier.toml" ~/.config/prettier.toml
 
 if [ -d "$NVM_DIR/.git" ]; then
     git --work-tree="$NVM_DIR" --git-dir="$NVM_DIR/.git" fetch --tags origin
