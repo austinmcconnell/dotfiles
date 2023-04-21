@@ -28,12 +28,14 @@ fi
 mkdir -p ~/.config/pip
 mkdir -p ~/.config/proselint
 mkdir -p ~/.config/mypy
+mkdir -p ~/.config/yapf
 mkdir -p ~/.config/isort/
 mkdir -p ~/projects/scripts
 mkdir -p ~/.git-templates
 
 ln -sfv "$DOTFILES_DIR/etc/python/pip.conf" ~/.config/pip
 ln -sfv "$DOTFILES_DIR/etc/python/flake8" ~/.config
+ln -sfv "$DOTFILES_DIR/etc/python/yapf" ~/.config/yapf/style
 ln -sfv "$DOTFILES_DIR/etc/python/pylintrc" ~/.config
 ln -sfv "$DOTFILES_DIR/etc/python/proselint" ~/.config/proselint/config
 ln -sfv "$DOTFILES_DIR/etc/python/mypy" ~/.config/mypy/config
