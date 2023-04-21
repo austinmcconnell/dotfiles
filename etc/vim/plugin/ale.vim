@@ -30,7 +30,7 @@ let g:ale_linters = {
 \   'dockerfile': ['hadolint'],
 \   'json': ['jq', 'jsonlint', 'spectral'],
 \   'markdown': ['markdownlint', 'proselint', 'writegood'],
-\   'python': ['mypy', 'pylint', 'pyright'],
+\   'python': ['pylint', 'pyright'],
 \   'sh': ['bashate', 'shellcheck', 'language_server'],
 \   'terraform': ['terraform'],
 \   'yaml': ['spectral', 'yamllint'],
