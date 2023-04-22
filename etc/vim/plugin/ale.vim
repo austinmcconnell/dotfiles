@@ -45,7 +45,7 @@ let g:ale_fixers = {
 \   'python': ['isort', 'yapf'],
 \   'sh': ['shfmt'],
 \   'terraform': ['terraform'],
-\   'yaml': ['yamlfix'],
+\   'yaml': ['prettier','yamlfix'],
 \   'zsh': ['shfmt'],
 \}
 
