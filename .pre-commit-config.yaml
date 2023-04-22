@@ -1,3 +1,4 @@
+---
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v2.2.3
@@ -12,7 +13,7 @@ repos:
       - id: double-quote-string-fixer
       - id: end-of-file-fixer
       - id: pretty-format-json
-        args: [ --autofix, --indent=4]
+        args: [--autofix, --indent=4]
         types: [text]
         files: \.(json|sublime-settings)$
       - id: mixed-line-ending
