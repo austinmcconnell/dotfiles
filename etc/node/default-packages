@@ -6,3 +6,4 @@ proselint
 pyright
 write-good
 prettier
+vim-language-server
