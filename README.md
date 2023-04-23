@@ -55,7 +55,7 @@ Run setup script `install.sh`:
 Host Key Mapping
 
 - Map `Caps Lock` key to `Escape`
-- To exit vim's insert mode, use either `<C-c>` or `<C-[>`
+  - Then you can exit vim's insert mode by using the `Caps Lock` key
 
 Practice by running `vimtutor`
 
@@ -82,6 +82,19 @@ Most normal mode operators still work in visual mode.
 - u: make lowercase (instead of gu)
 - o: toggle the free end of a visual selection
 - gv: reselect the last visual selection
+
+#### Insert Mode
+
+- `<C-h>`: Delete back one character (works in insert mode)
+- `<C-w>`: Delete back one word (works in insert mode)
+- `<C-u>`: Delete back to beginning of line (works in insert mode)
+- `<C-o>`: Activate "Insert Normal" Mode (one bullet) which lets us run a single command then right back into Insert mode
+- `<C-r>`{register}: Paste from the {register}
+- `<C-r><C-p>`{register}: Literal paste from the {register}
+- `<C-r>\=`: Access the expression register (can perform calculations, run script code, etc)
+- `<C-n>`: find next match from 'complete' option
+- `<C-p>`: find prev match from 'complete' option
+- `<C-x><C-o>`: find matches from 'omnicomplete' (smart autocomplete for programs)
 
 ### Text Objects
 
@@ -118,6 +131,10 @@ Use Text objects in commands by specifying a modifier and then the text-object i
 - ;: repeat the last f, t, F, or T action
 - ,: repeat the last f, t, F, or T action in the opposite direction
 
+### Misc
+
+- `<C-g>`: show total number of lines in file and current progress through the file
+
 ### Motions
 
 #### Left-Right Motions
@@ -149,6 +166,7 @@ Use Text objects in commands by specifying a modifier and then the text-object i
 - ^D: move down half a screen
 - ^F: page down
 - ^B: page up
+- zz: redraw the screen with the current line in the middle of the window
 - `<C-j>`: jump to the split above current window
 - `<C-k>`: jump to the split below current window
 - `<C-h>`: jump to the split to the right of current window
@@ -212,8 +230,6 @@ Use Text objects in commands by specifying a modifier and then the text-object i
 - `<c-v>`: block based visual mode
   - i or a from within this mode will allow multi-line edits (e.g. commenting more than one line at a time)
 
-### Visual Mode Operators
-
 ### Spelling
 
 - ]s: go to next misspelled word
@@ -228,12 +244,6 @@ Use Text objects in commands by specifying a modifier and then the text-object i
 - %s/foo/bar/g: change each "foo" to "bar" on every line
 - %s/foo/bar/gc: change each "foo" to "bar" on every line and confirm each change
 - `:s` or `&`: repeat the last substitution
-
-### Completion in Insert Mode
-
-- `<C-n>`: find next match from 'complete' option
-- `<C-p>`: find prev match from 'complete' option
-- `<C-x><C-o>`: find matches from 'omnicomplete' (smart autocomplete for programs)
 
 ### Leader Mappings
 
