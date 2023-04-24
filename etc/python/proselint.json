@@ -1,6 +1,7 @@
 {
     "checks": {
         "annotations.misc": false,
+        "typography.exclamation": false,
         "typography.symbols": false
     }
 }
