@@ -1,5 +1,49 @@
 # Dotfiles
 
+<!-- toc -->
+
+- [Install](#install)
+- [Post-install](#post-install)
+- [The `dotfiles` command](#the-dotfiles-command)
+- [Vim](#vim)
+  - [Normal Mode](#normal-mode)
+  - [Visual Mode](#visual-mode)
+  - [Insert Mode](#insert-mode)
+  - [Command Mode](#command-mode)
+    - [Using buffers](#using-buffers)
+  - [Quickfix List](#quickfix-list)
+  - [Location List](#location-list)
+- [Terminal mode](#terminal-mode)
+  - [Text Objects](#text-objects)
+    - [Modifiers](#modifiers)
+    - [Text Object Identifiers](#text-object-identifiers)
+  - [Searching](#searching)
+  - [Misc](#misc)
+  - [Motions](#motions)
+    - [Left-Right Motions](#left-right-motions)
+    - [Up-Down Motions](#up-down-motions)
+  - [Word Motions](#word-motions)
+  - [Object Motions](#object-motions)
+  - [Deleting text](#deleting-text)
+  - [Undo and Redo](#undo-and-redo)
+  - [Repeating actions](#repeating-actions)
+  - [Spelling](#spelling)
+  - [Substitution](#substitution)
+  - [Leader Mappings](#leader-mappings)
+  - [Using tabs (think of these as 'layouts' or 'workspaces' instead of a browser or file editor 'tab')](#using-tabs-think-of-these-as-layouts-or-workspaces-instead-of-a-browser-or-file-editor-tab)
+  - [Using jumps](#using-jumps)
+  - [Using tags](#using-tags)
+  - [Folds](#folds)
+  - [Suspending vim](#suspending-vim)
+  - [Documentation](#documentation)
+  - [Plugins](#plugins)
+    - [General](#general)
+    - [Coding plugins](#coding-plugins)
+    - [Writing](#writing)
+  - [References](#references)
+
+<!-- tocstop -->
+
 ## Install
 
 On a sparkling fresh installation of macOS:
