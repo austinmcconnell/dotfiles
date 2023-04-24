@@ -59,9 +59,9 @@ Host Key Mapping
 
 Practice by running `vimtutor`
 
-### Mode Operators
+### Normal Mode
 
-#### Normal Mode
+Operators
 
 - d: delete
 - c: change
@@ -74,16 +74,33 @@ Practice by running `vimtutor`
 - gU: make text uppercase
 - gu: make text lowercase
 
-#### Visual Mode
+### Visual Mode
 
-Most normal mode operators still work in visual mode.
+There are 3 types of visual mode
+
+- v: character based visual mode
+- V: line based visual mode
+- `<c-v>`: block based visual mode
+  - i or a from within this mode will allow multi-line edits (e.g. commenting more than one line at a time)
+
+Most normal mode operators still work in visual mode. New operators include:
 
 - U: make uppercase (instead of gU)
 - u: make lowercase (instead of gu)
 - o: toggle the free end of a visual selection
 - gv: reselect the last visual selection
 
-#### Insert Mode
+### Insert Mode
+
+- i: insert before the cursor
+- a: append after the cursor
+- I: insert at the beginning of the line
+- A: append at the end of the line
+- o: open a new line below the current one
+- O: Open a new line above the current one
+- C: change the current line starting from cursor
+- s: substitute from where you are to the next command (noun)
+- S: substitute the entire current line
 
 - `<C-h>`: Delete back one character (works in insert mode)
 - `<C-w>`: Delete back one word (works in insert mode)
@@ -95,6 +112,54 @@ Most normal mode operators still work in visual mode.
 - `<C-n>`: find next match from 'complete' option
 - `<C-p>`: find prev match from 'complete' option
 - `<C-x><C-o>`: find matches from 'omnicomplete' (smart autocomplete for programs)
+
+### Command Mode
+
+#### Using buffers
+
+- `:ls`: show all buffers
+- `:ls!`: show all buffers including unlisted buffers
+- `:e {char}`: edit a file
+- `:e`: reload external changes to a file
+- `:e!`: reload external changes and discard unsaved work in buffer
+- `:bn`: switch to next buffer
+- `:bp`: switch to previous buffer
+- `:b{num}`: move to the specified buffer
+- `:bd`: close/delete a buffer
+- `:sp`: horizontally split window in two. The result is two viewports on the same file
+- `:sp [filename]`: horizontally screen window in two and load or create [filname] buffer
+- `:vsp`: vertically split window in two. The result is two viewports on the same file
+- `:vsp [filename]`: vertically split window in two and load or create [filename] buffer
+
+### Quickfix List
+
+- Scope is the entire project
+- `:copen`: open the quickfix list window
+- `:cclose`: close the quickfix list window
+- `:cnext`: go to the next item on the list
+- `:cprev`: go to the previous item on the list
+- `:cfirst`: go to the first item on the list
+- `:clast`: go to the last item on the list
+- `:cc{num}`: go to the nth item on the list
+
+### Location List
+
+- Scope is the current window
+- `:lopen`: open location list window
+- `:lclose`: close location list window
+- `:lnext`: go to the next item on the list
+- `:lprev`: go to the previous item on the list
+- `:lfirst`: go to the first item on the list
+- `:llast`: go to the last item on the list
+- `:ll{num}`: go to the nth item on the list
+
+## Terminal mode
+
+- Terminal starts in insert mode
+- `:term`: launch a split\*screen terminal
+- <C-[> or `:sus`: enter terminal-normal mode
+- i: enter insert mode
+- `<C-D>` or exit: close the terminal window
 
 ### Text Objects
 
@@ -185,22 +250,6 @@ Use Text objects in commands by specifying a modifier and then the text-object i
 - }: move forward one paragraph
 - {: move back one paragraph
 
-### Switching to Insert Mode
-
-- i: insert before the cursor
-- a: append after the cursor
-- I: insert at the beginning of the line
-- A: append at the end of the line
-- o: open a new line below the current one
-- O: Open a new line above the current one
-- r: replace the character under your cursor
-- R: replace the character under your cursor and keep typing
-- cm: change whatever you define as a movement (e.g. word, sentence, paragraph)
-- C: change the current line starting from cursor
-- ct?: change up to the question mark
-- s: substitute from where you are to the next command (noun)
-- S: substitute the entire current line
-
 ### Deleting text
 
 - x: exterminate (delete) the character under your cursor
@@ -210,6 +259,8 @@ Use Text objects in commands by specifying a modifier and then the text-object i
 - dt?: delete from where you are to the question mark
 - D: delete to the end of the line
 - J: join the current line with the next one (delete what's between)
+- r: replace the character under your cursor
+- R: replace the character under your cursor and keep typing
 
 ### Undo and Redo
 
@@ -222,13 +273,6 @@ Use Text objects in commands by specifying a modifier and then the text-object i
 - & or `:s`: repeat the last substitution
 - ;: repeat the last f, t, F, or T action
 - ,: repeat the last f, t, F, or T action in the opposite direction
-
-### Visual mode
-
-- v: character based visual mode
-- V: line based visual mode
-- `<c-v>`: block based visual mode
-  - i or a from within this mode will allow multi-line edits (e.g. commenting more than one line at a time)
 
 ### Spelling
 
@@ -266,22 +310,6 @@ Use Text objects in commands by specifying a modifier and then the text-object i
 - {num}gt: move to a specific tab number
 - `:tabclose`: close a single tab
 
-### Using buffers
-
-- `:ls`: show all buffers
-- `:ls!`: show all buffers including unlisted buffers
-- `:e {char}`: edit a file
-- `:e`: reload external changes to a file
-- `:e!`: reload external changes and discard unsaved work in buffer
-- `:bn`: switch to next buffer
-- `:bp`: switch to previous buffer
-- `:b{num}`: move to the specified buffer
-- `:bd`: close/delete a buffer
-- `:sp`: horizontally split window in two. The result is two viewports on the same file
-- `:sp [filename]`: horizontally screen window in two and load or create [filname] buffer
-- `:vsp`: vertically split window in two. The result is two viewports on the same file
-- `:vsp [filename]`: vertically split window in two and load or create [filename] buffer
-
 ### Using jumps
 
 - A "jump" is a command that moves the cursor to another location (e.g. G, %, ), ],})
@@ -296,36 +324,6 @@ Use Text objects in commands by specifying a modifier and then the text-object i
 - g<C-]>: show all matching tags
 - `<C-t>`: jump to previous position in the tag stack
 - `:tags`: show the contents of the tag stack
-
-### Quickfix List
-
-- Scope is the entire project
-- `:copen`: open the quickfix list window
-- `:cclose`: close the quickfix list window
-- `:cnext`: go to the next item on the list
-- `:cprev`: go to the previous item on the list
-- `:cfirst`: go to the first item on the list
-- `:clast`: go to the last item on the list
-- `:cc{num}`: go to the nth item on the list
-
-### Location List
-
-- Scope is the current window
-- `:lopen`: open location list window
-- `:lclose`: close location list window
-- `:lnext`: go to the next item on the list
-- `:lprev`: go to the previous item on the list
-- `:lfirst`: go to the first item on the list
-- `:llast`: go to the last item on the list
-- `:ll{num}`: go to the nth item on the list
-
-### Terminal mode
-
-- Terminal starts in insert mode
-- `:term`: launch a split\*screen terminal
-- <C-[> or `:sus`: enter terminal-normal mode
-- i: enter insert mode
-- `<C-D>` or exit: close the terminal window
 
 ### Folds
 
