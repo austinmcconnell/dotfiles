@@ -386,6 +386,7 @@ Use Text objects in commands by specifying a modifier and then the text-object i
 ### Documentation
 
 - `:helptags ALL`: regenerate help docs for all plugins
+- `:help map-modes`: Overview of which map commands work in which modes
 
 Launch plain/vanilla vim with the following command `vanillavim`
 
@@ -396,6 +397,8 @@ Launch plain/vanilla vim with the following command `vanillavim`
 - [Ack](https://github.com/mileszs/ack.vim)
 - [auto-save](https://github.com/907th/vim-auto-save)
 - [Nerd Tree](https://github.com/preservim/nerdtree)
+- [Nerd Commenter](https://github.com/preservim/nerdcommente)
+  - `<C-/>`: Toggle commenting/un-commenting of line or selection
 - [Lightline](https://github.com/itchyny/lightline.vim)
 - [Supertab](https://github.com/ervandew/supertab)
 - [ListToggle](https://github.com/Valloric/ListToggle)
