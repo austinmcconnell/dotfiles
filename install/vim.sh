@@ -198,14 +198,6 @@ else
     ln -sfv "$REPO_DIR" "$HOME/.vim/pack/bundle/start/hardtime"
 fi
 
-REPO_DIR="$HOME/.repositories/indentline"
-if [ -d "$REPO_DIR/.git" ]; then
-    git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin master
-else
-    git clone https://github.com/Yggdroot/indentLine "$REPO_DIR"
-    ln -sfv "$REPO_DIR" "$HOME/.vim/pack/bundle/start/indentline"
-fi
-
 REPO_DIR="$HOME/.repositories/yaml-folds"
 if [ -d "$REPO_DIR/.git" ]; then
     git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin master
