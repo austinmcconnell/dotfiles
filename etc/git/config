@@ -6,9 +6,6 @@
 [credential]
 	helper = osxkeychain
 
-[core]
-	pager = diff-so-fancy | less --tabs=4 -RFX
-
 [push]
 	default = simple
 	followTags = true
@@ -30,19 +27,6 @@
 	templatedir = ~/.config/git/templates
 	defaultBranch = main
 
-[color "diff-highlight"]
-	oldNormal = red
-	oldHighlight = red 52
-	newNormal = green
-	newHighlight = green 22
-
-[color "diff"]
-	meta = 227
-	frag = magenta
-	commit = 227
-	old = red
-	new = green
-	whitespace = red reverse
 [commit]
 	gpgsign = false
 

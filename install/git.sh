@@ -38,10 +38,3 @@ if is-macos; then
 elif is-debian; then
     ln -sfv "$DOTFILES_DIR/etc/git/config-linux" "$GIT_CONFIG_DIR"
 fi
-
-if [ -d "$HOME/.repositories/diff-so-fancy/.git" ]; then
-    git --work-tree="$HOME/.repositories/diff-so-fancy/" --git-dir="$HOME/.repositories/diff-so-fancy/.git" pull origin master
-else
-    git clone https://github.com/so-fancy/diff-so-fancy "$HOME/.repositories/diff-so-fancy/"
-    sudo ln -sfv "$HOME/.repositories/diff-so-fancy/diff-so-fancy" /usr/local/bin/
-fi
