@@ -13,6 +13,7 @@
 
 [merge]
 	ff = only
+	conflictstyle = diff3  # delta-specific setting
 
 [fetch]
  	prune = true
@@ -50,3 +51,28 @@
 
 [advice]
 	skippedCherryPicks = false
+
+############################################################
+# Start delta-specific settings
+# https://github.com/dandavison/delta
+[core]
+    pager = delta
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true    # use n and N to move between diff sections
+
+	features = side-by-side
+    syntax-theme = Nord
+
+	minus-style = syntax "#582A33"
+	minus-emph-style = syntax "#773A44"
+	plus-style = syntax "#444F44"
+	plus-emph-style = syntax "#505F5F"
+
+[diff]
+    colorMoved = default
+# End delta-specific settings
+############################################################

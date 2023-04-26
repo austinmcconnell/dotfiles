@@ -33,6 +33,7 @@ brew install --formula coreutils
 brew install --formula dive
 # brew install --formula dockutil
 brew install --formula git
+brew install --formula git-delta
 brew install --formula grep
 brew install --formula hadolint
 brew install --formula httpie
