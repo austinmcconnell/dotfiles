@@ -118,14 +118,6 @@ else
     ln -sfv "$REPO_DIR" "$HOME/.vim/pack/bundle/start/lightline"
 fi
 
-REPO_DIR="$HOME/.repositories/fugitive"
-if [ -d "$REPO_DIR/.git" ]; then
-    git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin master
-else
-    git clone https://github.com/tpope/vim-fugitive.git "$REPO_DIR"
-    ln -sfv "$REPO_DIR" "$HOME/.vim/pack/bundle/start/fugitive"
-fi
-
 REPO_DIR="$HOME/.repositories/gutentags"
 if [ -d "$REPO_DIR/.git" ]; then
     git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin master
