@@ -1,3 +1,4 @@
 highlight! link SignColumn LineNr
 
-let g:gitgutter_diff_base = 'HEAD'
+nmap <Leader>gqf :w<CR>:GitGutterQuickFix\|copen<CR>
+nnoremap <silent> <expr> <leader>gd &diff ? ':+clo<CR>' : ':GitGutterDiffOrig<CR>'

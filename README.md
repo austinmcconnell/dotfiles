@@ -410,6 +410,8 @@ Launch plain/vanilla vim with the following command `vanillavim`
 - [Ale](https://github.com/dense-analysis/ale)
 - [Auto Pairs](https://github.com/jiangmiao/auto-pairs)
 - [Git Gutter](https://github.com/airblade/vim-gitgutter)
+  - ic: a text object that operates on all lines in the current hunk
+  - ac: a text object that operates on all lines in the current hunk and any trailing empty lines
   - ]c: jump to next change
   - [c: jump to previous change
   - `<leader>hp`: preview hunk
