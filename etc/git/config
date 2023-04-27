@@ -63,7 +63,6 @@
 [delta]
     navigate = true    # use n and N to move between diff sections
 
-	features = side-by-side
     syntax-theme = Nord
 
 	minus-style = syntax "#7B343E"
