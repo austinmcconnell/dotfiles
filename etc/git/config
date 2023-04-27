@@ -73,6 +73,9 @@
 	plus-emph-style = syntax "#505F5D"
 	plus-non-emph-style = syntax "#444F44"
 
+	file-modified-label = "modified:"
+	file-style = "yellow"
+
 [diff]
     colorMoved = default
 # End delta-specific settings
