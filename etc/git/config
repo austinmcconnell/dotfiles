@@ -22,7 +22,6 @@
 	amend = commit --amend --reuse-message=HEAD
 	contrib = shortlog --summary --numbered
 	history = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-	wdiff = diff --word-diff
 
 [init]
 	templatedir = ~/.config/git/templates
