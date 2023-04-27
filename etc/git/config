@@ -66,10 +66,12 @@
 	features = side-by-side
     syntax-theme = Nord
 
-	minus-style = syntax "#582A33"
+	minus-style = syntax "#7B343E"
 	minus-emph-style = syntax "#773A44"
-	plus-style = syntax "#444F44"
-	plus-emph-style = syntax "#505F5F"
+	minus-non-emph-style = syntax "#582A33"
+	plus-style = syntax "#516059"
+	plus-emph-style = syntax "#505F5D"
+	plus-non-emph-style = syntax "#444F44"
 
 [diff]
     colorMoved = default
