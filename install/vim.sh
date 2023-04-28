@@ -237,3 +237,11 @@ else
     git clone https://github.com/preservim/nerdcommenter "$REPO_DIR"
     ln -sfv "$REPO_DIR" "$HOME/.vim/pack/bundle/start/nerdcommenter"
 fi
+
+REPO_DIR="$HOME/.repositories/ctrlp"
+if [ -d "$REPO_DIR/.git" ]; then
+    git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin master
+else
+    git clone https://github.com/kien/ctrlp.vim "$REPO_DIR"
+    ln -sfv "$REPO_DIR" "$HOME/.vim/pack/bundle/start/ctrlp"
+fi

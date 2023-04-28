@@ -424,6 +424,16 @@ Launch plain/vanilla vim with the following command `vanillavim`
     - stage the remaining lines: either write (:w) the window or stage hunk
 - [Gutentags](https://github.com/ludovicchabant/vim-gutentags)
 - [Jedi Vim](https://github.com/davidhalter/jedi-vim)
+- [ctrlp](https://github.com/kien/ctrlp.vim)
+  - <C-p>: to invoke CtrlP in find file mode
+  - <c-d>: to toggle between filename-only search and full-path search
+  - <c-j>,<c-k>: to navigate the result list
+  - <c-f>,<c-b>: to cycle between modes (think **f**orward and **b**ackward)
+    - 3 search modes
+      - `fil`: search among files
+      - `buf`: search among open buffers
+      - `mru`: search among most recently used files
+  - <c-y>: create a new file and its parent directories
 - [Tagbar](https://github.com/preservim/tagbar)
 - [Surround](https://github.com/tpope/vim-surround)
   - ds: delete surroundings
