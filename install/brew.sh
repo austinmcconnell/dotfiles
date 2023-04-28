@@ -32,6 +32,8 @@ brew install --formula chtf
 brew install --formula coreutils
 brew install --formula dive
 # brew install --formula dockutil
+brew install --formula fd
+brew install --formula fzf
 brew install --formula git
 brew install --formula git-delta
 brew install --formula grep
