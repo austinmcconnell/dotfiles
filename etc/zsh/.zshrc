@@ -62,3 +62,7 @@ if is-executable kubectl; then
     source <(kubectl completion zsh)
 fi
 complete -C '$BREW_PREFIX/bin/aws_completer' aws
+
+# Source fzf key bindings
+source /opt/homebrew/opt/fzf/shell/key-bindings.zsh
+bindkey "ç" fzf-cd-widget
