@@ -26,6 +26,7 @@ brew tap Yleisradio/terraforms
 # Install packages
 brew install --formula autoenv
 brew install --formula bash
+brew install --formula bat
 brew install --formula bats-core
 brew install --formula blueutil
 brew install --formula chtf
