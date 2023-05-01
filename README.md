@@ -41,6 +41,8 @@
     - [Coding plugins](#coding-plugins)
     - [Writing](#writing)
   - [References](#references)
+- [CLI Tools](#cli-tools)
+  - [fzf](#fzf)
 
 <!-- tocstop -->
 
@@ -458,3 +460,13 @@ Launch plain/vanilla vim with the following command `vanillavim`
 
 - [Learn Vim For the Last Time: A Tutorial and Primer](https://danielmiessler.com/study/vim/)
 - [General purpose text objects](https://github.com/kana/vim-textobj-user/wiki)
+
+## CLI Tools
+
+### fzf
+
+- <C-t>: search directory and paste the selected files and directories onto the command line (separated by space)
+  - <tab>: select a file
+  - <shift-tab>: unselect a file
+- <c-r>: search history and paste the selected command from history onto the command line
+- <o-c>: cd into the selected folder
