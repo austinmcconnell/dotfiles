@@ -33,6 +33,9 @@ if is-macos; then
     FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 fi
 
+# Set Nord dircolors ad default color theme
+test -r ~/.dir_colors && eval "$(dircolors ~/.dir_colors)"
+
 plugins=(autoenv httpie pip pipenv terraform)
 
 source $ZSH/oh-my-zsh.sh
