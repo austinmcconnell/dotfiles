@@ -36,9 +36,6 @@ fi
 # Set Nord dircolors ad default color theme
 test -r ~/.dir_colors && eval "$(dircolors ~/.dir_colors)"
 
-plugins=(autoenv httpie pip pipenv terraform)
-
-source $ZSH/oh-my-zsh.sh
 # source "$HOME/.repositories/kube-ps1/kube-ps1.sh"  # Only needed for custom Austin.zsh theme
 
 # Source chtf
@@ -69,3 +66,9 @@ complete -C '$BREW_PREFIX/bin/aws_completer' aws
 # Source fzf key bindings
 source /opt/homebrew/opt/fzf/shell/key-bindings.zsh
 bindkey "ç" fzf-cd-widget
+
+######################################################
+# Keep sourcing of oh-my-zsh.sh at end of file
+######################################################
+plugins=(autoenv httpie pip pipenv terraform)
+source $ZSH/oh-my-zsh.sh
