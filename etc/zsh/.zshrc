@@ -4,6 +4,9 @@ export ZSH=~/.oh-my-zsh
 
 ZSH_THEME="spaceship"
 
+plugins=(autoenv httpie pip pipenv terraform)
+source $ZSH/oh-my-zsh.sh
+
 DOTFILES_DIR="$HOME/.dotfiles"
 export DOTFILES_DIR
 # Make utilities available
@@ -63,13 +66,7 @@ if is-executable kubectl; then
 fi
 complete -C '$BREW_PREFIX/bin/aws_completer' aws
 
-# Source fzf key bindings
+# Source fzf key bindings and completions
 source /opt/homebrew/opt/fzf/shell/key-bindings.zsh
 [[ $- == *i* ]] && source "/opt/homebrew/opt/fzf/shell/completion.zsh" 2>/dev/null
 bindkey "^e" fzf-cd-widget
-
-######################################################
-# Keep sourcing of oh-my-zsh.sh at end of file
-######################################################
-plugins=(autoenv httpie pip pipenv terraform)
-source $ZSH/oh-my-zsh.sh
