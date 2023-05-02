@@ -66,7 +66,7 @@ complete -C '$BREW_PREFIX/bin/aws_completer' aws
 # Source fzf key bindings
 source /opt/homebrew/opt/fzf/shell/key-bindings.zsh
 [[ $- == *i* ]] && source "/opt/homebrew/opt/fzf/shell/completion.zsh" 2>/dev/null
-bindkey "ç" fzf-cd-widget
+bindkey "^e" fzf-cd-widget
 
 ######################################################
 # Keep sourcing of oh-my-zsh.sh at end of file
