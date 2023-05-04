@@ -12,6 +12,7 @@ alias gb='git branch'
 alias gg='git grep -n'
 alias gco='git branch --all | grep --extended-regexp --invert-match "HEAD|$(git name-rev --name-only HEAD)" | fzf | xargs git checkout'
 alias ga='git ls-files --modified --others --exclude-standard | fzf --multi | xargs -o -t -r git add'
+alias gcf=get_fixup_commit
 
 
 ##############################
