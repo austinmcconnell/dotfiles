@@ -10,6 +10,7 @@ alias gwdc='git diff --word-diff --cached'
 alias gf='git fetch'
 alias gb='git branch'
 alias gg='git grep -n'
+alias gco='git branch --all | grep --extended-regexp --invert-match "HEAD|$(git name-rev --name-only HEAD)" | fzf | xargs git checkout'
 
 
 ##############################
