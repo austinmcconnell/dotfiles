@@ -88,3 +88,8 @@ alias tf='terraform'
 # Vim
 ##############################
 alias vanillavim='vim --noplugins -u NONE'
+
+##############################
+# Ag
+##############################
+alias ag='ag --hidden'
