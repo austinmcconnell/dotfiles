@@ -21,7 +21,7 @@ sub_help() {
 }
 
 sub_edit() {
-    sh -c "$DOTFILES_IDE $DOTFILES_DIR"
+    sh -c "cd $DOTFILES_DIR && $DOTFILES_IDE"
 }
 
 sub_test() {
