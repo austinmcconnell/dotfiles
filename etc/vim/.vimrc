@@ -40,7 +40,7 @@ set undofile                                                 " Maintain undo his
 set undodir=~/.vim/undodir                                   " Store all undo history files in a single directory
 
 " Spelling
-set spell                                                    " enable spellchecking
+"set spell                                                   " enable spellchecking
 set spelllang=en_us                                          " set spell language to US English
 nnoremap <leader>s :set spell!<CR>|                          " toggle spellchecking
 set spellfile=$DOTFILES_DIR/etc/vim/spell/en.utf-8.add                " set custom dictionary file location
