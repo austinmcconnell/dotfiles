@@ -61,5 +61,5 @@ let g:ale_python_isort_options = '--settings-path ~/.config/isort/.isort.cfg'
 let g:ale_python_mypy_auto_pipenv = 1
 let g:ale_python_mypy_ignore_invalid_syntax = 1
 
-let g:ale_sh_bashate_options = '--max-line-length 100'
+let g:ale_sh_bashate_options = '--max-line-length 100 --ignore E006,E040'
 let g:ale_sh_shfmt_options = '--indent 4'
