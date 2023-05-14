@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # COMPUTER_NAME="Austin_MBP"
 

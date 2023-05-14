@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 if is-debian && is-executable apt; then
     echo "**************************************************"
     echo "Configuring services with apt"

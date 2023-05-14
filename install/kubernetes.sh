@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if is-executable microk8s; then
     echo "**************************************************"

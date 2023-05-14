@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 if is-executable brew; then
     echo "**************************************************"
     echo "Installing macOS services"

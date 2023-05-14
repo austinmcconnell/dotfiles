@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 dockutil --no-restart --remove "/Applications/Firefox.app"
 dockutil --no-restart --add "/Applications/Firefox.app" --position 1

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 dockutil --no-restart --remove "/Applications/Google Chrome.app"
 dockutil --no-restart --add "/Applications/Google Chrome.app" --position 1
