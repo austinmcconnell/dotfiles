@@ -35,7 +35,8 @@
 	rebase = true
 
 [rebase]
-	autoStash = true
+	autostash = true
+	autosquash = true
 
 [blame]
 	date = short
