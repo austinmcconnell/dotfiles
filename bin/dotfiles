@@ -2,7 +2,6 @@
 
 BIN_NAME=$(basename "$0")
 COMMAND_NAME=$1
-SUB_COMMAND_NAME=$2
 
 sub_help() {
     echo "Usage: $BIN_NAME <command>"
@@ -63,6 +62,7 @@ sub_clean() {
 
 sub_mac-defaults() {
     for DEFAULTS_FILE in "${DOTFILES_DIR}"/macos/defaults*.sh; do
+        # shellcheck source=SCRIPTDIR/../macos/defaults.sh
         echo "Applying ${DEFAULTS_FILE}" && . "${DEFAULTS_FILE}"
     done
     echo "Done. Some changes may require a logout/restart to take effect."
@@ -92,7 +92,7 @@ case $COMMAND_NAME in
     ;;
 *)
     shift
-    sub_${COMMAND_NAME} $@
+    "sub_${COMMAND_NAME}" "$@"
     if [ $? = 127 ]; then
         echo "'$COMMAND_NAME' is not a known command or has errors." >&2
         sub_help

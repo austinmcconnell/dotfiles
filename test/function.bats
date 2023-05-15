@@ -2,18 +2,16 @@
 
 load "${DOTFILES_DIR}/system/.function"
 
-FIXTURE=$'foo\nbar\nbaz\nfoo'
+# shellcheck disable=SC2034
 FIXTURE_TEXT="foo"
 
-@test "get"
-{
+@test "get" {
     ACTUAL=$(get "FIXTURE_TEXT")
     EXPECTED="foo"
     [ "$ACTUAL" = "$EXPECTED" ]
 }
 
-@test "calc"
-{
+@test "calc" {
     ACTUAL="$(calc 1+2)"
     EXPECTED=3
     [ "$ACTUAL" -eq "$EXPECTED" ]

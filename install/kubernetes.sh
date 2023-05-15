@@ -33,10 +33,10 @@ microk8s status --wait-ready
 microk8s enable dashboard dns registry istio ingress prometheus
 
 kubectl config set-cluster microk8s \
-    --server=$(microk8s kubectl config view --raw -o 'jsonpath={.clusters[0].cluster.server}') \
+    --server="$(microk8s kubectl config view --raw -o 'jsonpath={.clusters[0].cluster.server}')" \
     --insecure-skip-tls-verify
 kubectl config set-credentials microk8s-admin \
-    --token=$(microk8s kubectl config view --raw -o 'jsonpath={.users[0].user.token}')
+    --token="$(microk8s kubectl config view --raw -o 'jsonpath={.users[0].user.token}')"
 kubectl config set-context microk8s --cluster=microk8s --namespace=default --user=microk8s-admin
 
 microk8s stop
