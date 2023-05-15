@@ -95,6 +95,7 @@ brew install --cask zoom
 
 # Create symlinks
 ln -sfv "$DOTFILES_DIR/etc/misc/hadolint.yaml" ~/.config
+ln -sfv "$DOTFILES_DIR/etc/misc/shellcheckrc" ~/.config/shellcheckrc
 ln -sfv "$DOTFILES_DIR/etc/sublime-text/Package Control.sublime-settings" "$HOME/Library/Application Support/Sublime Text/Packages/User"
 ln -sfv "$DOTFILES_DIR/etc/sublime-text/Preferences.sublime-settings" "$HOME/Library/Application Support/Sublime Text/Packages/User"
 ln -sfv "$DOTFILES_DIR/etc/sublime-text/Python.sublime-settings" "$HOME/Library/Application Support/Sublime Text/Packages/User"

@@ -28,3 +28,6 @@ sudo apt install -y yamllint
 
 # Install snaps
 sudo snap install shfmt
+
+# Create symlinks
+ln -sfv "$DOTFILES_DIR/etc/misc/shellcheckrc" ~/.config/shellcheckrc
