@@ -36,7 +36,6 @@ repos:
         entry: shellcheck
         types: [shell]
         exclude_types: ["zsh"]
-        args: ["--external-sources"]
   - repo: https://github.com/btford/write-good
     rev: v1.0.4
     hooks:
