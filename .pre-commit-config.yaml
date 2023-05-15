@@ -28,6 +28,7 @@ repos:
         entry: shfmt
         args: ["-w", "-i", "4"]
         types: [shell]
+        exclude_types: ["bats"]
       - id: shellcheck
         name: ShellCheck
         description: Static analysis tool for shell scripts (installed via CLI)
