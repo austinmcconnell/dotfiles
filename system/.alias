@@ -16,6 +16,7 @@ alias gc='git commit'
 alias gco='git branch --all | grep --extended-regexp --invert-match "HEAD|$(git name-rev --name-only HEAD)" | fzf | xargs git checkout'
 alias ga='git ls-files --modified --others --exclude-standard | fzf --multi | xargs -o -t -r git add'
 alias gm='git branch | grep --extended-regexp --invert-match "$(git branch --show-current)" | fzf | xargs git merge'
+alias gbd='git branch | grep --extended-regexp --invert-match "$(git branch --show-current)" | fzf | xargs git branch --delete'
 alias gcf=get_fixup_commit
 alias gr='git branch --all | grep --extended-regexp --invert-match "HEAD|$(git name-rev --name-only HEAD)" | fzf | xargs git rebase --autostash'
 alias gri='git branch --all | grep --extended-regexp --invert-match "HEAD|$(git name-rev --name-only HEAD)" | fzf | xargs -o git rebase --autostash --autosquash --interactive'
