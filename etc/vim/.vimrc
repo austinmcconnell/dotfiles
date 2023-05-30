@@ -25,6 +25,7 @@ augroup nord-overrides
 augroup END
 set background=dark         " set dark mode
 colorscheme nord
+set termguicolors
 
 " Editing
 set backspace=indent,eol,start                               " make backspace behave like normal in insert mode
