@@ -436,6 +436,20 @@ Launch plain/vanilla vim with the following command `vanillavim`
       - `buf`: search among open buffers
       - `mru`: search among recent files
   - <c-y>: create a new file and its parent directories
+- [Fzf.vim](https://github.com/junegunn/fzf.vim)
+  - <C-p>: to launch window and run `:Files`
+  - Open selected file:
+    - `<C-t>`: in a new tab
+    - `<C-x>`: in a new horizontal split
+    - `<C-v>`: in a new vertical split
+  - `:Files [PATH]`: Files (runs $FZF_DEFAULT_COMMAND if defined)
+  - `:GFiles [OPTS]`: Git files (git ls-files)
+  - `:GFiles?`: Git files (git status)
+  - `:Buffers`: Open buffers
+  - `:Colors`: Color schemes
+  - `:Ag [PATTERN]`: ag search result
+  - `:Maps`: Normal mode mappings
+  - `:Helptags`: Help tags
 - [Tagbar](https://github.com/preservim/tagbar)
 - [Surround](https://github.com/tpope/vim-surround)
   - ds: delete surroundings
