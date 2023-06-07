@@ -247,14 +247,6 @@ else
     ln -sfv "$REPO_DIR" "$HOME/.vim/pack/bundle/start/nerdcommenter"
 fi
 
-REPO_DIR="$HOME/.repositories/ctrlp"
-if [ -d "$REPO_DIR/.git" ]; then
-    git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin master
-else
-    git clone https://github.com/ctrlpvim/ctrlp.vim "$REPO_DIR"
-    ln -sfv "$REPO_DIR" "$HOME/.vim/pack/bundle/start/ctrlp"
-fi
-
 REPO_DIR="$HOME/.repositories/fzf"
 if [ -d "$REPO_DIR/.git" ]; then
     git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin master
