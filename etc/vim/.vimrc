@@ -89,15 +89,18 @@ set complete+=kspell                          " match dictionary words
 " Splits
 set splitbelow                  " open new split below
 set splitright                  " open new split to the right
+autocmd VimResized * wincmd =|  " auto resize splits when window size changes
 nnoremap <C-J> <C-W><C-J>|      " jump to split below current
 nnoremap <C-K> <C-W><C-K>|      " jump to split above current
 nnoremap <C-L> <C-W><C-L>|      " jump to split to the right of current
 nnoremap <C-H> <C-W><C-H>|      " jump to split to the left of current
-tnoremap <C-J> <C-W><C-J>|      " jump to split below current
-tnoremap <C-K> <C-W><C-K>|      " jump to split above current
-tnoremap <C-L> <C-W><C-L>|      " jump to split to the right of current
-tnoremap <C-H> <C-W><C-H>|      " jump to split to the left of current
-autocmd VimResized * wincmd =|  " auto resize splits when window size changes
+
+" Disabling terminal mappings because they prevent C-J, C-K navigation in fzf
+" window
+" tnoremap <C-J> <C-W><C-J>|      " jump to split below current
+" tnoremap <C-K> <C-W><C-K>|      " jump to split above current
+" tnoremap <C-L> <C-W><C-L>|      " jump to split to the right of current
+" tnoremap <C-H> <C-W><C-H>|      " jump to split to the left of current
 
 
 " Folding
