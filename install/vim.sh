@@ -270,3 +270,11 @@ else
     git clone https://github.com/tpope/vim-endwise "$REPO_DIR"
     ln -sfv "$REPO_DIR" "$HOME/.vim/pack/bundle/start/endwise"
 fi
+
+REPO_DIR="$HOME/.repositories/rails"
+if [ -d "$REPO_DIR/.git" ]; then
+    git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin master
+else
+    git clone https://github.com/tpope/vim-rails "$REPO_DIR"
+    ln -sfv "$REPO_DIR" "$HOME/.vim/pack/bundle/start/rails"
+fi
