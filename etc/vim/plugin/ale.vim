@@ -31,6 +31,7 @@ let g:ale_linters = {
 \   'json': ['jq', 'jsonlint', 'spectral'],
 \   'markdown': ['markdownlint', 'proselint', 'writegood'],
 \   'python': ['pylint', 'pyright'],
+\   'ruby': ['standardrb', 'rubocop'],
 \   'sh': ['bashate', 'shellcheck', 'language_server'],
 \   'terraform': ['terraform'],
 \   'yaml': ['spectral', 'yamllint'],
@@ -43,6 +44,7 @@ let g:ale_fixers = {
 \   'json': ['jq'],
 \   'markdown': ['prettier'],
 \   'python': ['isort', 'yapf'],
+\   'ruby': ['standardrb'],
 \   'sh': ['shfmt'],
 \   'terraform': ['terraform'],
 \   'yaml': ['prettier','yamlfix'],
@@ -60,6 +62,12 @@ let g:ale_python_isort_options = '--settings-path ~/.config/isort/.isort.cfg'
 
 let g:ale_python_mypy_auto_pipenv = 1
 let g:ale_python_mypy_ignore_invalid_syntax = 1
+
+let g:ale_ruby_rubocop_executable = 'bundle'
+let g:ale_ruby_rubocop_options = '--config ~/.config/rubocop/config.yml'
+
+let g:ale_ruby_standardrb_executable = 'bundle'
+let g:ale_ruby_standardrb_options = '--fix'
 
 let g:ale_sh_bashate_options = '--max-line-length 100 --ignore E006,E040'
 let g:ale_sh_shfmt_options = '--indent 4'
