@@ -48,9 +48,9 @@ if [[ -f /usr/local/share/chtf/chtf.sh ]]; then
     source "/usr/local/share/chtf/chtf.sh"
 fi
 
-# Source rvm
-if [[ -f "$HOME/.rvm/scripts/rvm" ]]; then
-    source "$HOME/.rvm/scripts/rvm"
+# Source rbenv
+if is-executable rbenv; then
+    eval "$(rbenv init - zsh)"
 fi
 
 # Add function to test zsh startup time
