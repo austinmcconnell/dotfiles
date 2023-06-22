@@ -286,3 +286,11 @@ else
     git clone https://github.com/tpope/vim-bundler "$REPO_DIR"
     ln -sfv "$REPO_DIR" "$HOME/.vim/pack/bundle/start/bundler"
 fi
+
+REPO_DIR="$HOME/.repositories/dispatch"
+if [ -d "$REPO_DIR/.git" ]; then
+    git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin master
+else
+    git clone https://github.com/tpope/vim-dispatch "$REPO_DIR"
+    ln -sfv "$REPO_DIR" "$HOME/.vim/pack/bundle/start/dispatch"
+fi
