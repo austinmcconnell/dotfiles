@@ -262,3 +262,11 @@ else
     git clone https://github.com/junegunn/fzf.vim "$REPO_DIR"
     ln -sfv "$REPO_DIR" "$HOME/.vim/pack/bundle/start/fzf.vim"
 fi
+
+REPO_DIR="$HOME/.repositories/endwise"
+if [ -d "$REPO_DIR/.git" ]; then
+    git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin master
+else
+    git clone https://github.com/tpope/vim-endwise "$REPO_DIR"
+    ln -sfv "$REPO_DIR" "$HOME/.vim/pack/bundle/start/endwise"
+fi
