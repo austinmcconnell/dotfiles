@@ -397,15 +397,15 @@ Launch plain/vanilla vim with the following command `vanillavim`
 #### General
 
 - [Ack](https://github.com/mileszs/ack.vim)
-- [auto-save](https://github.com/907th/vim-auto-save)
-- [Nerd Tree](https://github.com/preservim/nerdtree)
-- [Nerd Commenter](https://github.com/preservim/nerdcommente)
-  - `<C-/>`: Toggle commenting/un-commenting of line or selection
+- [Auto Save](https://github.com/907th/vim-auto-save)
 - [Lightline](https://github.com/itchyny/lightline.vim)
-- [Supertab](https://github.com/ervandew/supertab)
 - [ListToggle](https://github.com/Valloric/ListToggle)
   - `<leader>l`: Toggle the location list
   - `<leader>q`: Toggle the quickfix list
+- [Nerd Commenter](https://github.com/preservim/nerdcommente)
+  - `<C-/>`: Toggle commenting/un-commenting of line or selection
+- [Nerd Tree](https://github.com/preservim/nerdtree)
+- [Supertab](https://github.com/ervandew/supertab)
 
 #### Coding plugins
 
