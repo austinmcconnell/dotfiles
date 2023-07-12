@@ -411,6 +411,7 @@ Launch plain/vanilla vim with the following command `vanillavim`
 
 - [Ale](https://github.com/dense-analysis/ale)
 - [Auto Pairs](https://github.com/jiangmiao/auto-pairs)
+- [Endwise](https://github.com/tpope/vim-endwise)
 - [Git Gutter](https://github.com/airblade/vim-gitgutter)
   - ic: a text object that operates on all lines in the current hunk
   - ac: a text object that operates on all lines in the current hunk and any trailing empty lines
@@ -441,6 +442,30 @@ Launch plain/vanilla vim with the following command `vanillavim`
   - `:Maps`: Normal mode mappings
   - `:Helptags`: Help tags
 - [Tagbar](https://github.com/preservim/tagbar)
+- Ruby
+  - [Bundler](https://github.com/tpope/vim-bundler)
+    - `:Bundle`: wraps the `bundle` command
+  - [Dispatch](https://github.com/tpope/vim-dispatch)
+    - `:Dispatch rspec %`: run the current spec file
+    - `!`: add exclamation mark to run as background task
+      - `:Dispatch! rspec`: run entire test suite in background
+    - `Copen`: view the results of background job in quickfix window
+  - [Rails](https://github.com/tpope/vim-rails)
+    - gf: considers context and knows about partials, fixtures, and more
+    - Navigate Rails directory structure
+      - `:A`: jump to alternate file
+      - `:AS`, `:AV`: jump to alternate file in a horizontal or vertical split
+      - `:R`: jump to related file
+      - `:RS`, `:RV`: jump to related file in a horizontal or vertical split
+      - `:Emodel`: edit the specified model file
+      - `:Eview`: edit the specified view file
+      - `:Econtroller`: edit the specified controller file
+    - Interface to the `rails` command
+      - `:Rails console`
+      - `:Generate controller Blog`
+    - Default task runner
+      - `:Rails`: run the current test, spec, or feature
+      - `:.Rails`: run the current method, example, or scenario on the current line
 - [Surround](https://github.com/tpope/vim-surround)
   - ds: delete surroundings
     - ds(: delete surrounding parentheses
