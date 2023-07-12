@@ -4,6 +4,7 @@ let g:lightline = {
     \ 'component_function': {
     \     'gitbranch': 'FugitiveHead',
     \     'gitrelativedir': 'LightlineFilename',
+    \     'obsessionstatus': 'ObsessionStatus',
     \ },
     \ 'component_expand': {
     \     'linter_checking': 'lightline#ale#checking',
@@ -19,7 +20,8 @@ let g:lightline = {
     \ },
     \ 'active': {
     \     'left': [ [ 'mode', 'paste' ],
-    \               [ 'gitbranch', 'readonly', 'gitrelativedir', 'modified' ] ],
+    \               [ 'gitbranch', 'readonly', 'gitrelativedir', 'modified' ],
+    \               [ 'obsessionstatus' ] ],
     \     'right': [ [ 'lineinfo' ],
     \                [ 'percent' ],
     \                [ 'fileformat', 'fileencoding', 'filetype' ],

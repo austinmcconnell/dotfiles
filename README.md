@@ -405,6 +405,10 @@ Launch plain/vanilla vim with the following command `vanillavim`
 - [Nerd Commenter](https://github.com/preservim/nerdcommente)
   - `<C-/>`: Toggle commenting/un-commenting of line or selection
 - [Nerd Tree](https://github.com/preservim/nerdtree)
+- [Obsession](https://github.com/tpope/vim-obsession)
+  - `:Obsess`: start recording to a session file
+  - `:Obsess!`: stop recording to a session file
+  - `:Source Session.vim` or `vim -S Session.vim`: to load session file
 - [Supertab](https://github.com/ervandew/supertab)
 
 #### Coding plugins
