@@ -6,6 +6,8 @@ let mapleader = ";"
 set ttimeoutlen=100         " time to wait for a key code or mapped key sequence to complete
 set nrformats -=octal       " don't treat numbers with leading zeros as octal numbers
 
+set completeopt=menuone,noinsert
+
 " Filetypes
 filetype on                 " try to detect filetype when opening a file
 filetype plugin on          " load plugin for related filetype
