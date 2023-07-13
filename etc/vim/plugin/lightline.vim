@@ -20,7 +20,7 @@ let g:lightline = {
     \ },
     \ 'active': {
     \     'left': [ [ 'mode', 'paste' ],
-    \               [ 'gitbranch', 'readonly', 'gitrelativedir', 'modified' ],
+    \               [ 'gitbranch', 'readonly', 'filename', 'gitrelativedir', 'modified' ],
     \               [ 'obsessionstatus' ] ],
     \     'right': [ [ 'lineinfo' ],
     \                [ 'percent' ],
