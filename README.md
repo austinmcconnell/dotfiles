@@ -414,6 +414,14 @@ Launch plain/vanilla vim with the following command `vanillavim`
 #### Coding plugins
 
 - [Ale](https://github.com/dense-analysis/ale)
+  - gd: go to definition
+  - gr: find references
+  - gR: rename
+  - K: show documentation
+  - ]w: go to next warning
+  - [w: go to previous warning
+  - [W: go to first warning
+  - ]W: go to last warning
 - [Auto Pairs](https://github.com/jiangmiao/auto-pairs)
 - [Endwise](https://github.com/tpope/vim-endwise)
 - [Git Gutter](https://github.com/airblade/vim-gitgutter)
