@@ -2,7 +2,7 @@ set noshowmode
 let g:lightline = {
     \ 'colorscheme': 'nord',
     \ 'component_function': {
-    \     'gitbranch': 'FugitiveHead',
+    \     'gitbranch': 'gitbranch#name',
     \     'gitrelativedir': 'LightlineFilename',
     \     'obsessionstatus': 'ObsessionStatus',
     \ },

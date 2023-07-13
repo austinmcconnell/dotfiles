@@ -127,6 +127,14 @@ else
     ln -sfv "$REPO_DIR" "$HOME/.vim/pack/bundle/start/lightline"
 fi
 
+REPO_DIR="$HOME/.repositories/gitbranch"
+if [ -d "$REPO_DIR/.git" ]; then
+    git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin master
+else
+    git clone https://github.com/itchyny/vim-gitbranch "$REPO_DIR"
+    ln -sfv "$REPO_DIR" "$HOME/.vim/pack/bundle/start/gitbranch"
+fi
+
 REPO_DIR="$HOME/.repositories/gutentags"
 if [ -d "$REPO_DIR/.git" ]; then
     git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin master
