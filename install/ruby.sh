@@ -41,7 +41,7 @@ else
     ln -sfv "$REPO_DIR" "$RBENV_DIR/plugins/rbenv-default-gems"
 fi
 
-rbenv install "${DEFAULT_RUBY_VERSION}"
+rbenv install --skip-existing "${DEFAULT_RUBY_VERSION}"
 rbenv global "${DEFAULT_RUBY_VERSION}"
 
 curl -fsSL https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-doctor | bash
