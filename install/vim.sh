@@ -113,7 +113,7 @@ fi
 
 REPO_DIR="$HOME/.repositories/gitgutter"
 if [ -d "$REPO_DIR/.git" ]; then
-    git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin master
+    git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin main
 else
     git clone https://github.com/airblade/vim-gitgutter.git "$REPO_DIR"
     ln -sfv "$REPO_DIR" "$HOME/.vim/pack/bundle/start/gitgutter"
