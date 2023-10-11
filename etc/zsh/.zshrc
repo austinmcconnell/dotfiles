@@ -77,3 +77,10 @@ complete -C '$BREW_PREFIX/bin/aws_completer' aws
 source /opt/homebrew/opt/fzf/shell/key-bindings.zsh
 [[ $- == *i* ]] && source "/opt/homebrew/opt/fzf/shell/completion.zsh" 2>/dev/null
 bindkey "^e" fzf-cd-widget
+
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" --no-use
+
+# place this after nvm initialization!
+autoload -U add-zsh-hook
+add-zsh-hook chpwd load-nvmrc
+load-nvmrc
