@@ -18,7 +18,6 @@ else
 fi
 
 # Add taps
-brew tap homebrew/cask
 brew tap homebrew/cask-fonts
 brew tap heroku/brew
 brew tap Yleisradio/terraforms
