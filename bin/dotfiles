@@ -31,7 +31,7 @@ sub_update() {
     if is-macos; then
         mas upgrade
         brew update
-        brew upgrade
+        brew upgrade --greedy
     fi
     if is-debian; then
         sudo apt update
