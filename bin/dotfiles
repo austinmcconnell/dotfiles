@@ -3,6 +3,12 @@
 BIN_NAME=$(basename "$0")
 COMMAND_NAME=$1
 
+print_section_header() {
+    echo "**********************************************************************"
+    echo "$1"
+    echo "**********************************************************************"
+}
+
 sub_help() {
     echo "Usage: $BIN_NAME <command>"
     echo
@@ -29,13 +35,17 @@ sub_test() {
 
 sub_update() {
     if is-macos; then
+        print_section_header "Updating Mac App Store applications"
         mas upgrade
+        print_section_header "Running brew update & upgrade "
         brew update
         brew upgrade --greedy
     fi
     if is-debian; then
+        print_section_header "Running apt update & upgrade"
         sudo apt update
         sudo apt upgrade -y
+        print_section_header "Running snap refresh"
         sudo snap refresh
     fi
     sub_update-repos
@@ -43,6 +53,7 @@ sub_update() {
 }
 
 sub_update-repos() {
+    print_section_header "Updating repositories"
     for REPO_DIR in "$HOME"/.repositories/*; do
         echo Updating repository: "$(basename "$REPO_DIR")"
         git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull
@@ -51,11 +62,15 @@ sub_update-repos() {
 
 sub_clean() {
     if is-macos; then
+        print_section_header "Runing brew cleanup"
         brew cleanup
+        print_section_header "Runing brew autoremove"
         brew autoremove
     fi
     if is-debian; then
+        print_section_header "Runing apt clean"
         sudo apt clean
+        print_section_header "Runing apt autoremove"
         sudo apt autoremove
     fi
 }
