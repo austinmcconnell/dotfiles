@@ -17,6 +17,19 @@ else
     fi
 fi
 
+mkdir -p ~/.config/fd
+
+ln -sfv "$DOTFILES_DIR/etc/misc/hadolint.yaml" ~/.config
+ln -sfv "$DOTFILES_DIR/etc/misc/shellcheckrc" ~/.config/shellcheckrc
+ln -sfv "$DOTFILES_DIR/etc/fd/ignore" ~/.config/fd/ignore
+ln -sfv "$DOTFILES_DIR/etc/sublime-text/Package Control.sublime-settings" "$HOME/Library/Application Support/Sublime Text/Packages/User"
+ln -sfv "$DOTFILES_DIR/etc/sublime-text/Preferences.sublime-settings" "$HOME/Library/Application Support/Sublime Text/Packages/User"
+ln -sfv "$DOTFILES_DIR/etc/sublime-text/Python.sublime-settings" "$HOME/Library/Application Support/Sublime Text/Packages/User"
+ln -sfv "$DOTFILES_DIR/etc/sublime-text/SublimeLinter.sublime-settings" "$HOME/Library/Application Support/Sublime Text/Packages/User"
+if is-macos; then
+    ln -sfv "$DOTFILES_DIR/etc/sublime-text/Default (OSX).sublime-keymap" "$HOME/Library/Application Support/Sublime Text/Packages/User"
+fi
+
 # Add taps
 brew tap homebrew/cask-fonts
 brew tap heroku/brew
@@ -92,17 +105,3 @@ brew install --cask vagrant
 brew install --cask viscosity
 brew install --cask visual-studio-code
 brew install --cask zoom
-
-mkdir -p ~/.config/fd
-
-# Create symlinks
-ln -sfv "$DOTFILES_DIR/etc/misc/hadolint.yaml" ~/.config
-ln -sfv "$DOTFILES_DIR/etc/misc/shellcheckrc" ~/.config/shellcheckrc
-ln -sfv "$DOTFILES_DIR/etc/fd/ignore" ~/.config/fd/ignore
-ln -sfv "$DOTFILES_DIR/etc/sublime-text/Package Control.sublime-settings" "$HOME/Library/Application Support/Sublime Text/Packages/User"
-ln -sfv "$DOTFILES_DIR/etc/sublime-text/Preferences.sublime-settings" "$HOME/Library/Application Support/Sublime Text/Packages/User"
-ln -sfv "$DOTFILES_DIR/etc/sublime-text/Python.sublime-settings" "$HOME/Library/Application Support/Sublime Text/Packages/User"
-ln -sfv "$DOTFILES_DIR/etc/sublime-text/SublimeLinter.sublime-settings" "$HOME/Library/Application Support/Sublime Text/Packages/User"
-if is-macos; then
-    ln -sfv "$DOTFILES_DIR/etc/sublime-text/Default (OSX).sublime-keymap" "$HOME/Library/Application Support/Sublime Text/Packages/User"
-fi
