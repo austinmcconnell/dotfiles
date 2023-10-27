@@ -67,7 +67,7 @@ let g:ale_json_jq_options = '--indent 4'
 
 let g:ale_python_auto_pipenv=1
 
-let g:ale_python_isort_options = '--settings-path ~/.config/isort/.isort.cfg'
+let g:ale_python_isort_options = '--settings-path ~/.config/isort/config'
 
 let g:ale_python_mypy_auto_pipenv = 1
 let g:ale_python_mypy_ignore_invalid_syntax = 1

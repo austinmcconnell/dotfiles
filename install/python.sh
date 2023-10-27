@@ -39,7 +39,7 @@ ln -sfv "$DOTFILES_DIR/etc/python/yapf" ~/.config/yapf/style
 ln -sfv "$DOTFILES_DIR/etc/python/pylintrc" ~/.config
 ln -sfv "$DOTFILES_DIR/etc/python/proselint.json" ~/.config/proselint/config.json
 ln -sfv "$DOTFILES_DIR/etc/python/mypy" ~/.config/mypy/config
-ln -sfv "$DOTFILES_DIR/etc/python/.isort.cfg" ~/.config/isort/.isort.cfg
+ln -sfv "$DOTFILES_DIR/etc/python/.isort.cfg" ~/.config/isort/config
 ln -sfv "$DOTFILES_DIR/scripts/reinitialize-git-repositories.py" ~/projects/scripts
 ln -sfv "$DOTFILES_DIR/scripts/sort-git-repos-by-owner.py" ~/projects/scripts
 ln -sfv "$DOTFILES_DIR/scripts/sort-docker-compose.py" ~/projects/scripts
