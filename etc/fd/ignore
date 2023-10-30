@@ -1,4 +1,9 @@
- .git
- .venv
- venv
- node_modules
+# Version control files
+.git
+
+# Python files
+.venv
+venv
+
+# Node files
+node_modules
