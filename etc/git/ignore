@@ -1,10 +1,12 @@
+# Debug logs (npm, yarn)
+*.log
+
+# Editor artifacts
 *~
 ._*
-.DS_Store
-.idea
 *.swp
-node_modules
-bower_components
-npm-debug.log
-default.profraw
 Session.vim
+
+# OS files
+Thumbs.db
+.DS_Store
