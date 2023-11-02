@@ -27,14 +27,11 @@ dockutil --no-restart --add "/Applications/Visual Studio Code.app" --after "Syst
 dockutil --no-restart --remove "/Applications/TablePlus.app"
 dockutil --no-restart --add "/Applications/TablePlus.app" --after "Visual Studio Code"
 
-dockutil --no-restart --remove "/Applications/DataGrip.app"
-dockutil --no-restart --add "/Applications/DataGrip.app" --after "TablePlus"
-
 dockutil --no-restart --remove "/Applications/Postman.app"
-dockutil --no-restart --add "/Applications/Postman.app" --after "DataGrip"
+dockutil --no-restart --add "/Applications/Postman.app" --after "TablePlus"
 
 dockutil --no-restart --remove "/Applications/OpenLens.app"
-dockutil --no-restart --add "/Applications/OpenLens.app" --after "iTerm"
+dockutil --no-restart --add "/Applications/OpenLens.app" --after "Postman"
 
 dockutil --no-restart --remove "/Applications/iTerm.app"
 dockutil --no-restart --add "/Applications/iTerm.app" --after "OpenLens"
@@ -47,5 +44,11 @@ dockutil --no-restart --add "/Applications/Obsidian.app" --after "Sublime Text"
 
 dockutil --no-restart --remove "/Applications/Slack.app"
 dockutil --no-restart --add "/Applications/Slack.app" --after "Obsidian"
+
+dockutil --no-restart --remove "/Applications/zoom.us.app"
+dockutil --no-restart --add "/Applications/zoom.us.app" --after "Slack"
+
+dockutil --no-restart --remove "/Applications/Spotify.app"
+dockutil --no-restart --add "/Applications/Spotify.app" --after "zoom.us"
 
 killall Dock
