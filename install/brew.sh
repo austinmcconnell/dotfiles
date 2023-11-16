@@ -18,10 +18,12 @@ else
 fi
 
 mkdir -p ~/.config/fd
+mkdir -p ~/.config/httpie
 
 ln -sfv "$DOTFILES_DIR/etc/misc/hadolint.yaml" ~/.config
 ln -sfv "$DOTFILES_DIR/etc/misc/shellcheckrc" ~/.config/shellcheckrc
 ln -sfv "$DOTFILES_DIR/etc/fd/ignore" ~/.config/fd/ignore
+ln -sfv "$DOTFILES_DIR/etc/httpie/config.json" ~/.config/httpie/config.json
 ln -sfv "$DOTFILES_DIR/etc/sublime-text/Package Control.sublime-settings" "$HOME/Library/Application Support/Sublime Text/Packages/User"
 ln -sfv "$DOTFILES_DIR/etc/sublime-text/Preferences.sublime-settings" "$HOME/Library/Application Support/Sublime Text/Packages/User"
 ln -sfv "$DOTFILES_DIR/etc/sublime-text/Python.sublime-settings" "$HOME/Library/Application Support/Sublime Text/Packages/User"
