@@ -33,6 +33,7 @@ if is-macos; then
 fi
 
 # Add taps
+brew tap derailed/k9s
 brew tap homebrew/cask-fonts
 brew tap heroku/brew
 brew tap Yleisradio/terraforms
@@ -55,6 +56,7 @@ brew install --formula grep
 brew install --formula hadolint
 brew install --formula httpie
 brew install --formula jq
+brew install --formula k9s
 brew install --formula kubernetes-cli
 brew install --formula mas
 brew install --formula nano
