@@ -17,6 +17,7 @@ repos:
         types: [text]
         files: \.(json|sublime-settings)$
       - id: mixed-line-ending
+        exclude: \.plist$
       - id: trailing-whitespace
   - repo: local
     hooks:
