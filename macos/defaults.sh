@@ -54,6 +54,8 @@ defaults write com.apple.screencapture "include-date" 0
 # Remove notification badge (about signing into iCloud) from system settings icon
 defaults delete com.apple.systempreferences AttentionPrefBundleIDs
 
+# Disable closing windows when quitting an application
+defaults write NSGlobalDomain NSQuitAlwaysKeepsWindows -bool true
 ###############################################################################
 # Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #
 ###############################################################################
