@@ -12,10 +12,12 @@ repos:
       - id: debug-statements
       - id: double-quote-string-fixer
       - id: end-of-file-fixer
+        exclude: ^obsidian/
       - id: pretty-format-json
         args: [--autofix, --indent=4]
         types: [text]
         files: \.(json|sublime-settings)$
+        exclude: ^obsidian/
       - id: mixed-line-ending
         exclude: \.plist$
       - id: trailing-whitespace

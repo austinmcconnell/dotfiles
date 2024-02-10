@@ -1,0 +1,9 @@
+{
+  "snapToObjects": true,
+  "snapToGrid": true,
+  "newFileLocation": "root",
+  "defaultWheelBehavior": "pan",
+  "defaultModDragBehavior": "menu",
+  "cardLabelVisibility": "always",
+  "zoomBreakpoint": 0
+}

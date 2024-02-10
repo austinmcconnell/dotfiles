@@ -5,3 +5,6 @@ MYFILE
 todo.txt
 *.spl
 Session.vim
+
+# Obsidian
+Obsidian/**/workspace.json
