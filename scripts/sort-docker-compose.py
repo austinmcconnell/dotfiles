@@ -32,13 +32,17 @@ services_key_order = [
     'container_name',
     'image',
     'build',
-    'restart',
     'ports',
     'working_dir',
+    'env_file',
     'environment',
     'volumes',
+    'networks',
+    'network_mode',
     'entrypoint',
     'command',
+    'restart',
+    'pull_policy'
 ]
 
 
