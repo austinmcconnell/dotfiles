@@ -1,0 +1,142 @@
+# Vim Plugins
+
+#### General
+
+- [Ack](https://github.com/mileszs/ack.vim)
+- [Auto Save](https://github.com/907th/vim-auto-save)
+- [Lightline](https://github.com/itchyny/lightline.vim)
+- [ListToggle](https://github.com/Valloric/ListToggle)
+  - `<leader>l`: Toggle the location list
+  - `<leader>q`: Toggle the quickfix list
+- [Nerd Commenter](https://github.com/preservim/nerdcommente)
+  - Leader + n --> Toggle nerdtree
+  - `<C-/>`: Toggle commenting/un-commenting of line or selection
+- [Nerd Tree](https://github.com/preservim/nerdtree)
+  - File node mappings
+    - o: open in previous window
+    - i: open in a horizontal split
+    - s: open in a vertical split
+  - Directory node mappings
+    - o: open and close node
+    - O: recursively open node
+    - x: close parent of node
+    - X: recursively close child nodes
+  - Filesystem mappings
+    - C: Change tree root to the selected dir
+    - u: move tree root up a dir
+    - r: refresh current directory
+    - R: refresh current root
+    - m: show menu
+    - cd: change the CWD to the selected dir
+    - CD: change tree root to CWD
+  - Custom mappings
+    - [c: Jump to prev git hunk
+    - ]c: Jump to next git nunk
+- [Obsession](https://github.com/tpope/vim-obsession)
+  - `:Obsess`: start recording to a session file
+  - `:Obsess!`: stop recording to a session file
+  - `:Source Session.vim` or `vim -S Session.vim`: to load session file
+- [Prosession](https://github.com/dhruvasagar/vim-prosession)
+- [Supertab](https://github.com/ervandew/supertab)
+- [Undotree](https://github.com/mbbill/undotree)
+  - Leader + u --> toggle undotree
+
+#### Coding plugins
+
+- [Ale](https://github.com/dense-analysis/ale)
+  - gd: go to definition
+  - gr: find references
+  - gR: rename
+  - K: show documentation
+  - ]w: go to next warning
+  - [w: go to previous warning
+  - [W: go to first warning
+  - ]W: go to last warning
+- [Auto Pairs](https://github.com/jiangmiao/auto-pairs)
+- [Endwise](https://github.com/tpope/vim-endwise)
+- [Git Gutter](https://github.com/airblade/vim-gitgutter)
+  - ic: a text object that operates on all lines in the current hunk
+  - ac: a text object that operates on all lines in the current hunk and any trailing empty lines
+  - ]c: jump to next change
+  - [c: jump to previous change
+  - `<leader>hp`: preview hunk
+  - `<leader>hs`: stage hunk
+  - `<leader>hu`: undo hunk
+  - To stage part of any hunk:
+    - preview the hunk
+    - move to the preview window
+    - delete the lines you do not want to stage;
+    - stage the remaining lines: either write (:w) the window or stage hunk
+- [Gutentags](https://github.com/ludovicchabant/vim-gutentags)
+- [Jedi Vim](https://github.com/davidhalter/jedi-vim)
+- [Fzf.vim](https://github.com/junegunn/fzf.vim)
+  - `<C-p>:` to launch window and run `:Files`
+  - Open selected file:
+    - `<C-t>`: in a new tab
+    - `<C-x>`: in a new horizontal split
+    - `<C-v>`: in a new vertical split
+  - `:Files [PATH]`: Files (runs $FZF_DEFAULT_COMMAND if defined)
+  - `:GFiles [OPTS]`: Git files (git ls-files)
+  - `:GFiles?`: Git files (git status)
+  - `:Buffers`: Open buffers
+  - `:Colors`: Color schemes
+  - `:Ag [PATTERN]`: ag search result
+  - `:Maps`: Normal mode mappings
+  - `:Helptags`: Help tags
+- [Tagbar](https://github.com/preservim/tagbar)
+  - Leader + T --> toggle tagbar
+- Ruby
+  - [Bundler](https://github.com/tpope/vim-bundler)
+    - `:Bundle`: wraps the `bundle` command
+  - [Dispatch](https://github.com/tpope/vim-dispatch)
+    - `:Dispatch rspec %`: run the current spec file
+    - `!`: add exclamation mark to run as background task
+      - `:Dispatch! rspec`: run entire test suite in background
+    - `Copen`: view the results of background job in quickfix window
+  - [Rails](https://github.com/tpope/vim-rails)
+    - gf: considers context and knows about partials, fixtures, and more
+    - Navigate Rails directory structure
+      - `:A`: jump to alternate file
+      - `:AS`, `:AV`: jump to alternate file in a horizontal or vertical split
+      - `:R`: jump to related file
+      - `:RS`, `:RV`: jump to related file in a horizontal or vertical split
+      - `:Emodel`: edit the specified model file
+      - `:Eview`: edit the specified view file
+      - `:Econtroller`: edit the specified controller file
+    - Interface to the `rails` command
+      - `:Rails console`
+      - `:Generate controller Blog`
+    - Default task runner
+      - `:Rails`: run the current test, spec, or feature
+      - `:.Rails`: run the current method, example, or scenario on the current line
+- [Surround](https://github.com/tpope/vim-surround)
+  - ds: delete surroundings
+    - ds(: delete surrounding parentheses
+  - cs: change surroundings
+    - cs"): change surrounding double quotes to parentheses
+  - ys: add surroundings (mnemonic is "you surround")
+    - ysiw": add double quotes around entire word
+    - ysiw(: add parentheses around
+    - yss": add double quotes to entire line ignoring leading whitespace
+  - when you use ), }, ], or >, wrap the text with the appropriate pair
+    of characters
+  - when you use (, {, or \[, wrap the text with the appropriate pair of characters and append a space on the inside
+
+#### Writing
+
+- [Goyo](https://github.com/junegunn/goyo.vim)
+  - Leader + gy --> enable goyo/limelight
+- [Limelight](https://github.com/junegunn/limelight.vim)
+- [Vim Wiki](https://github.com/vimwiki/vimwiki)
+  - `<leader>ww`: Open default wiki index file
+  - `<Leader>ww` -- Open default wiki index file.
+  - `<Leader>wt` -- Open default wiki index file in a new tab.
+  - `<Leader>ws` -- Select and open wiki index file.
+  - `<Leader>wd` -- Delete wiki file you are in.
+  - `<Leader>wr` -- Rename wiki file you are in.
+  - `<Enter>` -- Follow/Create wiki link.
+  - `<Shift-Enter>` -- Split and follow/create wiki link.
+  - `<Ctrl-Enter>` -- Vertical split and follow/create wiki link.
+  - `<Backspace>` -- Go back to parent(previous) wiki link.
+  - `<Tab>` -- Find next wiki link.
+  - `<Shift-Tab>` -- Find previous wiki link.
