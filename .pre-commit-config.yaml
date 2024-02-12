@@ -43,6 +43,7 @@ repos:
     rev: v1.0.4
     hooks:
       - id: write-good
+        args: ["--no-passive"]
   - repo: https://github.com/amperser/proselint
     rev: 0.12.0
     hooks:
