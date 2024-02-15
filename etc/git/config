@@ -22,7 +22,10 @@
 	amend = commit --amend --reuse-message=HEAD
 	contrib = shortlog --summary --numbered
 	history = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-
+	# Undo last commit and keep changes staged
+	undo = "reset --soft HEAD^"
+	# Select modified files to edit
+	edit = "!git ls-files --modified --other --exclude-standard | sort --unique | fzf --exit-0 --multi --preview 'git diff --color {}' | xargs --no-run-if-empty -o $EDITOR"
 [init]
 	templatedir = ~/.config/git/templates
 	defaultBranch = main
