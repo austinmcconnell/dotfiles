@@ -26,13 +26,13 @@ alias gbd='git branch | grep --extended-regexp --invert-match "$(git branch --sh
 # Select branch to merge, excluding current
 alias gbm='git branch | grep --extended-regexp --invert-match "$(git branch --show-current)" | fzf | xargs git merge'
 # Select branch to checkout, exclusing current
-alias gco='git branch --all | grep --extended-regexp --invert-match "HEAD|$(git name-rev --name-only HEAD)" | fzf | xargs git checkout'
+alias gco='git branch --all | grep --extended-regexp --invert-match "HEAD|$(git branch --show-current)" | fzf | xargs git checkout'
 # Select commit to fixup with already staged changes
 alias gcf=get_fixup_commit
 # Select branch to rebase onto, excluding current
-alias gr='git branch --all | grep --extended-regexp --invert-match "HEAD|$(git name-rev --name-only HEAD)" | fzf | xargs git rebase --autostash'
+alias gr='git branch --all | grep --extended-regexp --invert-match "HEAD|$(git branch --show-current)" | fzf | xargs git rebase --autostash'
 # Select branch to interactively rebase onto, excluding current
-alias gri='git branch --all | grep --extended-regexp --invert-match "HEAD|$(git name-rev --name-only HEAD)" | fzf | xargs -o git rebase --autostash --autosquash --interactive'
+alias gri='git branch --all | grep --extended-regexp --invert-match "HEAD|$(git branch --show-current)" | fzf | xargs -o git rebase --autostash --autosquash --interactive'
 
 
 ##############################
