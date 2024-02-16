@@ -53,3 +53,14 @@ load-nvmrc() {
     nvm use default
   fi
 }
+
+# Retrain muscle memory to use switch or restore instead of checkout
+git () {
+    if [ "$1" = "checkout" ]
+    then
+        echo "Don't use checkout! Use switch or restore." >&2
+        return 1
+    else
+        command git "$@"
+    fi
+}
