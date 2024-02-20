@@ -120,3 +120,8 @@ alias ag='ag --hidden'
 # Dotfiles
 ##############################
 alias dfe='dotfiles edit'
+
+##############################
+# Modern Unix CLI Tools
+##############################
+alias cat='cat_sleep $1'
