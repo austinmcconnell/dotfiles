@@ -69,17 +69,18 @@
     diffFilter = delta --color-only
 
 [delta]
+    features = nord-vscode-diff-colors
     navigate = true    # use n and N to move between diff sections
 
-    syntax-theme = Nord
 
+[delta "nord-vscode-diff-colors"]
+    syntax-theme = Nord
     minus-style = syntax "#7B343E"
     minus-emph-style = syntax "#773A44"
     minus-non-emph-style = syntax "#582A33"
     plus-style = syntax "#516059"
     plus-emph-style = syntax "#505F5D"
     plus-non-emph-style = syntax "#444F44"
-
     file-modified-label = "modified:"
     file-style = "yellow"
 
