@@ -73,7 +73,6 @@
     navigate = true    # use n and N to move between diff sections
     side-by-side = true
 
-
 [delta "nord-vscode-diff-colors"]
     syntax-theme = Nord
     minus-style = syntax "#7B343E"
@@ -84,6 +83,7 @@
     plus-non-emph-style = syntax "#444F44"
     file-modified-label = "modified:"
     file-style = "yellow"
+    map-styles = bold purple => syntax darkmagenta, bold cyan => syntax darkcyan
 
 [diff]
     colorMoved = default
