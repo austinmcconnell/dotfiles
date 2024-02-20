@@ -1,48 +1,48 @@
 [user]
-	name = Austin McConnell
-	email = austin.s.mcconnell@gmail.com
-	signingkey = D10D0D7DE28CE6C6
+    name = Austin McConnell
+    email = austin.s.mcconnell@gmail.com
+    signingkey = D10D0D7DE28CE6C6
 
 [credential]
-	helper = osxkeychain
+    helper = osxkeychain
 
 [push]
-	default = simple
-	followTags = true
-	autoSetupRemote = true
+    default = simple
+    followTags = true
+    autoSetupRemote = true
 
 [merge]
-	ff = only
-	conflictstyle = diff3  # delta-specific setting
+    ff = only
+    conflictstyle = diff3  # delta-specific setting
 
 [fetch]
- 	prune = true
+    prune = true
 
 [alias]
-	amend = commit --amend --reuse-message=HEAD
-	contrib = shortlog --summary --numbered
-	history = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-	# Undo last commit and keep changes staged
-	undo = "reset --soft HEAD^"
-	# Select modified files to edit
-	edit = "!git ls-files --modified --other --exclude-standard | sort --unique | fzf --exit-0 --multi --preview 'git diff --color {}' | xargs --no-run-if-empty -o $EDITOR"
+    amend = commit --amend --reuse-message=HEAD
+    contrib = shortlog --summary --numbered
+    history = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    # Undo last commit and keep changes staged
+    undo = "reset --soft HEAD^"
+    # Select modified files to edit
+    edit = "!git ls-files --modified --other --exclude-standard | sort --unique | fzf --exit-0 --multi --preview 'git diff --color {}' | xargs --no-run-if-empty -o $EDITOR"
 [init]
-	templatedir = ~/.config/git/templates
-	defaultBranch = main
+    templatedir = ~/.config/git/templates
+    defaultBranch = main
 
 [commit]
-	gpgsign = false
+    gpgsign = false
 
 [pull]
-	ff = only
-	rebase = true
+    ff = only
+    rebase = true
 
 [rebase]
-	autostash = true
-	autosquash = true
+    autostash = true
+    autosquash = true
 
 [blame]
-	date = short
+    date = short
 
 [includeIf "gitdir:~/projects/unite-us/"]
     path = ./config-uniteus
@@ -54,10 +54,10 @@
     path = ./config-linux
 
 [submodule]
-	recurse = true
+    recurse = true
 
 [advice]
-	skippedCherryPicks = false
+    skippedCherryPicks = false
 
 ############################################################
 # Start delta-specific settings
@@ -73,15 +73,15 @@
 
     syntax-theme = Nord
 
-	minus-style = syntax "#7B343E"
-	minus-emph-style = syntax "#773A44"
-	minus-non-emph-style = syntax "#582A33"
-	plus-style = syntax "#516059"
-	plus-emph-style = syntax "#505F5D"
-	plus-non-emph-style = syntax "#444F44"
+    minus-style = syntax "#7B343E"
+    minus-emph-style = syntax "#773A44"
+    minus-non-emph-style = syntax "#582A33"
+    plus-style = syntax "#516059"
+    plus-emph-style = syntax "#505F5D"
+    plus-non-emph-style = syntax "#444F44"
 
-	file-modified-label = "modified:"
-	file-style = "yellow"
+    file-modified-label = "modified:"
+    file-style = "yellow"
 
 [diff]
     colorMoved = default
