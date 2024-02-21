@@ -2006,6 +2006,8 @@
 	<true/>
 	<key>RunJobsInServers</key>
 	<true/>
+	<key>ShowFullScreenTabBar</key>
+	<false/>
 	<key>ShowSessionRestoredBanner</key>
 	<true/>
 	<key>SoundForEsc</key>
