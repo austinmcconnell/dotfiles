@@ -68,6 +68,8 @@ set ruler               " show cursor line and column number
 set showmatch           " highlight matching [{()}]
 syntax enable           " enable syntax highlighting
 set laststatus=2        " always show statusline
+set title               " let vim set title of terminal window
+set titlestring+=%{substitute(getcwd(),\ $HOME,\ '~',\ '')}
 
 " Searching
 " nnoremap <leader>f :find<Space>
