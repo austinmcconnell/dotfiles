@@ -409,6 +409,7 @@ Launch plain/vanilla vim with the following command `vanillavim`
   - `:Obsess`: start recording to a session file
   - `:Obsess!`: stop recording to a session file
   - `:Source Session.vim` or `vim -S Session.vim`: to load session file
+- [Prosession](https://github.com/dhruvasagar/vim-prosession)
 - [Supertab](https://github.com/ervandew/supertab)
 
 #### Coding plugins

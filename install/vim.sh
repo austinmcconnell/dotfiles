@@ -310,3 +310,11 @@ else
     git clone https://github.com/tpope/vim-obsession "$REPO_DIR"
     ln -sfv "$REPO_DIR" "$HOME/.vim/pack/bundle/start/obsession"
 fi
+
+REPO_DIR="$HOME/.repositories/prosession"
+if [ -d "$REPO_DIR/.git" ]; then
+    git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin master
+else
+    git clone https://github.com/dhruvasagar/vim-prosession "$REPO_DIR"
+    ln -sfv "$REPO_DIR" "$HOME/.vim/pack/bundle/start/prosession"
+fi
