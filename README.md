@@ -168,10 +168,13 @@ Most normal mode operators still work in visual mode. New operators include:
 - `:e {char}`: edit a file
 - `:e`: reload external changes to a file
 - `:e!`: reload external changes and discard unsaved work in buffer
+- ``:e#``: open the last buffer for editing
 - `:bn`: switch to next buffer
 - `:bp`: switch to previous buffer
 - `:b{num}`: move to the specified buffer
 - `:bd`: close/delete a buffer
+- ``:%bd``: delete all buffers
+- `%bd|e#`: delete all buffers except current one
 - `:sp`: horizontally split window in two. The result is two viewports on the same file
 - `:sp [filename]`: horizontally screen window in two and load or create [filname] buffer
 - `:vsp`: vertically split window in two. The result is two viewports on the same file
