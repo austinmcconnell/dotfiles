@@ -14,6 +14,8 @@ alias gpf='git push --force'
 alias gb='git branch'
 alias gg='git grep -n'
 alias gc='git commit'
+alias ge='git edit'
+alias gea='git edit-all'
 
 # Delete branches that have been merged to trunk branch (usually main)
 alias gdm='git branch --merged $(get_trunk_branch) | grep --extended-regexp --invert-match $(get_trunk_branch) | xargs --no-run-if-empty git branch --delete'
