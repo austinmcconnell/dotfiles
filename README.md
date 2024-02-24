@@ -405,6 +405,26 @@ Launch plain/vanilla vim with the following command `vanillavim`
 - [Nerd Commenter](https://github.com/preservim/nerdcommente)
   - `<C-/>`: Toggle commenting/un-commenting of line or selection
 - [Nerd Tree](https://github.com/preservim/nerdtree)
+  - File node mappings
+    - o: open in previous window
+    - i: open in a horizontal split
+    - s: open in a vertical split
+  - Directory node mappings
+    - o: open and close node
+    - O: recursively open node
+    - x: close parent of node
+    - X: recursively close child nodes
+  - Filesystem mappings
+    - C: Change tree root to the selected dir
+    - u: move tree root up a dir
+    - r: refresh current directory
+    - R: refresh current root
+    - m: show menu
+    - cd: change the CWD to the selected dir
+    - CD: change tree root to CWD
+  - Custom mappings
+    - [c: Jump to prev git hunk
+    - ]c: Jump to next git nunk
 - [Obsession](https://github.com/tpope/vim-obsession)
   - `:Obsess`: start recording to a session file
   - `:Obsess!`: stop recording to a session file
