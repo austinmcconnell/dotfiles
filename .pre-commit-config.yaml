@@ -64,3 +64,8 @@ repos:
     hooks:
       - id: remove-tabs
         files: "etc/git"
+  - repo: https://github.com/markdownlint/markdownlint
+    rev: v0.13.0
+    hooks:
+      - id: markdownlint
+        args: [--config, .mdlrc]
