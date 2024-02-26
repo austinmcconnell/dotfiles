@@ -54,7 +54,7 @@ Most normal mode operators still work in visual mode. New operators include:
 - `<C-h>`: Delete back one character (works in insert mode)
 - `<C-w>`: Delete back one word (works in insert mode)
 - `<C-u>`: Delete back to beginning of line (works in insert mode)
-- `<C-o>`: Activate "Insert Normal" Mode (one bullet) which lets us run a single command then right back into Insert mode
+- `<C-o>`: Activate "Insert Normal" Mode to run a single command without leaving Insert mode
 - `<C-r>`{register}: Paste from the {register}
 - `<C-r><C-p>`{register}: Literal paste from the {register}
 - `<C-r>\=`: Access the expression register (can perform calculations, run script code, etc)
@@ -105,7 +105,7 @@ Most normal mode operators still work in visual mode. New operators include:
 - `:llast`: go to the last item on the list
 - `:ll{num}`: go to the nth item on the list
 
-# Terminal mode
+## Terminal mode
 
 - Terminal starts in insert mode
 - `:term`: launch a split\*screen terminal
@@ -115,7 +115,7 @@ Most normal mode operators still work in visual mode. New operators include:
 
 ## Text Objects
 
-Use Text objects in commands by specifying a modifier and then the text-object itself (like {a|i}{text-object})
+Use Text objects in commands by specifying a modifier and then the text-object itself (like `{a|i}{text-object}`)
 
 ### Modifiers
 
@@ -151,6 +151,7 @@ Use Text objects in commands by specifying a modifier and then the text-object i
 ## Misc
 
 - `<C-g>`: show total number of lines in file and current progress through the file
+
 ## Motions
 
 ### Left-Right Motions
@@ -187,6 +188,7 @@ Use Text objects in commands by specifying a modifier and then the text-object i
 - `<C-k>`: jump to the split below current window
 - `<C-h>`: jump to the split to the right of current window
 - `<C-l>`: jump to the split to the left of current window
+
 ## Word Motions
 
 - w: move forward one word

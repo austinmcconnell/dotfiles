@@ -1,6 +1,6 @@
 # Vim Plugins
 
-#### General
+## General plugins
 
 - [Ack](https://github.com/mileszs/ack.vim)
 - [Auto Save](https://github.com/907th/vim-auto-save)
@@ -41,7 +41,7 @@
 - [Undotree](https://github.com/mbbill/undotree)
   - Leader + u --> toggle undotree
 
-#### Coding plugins
+## Coding plugins
 
 - [Ale](https://github.com/dense-analysis/ale)
   - gd: go to definition
@@ -118,11 +118,11 @@
     - ysiw": add double quotes around entire word
     - ysiw(: add parentheses around
     - yss": add double quotes to entire line ignoring leading whitespace
-  - when you use ), }, ], or >, wrap the text with the appropriate pair
-    of characters
-  - when you use (, {, or \[, wrap the text with the appropriate pair of characters and append a space on the inside
+  - when you use ), }, ], or >, wrap the text with the appropriate pair of characters
+  - when you use (, {, or \[, wrap the text with the appropriate pair of characters and append
+    a space on the inside
 
-#### Writing
+## Writing plugins
 
 - [Goyo](https://github.com/junegunn/goyo.vim)
   - Leader + gy --> enable goyo/limelight

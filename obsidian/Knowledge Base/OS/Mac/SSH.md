@@ -4,7 +4,8 @@ Information about SSH on Mac OS
 
 ## Config
 
-The `ControlMaster`, `ControlPath`, and `ControlPersist` keywords allow sessions to share a single network connection.
+The `ControlMaster`, `ControlPath`, and `ControlPersist` keywords allow sessions to share a single
+network connection.
 
 ```bash
 Host *
@@ -16,9 +17,10 @@ Host *
    ControlPersist 4h
 ```
 
-> Since the first obtained value for each parameter is used, more host-specific declarations should be given near the beginning of the file, and general defaults at the end.
+> Since the first obtained value for each parameter is used, more host-specific declarations should
+> be given near the beginning of the file, and general defaults at the end.
 
-[[https://man.openbsd.org/ssh_config#DESCRIPTION]]
+[https://man.openbsd.org/ssh_config#DESCRIPTION](https://man.openbsd.org/ssh_config#DESCRIPTION)
 
 ## Managing Keys
 

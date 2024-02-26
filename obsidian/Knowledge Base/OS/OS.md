@@ -1,7 +1,8 @@
 # OS Overview
 
 %% Begin Waypoint %%
+
 - **Mac**
-	- [[SSH]]
+  - [[SSH]]
 
 %% End Waypoint %%

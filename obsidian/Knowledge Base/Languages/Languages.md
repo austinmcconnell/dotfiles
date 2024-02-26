@@ -1,9 +1,10 @@
 # Languages Overview
 
 %% Begin Waypoint %%
+
 - **Vim**
-	- [[Commands]]
-	- [[Learning]]
-	- [[Plugins]]
+  - [[Commands]]
+  - [[Learning]]
+  - [[Plugins]]
 
 %% End Waypoint %%

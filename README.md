@@ -24,7 +24,8 @@ Then, install this repo with `curl` available:
     bash -c "`curl -fsSL https://raw.githubusercontent.com/austinmcconnell/dotfiles/master/remote-install.sh`"
 ```
 
-This will clone (using `git`), or download (using `curl` or `wget`), this repo to `~/.dotfiles`. If you prefer, you can manually clone into the desired location:
+This will clone (using `git`), or download (using `curl` or `wget`), this repo to `~/.dotfiles`. If
+you prefer, you can manually clone into the desired location:
 
 ```shell
     git clone https://github.com/austinmcconnell/dotfiles.git ~/.dotfiles
