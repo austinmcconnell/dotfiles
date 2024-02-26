@@ -291,3 +291,12 @@ Use Text objects in commands by specifying a modifier and then the text-object i
 
 - `:helptags ALL`: regenerate help docs for all plugins
 - `:help map-modes`: Overview of which map commands work in which modes
+
+## vimdiff
+
+- `]c`: jump to next change
+- `[c`: jump to previous change
+- `[buffer number]dp`: push change to indicated buffer
+- `[buffer number]do`: obtain change from indicated buffer
+- `:cq`: quit without saving changes
+- `:diffupdate`: update the diff highlighting
