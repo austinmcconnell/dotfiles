@@ -2,9 +2,6 @@
 
 %% Begin Waypoint %%
 
-- **Vim**
-  - [[Commands]]
-  - [[Learning]]
-  - [[Plugins]]
+- **[[Vim]]**
 
 %% End Waypoint %%
