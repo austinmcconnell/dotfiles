@@ -14,6 +14,7 @@
 [merge]
     ff = only
     conflictstyle = diff3  # delta-specific setting
+    tool = vimdiff
 
 [fetch]
     prune = true
@@ -90,3 +91,12 @@
     colorMoved = default
 # End delta-specific settings
 ############################################################
+
+[mergetool]
+    prompt = false
+    keepBackup = false
+    hideResolved = true
+
+[mergetool "vimdiff"]
+    layout = "@LOCAL, REMOTE"  # equivalent to old vimdiff1
+    ; layout = "LOCAL, MERGED, REMOTE"  # equivalent to old vimdiff2
