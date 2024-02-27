@@ -100,3 +100,4 @@
 [mergetool "vimdiff"]
     layout = "@LOCAL, REMOTE"  # equivalent to old vimdiff1
     ; layout = "LOCAL, MERGED, REMOTE"  # equivalent to old vimdiff2
+    ; layout = "LOCAL,BASE,REMOTE / MERGED"  # equivalent to old vimdiff3
