@@ -68,6 +68,9 @@
     - delete the lines you do not want to stage;
     - stage the remaining lines: either write (:w) the window or stage hunk
 - [Gutentags](https://github.com/ludovicchabant/vim-gutentags)
+  - Does not generates tags for project dependencies (e.g. flask, sqlalchemy) unless the virtual
+    environment is located in the project directory (e.g `.venv`)
+    - Possible workarounds [here](https://github.com/ludovicchabant/vim-gutentags/issues/179)
 - [Jedi Vim](https://github.com/davidhalter/jedi-vim)
 - [Fzf.vim](https://github.com/junegunn/fzf.vim)
   - `<C-p>:` to launch window and run `:Files`
