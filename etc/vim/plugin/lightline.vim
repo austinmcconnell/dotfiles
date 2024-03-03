@@ -4,6 +4,7 @@ let g:lightline = {
     \ 'component_function': {
     \     'gitbranch': 'gitbranch#name',
     \     'gitrelativedir': 'LightlineFilename',
+    \     'gutentags': 'gutentags#statusline',
     \     'obsessionstatus': 'ObsessionStatus',
     \ },
     \ 'component_expand': {
@@ -21,7 +22,8 @@ let g:lightline = {
     \ 'active': {
     \     'left': [ [ 'mode', 'paste' ],
     \               [ 'gitbranch', 'readonly', 'filename', 'gitrelativedir', 'modified' ],
-    \               [ 'obsessionstatus' ] ],
+    \               [ 'obsessionstatus' ],
+    \               [ 'gutentags' ] ],
     \     'right': [ [ 'lineinfo' ],
     \                [ 'percent' ],
     \                [ 'fileformat', 'fileencoding', 'filetype' ],
