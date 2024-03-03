@@ -208,6 +208,7 @@ Use Text objects in commands by specifying a modifier and then the text-object i
 - X: exterminate (delete) the character before the cursor
 - dm: delete whatever you define as a movement (e.g. word, sentence, paragraph)
 - dd: delete the current line
+- `:18,23d`: delete lines 18-23
 - dt?: delete from where you are to the question mark
 - D: delete to the end of the line
 - J: join the current line with the next one (delete what's between)
@@ -271,6 +272,7 @@ Use Text objects in commands by specifying a modifier and then the text-object i
 - <C-]>: jump to tag
 - g<C-]>: show all matching tags
 - `<C-t>`: jump to previous position in the tag stack
+- `:tag`: jump to the next position in the tag stack
 - `:tags`: show the contents of the tag stack
 
 ## Folds
@@ -300,3 +302,20 @@ Use Text objects in commands by specifying a modifier and then the text-object i
 - `[buffer number]do`: obtain change from indicated buffer
 - `:cq`: quit without saving changes
 - `:diffupdate`: update the diff highlighting
+
+## Marks
+
+Vim has 26 "marks". A mark is set to any cursor location using the `m` command. Each mark
+is designated by a single lower case letter
+
+- `m{letter}`: set the {letter} mark to the current location
+- `'{letter}`: move to beginning of line containing the {letter} mark
+- `` `a{letter}``: move to exact location of the {letter} mark
+
+## Registers
+
+Vim has 26 "registers". A register is a distinct copy buffer. Each register is designated by a
+single lower case letter
+
+- `"{letter}dd`: cut the current line into the {letter} register
+- `"{letter}p`: paste a copy of the {letter} register's contents
