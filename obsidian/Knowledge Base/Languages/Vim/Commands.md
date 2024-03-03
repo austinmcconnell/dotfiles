@@ -274,6 +274,11 @@ Use Text objects in commands by specifying a modifier and then the text-object i
 - `<C-t>`: jump to previous position in the tag stack
 - `:tag`: jump to the next position in the tag stack
 - `:tags`: show the contents of the tag stack
+- `:ts[elect]`: list all matching tags
+- `:tn[ext]`: jump to the next matching tag
+- `:tp[revious]`: jump to the previous matching tag
+- `:tf[irst]`: jump to the first matching tag
+- `:tl[ast]`: jump to the last matching tag
 
 ## Folds
 
