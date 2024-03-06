@@ -1,8 +1,13 @@
 #!/bin/bash
 
-# Run tests if there is a test directory
+# Run pytest if there is a tests directory
 if [ -e "tests" ]; then
     pytest --quiet --quiet --tb=no --strict --exitfirst --disable-warnings
+fi
+
+# Run behave if there is a features directory
+if [ -e "features" ]; then
+    behave --quiet --quiet --no-summary --stop --no-timings --format progress
 fi
 
 # Add other pre-push hooks
