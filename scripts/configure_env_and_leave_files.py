@@ -3,7 +3,7 @@ from pathlib import Path
 
 REPOSITORIES_DIR = Path.home() / 'projects'
 
-# This assumes git repos have been sorted by owner as in sort-git-repos-by-owner.py
+# This assumes git repos have been sorted by owner as in scripts/sort_git_repos_by_owner.py
 owner_dirs = sorted([x for x in REPOSITORIES_DIR.iterdir() if x.is_dir()])
 
 projects = []
