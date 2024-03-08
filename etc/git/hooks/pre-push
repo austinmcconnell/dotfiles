@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Enable 'exit on error'
+set -e
+
 # Run pytest if there is a tests directory
 if [ -e "tests" ]; then
     pytest --quiet --quiet --tb=no --strict --exitfirst --disable-warnings
