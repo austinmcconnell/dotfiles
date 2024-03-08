@@ -6,7 +6,7 @@ ZSH_THEME="spaceship"
 
 zstyle ':omz:lib:theme-and-appearance' gnu-ls yes
 
-plugins=(autoenv terraform)
+plugins=(autoenv gnu-utils terraform)
 source $ZSH/oh-my-zsh.sh
 
 DOTFILES_DIR="$HOME/.dotfiles"
