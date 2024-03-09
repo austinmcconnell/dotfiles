@@ -50,6 +50,7 @@ mattmc3/zephyr path:plugins/completion
 #
 ###
 #https://github.com/rummik/zsh-tailf
+https://github.com/MichaelAquilina/zsh-autoswitch-virtualenv
 
 
 ### Local Plugins
