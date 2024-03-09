@@ -36,6 +36,11 @@ ln -sfv "$DOTFILES_DIR/etc/zsh/.zprofile" "$ZDOTDIR"
 ln -sfv "$DOTFILES_DIR/etc/zsh/.zshenv" "$ZDOTDIR"
 ln -sfv "$DOTFILES_DIR/etc/zsh/.zshrc" "$ZDOTDIR"
 
+mkdir -p "$HOME"/.terminfo
+tic -o "$HOME"/.terminfo "$DOTFILES_DIR"/etc/terminfo/tmux.terminfo
+tic -o "$HOME"/.terminfo "$DOTFILES_DIR"/etc/terminfo/tmux-256color.terminfo
+tic -o "$HOME"/.terminfo "$DOTFILES_DIR"/etc/terminfo/xterm-256color.terminfo
+
 grep "$(which zsh)" /etc/shells &>/dev/null || sudo zsh -c "echo $(which zsh) >> /etc/shells"
 
 if [ "$SHELL" != "$(which zsh)" ]; then
@@ -81,9 +86,3 @@ fi
 # else
 # git clone https://github.com/lukechilds/zsh-nvm "$HOME/.oh-my-zsh/custom/plugins/zsh-nvm"
 # fi
-
-# Setup terminfo
-mkdir -p "$HOME"/.terminfo
-tic -o "$HOME"/.terminfo "$DOTFILES_DIR"/etc/terminfo/tmux.terminfo
-tic -o "$HOME"/.terminfo "$DOTFILES_DIR"/etc/terminfo/tmux-256color.terminfo
-tic -o "$HOME"/.terminfo "$DOTFILES_DIR"/etc/terminfo/xterm-256color.terminfo
