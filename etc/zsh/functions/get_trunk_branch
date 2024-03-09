@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+get_trunk_branch() {
+  git rev-parse --abbrev-ref origin/HEAD | sed 's/origin\///'
+}

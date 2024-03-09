@@ -1,0 +1,5 @@
+#!/bin/bash
+
+calc() {
+  echo "$*" | bc -l;
+}

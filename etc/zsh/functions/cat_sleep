@@ -1,0 +1,7 @@
+#!/bin/bash
+
+cat_sleep() {
+  echo "Use bat to avoid delay"
+  sleep 1
+  bat $1
+}
