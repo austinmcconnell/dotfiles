@@ -28,7 +28,6 @@ export PIPENV_VERBOSITY=-1
 
 # Autoenv
 export AUTOENV_ASSUME_YES=1
-export AUTOENV_ENABLE_LEAVE=1
 
 # Spaceship prompt
 export SPACESHIP_DOCKER_SHOW=false
