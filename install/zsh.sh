@@ -31,10 +31,14 @@ mkdir -p "$ZDOTDIR"
 echo "ZDOTDIR=${ZDOTDIR:-~/.config/zsh}" >"$HOME"/.zshenv
 echo "source \$ZDOTDIR/.zshenv" >>"$HOME"/.zshenv
 
+ln -sfv "$DOTFILES_DIR/etc/zsh/functions" "$ZDOTDIR"
+ln -sfv "$DOTFILES_DIR/etc/zsh/.aliases" "$ZDOTDIR"
 ln -sfv "$DOTFILES_DIR/etc/zsh/.zlogin" "$ZDOTDIR"
 ln -sfv "$DOTFILES_DIR/etc/zsh/.zprofile" "$ZDOTDIR"
+ln -sfv "$DOTFILES_DIR/etc/zsh/.zsh_plugins.txt" "$ZDOTDIR"
 ln -sfv "$DOTFILES_DIR/etc/zsh/.zshenv" "$ZDOTDIR"
 ln -sfv "$DOTFILES_DIR/etc/zsh/.zshrc" "$ZDOTDIR"
+ln -sfv "$DOTFILES_DIR/etc/zsh/.zstyles" "$ZDOTDIR"
 
 mkdir -p "$HOME"/.terminfo
 tic -o "$HOME"/.terminfo "$DOTFILES_DIR"/etc/terminfo/tmux.terminfo
@@ -49,40 +53,7 @@ fi
 
 curl -L https://iterm2.com/shell_integration/zsh -o ~/.iterm2_shell_integration.zsh
 
-REPO_DIR="$HOME/.repositories/oh-my-zsh"
-if [ -d "$REPO_DIR/.git" ]; then
-    git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin master
-else
-    ZSH="$REPO_DIR" sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-    ln -sfv "$REPO_DIR" "$HOME/.oh-my-zsh"
+REPO_DIR="${ZDOTDIR:-$HOME}"/.antidote
+if [ ! -d "$REPO_DIR/.git" ]; then
+    git clone --depth=1 https://github.com/mattmc3/antidote.git "$REPO_DIR"
 fi
-
-ln -sfv "$DOTFILES_DIR/etc/zsh/austin.zsh-theme" ~/.oh-my-zsh/custom/themes/
-
-REPO_DIR="$HOME/.repositories/kube-ps1"
-if [ -d "$REPO_DIR/.git" ]; then
-    git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin master
-else
-    git clone https://github.com/jonmosco/kube-ps1.git "$REPO_DIR"
-fi
-
-REPO_DIR="$HOME/.repositories/spaceship-prompt"
-if [ -d "$REPO_DIR/.git" ]; then
-    git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin master
-else
-    git clone https://github.com/spaceship-prompt/spaceship-prompt.git "$REPO_DIR" --depth=1
-    ln -sfv "$REPO_DIR" "$HOME/.oh-my-zsh/custom/themes/spaceship-prompt"
-    ln -sfv "$REPO_DIR/spaceship.zsh-theme" "$HOME/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
-fi
-
-# if [ -d "$HOME/.oh-my-zsh/custom/plugins/zsh-kubectl-prompt/.git" ] ; then
-# git --work-tree="$HOME/.oh-my-zsh/custom/plugins/zsh-kubectl-prompt" --git-dir="$HOME/.oh-my-zsh/custom/plugins/zsh-kubectl-prompt/.git" pull origin master;
-#else
-# git clone https://github.com/superbrothers/zsh-kubectl-prompt.git "$HOME/.oh-my-zsh/custom/plugins/zsh-kubectl-prompt"
-# fi
-
-# if [ -d "$HOME/.oh-my-zsh/custom/plugins/zsh-nvm/.git" ] ; then
-# git --work-tree="$HOME/.oh-my-zsh/custom/plugins/zsh-nvm" --git-dir="$HOME/.oh-my-zsh/custom/plugins/zsh-nvm/.git" pull origin master;
-# else
-# git clone https://github.com/lukechilds/zsh-nvm "$HOME/.oh-my-zsh/custom/plugins/zsh-nvm"
-# fi
