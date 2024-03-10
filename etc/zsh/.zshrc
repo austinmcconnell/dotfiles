@@ -25,14 +25,6 @@ if [ -d "$DOTFILES_EXTRA_DIR" ]; then
     done
 fi
 
-# Add function to test zsh startup time
-timezsh() {
-    shell=${1-$SHELL}
-    for i in $(seq 1 10); do
-        /usr/bin/time $shell -i -c exit
-    done
-}
-
 # Source fzf key bindings and completions
 source /opt/homebrew/opt/fzf/shell/key-bindings.zsh
 [[ $- == *i* ]] && source "/opt/homebrew/opt/fzf/shell/completion.zsh" 2>/dev/null
