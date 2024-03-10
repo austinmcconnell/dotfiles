@@ -33,7 +33,7 @@
 
 # With antidote, using Zephyr's completion plugin is recommended. This plugin is meant
 # to be run near the TOP of your .zsh_plugins.txt file.
-mattmc3/zephyr path:plugins/completion
+https://github.com/mattmc3/zephyr path:plugins/completion
 
 # zsh-users/zsh-completions is a popular plugin for adding supplemental completions.
 # We combine the `path:` and `kind:fpath` annotations here:
@@ -90,20 +90,12 @@ $ZDOTDIR/.aliases
 #   autoload -Uz promptinit && promptinit
 #   prompt ${prompt_name:-pure}
 #
-# There are two ways to load prompts.
-# - Add multiple prompt plugins to your `$fpath` with `kind:fpath` and then later in
-#   your .zshrc run the Zsh built-in `prompt` to select the theme.
-# - Or, just load one prompt like a regular plugin.
-#
 ###
 
 # Use kind:fpath for prompts you want available to promptinit.
 https://github.com/romkatv/powerlevel10k kind:fpath
-https://github.com/sindresorhus/pure
-https://github.com/spaceship-prompt/spaceship-prompt
-
-# Or, just load a prompt plugin the normal way.
-#https://github.com/spaceship-prompt/spaceship-prompt
+https://github.com/sindresorhus/pure kind:fpath
+https://github.com/spaceship-prompt/spaceship-prompt kind:fpath
 
 
 ### Utilities
@@ -128,20 +120,7 @@ https://github.com/romkatv/zsh-bench kind:path
 #
 ###
 
-### Framework: Oh-My-Zsh
-#
-# Oh-My-Zsh is a very popular Zsh framework. You might choose to use plugins from OMZ
-# in your own config. Depending on which plugins you use, you may also need to include
-# OMZ's entire "lib" directory. If you do this, be careful - "lib" configures a lot of
-# very broad settings. If you are familiar with what you are doing, you may choose to
-# only include parts of "lib".
-#
-#   # use all of lib
-#   ohmyzsh/ohmyzsh path:lib
-#   # -OR-, only use only the specific files we care about
-#   ohmyzsh/ohmyzsh path:lib/clipboard.zsh
-#
-####
+### Oh-My-Zsh
 #https://github.com/ohmyzsh/ohmyzsh path:lib/clipboard.zsh
 #https://github.com/ohmyzsh/ohmyzsh path:plugins/copybuffer
 #https://github.com/ohmyzsh/ohmyzsh path:plugins/copyfile
@@ -150,17 +129,16 @@ https://github.com/romkatv/zsh-bench kind:path
 #https://github.com/ohmyzsh/ohmyzsh path:plugins/magic-enter
 #https://github.com/ohmyzsh/ohmyzsh path:plugins/fancy-ctrl-z
 
+###zephyr
+https://github.com/mattmc3/zephyr/ path:plugins/color
+https://github.com/mattmc3/zephyr/ path:plugins/directory
+https://github.com/mattmc3/zephyr/ path:plugins/environment
+https://github.com/mattmc3/zephyr/ path:plugins/history
+https://github.com/mattmc3/zephyr/ path:plugins/homebrew
+https://github.com/mattmc3/zephyr/ path:plugins/utility
+https://github.com/mattmc3/zephyr/ path:plugins/zfunctions
 
-### Framework: zsh-utils
-#
-# zsh-utils is a micro-framework that is also well suited to pair with antidote. It
-# provides much of the same core functionality from other bigger frameworks without the
-# bloat or performance hit. Using zsh-utils, you may find you don't need much else.
-# If you want a really thin framework, this is great.
-#
-###
-https://github.com/belak/zsh-utils path:history
-https://github.com/belak/zsh-utils path:utility
+### zsh-utils
 https://github.com/belak/zsh-utils path:editor
 
 ### Deferred Plugins

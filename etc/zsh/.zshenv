@@ -1,10 +1,13 @@
 #!/bin/zsh
 
+export DOTFILES_IDE="vim"
+
+# Part of https://github.com/mattmc3/zephyr/blob/main/plugins/environment/environment.plugin.zsh
 # Config directories
-export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
-export XDG_CACHE_HOME="$HOME/.cache"
-export XDG_DATA_HOME="$HOME/.local/share"
-export XDG_RUNTIME_DIR="$HOME/.xdg"
+# export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
+# export XDG_CACHE_HOME="$HOME/.cache"
+# export XDG_DATA_HOME="$HOME/.local/share"
+# export XDG_RUNTIME_DIR="$HOME/.xdg"
 export ZDOTDIR=${ZDOTDIR:-$XDG_CONFIG_HOME/zsh}
 export DOTFILES_DIR="$HOME/.dotfiles"
 
@@ -19,7 +22,6 @@ export CLICOLOR=1
 
 # Prefer US English and use UTF-8
 export LC_ALL="en_US.UTF-8"
-export LANG="en_US"
 
 # PIPENV
 export WORKON_HOME=~/.venvs
@@ -56,11 +58,6 @@ export NVM_DIR="$HOME/.nvm"
 export NVM_LAZY=1
 lts_name=$(cat $NVM_DIR/alias/lts/'*')
 export NVM_LTS_VERSION=$(cat $NVM_DIR/alias/$lts_name)
-
-# kube-ps1
-get_cluster_short() {
-    echo "$1" | cut -d _ -f 2
-}
 
 export KUBE_PS1_SYMBOL_ENABLE=false
 export KUBE_PS1_NS_COLOR=yellow

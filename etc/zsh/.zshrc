@@ -3,12 +3,6 @@
 # .zshrc - Zsh file loaded on interactive shell sessions.
 #
 
-setopt extended_glob
-
-ZFUNCDIR=${ZFUNCDIR:-$ZDOTDIR/functions}
-fpath=($ZFUNCDIR $fpath)
-autoload -Uz $fpath[1]/*(.:t)
-
 [[ -e ${ZDOTDIR:-~}/.zstyles ]] && source ${ZDOTDIR:-~}/.zstyles
 
 source ${ZDOTDIR:-~}/.antidote/antidote.zsh
@@ -28,10 +22,10 @@ fi
 # Source fzf key bindings and completions
 source /opt/homebrew/opt/fzf/shell/key-bindings.zsh
 [[ $- == *i* ]] && source "/opt/homebrew/opt/fzf/shell/completion.zsh" 2>/dev/null
-bindkey "^e" fzf-cd-widget
 
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 # Bindkeys
-bindkey '\t' end-of-line  # For zsh-autosuggestions
+bindkey "^e" fzf-cd-widget
+# bindkey '\t' end-of-line  # For zsh-autosuggestions. This was messing up directory tab completion
