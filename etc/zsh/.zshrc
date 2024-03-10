@@ -40,3 +40,6 @@ bindkey "^e" fzf-cd-widget
 
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+# Bindkeys
+bindkey '\t' end-of-line  # For zsh-autosuggestions
