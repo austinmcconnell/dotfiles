@@ -12,10 +12,10 @@ autoload -Uz promptinit && promptinit
 prompt spaceship
 
 # # Hook for extra/custom stuff (e.g. settings for work laptop)
-DOTFILES_EXTRA_DIR="$HOME/.extra"
-if [ -d "$DOTFILES_EXTRA_DIR" ]; then
-    for EXTRAFILE in "$DOTFILES_EXTRA_DIR"/.{env,alias,function,path}; do
-        [ -f "$EXTRAFILE" ] && . "$EXTRAFILE"
+EXTRA_DIR="$HOME/.extra"
+if [ -d "$EXTRA_DIR" ]; then
+    for EXTRA_FILE in "$EXTRA_DIR"/.{env,alias,function,path}; do
+        [ -f "$EXTRA_FILE" ] && . "$EXTRA_FILE"
     done
 fi
 
