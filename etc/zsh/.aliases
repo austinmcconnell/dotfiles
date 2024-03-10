@@ -29,10 +29,11 @@ alias pipinstall='pip install --no-index --find-links=file://${HOME}/.pip/packag
 
 
 ##############################
-# Atom
+# Misc
 ##############################
 alias zshrc='$EDITOR $ZDOTDIR/.zshrc'
 alias vimrc='$EDITOR ~/.vimrc'
+alias zbench='for i in {1..10}; do /usr/bin/time zsh -lic exit; done'
 alias hosts="sudo $EDITOR /etc/hosts"
 
 
