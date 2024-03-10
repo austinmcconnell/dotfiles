@@ -192,4 +192,3 @@ https://github.com/olets/zsh-abbr kind:defer
 
 # These popular core plugins should be loaded at the end
 https://github.com/zsh-users/zsh-autosuggestions
-#https://github.com/zsh-users/zsh-history-substring-search
