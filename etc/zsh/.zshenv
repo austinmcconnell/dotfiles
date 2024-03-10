@@ -80,3 +80,5 @@ export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 if [[ ("$SHLVL" -eq 1 && ! -o LOGIN) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
     source "${ZDOTDIR:-$HOME}/.zprofile"
 fi
+
+export ABBR_USER_ABBREVIATIONS_FILE="$DOTFILES_DIR/etc/zsh/zsh-abbr/user-abbreviations"
