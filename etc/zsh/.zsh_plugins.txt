@@ -160,6 +160,9 @@ https://github.com/zdharma-continuum/fast-syntax-highlighting kind:defer
 # Abbrevations
 https://github.com/olets/zsh-abbr kind:defer
 
+# NVM
+https://github.com/lukechilds/zsh-nvm kind:defer
+
 
 ### Final Plugins
 #

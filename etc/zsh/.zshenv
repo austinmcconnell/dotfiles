@@ -55,9 +55,8 @@ export optflags="-Wno-error=implicit-function-declaration"
 
 #NVM
 export NVM_DIR="$HOME/.nvm"
-export NVM_LAZY=1
-lts_name=$(cat $NVM_DIR/alias/lts/'*')
-export NVM_LTS_VERSION=$(cat $NVM_DIR/alias/$lts_name)
+export NVM_LAZY_LOAD=true
+export NVM_AUTO_USE=true
 
 export KUBE_PS1_SYMBOL_ENABLE=false
 export KUBE_PS1_NS_COLOR=yellow

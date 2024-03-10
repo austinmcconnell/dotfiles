@@ -15,11 +15,13 @@ NVM_DIR="$HOME/.nvm"
 if [ -d "$NVM_DIR/.git" ]; then
     git --work-tree="$NVM_DIR" --git-dir="$NVM_DIR/.git" fetch --tags origin
     # shellcheck disable=SC2046
-    git --work-tree="$NVM_DIR" --git-dir="$NVM_DIR/.git" checkout $(git --work-tree="$NVM_DIR" --git-dir="$NVM_DIR/.git" describe --abbrev=0 --tags --match "v[0-9]*" $(git --work-tree="$NVM_DIR" --git-dir="$NVM_DIR/.git" rev-list --tags --max-count=1))
+    latest_release_tag=$(git --work-tree="$NVM_DIR" --git-dir="$NVM_DIR/.git" describe --abbrev=0 --tags --match "v[0-9]*" $(git --work-tree="$NVM_DIR" --git-dir="$NVM_DIR/.git" rev-list --tags --max-count=1))
+    git --work-tree="$NVM_DIR" --git-dir="$NVM_DIR/.git" checkout "$latest_release_tag"
 else
     git clone https://github.com/nvm-sh/nvm.git "$NVM_DIR"
     # shellcheck disable=SC2046
-    git --work-tree="$NVM_DIR" --git-dir="$NVM_DIR/.git" checkout $(git --work-tree="$NVM_DIR" --git-dir="$NVM_DIR/.git" describe --abbrev=0 --tags --match "v[0-9]*" $(git --work-tree="$NVM_DIR" --git-dir="$NVM_DIR/.git" rev-list --tags --max-count=1))
+    latest_release_tag=$(git --work-tree="$NVM_DIR" --git-dir="$NVM_DIR/.git" describe --abbrev=0 --tags --match "v[0-9]*" $(git --work-tree="$NVM_DIR" --git-dir="$NVM_DIR/.git" rev-list --tags --max-count=1))
+    git --work-tree="$NVM_DIR" --git-dir="$NVM_DIR/.git" checkout "$latest_release_tag"
 fi
 
 # Due to nvm being cloned into the .nvm directory, need to clone first before creating symlinks
