@@ -1,21 +1,6 @@
 ##############################
 # Version Control
 ##############################
-alias gs='git status'
-alias gh='git history'
-alias gd='git diff'
-alias gdc='git diff --cached'
-alias gwd='git diff --word-diff'
-alias gwdc='git diff --word-diff --cached'
-alias gf='git fetch'
-alias gm='git merge'
-alias gp='git push'
-alias gpf='git push --force'
-alias gb='git branch'
-alias gg='git grep -n'
-alias gc='git commit'
-alias ge='git edit'
-alias gea='git edit-all'
 
 # Delete branches that have been merged to trunk branch (usually main)
 alias gdm='git branch --merged $(get_trunk_branch) | grep --extended-regexp --invert-match $(get_trunk_branch) | xargs --no-run-if-empty git branch --delete'
@@ -41,13 +26,6 @@ alias gsw='git branch --all | grep --extended-regexp --invert-match "HEAD|$(git 
 ##############################
 alias pipcache='pip download --dest ${HOME}/.pip/packages'
 alias pipinstall='pip install --no-index --find-links=file://${HOME}/.pip/packages/'
-
-
-##############################
-# Docker Compose
-##############################
-alias dc='docker-compose'
-alias dclogs='docker-compose logs -tf --tail="50" '
 
 
 ##############################
@@ -87,19 +65,6 @@ alias speedtest="wget -O /dev/null http://speed.transip.nl/100mb.bin"
 ##############################
 alias https="http --default-scheme=https"
 
-##############################
-# Kubernetes
-##############################
-alias kc='kubectl'
-alias kctx='kubectx'
-alias kns='kubens'
-
-
-##############################
-# Terraform
-##############################
-alias tf='terraform'
-
 
 ##############################
 # Vim
@@ -110,11 +75,6 @@ alias vanillavim='vim --noplugins -u NONE'
 # Ag
 ##############################
 alias ag='ag --hidden'
-
-##############################
-# Dotfiles
-##############################
-alias dfe='dotfiles edit'
 
 ##############################
 # Modern Unix CLI Tools
