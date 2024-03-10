@@ -83,12 +83,6 @@ alias speedtest="wget -O /dev/null http://speed.transip.nl/100mb.bin"
 
 
 ##############################
-# Calendar
-##############################
-alias week="date +%V"
-
-
-##############################
 # HTTPie
 ##############################
 alias https="http --default-scheme=https"
@@ -99,7 +93,6 @@ alias https="http --default-scheme=https"
 alias kc='kubectl'
 alias kctx='kubectx'
 alias kns='kubens'
-alias kui='kc proxy & sleep 2 && open -a "/Applications/Google Chrome.app" "http://localhost:8001/ui"'
 
 
 ##############################
@@ -135,8 +128,6 @@ alias cat='cat_sleep $1'
 ##############################
 # Homebrew
 ##############################
-alias cask="brew cask"
-alias tap="brew tap"
 alias leaves="brew leaves | xargs brew deps --installed --for-each | sed \"s/^.*:/$(tput setaf 4)&$(tput sgr0)/\""
 
 ##############################
