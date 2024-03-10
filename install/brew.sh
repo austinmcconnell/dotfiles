@@ -87,7 +87,6 @@ brew install --cask docker
 brew install --cask evernote
 brew install --cask flux
 brew install --cask firefox
-brew install --cask font-fira-code
 brew install --cask gpg-suite
 brew install --cask hazel
 brew install --cask hpedrorodrigues/tools/dockutil
@@ -111,3 +110,11 @@ brew install --cask vagrant
 brew install --cask viscosity
 brew install --cask visual-studio-code
 brew install --cask zoom
+
+# Install fonts
+brew install --cask font-fira-code
+brew install --cask font-meslo-lg-nerd-font
+brew install --cask font-fira-code-nerd-font
+brew install --cask font-hack-nerd-font
+brew install --cask font-inconsolata-nerd-font
+brew install --cask font-sauce-code-pro-nerd-font
