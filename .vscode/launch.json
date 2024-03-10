@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "name": "Bash-Debug (simplest configuration)",
+            "osx": {
+                "pathBash": "bash"
+            },
+            "program": "${file}",
+            "request": "launch",
+            "type": "bashdb"
+        }
+    ],
+    "version": "0.2.0"
+}
