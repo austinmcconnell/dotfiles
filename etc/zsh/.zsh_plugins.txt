@@ -52,6 +52,7 @@ https://github.com/mattmc3/zephyr path:plugins/completion
 #https://github.com/rummik/zsh-tailf
 https://github.com/MichaelAquilina/zsh-autoswitch-virtualenv
 https://github.com/ael-code/zsh-colored-man-pages
+https://github.com/erikced/zsh-pyenv-lazy-load
 
 
 ### Local Plugins
