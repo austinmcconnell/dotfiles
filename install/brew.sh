@@ -46,6 +46,7 @@ brew install --formula bash
 brew install --formula bat
 brew install --formula bats-core
 brew install --formula blueutil
+brew install --formula ccache
 brew install --formula chtf
 brew install --formula coreutils
 brew install --formula dive
