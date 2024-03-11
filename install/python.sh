@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC2034
 
 if is-executable pyenv; then
     echo "**************************************************"
@@ -9,7 +10,10 @@ else
         echo "**************************************************"
         echo "Installing Python"
         echo "**************************************************"
-        brew install readline xz
+        brew install ncurses openssl readline xz zlib
+        LDFLAGS="-Wl,-rpath,$(brew --prefix openssl)/lib"
+        CPPFLAGS="-I$(brew --prefix openssl)/include"
+        CONFIGURE_OPTS="--with-openssl=$(brew --prefix openssl)"
     elif is-debian; then
         echo "**************************************************"
         echo "Installing Python"
@@ -47,49 +51,44 @@ ln -sfv "$DOTFILES_DIR/scripts/free-space-alert.scpt" ~/projects/scripts
 
 DEFAULT_PYTHON_VERSION=3.10.6
 
-REPO_DIR="$HOME/.repositories/pyenv"
+if is-executable pyenv; then
+    pyenv update
+fi
+
 PYENV_DIR="$HOME/.pyenv"
+PYENV_PLUGINS_DIR="$PYENV_DIR/plugins"
 
-if [ -d "$REPO_DIR/.git" ]; then
-    git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin master
-else
-    git clone https://github.com/pyenv/pyenv.git "$REPO_DIR"
-    ln -sfv "$REPO_DIR" "$PYENV_DIR"
-    ln -sfv "$DOTFILES_DIR/etc/python/default-packages" "$PYENV_DIR"
+REPO_NAME=pyenv
+if [ ! -d "$PYENV_DIR" ]; then
+    git clone https://github.com/pyenv/pyenv.git "$PYENV_DIR"
 fi
 
-REPO_DIR="$HOME/.repositories/pyenv-implicit"
-if [ -d "$REPO_DIR/.git" ]; then
-    git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin master
-else
-    git clone https://github.com/pyenv/pyenv-implicit.git "$REPO_DIR"
-    ln -sfv "$REPO_DIR" "$PYENV_DIR/plugins/pyenv-implicit"
+REPO_NAME=pyenv-implicit
+if [ ! -d "$PYENV_PLUGINS_DIR/$REPO_NAME" ]; then
+    git clone https://github.com/pyenv/pyenv-implicit.git "$PYENV_PLUGINS_DIR/$REPO_NAME"
 fi
 
-REPO_DIR="$HOME/.repositories/pyenv-update"
-if [ -d "$REPO_DIR/.git" ]; then
-    git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin master
-else
-    git clone https://github.com/pyenv/pyenv-update.git "$REPO_DIR"
-    ln -sfv "$REPO_DIR" "$PYENV_DIR/plugins/pyenv-update"
+REPO_NAME="pyenv-update"
+if [ ! -d "$PYENV_PLUGINS_DIR/$REPO_NAME" ]; then
+    git clone https://github.com/pyenv/pyenv-update.git "$PYENV_PLUGINS_DIR/$REPO_NAME"
 fi
 
-REPO_DIR="$HOME/.repositories/pyenv-ccache"
-if [ -d "$REPO_DIR/.git" ]; then
-    git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin master
-else
-    git clone https://github.com/pyenv/pyenv-ccache.git "$REPO_DIR"
-    ln -sfv "$REPO_DIR" "$PYENV_DIR/plugins/pyenv-ccache"
+REPO_NAME=pyenv-ccache
+if [ ! -d "$PYENV_PLUGINS_DIR/$REPO_NAME" ]; then
+    git clone https://github.com/pyenv/pyenv-ccache.git "$PYENV_PLUGINS_DIR/$REPO_NAME"
 fi
 
-REPO_DIR="$HOME/.repositories/pyenv-default-packages"
-if [ -d "$REPO_DIR/.git" ]; then
-    git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin master
-else
-    git clone https://github.com/jawshooah/pyenv-default-packages.git "$REPO_DIR"
-    ln -sfv "$REPO_DIR" "$PYENV_DIR/plugins/pyenv-default-packages"
+REPO_NAME=pyenv-doctor
+if [ ! -d "$PYENV_PLUGINS_DIR/$REPO_NAME" ]; then
+    git clone https://github.com/pyenv/pyenv-doctor.git "$PYENV_PLUGINS_DIR/$REPO_NAME"
 fi
 
+REPO_NAME=pyenv-default-packages
+if [ ! -d "$PYENV_PLUGINS_DIR/$REPO_NAME" ]; then
+    git clone https://github.com/jawshooah/pyenv-default-packages.git "$PYENV_PLUGINS_DIR/$REPO_NAME"
+fi
+
+ln -sfv "$DOTFILES_DIR/etc/python/default-packages" "$PYENV_DIR" # <-- At end because PYENV_DIR doesn't exist before pyenv install
 "$PYENV_DIR"/bin/pyenv install --skip-existing $DEFAULT_PYTHON_VERSION
 "$PYENV_DIR"/bin/pyenv global $DEFAULT_PYTHON_VERSION
 

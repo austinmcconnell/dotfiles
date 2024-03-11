@@ -49,6 +49,7 @@ sub_update() {
         sudo snap refresh
     fi
     antidote update
+    pyenv update
     sub_update-repos
     sub_clean
 }

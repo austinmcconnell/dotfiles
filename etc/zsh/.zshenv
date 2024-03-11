@@ -11,6 +11,7 @@ export DOTFILES_IDE="vim"
 export ZDOTDIR=${ZDOTDIR:-$XDG_CONFIG_HOME/zsh}
 export DOTFILES_DIR="$HOME/.dotfiles"
 
+
 # Mac OS
 export HOMEBREW_AUTO_UPDATE_SECS=86400
 
@@ -47,9 +48,6 @@ export CLOUDSDK_PYTHON=~/.pyenv/shims/python3.7
 
 # Set FLAGS
 export PATH="$BREW_PREFIX/opt/openssl@1.1/bin:$PATH"
-export LDFLAGS="-L$BREW_PREFIX/opt/openssl@1.1/lib"
-export CPPFLAGS="-I$BREW_PREFIX/opt/openssl@1.1/include"
-export PKG_CONFIG_PATH="$BREW_PREFIX/opt/openssl@1.1/lib/pkgconfig"
 export RUBY_CFLAGS=-DUSE_FFI_CLOSURE_ALLOC
 export optflags="-Wno-error=implicit-function-declaration"
 

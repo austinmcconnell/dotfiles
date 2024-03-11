@@ -27,6 +27,8 @@ path=(
     $path
 )
 
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+LDFLAGS="-Wl,-rpath,$(brew --prefix openssl)/lib"  #pyenv python builds
+CPPFLAGS="-I$(brew --prefix openssl)/include"  #pyenv python builds
+CONFIGURE_OPTS="--with-openssl=$(brew --prefix openssl)"  #pyenv python builds
+
+export REPO_DIR="$HOME/.repositories"
