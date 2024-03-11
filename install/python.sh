@@ -66,6 +66,22 @@ else
     ln -sfv "$REPO_DIR" "$PYENV_DIR/plugins/pyenv-implicit"
 fi
 
+REPO_DIR="$HOME/.repositories/pyenv-update"
+if [ -d "$REPO_DIR/.git" ]; then
+    git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin master
+else
+    git clone https://github.com/pyenv/pyenv-update.git "$REPO_DIR"
+    ln -sfv "$REPO_DIR" "$PYENV_DIR/plugins/pyenv-update"
+fi
+
+REPO_DIR="$HOME/.repositories/pyenv-ccache"
+if [ -d "$REPO_DIR/.git" ]; then
+    git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin master
+else
+    git clone https://github.com/pyenv/pyenv-ccache.git "$REPO_DIR"
+    ln -sfv "$REPO_DIR" "$PYENV_DIR/plugins/pyenv-ccache"
+fi
+
 REPO_DIR="$HOME/.repositories/pyenv-default-packages"
 if [ -d "$REPO_DIR/.git" ]; then
     git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin master
