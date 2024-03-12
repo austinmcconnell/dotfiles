@@ -50,9 +50,7 @@ https://github.com/mattmc3/zephyr path:plugins/completion
 #
 ###
 #https://github.com/rummik/zsh-tailf
-https://github.com/MichaelAquilina/zsh-autoswitch-virtualenv
 https://github.com/ael-code/zsh-colored-man-pages
-https://github.com/erikced/zsh-pyenv-lazy-load
 
 
 ### Local Plugins
@@ -153,16 +151,11 @@ https://github.com/belak/zsh-utils path:editor
 # certain plugins, this can greatly increase your zsh startup speed.
 #
 ###
-
-# Syntax highlighting
-#https://github.com/zsh-users/zsh-syntax-highlighting
-https://github.com/zdharma-continuum/fast-syntax-highlighting kind:defer
-
-# Abbrevations
-https://github.com/olets/zsh-abbr kind:defer
-
-# NVM
 https://github.com/lukechilds/zsh-nvm kind:defer
+https://github.com/MichaelAquilina/zsh-autoswitch-virtualenv kind:defer
+https://github.com/olets/zsh-abbr kind:defer
+https://github.com/xlshiz/pyenv-zsh-plugin kind:defer
+https://github.com/zdharma-continuum/fast-syntax-highlighting kind:defer
 
 
 ### Final Plugins
