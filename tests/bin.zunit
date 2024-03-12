@@ -1,0 +1,30 @@
+#!/usr/bin/env zunit
+
+@test 'dotfiles' {
+    run dotfiles
+    assert $output contains "Usage"
+}
+
+@test 'is-executable' {
+    run is-executable ls
+    assert $state equals 0
+}
+
+@test 'is-executable (false)' {
+    run is-executable stormblessed
+    echo "State is $state"
+    echo "$output"
+    assert $state not_equal_to 0
+}
+
+@test 'is-supported' {
+    run is-supported ls -a
+    assert $state equals 0
+}
+
+@test 'is-supported (false)' {
+    run is-supported "ls --nonexistent"
+    echo "State is $state"
+    echo "$output"
+    assert $state not_equal_to 0
+}

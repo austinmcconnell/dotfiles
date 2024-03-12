@@ -30,7 +30,7 @@ sub_edit() {
 }
 
 sub_test() {
-    bats "$DOTFILES_DIR"/test/*.bats
+    zunit "$DOTFILES_DIR"/tests/
 }
 
 sub_update() {

@@ -1,7 +1,6 @@
 {
     "recommendations": [
         "rogalmic.bash-debug",
-        "jetmartin.bats",
         "mads-hartmann.bash-ide-vscode"
     ]
 }

@@ -1,0 +1,11 @@
+#!/usr/bin/env zunit
+
+@test 'verify vim version' {
+    run bash -c "vim --version | head -1 | cut -d ' ' -f 5 | cut -d '.' -f 1"
+    assert $output is_greater_than 7
+}
+
+@test 'verify python version' {
+    run bash -c "python --version | cut -d ' ' -f 2 | cut -d '.' -f 1,2"
+    assert $output in "3.8" "3.9" "3.10" "3.11" "3.12"
+}

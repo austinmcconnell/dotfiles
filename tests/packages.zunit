@@ -1,0 +1,75 @@
+#!/usr/bin/env zunit
+
+@test 'antidote installed' {
+    run is-executable antidote
+    assert $state equals 0
+}
+
+@test 'fd installed' {
+    run is-executable fd
+    assert $state equals 0
+}
+
+@test 'fzf installed' {
+    run is-executable fzf
+    assert $state equals 0
+}
+
+@test 'git installed' {
+    run is-executable git
+    assert $state equals 0
+}
+
+#@test 'nvm installed' {
+#   run is-executable nvm
+#   assert $state equals 0
+#
+#}
+
+@test 'npm installed' {
+   run is-executable npm
+   assert $state equals 0
+}
+
+@test 'npm default packages installed' {
+    installed_packages=$(npm ls --global --parseable | awk '{gsub(/\/.*\//,"",$1); print}' | sort)
+    for package in $(cat $DOTFILES_DIR/etc/node/default-packages); do
+        trimmed_package=$(echo $package | cut -d '/' -f 2 )
+        assert $trimmed_package in $installed_packages
+        echo "$package is installed"
+    done
+}
+
+@test 'pre-commit installed' {
+    run is-executable pre-commit
+    assert $state equals 0
+}
+
+@test 'pyenv installed' {
+    run is-executable pyenv
+    assert $state equals 0
+}
+
+@test 'python installed' {
+    run is-executable python
+    assert $state equals 0
+}
+
+@test 'python default packages installed' {
+    installed_packages=$(pip freeze | cut -d '=' -f 1)
+    for package in $(cat $DOTFILES_DIR/etc/python/default-packages); do
+        trimmed_package=$(echo $package | cut -d '[' -f 1 )
+        assert $trimmed_package in $installed_packages
+        echo "$package is installed"
+    done
+}
+
+@test 'ruby installed' {
+    run is-executable ruby
+    assert $state equals 0
+}
+
+@test 'vim installed' {
+    run is-executable vim
+    assert $state equals 0
+}

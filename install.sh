@@ -29,4 +29,4 @@ mkdir -p ~/.repositories
 touch ~/.hushlogin
 
 # Run tests
-if is-executable bats; then bats test/*.bats; else echo "Skipped: tests (missing: bats)"; fi
+if is-executable zunit; then zunit; else echo "Skipped: tests (missing: zunit)"; fi

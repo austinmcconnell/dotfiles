@@ -44,7 +44,6 @@ brew tap Yleisradio/terraforms
 brew install --formula autoenv
 brew install --formula bash
 brew install --formula bat
-brew install --formula bats-core
 brew install --formula blueutil
 brew install --formula ccache
 brew install --formula chtf
@@ -74,6 +73,7 @@ brew install --formula wget
 brew install --formula wifi-password
 brew install --formula yamllint
 brew install --formula zlib # Used for compiling (e.g. pyenv building python versions from source)
+brew install --formula zunit-zsh/zunit/zunit
 
 # Install cloud cli tools
 brew install --formula awscli
