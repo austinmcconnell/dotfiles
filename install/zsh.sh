@@ -28,6 +28,8 @@ fi
 
 ZDOTDIR="$HOME"/.config/zsh
 mkdir -p "$ZDOTDIR"
+mkdir -p "$XDG_CONFIG_HOME"/spaceship
+
 echo "ZDOTDIR=${ZDOTDIR:-~/.config/zsh}" >"$HOME"/.zshenv
 echo "source \$ZDOTDIR/.zshenv" >>"$HOME"/.zshenv
 
@@ -39,6 +41,7 @@ ln -sfv "$DOTFILES_DIR/etc/zsh/.zsh_plugins.txt" "$ZDOTDIR"
 ln -sfv "$DOTFILES_DIR/etc/zsh/.zshenv" "$ZDOTDIR"
 ln -sfv "$DOTFILES_DIR/etc/zsh/.zshrc" "$ZDOTDIR"
 ln -sfv "$DOTFILES_DIR/etc/zsh/.zstyles" "$ZDOTDIR"
+ln -sfv "$DOTFILES_DIR/etc/spaceship/spaceship.zsh" "$XDG_CONFIG_HOME"/spaceship/spaceship.zsh
 
 mkdir -p "$HOME"/.terminfo
 tic -o "$HOME"/.terminfo "$DOTFILES_DIR"/etc/terminfo/tmux.terminfo
