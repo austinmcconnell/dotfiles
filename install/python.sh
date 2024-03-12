@@ -63,30 +63,15 @@ if [ ! -d "$PYENV_DIR" ]; then
     git clone https://github.com/pyenv/pyenv.git "$PYENV_DIR"
 fi
 
-REPO_NAME=pyenv-implicit
-if [ ! -d "$PYENV_PLUGINS_DIR/$REPO_NAME" ]; then
-    git clone https://github.com/pyenv/pyenv-implicit.git "$PYENV_PLUGINS_DIR/$REPO_NAME"
-fi
+pyenv_plugins=(pyenv/pyenv-ccache jawshooah/pyenv-default-packages pyenv/pyenv-doctor pyenv/pyenv-implicit pyenv/pyenv-update)
 
-REPO_NAME="pyenv-update"
-if [ ! -d "$PYENV_PLUGINS_DIR/$REPO_NAME" ]; then
-    git clone https://github.com/pyenv/pyenv-update.git "$PYENV_PLUGINS_DIR/$REPO_NAME"
-fi
-
-REPO_NAME=pyenv-ccache
-if [ ! -d "$PYENV_PLUGINS_DIR/$REPO_NAME" ]; then
-    git clone https://github.com/pyenv/pyenv-ccache.git "$PYENV_PLUGINS_DIR/$REPO_NAME"
-fi
-
-REPO_NAME=pyenv-doctor
-if [ ! -d "$PYENV_PLUGINS_DIR/$REPO_NAME" ]; then
-    git clone https://github.com/pyenv/pyenv-doctor.git "$PYENV_PLUGINS_DIR/$REPO_NAME"
-fi
-
-REPO_NAME=pyenv-default-packages
-if [ ! -d "$PYENV_PLUGINS_DIR/$REPO_NAME" ]; then
-    git clone https://github.com/jawshooah/pyenv-default-packages.git "$PYENV_PLUGINS_DIR/$REPO_NAME"
-fi
+for plugin in "${pyenv_plugins[@]}"; do
+    plugin_owner=$(echo "$plugin" | cut -d '/' -f 1)
+    plugin_name=$(echo "$plugin" | cut -d '/' -f 2)
+    if [ ! -d "$PYENV_PLUGINS_DIR/$plugin_name" ]; then
+        git clone "https://github.com/$plugin_owner/$plugin_name.git" "$PYENV_PLUGINS_DIR/$plugin_name"
+    fi
+done
 
 ln -sfv "$DOTFILES_DIR/etc/python/default-packages" "$PYENV_DIR" # <-- At end because PYENV_DIR doesn't exist before pyenv install
 "$PYENV_DIR"/bin/pyenv install --skip-existing $DEFAULT_PYTHON_VERSION
