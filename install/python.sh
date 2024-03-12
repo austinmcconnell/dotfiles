@@ -44,9 +44,9 @@ ln -sfv "$DOTFILES_DIR/etc/python/pylintrc" ~/.config
 ln -sfv "$DOTFILES_DIR/etc/python/proselint.json" ~/.config/proselint/config.json
 ln -sfv "$DOTFILES_DIR/etc/python/mypy" ~/.config/mypy/config
 ln -sfv "$DOTFILES_DIR/etc/python/.isort.cfg" ~/.config/isort/config
-ln -sfv "$DOTFILES_DIR/scripts/reinitialize-git-repositories.py" ~/projects/scripts
-ln -sfv "$DOTFILES_DIR/scripts/sort-git-repos-by-owner.py" ~/projects/scripts
-ln -sfv "$DOTFILES_DIR/scripts/sort-docker-compose.py" ~/projects/scripts
+ln -sfv "$DOTFILES_DIR/scripts/reinitialize_git_repositories.py" ~/projects/scripts
+ln -sfv "$DOTFILES_DIR/scripts/sort_git_repos_by_owner.py" ~/projects/scripts
+ln -sfv "$DOTFILES_DIR/scripts/sort_docker_compose.py" ~/projects/scripts
 ln -sfv "$DOTFILES_DIR/scripts/free-space-alert.scpt" ~/projects/scripts
 
 DEFAULT_PYTHON_VERSION=3.10.6
