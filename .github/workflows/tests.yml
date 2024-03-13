@@ -1,0 +1,13 @@
+name: Run dotfiles tests
+run-name: Run dotfiles tests
+on: [push]
+jobs:
+  Test:
+    runs-on: macos-14
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Install dotfiles
+        run: ./install.sh
+      - name: Run dotfiles tests
+        run: dotfiles test
