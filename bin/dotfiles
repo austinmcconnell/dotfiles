@@ -30,7 +30,7 @@ sub_edit() {
 }
 
 sub_test() {
-    zunit "$DOTFILES_DIR"/tests/
+    cd "$DOTFILES_DIR" && zunit "$DOTFILES_DIR"/tests/
 }
 
 sub_update() {

@@ -1,6 +1,7 @@
 #!/usr/bin/env zunit
 
 @test 'antidote installed' {
+    path=($ZDOTDIR/.antidote/ $path)
     run is-executable antidote
     assert $state equals 0
 }
@@ -32,6 +33,7 @@
 }
 
 @test 'npm default packages installed' {
+    source "$NVM_DIR/nvm.sh"
     installed_packages=$(npm ls --global --parseable | awk '{gsub(/\/.*\//,"",$1); print}' | sort)
     for package in $(cat $DOTFILES_DIR/etc/node/default-packages); do
         trimmed_package=$(echo $package | cut -d '/' -f 2 )
