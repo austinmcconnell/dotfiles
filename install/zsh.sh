@@ -27,8 +27,11 @@ else
 fi
 
 ZDOTDIR="$HOME"/.config/zsh
+ITERM_COLORSCHEME_DIR="$DOTFILES_DIR/etc/iterm/colorschemes"
+
 mkdir -p "$ZDOTDIR"
 mkdir -p "$XDG_CONFIG_HOME"/spaceship
+mkdir -p "$ITERM_COLORSCHEME_DIR"
 
 echo "ZDOTDIR=${ZDOTDIR:-~/.config/zsh}" >"$HOME"/.zshenv
 echo "source \$ZDOTDIR/.zshenv" >>"$HOME"/.zshenv
@@ -61,3 +64,15 @@ REPO_DIR="${ZDOTDIR:-$HOME}"/.antidote
 if [ ! -d "$REPO_DIR/.git" ]; then
     git clone --depth=1 https://github.com/mattmc3/antidote.git "$REPO_DIR"
 fi
+
+iterm_colorschemes=(
+    https://raw.githubusercontent.com/nordtheme/iterm2/233a2462e04e07a9676386a52dad0c2ff6666d72/src/xml/Nord.itermcolors
+)
+
+for repo in "${iterm_colorschemes[@]}"; do
+    colorscheme=$(echo "$repo" | rev | cut -d '/' -f 1 | rev)
+    if [ ! -f "$ITERM_COLORSCHEME_DIR/$colorscheme" ]; then
+        curl --location --silent "$repo" >"$ITERM_COLORSCHEME_DIR/$colorscheme"
+        open "$ITERM_COLORSCHEME_DIR/$colorscheme"
+    fi
+done

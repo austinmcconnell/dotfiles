@@ -5,6 +5,7 @@ MYFILE
 todo.txt
 *.spl
 Session.vim
+etc/iterm/colorschemes
 
 # Obsidian
 Obsidian/**/workspace.json
