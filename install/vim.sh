@@ -70,6 +70,15 @@ else
     ln -sfv "$REPO_DIR/colors/nord.vim" "$HOME/.vim/colors/nord.vim"
 fi
 
+REPO_DIR="$HOME/.repositories/rose-pine"
+if [ -d "$REPO_DIR/.git" ]; then
+    git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin main
+else
+    git clone https://github.com/rose-pine/vim "$REPO_DIR"
+    ln -sfv "$REPO_DIR/colors/rosepine.vim" "$HOME/.vim/colors/rosepine.vim"
+    ln -sfv "$REPO_DIR/colors/rosepine_moon.vim" "$HOME/.vim/colors/rosepine_moon.vim"
+fi
+
 REPO_DIR="$HOME/.repositories/nord-dircolors"
 if [ -d "$REPO_DIR/.git" ]; then
     git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin main
