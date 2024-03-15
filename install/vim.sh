@@ -31,15 +31,19 @@ elif is-debian; then
     sudo apt install -y ctags silversearcher-ag
 fi
 
-mkdir -p ~/.vim/colors
-mkdir -p ~/.vim/pack/bundle/start
-mkdir -p ~/.vim/pack/bundle/opt
-mkdir -p ~/.vim/spell
-mkdir -p ~/.vim/undodir
+VIM_DIR="$HOME/.vim"
+
+mkdir -p "$VIM_DIR"/autoload
+mkdir -p "$VIM_DIR"/colors
+mkdir -p "$VIM_DIR"/doc
+mkdir -p "$VIM_DIR"/pack/bundle/start
+mkdir -p "$VIM_DIR"/pack/bundle/opt
+mkdir -p "$VIM_DIR"/spell
+mkdir -p "$VIM_DIR"/undodir
 mkdir -p ~/.config/yamllint/
 
-ln -sfv "$DOTFILES_DIR/etc/vim/ftplugin" ~/.vim
-ln -sfv "$DOTFILES_DIR/etc/vim/plugin" ~/.vim
+ln -sfv "$DOTFILES_DIR/etc/vim/ftplugin" "$VIM_DIR"
+ln -sfv "$DOTFILES_DIR/etc/vim/plugin" "$VIM_DIR"
 ln -sfv "$DOTFILES_DIR/etc/vim/.vimrc" ~
 ln -sfv "$DOTFILES_DIR/etc/vim/.ctags" ~
 ln -sfv "$DOTFILES_DIR/etc/ag/.agignore" ~
@@ -77,6 +81,18 @@ else
     git clone https://github.com/rose-pine/vim "$REPO_DIR"
     ln -sfv "$REPO_DIR/colors/rosepine.vim" "$HOME/.vim/colors/rosepine.vim"
     ln -sfv "$REPO_DIR/colors/rosepine_moon.vim" "$HOME/.vim/colors/rosepine_moon.vim"
+fi
+
+REPO_DIR="$HOME/.repositories/everforest"
+if [ -d "$REPO_DIR/.git" ]; then
+    git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin main
+else
+    git clone --depth 1 https://github.com/sainnhe/everforest.git "$REPO_DIR"
+    ln -sfv "$REPO_DIR"/autoload/everforest.vim "$VIM_DIR/autoload/"
+    ln -sfv "$REPO_DIR"/colors/everforest.vim "$VIM_DIR/colors/"
+    ln -sfv "$REPO_DIR"/doc/everforest.txt "$VIM_DIR/doc/"
+    mkdir -p "$VIM_DIR"/autoload/lightline/colorscheme
+    ln -sfv "$REPO_DIR"/autoload/lightline/colorscheme/everforest.vim "$VIM_DIR/autoload/lightline/colorscheme/"
 fi
 
 REPO_DIR="$HOME/.repositories/nord-dircolors"

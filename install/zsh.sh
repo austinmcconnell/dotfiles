@@ -71,6 +71,8 @@ iterm_colorschemes=(
     https://raw.githubusercontent.com/nordtheme/iterm2/233a2462e04e07a9676386a52dad0c2ff6666d72/src/xml/Nord.itermcolors
     https://raw.githubusercontent.com/rose-pine/iterm/main/rose-pine.itermcolors
     https://raw.githubusercontent.com/rose-pine/iterm/main/rose-pine-moon.itermcolors
+    https://raw.githubusercontent.com/icewind/everforest.iterm2/main/themes/everforest_dark_medium.itermcolors
+    https://raw.githubusercontent.com/icewind/everforest.iterm2/main/themes/everforest_light_low.itermcolors
 )
 
 for repo in "${iterm_colorschemes[@]}"; do
