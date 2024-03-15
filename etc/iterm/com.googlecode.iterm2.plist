@@ -1717,7 +1717,7 @@
 			<key>Character Encoding</key>
 			<integer>4</integer>
 			<key>Close Sessions On End</key>
-			<true/>
+			<integer>2</integer>
 			<key>Columns</key>
 			<integer>100</integer>
 			<key>Command</key>
@@ -1865,7 +1865,7 @@
 			<key>Scrollback Lines</key>
 			<integer>1000</integer>
 			<key>Scrollback in Alternate Screen</key>
-			<false/>
+			<true/>
 			<key>Selected Text Color</key>
 			<dict>
 				<key>Alpha Component</key>
