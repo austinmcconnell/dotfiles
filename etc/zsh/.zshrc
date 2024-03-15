@@ -8,7 +8,7 @@
 source ${ZDOTDIR:-~}/.antidote/antidote.zsh
 antidote load
 
-prompt spaceship
+prompt starship
 
 # # Hook for extra/custom stuff (e.g. settings for work laptop)
 EXTRA_DIR="$HOME/.extra"
