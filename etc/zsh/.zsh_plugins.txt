@@ -31,6 +31,7 @@ https://github.com/mattmc3/zephyr/ path:plugins/directory
 https://github.com/mattmc3/zephyr/ path:plugins/environment
 https://github.com/mattmc3/zephyr/ path:plugins/history
 https://github.com/mattmc3/zephyr/ path:plugins/homebrew
+https://github.com/mattmc3/zephyr/ path:plugins/prompt
 https://github.com/mattmc3/zephyr/ path:plugins/utility
 https://github.com/mattmc3/zephyr/ path:plugins/zfunctions
 

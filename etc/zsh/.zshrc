@@ -8,7 +8,6 @@
 source ${ZDOTDIR:-~}/.antidote/antidote.zsh
 antidote load
 
-autoload -Uz promptinit && promptinit
 prompt spaceship
 
 # # Hook for extra/custom stuff (e.g. settings for work laptop)
