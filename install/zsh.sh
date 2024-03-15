@@ -58,7 +58,9 @@ if [ "$SHELL" != "$(which zsh)" ]; then
     sudo chsh -s "$(which zsh)" "$USER"
 fi
 
-curl -L https://iterm2.com/shell_integration/zsh -o ~/.iterm2_shell_integration.zsh
+if [ ! -f "$HOME/.iterm2_shell_integration.zsh" ]; then
+    curl -L https://iterm2.com/shell_integration/zsh -o "$HOME/.iterm2_shell_integration.zsh"
+fi
 
 REPO_DIR="${ZDOTDIR:-$HOME}"/.antidote
 if [ ! -d "$REPO_DIR/.git" ]; then
