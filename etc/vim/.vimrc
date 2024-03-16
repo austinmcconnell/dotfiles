@@ -1,3 +1,75 @@
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+autocmd VimEnter *
+  \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  \|   PlugInstall --sync | q
+  \| endif
+
+call plug#begin('~/.vim/pack/plugins/start/')
+
+" colorschemes
+Plug 'altercation/vim-colors-solarized'
+Plug 'blueshirts/darcula'
+Plug 'rose-pine/vim', { 'as': 'rose-pine' }
+Plug 'sainnhe/everforest'
+Plug 'nordtheme/vim', { 'as':'nord' }
+Plug 'nordtheme/dircolors'
+
+" searching
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'mhinz/vim-grepper'
+
+" git
+Plug 'airblade/vim-gitgutter'
+Plug 'itchyny/vim-gitbranch'
+
+" status
+Plug 'itchyny/lightline.vim'
+Plug 'maximbaz/lightline-ale'
+
+" editing/ui
+Plug 'jiangmiao/auto-pairs'
+Plug 'preservim/nerdcommenter'
+Plug 'mbbill/undotree'
+Plug 'ap/vim-buftabline'
+Plug 'sheerun/vim-polyglot'
+Plug 'pedrohdz/vim-yaml-folds'
+Plug 'w0rp/ale'
+Plug 'vim-scripts/autocomplpop'
+Plug 'tpope/vim-surround'
+Plug 'Valloric/ListToggle'
+
+" tags
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'majutsushi/tagbar'
+
+" directory tree
+Plug 'preservim/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+
+" ruby development
+" Plug 'tpope/vim-bundler'
+" Plug 'tpope/vim-endwise'
+" Plug 'tpope/vim-dispatch'
+" Plug 'tpope/vim-rails'
+
+" session management
+Plug 'tpope/vim-obsession'
+Plug 'dhruvasagar/vim-prosession'
+
+" not used much. delete?
+" Plug 'junegunn/goyo.vim'
+" Plug 'junegunn/limelight.vim'
+" Plug 'takac/vim-hardtime'
+
+call plug#end()
+
+
 " General
 set nocompatible            " don't worry about compatibility with vi
 set encoding=utf8           " set encoding to UTF-8
