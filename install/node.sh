@@ -27,7 +27,7 @@ fi
 # Due to nvm being cloned into the .nvm directory, need to clone first before creating symlinks
 ln -sfv "$DOTFILES_DIR/etc/node/default-packages" "$NVM_DIR"
 ln -sfv "$DOTFILES_DIR/etc/node/markdownlint" ~/.markdownlintrc
-ln -sfv "$DOTFILES_DIR/etc/node/prettier.toml" ~/.config/prettier.toml
+ln -sfv "$DOTFILES_DIR/etc/node/prettier.toml" "$XDG_CONFIG_HOME/prettier.toml"
 
 # shellcheck source-path=SCRIPTDIR/../../.nvm
 . "$NVM_DIR/nvm.sh"

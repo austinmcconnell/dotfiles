@@ -40,14 +40,14 @@ mkdir -p "$VIM_DIR"/pack/bundle/start
 mkdir -p "$VIM_DIR"/pack/bundle/opt
 mkdir -p "$VIM_DIR"/spell
 mkdir -p "$VIM_DIR"/undodir
-mkdir -p ~/.config/yamllint/
+mkdir -p "$XDG_CONFIG_HOME/yamllint/"
 
 ln -sfv "$DOTFILES_DIR/etc/vim/ftplugin" "$VIM_DIR"
 ln -sfv "$DOTFILES_DIR/etc/vim/plugin" "$VIM_DIR"
 ln -sfv "$DOTFILES_DIR/etc/vim/.vimrc" ~
 ln -sfv "$DOTFILES_DIR/etc/vim/.ctags" ~
 ln -sfv "$DOTFILES_DIR/etc/ag/.agignore" ~
-ln -sfv "$DOTFILES_DIR/etc/yaml/yamllint" ~/.config/yamllint/config
+ln -sfv "$DOTFILES_DIR/etc/yaml/yamllint" "$XDG_CONFIG_HOME/yamllint/config"
 
 ## Add colorschemes
 REPO_DIR="$HOME/.repositories/darcula"

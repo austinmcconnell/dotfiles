@@ -4,6 +4,7 @@
 export DOTFILES_DIR DOTFILES_CACHE DOTFILES_EXTRA_DIR
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DOTFILES_EXTRA_DIR="$HOME/.extra"
+XDG_CONFIG_HOME=~.config
 
 # Make utilities available
 PATH="$DOTFILES_DIR/bin:$PATH"
@@ -13,7 +14,7 @@ if is-executable git -a -d "$DOTFILES_DIR/.git"; then
     git --work-tree="$DOTFILES_DIR" --git-dir="$DOTFILES_DIR/.git" pull origin main
 fi
 
-mkdir -p ~/.config
+mkdir -p "$XDG_CONFIG_HOME"
 mkdir -p ~/.repositories
 
 # Package managers & packages

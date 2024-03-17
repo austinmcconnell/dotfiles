@@ -27,11 +27,11 @@ DEFAULT_RUBY_VERSION=3.2.2
 
 RBENV_DIR=$(rbenv root)
 
-mkdir -p ~/.config/rubocop
+mkdir -p "$XDG_CONFIG_HOME/rubocop"
 mkdir -p "$RBENV_DIR/plugins"
 
 ln -sfv "$DOTFILES_DIR/etc/ruby/default-gems" "$RBENV_DIR/default-gems"
-ln -sfv "$DOTFILES_DIR/etc/ruby/rubocop.yml" ~/.config/rubocop/config.yml
+ln -sfv "$DOTFILES_DIR/etc/ruby/rubocop.yml" "$XDG_CONFIG_HOME/rubocop/config.yml"
 
 REPO_DIR="$HOME/.repositories/rbenv-default-gems"
 if [ -d "$REPO_DIR/.git" ]; then

@@ -29,4 +29,4 @@ sudo apt install -y yamllint
 sudo snap install shfmt
 
 # Create symlinks
-ln -sfv "$DOTFILES_DIR/etc/misc/shellcheckrc" ~/.config/shellcheckrc
+ln -sfv "$DOTFILES_DIR/etc/misc/shellcheckrc" "$XDG_CONFIG_HOME/shellcheckrc"

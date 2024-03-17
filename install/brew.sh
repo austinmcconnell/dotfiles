@@ -17,15 +17,15 @@ else
     fi
 fi
 
-mkdir -p ~/.config/bat
-mkdir -p ~/.config/fd
-mkdir -p ~/.config/httpie
+mkdir -p "$XDG_CONFIG_HOME/bat"
+mkdir -p "$XDG_CONFIG_HOME/fd"
+mkdir -p "$XDG_CONFIG_HOME/httpie"
 
-ln -sfv "$DOTFILES_DIR/etc/misc/hadolint.yaml" ~/.config
-ln -sfv "$DOTFILES_DIR/etc/misc/shellcheckrc" ~/.config/shellcheckrc
-ln -sfv "$DOTFILES_DIR/etc/fd/ignore" ~/.config/fd/ignore
-ln -sfv "$DOTFILES_DIR/etc/httpie/config.json" ~/.config/httpie/config.json
-ln -sfv "$DOTFILES_DIR/etc/bat/config" ~/.config/bat/config
+ln -sfv "$DOTFILES_DIR/etc/misc/hadolint.yaml" "$XDG_CONFIG_HOME"
+ln -sfv "$DOTFILES_DIR/etc/misc/shellcheckrc" "$XDG_CONFIG_HOME/shellcheckrc"
+ln -sfv "$DOTFILES_DIR/etc/fd/ignore" "$XDG_CONFIG_HOME/fd/ignore"
+ln -sfv "$DOTFILES_DIR/etc/httpie/config.json" "$XDG_CONFIG_HOME/httpie/config.json"
+ln -sfv "$DOTFILES_DIR/etc/bat/config" "$XDG_CONFIG_HOME/bat/config"
 ln -sfv "$DOTFILES_DIR/etc/sublime-text/Package Control.sublime-settings" "$HOME/Library/Application Support/Sublime Text/Packages/User"
 ln -sfv "$DOTFILES_DIR/etc/sublime-text/Preferences.sublime-settings" "$HOME/Library/Application Support/Sublime Text/Packages/User"
 ln -sfv "$DOTFILES_DIR/etc/sublime-text/Python.sublime-settings" "$HOME/Library/Application Support/Sublime Text/Packages/User"

@@ -29,21 +29,21 @@ else
     fi
 fi
 
-mkdir -p ~/.config/pip
-mkdir -p ~/.config/proselint
-mkdir -p ~/.config/mypy
-mkdir -p ~/.config/yapf
-mkdir -p ~/.config/isort/
+mkdir -p "$XDG_CONFIG_HOME/pip"
+mkdir -p "$XDG_CONFIG_HOME/proselint"
+mkdir -p "$XDG_CONFIG_HOME/mypy"
+mkdir -p "$XDG_CONFIG_HOME/yapf"
+mkdir -p "$XDG_CONFIG_HOME/isort/"
 mkdir -p ~/projects/scripts
 mkdir -p ~/.git-templates
 
-ln -sfv "$DOTFILES_DIR/etc/python/pip.conf" ~/.config/pip
-ln -sfv "$DOTFILES_DIR/etc/python/flake8" ~/.config
-ln -sfv "$DOTFILES_DIR/etc/python/yapf" ~/.config/yapf/style
-ln -sfv "$DOTFILES_DIR/etc/python/pylintrc" ~/.config
-ln -sfv "$DOTFILES_DIR/etc/python/proselint.json" ~/.config/proselint/config.json
-ln -sfv "$DOTFILES_DIR/etc/python/mypy" ~/.config/mypy/config
-ln -sfv "$DOTFILES_DIR/etc/python/.isort.cfg" ~/.config/isort/config
+ln -sfv "$DOTFILES_DIR/etc/python/pip.conf" "$XDG_CONFIG_HOME/pip"
+ln -sfv "$DOTFILES_DIR/etc/python/flake8" "$XDG_CONFIG_HOME"
+ln -sfv "$DOTFILES_DIR/etc/python/yapf" "$XDG_CONFIG_HOME/yapf/style"
+ln -sfv "$DOTFILES_DIR/etc/python/pylintrc" "$XDG_CONFIG_HOME"
+ln -sfv "$DOTFILES_DIR/etc/python/proselint.json" "$XDG_CONFIG_HOME/proselint/config.json"
+ln -sfv "$DOTFILES_DIR/etc/python/mypy" "$XDG_CONFIG_HOME/mypy/config"
+ln -sfv "$DOTFILES_DIR/etc/python/.isort.cfg" "$XDG_CONFIG_HOME/isort/config"
 ln -sfv "$DOTFILES_DIR/scripts/reinitialize_git_repositories.py" ~/projects/scripts
 ln -sfv "$DOTFILES_DIR/scripts/sort_git_repos_by_owner.py" ~/projects/scripts
 ln -sfv "$DOTFILES_DIR/scripts/sort_docker_compose.py" ~/projects/scripts

@@ -26,14 +26,14 @@ else
     fi
 fi
 
-ZDOTDIR="$HOME"/.config/zsh
+ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 ITERM_COLORSCHEME_DIR="$DOTFILES_DIR/etc/iterm/colorschemes"
 
 mkdir -p "$ZDOTDIR"
 mkdir -p "$XDG_CONFIG_HOME"/spaceship
 mkdir -p "$ITERM_COLORSCHEME_DIR"
 
-echo "ZDOTDIR=${ZDOTDIR:-~/.config/zsh}" >"$HOME"/.zshenv
+echo "ZDOTDIR=${ZDOTDIR:-$XDG_CONFIG_HOME/zsh}" >"$HOME"/.zshenv
 echo "source \$ZDOTDIR/.zshenv" >>"$HOME"/.zshenv
 
 ln -sfv "$DOTFILES_DIR/etc/zsh/functions" "$ZDOTDIR"
