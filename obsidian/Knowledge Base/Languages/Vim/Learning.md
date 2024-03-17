@@ -1,5 +1,10 @@
 # Vim Learning
 
+Beginner Vim progression
+
+- Run through `vimtutor`
+- Watch [Editing, Navigation, and File Management](https://www.youtube.com/watch?v=E-ZbrtoSuzw)
+
 General Knowledge
 
 - [Your problem with Vim is that you don't grok vi](https://gist.github.com/nifl/1178878)
@@ -8,7 +13,6 @@ General Knowledge
 Tutorials
 
 - [Learn Vim For the Last Time: A Tutorial and Primer](https://danielmiessler.com/study/vim/)
-- [Editing, Navigation, and File Management](https://www.youtube.com/watch?v=E-ZbrtoSuzw)
 
 Configuration
 

@@ -2,6 +2,6 @@
 
 %% Begin Waypoint %%
 
-- **[[Vim]]**
+- **[Vim](./Vim/Vim.md)**
 
 %% End Waypoint %%

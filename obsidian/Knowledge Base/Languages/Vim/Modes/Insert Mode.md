@@ -1,0 +1,21 @@
+# Insert Mode
+
+- i: insert before the cursor
+- a: append after the cursor
+- I: insert at the beginning of the line
+- A: append at the end of the line
+- o: open a new line below the current one
+- O: Open a new line above the current one
+- C: change the current line starting from cursor
+- s: substitute from where you are to the next command (noun)
+- S: substitute the entire current line
+- `<C-h>`: Delete back one character (works in insert mode)
+- `<C-w>`: Delete back one word (works in insert mode)
+- `<C-u>`: Delete back to beginning of line (works in insert mode)
+- `<C-o>`: Activate "Insert Normal" Mode to run a single command without leaving Insert mode
+- `<C-r>`{register}: Paste from the {register}
+- `<C-r><C-p>`{register}: Literal paste from the {register}
+- `<C-r>\=`: Access the expression register (can perform calculations, run script code, etc)
+- `<C-n>`: find next match from 'complete' option
+- `<C-p>`: find prev match from 'complete' option
+- `<C-x><C-o>`: find matches from 'omnicomplete' (smart autocomplete for programs)
