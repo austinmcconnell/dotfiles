@@ -16,8 +16,22 @@
 - `%bd|e#`: delete all buffers except current one
 - `:sp`: horizontally split window in two. The result is two viewports on the same file
 - `:sp [filename]`: horizontally screen window in two and load or create [filname] buffer
+- `:sf {filename}`: horizontally split window and use `:find` to search for {filename}. **Does
+  not split if file not found**
 - `:vsp`: vertically split window in two. The result is two viewports on the same file
 - `:vsp [filename]`: vertically split window in two and load or create [filename] buffer
+
+## Using arg list
+
+Args are a stable subset of buffers. The arg list starts as the files passed in when you started
+if (if any). For example `vim a.py b.py`. The buffer list is more like a history of all the files
+you looked at in a vim session. The arglist is a stable subset that does not get added to when
+viewing files. You can explicitly add a file to the arg list, if desired, though.
+
+- `:args`: show all arguments
+- `:arga {filename}`: add {filename} to arg list
+- `:args **/*.py`: set arg list to all python files in our working directory
+- `:n`: go to next file (based on arg list)
 
 ## Quickfix List
 

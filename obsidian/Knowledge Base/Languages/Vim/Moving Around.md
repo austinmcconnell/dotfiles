@@ -32,6 +32,17 @@
 Vim has 26 "marks". A mark is set to any cursor location using the `m` command. Each mark
 is designated by a single lower case letter
 
-- `m{letter}`: set the {letter} mark to the current location
+- `m{lowercase letter}`: set the {lowercase letter} mark to the current location in the current buffer
+- `m{uppercase letter}`: set the {lowercase letter} mark to the current location for that file (usable
+  from other buffers)
 - `'{letter}`: move to beginning of line containing the {letter} mark
-- `` `a{letter}``: move to exact location of the {letter} mark
+- `` `{letter}``: move to exact location of the {letter} mark
+- `:delmarks a`: delete mark a
+- `:delmarks aA`: delete marks a,A
+- `:delmarks a-d`: delete marks a,b,c,d
+- `:delmarks!`: delete all lowercase marks for the current buffer
+
+Certain marks are special
+
+- `'.`: move to the beginning of the line of the last change
+- `` `.``: move to the exact location of the last change
