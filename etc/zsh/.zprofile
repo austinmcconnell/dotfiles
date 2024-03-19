@@ -24,6 +24,7 @@ path=(
     /usr/local/{,s}bin(N)
     $DOTFILES_DIR/bin(N)
     $DOTFILES_DIR/etc/zsh/functions(N)
+    $HOME/go/bin
     $path
 )
 

@@ -54,6 +54,7 @@ brew install --formula fd
 brew install --formula fzf
 brew install --formula git
 brew install --formula git-delta
+brew install --formula go
 brew install --formula grep
 brew install --formula hadolint
 brew install --formula httpie
