@@ -42,7 +42,7 @@ export optflags="-Wno-error=implicit-function-declaration"
 
 #NVM
 export NVM_DIR="$HOME/.nvm"
-export NVM_LAZY_LOAD=true
+export NVM_LAZY_LOAD=false  # Disabling because it prevents ale from running linters and fixers
 export NVM_AUTO_USE=true
 
 export KUBE_PS1_SYMBOL_ENABLE=false
