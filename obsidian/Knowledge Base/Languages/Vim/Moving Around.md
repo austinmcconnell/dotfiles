@@ -46,3 +46,4 @@ Certain marks are special
 
 - `'.`: move to the beginning of the line of the last change
 - `` `.``: move to the exact location of the last change
+- `''`: move to the position before the last jump
