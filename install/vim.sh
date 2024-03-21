@@ -44,6 +44,8 @@ mkdir -p "$XDG_CONFIG_HOME/yamllint/"
 
 ln -sfv "$DOTFILES_DIR/etc/vim/ftplugin" "$VIM_DIR"
 ln -sfv "$DOTFILES_DIR/etc/vim/plugin" "$VIM_DIR"
+ln -sfv "$DOTFILES_DIR/etc/vim/syntax" "$VIM_DIR"
+ln -sfv "$DOTFILES_DIR/etc/vim/filetype.vim" "$VIM_DIR"
 ln -sfv "$DOTFILES_DIR/etc/vim/.vimrc" ~
 ln -sfv "$DOTFILES_DIR/etc/vim/.ctags" ~
 ln -sfv "$DOTFILES_DIR/etc/ag/.agignore" ~
