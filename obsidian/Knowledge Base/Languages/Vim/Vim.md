@@ -2,12 +2,12 @@
 
 %% Begin Waypoint %%
 
+- [[Completions]]
 - [[Learning]]
 - [[Miscellaneous]]
 - **Modes**
   - [[Command Mode]]
   - [[Insert Mode]]
-  - [[Normal Mode]]
   - [[Terminal Mode]]
   - [[Visual Mode]]
 - [[Motions]]
