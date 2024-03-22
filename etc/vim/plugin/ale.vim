@@ -24,15 +24,15 @@ function! s:show_documentation()
   endif
 endfunction
 
-function! RemapAleCompletion()
-  iunmap <Plug>(ale_show_completion_menu)
-  inoremap <silent> <Plug>(ale_show_completion_menu) <C-x><C-o>
-endfunction
-
-augroup remap_ale_completion
-  autocmd!
-  autocmd VimEnter * call RemapAleCompletion()
-augroup END
+" function! RemapAleCompletion()
+"   iunmap <Plug>(ale_show_completion_menu)
+"   inoremap <silent> <Plug>(ale_show_completion_menu) <C-x><C-o>
+" endfunction
+"
+" augroup remap_ale_completion
+"   autocmd!
+"   autocmd VimEnter * call RemapAleCompletion()
+" augroup END
 
 " Enable linters
 let g:ale_linters = {
