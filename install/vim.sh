@@ -42,7 +42,7 @@ mkdir -p "$VIM_DIR"/spell
 mkdir -p "$VIM_DIR"/undodir
 mkdir -p "$XDG_CONFIG_HOME/yamllint/"
 
-ln -sfv "$DOTFILES_DIR/etc/vim/ftplugin" "$VIM_DIR"
+ln -sfv "$DOTFILES_DIR/etc/vim/after" "$VIM_DIR"
 ln -sfv "$DOTFILES_DIR/etc/vim/plugin" "$VIM_DIR"
 ln -sfv "$DOTFILES_DIR/etc/vim/syntax" "$VIM_DIR"
 ln -sfv "$DOTFILES_DIR/etc/vim/filetype.vim" "$VIM_DIR"
