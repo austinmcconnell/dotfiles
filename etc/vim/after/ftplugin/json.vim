@@ -1,6 +1,1 @@
-
-" Editing
-setlocal ts=4 sts=4 sw=4 expandtab
-
-" Spelling
-setlocal nospell
+setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
