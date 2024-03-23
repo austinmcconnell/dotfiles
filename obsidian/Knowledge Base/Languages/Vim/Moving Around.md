@@ -16,8 +16,8 @@
 
 ## Tags
 
-- <C-]>: jump to tag
-- g<C-]>: show all matching tags
+- `<C-]>`: jump to tag
+- `g<C-]>`: show all matching tags
 - `<C-t>`: jump to previous position in the tag stack
 - `:tag`: jump to the next position in the tag stack
 - `:tags`: show the contents of the tag stack

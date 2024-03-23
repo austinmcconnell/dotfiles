@@ -4,22 +4,22 @@ Use Text objects in commands by specifying a modifier and then the text-object i
 
 ## Modifiers
 
-- a: a text-object plus white space
-- i: inner object without whitespace
+- `a`: a text-object plus white space
+- `i`: inner object without whitespace
 
 ## Text Object Identifiers
 
-- w: word
-- W: WORD
-- s: sentence
-- p: paragraph
-- t: tag (like HTML tags)
-- b: block (like programming blocks)
-- [: square bracket
-- {: curly bracket
-- (: parenthesis
-- ': single quote
-- ": double quote
+- `w`: word
+- `W`: WORD
+- `s`: sentence
+- `p`: paragraph
+- `t`: tag (like HTML tags)
+- `b`: block (like programming blocks)
+- `[`: square bracket
+- `{`: curly bracket
+- `(`: parenthesis
+- `'`: single quote
+- `"`: double quote
 
 ### word vs WORD
 

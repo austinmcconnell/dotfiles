@@ -13,25 +13,25 @@
   - `<C-/>`: Toggle commenting/un-commenting of line or selection
 - [Nerd Tree](https://github.com/preservim/nerdtree)
   - File node mappings
-    - o: open in previous window
-    - i: open in a horizontal split
-    - s: open in a vertical split
+    - `o`: open in previous window
+    - `i`: open in a horizontal split
+    - `s`: open in a vertical split
   - Directory node mappings
-    - o: open and close node
-    - O: recursively open node
-    - x: close parent of node
-    - X: recursively close child nodes
+    - `o`: open and close node
+    - `O`: recursively open node
+    - `x`: close parent of node
+    - `X`: recursively close child nodes
   - Filesystem mappings
-    - C: Change tree root to the selected dir
-    - u: move tree root up a dir
-    - r: refresh current directory
-    - R: refresh current root
-    - m: show menu
-    - cd: change the CWD to the selected dir
-    - CD: change tree root to CWD
+    - `C`: Change tree root to the selected dir
+    - `u`: move tree root up a dir
+    - `r`: refresh current directory
+    - `R`: refresh current root
+    - `m`: show menu
+    - `cd`: change the CWD to the selected dir
+    - `CD`: change tree root to CWD
   - Custom mappings
-    - [c: Jump to prev git hunk
-    - ]c: Jump to next git nunk
+    - `[c`: Jump to prev git hunk
+    - `]c`: Jump to next git nunk
 - [Obsession](https://github.com/tpope/vim-obsession)
   - `:Obsess`: start recording to a session file
   - `:Obsess!`: stop recording to a session file
@@ -39,26 +39,26 @@
 - [Prosession](https://github.com/dhruvasagar/vim-prosession)
 - [Supertab](https://github.com/ervandew/supertab)
 - [Undotree](https://github.com/mbbill/undotree)
-  - Leader + u --> toggle undotree
+  - `Leader + u` --> toggle undotree
 
 ## Coding plugins
 
 - [Ale](https://github.com/dense-analysis/ale)
-  - gd: go to definition
-  - gr: find references
-  - gR: rename
-  - K: show documentation
-  - ]w: go to next warning
-  - [w: go to previous warning
-  - [W: go to first warning
-  - ]W: go to last warning
+  - `gd`: go to definition
+  - `gr`: find references
+  - `gR`: rename
+  - `K`: show documentation
+  - `]w`: go to next warning
+  - `[w`: go to previous warning
+  - `[W`: go to first warning
+  - `]W`: go to last warning
 - [Auto Pairs](https://github.com/jiangmiao/auto-pairs)
 - [Endwise](https://github.com/tpope/vim-endwise)
 - [Git Gutter](https://github.com/airblade/vim-gitgutter)
-  - ic: a text object that operates on all lines in the current hunk
-  - ac: a text object that operates on all lines in the current hunk and any trailing empty lines
-  - ]c: jump to next change
-  - [c: jump to previous change
+  - `ic`: a text object that operates on all lines in the current hunk
+  - `ac`: a text object that operates on all lines in the current hunk and any trailing empty lines
+  - `]c`: jump to next change
+  - `[c`: jump to previous change
   - `<leader>hp`: preview hunk
   - `<leader>hs`: stage hunk
   - `<leader>hu`: undo hunk
@@ -97,7 +97,7 @@
       - `:Dispatch! rspec`: run entire test suite in background
     - `Copen`: view the results of background job in quickfix window
   - [Rails](https://github.com/tpope/vim-rails)
-    - gf: considers context and knows about partials, fixtures, and more
+    - `gf`: considers context and knows about partials, fixtures, and more
     - Navigate Rails directory structure
       - `:A`: jump to alternate file
       - `:AS`, `:AV`: jump to alternate file in a horizontal or vertical split
@@ -113,16 +113,16 @@
       - `:Rails`: run the current test, spec, or feature
       - `:.Rails`: run the current method, example, or scenario on the current line
 - [Surround](https://github.com/tpope/vim-surround)
-  - ds: delete surroundings
-    - ds(: delete surrounding parentheses
-  - cs: change surroundings
-    - cs"): change surrounding double quotes to parentheses
-  - ys: add surroundings (mnemonic is "you surround")
-    - ysiw": add double quotes around entire word
-    - ysiw(: add parentheses around
-    - yss": add double quotes to entire line ignoring leading whitespace
-  - when you use ), }, ], or >, wrap the text with the appropriate pair of characters
-  - when you use (, {, or \[, wrap the text with the appropriate pair of characters and append
+  - `ds`: delete surroundings
+    - `ds(`: delete surrounding parentheses
+  - `cs`: change surroundings
+    - `cs")`: change surrounding double quotes to parentheses
+  - `ys`: add surroundings (mnemonic is "you surround")
+    - `ysiw"`: add double quotes around entire word
+    - `ysiw(`: add parentheses around
+    - `yss"`: add double quotes to entire line ignoring leading whitespace
+  - when you use `)`, `}`, `]`, or `>`, wrap the text with the appropriate pair of characters
+  - when you use `(`, `{`, or `[`, wrap the text with the appropriate pair of characters and append
     a space on the inside
 
 ## Writing plugins

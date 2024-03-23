@@ -1,4 +1,4 @@
-# Command Mode
+# Buffers, Windows, and Tabs
 
 ## Using buffers
 
@@ -54,8 +54,8 @@ windo diffthis
 ## Using windows
 
 - `<C-w>c` or `:close`: Close the current window
-- `<C-w>o` or `<C-w><C-o>`: Make the current window the only one on the screen. All other windows
-  are closed
+- `<C-w>o` or `<C-w><C-o>` or `:on(ly)`: Make the current window the only one on the screen. All
+  other windows are closed
 
 ## Using arg list
 
@@ -98,8 +98,8 @@ Think of these as 'layouts' or 'workspaces' instead of a browser or file editor 
 
 - `:tabs`: list all open tabs
 - `:tabedit [filename]`: edit a file in a new tab
-- gt: move to the next tab
-- gT: move to the previous tab
+- `gt`: move to the next tab
+- `gT`: move to the previous tab
 - {num}gt: move to a specific tab number
 - `:tabclose`: close a single tab
 
@@ -121,6 +121,7 @@ To find all occurances of `TODO` in all files in the arg list, run
 
 ```vim
 :vim /TODO/ ##
+
 ```
 
 To replace all occurances of TODO with DONE for each entry in the quickfix list

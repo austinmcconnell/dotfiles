@@ -21,6 +21,6 @@
 ## Suspending vim
 
 - `C-z>`: get back to terminal without quitting vim (sends vim to background)
-- fg: type in terminal to return to session (if there is a single backgrounded session)
-- fg [job_id]: return to a speific vim session
-- jobs: type in terminal to list all suspended vim sessions
+- `fg`: type in terminal to return to session (if there is a single backgrounded session)
+- `fg [job_id]`: return to a speific vim session
+- `jobs`: type in terminal to list all suspended vim sessions

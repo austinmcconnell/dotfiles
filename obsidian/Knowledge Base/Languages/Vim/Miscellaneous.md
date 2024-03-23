@@ -13,15 +13,15 @@ Launch plain/vanilla vim with the following command `vanillavim`
 
 ## Undo and Redo
 
-- u: undo your last action
+- `u`: undo your last action
 - `<C-r>`: redo the last action
 
 ## Folds
 
-- zo: open one fold under the cursor
-- zO: open all folds under the cursor recursively
-- zc: close one fold under the cursor
-- zC: close all fold under the cursor recursively
+- `zo`: open one fold under the cursor
+- `zO`: open all folds under the cursor recursively
+- `zc`: close one fold under the cursor
+- `zC`: close all fold under the cursor recursively
 
 ## Documentation
 

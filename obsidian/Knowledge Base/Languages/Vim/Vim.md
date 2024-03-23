@@ -2,11 +2,11 @@
 
 %% Begin Waypoint %%
 
+- [[Buffers Windows And Tabs]]
 - [[Completions]]
 - [[Learning]]
 - [[Miscellaneous]]
 - **Modes**
-  - [[Command Mode]]
   - [[Insert Mode]]
   - [[Terminal Mode]]
   - [[Visual Mode]]
