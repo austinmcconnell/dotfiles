@@ -70,6 +70,12 @@ set laststatus=2        " always show statusline
 set title               " let vim set title of terminal window
 set titlestring+=%{substitute(getcwd(),\ $HOME,\ '~',\ '')}
 
+
+" Cursor
+let &t_SI = "\e[6 q"                " steady bar cursor in insert mode
+let &t_EI = "\e[2 q"                " steady block in other modes
+
+
 " Searching
 " nnoremap <leader>f :find<Space>
 set incsearch                        " search as characters are entered
