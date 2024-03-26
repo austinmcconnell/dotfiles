@@ -49,6 +49,7 @@ sub_update() {
         sudo snap refresh
     fi
     print_section_header "Updating antidote"
+    PATH="$ZDOTDIR/.antidote/":$PATH
     antidote update
     print_section_header "Updating pyenv"
     pyenv update

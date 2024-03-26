@@ -65,6 +65,7 @@ fi
 REPO_DIR="${ZDOTDIR:-$HOME}"/.antidote
 if [ ! -d "$REPO_DIR/.git" ]; then
     git clone --depth=1 https://github.com/mattmc3/antidote.git "$REPO_DIR"
+    chmod +x "$REPO_DIR/antidote"
 fi
 
 iterm_colorschemes=(
