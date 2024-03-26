@@ -250,13 +250,13 @@ else
     ln -sfv "$REPO_DIR" "$HOME/.vim/pack/bundle/start/list-toggle"
 fi
 
-REPO_DIR="$HOME/.repositories/supertab"
-if [ -d "$REPO_DIR/.git" ]; then
-    git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin master
-else
-    git clone https://github.com/ervandew/supertab "$REPO_DIR"
-    ln -sfv "$REPO_DIR" "$HOME/.vim/pack/bundle/start/supertab"
-fi
+# REPO_DIR="$HOME/.repositories/supertab"
+# if [ -d "$REPO_DIR/.git" ]; then
+#     git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin master
+# else
+#     git clone https://github.com/ervandew/supertab "$REPO_DIR"
+#     ln -sfv "$REPO_DIR" "$HOME/.vim/pack/bundle/start/supertab"
+# fi
 
 REPO_DIR="$HOME/.repositories/surround"
 if [ -d "$REPO_DIR/.git" ]; then
