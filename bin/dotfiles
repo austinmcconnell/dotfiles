@@ -48,8 +48,13 @@ sub_update() {
         print_section_header "Running snap refresh"
         sudo snap refresh
     fi
+    print_section_header "Updating antidote"
     antidote update
+    print_section_header "Updating pyenv"
     pyenv update
+    print_section_header "Updating vim-plug"
+    vim -i NONE -c "PlugUpdate" -c "qa"
+    vim -es -i NONE -c "PlugUpgrade" -c "qa"
     sub_update-repos
     sub_clean
 }
@@ -75,6 +80,8 @@ sub_clean() {
         print_section_header "Runing apt autoremove"
         sudo apt autoremove
     fi
+    print_section_header "Updating PlugClean"
+    vim -i NONE -c "PlugClean" -c "qa"
 }
 
 sub_mac-defaults() {
