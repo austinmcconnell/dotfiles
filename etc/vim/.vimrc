@@ -99,6 +99,9 @@ inoremap <C-]> <C-X><C-]>
 inoremap <C-F> <C-X><C-F>
 inoremap <C-D> <C-X><C-D>
 inoremap <C-L> <C-X><C-L>
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
 
 " Splits
 set splitbelow                  " open new split below
