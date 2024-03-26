@@ -345,3 +345,11 @@ else
     git clone https://github.com/dhruvasagar/vim-prosession "$REPO_DIR"
     ln -sfv "$REPO_DIR" "$HOME/.vim/pack/bundle/start/prosession"
 fi
+
+REPO_DIR="$HOME/.repositories/autocomplpop"
+if [ -d "$REPO_DIR/.git" ]; then
+    git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin master
+else
+    git clone https://github.com/vim-scripts/autocomplpop "$REPO_DIR"
+    ln -sfv "$REPO_DIR" "$HOME/.vim/pack/bundle/start/autocomplpop"
+fi
