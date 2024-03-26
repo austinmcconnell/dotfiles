@@ -92,9 +92,13 @@ set wildignore+=*/dist/*             " ignore dist directory when searching
 set wildignore+=*/node_modules/*     " ignore node_modules directory when searching
 
 " Completion
-set completeopt=menuone,noinsert
+set completeopt=menuone,longest,preview
 set complete-=i                               " don't scan system/language included files
 set complete+=kspell                          " match dictionary words
+inoremap <C-]> <C-X><C-]>
+inoremap <C-F> <C-X><C-F>
+inoremap <C-D> <C-X><C-D>
+inoremap <C-L> <C-X><C-L>
 
 " Splits
 set splitbelow                  " open new split below
