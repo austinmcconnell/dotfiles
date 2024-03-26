@@ -9,6 +9,9 @@ autocmd VimEnter *
   \|   PlugInstall --sync | q
   \| endif
 
+" https://github.com/junegunn/vim-plug/issues/1141
+runtime! plugin/*.vim
+
 call plug#begin('~/.vim/pack/plugins/start/')
 
 " colorschemes
