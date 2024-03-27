@@ -2,6 +2,7 @@
     "bootstrapped": true,
     "in_process_packages": [],
     "installed_packages": [
+        "everforest-sublime",
         "Nord",
         "Package Control",
         "Pretty JSON",
@@ -12,5 +13,8 @@
         "SublimeLinter-pydocstyle",
         "SublimeLinter-pylint",
         "Theme - Rose Pine"
+    ],
+    "repositories": [
+        "https://github.com/avelican/everforest-sublime"
     ]
 }

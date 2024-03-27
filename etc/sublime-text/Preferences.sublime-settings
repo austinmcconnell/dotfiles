@@ -1,5 +1,5 @@
 {
-    "color_scheme": "Ros\u00e9 Pine.sublime-color-scheme",
+    "color_scheme": "Everforest Dark.sublime-color-scheme",
     "ensure_newline_at_eof_on_save": true,
     "font_face": "Fira Code",
     "font_size": 14,
@@ -9,7 +9,7 @@
     ],
     "index_files": true,
     "save_on_focus_lost": true,
-    "theme": "Ros\u00e9 Pine.sublime-theme",
+    "theme": "Everforest Dark.sublime-theme",
     "translate_tabs_to_spaces": true,
     "trim_trailing_white_space_on_save": "all"
 }
