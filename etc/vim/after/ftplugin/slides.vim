@@ -1,11 +1,9 @@
 nnoremap <Right> :n<CR>
 nnoremap <Left> :N<CR>
 
-" choose colorscheme carefully so tildes don't show past end of buffer (just
-" in Goyo mode apparently...)
-colorscheme one
+let &fillchars = 'eob: '     " replace end-of-buffer fill character (default: ~) with a blank space
 
 "This is not working. Behaves really weirdly. Why?
-" if exists('#goyo')
-"     Goyo
-" endif
+if !exists('#goyo')
+    Goyo
+endif

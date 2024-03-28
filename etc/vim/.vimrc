@@ -210,3 +210,18 @@ tnoremap <Esc> <C-\><C-n>|      " get to terminal normal mode
 map <Leader>T :term <cr>|       " vim-powered terminal in split window
 
 set tags+=.git/tags                                            " add custom tags build location to tags search path
+
+" Mappings to make Vim more friendly towards presenting slides.
+autocmd BufNewFile,BufRead *.slides call lightline#init()
+autocmd BufNewFile,BufRead *.slides call SetVimPresentationMode()
+
+function SetVimPresentationMode()
+  nnoremap <buffer> <Right> :n<CR>
+  nnoremap <buffer> <Left> :N<CR>
+
+  let &fillchars = 'eob: '     " replace end-of-buffer fill character (default: ~) with a blank space
+
+  if !exists('#goyo')
+    Goyo
+  endif
+endfunction
