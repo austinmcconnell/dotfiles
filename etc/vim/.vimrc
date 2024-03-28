@@ -9,9 +9,6 @@ autocmd VimEnter *
   \|   PlugInstall --sync | q
   \| endif
 
-" https://github.com/junegunn/vim-plug/issues/1141
-runtime! plugin/*.vim
-
 call plug#begin('~/.vim/pack/plugins/start/')
 
 " colorschemes
@@ -41,6 +38,9 @@ Plug 'preservim/nerdcommenter'
 Plug 'mbbill/undotree'
 Plug 'ap/vim-buftabline'
 Plug 'sheerun/vim-polyglot'
+let g:polyglot_disabled = ['sensible']
+" https://github.com/junegunn/vim-plug/issues/1141#issuecomment-2024328900
+
 Plug 'pedrohdz/vim-yaml-folds'
 Plug 'w0rp/ale'
 Plug 'vim-scripts/autocomplpop'
