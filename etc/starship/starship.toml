@@ -32,6 +32,9 @@ disabled = true
 [git_metrics]
 disabled = false
 
+[package]
+disabled = true
+
 [python]
 pyenv_version_name = true
 pyenv_prefix = ''
