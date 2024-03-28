@@ -3,6 +3,20 @@
 
 add_newline = true
 
+# Put kubernetes last before line break
+format = """$all\
+$kubernetes\
+$line_break\
+$jobs\
+$battery\
+$time\
+$status\
+$os\
+$container\
+$shell\
+$character"""
+
+
 [aws]
 disabled = true
 
@@ -31,6 +45,20 @@ disabled = true
 
 [git_metrics]
 disabled = false
+
+[kubernetes]
+disabled = false
+detect_folders = ['helm']
+symbol = '󰠳 '
+style = 'cyan bold'
+format = 'on [$symbol$context \($namespace\)]($style) '
+#format ='[$symbol$context( \($namespace\))]($style) in '
+contexts = [
+  { context_pattern = "development", style = "blue bold"},
+  { context_pattern = "staging", style = "blue bold"},
+  { context_pattern = "training", style = "yellow bold", symbol = "⚠️  "},
+  { context_pattern = "production", style = "red bold", symbol = "⚠️  " },
+]
 
 [package]
 disabled = true
