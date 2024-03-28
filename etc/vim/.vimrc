@@ -18,6 +18,7 @@ Plug 'rose-pine/vim', { 'as': 'rose-pine' }
 Plug 'sainnhe/everforest'
 Plug 'nordtheme/vim', { 'as':'nord' }
 Plug 'nordtheme/dircolors'
+Plug 'rakr/vim-one'
 
 " searching
 Plug 'junegunn/fzf'
@@ -66,7 +67,7 @@ Plug 'tpope/vim-obsession'
 Plug 'dhruvasagar/vim-prosession'
 
 " not used much. delete?
-" Plug 'junegunn/goyo.vim'
+Plug 'junegunn/goyo.vim'
 " Plug 'junegunn/limelight.vim'
 " Plug 'takac/vim-hardtime'
 
