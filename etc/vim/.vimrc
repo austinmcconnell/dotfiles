@@ -73,9 +73,6 @@ Plug 'dhruvasagar/vim-prosession'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 
-" not used much. delete?
-" Plug 'takac/vim-hardtime'
-
 call plug#end()
 
 
