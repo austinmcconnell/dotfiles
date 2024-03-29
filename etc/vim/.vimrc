@@ -69,9 +69,11 @@ Plug 'lambdalisue/fern-git-status.vim'
 Plug 'tpope/vim-obsession'
 Plug 'dhruvasagar/vim-prosession'
 
+" writing
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
+
 " not used much. delete?
-" Plug 'junegunn/goyo.vim'
-" Plug 'junegunn/limelight.vim'
 " Plug 'takac/vim-hardtime'
 
 call plug#end()
