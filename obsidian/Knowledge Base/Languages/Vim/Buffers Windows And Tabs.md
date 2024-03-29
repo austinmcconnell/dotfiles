@@ -56,6 +56,25 @@ windo diffthis
 - `<C-w>c` or `:close`: Close the current window
 - `<C-w>o` or `<C-w><C-o>` or `:on(ly)`: Make the current window the only one on the screen. All
   other windows are closed
+- `<c-w>\=`: Make all windows equally high and wide
+- `<c-w>N-` or `:resize -N`: Decrease window height by N (default 1)
+- `<c-w>N+` or `:resize +N`: Increase window height by N (default 1)
+- `<c-w>_`: Increase window height to max
+- `<c-w>N<`: Decrease window width by N (default 1)
+- `<c-w>N>`: Increase window width by N (default 1)
+- `<c-w>|`: Increase window width to max
+
+## Using tabs
+
+Think of these as 'layouts' or 'workspaces' instead of a browser or file editor 'tab'
+
+- `:tabs`: list all open tabs
+- `:tabedit`: Open a new tab page with an empty window
+- `:tabedit {file}`: Open a new tab page and edit {file}
+- `:tabfind {file}`: Open a new tab page and edit {file} in path, like with `:find`
+- `:tabclose`: Close the current tab page
+- `gt`: go to the next tab page (wraps around)
+- `gT`: go to previous tab (wraps around)
 
 ## Using arg list
 
@@ -91,17 +110,6 @@ desired though.
 - `:lfirst`: go to the first item on the list
 - `:llast`: go to the last item on the list
 - `:ll{num}`: go to the nth item on the list
-
-## Using tabs
-
-Think of these as 'layouts' or 'workspaces' instead of a browser or file editor 'tab'
-
-- `:tabs`: list all open tabs
-- `:tabedit [filename]`: edit a file in a new tab
-- `gt`: move to the next tab
-- `gT`: move to the previous tab
-- {num}gt: move to a specific tab number
-- `:tabclose`: close a single tab
 
 ## Using vimgrep
 
