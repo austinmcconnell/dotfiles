@@ -70,6 +70,7 @@ brew install --formula shfmt
 brew install --formula ssh-copy-id
 brew install --formula terraform
 brew install --formula tree
+brew install --formula trivy
 brew install --formula unar
 brew install --formula wget
 brew install --formula wifi-password
