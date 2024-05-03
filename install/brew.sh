@@ -111,6 +111,7 @@ brew install --cask sublime-text
 brew install --cask tableplus
 brew install --cask the-unarchiver
 brew install --cask vagrant
+brew install --cask via
 brew install --cask viscosity
 brew install --cask visual-studio-code
 brew install --cask zoom
