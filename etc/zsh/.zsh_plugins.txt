@@ -48,4 +48,4 @@ https://github.com/zdharma-continuum/fast-syntax-highlighting kind:defer
 
 
 ### Final Plugins
-https://github.com/zsh-users/zsh-autosuggestions
+#https://github.com/zsh-users/zsh-autosuggestions
