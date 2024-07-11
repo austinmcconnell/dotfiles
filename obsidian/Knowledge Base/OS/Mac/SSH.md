@@ -22,6 +22,14 @@ Host *
 
 [https://man.openbsd.org/ssh_config#DESCRIPTION](https://man.openbsd.org/ssh_config#DESCRIPTION)
 
+## Generating a Key
+
+Generate a key
+
+```bash
+ ssh-keygen -t ed25519 -C "name@domain.com"
+```
+
 ## Managing Keys
 
 Add a key
