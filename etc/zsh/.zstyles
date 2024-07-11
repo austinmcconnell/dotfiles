@@ -9,3 +9,8 @@ zstyle ':antidote:bundle' use-friendly-names 'yes'  # obsolete after antidote 2.
 # Docker
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
+
+# History
+zstyle ':zephyr:plugin:history' histfile ${ZDOTDIR:-$HOME}/.zsh_history
+zstyle ':zephyr:plugin:history' histsize 10000000  # How many commands from history file are loaded into shell's memory
+zstyle ':zephyr:plugin:history' savehist 10000000  # How many commands history file can hold. Should be equal to or larger than HISTSIZE
