@@ -4,3 +4,6 @@
 
 [commit]
     gpgsign = true
+
+[core]
+    sshCommand = ssh -i ~/.ssh/id_github_enterprise
