@@ -4,5 +4,6 @@
 
 - **Mac**
   - [[SSH]]
+- [[ZSH]]
 
 %% End Waypoint %%
