@@ -7,6 +7,7 @@ https://github.com/mattmc3/zephyr path:plugins/completion
 
 ### Regular Plugins
 https://github.com/ael-code/zsh-colored-man-pages
+https://github.com/ptavares/zsh-direnv
 
 
 ### Local Plugins
