@@ -50,6 +50,7 @@ disabled = false
 disabled = false
 detect_files = ['configmap.yaml', 'deployment.yaml', 'hpa.yaml', 'ingress.yaml', 'jobs.yaml', 'secret.yaml', 'service.yaml']
 detect_folders = ['helm', 'charts', 'k8s', '.k8s']
+detect_env_vars = ['INVALID']  # Workaround until bug fixed: https://github.com/starship/starship/issues/6047
 symbol = '󰠳 '
 style = 'cyan bold'
 format = 'on [$symbol$context \($namespace\)]($style) '
