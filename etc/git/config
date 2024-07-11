@@ -62,7 +62,7 @@
     skippedCherryPicks = false
 
 [url "ssh://git@github.com/"]
-        insteadOf = https://github.com/
+    insteadOf = https://github.com/
 
 ############################################################
 # Start delta-specific settings
