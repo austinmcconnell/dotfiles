@@ -4,7 +4,7 @@
 export DOTFILES_DIR DOTFILES_CACHE DOTFILES_EXTRA_DIR
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DOTFILES_EXTRA_DIR="$HOME/.extra"
-XDG_CONFIG_HOME=~.config
+XDG_CONFIG_HOME="$HOME/.config"
 
 # Make utilities available
 PATH="$DOTFILES_DIR/bin:$PATH"
