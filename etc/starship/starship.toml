@@ -48,7 +48,8 @@ disabled = false
 
 [kubernetes]
 disabled = false
-detect_folders = ['helm']
+detect_files = ['configmap.yaml', 'deployment.yaml', 'hpa.yaml', 'ingress.yaml', 'jobs.yaml', 'secret.yaml', 'service.yaml']
+detect_folders = ['helm', 'charts', 'k8s', '.k8s']
 symbol = '󰠳 '
 style = 'cyan bold'
 format = 'on [$symbol$context \($namespace\)]($style) '
