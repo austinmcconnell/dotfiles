@@ -66,6 +66,3 @@ if [[ ("$SHLVL" -eq 1 && ! -o LOGIN) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; the
 fi
 
 export ABBR_USER_ABBREVIATIONS_FILE="$DOTFILES_DIR/etc/zsh/zsh-abbr/user-abbreviations"
-
-# Direnv
-export DIRENV_HOME="$HOME/.repositories/direnv"
