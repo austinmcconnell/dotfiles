@@ -36,7 +36,6 @@ fi
 
 # Add taps
 brew tap derailed/k9s
-brew tap homebrew/cask-fonts
 brew tap heroku/brew
 brew tap Yleisradio/terraforms
 
