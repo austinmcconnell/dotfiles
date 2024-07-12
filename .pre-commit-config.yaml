@@ -6,7 +6,7 @@ repos:
       - id: check-executables-have-shebangs
       - id: check-json
         types: [file]
-        files: \.(json|sublime-settings)$
+        files: \.(json)$
       - id: check-merge-conflict
       - id: check-yaml
       - id: debug-statements
@@ -16,7 +16,7 @@ repos:
       - id: pretty-format-json
         args: [--autofix, --indent=4]
         types: [text]
-        files: \.(json|sublime-settings)$
+        files: \.(json)$
         exclude: ^obsidian/
       - id: mixed-line-ending
         exclude: \.plist$
@@ -39,6 +39,12 @@ repos:
         entry: shellcheck
         types: [shell]
         exclude_types: ["zsh"]
+      - id: prettier
+        name: prettier
+        language: node
+        entry: prettier
+        args: ["--write", "--config", ".prettierrc.json"]
+        files: \.(sublime-settings$)
   - repo: https://github.com/btford/write-good
     rev: v1.0.4
     hooks:
