@@ -1,10 +1,7 @@
 {
     "linters": {
         "markdownlint": {
-            "args": [
-                "--config",
-                "~/.markdownlintrc"
-            ]
-        }
-    }
+            "args": ["--config", "~/.markdownlintrc"],
+        },
+    },
 }

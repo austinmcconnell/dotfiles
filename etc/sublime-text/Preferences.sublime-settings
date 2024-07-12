@@ -4,12 +4,10 @@
     "font_face": "Fira Code",
     "font_size": 14,
     "highlight_modified_tabs": true,
-    "ignored_packages": [
-        "Vintage"
-    ],
+    "ignored_packages": ["Vintage"],
     "index_files": true,
     "save_on_focus_lost": true,
     "theme": "Everforest Dark.sublime-theme",
     "translate_tabs_to_spaces": true,
-    "trim_trailing_white_space_on_save": "all"
+    "trim_trailing_white_space_on_save": "all",
 }

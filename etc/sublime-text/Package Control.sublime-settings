@@ -12,9 +12,7 @@
         "SublimeLinter-pycodestyle",
         "SublimeLinter-pydocstyle",
         "SublimeLinter-pylint",
-        "Theme - Rose Pine"
+        "Theme - Rose Pine",
     ],
-    "repositories": [
-        "https://github.com/avelican/everforest-sublime"
-    ]
+    "repositories": ["https://github.com/avelican/everforest-sublime"],
 }

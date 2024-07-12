@@ -1,8 +1,6 @@
 {
-    "rulers": [
-        100
-    ],
+    "rulers": [100],
     "translate_tabs_to_spaces": true,
     "word_wrap": true,
-    "wrap_width": 100
+    "wrap_width": 100,
 }
