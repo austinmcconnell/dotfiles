@@ -21,8 +21,8 @@
     assert $state equals 0
 }
 
-#@test 'nvm installed' {
-#   run is-executable nvm
+#@test 'fnm installed' {
+#   run is-executable fnm
 #   assert $state equals 0
 #
 #}
@@ -33,7 +33,6 @@
 }
 
 @test 'npm default packages installed' {
-    source "$NVM_DIR/nvm.sh"
     installed_packages=$(npm ls --global --parseable | awk '{gsub(/\/.*\//,"",$1); print}' | sort)
     for package in $(cat $DOTFILES_DIR/etc/node/default-packages); do
         trimmed_package=$(echo $package | cut -d '/' -f 2 )

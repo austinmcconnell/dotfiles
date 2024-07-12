@@ -28,3 +28,9 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 # Bindkeys
 bindkey "^e" fzf-cd-widget
 # bindkey '\t' end-of-line  # For zsh-autosuggestions. This was messing up directory tab completion
+
+# fnm
+if [ -d "$FNM_PATH" ]; then
+    export PATH="$FNM_PATH:$PATH"
+    eval "`fnm env --use-on-cd --version-file-strategy=recursive`"
+fi

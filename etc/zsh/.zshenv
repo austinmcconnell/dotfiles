@@ -40,10 +40,8 @@ export PATH="$BREW_PREFIX/opt/openssl@1.1/bin:$PATH"
 export RUBY_CFLAGS=-DUSE_FFI_CLOSURE_ALLOC
 export optflags="-Wno-error=implicit-function-declaration"
 
-#NVM
-export NVM_DIR="$HOME/.nvm"
-export NVM_LAZY_LOAD=false  # Disabling because it prevents ale from running linters and fixers
-export NVM_AUTO_USE=true
+# fnm
+export FNM_PATH="/Users/austin.mcconnell/.local/share/fnm"
 
 export KUBE_PS1_SYMBOL_ENABLE=false
 export KUBE_PS1_NS_COLOR=yellow

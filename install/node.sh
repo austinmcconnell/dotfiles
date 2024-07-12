@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if is-executable nvm; then
+if is-executable fnm; then
     echo "**************************************************"
     echo "Configuring Node"
     echo "**************************************************"
@@ -10,26 +10,12 @@ else
     echo "**************************************************"
 fi
 
-NVM_DIR="$HOME/.nvm"
+# install fnm
+curl -fsSL https://fnm.vercel.app/install | bash
 
-if [ -d "$NVM_DIR/.git" ]; then
-    git --work-tree="$NVM_DIR" --git-dir="$NVM_DIR/.git" fetch --tags origin
-    # shellcheck disable=SC2046
-    latest_release_tag=$(git --work-tree="$NVM_DIR" --git-dir="$NVM_DIR/.git" describe --abbrev=0 --tags --match "v[0-9]*" $(git --work-tree="$NVM_DIR" --git-dir="$NVM_DIR/.git" rev-list --tags --max-count=1))
-    git --work-tree="$NVM_DIR" --git-dir="$NVM_DIR/.git" checkout "$latest_release_tag"
-else
-    git clone https://github.com/nvm-sh/nvm.git "$NVM_DIR"
-    # shellcheck disable=SC2046
-    latest_release_tag=$(git --work-tree="$NVM_DIR" --git-dir="$NVM_DIR/.git" describe --abbrev=0 --tags --match "v[0-9]*" $(git --work-tree="$NVM_DIR" --git-dir="$NVM_DIR/.git" rev-list --tags --max-count=1))
-    git --work-tree="$NVM_DIR" --git-dir="$NVM_DIR/.git" checkout "$latest_release_tag"
-fi
-
-# Due to nvm being cloned into the .nvm directory, need to clone first before creating symlinks
-ln -sfv "$DOTFILES_DIR/etc/node/default-packages" "$NVM_DIR"
+ln -sfv "$DOTFILES_DIR/etc/node/default-packages" "$FNM_PATH"
 ln -sfv "$DOTFILES_DIR/etc/node/markdownlint" ~/.markdownlintrc
 ln -sfv "$DOTFILES_DIR/etc/node/prettier.toml" "$XDG_CONFIG_HOME/prettier.toml"
 
-# shellcheck source-path=SCRIPTDIR/../../.nvm
-. "$NVM_DIR/nvm.sh"
-nvm install --lts
-nvm alias default lts/*
+fnm install --lts
+fnm default lts-latest
