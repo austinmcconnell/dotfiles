@@ -1,0 +1,2 @@
+#!/bin/bash
+xargs -a "$FNM_PATH/default-packages" npm install -g
