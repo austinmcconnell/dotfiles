@@ -39,7 +39,7 @@ sub_update() {
         mas upgrade
         print_section_header "Running brew update & upgrade "
         brew update
-        brew upgrade --greedy
+        brew upgrade
     fi
     if is-debian; then
         print_section_header "Running apt update & upgrade"
