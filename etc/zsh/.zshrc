@@ -3,6 +3,9 @@
 # .zshrc - Zsh file loaded on interactive shell sessions.
 #
 
+# load zprof first if we need to profile
+[[ ${ZSH_PROFILE_RC:-0} -eq 0 ]] || zmodload zsh/zprof
+
 [[ -e ${ZDOTDIR:-~}/.zstyles ]] && source ${ZDOTDIR:-~}/.zstyles
 
 source ${ZDOTDIR:-~}/.antidote/antidote.zsh
@@ -34,3 +37,6 @@ if [ -d "$FNM_PATH" ]; then
     export PATH="$FNM_PATH:$PATH"
     eval "`fnm env --use-on-cd --version-file-strategy=recursive`"
 fi
+
+# done profiling
+[[ ${ZSH_PROFILE_RC:-0} -eq 0 ]] || { unset ZSH_PROFILE_RC && zprof }
