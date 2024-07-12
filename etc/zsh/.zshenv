@@ -13,7 +13,7 @@ export DOTFILES_DIR="$HOME/.dotfiles"
 
 
 # Mac OS
-export HOMEBREW_AUTO_UPDATE_SECS=86400
+export HOMEBREW_API_AUTO_UPDATE_SECS=86400
 
 GPG_TTY="$(tty)"
 export GPG_TTY
