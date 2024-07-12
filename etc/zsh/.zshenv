@@ -24,6 +24,9 @@ export CLICOLOR=1
 # Prefer US English and use UTF-8
 export LC_ALL="en_US.UTF-8"
 
+# Pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+
 # PIPENV
 export WORKON_HOME=~/.venvs
 export PIPENV_VENV_IN_PROJECT=1

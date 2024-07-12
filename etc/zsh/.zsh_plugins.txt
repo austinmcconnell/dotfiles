@@ -8,7 +8,6 @@ https://github.com/mattmc3/zephyr path:plugins/completion
 ### Regular Plugins
 https://github.com/ael-code/zsh-colored-man-pages
 https://github.com/ptavares/zsh-direnv
-https://github.com/xlshiz/pyenv-zsh-plugin  # This is really slow! Any way to speed up?
 
 
 ### Local Plugins

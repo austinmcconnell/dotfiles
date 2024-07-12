@@ -38,5 +38,9 @@ if [ -d "$FNM_PATH" ]; then
     eval "`fnm env --use-on-cd --version-file-strategy=recursive`"
 fi
 
+# Pyenv
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init - --no-rehash zsh)"
+
 # done profiling
 [[ ${ZSH_PROFILE_RC:-0} -eq 0 ]] || { unset ZSH_PROFILE_RC && zprof }
