@@ -10,8 +10,7 @@ else
     echo "**************************************************"
 fi
 
-# install fnm
-curl -fsSL https://fnm.vercel.app/install | bash
+brew install --formula fnm
 
 ln -sfv "$DOTFILES_DIR/etc/node/default-packages" "$FNM_PATH"
 ln -sfv "$DOTFILES_DIR/etc/node/markdownlint" ~/.markdownlintrc
