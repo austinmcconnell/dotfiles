@@ -35,8 +35,10 @@ sub_test() {
 
 sub_update() {
     if is-macos; then
-        print_section_header "Updating Mac App Store applications"
-        mas upgrade
+        if ! is-work; then
+            print_section_header "Updating Mac App Store applications"
+            mas upgrade
+        fi
         print_section_header "Running brew update & upgrade "
         brew update
         brew upgrade
