@@ -40,6 +40,9 @@ vimcmd_symbol = '[V](bold green) '
 [directory]
 truncation_length = 8
 
+[direnv]
+disabled = false
+
 [gcloud]
 disabled = true
 
