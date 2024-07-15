@@ -76,5 +76,6 @@ done
 ln -sfv "$DOTFILES_DIR/etc/python/default-packages" "$PYENV_DIR" # <-- At end because PYENV_DIR doesn't exist before pyenv install
 "$PYENV_DIR"/bin/pyenv install --skip-existing $DEFAULT_PYTHON_VERSION
 "$PYENV_DIR"/bin/pyenv global $DEFAULT_PYTHON_VERSION
+pip install --upgrade pip setuptools wheel
 
 pre-commit init-templatedir "$HOME"/.config/git/templates
