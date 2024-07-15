@@ -10,8 +10,8 @@ else
         echo "**************************************************"
         echo "Installing Python"
         echo "**************************************************"
-        brew install ncurses openssl readline xz zlib
-        LDFLAGS="-Wl,-rpath,$(brew --prefix openssl)/lib"
+        brew install ncurses openssl readline xz elib
+        LDFLAGS="-L$(brew --prefix openssl)/lib"
         CPPFLAGS="-I$(brew --prefix openssl)/include"
         CONFIGURE_OPTS="--with-openssl=$(brew --prefix openssl)"
     elif is-debian; then

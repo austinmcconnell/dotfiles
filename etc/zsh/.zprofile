@@ -28,8 +28,8 @@ path=(
     $path
 )
 
-LDFLAGS="-Wl,-rpath,$(brew --prefix openssl)/lib"  #pyenv python builds
-CPPFLAGS="-I$(brew --prefix openssl)/include"  #pyenv python builds
-CONFIGURE_OPTS="--with-openssl=$(brew --prefix openssl)"  #pyenv python builds
+export LDFLAGS="-L$(brew --prefix openssl)/lib"  # pyenv python builds
+export CPPFLAGS="-I$(brew --prefix openssl)/include"  # pyenv python builds
+export CONFIGURE_OPTS="--with-openssl=$(brew --prefix openssl)"  # pyenv python builds
 
 export REPO_DIR="$HOME/.repositories"
