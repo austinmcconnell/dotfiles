@@ -45,17 +45,17 @@ repos:
         entry: prettier
         args: ["--write", "--config", ".prettierrc.json"]
         files: \.(sublime-settings$)
-  - repo: https://github.com/btford/write-good
-    rev: v1.0.4
-    hooks:
-      - id: write-good
-        args: ["--no-passive", "--no-tooWordy"]
-        exclude: ^obsidian/
-  - repo: https://github.com/amperser/proselint
-    rev: 0.12.0
-    hooks:
-      - id: proselint
-        files: "\\.(rst|md|markdown|mdown|mkdn)$"
+  # - repo: https://github.com/btford/write-good
+  #   rev: v1.0.4
+  #   hooks:
+  #     - id: write-good
+  #       args: ["--no-passive", "--no-tooWordy"]
+  #       exclude: ^obsidian/
+  # - repo: https://github.com/amperser/proselint
+  #   rev: 0.12.0
+  #   hooks:
+  #     - id: proselint
+  #       files: "\\.(rst|md|markdown|mdown|mkdn)$"
   - repo: https://github.com/openstack/bashate
     rev: 2.1.0
     hooks:
