@@ -7,6 +7,12 @@ let g:fern#disable_default_mappings = 1
 let g:fern#default_hidden = 1
 let g:fern#renderer#default#leading = "  "
 
+" Add dirs and files inside the brackets that need to remain hidden
+let hide_dirs  = '^\%(\.git\|.venv|venv|node_modules\)$'  " here you write the dir names
+let hide_files = '\%(\.swp\)\+'    " here you write the file names
+
+let g:fern#default_exclude = hide_dirs . '\|' . hide_files  " here you exclude them
+
 function! FernInit() abort
   nmap <buffer><expr>
         \ <Plug>(fern-my-open-expand-collapse)
