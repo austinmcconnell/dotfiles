@@ -38,7 +38,7 @@ endfunction
 let g:ale_linters = {
 \   'dockerfile': ['hadolint'],
 \   'json': ['jq', 'jsonlint', 'spectral'],
-\   'markdown': ['markdownlint', 'proselint', 'writegood'],
+\   'markdown': ['markdownlint'],
 \   'python': ['pylint', 'pyright'],
 \   'ruby': ['rubocop'],
 \   'sh': ['bashate', 'shellcheck', 'language_server'],
@@ -46,6 +46,7 @@ let g:ale_linters = {
 \   'yaml': ['spectral', 'yamllint'],
 \   'zsh': ['bashate', 'shellcheck', 'language_server'],
 \}
+" , 'proselint', 'writegood' disable markdown prose linters. Optionally enable when I am writing prose
 
 " Enable fixers
 let g:ale_fixers = {
