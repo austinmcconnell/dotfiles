@@ -36,7 +36,7 @@ Plug 'maximbaz/lightline-ale'
 Plug 'jiangmiao/auto-pairs'
 Plug 'preservim/nerdcommenter'
 Plug 'mbbill/undotree'
-Plug 'ap/vim-buftabline'
+" Plug 'ap/vim-buftabline'
 Plug 'sheerun/vim-polyglot'
 let g:polyglot_disabled = ['sensible']
 " https://github.com/junegunn/vim-plug/issues/1141#issuecomment-2024328900
