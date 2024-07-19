@@ -11,8 +11,6 @@
 source ${ZDOTDIR:-~}/.antidote/antidote.zsh
 antidote load
 
-prompt starship
-
 # # Hook for extra/custom stuff (e.g. settings for work laptop)
 EXTRA_DIR="$HOME/.extra"
 if [ -d "$EXTRA_DIR" ]; then
