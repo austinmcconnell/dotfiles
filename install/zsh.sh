@@ -31,6 +31,7 @@ ITERM_COLORSCHEME_DIR="$DOTFILES_DIR/etc/iterm/colorschemes"
 
 mkdir -p "$ZDOTDIR"
 mkdir -p "$XDG_CONFIG_HOME"/spaceship
+mkdir -p "$XDG_CONFIG_HOME"/direnv
 mkdir -p "$ITERM_COLORSCHEME_DIR"
 
 echo "ZDOTDIR=${ZDOTDIR:-$XDG_CONFIG_HOME/zsh}" >"$HOME"/.zshenv
@@ -46,6 +47,7 @@ ln -sfv "$DOTFILES_DIR/etc/zsh/.zshrc" "$ZDOTDIR"
 ln -sfv "$DOTFILES_DIR/etc/zsh/.zstyles" "$ZDOTDIR"
 ln -sfv "$DOTFILES_DIR/etc/spaceship/spaceship.zsh" "$XDG_CONFIG_HOME"/spaceship/spaceship.zsh
 ln -sfv "$DOTFILES_DIR/etc/starship/starship.toml" "$XDG_CONFIG_HOME"
+ln -sfv "$DOTFILES_DIR/etc/direnv/direnv.toml" "$XDG_CONFIG_HOME"/direnv
 
 mkdir -p "$HOME"/.terminfo
 tic -o "$HOME"/.terminfo "$DOTFILES_DIR"/etc/terminfo/tmux.terminfo
