@@ -122,3 +122,7 @@ brew install --cask font-fira-code-nerd-font
 brew install --cask font-hack-nerd-font
 brew install --cask font-inconsolata-nerd-font
 brew install --cask font-sauce-code-pro-nerd-font
+
+# TLS/SSL Setup local Certificate Authority and add to the system and firefox trust store
+brew install --formula mkcert
+brew install --formula nss
