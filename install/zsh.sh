@@ -86,3 +86,9 @@ for repo in "${iterm_colorschemes[@]}"; do
         open "$ITERM_COLORSCHEME_DIR/$colorscheme"
     fi
 done
+
+# Docker completions
+if is-executable docker; then
+    mkdir -p ~/.docker/completions
+    docker completion zsh >~/.docker/completions/_docker
+fi

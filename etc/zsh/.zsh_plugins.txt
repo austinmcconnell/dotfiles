@@ -12,6 +12,7 @@ https://github.com/ptavares/zsh-direnv
 
 ### Local Plugins
 $ZDOTDIR/.aliases
+$HOME/.docker/completions kind:fpath
 
 
 ### Prompts
