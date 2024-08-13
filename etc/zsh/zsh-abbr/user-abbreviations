@@ -1,5 +1,5 @@
-abbr "dc"="docker-compose"
-abbr "dclogs"="docker-compose logs -tf --tail=\"50\" "
+abbr "dc"="docker compose"
+abbr "dclogs"="docker compose logs -tf --tail=\"50\" "
 abbr "dfe"="dotfiles edit"
 abbr "gb"="git branch"
 abbr "gc"="git commit"
