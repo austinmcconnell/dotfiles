@@ -34,7 +34,9 @@ def find_repos_in_dir(directory, level=1):
                 print(f'Removing hook: {hook.name}')
                 hook.unlink()
 
+        subprocess.run(['git', 'remote', '--verbose'], cwd=project)
         subprocess.run(['git', 'init'], cwd=project)
+        subprocess.run(['git', 'remote', 'set-head', 'origin', '--auto'], cwd=project)
 
         pre_commit_file = project / '.pre-commit-config.yaml'
 
