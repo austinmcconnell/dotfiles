@@ -19,7 +19,7 @@ alias gr='git branch --all | grep --extended-regexp --invert-match "HEAD|$(git b
 # Select branch to interactively rebase onto, excluding current
 alias gri='git branch --all | grep --extended-regexp --invert-match "HEAD|$(git branch --show-current)" | fzf | xargs -o git rebase --autostash --autosquash --interactive'
 # Select branch to switch to, exclusing current
-alias gsw='git branch --all | grep --extended-regexp --invert-match "HEAD|$(git branch --show-current)" | fzf | sed "s#remotes/[^/]*/##" | xargs git switch'
+alias gsw='git branch --all | grep --extended-regexp --invert-match "HEAD|$(git branch --show-current)$" | fzf | sed "s#remotes/[^/]*/##" | xargs git switch'
 
 ##############################
 # Python
