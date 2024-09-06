@@ -43,6 +43,8 @@ def find_repos_in_dir(directory, level=1):
         if pre_commit_file.exists():
             print('Initializing pre-commit...')
             subprocess.run(['pre-commit', 'install'], cwd=project)
+        else:
+            print('No pre-commit config found. Skipping initialization...')
 
 REPOSITORIES_DIR = Path.home() / 'projects'
 
