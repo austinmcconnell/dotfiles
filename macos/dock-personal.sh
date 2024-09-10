@@ -60,4 +60,13 @@ dockutil --no-restart --add "/System/Applications/Reminders.app" --after "Notes"
 dockutil --no-restart --remove "/System/Applications/Photos.app"
 dockutil --no-restart --add "/System/Applications/Photos.app" --after "Reminders"
 
+dockutil --no-restart --remove "/System/Applications/Slack.app"
+dockutil --no-restart --add "/System/Applications/Slack.app" --after "Photos"
+
+dockutil --no-restart --remove "/System/Applications/calibre.app"
+dockutil --no-restart --add "/System/Applications/calibre.app" --after "Slack"
+
+dockutil --no-restart --remove "/System/Applications/Libation.app"
+dockutil --no-restart --add "/System/Applications/Libation.app" --after "calibre"
+
 killall Dock
