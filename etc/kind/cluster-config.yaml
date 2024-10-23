@@ -24,23 +24,26 @@ nodes:
       - containerPort: 443
         hostPort: 443
         protocol: TCP
-    # mount host docker config with auth credentials for pulling images
     extraMounts:
+        # mount docker config with auth credentials for pulling images
       - hostPath: $HOME/.docker/config.json
         containerPath: /var/lib/kubelet/config.json
+        # mount CA for validating TLS
       - hostPath: /etc/ssl/certs/corporate.crt
         containerPath: /usr/local/share/ca-certificates/corporate.crt
   - role: worker
-  # mount host docker config with auth credentials for pulling images
     extraMounts:
+        # mount docker config with auth credentials for pulling images
       - hostPath: $HOME/.docker/config.json
         containerPath: /var/lib/kubelet/config.json
+        # mount CA for validating TLS
       - hostPath: /etc/ssl/certs/corporate.crt
         containerPath: /usr/local/share/ca-certificates/corporate.crt
   - role: worker
-  # mount docker config with auth credentials for pulling images
     extraMounts:
+        # mount docker config with auth credentials for pulling images
       - hostPath: $HOME/.docker/config.json
         containerPath: /var/lib/kubelet/config.json
+        # mount CA for validating TLS
       - hostPath: /etc/ssl/certs/corporate.crt
         containerPath: /usr/local/share/ca-certificates/corporate.crt
