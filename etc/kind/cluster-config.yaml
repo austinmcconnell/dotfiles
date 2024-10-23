@@ -9,5 +9,17 @@ networking:
   serviceSubnet: "10.96.0.0/12"
 nodes:
   - role: control-plane
+    # mount host docker config with auth credentials for pulling images
+    extraMounts:
+      - hostPath: $HOME/.docker/config.json
+        containerPath: /var/lib/kubelet/config.json
   - role: worker
+  # mount host docker config with auth credentials for pulling images
+    extraMounts:
+      - hostPath: $HOME/.docker/config.json
+        containerPath: /var/lib/kubelet/config.json
   - role: worker
+  # mount host docker config with auth credentials for pulling images
+    extraMounts:
+      - hostPath: $HOME/.docker/config.json
+        containerPath: /var/lib/kubelet/config.json
