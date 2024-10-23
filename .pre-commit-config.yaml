@@ -61,11 +61,11 @@ repos:
     hooks:
       - id: bashate
         args: ["--max-line-length", "100", "--ignore", "E006,E040,E044"]
-  - repo: https://github.com/Lucas-C/pre-commit-hooks-nodejs
-    rev: v1.1.2
-    hooks:
-      - id: markdown-toc
-        args: ["-i", "--bullets", "-"]
+  # - repo: https://github.com/Lucas-C/pre-commit-hooks-nodejs
+  #   rev: v1.1.2
+  #   hooks:
+  #     - id: markdown-toc
+  #       args: ["-i", "--bullets", "-"]
   - repo: https://github.com/Lucas-C/pre-commit-hooks
     rev: v1.5.5
     hooks:
