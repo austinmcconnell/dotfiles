@@ -32,4 +32,14 @@ if [[ $existing_clusters =~ "kind" ]]; then
 else
     kind create cluster --wait 3m --config "$DOTFILES_DIR/etc/kind/cluster-config.yaml" --image "kindest/node:$KUBERNETES_VERSION"
     kubectl cluster-info --context kind-kind
+
+    # Update certs
+    docker exec kind-control-plane update-ca-certificates
+    docker exec kind-worker update-ca-certificates
+    docker exec kind-worker2 update-ca-certificates
+
+    # Restart containerd
+    docker exec kind-control-plane systemctl restart containerd
+    docker exec kind-worker systemctl restart containerd
+    docker exec kind-worker2 systemctl restart containerd
 fi

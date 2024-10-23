@@ -13,13 +13,19 @@ nodes:
     extraMounts:
       - hostPath: $HOME/.docker/config.json
         containerPath: /var/lib/kubelet/config.json
+      - hostPath: /etc/ssl/certs/corporate.crt
+        containerPath: /usr/local/share/ca-certificates/corporate.crt
   - role: worker
   # mount host docker config with auth credentials for pulling images
     extraMounts:
       - hostPath: $HOME/.docker/config.json
         containerPath: /var/lib/kubelet/config.json
+      - hostPath: /etc/ssl/certs/corporate.crt
+        containerPath: /usr/local/share/ca-certificates/corporate.crt
   - role: worker
   # mount host docker config with auth credentials for pulling images
     extraMounts:
       - hostPath: $HOME/.docker/config.json
         containerPath: /var/lib/kubelet/config.json
+      - hostPath: /etc/ssl/certs/corporate.crt
+        containerPath: /usr/local/share/ca-certificates/corporate.crt
