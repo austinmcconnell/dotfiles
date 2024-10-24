@@ -59,10 +59,12 @@ style = 'cyan bold'
 format = 'on [$symbol$context \($namespace\)]($style) '
 #format ='[$symbol$context( \($namespace\))]($style) in '
 contexts = [
+  { context_pattern = "kind", style = "green bold"},
   { context_pattern = "development", style = "blue bold"},
   { context_pattern = "staging", style = "blue bold"},
-  { context_pattern = "training", style = "yellow bold", symbol = "⚠️  "},
-  { context_pattern = "production", style = "red bold", symbol = "⚠️  " },
+  { context_pattern = "n-aaa", style = "yellow bold", symbol = "⚠️ "},
+  { context_pattern = "training", style = "yellow bold", symbol = "⚠️ "},
+  { context_pattern = "production", style = "red bold", symbol = "⚠️ " },
 ]
 
 [package]
