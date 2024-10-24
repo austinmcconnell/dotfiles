@@ -57,6 +57,7 @@ brew install --formula git-delta
 brew install --formula go
 brew install --formula grep
 brew install --formula hadolint
+brew install --formula helm
 brew install --formula httpie
 brew install --formula jq
 brew install --formula k9s
@@ -127,3 +128,6 @@ brew install --cask font-sauce-code-pro-nerd-font
 brew install --formula mkcert
 brew install --formula nss
 mkcert -install
+
+# Add helm charts repository
+helm repo add stable https://charts.helm.sh/stable
