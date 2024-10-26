@@ -44,7 +44,13 @@ else
     docker exec kind-worker2 systemctl restart containerd
 
     # Set up ingress-nginx
-    kubectl apply --wait -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
+    helm install \
+        --wait \
+        --timeout 5m \
+        --namespace ingress-nginx \
+        --create-namespace \
+        --repo https://kubernetes.github.io/ingress-nginx \
+        ingress-nginx ingress-nginx
     kubectl wait --namespace ingress-nginx \
         --for=condition=ready pod \
         --selector=app.kubernetes.io/component=controller \
