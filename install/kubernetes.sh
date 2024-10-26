@@ -60,16 +60,13 @@ else
     helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
     helm repo update
     helm install --wait \
-        --timeout 15m \
+        --timeout 5m \
         --namespace monitoring \
         --create-namespace \
-        --set prometheus.service.nodePort=30000 \
-        --set prometheus.service.type=NodePort \
-        --set grafana.service.nodePort=31000 \
-        --set grafana.service.type=NodePort \
-        --set alertmanager.service.nodePort=32000 \
-        --set alertmanager.service.type=NodePort \
-        --set prometheus-node-exporter.service.nodePort=32001 \
-        --set prometheus-node-exporter.service.type=NodePort \
+        --values "$DOTFILES_DIR/etc/kind/prometheus.yaml" \
         kind-prometheus prometheus-community/kube-prometheus-stack
+    kubectl wait --namespace monitoring \
+        --for=condition=ready pod \
+        --selector=app=kube-prometheus-stack-operator \
+        --timeout=90s
 fi
