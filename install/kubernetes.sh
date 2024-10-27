@@ -33,15 +33,13 @@ else
     kind create cluster --wait 3m --config "$DOTFILES_DIR/etc/kind/cluster-config.yaml" --image "kindest/node:$KUBERNETES_VERSION"
     kubectl cluster-info --context kind-kind
 
-    # Update certs
-    docker exec kind-control-plane update-ca-certificates
-    docker exec kind-worker update-ca-certificates
-    docker exec kind-worker2 update-ca-certificates
-
-    # Restart containerd
-    docker exec kind-control-plane systemctl restart containerd
-    docker exec kind-worker systemctl restart containerd
-    docker exec kind-worker2 systemctl restart containerd
+    # Add any mounted certs
+    nodes=$(kind get nodes)
+    for node in $nodes; do
+        echo "Updating certs on node: $node"
+        docker exec "$node" update-ca-certificates
+        docker exec "$node" systemctl restart containerd
+    done
 
     # Set up ingress-nginx
     helm install \
