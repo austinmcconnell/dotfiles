@@ -41,7 +41,8 @@ else
         docker exec "$node" systemctl restart containerd
     done
 
-    # Enable LoadBalancer
+    # Enable LoadBalancer (FIXME: This isn't quite working yet... Not sure why.)
+    # It works when I run `sudo cloud-provider-kind` locally. Compare output? Mac/Docker networking issue?
     kubectl label node kind-control-plane node.kubernetes.io/exclude-from-external-load-balancers-
 
     KUBERNETES_SIGS_DIR="$HOME/projects/kubernetes-sigs"
