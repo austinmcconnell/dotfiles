@@ -63,7 +63,7 @@ else
         --timeout 5m \
         --namespace monitoring \
         --create-namespace \
-        --values "$DOTFILES_DIR/etc/kind/prometheus.yaml" \
+        --values "$DOTFILES_DIR/etc/kind/kube-prometheus-stack.yaml" \
         kind-prometheus prometheus-community/kube-prometheus-stack
     kubectl wait --namespace monitoring \
         --for=condition=ready pod \
