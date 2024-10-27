@@ -41,6 +41,25 @@ else
         docker exec "$node" systemctl restart containerd
     done
 
+    # Enable LoadBalancer
+    kubectl label node kind-control-plane node.kubernetes.io/exclude-from-external-load-balancers-
+
+    KUBERNETES_SIGS_DIR="$HOME/projects/kubernetes-sigs"
+    CLOUD_PROVIDER_KIND_DIR="$KUBERNETES_SIGS_DIR/cloud-provider-kind"
+    mkdir -p "$KUBERNETES_SIGS_DIR"
+
+    if [ -d "$CLOUD_PROVIDER_KIND_DIR/.git" ]; then
+        git --work-tree="$CLOUD_PROVIDER_KIND_DIR" --git-dir="$CLOUD_PROVIDER_KIND_DIR/.git" pull origin main
+    else
+        git clone https://github.com/kubernetes-sigs/cloud-provider-kind "$CLOUD_PROVIDER_KIND_DIR"
+    fi
+
+    pushd "$CLOUD_PROVIDER_KIND_DIR" || exit
+    docker build . -t cloud-provider-kind
+    # FIXME: https://github.com/kubernetes-sigs/cloud-provider-kind/issues/115
+    NET_MODE=kind docker compose up -d
+    popd || exit
+
     # Set up ingress-nginx
     helm install \
         --wait \
