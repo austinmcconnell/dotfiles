@@ -25,6 +25,16 @@ fi
 
 KUBERNETES_VERSION=v1.29.2
 
+# Install Docker Mac Net Connect
+# Allows connecting directly to Docker-for-Mac container via their IP address
+# https://github.com/chipmk/docker-mac-net-connect
+if brew services list | grep -q docker-mac-net-connect; then
+    brew services info docker-mac-net-connect
+else
+    brew install chipmk/tap/docker-mac-net-connect
+    sudo brew services start chipmk/tap/docker-mac-net-connect
+fi
+
 existing_clusters=$(kind get clusters --quiet)
 
 if [[ $existing_clusters =~ "kind" ]]; then
