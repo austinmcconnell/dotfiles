@@ -9,6 +9,8 @@ repos:
         files: \.(json)$
       - id: check-merge-conflict
       - id: check-yaml
+        args:
+          - --allow-multiple-documents
       - id: debug-statements
       - id: double-quote-string-fixer
       - id: end-of-file-fixer
