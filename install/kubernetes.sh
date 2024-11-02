@@ -51,25 +51,30 @@ else
         docker exec "$node" systemctl restart containerd
     done
 
-    # Enable LoadBalancer (FIXME: This isn't quite working yet... Not sure why.)
-    # It works when I run `sudo cloud-provider-kind` locally. Compare output? Mac/Docker networking issue?
-    kubectl label node kind-control-plane node.kubernetes.io/exclude-from-external-load-balancers-
+    # Install MetalLB
+    # helpful link: https://gist.github.com/RafalSkolasinski/b41b790b1c575223251ff90311419863
+    # kubectl label node kind-control-plane node.kubernetes.io/exclude-from-external-load-balancers-
+    helm repo add metallb https://metallb.github.io/metallb
+    helm repo update
+    helm upgrade --install metallb metallb/metallb -n metallb-system --create-namespace
+    kubectl rollout --namespace metallb-system status deployment metallb-controller
 
-    KUBERNETES_SIGS_DIR="$HOME/projects/kubernetes-sigs"
-    CLOUD_PROVIDER_KIND_DIR="$KUBERNETES_SIGS_DIR/cloud-provider-kind"
-    mkdir -p "$KUBERNETES_SIGS_DIR"
+    # Gather network information
+    kind_network=$(docker network inspect kind | jq --raw-output '.[0].IPAM.Config[1].Subnet')
+    echo "Kind network: $kind_network"
+    network_gateway=$(docker network inspect kind | jq --raw-output '.[0].IPAM.Config[1].Gateway')
+    echo "Network gateway: $network_gateway"
+    kind_container_ip=$(docker inspect kind-control-plane --format '{{.NetworkSettings.Networks.kind.IPAddress}}')
+    echo "IP of container running kind: $kind_container_ip"
 
-    if [ -d "$CLOUD_PROVIDER_KIND_DIR/.git" ]; then
-        git --work-tree="$CLOUD_PROVIDER_KIND_DIR" --git-dir="$CLOUD_PROVIDER_KIND_DIR/.git" pull origin main
-    else
-        git clone https://github.com/kubernetes-sigs/cloud-provider-kind "$CLOUD_PROVIDER_KIND_DIR"
-    fi
-
-    pushd "$CLOUD_PROVIDER_KIND_DIR" || exit
-    docker build . -t cloud-provider-kind
-    # FIXME: https://github.com/kubernetes-sigs/cloud-provider-kind/issues/115
-    NET_MODE=kind docker compose up -d
-    popd || exit
+    # Set available IP addresses
+    network_mask_start=$(echo "$kind_network" | cut -d/ -f 1 | sed -e 's/0/255/' | sed -e 's/0/1/')
+    network_mask_end=$(echo "$kind_network" | cut -d/ -f 1 | sed -e 's/0/255/g')
+    echo "Network mask: $network_mask_start-$network_mask_end"
+    bat "$DOTFILES_DIR/etc/kind/metallb-ipaddresspool.yaml" |
+        sed -e "s/1.1.1.1/$network_mask_start/" |
+        sed -e "s/2.2.2.2/$network_mask_end/" |
+        kubectl apply -f -
 
     # Set up ingress-nginx
     helm install \
