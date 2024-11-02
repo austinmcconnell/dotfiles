@@ -77,7 +77,8 @@ else
         kubectl apply -f -
 
     # Set up ingress-nginx
-    helm install \
+    helm upgrade \
+        --install \
         --wait \
         --timeout 5m \
         --namespace ingress-nginx \
@@ -92,7 +93,9 @@ else
     # Set up prometheus
     helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
     helm repo update
-    helm install --wait \
+    helm upgrade \
+        --install \
+        --wait \
         --timeout 5m \
         --namespace monitoring \
         --create-namespace \
