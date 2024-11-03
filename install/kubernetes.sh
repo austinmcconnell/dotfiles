@@ -25,20 +25,24 @@ fi
 
 KUBERNETES_VERSION=v1.29.2
 
-# Install Docker Mac Net Connect
-# Allows connecting directly to Docker-for-Mac container via their IP address
-# https://github.com/chipmk/docker-mac-net-connect
-if brew services list | grep -q docker-mac-net-connect; then
-    brew services info docker-mac-net-connect
-else
-    brew install chipmk/tap/docker-mac-net-connect
-    sudo brew services start chipmk/tap/docker-mac-net-connect
-fi
-
 print_section_header() {
     echo "**************************************************"
     echo "$1"
     echo "**************************************************"
+}
+
+install_docker_mac_net_connect() {
+    # Allows connecting directly to Docker-for-Mac container via their IP address
+    # https://github.com/chipmk/docker-mac-net-connect
+
+    print_section_header "Installing docker-mac-net-connect"
+
+    if brew services list | grep -q docker-mac-net-connect; then
+        brew services info docker-mac-net-connect
+    else
+        brew install chipmk/tap/docker-mac-net-connect
+        sudo brew services start chipmk/tap/docker-mac-net-connect
+    fi
 }
 
 create_kind_cluster() {
@@ -148,6 +152,8 @@ existing_clusters=$(kind get clusters --quiet)
 if [[ $existing_clusters =~ "kind" ]]; then
     kubectl cluster-info --context kind-kind
 else
+    install_docker_mac_net_connect
+
     create_kind_cluster
 
     update_ca_certificates
