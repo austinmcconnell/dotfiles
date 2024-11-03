@@ -156,7 +156,7 @@ else
 
     install_ingress_nginx
 
-    install_prometheus
-
     install_cert_manager
+
+    install_prometheus
 fi
