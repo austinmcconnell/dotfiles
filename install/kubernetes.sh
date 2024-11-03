@@ -35,25 +35,66 @@ else
     sudo brew services start chipmk/tap/docker-mac-net-connect
 fi
 
-existing_clusters=$(kind get clusters --quiet)
+print_section_header() {
+    echo "**************************************************"
+    echo "$1"
+    echo "**************************************************"
+}
 
-if [[ $existing_clusters =~ "kind" ]]; then
+create_kind_cluster() {
+    print_section_header "Creating kind cluster"
+    kind create cluster \
+        --wait 3m \
+        --config "$DOTFILES_DIR/etc/kind/cluster-config.yaml" \
+        --image "kindest/node:$KUBERNETES_VERSION"
     kubectl cluster-info --context kind-kind
-else
-    kind create cluster --wait 3m --config "$DOTFILES_DIR/etc/kind/cluster-config.yaml" --image "kindest/node:$KUBERNETES_VERSION"
-    kubectl cluster-info --context kind-kind
+}
 
-    # Add any mounted certs
+update_ca_certificates() {
+    print_section_header "Updating mounted certificates"
     nodes=$(kind get nodes)
     for node in $nodes; do
         echo "Updating certs on node: $node"
         docker exec "$node" update-ca-certificates
         docker exec "$node" systemctl restart containerd
     done
+}
 
-    # Install MetalLB
+install_ingress_nginx() {
+    print_section_header "Install ingress-nginx"
+    helm install \
+        --wait \
+        --timeout 5m \
+        --namespace ingress-nginx \
+        --create-namespace \
+        --repo https://kubernetes.github.io/ingress-nginx \
+        ingress-nginx ingress-nginx
+    kubectl wait --namespace ingress-nginx \
+        --for=condition=ready pod \
+        --selector=app.kubernetes.io/component=controller \
+        --timeout=90s
+}
+
+install_prometheus() {
+    print_section_header "Install prometheus stack"
+    helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+    helm repo update
+    helm install \
+        --wait \
+        --timeout 5m \
+        --namespace monitoring \
+        --create-namespace \
+        --values "$DOTFILES_DIR/etc/kind/kube-prometheus-stack.yaml" \
+        kind-prometheus prometheus-community/kube-prometheus-stack
+    kubectl wait --namespace monitoring \
+        --for=condition=ready pod \
+        --selector=app=kube-prometheus-stack-operator \
+        --timeout=90s
+}
+
+install_metallb() {
+    print_section_header "Install metallb"
     # helpful link: https://gist.github.com/RafalSkolasinski/b41b790b1c575223251ff90311419863
-    # kubectl label node kind-control-plane node.kubernetes.io/exclude-from-external-load-balancers-
     helm repo add metallb https://metallb.github.io/metallb
     helm repo update
     helm upgrade --install metallb metallb/metallb -n metallb-system --create-namespace
@@ -76,33 +117,20 @@ else
         sed -e "s/2.2.2.2/$network_mask_end/" |
         kubectl apply -f -
 
-    # Set up ingress-nginx
-    helm upgrade \
-        --install \
-        --wait \
-        --timeout 5m \
-        --namespace ingress-nginx \
-        --create-namespace \
-        --repo https://kubernetes.github.io/ingress-nginx \
-        ingress-nginx ingress-nginx
-    kubectl wait --namespace ingress-nginx \
-        --for=condition=ready pod \
-        --selector=app.kubernetes.io/component=controller \
-        --timeout=90s
+}
 
-    # Set up prometheus
-    helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-    helm repo update
-    helm upgrade \
-        --install \
-        --wait \
-        --timeout 5m \
-        --namespace monitoring \
-        --create-namespace \
-        --values "$DOTFILES_DIR/etc/kind/kube-prometheus-stack.yaml" \
-        kind-prometheus prometheus-community/kube-prometheus-stack
-    kubectl wait --namespace monitoring \
-        --for=condition=ready pod \
-        --selector=app=kube-prometheus-stack-operator \
-        --timeout=90s
+existing_clusters=$(kind get clusters --quiet)
+
+if [[ $existing_clusters =~ "kind" ]]; then
+    kubectl cluster-info --context kind-kind
+else
+    create_kind_cluster
+
+    update_ca_certificates
+
+    install_metallb
+
+    install_ingress_nginx
+
+    install_prometheus
 fi
