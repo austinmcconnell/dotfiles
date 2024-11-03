@@ -9,7 +9,7 @@ else
         echo "**************************************************"
         echo "Installing Kubernetes"
         echo "**************************************************"
-        brew install kind kubectl kubectx helm
+        brew install kind kubectl kubectx helm mkcert
     elif is-debian; then
         echo "**************************************************"
         echo "Installing Kubernetes"
@@ -119,6 +119,30 @@ install_metallb() {
 
 }
 
+install_cert_manager() {
+    print_section_header "Installing Cert Manager"
+    helm repo add jetstack https://charts.jetstack.io --force-update
+    helm install \
+        --namespace cert-manager \
+        --create-namespace \
+        --version v1.16.1 \
+        --values "$DOTFILES_DIR/etc/kind/cert-manager.yaml" \
+        cert-manager jetstack/cert-manager
+    kubectl rollout --namespace cert-manager status deployment cert-manager
+
+    # Generate and install local CA
+    mkcert -install
+
+    # Add CA's certificate and key to kubernetes
+    kubectl create secret tls mkcert-ca-key-pair \
+        --key "$(mkcert -CAROOT)"/rootCA-key.pem \
+        --cert "$(mkcert -CAROOT)"/rootCA.pem -n cert-manager
+
+    # Tell cert-manager to use this to issue certificates
+    kubectl apply -f "$DOTFILES_DIR/etc/kind/cert-manager-cluster-issuer.yaml"
+
+}
+
 existing_clusters=$(kind get clusters --quiet)
 
 if [[ $existing_clusters =~ "kind" ]]; then
@@ -133,4 +157,6 @@ else
     install_ingress_nginx
 
     install_prometheus
+
+    install_cert_manager
 fi
