@@ -100,7 +100,7 @@ install_prometheus() {
 }
 
 install_metallb() {
-    print_section_header "Install metallb"
+    print_section_header "Installing metallb"
     # helpful link: https://gist.github.com/RafalSkolasinski/b41b790b1c575223251ff90311419863
     helm repo add metallb https://metallb.github.io/metallb
     helm repo update
@@ -123,6 +123,9 @@ install_metallb() {
         sed -e "s/1.1.1.1/$network_mask_start/" |
         sed -e "s/2.2.2.2/$network_mask_end/" |
         kubectl apply -f -
+
+    print_section_header "Testing metallb"
+    sh "$DOTFILES_DIR/etc/kind/test/test-metallb.sh"
 
 }
 
