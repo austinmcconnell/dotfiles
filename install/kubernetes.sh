@@ -43,6 +43,9 @@ install_docker_mac_net_connect() {
         brew install chipmk/tap/docker-mac-net-connect
         sudo brew services start chipmk/tap/docker-mac-net-connect
     fi
+
+    print_section_header "Testing docker-mac-net-connect"
+    sh "$DOTFILES_DIR/etc/kind/test/test-docker-mac-net-connect.sh"
 }
 
 create_kind_cluster() {
