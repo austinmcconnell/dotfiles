@@ -104,7 +104,7 @@ install_metallb() {
     # helpful link: https://gist.github.com/RafalSkolasinski/b41b790b1c575223251ff90311419863
     helm repo add metallb https://metallb.github.io/metallb
     helm repo update
-    helm upgrade --install metallb metallb/metallb -n metallb-system --create-namespace
+    helm install metallb metallb/metallb -n metallb-system --create-namespace
     kubectl rollout --namespace metallb-system status deployment metallb-controller
 
     # Gather network information
