@@ -80,6 +80,21 @@ install_ingress_nginx() {
         --for=condition=ready pod \
         --selector=app.kubernetes.io/component=controller \
         --timeout=90s
+
+    LOADBALANCER_IP=$(kubectl get services \
+        --namespace ingress-nginx \
+        ingress-nginx-controller \
+        --output jsonpath='{.status.loadBalancer.ingress[0].ip}')
+
+    echo "LoadBalancer IP: $LOADBALANCER_IP"
+
+    # Add hosts entry for LoadBalancer IP of ingress-nginx-controller
+    if ! grep -Pq "^$LOADBALANCER_IP dev.local" /etc/hosts; then
+        echo "Enter password to add '$LOADBALANCER_IP dev.local' to /etc/hosts"
+        echo -e "\n# Added by kubernetes.sh" | sudo tee -a /etc/hosts
+        echo "$LOADBALANCER_IP dev.local" | sudo tee -a /etc/hosts
+        echo "# End of section" | sudo tee -a /etc/hosts
+    fi
 }
 
 install_prometheus() {
