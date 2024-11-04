@@ -68,7 +68,7 @@ update_ca_certificates() {
 }
 
 install_ingress_nginx() {
-    print_section_header "Install ingress-nginx"
+    print_section_header "Installing ingress-nginx"
     helm install \
         --wait \
         --timeout 5m \
@@ -95,6 +95,10 @@ install_ingress_nginx() {
         echo "$LOADBALANCER_IP dev.local" | sudo tee -a /etc/hosts
         echo "# End of section" | sudo tee -a /etc/hosts
     fi
+
+    print_section_header "Testing ingress-nginx"
+    sh "$DOTFILES_DIR/etc/kind/test/test-ingress-nginx-port-forward.sh"
+    sh "$DOTFILES_DIR/etc/kind/test/test-ingress-nginx-hosts-entry.sh"
 }
 
 install_prometheus() {
