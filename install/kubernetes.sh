@@ -149,7 +149,7 @@ install_metallb() {
 }
 
 install_cert_manager() {
-    print_section_header "Installing Cert Manager"
+    print_section_header "Installing cert-manager"
     helm repo add jetstack https://charts.jetstack.io --force-update
     helm install \
         --namespace cert-manager \
@@ -169,6 +169,9 @@ install_cert_manager() {
 
     # Tell cert-manager to use this to issue certificates
     kubectl apply -f "$DOTFILES_DIR/etc/kind/cert-manager-cluster-issuer.yaml"
+
+    print_section_header "Testing cert-manager"
+    sh "$DOTFILES_DIR/etc/kind/test/test-metallb.sh"
 
 }
 
