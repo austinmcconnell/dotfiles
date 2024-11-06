@@ -31,6 +31,39 @@ print_section_header() {
     echo "***********************************"
 }
 
+update_etc_hosts() {
+    host_name=$1
+
+    ip_address=$(kubectl get services \
+        --namespace ingress-nginx \
+        ingress-nginx-controller \
+        --output jsonpath='{.status.loadBalancer.ingress[0].ip}')
+
+    # find existing instances and save the line numbers
+    host_matches_in_hosts="$(grep -n "$host_name" /etc/hosts | cut -f 1 -d :)"
+    ip_matches_in_hosts="$(grep -n "$ip_address" /etc/hosts | cut -f 1 -d :)"
+
+    if [ -n "$host_matches_in_hosts" ]; then
+        echo "Hosts entry already exists for $host_name"
+    else
+        if [ -n "$ip_matches_in_hosts" ]; then
+            echo "Updating existing hosts entry. Please enter your password, if requested."
+            # iterate over the line numbers on which matches were found
+            while read -r line_number; do
+                # append the host_name to the end of the linethe text of each line with the desired host entry
+                sudo sed -i '' "${line_number}s/$/, ${host_name}/" /etc/hosts
+            done <<<"$ip_matches_in_hosts"
+        else
+            host_entry="${ip_address} ${host_name}"
+            filepath=$(readlink -f -- "$0")
+            echo "Adding new hosts entry. Please enter your password, if requested."
+            echo -e "\n# Added by $filepath" | sudo tee -a /etc/hosts >/dev/null
+            echo "$host_entry" | sudo tee -a /etc/hosts >/dev/null
+            echo "# End of section" | sudo tee -a /etc/hosts >/dev/null
+        fi
+    fi
+}
+
 install_docker_mac_net_connect() {
     # Allows connecting directly to Docker-for-Mac container via their IP address
     # https://github.com/chipmk/docker-mac-net-connect
@@ -81,20 +114,7 @@ install_ingress_nginx() {
         --selector=app.kubernetes.io/component=controller \
         --timeout=90s
 
-    LOADBALANCER_IP=$(kubectl get services \
-        --namespace ingress-nginx \
-        ingress-nginx-controller \
-        --output jsonpath='{.status.loadBalancer.ingress[0].ip}')
-
-    echo "LoadBalancer IP: $LOADBALANCER_IP"
-
-    # Add hosts entry for LoadBalancer IP of ingress-nginx-controller
-    if ! grep -Pq "^$LOADBALANCER_IP dev.local" /etc/hosts; then
-        echo "Enter password to add '$LOADBALANCER_IP dev.local' to /etc/hosts"
-        echo -e "\n# Added by kubernetes.sh" | sudo tee -a /etc/hosts
-        echo "$LOADBALANCER_IP dev.local" | sudo tee -a /etc/hosts
-        echo "# End of section" | sudo tee -a /etc/hosts
-    fi
+    update_etc_hosts dev.local
 
     print_section_header "Testing ingress-nginx"
     sh "$DOTFILES_DIR/etc/kind/test/test-ingress-nginx-port-forward.sh"
@@ -116,6 +136,10 @@ install_prometheus() {
         --for=condition=ready pod \
         --selector=app=kube-prometheus-stack-operator \
         --timeout=90s
+
+    update_etc_hosts prometheus.dev.local
+    update_etc_hosts grafana.dev.local
+    update_etc_hosts alertmanager.dev.local
 }
 
 install_metallb() {
