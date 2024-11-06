@@ -111,7 +111,7 @@ install_prometheus() {
         --namespace monitoring \
         --create-namespace \
         --values "$DOTFILES_DIR/etc/kind/kube-prometheus-stack.yaml" \
-        kind-prometheus prometheus-community/kube-prometheus-stack
+        prometheus prometheus-community/kube-prometheus-stack
     kubectl wait --namespace monitoring \
         --for=condition=ready pod \
         --selector=app=kube-prometheus-stack-operator \
