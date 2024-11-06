@@ -1,19 +1,55 @@
 prometheus:
-  service:
-    type: NodePort
-    nodePort: 30000
+  ingress:
+    enabled: true
+    annotations:
+      cert-manager.io/cluster-issuer: mkcert-issuer
+    ingressClassName: nginx
+    hosts:
+      - prometheus.dev.local
+    paths:
+      - /
+    pathType: ImplementationSpecific
+
+    tls:
+    - secretName: prometheus-general-tls
+      hosts:
+      - prometheus.dev.local
 
 grafana:
-  service:
-    type: NodePort
-    nodePort: 31000
+  ingress:
+    enabled: true
+    annotations:
+      cert-manager.io/cluster-issuer: mkcert-issuer
+    ingressClassName: nginx
+    hosts:
+      - grafana.dev.local
+    paths:
+      - /
+    pathType: ImplementationSpecific
+
+    tls:
+    - secretName: grafana-general-tls
+      hosts:
+      - grafana.dev.local
 
 alertmanager:
-  service:
-    type: NodePort
-    nodePort: 32000
+  ingress:
+    enabled: true
+    annotations:
+      cert-manager.io/cluster-issuer: mkcert-issuer
+    ingressClassName: nginx
+    hosts:
+      - alertmanager.dev.local
+    paths:
+      - /
+    pathType: ImplementationSpecific
 
-prometheus-node-exporter:
-  service:
-    type: NodePort
-    nodePort: 32001
+    tls:
+    - secretName: alertmanager-general-tls
+      hosts:
+      - alertmanager.dev.local
+
+# prometheus-node-exporter:
+#   service:
+#     type: NodePort
+#     nodePort: 32001
