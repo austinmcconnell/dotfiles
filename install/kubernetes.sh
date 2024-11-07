@@ -136,8 +136,12 @@ install_ingress_nginx() {
 
 install_prometheus() {
     print_section_header "Install prometheus stack"
-    helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-    helm repo update
+    if helm repo list | grep --quiet prometheus-community; then
+        echo "Helm repo already added"
+    else
+        helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+        helm repo update
+    fi
     sed 's/.example/.'"$LOCAL_DOMAIN"'/g' "$DOTFILES_DIR/etc/kind/kube-prometheus-stack.yaml" |
         helm install \
             --wait \
@@ -159,8 +163,12 @@ install_prometheus() {
 install_metallb() {
     print_section_header "Installing metallb"
     # helpful link: https://gist.github.com/RafalSkolasinski/b41b790b1c575223251ff90311419863
-    helm repo add metallb https://metallb.github.io/metallb
-    helm repo update
+    if helm repo list | grep --quiet metallb; then
+        echo "Helm repo already added"
+    else
+        helm repo add metallb https://metallb.github.io/metallb
+        helm repo update
+    fi
     helm install metallb metallb/metallb -n metallb-system --create-namespace
     kubectl rollout --namespace metallb-system status deployment metallb-controller
 
@@ -188,7 +196,12 @@ install_metallb() {
 
 install_cert_manager() {
     print_section_header "Installing cert-manager"
-    helm repo add jetstack https://charts.jetstack.io --force-update
+    if helm repo list | grep --quiet jetstack; then
+        echo "Helm repo already added"
+    else
+        helm repo add jetstack https://charts.jetstack.io
+        helm repo update
+    fi
     helm install \
         --namespace cert-manager \
         --create-namespace \
