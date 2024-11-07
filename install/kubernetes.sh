@@ -41,6 +41,11 @@ update_etc_hosts() {
         ingress-nginx-controller \
         --output jsonpath='{.status.loadBalancer.ingress[0].ip}')
 
+    if [ -z "$ip_address" ]; then
+        echo "Cannot find ip address of load balancer. Aborting..."
+        exit 1
+    fi
+
     # find existing instances and save the line numbers
     host_matches_in_hosts="$(grep -n "$host_name" /etc/hosts | cut -f 1 -d :)"
     ip_matches_in_hosts="$(grep -n "$ip_address" /etc/hosts | cut -f 1 -d :)"
