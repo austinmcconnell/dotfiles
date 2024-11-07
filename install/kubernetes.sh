@@ -181,9 +181,10 @@ install_metallb() {
     echo "IP of container running kind: $kind_container_ip"
 
     # Set available IP addresses
-    network_mask_start=$(echo "$kind_network" | cut -d/ -f 1 | sed -e 's/0/255/' | sed -e 's/0/1/')
-    network_mask_end=$(echo "$kind_network" | cut -d/ -f 1 | sed -e 's/0/255/g')
+    network_mask_start=$(echo "$kind_network" | cut -d / -f 1 | sed -e 's/\.0/\.255/' | sed -e 's/\.0/\.1/')
+    network_mask_end=$(echo "$kind_network" | cut -d / -f 1 | sed -e 's/\.0/\.255/g')
     echo "Network mask: $network_mask_start-$network_mask_end"
+
     bat "$DOTFILES_DIR/etc/kind/metallb-ipaddresspool.yaml" |
         sed -e "s/1.1.1.1/$network_mask_start/" |
         sed -e "s/2.2.2.2/$network_mask_end/" |
