@@ -131,3 +131,6 @@ mkcert -install
 
 # Add helm charts repository
 helm repo add stable https://charts.helm.sh/stable
+
+# Add brew installed bash as an allowed shell
+grep "$(which bash)" /etc/shells &>/dev/null || sudo zsh -c "echo $(which bash) >> /etc/shells"
