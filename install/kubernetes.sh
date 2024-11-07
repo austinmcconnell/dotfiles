@@ -226,6 +226,11 @@ install_cert_manager() {
 
 }
 
+update_helm_repos() {
+    print_section_header "Updating helm repos"
+    helm repo update
+}
+
 existing_clusters=$(kind get clusters --quiet)
 
 if [[ $existing_clusters =~ "kind" ]]; then
@@ -236,6 +241,8 @@ else
     create_kind_cluster
 
     update_ca_certificates
+
+    update_helm_repos
 
     install_metallb
 
