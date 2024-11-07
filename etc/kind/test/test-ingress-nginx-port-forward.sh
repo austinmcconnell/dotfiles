@@ -25,6 +25,7 @@ fi
 
 echo "killing $pid"
 kill $pid
+wait $pid 2>/dev/null
 echo "port-forward shut down"
 
 kubectl delete ingress demo-localhost
