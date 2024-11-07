@@ -25,6 +25,8 @@ fi
 
 KUBERNETES_VERSION=v1.29.2
 
+: "${LOCAL_DOMAIN:=dev.localhost}"
+
 print_section_header() {
     echo "***********************************"
     echo "$1"
@@ -114,7 +116,7 @@ install_ingress_nginx() {
         --selector=app.kubernetes.io/component=controller \
         --timeout=90s
 
-    update_etc_hosts dev.local
+    update_etc_hosts "$LOCAL_DOMAIN"
 
     print_section_header "Testing ingress-nginx"
     sh "$DOTFILES_DIR/etc/kind/test/test-ingress-nginx-port-forward.sh"
@@ -137,9 +139,9 @@ install_prometheus() {
         --selector=app=kube-prometheus-stack-operator \
         --timeout=90s
 
-    update_etc_hosts prometheus.dev.local
-    update_etc_hosts grafana.dev.local
-    update_etc_hosts alertmanager.dev.local
+    update_etc_hosts "prometheus.$LOCAL_DOMAIN"
+    update_etc_hosts "grafana.$LOCAL_DOMAIN"
+    update_etc_hosts "alertmanager.$LOCAL_DOMAIN"
 }
 
 install_metallb() {
