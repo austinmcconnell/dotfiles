@@ -223,7 +223,7 @@ install_cert_manager() {
     kubectl apply -f "$DOTFILES_DIR/etc/kind/cert-manager-cluster-issuer.yaml"
 
     print_section_header "Testing cert-manager"
-    sh "$DOTFILES_DIR/etc/kind/test/test-metallb.sh"
+    sh "$DOTFILES_DIR/etc/kind/test/test-cert-manager.sh"
 
 }
 
