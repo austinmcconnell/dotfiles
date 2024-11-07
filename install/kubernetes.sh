@@ -90,6 +90,12 @@ install_docker_mac_net_connect() {
 
 create_kind_cluster() {
     print_section_header "Creating kind cluster"
+    if docker network ls --filter name=kind | grep --quiet "kind"; then
+        echo "Removing old kind docker network"
+        # If the old kind network is not removed first, sometimes I would only get
+        # IPV6 addresses assigned and things below that depend on IPV4 would fail
+        docker network rm kind
+    fi
     kind create cluster \
         --wait 3m \
         --config "$DOTFILES_DIR/etc/kind/cluster-config.yaml" \
