@@ -44,7 +44,7 @@ export RUBY_CFLAGS=-DUSE_FFI_CLOSURE_ALLOC
 export optflags="-Wno-error=implicit-function-declaration"
 
 # fnm
-export FNM_PATH="/Users/austin.mcconnell/.local/share/fnm"
+export FNM_PATH="/Users/$(whoami)/.local/share/fnm"
 
 export KUBE_PS1_SYMBOL_ENABLE=false
 export KUBE_PS1_NS_COLOR=yellow
