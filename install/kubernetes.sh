@@ -25,7 +25,7 @@ fi
 
 KUBERNETES_VERSION=v1.29.2
 
-: "${LOCAL_DOMAIN:=dev.localhost}"
+: "${LOCAL_DOMAIN:=dev.test}"
 
 print_section_header() {
     echo "***********************************"

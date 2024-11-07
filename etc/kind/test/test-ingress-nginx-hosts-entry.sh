@@ -1,6 +1,6 @@
 #!/bin/bash
 
-: "${LOCAL_DOMAIN:=dev.localhost}"
+: "${LOCAL_DOMAIN:=dev.test}"
 
 kubectl create deployment demo --image=httpd --port=80
 kubectl expose deployment demo
