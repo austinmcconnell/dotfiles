@@ -127,13 +127,14 @@ install_prometheus() {
     print_section_header "Install prometheus stack"
     helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
     helm repo update
-    helm install \
-        --wait \
-        --timeout 5m \
-        --namespace monitoring \
-        --create-namespace \
-        --values "$DOTFILES_DIR/etc/kind/kube-prometheus-stack.yaml" \
-        prometheus prometheus-community/kube-prometheus-stack
+    sed 's/.example/.'"$LOCAL_DOMAIN"'/g' "$DOTFILES_DIR/etc/kind/kube-prometheus-stack.yaml" |
+        helm install \
+            --wait \
+            --timeout 5m \
+            --namespace monitoring \
+            --create-namespace \
+            prometheus prometheus-community/kube-prometheus-stack \
+            --values -
     kubectl wait --namespace monitoring \
         --for=condition=ready pod \
         --selector=app=kube-prometheus-stack-operator \
