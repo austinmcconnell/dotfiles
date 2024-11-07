@@ -10,6 +10,7 @@ kubectl create ingress demo --class=nginx --rule "$LOCAL_DOMAIN"/=demo:80,tls="$
 kubectl wait --for=condition=ready pod --selector=app=demo
 kubectl wait --for=condition=ready certificate "$LOCAL_DOMAIN"
 
+echo "Pinging container at https://$LOCAL_DOMAIN"
 if curl --verbose https://"$LOCAL_DOMAIN" 2>&1 | grep 'SSL certificate verify ok'; then
     echo "Successfully pinged container"
     exit_code=0

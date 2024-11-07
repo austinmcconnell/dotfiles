@@ -11,8 +11,8 @@ LOADBALANCER_IP=$(kubectl get services \
 
 echo "LoadBalancer IP: $LOADBALANCER_IP"
 
-echo "Pinging nginx container using LoadBalancer address..."
-if curl --connect-timeout 3 --retry 3 --silent "$LOADBALANCER_IP" | grep -q 'It works!'; then
+echo "Pinging container using LoadBalancer ip $LOADBALANCER_IP"
+if curl --connect-timeout 5 --retry 3 "$LOADBALANCER_IP" | grep -q 'It works!'; then
     echo "Successfully pinged container"
     exit_code=0
 else
@@ -20,7 +20,6 @@ else
     exit_code=1
 fi
 
-echo "Stopping nginx container..."
 kubectl delete service demo
 kubectl delete deployment demo
 

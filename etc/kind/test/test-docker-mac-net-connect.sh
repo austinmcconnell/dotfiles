@@ -1,12 +1,12 @@
 #!/bin/bash
 
-echo "Starting nginx container..."
+echo "Starting nginx container"
 docker run --rm --name nginx -d nginx
 
 CONTAINER_IP=$(docker inspect nginx --format '{{.NetworkSettings.IPAddress}}')
 
-echo "Pinging nginx container using IP address..."
-if curl --silent "$CONTAINER_IP" | grep -q 'nginx'; then
+echo "Pinging container using conainer ip $CONTAINER_IP"
+if curl --connect-timeout 5 --retry 3 "$CONTAINER_IP" | grep -q 'nginx'; then
     echo "Successfully pinged container"
     exit_code=0
 else
@@ -14,7 +14,7 @@ else
     exit_code=1
 fi
 
-echo "Stopping nginx container..."
+echo "Stoping nginx container"
 docker stop nginx
 
 exit "$exit_code"

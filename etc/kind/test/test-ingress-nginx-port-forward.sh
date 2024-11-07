@@ -14,7 +14,8 @@ echo "port-forward pid: $pid"
 # Give port forward time to come up
 sleep 3
 
-if curl --connect-timeout 3 --retry 3 --silent --resolve demo.localdev.me:8080:127.0.0.1 http://demo.localdev.me:8080 | grep -q 'It works!'; then
+echo "Pinging container using port foward"
+if curl --connect-timeout 5 --retry 3 --resolve demo.localdev.me:8080:127.0.0.1 http://demo.localdev.me:8080 | grep -q 'It works!'; then
     echo "Successfully pinged container"
     exit_code=0
 else
