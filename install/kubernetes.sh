@@ -128,6 +128,13 @@ update_ca_certificates() {
 install_ingress_nginx() {
     print_section_header "Installing ingress-nginx"
 
+    if helm repo list | grep --quiet kubernetes; then
+        echo "Helm repo already added"
+    else
+        helm repo add kubernetes https://kubernetes.github.io/ingress-nginx
+        helm repo update
+    fi
+
     if helm list --namespace ingress-nginx | grep --quiet ingress-nginx; then
         echo "ingress-nginx already installed"
     else
@@ -136,8 +143,7 @@ install_ingress_nginx() {
             --timeout 5m \
             --namespace ingress-nginx \
             --create-namespace \
-            --repo https://kubernetes.github.io/ingress-nginx \
-            ingress-nginx ingress-nginx
+            ingress-nginx kubernetes/ingress-nginx
         kubectl wait --namespace ingress-nginx \
             --for=condition=ready pod \
             --selector=app.kubernetes.io/component=controller \
