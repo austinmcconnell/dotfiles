@@ -101,6 +101,9 @@ create_kind_cluster() {
         --config "$DOTFILES_DIR/etc/kind/cluster-config.yaml" \
         --image "kindest/node:$KUBERNETES_VERSION"
     kubectl cluster-info --context kind-kind
+
+    print_section_header "Testing NodePort"
+    sh "$DOTFILES_DIR/etc/kind/test/test-node-port.sh"
 }
 
 update_ca_certificates() {
@@ -252,4 +255,5 @@ else
     install_cert_manager
 
     install_prometheus
+
 fi
