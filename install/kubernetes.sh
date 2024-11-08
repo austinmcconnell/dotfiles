@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 if is-executable kind; then
     echo "**************************************************"
     echo "Configuring kubernetes"
