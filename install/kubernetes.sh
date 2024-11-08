@@ -90,17 +90,24 @@ install_docker_mac_net_connect() {
 
 create_kind_cluster() {
     print_section_header "Creating kind cluster"
-    if docker network ls --filter name=kind | grep --quiet "kind"; then
-        echo "Removing old kind docker network"
-        # If the old kind network is not removed first, sometimes I would only get
-        # IPV6 addresses assigned and things below that depend on IPV4 would fail
-        docker network rm kind
+
+    existing_clusters=$(kind get clusters --quiet)
+
+    if [[ $existing_clusters =~ "kind" ]]; then
+        kubectl cluster-info --context kind-kind
+    else
+        if docker network ls --filter name=kind | grep --quiet "kind"; then
+            echo "Removing old kind docker network"
+            # If the old kind network is not removed first, sometimes I would only get
+            # IPV6 addresses assigned and things below that depend on IPV4 would fail
+            docker network rm kind
+        fi
+        kind create cluster \
+            --wait 3m \
+            --config "$DOTFILES_DIR/etc/kind/cluster-config.yaml" \
+            --image "kindest/node:$KUBERNETES_VERSION"
+        kubectl cluster-info --context kind-kind
     fi
-    kind create cluster \
-        --wait 3m \
-        --config "$DOTFILES_DIR/etc/kind/cluster-config.yaml" \
-        --image "kindest/node:$KUBERNETES_VERSION"
-    kubectl cluster-info --context kind-kind
 
     print_section_header "Testing NodePort"
     sh "$DOTFILES_DIR/etc/kind/test/test-node-port.sh"
@@ -118,19 +125,24 @@ update_ca_certificates() {
 
 install_ingress_nginx() {
     print_section_header "Installing ingress-nginx"
-    helm install \
-        --wait \
-        --timeout 5m \
-        --namespace ingress-nginx \
-        --create-namespace \
-        --repo https://kubernetes.github.io/ingress-nginx \
-        ingress-nginx ingress-nginx
-    kubectl wait --namespace ingress-nginx \
-        --for=condition=ready pod \
-        --selector=app.kubernetes.io/component=controller \
-        --timeout=90s
 
-    update_etc_hosts "$LOCAL_DOMAIN"
+    if helm list --namespace ingress-nginx | grep --quiet ingress-nginx; then
+        echo "ingress-nginx already installed"
+    else
+        helm install \
+            --wait \
+            --timeout 5m \
+            --namespace ingress-nginx \
+            --create-namespace \
+            --repo https://kubernetes.github.io/ingress-nginx \
+            ingress-nginx ingress-nginx
+        kubectl wait --namespace ingress-nginx \
+            --for=condition=ready pod \
+            --selector=app.kubernetes.io/component=controller \
+            --timeout=90s
+
+        update_etc_hosts "$LOCAL_DOMAIN"
+    fi
 
     print_section_header "Testing ingress-nginx"
     sh "$DOTFILES_DIR/etc/kind/test/test-ingress-nginx-port-forward.sh"
@@ -139,95 +151,111 @@ install_ingress_nginx() {
 
 install_prometheus() {
     print_section_header "Install prometheus stack"
+
     if helm repo list | grep --quiet prometheus-community; then
         echo "Helm repo already added"
     else
         helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
         helm repo update
     fi
-    sed 's/.example/.'"$LOCAL_DOMAIN"'/g' "$DOTFILES_DIR/etc/kind/kube-prometheus-stack.yaml" |
-        helm install \
-            --wait \
-            --timeout 5m \
-            --namespace monitoring \
-            --create-namespace \
-            prometheus prometheus-community/kube-prometheus-stack \
-            --values -
-    kubectl wait --namespace monitoring \
-        --for=condition=ready pod \
-        --selector=app=kube-prometheus-stack-operator \
-        --timeout=90s
 
-    update_etc_hosts "prometheus.$LOCAL_DOMAIN"
-    update_etc_hosts "grafana.$LOCAL_DOMAIN"
-    update_etc_hosts "alertmanager.$LOCAL_DOMAIN"
+    if helm list --namespace monitoring | grep --quiet prometheus; then
+        echo "prometheus already installed"
+    else
+        sed 's/.example/.'"$LOCAL_DOMAIN"'/g' "$DOTFILES_DIR/etc/kind/kube-prometheus-stack.yaml" |
+            helm install \
+                --wait \
+                --timeout 5m \
+                --namespace monitoring \
+                --create-namespace \
+                prometheus prometheus-community/kube-prometheus-stack \
+                --values -
+        kubectl wait --namespace monitoring \
+            --for=condition=ready pod \
+            --selector=app=kube-prometheus-stack-operator \
+            --timeout=90s
+
+        update_etc_hosts "prometheus.$LOCAL_DOMAIN"
+        update_etc_hosts "grafana.$LOCAL_DOMAIN"
+        update_etc_hosts "alertmanager.$LOCAL_DOMAIN"
+    fi
 }
 
 install_metallb() {
     print_section_header "Installing metallb"
     # helpful link: https://gist.github.com/RafalSkolasinski/b41b790b1c575223251ff90311419863
+
     if helm repo list | grep --quiet metallb; then
         echo "Helm repo already added"
     else
         helm repo add metallb https://metallb.github.io/metallb
         helm repo update
     fi
-    helm install metallb metallb/metallb -n metallb-system --create-namespace
-    kubectl rollout --namespace metallb-system status deployment metallb-controller
 
-    # Gather network information
-    kind_network=$(docker network inspect kind | jq --raw-output '.[0].IPAM.Config[1].Subnet')
-    echo "Kind network: $kind_network"
-    network_gateway=$(docker network inspect kind | jq --raw-output '.[0].IPAM.Config[1].Gateway')
-    echo "Network gateway: $network_gateway"
-    kind_container_ip=$(docker inspect kind-control-plane --format '{{.NetworkSettings.Networks.kind.IPAddress}}')
-    echo "IP of container running kind: $kind_container_ip"
+    if helm list --namespace metallb-system | grep --quiet metallb; then
+        echo "metallb already installed"
+    else
+        helm install metallb metallb/metallb -n metallb-system --create-namespace
+        kubectl rollout --namespace metallb-system status deployment metallb-controller
 
-    # Set available IP addresses
-    network_mask_start=$(echo "$kind_network" | cut -d / -f 1 | sed -e 's/\.0/\.255/' | sed -e 's/\.0/\.1/')
-    network_mask_end=$(echo "$kind_network" | cut -d / -f 1 | sed -e 's/\.0/\.255/g')
-    echo "Network mask: $network_mask_start-$network_mask_end"
+        # Gather network information
+        kind_network=$(docker network inspect kind | jq --raw-output '.[0].IPAM.Config[1].Subnet')
+        echo "Kind network: $kind_network"
+        network_gateway=$(docker network inspect kind | jq --raw-output '.[0].IPAM.Config[1].Gateway')
+        echo "Network gateway: $network_gateway"
+        kind_container_ip=$(docker inspect kind-control-plane --format '{{.NetworkSettings.Networks.kind.IPAddress}}')
+        echo "IP of container running kind: $kind_container_ip"
 
-    bat "$DOTFILES_DIR/etc/kind/metallb-ipaddresspool.yaml" |
-        sed -e "s/1.1.1.1/$network_mask_start/" |
-        sed -e "s/2.2.2.2/$network_mask_end/" |
-        kubectl apply -f -
+        # Set available IP addresses
+        network_mask_start=$(echo "$kind_network" | cut -d / -f 1 | sed -e 's/\.0/\.255/' | sed -e 's/\.0/\.1/')
+        network_mask_end=$(echo "$kind_network" | cut -d / -f 1 | sed -e 's/\.0/\.255/g')
+        echo "Network mask: $network_mask_start-$network_mask_end"
+
+        bat "$DOTFILES_DIR/etc/kind/metallb-ipaddresspool.yaml" |
+            sed -e "s/1.1.1.1/$network_mask_start/" |
+            sed -e "s/2.2.2.2/$network_mask_end/" |
+            kubectl apply -f -
+    fi
 
     print_section_header "Testing metallb"
     sh "$DOTFILES_DIR/etc/kind/test/test-metallb.sh"
-
 }
 
 install_cert_manager() {
     print_section_header "Installing cert-manager"
+
     if helm repo list | grep --quiet jetstack; then
         echo "Helm repo already added"
     else
         helm repo add jetstack https://charts.jetstack.io
         helm repo update
     fi
-    helm install \
-        --namespace cert-manager \
-        --create-namespace \
-        --version v1.16.1 \
-        --values "$DOTFILES_DIR/etc/kind/cert-manager.yaml" \
-        cert-manager jetstack/cert-manager
-    kubectl rollout --namespace cert-manager status deployment cert-manager
 
-    # Generate and install local CA
-    mkcert -install
+    if helm list --namespace cert-manager | grep --quiet cert-manager; then
+        echo "cert-manager already installed"
+    else
+        helm install \
+            --namespace cert-manager \
+            --create-namespace \
+            --version v1.16.1 \
+            --values "$DOTFILES_DIR/etc/kind/cert-manager.yaml" \
+            cert-manager jetstack/cert-manager
+        kubectl rollout --namespace cert-manager status deployment cert-manager
 
-    # Add CA's certificate and key to kubernetes
-    kubectl create secret tls mkcert-ca-key-pair \
-        --key "$(mkcert -CAROOT)"/rootCA-key.pem \
-        --cert "$(mkcert -CAROOT)"/rootCA.pem -n cert-manager
+        # Generate and install local CA
+        mkcert -install
 
-    # Tell cert-manager to use this to issue certificates
-    kubectl apply -f "$DOTFILES_DIR/etc/kind/cert-manager-cluster-issuer.yaml"
+        # Add CA's certificate and key to kubernetes
+        kubectl create secret tls mkcert-ca-key-pair \
+            --key "$(mkcert -CAROOT)"/rootCA-key.pem \
+            --cert "$(mkcert -CAROOT)"/rootCA.pem -n cert-manager
+
+        # Tell cert-manager to use this to issue certificates
+        kubectl apply -f "$DOTFILES_DIR/etc/kind/cert-manager-cluster-issuer.yaml"
+    fi
 
     print_section_header "Testing cert-manager"
     sh "$DOTFILES_DIR/etc/kind/test/test-cert-manager.sh"
-
 }
 
 update_helm_repos() {
@@ -235,25 +263,18 @@ update_helm_repos() {
     helm repo update
 }
 
-existing_clusters=$(kind get clusters --quiet)
+install_docker_mac_net_connect
 
-if [[ $existing_clusters =~ "kind" ]]; then
-    kubectl cluster-info --context kind-kind
-else
-    install_docker_mac_net_connect
+create_kind_cluster
 
-    create_kind_cluster
+update_ca_certificates
 
-    update_ca_certificates
+update_helm_repos
 
-    update_helm_repos
+install_metallb
 
-    install_metallb
+install_ingress_nginx
 
-    install_ingress_nginx
+install_cert_manager
 
-    install_cert_manager
-
-    install_prometheus
-
-fi
+install_prometheus
