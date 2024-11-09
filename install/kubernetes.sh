@@ -247,6 +247,14 @@ install_cert_manager() {
 
     if helm list --namespace cert-manager | grep --quiet cert-manager; then
         echo "cert-manager already installed"
+        # helm diff support for --reset-then-reuse-values is merged in but not released yet
+        # https://github.com/databus23/helm-diff/pull/634
+        # if [[ -n $(helm diff upgrade --reset-then-reuse-values --namespace cert-manager cert-manager jetstack/cert-manager) ]]; then
+        #     echo "Upgrading cert-manager"
+        #     helm upgrade --reset-then-reuse-values --namespace cert-manager cert-manager jetstack/cert-manager
+        # else
+        #     echo "No upgrade needed"
+        # fi
     else
         helm install \
             --namespace cert-manager \
