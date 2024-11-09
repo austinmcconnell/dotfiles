@@ -208,6 +208,12 @@ install_metallb() {
 
     if helm list --namespace metallb-system | grep --quiet metallb; then
         echo "metallb already installed"
+        if [[ -n $(helm diff upgrade --reuse-values --namespace metallb-system metallb metallb/metallb) ]]; then
+            echo "Upgrading ingress-nginx"
+            helm upgrade --reuse-values --namespace metallb-system metallb metallb/metallb
+        else
+            echo "No upgrade needed"
+        fi
     else
         helm install metallb metallb/metallb -n metallb-system --create-namespace
         kubectl rollout --namespace metallb-system status deployment metallb-controller
