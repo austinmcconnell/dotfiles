@@ -271,11 +271,23 @@ update_helm_repos() {
     helm repo update
 }
 
+install_helm_plugins() {
+    print_section_header "Installing helm plugins"
+
+    if helm plugin list | grep --quiet diff; then
+        echo "diff plugin already added"
+    else
+        helm plugin install https://github.com/databus23/helm-diff
+    fi
+}
+
 install_docker_mac_net_connect
 
 create_kind_cluster
 
 update_ca_certificates
+
+install_helm_plugins
 
 update_helm_repos
 
