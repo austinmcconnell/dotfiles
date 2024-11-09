@@ -137,6 +137,12 @@ install_ingress_nginx() {
 
     if helm list --namespace ingress-nginx | grep --quiet ingress-nginx; then
         echo "ingress-nginx already installed"
+        if [[ -n $(helm diff upgrade --reuse-values --namespace ingress-nginx ingress-nginx kubernetes/ingress-nginx) ]]; then
+            echo "Upgrading ingress-nginx"
+            helm upgrade --reuse-values --namespace ingress-nginx ingress-nginx kubernetes/ingress-nginx
+        else
+            echo "No upgrade needed"
+        fi
     else
         helm install \
             --wait \
