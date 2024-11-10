@@ -129,7 +129,7 @@ install_ingress_nginx() {
     print_section_header "Installing ingress-nginx"
 
     if helm repo list | grep --quiet ingress-nginx; then
-        echo "Helm repo already added"
+        echo "ingress-nginx repo already added"
     else
         helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
         helm repo update
@@ -167,7 +167,7 @@ install_prometheus() {
     print_section_header "Install prometheus stack"
 
     if helm repo list | grep --quiet prometheus-community; then
-        echo "Helm repo already added"
+        echo "prometheus-community repo already added"
     else
         helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
         helm repo update
@@ -200,7 +200,7 @@ install_metallb() {
     # helpful link: https://gist.github.com/RafalSkolasinski/b41b790b1c575223251ff90311419863
 
     if helm repo list | grep --quiet metallb; then
-        echo "Helm repo already added"
+        echo "metallb repo already added"
     else
         helm repo add metallb https://metallb.github.io/metallb
         helm repo update
@@ -245,7 +245,7 @@ install_cert_manager() {
     print_section_header "Installing cert-manager"
 
     if helm repo list | grep --quiet jetstack; then
-        echo "Helm repo already added"
+        echo "jetstack repo already added"
     else
         helm repo add jetstack https://charts.jetstack.io
         helm repo update
@@ -290,7 +290,7 @@ install_metrics_server() {
     print_section_header "Installing metrics-server"
 
     if helm repo list | grep --quiet metrics-server; then
-        echo "Helm repo already added"
+        echo "metrics-server repo already added"
     else
         helm repo add metrics-server https://kubernetes-sigs.github.io/metrics-server/
         helm repo update
