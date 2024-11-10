@@ -328,6 +328,7 @@ install_metrics_server() {
 
     print_section_header "Testing metrics-server"
     sh "$DOTFILES_DIR/etc/kind/test/test-metrics-server.sh"
+    sh "$DOTFILES_DIR/etc/kind/test/test-horizontal-pod-autoscaler.sh"
 }
 
 update_helm_repos() {
