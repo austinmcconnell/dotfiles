@@ -68,6 +68,7 @@ brew install --formula openssl # Used for compiling (e.g. pyenv building python 
 brew install --formula shellcheck
 brew install --formula shfmt
 brew install --formula ssh-copy-id
+brew install --formula stern
 brew install --formula terraform
 brew install --formula tree
 brew install --formula trivy
