@@ -128,18 +128,18 @@ update_ca_certificates() {
 install_ingress_nginx() {
     print_section_header "Installing ingress-nginx"
 
-    if helm repo list | grep --quiet kubernetes; then
+    if helm repo list | grep --quiet ingress-nginx; then
         echo "Helm repo already added"
     else
-        helm repo add kubernetes https://kubernetes.github.io/ingress-nginx
+        helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
         helm repo update
     fi
 
     if helm list --namespace ingress-nginx | grep --quiet ingress-nginx; then
         echo "ingress-nginx already installed"
-        if [[ -n $(helm diff upgrade --reuse-values --namespace ingress-nginx ingress-nginx kubernetes/ingress-nginx) ]]; then
+        if [[ -n $(helm diff upgrade --reuse-values --namespace ingress-nginx ingress-nginx ingress-nginx/ingress-nginx) ]]; then
             echo "Upgrading ingress-nginx"
-            helm upgrade --reuse-values --namespace ingress-nginx ingress-nginx kubernetes/ingress-nginx
+            helm upgrade --reuse-values --namespace ingress-nginx ingress-nginx ingress-nginx/ingress-nginx
         else
             echo "No upgrade needed"
         fi
@@ -149,10 +149,10 @@ install_ingress_nginx() {
             --timeout 5m \
             --namespace ingress-nginx \
             --create-namespace \
-            ingress-nginx kubernetes/ingress-nginx
+            ingress-nginx ingress-nginx/ingress-nginx
         kubectl wait --namespace ingress-nginx \
             --for=condition=ready pod \
-            --selector=app.kubernetes.io/component=controller \
+            --selector=app.ingress-nginx.io/component=controller \
             --timeout=90s
 
         update_etc_hosts "$LOCAL_DOMAIN"
