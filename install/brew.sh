@@ -76,6 +76,7 @@ brew install --formula unar
 brew install --formula wget
 brew install --formula wifi-password
 brew install --formula yamllint
+brew install --formula yq
 brew install --formula zlib # Used for compiling (e.g. pyenv building python versions from source)
 brew install --formula zunit-zsh/zunit/zunit
 
