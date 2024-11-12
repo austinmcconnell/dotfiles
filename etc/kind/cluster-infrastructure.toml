@@ -1,0 +1,77 @@
+context= "cluster-infrastructure"
+
+[settings]
+  kubeContext = "kind-kind"
+  reverseDelete = true # reverse the priorities on delete
+  globalMaxHistory= 5
+
+[namespaces]
+  [namespaces.cert-manager]
+  [namespaces.ingress-nginx]
+  [namespaces.metallb-system]
+  [namespaces.metrics-server]
+  [namespaces.monitoring]
+
+[helmRepos]
+  ingress-nginx = "https://kubernetes.github.io/ingress-nginx"
+  jetstack = "https://charts.jetstack.io"
+  metallb = "https://metallb.github.io/metallb"
+  metrics-server = "https://kubernetes-sigs.github.io/metrics-server/"
+  prometheus-community = "https://prometheus-community.github.io/helm-charts"
+
+[apps]
+
+  [apps.metallb]
+    namespace = "metallb-system"
+    enabled = true
+    chart = "metallb/metallb"
+    version = "0.14.8"
+    # valuesFile = "etc/kind/metallb.yaml"
+    test = false # run the tests when this release is installed for the first time only
+    protected = false
+    priority= -10
+    wait = true
+
+  [apps.ingress-nginx]
+    namespace = "ingress-nginx"
+    enabled = true
+    chart = "ingress-nginx/ingress-nginx"
+    version = "4.11.3"
+    # valuesFile = "etc/kind/ingress-nginx.yaml"
+    test = false # run the tests when this release is installed for the first time only
+    protected = false
+    priority= -9
+    wait = true
+
+  [apps.cert-manager]
+    namespace = "cert-manager"
+    enabled = true
+    chart = "jetstack/cert-manager"
+    version = "1.16.1"
+    valuesFile = "$DOTFILES_DIR/etc/kind/cert-manager.yaml"
+    test = false # run the tests when this release is installed for the first time only
+    protected = false
+    priority= -8
+    wait = true
+
+    [apps.metrics-server]
+    namespace = "monitoring"
+    enabled = true
+    chart = "metrics-server/metrics-server"
+    version = "3.12.2"
+    valuesFile = "$DOTFILES_DIR/etc/kind/metrics-server.yaml"
+    test = false # run the tests when this release is installed for the first time only
+    protected = false
+    priority= -7  # Should be run after cert-manager is installed
+    wait = true
+
+    [apps.prometheus]
+    namespace = "monitoring"
+    enabled = true
+    chart = "prometheus-community/kube-prometheus-stack"
+    version = "66.1.0"
+    valuesFile = "$DOTFILES_DIR/etc/kind/kube-prometheus-stack.yaml"
+    test = false # run the tests when this release is installed for the first time only
+    protected = false
+    priority= -5
+    wait = true
