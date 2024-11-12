@@ -5,14 +5,14 @@ prometheus:
       cert-manager.io/cluster-issuer: mkcert-issuer
     ingressClassName: nginx
     hosts:
-      - prometheus.example
+      - prometheus.$LOCAL_DOMAIN
     paths:
       - /
     pathType: ImplementationSpecific
     tls:
     - secretName: prometheus-general-tls
       hosts:
-      - prometheus.example
+      - prometheus.$LOCAL_DOMAIN
 
 grafana:
   ingress:
@@ -21,14 +21,14 @@ grafana:
       cert-manager.io/cluster-issuer: mkcert-issuer
     ingressClassName: nginx
     hosts:
-      - grafana.example
+      - grafana.$LOCAL_DOMAIN
     paths:
       - /
     pathType: ImplementationSpecific
     tls:
     - secretName: grafana-general-tls
       hosts:
-      - grafana.example
+      - grafana.$LOCAL_DOMAIN
 
 alertmanager:
   ingress:
@@ -37,14 +37,14 @@ alertmanager:
       cert-manager.io/cluster-issuer: mkcert-issuer
     ingressClassName: nginx
     hosts:
-      - alertmanager.example
+      - alertmanager.$LOCAL_DOMAIN
     paths:
       - /
     pathType: ImplementationSpecific
     tls:
     - secretName: alertmanager-general-tls
       hosts:
-      - alertmanager.example
+      - alertmanager.$LOCAL_DOMAIN
 
 # prometheus-node-exporter:
 #   service:
