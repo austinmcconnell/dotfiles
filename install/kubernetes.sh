@@ -144,7 +144,7 @@ configure_metallb() {
         echo "IPAddressPool and L2Advertisement already created"
     else
         SUBNET=$(docker network inspect kind | jq --raw-output '.[0].IPAM.Config[1].Subnet') \
-            yq '(. | select(.kind == "IPAddressPool") | .spec.addresses.[0]) = strenv(SUBNET)' etc/kind/metallb-ipaddresspool.yaml |
+            yq '(. | select(.kind == "IPAddressPool") | .spec.addresses.[0]) = strenv(SUBNET)' etc/kind/manifests/metallb-ipaddresspool.yaml |
             kubectl apply -f -
     fi
 }
@@ -164,7 +164,7 @@ configure_cert_manager() {
             --cert "$(mkcert -CAROOT)"/rootCA.pem --namespace cert-manager
 
         # Tell cert-manager to use this to issue certificates
-        kubectl apply -f "$DOTFILES_DIR/etc/kind/cert-manager-cluster-issuer.yaml"
+        kubectl apply -f "$DOTFILES_DIR/etc/kind/manifests/cert-manager-cluster-issuer.yaml"
     fi
 }
 
