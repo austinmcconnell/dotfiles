@@ -77,3 +77,8 @@ repos:
     rev: v0.42.0
     hooks:
       - id: markdownlint-fix
+  - repo: https://github.com/ComPWA/taplo-pre-commit
+    rev: v0.9.3
+    hooks:
+      - id: taplo-format
+      - id: taplo-lint
