@@ -1,9 +1,9 @@
-context= "cluster-infrastructure"
+context = "cluster-infrastructure"
 
 [settings]
   kubeContext = "kind-kind"
   reverseDelete = true # reverse the priorities on delete
-  globalMaxHistory= 5
+  globalMaxHistory = 5
 
 [namespaces]
   [namespaces.cert-manager]
@@ -29,7 +29,7 @@ context= "cluster-infrastructure"
     # valuesFile = "etc/kind/metallb.yaml"
     test = false # run the tests when this release is installed for the first time only
     protected = false
-    priority= -10
+    priority = -10
     wait = true
 
   [apps.ingress-nginx]
@@ -40,7 +40,7 @@ context= "cluster-infrastructure"
     # valuesFile = "etc/kind/ingress-nginx.yaml"
     test = false # run the tests when this release is installed for the first time only
     protected = false
-    priority= -9
+    priority = -9
     wait = true
 
   [apps.cert-manager]
@@ -51,10 +51,10 @@ context= "cluster-infrastructure"
     valuesFile = "$DOTFILES_DIR/etc/kind/values/cert-manager.yaml"
     test = false # run the tests when this release is installed for the first time only
     protected = false
-    priority= -8
+    priority = -8
     wait = true
 
-    [apps.metrics-server]
+  [apps.metrics-server]
     namespace = "monitoring"
     enabled = true
     chart = "metrics-server/metrics-server"
@@ -62,10 +62,10 @@ context= "cluster-infrastructure"
     valuesFile = "$DOTFILES_DIR/etc/kind/values/metrics-server.yaml"
     test = false # run the tests when this release is installed for the first time only
     protected = false
-    priority= -7  # Should be run after cert-manager is installed
+    priority = -7 # Should be run after cert-manager is installed
     wait = true
 
-    [apps.prometheus]
+  [apps.prometheus]
     namespace = "monitoring"
     enabled = true
     chart = "prometheus-community/kube-prometheus-stack"
@@ -73,5 +73,5 @@ context= "cluster-infrastructure"
     valuesFile = "$DOTFILES_DIR/etc/kind/values/kube-prometheus-stack.yaml"
     test = false # run the tests when this release is installed for the first time only
     protected = false
-    priority= -5
+    priority = -5
     wait = true
