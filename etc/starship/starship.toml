@@ -18,58 +18,60 @@ $character"""
 
 
 [aws]
-disabled = true
+  disabled = true
 
 [battery]
-charging_symbol = '⚡️ '
+  charging_symbol = '⚡️ '
 
-[[battery.display]]
-threshold = 10
-style = 'bold red'
-discharging_symbol = '💀 '
+  [[battery.display]]
+    threshold = 10
+    style = 'bold red'
+    discharging_symbol = '💀 '
 
-[[battery.display]]
-threshold = 30
-style = 'bold yellow'
+  [[battery.display]]
+    threshold = 30
+    style = 'bold yellow'
 
 [character]
-success_symbol = '[➜](bold green)'
-error_symbol = '[✗](bold red)'
-vimcmd_symbol = '[V](bold green) '
+  success_symbol = '[➜](bold green)'
+  error_symbol = '[✗](bold red)'
+  vimcmd_symbol = '[V](bold green) '
 
 [directory]
-truncation_length = 8
+  truncation_length = 8
 
 [direnv]
-disabled = false
+  disabled = false
 
 [gcloud]
-disabled = true
+  disabled = true
 
 [git_metrics]
-disabled = false
+  disabled = false
 
 [kubernetes]
-disabled = false
-# detect_files = ['configmap.yaml', 'deployment.yaml', 'hpa.yaml', 'ingress.yaml', 'jobs.yaml', 'secret.yaml', 'service.yaml']
-# detect_folders = ['helm', 'charts', 'k8s', '.k8s']
-detect_env_vars = ['SHOW_KUBERNETES_INFO']  # detect_files, detect_folders, and detect_env_vars should be OR but are acting like AND
-symbol = '󰠳 '
-style = 'cyan bold'
-format = 'on [$symbol$context \($namespace\)]($style) '
-#format ='[$symbol$context( \($namespace\))]($style) in '
-contexts = [
-  { context_pattern = "kind", style = "green bold"},
-  { context_pattern = "development", style = "blue bold"},
-  { context_pattern = "staging", style = "blue bold"},
-  { context_pattern = "n-aaa", style = "yellow bold", symbol = "⚠️ "},
-  { context_pattern = "training", style = "yellow bold", symbol = "⚠️ "},
-  { context_pattern = "production", style = "red bold", symbol = "⚠️ " },
-]
+  disabled = false
+  # detect_files = ['configmap.yaml', 'deployment.yaml', 'hpa.yaml', 'ingress.yaml', 'jobs.yaml', 'secret.yaml', 'service.yaml']
+  # detect_folders = ['helm', 'charts', 'k8s', '.k8s']
+  detect_env_vars = [
+    'SHOW_KUBERNETES_INFO',
+  ] # detect_files, detect_folders, and detect_env_vars should be OR but are acting like AND
+  symbol = '󰠳 '
+  style = 'cyan bold'
+  format = 'on [$symbol$context \($namespace\)]($style) '
+  #format ='[$symbol$context( \($namespace\))]($style) in '
+  contexts = [
+    { context_pattern = "kind", style = "green bold" },
+    { context_pattern = "development", style = "blue bold" },
+    { context_pattern = "staging", style = "blue bold" },
+    { context_pattern = "n-aaa", style = "yellow bold", symbol = "⚠️ " },
+    { context_pattern = "training", style = "yellow bold", symbol = "⚠️ " },
+    { context_pattern = "production", style = "red bold", symbol = "⚠️ " },
+  ]
 
 [package]
-disabled = true
+  disabled = true
 
 [python]
-pyenv_version_name = true
-pyenv_prefix = ''
+  pyenv_version_name = true
+  pyenv_prefix = ''

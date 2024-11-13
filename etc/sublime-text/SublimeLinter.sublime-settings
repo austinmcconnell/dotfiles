@@ -17,6 +17,9 @@
         "terraform": {},
         "hadolint": {
             "args": ["--config", "~/.config/hadolint.yaml"]
+        },
+        "taplo": {
+            "args": ["--config", "~/.dotfiles/etc/taplo/taplo.toml"]
         }
     }
 }

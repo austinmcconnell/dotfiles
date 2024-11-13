@@ -59,6 +59,7 @@ let g:ale_fixers = {
 \   'ruby': ['rubocop'],
 \   'sh': ['shfmt'],
 \   'terraform': ['terraform'],
+\   'toml': ['taplo'],
 \   'yaml': ['prettier'],
 \   'zsh': ['shfmt'],
 \}
@@ -86,6 +87,18 @@ function! FixMdformat(buffer) abort
   return {'command': 'mdformat -'}
 endfunction
 call ale#fix#registry#Add('mdformat', 'FixMdformat', ['markdown'], 'mdformat for markdown')
+
+function! FixTaplo(buffer) abort
+  return {'command': 'taplo format --config ' . $DOTFILES_DIR . '/etc/taplo/taplo.toml -'}
+endfunction
+call ale#fix#registry#Add('taplo', 'FixTaplo', ['toml'], 'taplo for toml')
+
+call ale#linter#Define('toml', {
+\   'name': 'taplo',
+\   'executable': 'taplo',
+\   'command': 'taplo lint --config ' . $DOTFILES_DIR . '/etc/taplo/taplo.toml %t',
+\   'callback': 'ale#handlers#unix#HandleAsError',
+\})
 
 let g:ale_json_jq_options = '--indent 4'
 

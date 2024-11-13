@@ -17,6 +17,12 @@
             "cmd": ["terraform", "fmt", "-"],
             "format_on_save": true,
             "merge_type": "diff"
+        },
+        {
+            "selector": "source.toml",
+            "cmd": ["taplo", "format", "--config", "~/.dotfiles/etc/taplo/taplo.toml", "-"],
+            "format_on_save": true,
+            "merge_type": "diff"
         }
     ]
 }

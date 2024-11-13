@@ -110,3 +110,10 @@ repos:
     hooks:
       - id: codespell
         args: ["--skip", "*.json,*.yaml"]
+  - repo: https://github.com/ComPWA/taplo-pre-commit
+    rev: v0.9.3
+    hooks:
+      - id: taplo-format
+        args: ["--config", "etc/taplo/taplo.toml"]
+      - id: taplo-lint
+        args: ["--config", "etc/taplo/taplo.toml"]
