@@ -29,7 +29,7 @@ awk 'BEGIN {n=0} /-----BEGIN CERTIFICATE-----/,/-----END CERTIFICATE-----/ {prin
 echo -e '\nVerifying certificates...'
 for cert in cert*.pem; do
     echo -e "\n=== $cert ==="
-    openssl x509 -in "$cert" -noout -subject -issuer
+    openssl x509 -in "$cert" -noout -subject -issuer -dates
 done
 
 echo -e '\nVerifying complete chain...'
