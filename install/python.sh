@@ -48,6 +48,7 @@ ln -sfv "$DOTFILES_DIR/scripts/reinitialize_git_repositories.py" ~/projects/scri
 ln -sfv "$DOTFILES_DIR/scripts/sort_git_repos_by_owner.py" ~/projects/scripts
 ln -sfv "$DOTFILES_DIR/scripts/sort_docker_compose.py" ~/projects/scripts
 ln -sfv "$DOTFILES_DIR/scripts/free-space-alert.scpt" ~/projects/scripts
+ln -sfv "$DOTFILES_DIR/scripts/verify-certs.sh" ~/projects/scripts
 
 DEFAULT_PYTHON_VERSION=3.10.6
 
