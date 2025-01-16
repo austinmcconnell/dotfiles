@@ -17,6 +17,7 @@
 - [[Plugins]]
 - [[Registers]]
 - [[Searching]]
+- [[Sorting]]
 - [[Spelling]]
 - [[Substitution]]
 - [[Text Objects]]
