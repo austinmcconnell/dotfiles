@@ -3,6 +3,7 @@
         "indent": 2
     },
     "MD013": {
+        "code_blocks": false,
         "line_length": 100,
         "tables": false
     }
