@@ -26,6 +26,7 @@ path=(
     $DOTFILES_DIR/etc/zsh/functions(N)
     $HOME/go/bin
     $HOME/.rvm/bin
+    $HOME/projects/scripts
     $path
 )
 
