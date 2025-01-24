@@ -54,11 +54,11 @@ install_if_needed() {
     fi
 
     if [ "$install_type" = "personal" ] && [ "$IS_WORK_COMPUTER" = "1" ]; then
-        echo "Skipping $package ($package_type) installation on work computer"
+        echo -e "\033[33m⚠️ Skipping $package ($package_type) installation on work computer\033[0m"
         return 0
     fi
     if [ "$install_type" = "work" ] && [ "$IS_WORK_COMPUTER" = "0" ]; then
-        echo "Skipping $package ($package_type) installation on personal computer"
+        echo -e "\033[33m⚠️ Skipping $package ($package_type) installation on personal computer\033[0m"
         return 0
     fi
 
@@ -83,7 +83,7 @@ install_if_needed() {
         fi
         init_brew_cache
     else
-        echo -e "$package is already installed and up to date"
+        echo -e "\033[32m✓ $package is already installed and up to date\033[0m"
     fi
 }
 
