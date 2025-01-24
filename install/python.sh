@@ -50,6 +50,7 @@ ln -sfv "$DOTFILES_DIR/scripts/sort_docker_compose.py" ~/projects/scripts
 ln -sfv "$DOTFILES_DIR/scripts/free-space-alert.scpt" ~/projects/scripts
 ln -sfv "$DOTFILES_DIR/scripts/verify-certs.sh" ~/projects/scripts
 ln -sfv "$DOTFILES_DIR/scripts/compare-env.sh" ~/projects/scripts
+ln -sfv "$DOTFILES_DIR/scripts/find-command-in-path.sh" ~/projects/scripts
 
 DEFAULT_PYTHON_VERSION=3.10.6
 
