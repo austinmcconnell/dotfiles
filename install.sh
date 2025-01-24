@@ -16,6 +16,27 @@ fi
 
 mkdir -p "$XDG_CONFIG_HOME"
 mkdir -p ~/.repositories
+mkdir -p "$HOME/.extra"
+
+# Check if .env file exists and if IS_WORK_COMPUTER is already set
+if [ ! -f "$HOME/.extra/.env" ] || ! grep -q "^export IS_WORK_COMPUTER=" "$HOME/.extra/.env"; then
+    while true; do
+        read -r -p "Is this script being run on a work computer? (y/n): " yn
+        case $yn in
+        [Yy]*)
+            echo "export IS_WORK_COMPUTER=1" >>"$HOME/.extra/.env"
+            break
+            ;;
+        [Nn]*)
+            echo "export IS_WORK_COMPUTER=0" >>"$HOME/.extra/.env"
+            break
+            ;;
+        *)
+            echo "Please answer yes (y) or no (n)."
+            ;;
+        esac
+    done
+fi
 
 # Package managers & packages
 . "$DOTFILES_DIR/install/git.sh"
