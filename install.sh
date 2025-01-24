@@ -47,6 +47,7 @@ fi
 . "$DOTFILES_DIR/install/python.sh"
 . "$DOTFILES_DIR/install/node.sh"
 . "$DOTFILES_DIR/install/vim.sh"
+. "$DOTFILES_DIR/install/scripts.sh"
 
 touch ~/.hushlogin
 

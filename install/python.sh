@@ -34,7 +34,6 @@ mkdir -p "$XDG_CONFIG_HOME/proselint"
 mkdir -p "$XDG_CONFIG_HOME/mypy"
 mkdir -p "$XDG_CONFIG_HOME/yapf"
 mkdir -p "$XDG_CONFIG_HOME/isort/"
-mkdir -p ~/projects/scripts
 mkdir -p ~/.git-templates
 
 ln -sfv "$DOTFILES_DIR/etc/python/pip.conf" "$XDG_CONFIG_HOME/pip"
@@ -44,13 +43,6 @@ ln -sfv "$DOTFILES_DIR/etc/python/pylintrc" "$XDG_CONFIG_HOME"
 ln -sfv "$DOTFILES_DIR/etc/python/proselint.json" "$XDG_CONFIG_HOME/proselint/config.json"
 ln -sfv "$DOTFILES_DIR/etc/python/mypy" "$XDG_CONFIG_HOME/mypy/config"
 ln -sfv "$DOTFILES_DIR/etc/python/.isort.cfg" "$XDG_CONFIG_HOME/isort/config"
-ln -sfv "$DOTFILES_DIR/scripts/reinitialize_git_repositories.py" ~/projects/scripts
-ln -sfv "$DOTFILES_DIR/scripts/sort_git_repos_by_owner.py" ~/projects/scripts
-ln -sfv "$DOTFILES_DIR/scripts/sort_docker_compose.py" ~/projects/scripts
-ln -sfv "$DOTFILES_DIR/scripts/free-space-alert.scpt" ~/projects/scripts
-ln -sfv "$DOTFILES_DIR/scripts/verify-certs.sh" ~/projects/scripts
-ln -sfv "$DOTFILES_DIR/scripts/compare-env.sh" ~/projects/scripts
-ln -sfv "$DOTFILES_DIR/scripts/find-command-in-path.sh" ~/projects/scripts
 
 DEFAULT_PYTHON_VERSION=3.10.6
 
