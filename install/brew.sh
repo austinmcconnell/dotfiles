@@ -44,6 +44,23 @@ is_package_outdated() {
 install_if_needed() {
     local package=$1
     local package_type=${2:-formula}
+    local install_type="${3:-both}" # Default to 'both' if not specified
+
+    if [ -f "$HOME/.extra/.env" ]; then
+        source "$HOME/.extra/.env"
+    else
+        echo "Error: $HOME/.extra/.env not found. Please run install.sh first."
+        exit 1
+    fi
+
+    if [ "$install_type" = "personal" ] && [ "$IS_WORK_COMPUTER" = "1" ]; then
+        echo "Skipping $package ($package_type) installation on work computer"
+        return 0
+    fi
+    if [ "$install_type" = "work" ] && [ "$IS_WORK_COMPUTER" = "0" ]; then
+        echo "Skipping $package ($package_type) installation on personal computer"
+        return 0
+    fi
 
     if [[ "$CACHE_INITIALIZED" != "true" ]]; then
         init_brew_cache
@@ -66,7 +83,7 @@ install_if_needed() {
         fi
         init_brew_cache
     else
-        echo "$package ($package_type) is already installed and up to date"
+        echo -e "$package is already installed and up to date"
     fi
 }
 
@@ -147,7 +164,7 @@ install_if_needed "httpie" "formula"
 install_if_needed "jq" "formula"
 install_if_needed "k9s" "formula"
 install_if_needed "kubernetes-cli" "formula"
-install_if_needed "mas" "formula"
+install_if_needed "mas" "formula" "personal"
 install_if_needed "nano" "formula"
 install_if_needed "openssl@3" "formula" # Used for compiling (e.g. pyenv building python versions from source)
 install_if_needed "shellcheck" "formula"
@@ -171,16 +188,16 @@ install_if_needed "awscli" "formula"
 
 print_header "Installing casks"
 install_if_needed "alfred" "cask"
-install_if_needed "backuploupe" "cask"
+install_if_needed "backuploupe" "cask" "personal"
 install_if_needed "bartender" "cask"
 install_if_needed "bluesnooze" "cask"
-install_if_needed "calibre" "cask"
-install_if_needed "docker" "cask"
+install_if_needed "calibre" "cask" "personal"
+install_if_needed "docker" "cask" "personal"
 install_if_needed "evernote" "cask"
 install_if_needed "flux" "cask"
 install_if_needed "firefox" "cask"
 install_if_needed "gpg-suite" "cask"
-install_if_needed "hazel" "cask"
+install_if_needed "hazel" "cask" "personal"
 install_if_needed "iterm2" "cask"
 install_if_needed "keepingyouawake" "cask"
 install_if_needed "monitorcontrol" "cask"
@@ -192,14 +209,14 @@ install_if_needed "postico" "cask"
 install_if_needed "postman" "cask"
 install_if_needed "rectangle" "cask"
 install_if_needed "silicon" "cask"
-install_if_needed "slack" "cask"
+install_if_needed "slack" "cask" "personal"
 install_if_needed "spotify" "cask"
 install_if_needed "sublime-text" "cask"
 install_if_needed "tableplus" "cask"
 install_if_needed "the-unarchiver" "cask"
 install_if_needed "vagrant" "cask"
 install_if_needed "via" "cask"
-install_if_needed "viscosity" "cask"
+install_if_needed "viscosity" "cask" "personal"
 install_if_needed "visual-studio-code" "cask"
 install_if_needed "zoom" "cask"
 
