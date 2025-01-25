@@ -234,7 +234,7 @@ install_if_needed "nss" "formula"
 mkcert -install
 
 print_header "Running brew doctor"
-brew doctor
+brew doctor || true
 
 # Add helm charts repository
 print_header "Adding helm charts repositories"
