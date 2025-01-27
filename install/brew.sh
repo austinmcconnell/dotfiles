@@ -131,6 +131,8 @@ ln -sfv "$DOTFILES_DIR/etc/sublime-text/SublimeLinter.sublime-settings" "$HOME/L
 if is-macos; then
     ln -sfv "$DOTFILES_DIR/etc/sublime-text/Default (OSX).sublime-keymap" "$HOME/Library/Application Support/Sublime Text/Packages/User"
 fi
+ln -sfv "$DOTFILES_DIR/etc/visual-studio-code/settings.json" "$HOME"/Library/Application\ Support/Code/User
+ln -sfv "$DOTFILES_DIR/etc/visual-studio-code/keybindings.json" "$HOME"/Library/Application\ Support/Code/User
 
 print_header "Initializing brew cache"
 init_brew_cache

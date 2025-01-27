@@ -1,0 +1,89 @@
+{
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[markdown]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "amazonQ.shareContentWithAWS": false,
+    "amazonQ.telemetry": false,
+    "amazonQ.workspaceIndex": true,
+    "editor.accessibilitySupport": "off",
+    "editor.fontFamily": "'Fira Code', 'Source Code Pro', Menlo, Monaco, 'Courier New', monospace",
+    "editor.fontSize": 14,
+    "editor.formatOnSave": true,
+    "editor.minimap.enabled": false,
+    "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
+    "files.autoSave": "onFocusChange",
+    "files.exclude": {},
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+    "redhat.telemetry.enabled": false,
+    "settingsSync.ignoredExtensions": [
+        "rogalmic.bash-debug",
+        "jetmartin.bats",
+        "mads-hartmann.bash-ide-vscode",
+        "42crunch.vscode-openapi",
+        "aquasecurityofficial.trivy-vulnerability-scanner"
+    ],
+    "terminal.external.osxExec": "Iterm.app",
+    "terminal.integrated.defaultProfile.linux": "zsh",
+    "terminal.integrated.defaultProfile.osx": "zsh",
+    "terminal.integrated.env.osx": {
+        "AUTOENV_ENABLE_LEAVE": null
+    },
+    "terminal.integrated.fontFamily": "'Fira Code'",
+    "terminal.integrated.fontSize": 14,
+    "terminal.integrated.profiles.osx": {
+        "bash": {
+            "args": [
+                "-l"
+            ],
+            "icon": "terminal-bash",
+            "path": "bash"
+        },
+        "zsh": {
+            "path": "/opt/homebrew/bin/zsh"
+        }
+    },
+    "terminal.integrated.tabs.enabled": true,
+    "window.newWindowProfile": "Default",
+    "window.openFoldersInNewWindow": "on",
+    "workbench.colorTheme": "Everforest Dark",
+    "workbench.editor.enablePreview": false,
+    "workbench.editorAssociations": {},
+    "workbench.iconTheme": "vs-seti",
+    "workbench.settings.applyToAllProfiles": [
+        "amazonQ.shareContentWithAWS",
+        "amazonQ.telemetry",
+        "amazonQ.workspaceIndex",
+        "editor.accessibilitySupport",
+        "editor.fontFamily",
+        "editor.fontSize",
+        "editor.formatOnSave",
+        "editor.lineHeight",
+        "editor.minimap.enabled",
+        "editor.renderWhitespace",
+        "editor.trimAutoWhitespace",
+        "explorer.confirmDelete",
+        "explorer.confirmDragAndDrop",
+        "files.autoSave",
+        "files.insertFinalNewline",
+        "files.trimFinalNewlines",
+        "files.trimTrailingWhitespace",
+        "redhat.telemetry.enabled",
+        "terminal.integrated.defaultProfile.linux",
+        "terminal.integrated.defaultProfile.osx",
+        "terminal.integrated.env.osx",
+        "terminal.integrated.fontFamily",
+        "terminal.integrated.fontSize",
+        "terminal.integrated.profiles.osx",
+        "terminal.integrated.tabs.enabled",
+        "workbench.editor.enablePreview",
+        "workbench.iconTheme",
+        "workbench.startupEditor"
+    ],
+    "workbench.startupEditor": "none"
+}
