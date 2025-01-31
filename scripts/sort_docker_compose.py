@@ -71,7 +71,7 @@ def order_dictionary(data, top_keys: list):
 
 for file in args.files:
     with open(file, 'r+') as yamlfile:
-        contents = yaml.load(yamlfile, Loader=yaml.FullLoader)
+        contents = yaml.safe_load(yamlfile)
 
     contents_sorted = order_dictionary(data=contents, top_keys=top_level_key_order)
     yaml.dump(contents_sorted, sort_keys=False)
