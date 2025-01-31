@@ -133,6 +133,7 @@ if is-macos; then
 fi
 ln -sfv "$DOTFILES_DIR/etc/visual-studio-code/settings.json" "$HOME"/Library/Application\ Support/Code/User
 ln -sfv "$DOTFILES_DIR/etc/visual-studio-code/keybindings.json" "$HOME"/Library/Application\ Support/Code/User
+ln -sfv "$DOTFILES_DIR/etc/visual-studio-code/profiles" "$HOME"/Library/Application\ Support/Code/User/profiles
 
 print_header "Initializing brew cache"
 init_brew_cache

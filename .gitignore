@@ -11,3 +11,6 @@ etc/iterm/colorschemes
 **/.obsidian/workspace.json
 **/.obsidian/graph.json
 **/.obsidian/plugins
+
+# VS Code Profiles
+etc/visual-studio-code/profiles/**/globalStorage

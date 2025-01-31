@@ -1,0 +1,360 @@
+[
+    {
+        "identifier": {
+            "id": "arcticicestudio.nord-visual-studio-code",
+            "uuid": "6f35c257-7fd5-4bc2-9cd1-01976589c17a"
+        },
+        "location": {
+            "$mid": 1,
+            "path": "/Users/austin.mcconnell/.vscode/extensions/arcticicestudio.nord-visual-studio-code-0.19.0",
+            "scheme": "file"
+        },
+        "metadata": {
+            "id": "6f35c257-7fd5-4bc2-9cd1-01976589c17a",
+            "installedTimestamp": 1670862155987,
+            "isApplicationScoped": false,
+            "isPreReleaseVersion": false,
+            "preRelease": false,
+            "publisherDisplayName": "arcticicestudio",
+            "publisherId": "d6e09771-ef61-4944-9f28-44e338818618",
+            "targetPlatform": "undefined",
+            "updated": false
+        },
+        "relativeLocation": "arcticicestudio.nord-visual-studio-code-0.19.0",
+        "version": "0.19.0"
+    },
+    {
+        "identifier": {
+            "id": "dunstontc.viml",
+            "uuid": "7bfe5a0b-4cab-40a1-9314-48f86c1d1b4e"
+        },
+        "location": {
+            "$mid": 1,
+            "path": "/Users/austin.mcconnell/.vscode/extensions/dunstontc.viml-0.1.7",
+            "scheme": "file"
+        },
+        "metadata": {
+            "id": "7bfe5a0b-4cab-40a1-9314-48f86c1d1b4e",
+            "installedTimestamp": 1682023994825,
+            "isMachineScoped": true,
+            "isPreReleaseVersion": false,
+            "preRelease": false,
+            "publisherDisplayName": "dunstontc",
+            "publisherId": "564ecb85-8c09-42fc-b2da-902737b2e743",
+            "targetPlatform": "undefined",
+            "updated": false
+        },
+        "relativeLocation": "dunstontc.viml-0.1.7",
+        "version": "0.1.7"
+    },
+    {
+        "identifier": {
+            "id": "mikestead.dotenv",
+            "uuid": "532533c9-a894-4a58-9eee-bbfbe7c06f71"
+        },
+        "location": {
+            "$mid": 1,
+            "path": "/Users/austin.mcconnell/.vscode/extensions/mikestead.dotenv-1.0.1",
+            "scheme": "file"
+        },
+        "metadata": {
+            "id": "532533c9-a894-4a58-9eee-bbfbe7c06f71",
+            "installedTimestamp": 1670862155982,
+            "isApplicationScoped": false,
+            "isPreReleaseVersion": false,
+            "preRelease": false,
+            "publisherDisplayName": "mikestead",
+            "publisherId": "b6aa9b98-56e5-4846-b7d2-600d45fc63fc",
+            "targetPlatform": "undefined",
+            "updated": false
+        },
+        "relativeLocation": "mikestead.dotenv-1.0.1",
+        "version": "1.0.1"
+    },
+    {
+        "identifier": {
+            "id": "redhat.vscode-yaml",
+            "uuid": "2061917f-f76a-458a-8da9-f162de22b97e"
+        },
+        "location": {
+            "$mid": 1,
+            "path": "/Users/austin.mcconnell/.vscode/extensions/redhat.vscode-yaml-1.15.0",
+            "scheme": "file"
+        },
+        "metadata": {
+            "hasPreReleaseVersion": false,
+            "id": "2061917f-f76a-458a-8da9-f162de22b97e",
+            "installedTimestamp": 1730926504686,
+            "isApplicationScoped": false,
+            "isBuiltin": false,
+            "isMachineScoped": false,
+            "isPreReleaseVersion": false,
+            "pinned": false,
+            "preRelease": false,
+            "publisherDisplayName": "Red Hat",
+            "publisherId": "eed56242-9699-4317-8bc7-e9f4b9bdd3ff",
+            "source": "gallery",
+            "targetPlatform": "undefined",
+            "updated": true
+        },
+        "relativeLocation": "redhat.vscode-yaml-1.15.0",
+        "version": "1.15.0"
+    },
+    {
+        "identifier": {
+            "id": "sainnhe.everforest",
+            "uuid": "330982cd-dddd-4939-b9ad-656ce474b089"
+        },
+        "location": {
+            "$mid": 1,
+            "path": "/Users/austin.mcconnell/.vscode/extensions/sainnhe.everforest-0.3.0",
+            "scheme": "file"
+        },
+        "metadata": {
+            "hasPreReleaseVersion": false,
+            "id": "330982cd-dddd-4939-b9ad-656ce474b089",
+            "installedTimestamp": 1710771799247,
+            "isPreReleaseVersion": false,
+            "publisherDisplayName": "sainnhe",
+            "publisherId": "cd5355a7-bbfb-4a47-8f70-727aed458bc8",
+            "targetPlatform": "undefined",
+            "updated": false
+        },
+        "relativeLocation": "sainnhe.everforest-0.3.0",
+        "version": "0.3.0"
+    },
+    {
+        "identifier": {
+            "id": "esbenp.prettier-vscode",
+            "uuid": "96fa4707-6983-4489-b7c5-d5ffdfdcce90"
+        },
+        "location": {
+            "$mid": 1,
+            "path": "/Users/austin.mcconnell/.vscode/extensions/esbenp.prettier-vscode-11.0.0",
+            "scheme": "file"
+        },
+        "metadata": {
+            "hasPreReleaseVersion": false,
+            "id": "96fa4707-6983-4489-b7c5-d5ffdfdcce90",
+            "installedTimestamp": 1730926504686,
+            "isApplicationScoped": false,
+            "isBuiltin": false,
+            "isMachineScoped": true,
+            "isPreReleaseVersion": false,
+            "pinned": false,
+            "preRelease": false,
+            "publisherDisplayName": "Prettier",
+            "publisherId": "d16f4e39-2ffb-44e3-9c0d-79d873570e3a",
+            "source": "gallery",
+            "targetPlatform": "undefined",
+            "updated": true
+        },
+        "relativeLocation": "esbenp.prettier-vscode-11.0.0",
+        "version": "11.0.0"
+    },
+    {
+        "identifier": {
+            "id": "mvllow.rose-pine",
+            "uuid": "6ef63bba-e6b8-4209-b562-9a927f36ae8f"
+        },
+        "location": {
+            "$mid": 1,
+            "path": "/Users/austin.mcconnell/.vscode/extensions/mvllow.rose-pine-2.12.1",
+            "scheme": "file"
+        },
+        "metadata": {
+            "hasPreReleaseVersion": false,
+            "id": "6ef63bba-e6b8-4209-b562-9a927f36ae8f",
+            "installedTimestamp": 1728997600742,
+            "isApplicationScoped": false,
+            "isBuiltin": false,
+            "isMachineScoped": false,
+            "isPreReleaseVersion": false,
+            "pinned": false,
+            "preRelease": false,
+            "publisherDisplayName": "Ros\u00e9 Pine",
+            "publisherId": "dbc69b63-e1da-4022-a0a6-25eee990a29c",
+            "source": "gallery",
+            "targetPlatform": "undefined",
+            "updated": true
+        },
+        "relativeLocation": "mvllow.rose-pine-2.12.1",
+        "version": "2.12.1"
+    },
+    {
+        "identifier": {
+            "id": "tamasfe.even-better-toml",
+            "uuid": "b2215d5f-675e-4a2b-b6ac-1ca737518b78"
+        },
+        "location": {
+            "$mid": 1,
+            "path": "/Users/austin.mcconnell/.vscode/extensions/tamasfe.even-better-toml-0.21.2",
+            "scheme": "file"
+        },
+        "metadata": {
+            "hasPreReleaseVersion": false,
+            "id": "b2215d5f-675e-4a2b-b6ac-1ca737518b78",
+            "installedTimestamp": 1734726651054,
+            "isApplicationScoped": false,
+            "isBuiltin": false,
+            "isMachineScoped": false,
+            "isPreReleaseVersion": false,
+            "pinned": false,
+            "preRelease": false,
+            "publisherDisplayName": "tamasfe",
+            "publisherId": "78c2102e-13a2-49ea-ac79-8d1bbacbbf0e",
+            "source": "gallery",
+            "targetPlatform": "undefined",
+            "updated": true
+        },
+        "relativeLocation": "tamasfe.even-better-toml-0.21.2",
+        "version": "0.21.2"
+    },
+    {
+        "identifier": {
+            "id": "golang.go",
+            "uuid": "d6f6cfea-4b6f-41f4-b571-6ad2ab7918da"
+        },
+        "location": {
+            "$mid": 1,
+            "path": "/Users/austin.mcconnell/.vscode/extensions/golang.go-0.44.0",
+            "scheme": "file"
+        },
+        "metadata": {
+            "hasPreReleaseVersion": false,
+            "id": "d6f6cfea-4b6f-41f4-b571-6ad2ab7918da",
+            "installedTimestamp": 1736175700451,
+            "isApplicationScoped": false,
+            "isBuiltin": false,
+            "isMachineScoped": false,
+            "isPreReleaseVersion": false,
+            "pinned": false,
+            "preRelease": false,
+            "publisherDisplayName": "Go Team at Google",
+            "publisherId": "dbf6ae0a-da75-4167-ac8b-75b4512f2153",
+            "source": "gallery",
+            "targetPlatform": "undefined",
+            "updated": true
+        },
+        "relativeLocation": "golang.go-0.44.0",
+        "version": "0.44.0"
+    },
+    {
+        "identifier": {
+            "id": "timonwong.shellcheck",
+            "uuid": "f95d8fff-f70a-4ae5-bb06-5c47ddbc8fc6"
+        },
+        "location": {
+            "$mid": 1,
+            "path": "/Users/austin.mcconnell/.vscode/extensions/timonwong.shellcheck-0.37.6-darwin-arm64",
+            "scheme": "file"
+        },
+        "metadata": {
+            "hasPreReleaseVersion": false,
+            "id": "f95d8fff-f70a-4ae5-bb06-5c47ddbc8fc6",
+            "installedTimestamp": 1736777826073,
+            "isApplicationScoped": false,
+            "isBuiltin": false,
+            "isMachineScoped": true,
+            "isPreReleaseVersion": false,
+            "pinned": false,
+            "preRelease": false,
+            "publisherDisplayName": "Timon Wong",
+            "publisherId": "04757770-dd50-443e-aae4-e1c7cf9c24f5",
+            "source": "gallery",
+            "targetPlatform": "darwin-arm64",
+            "updated": true
+        },
+        "relativeLocation": "timonwong.shellcheck-0.37.6-darwin-arm64",
+        "version": "0.37.6"
+    },
+    {
+        "identifier": {
+            "id": "davidanson.vscode-markdownlint",
+            "uuid": "daf8b44d-8aae-4da2-80c5-1f770219f643"
+        },
+        "location": {
+            "$mid": 1,
+            "path": "/Users/austin.mcconnell/.vscode/extensions/davidanson.vscode-markdownlint-0.58.2",
+            "scheme": "file"
+        },
+        "metadata": {
+            "hasPreReleaseVersion": false,
+            "id": "daf8b44d-8aae-4da2-80c5-1f770219f643",
+            "installedTimestamp": 1737475134350,
+            "isApplicationScoped": false,
+            "isBuiltin": false,
+            "isMachineScoped": false,
+            "isPreReleaseVersion": false,
+            "pinned": false,
+            "preRelease": false,
+            "publisherDisplayName": "David Anson",
+            "publisherId": "2e4d1cda-6ef0-4e42-a352-ab540afe8ff0",
+            "source": "gallery",
+            "targetPlatform": "undefined",
+            "updated": true
+        },
+        "relativeLocation": "davidanson.vscode-markdownlint-0.58.2",
+        "version": "0.58.2"
+    },
+    {
+        "identifier": {
+            "id": "hashicorp.terraform",
+            "uuid": "4a23294b-fd16-4c51-9759-da9936474cf8"
+        },
+        "location": {
+            "$mid": 1,
+            "path": "/Users/austin.mcconnell/.vscode/extensions/hashicorp.terraform-2.34.3-darwin-arm64",
+            "scheme": "file"
+        },
+        "metadata": {
+            "hasPreReleaseVersion": false,
+            "id": "4a23294b-fd16-4c51-9759-da9936474cf8",
+            "installedTimestamp": 1737662986889,
+            "isApplicationScoped": false,
+            "isBuiltin": false,
+            "isMachineScoped": true,
+            "isPreReleaseVersion": false,
+            "pinned": false,
+            "preRelease": false,
+            "publisherDisplayName": "HashiCorp",
+            "publisherId": "a8dd781d-e144-400a-943c-417165981be2",
+            "source": "gallery",
+            "targetPlatform": "darwin-arm64",
+            "updated": true
+        },
+        "relativeLocation": "hashicorp.terraform-2.34.3-darwin-arm64",
+        "version": "2.34.3"
+    },
+    {
+        "identifier": {
+            "id": "pkief.material-icon-theme",
+            "uuid": "5db78037-f674-459f-a236-db622c427c5b"
+        },
+        "location": {
+            "$mid": 1,
+            "external": "file:///Users/austin.mcconnell/.vscode/extensions/pkief.material-icon-theme-5.19.0",
+            "fsPath": "/Users/austin.mcconnell/.vscode/extensions/pkief.material-icon-theme-5.19.0",
+            "path": "/Users/austin.mcconnell/.vscode/extensions/pkief.material-icon-theme-5.19.0",
+            "scheme": "file"
+        },
+        "metadata": {
+            "hasPreReleaseVersion": false,
+            "id": "5db78037-f674-459f-a236-db622c427c5b",
+            "installedTimestamp": 1737989456847,
+            "isApplicationScoped": false,
+            "isBuiltin": false,
+            "isMachineScoped": false,
+            "isPreReleaseVersion": false,
+            "pinned": false,
+            "preRelease": false,
+            "publisherDisplayName": "Philipp Kief",
+            "publisherId": "f9e5bc2f-fea1-4075-917f-d83e01e69f56",
+            "source": "gallery",
+            "targetPlatform": "undefined",
+            "updated": true
+        },
+        "relativeLocation": "pkief.material-icon-theme-5.19.0",
+        "version": "5.19.0"
+    }
+]
