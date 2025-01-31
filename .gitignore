@@ -8,5 +8,5 @@ Session.vim
 etc/iterm/colorschemes
 
 # Obsidian
-Obsidian/**/workspace.json
-Obsidian/**/graph.json
+**/.obsidian/workspace.json
+**/.obsidian/graph.json
