@@ -41,7 +41,7 @@ for project in projects:
         repo_name = fetch_url.split('/')[-1]
     else:
         print(f'URL: {fetch_url}')
-        raise Exception('Unknown url scheme')
+        raise RuntimeError('Unknown url scheme')
     print(f'Owner: {repo_owner}\tName: {repo_name}')
 
     owner_dir = REPOSITORIES_DIR / repo_owner
