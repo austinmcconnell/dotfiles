@@ -345,8 +345,6 @@
         },
         "location": {
             "$mid": 1,
-            "external": "file:///Users/austin.mcconnell/.vscode/extensions/amazonwebservices.amazon-q-vscode-1.45.0",
-            "fsPath": "/Users/austin.mcconnell/.vscode/extensions/amazonwebservices.amazon-q-vscode-1.45.0",
             "path": "/Users/austin.mcconnell/.vscode/extensions/amazonwebservices.amazon-q-vscode-1.45.0",
             "scheme": "file"
         },
@@ -368,5 +366,32 @@
         },
         "relativeLocation": "amazonwebservices.amazon-q-vscode-1.45.0",
         "version": "1.45.0"
+    },
+    {
+        "identifier": {
+            "id": "foxundermoon.shell-format",
+            "uuid": "5fb19573-2183-4cf2-b53d-0fb869dae7ae"
+        },
+        "location": {
+            "$mid": 1,
+            "external": "file:///Users/austin.mcconnell/.vscode/extensions/foxundermoon.shell-format-7.2.5",
+            "fsPath": "/Users/austin.mcconnell/.vscode/extensions/foxundermoon.shell-format-7.2.5",
+            "path": "/Users/austin.mcconnell/.vscode/extensions/foxundermoon.shell-format-7.2.5",
+            "scheme": "file"
+        },
+        "metadata": {
+            "hasPreReleaseVersion": false,
+            "id": "5fb19573-2183-4cf2-b53d-0fb869dae7ae",
+            "installedTimestamp": 1738377145303,
+            "isPreReleaseVersion": false,
+            "pinned": false,
+            "publisherDisplayName": "foxundermoon",
+            "publisherId": "c5bb2216-aaba-47a1-962e-5561e40c03c5",
+            "source": "gallery",
+            "targetPlatform": "undefined",
+            "updated": false
+        },
+        "relativeLocation": "foxundermoon.shell-format-7.2.5",
+        "version": "7.2.5"
     }
 ]
