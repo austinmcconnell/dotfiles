@@ -1,9 +1,18 @@
 {
+    "[bash]": {
+        "editor.defaultFormatter": "foxundermoon.shell-format"
+    },
     "[jsonc]": {
         "editor.defaultFormatter": "vscode.json-language-features"
     },
     "[markdown]": {
+        "editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
+    },
+    "[yaml]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[zsh]": {
+        "editor.defaultFormatter": "foxundermoon.shell-format"
     },
     "amazonQ.shareContentWithAWS": false,
     "amazonQ.telemetry": false,

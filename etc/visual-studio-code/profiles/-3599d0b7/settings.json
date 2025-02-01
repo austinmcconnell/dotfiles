@@ -1,6 +1,6 @@
 {
-    "[markdown]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "[python]": {
+        "editor.defaultFormatter": "eeyore.yapf"
     },
     "files.exclude": {
         "**/__pycache__": true
