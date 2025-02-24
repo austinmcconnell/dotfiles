@@ -40,5 +40,11 @@ fi
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init - --no-rehash zsh)"
 
+# chtf
+CHTF_AUTO_INSTALL="yes" # yes/no/ask
+if [[ -f "/opt/homebrew/share/chtf/chtf.sh" ]]; then
+    source "/opt/homebrew/share/chtf/chtf.sh"
+fi
+
 # done profiling
 [[ ${ZSH_PROFILE_RC:-0} -eq 0 ]] || { unset ZSH_PROFILE_RC && zprof }
