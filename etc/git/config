@@ -25,6 +25,8 @@
     history = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
     # Undo last commit and keep changes staged
     undo = "reset --soft HEAD^"
+    # Stash changes as a WIP commit
+    wip = "!git add . && git commit -m 'wip' --no-verify"
     # Select modified files to edit
     edit = "!git ls-files --modified --other --exclude-standard | sort --unique | fzf --exit-0 --multi --preview 'git diff --color {}' | xargs --no-run-if-empty --open-tty $EDITOR"
     edit-all = "!git ls-files --modified --other --exclude-standard | sort --unique | xargs --no-run-if-empty --open-tty --delimiter \"\n\" $EDITOR"
