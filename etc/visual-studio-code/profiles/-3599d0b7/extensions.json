@@ -95,116 +95,6 @@
     },
     {
         "identifier": {
-            "id": "ms-python.autopep8",
-            "uuid": "5a21b0c3-89ca-46dd-8ada-658518fb94a5"
-        },
-        "location": {
-            "$mid": 1,
-            "path": "/Users/austin.mcconnell/.vscode/extensions/ms-python.autopep8-2024.0.0",
-            "scheme": "file"
-        },
-        "metadata": {
-            "hasPreReleaseVersion": false,
-            "id": "5a21b0c3-89ca-46dd-8ada-658518fb94a5",
-            "installedTimestamp": 1712583289078,
-            "isApplicationScoped": false,
-            "isPreReleaseVersion": false,
-            "pinned": false,
-            "preRelease": false,
-            "publisherDisplayName": "Microsoft",
-            "publisherId": "998b010b-e2af-44a5-a6cd-0b5fd3b9b6f8",
-            "source": "gallery",
-            "targetPlatform": "undefined",
-            "updated": true
-        },
-        "relativeLocation": "ms-python.autopep8-2024.0.0",
-        "version": "2024.0.0"
-    },
-    {
-        "identifier": {
-            "id": "aquasecurityofficial.trivy-vulnerability-scanner",
-            "uuid": "2f0bcde6-ddb2-45d4-8dcb-1046c4694717"
-        },
-        "location": {
-            "$mid": 1,
-            "path": "/Users/austin.mcconnell/.vscode/extensions/aquasecurityofficial.trivy-vulnerability-scanner-0.7.1",
-            "scheme": "file"
-        },
-        "metadata": {
-            "hasPreReleaseVersion": false,
-            "id": "2f0bcde6-ddb2-45d4-8dcb-1046c4694717",
-            "installedTimestamp": 1712610191628,
-            "isPreReleaseVersion": false,
-            "pinned": false,
-            "publisherDisplayName": "Aqua Security",
-            "publisherId": "25caa913-f051-42de-bb1c-c8e47ad81417",
-            "source": "gallery",
-            "targetPlatform": "undefined",
-            "updated": false
-        },
-        "relativeLocation": "aquasecurityofficial.trivy-vulnerability-scanner-0.7.1",
-        "version": "0.7.1"
-    },
-    {
-        "identifier": {
-            "id": "redhat.vscode-yaml",
-            "uuid": "2061917f-f76a-458a-8da9-f162de22b97e"
-        },
-        "location": {
-            "$mid": 1,
-            "path": "/Users/austin.mcconnell/.vscode/extensions/redhat.vscode-yaml-1.15.0",
-            "scheme": "file"
-        },
-        "metadata": {
-            "hasPreReleaseVersion": false,
-            "id": "2061917f-f76a-458a-8da9-f162de22b97e",
-            "installedTimestamp": 1730926504737,
-            "isApplicationScoped": false,
-            "isBuiltin": false,
-            "isMachineScoped": false,
-            "isPreReleaseVersion": false,
-            "pinned": false,
-            "preRelease": false,
-            "publisherDisplayName": "Red Hat",
-            "publisherId": "eed56242-9699-4317-8bc7-e9f4b9bdd3ff",
-            "source": "gallery",
-            "targetPlatform": "undefined",
-            "updated": true
-        },
-        "relativeLocation": "redhat.vscode-yaml-1.15.0",
-        "version": "1.15.0"
-    },
-    {
-        "identifier": {
-            "id": "ms-python.pylint",
-            "uuid": "8dc47276-5882-4c5f-903d-7eef7b9d1584"
-        },
-        "location": {
-            "$mid": 1,
-            "path": "/Users/austin.mcconnell/.vscode/extensions/ms-python.pylint-2024.0.0",
-            "scheme": "file"
-        },
-        "metadata": {
-            "hasPreReleaseVersion": false,
-            "id": "8dc47276-5882-4c5f-903d-7eef7b9d1584",
-            "installedTimestamp": 1728569296808,
-            "isApplicationScoped": false,
-            "isBuiltin": false,
-            "isMachineScoped": true,
-            "isPreReleaseVersion": false,
-            "pinned": false,
-            "preRelease": false,
-            "publisherDisplayName": "Microsoft",
-            "publisherId": "998b010b-e2af-44a5-a6cd-0b5fd3b9b6f8",
-            "source": "gallery",
-            "targetPlatform": "undefined",
-            "updated": true
-        },
-        "relativeLocation": "ms-python.pylint-2024.0.0",
-        "version": "2024.0.0"
-    },
-    {
-        "identifier": {
             "id": "mvllow.rose-pine",
             "uuid": "6ef63bba-e6b8-4209-b562-9a927f36ae8f"
         },
@@ -260,64 +150,6 @@
         },
         "relativeLocation": "bierner.markdown-mermaid-1.27.0",
         "version": "1.27.0"
-    },
-    {
-        "identifier": {
-            "id": "ms-vscode-remote.remote-containers",
-            "uuid": "93ce222b-5f6f-49b7-9ab1-a0463c6238df"
-        },
-        "location": {
-            "$mid": 1,
-            "path": "/Users/austin.mcconnell/.vscode/extensions/ms-vscode-remote.remote-containers-0.394.0",
-            "scheme": "file"
-        },
-        "metadata": {
-            "hasPreReleaseVersion": false,
-            "id": "93ce222b-5f6f-49b7-9ab1-a0463c6238df",
-            "installedTimestamp": 1733950778735,
-            "isApplicationScoped": false,
-            "isBuiltin": false,
-            "isMachineScoped": false,
-            "isPreReleaseVersion": false,
-            "pinned": false,
-            "preRelease": false,
-            "publisherDisplayName": "Microsoft",
-            "publisherId": "ac9410a2-0d75-40ec-90de-b59bb705801d",
-            "source": "gallery",
-            "targetPlatform": "undefined",
-            "updated": true
-        },
-        "relativeLocation": "ms-vscode-remote.remote-containers-0.394.0",
-        "version": "0.394.0"
-    },
-    {
-        "identifier": {
-            "id": "ms-python.debugpy",
-            "uuid": "4bd5d2c9-9d65-401a-b0b2-7498d9f17615"
-        },
-        "location": {
-            "$mid": 1,
-            "path": "/Users/austin.mcconnell/.vscode/extensions/ms-python.debugpy-2024.14.0-darwin-arm64",
-            "scheme": "file"
-        },
-        "metadata": {
-            "hasPreReleaseVersion": false,
-            "id": "4bd5d2c9-9d65-401a-b0b2-7498d9f17615",
-            "installedTimestamp": 1733950779732,
-            "isApplicationScoped": false,
-            "isBuiltin": false,
-            "isMachineScoped": false,
-            "isPreReleaseVersion": false,
-            "pinned": false,
-            "preRelease": false,
-            "publisherDisplayName": "Microsoft",
-            "publisherId": "998b010b-e2af-44a5-a6cd-0b5fd3b9b6f8",
-            "source": "gallery",
-            "targetPlatform": "darwin-arm64",
-            "updated": true
-        },
-        "relativeLocation": "ms-python.debugpy-2024.14.0-darwin-arm64",
-        "version": "2024.14.0"
     },
     {
         "identifier": {
@@ -408,118 +240,6 @@
     },
     {
         "identifier": {
-            "id": "ms-python.python",
-            "uuid": "f1f59ae4-9318-4f3c-a9b5-81b2eaa5f8a5"
-        },
-        "location": {
-            "$mid": 1,
-            "path": "/Users/austin.mcconnell/.vscode/extensions/ms-python.python-2024.22.2-darwin-arm64",
-            "scheme": "file"
-        },
-        "metadata": {
-            "hasPreReleaseVersion": false,
-            "id": "f1f59ae4-9318-4f3c-a9b5-81b2eaa5f8a5",
-            "installedTimestamp": 1736526947394,
-            "isApplicationScoped": false,
-            "isBuiltin": false,
-            "isMachineScoped": false,
-            "isPreReleaseVersion": false,
-            "pinned": false,
-            "preRelease": false,
-            "publisherDisplayName": "Microsoft",
-            "publisherId": "998b010b-e2af-44a5-a6cd-0b5fd3b9b6f8",
-            "source": "gallery",
-            "targetPlatform": "darwin-arm64",
-            "updated": true
-        },
-        "relativeLocation": "ms-python.python-2024.22.2-darwin-arm64",
-        "version": "2024.22.2"
-    },
-    {
-        "identifier": {
-            "id": "timonwong.shellcheck",
-            "uuid": "f95d8fff-f70a-4ae5-bb06-5c47ddbc8fc6"
-        },
-        "location": {
-            "$mid": 1,
-            "path": "/Users/austin.mcconnell/.vscode/extensions/timonwong.shellcheck-0.37.6-darwin-arm64",
-            "scheme": "file"
-        },
-        "metadata": {
-            "hasPreReleaseVersion": false,
-            "id": "f95d8fff-f70a-4ae5-bb06-5c47ddbc8fc6",
-            "installedTimestamp": 1736777826070,
-            "isApplicationScoped": false,
-            "isBuiltin": false,
-            "isMachineScoped": true,
-            "isPreReleaseVersion": false,
-            "pinned": false,
-            "preRelease": false,
-            "publisherDisplayName": "Timon Wong",
-            "publisherId": "04757770-dd50-443e-aae4-e1c7cf9c24f5",
-            "source": "gallery",
-            "targetPlatform": "darwin-arm64",
-            "updated": true
-        },
-        "relativeLocation": "timonwong.shellcheck-0.37.6-darwin-arm64",
-        "version": "0.37.6"
-    },
-    {
-        "identifier": {
-            "id": "github.copilot-chat",
-            "uuid": "7ec7d6e6-b89e-4cc5-a59b-d6c4d238246f"
-        },
-        "location": {
-            "$mid": 1,
-            "path": "/Users/austin.mcconnell/.vscode/extensions/github.copilot-chat-0.23.2",
-            "scheme": "file"
-        },
-        "metadata": {
-            "hasPreReleaseVersion": false,
-            "id": "7ec7d6e6-b89e-4cc5-a59b-d6c4d238246f",
-            "installedTimestamp": 1737214976552,
-            "isPreReleaseVersion": false,
-            "pinned": false,
-            "publisherDisplayName": "GitHub",
-            "publisherId": "7c1c19cd-78eb-4dfb-8999-99caf7679002",
-            "source": "gallery",
-            "targetPlatform": "undefined",
-            "updated": false
-        },
-        "relativeLocation": "github.copilot-chat-0.23.2",
-        "version": "0.23.2"
-    },
-    {
-        "identifier": {
-            "id": "davidanson.vscode-markdownlint",
-            "uuid": "daf8b44d-8aae-4da2-80c5-1f770219f643"
-        },
-        "location": {
-            "$mid": 1,
-            "path": "/Users/austin.mcconnell/.vscode/extensions/davidanson.vscode-markdownlint-0.58.2",
-            "scheme": "file"
-        },
-        "metadata": {
-            "hasPreReleaseVersion": false,
-            "id": "daf8b44d-8aae-4da2-80c5-1f770219f643",
-            "installedTimestamp": 1737475134348,
-            "isApplicationScoped": false,
-            "isBuiltin": false,
-            "isMachineScoped": false,
-            "isPreReleaseVersion": false,
-            "pinned": false,
-            "preRelease": false,
-            "publisherDisplayName": "David Anson",
-            "publisherId": "2e4d1cda-6ef0-4e42-a352-ab540afe8ff0",
-            "source": "gallery",
-            "targetPlatform": "undefined",
-            "updated": true
-        },
-        "relativeLocation": "davidanson.vscode-markdownlint-0.58.2",
-        "version": "0.58.2"
-    },
-    {
-        "identifier": {
             "id": "hashicorp.terraform",
             "uuid": "4a23294b-fd16-4c51-9759-da9936474cf8"
         },
@@ -578,71 +298,11 @@
     },
     {
         "identifier": {
-            "id": "ms-kubernetes-tools.vscode-kubernetes-tools",
-            "uuid": "4837e4f3-1b01-4732-b1a6-daa57ef64cab"
-        },
-        "location": {
-            "$mid": 1,
-            "path": "/Users/austin.mcconnell/.vscode/extensions/ms-kubernetes-tools.vscode-kubernetes-tools-1.3.19",
-            "scheme": "file"
-        },
-        "metadata": {
-            "hasPreReleaseVersion": false,
-            "id": "4837e4f3-1b01-4732-b1a6-daa57ef64cab",
-            "installedTimestamp": 1738032660096,
-            "isApplicationScoped": false,
-            "isBuiltin": false,
-            "isMachineScoped": false,
-            "isPreReleaseVersion": false,
-            "pinned": false,
-            "preRelease": false,
-            "publisherDisplayName": "Microsoft",
-            "publisherId": "d5b943eb-b968-4c2d-b241-a117ce9c3961",
-            "source": "gallery",
-            "targetPlatform": "undefined",
-            "updated": true
-        },
-        "relativeLocation": "ms-kubernetes-tools.vscode-kubernetes-tools-1.3.19",
-        "version": "1.3.19"
-    },
-    {
-        "identifier": {
-            "id": "github.copilot",
-            "uuid": "23c4aeee-f844-43cd-b53e-1113e483f1a6"
-        },
-        "location": {
-            "$mid": 1,
-            "path": "/Users/austin.mcconnell/.vscode/extensions/github.copilot-1.261.0",
-            "scheme": "file"
-        },
-        "metadata": {
-            "hasPreReleaseVersion": false,
-            "id": "23c4aeee-f844-43cd-b53e-1113e483f1a6",
-            "installedTimestamp": 1738253978187,
-            "isApplicationScoped": false,
-            "isBuiltin": false,
-            "isMachineScoped": false,
-            "isPreReleaseVersion": false,
-            "pinned": false,
-            "preRelease": false,
-            "publisherDisplayName": "GitHub",
-            "publisherId": "7c1c19cd-78eb-4dfb-8999-99caf7679002",
-            "source": "gallery",
-            "targetPlatform": "undefined",
-            "updated": true
-        },
-        "relativeLocation": "github.copilot-1.261.0",
-        "version": "1.261.0"
-    },
-    {
-        "identifier": {
             "id": "amazonwebservices.amazon-q-vscode",
             "uuid": "ca77fcb4-e1aa-4cab-ba31-cbdd9436df50"
         },
         "location": {
             "$mid": 1,
-            "external": "file:///Users/austin.mcconnell/.vscode/extensions/amazonwebservices.amazon-q-vscode-1.45.0",
-            "fsPath": "/Users/austin.mcconnell/.vscode/extensions/amazonwebservices.amazon-q-vscode-1.45.0",
             "path": "/Users/austin.mcconnell/.vscode/extensions/amazonwebservices.amazon-q-vscode-1.45.0",
             "scheme": "file"
         },
@@ -664,5 +324,290 @@
         },
         "relativeLocation": "amazonwebservices.amazon-q-vscode-1.45.0",
         "version": "1.45.0"
+    },
+    {
+        "identifier": {
+            "id": "ms-kubernetes-tools.vscode-kubernetes-tools",
+            "uuid": "4837e4f3-1b01-4732-b1a6-daa57ef64cab"
+        },
+        "location": {
+            "$mid": 1,
+            "path": "/Users/austin.mcconnell/.vscode/extensions/ms-kubernetes-tools.vscode-kubernetes-tools-1.3.20",
+            "scheme": "file"
+        },
+        "metadata": {
+            "hasPreReleaseVersion": false,
+            "id": "4837e4f3-1b01-4732-b1a6-daa57ef64cab",
+            "installedTimestamp": 1738603851020,
+            "isApplicationScoped": false,
+            "isBuiltin": false,
+            "isMachineScoped": false,
+            "isPreReleaseVersion": false,
+            "pinned": false,
+            "preRelease": false,
+            "publisherDisplayName": "Microsoft",
+            "publisherId": "d5b943eb-b968-4c2d-b241-a117ce9c3961",
+            "source": "gallery",
+            "targetPlatform": "undefined",
+            "updated": true
+        },
+        "relativeLocation": "ms-kubernetes-tools.vscode-kubernetes-tools-1.3.20",
+        "version": "1.3.20"
+    },
+    {
+        "identifier": {
+            "id": "ms-vscode-remote.remote-containers",
+            "uuid": "93ce222b-5f6f-49b7-9ab1-a0463c6238df"
+        },
+        "location": {
+            "$mid": 1,
+            "path": "/Users/austin.mcconnell/.vscode/extensions/ms-vscode-remote.remote-containers-0.397.0",
+            "scheme": "file"
+        },
+        "metadata": {
+            "hasPreReleaseVersion": false,
+            "id": "93ce222b-5f6f-49b7-9ab1-a0463c6238df",
+            "installedTimestamp": 1738864111965,
+            "isApplicationScoped": false,
+            "isBuiltin": false,
+            "isMachineScoped": false,
+            "isPreReleaseVersion": false,
+            "pinned": false,
+            "preRelease": false,
+            "publisherDisplayName": "Microsoft",
+            "publisherId": "ac9410a2-0d75-40ec-90de-b59bb705801d",
+            "source": "gallery",
+            "targetPlatform": "undefined",
+            "updated": true
+        },
+        "relativeLocation": "ms-vscode-remote.remote-containers-0.397.0",
+        "version": "0.397.0"
+    },
+    {
+        "identifier": {
+            "id": "redhat.vscode-yaml"
+        },
+        "location": {
+            "$mid": 1,
+            "path": "/Users/austin.mcconnell/.vscode/extensions/redhat.vscode-yaml-1.16.0",
+            "scheme": "file"
+        },
+        "metadata": {
+            "hasPreReleaseVersion": false,
+            "id": "2061917f-f76a-458a-8da9-f162de22b97e",
+            "installedTimestamp": 1739198732899,
+            "isApplicationScoped": false,
+            "isBuiltin": false,
+            "isMachineScoped": false,
+            "isPreReleaseVersion": false,
+            "pinned": false,
+            "preRelease": false,
+            "publisherDisplayName": "Red Hat",
+            "publisherId": "eed56242-9699-4317-8bc7-e9f4b9bdd3ff",
+            "source": "gallery",
+            "targetPlatform": "undefined",
+            "updated": true
+        },
+        "relativeLocation": "redhat.vscode-yaml-1.16.0",
+        "version": "1.16.0"
+    },
+    {
+        "identifier": {
+            "id": "ms-python.python"
+        },
+        "location": {
+            "$mid": 1,
+            "path": "/Users/austin.mcconnell/.vscode/extensions/ms-python.python-2025.0.0-darwin-arm64",
+            "scheme": "file"
+        },
+        "metadata": {
+            "hasPreReleaseVersion": false,
+            "id": "f1f59ae4-9318-4f3c-a9b5-81b2eaa5f8a5",
+            "installedTimestamp": 1739198732864,
+            "isApplicationScoped": false,
+            "isBuiltin": false,
+            "isMachineScoped": false,
+            "isPreReleaseVersion": false,
+            "pinned": false,
+            "preRelease": false,
+            "publisherDisplayName": "Microsoft",
+            "publisherId": "998b010b-e2af-44a5-a6cd-0b5fd3b9b6f8",
+            "source": "gallery",
+            "targetPlatform": "darwin-arm64",
+            "updated": true
+        },
+        "relativeLocation": "ms-python.python-2025.0.0-darwin-arm64",
+        "version": "2025.0.0"
+    },
+    {
+        "identifier": {
+            "id": "ms-python.autopep8"
+        },
+        "location": {
+            "$mid": 1,
+            "path": "/Users/austin.mcconnell/.vscode/extensions/ms-python.autopep8-2024.2.0",
+            "scheme": "file"
+        },
+        "metadata": {
+            "hasPreReleaseVersion": false,
+            "id": "5a21b0c3-89ca-46dd-8ada-658518fb94a5",
+            "installedTimestamp": 1739198737008,
+            "isApplicationScoped": false,
+            "isBuiltin": false,
+            "isMachineScoped": false,
+            "isPreReleaseVersion": false,
+            "pinned": false,
+            "preRelease": false,
+            "publisherDisplayName": "Microsoft",
+            "publisherId": "998b010b-e2af-44a5-a6cd-0b5fd3b9b6f8",
+            "source": "gallery",
+            "targetPlatform": "undefined",
+            "updated": true
+        },
+        "relativeLocation": "ms-python.autopep8-2024.2.0",
+        "version": "2024.2.0"
+    },
+    {
+        "identifier": {
+            "id": "ms-python.pylint"
+        },
+        "location": {
+            "$mid": 1,
+            "path": "/Users/austin.mcconnell/.vscode/extensions/ms-python.pylint-2024.2.0",
+            "scheme": "file"
+        },
+        "metadata": {
+            "hasPreReleaseVersion": false,
+            "id": "8dc47276-5882-4c5f-903d-7eef7b9d1584",
+            "installedTimestamp": 1739198736933,
+            "isApplicationScoped": false,
+            "isBuiltin": false,
+            "isMachineScoped": true,
+            "isPreReleaseVersion": false,
+            "pinned": false,
+            "preRelease": false,
+            "publisherDisplayName": "Microsoft",
+            "publisherId": "998b010b-e2af-44a5-a6cd-0b5fd3b9b6f8",
+            "source": "gallery",
+            "targetPlatform": "undefined",
+            "updated": true
+        },
+        "relativeLocation": "ms-python.pylint-2024.2.0",
+        "version": "2024.2.0"
+    },
+    {
+        "identifier": {
+            "id": "timonwong.shellcheck",
+            "uuid": "f95d8fff-f70a-4ae5-bb06-5c47ddbc8fc6"
+        },
+        "location": {
+            "$mid": 1,
+            "path": "/Users/austin.mcconnell/.vscode/extensions/timonwong.shellcheck-0.37.7-darwin-arm64",
+            "scheme": "file"
+        },
+        "metadata": {
+            "hasPreReleaseVersion": false,
+            "id": "f95d8fff-f70a-4ae5-bb06-5c47ddbc8fc6",
+            "installedTimestamp": 1739213587081,
+            "isApplicationScoped": false,
+            "isBuiltin": false,
+            "isMachineScoped": true,
+            "isPreReleaseVersion": false,
+            "pinned": false,
+            "preRelease": false,
+            "publisherDisplayName": "Timon Wong",
+            "publisherId": "04757770-dd50-443e-aae4-e1c7cf9c24f5",
+            "source": "gallery",
+            "targetPlatform": "darwin-arm64",
+            "updated": true
+        },
+        "relativeLocation": "timonwong.shellcheck-0.37.7-darwin-arm64",
+        "version": "0.37.7"
+    },
+    {
+        "identifier": {
+            "id": "ms-python.debugpy"
+        },
+        "location": {
+            "$mid": 1,
+            "path": "/Users/austin.mcconnell/.vscode/extensions/ms-python.debugpy-2025.0.1-darwin-arm64",
+            "scheme": "file"
+        },
+        "metadata": {
+            "hasPreReleaseVersion": false,
+            "id": "4bd5d2c9-9d65-401a-b0b2-7498d9f17615",
+            "installedTimestamp": 1739458205722,
+            "isApplicationScoped": false,
+            "isBuiltin": false,
+            "isMachineScoped": false,
+            "isPreReleaseVersion": false,
+            "pinned": false,
+            "preRelease": false,
+            "publisherDisplayName": "Microsoft",
+            "publisherId": "998b010b-e2af-44a5-a6cd-0b5fd3b9b6f8",
+            "source": "gallery",
+            "targetPlatform": "darwin-arm64",
+            "updated": true
+        },
+        "relativeLocation": "ms-python.debugpy-2025.0.1-darwin-arm64",
+        "version": "2025.0.1"
+    },
+    {
+        "identifier": {
+            "id": "davidanson.vscode-markdownlint"
+        },
+        "location": {
+            "$mid": 1,
+            "path": "/Users/austin.mcconnell/.vscode/extensions/davidanson.vscode-markdownlint-0.59.0",
+            "scheme": "file"
+        },
+        "metadata": {
+            "hasPreReleaseVersion": false,
+            "id": "daf8b44d-8aae-4da2-80c5-1f770219f643",
+            "installedTimestamp": 1739890662998,
+            "isApplicationScoped": false,
+            "isBuiltin": false,
+            "isMachineScoped": false,
+            "isPreReleaseVersion": false,
+            "pinned": false,
+            "preRelease": false,
+            "publisherDisplayName": "David Anson",
+            "publisherId": "2e4d1cda-6ef0-4e42-a352-ab540afe8ff0",
+            "source": "gallery",
+            "targetPlatform": "undefined",
+            "updated": true
+        },
+        "relativeLocation": "davidanson.vscode-markdownlint-0.59.0",
+        "version": "0.59.0"
+    },
+    {
+        "identifier": {
+            "id": "aquasecurityofficial.trivy-vulnerability-scanner"
+        },
+        "location": {
+            "$mid": 1,
+            "external": "file:///Users/austin.mcconnell/.vscode/extensions/aquasecurityofficial.trivy-vulnerability-scanner-0.8.1",
+            "fsPath": "/Users/austin.mcconnell/.vscode/extensions/aquasecurityofficial.trivy-vulnerability-scanner-0.8.1",
+            "path": "/Users/austin.mcconnell/.vscode/extensions/aquasecurityofficial.trivy-vulnerability-scanner-0.8.1",
+            "scheme": "file"
+        },
+        "metadata": {
+            "hasPreReleaseVersion": false,
+            "id": "2f0bcde6-ddb2-45d4-8dcb-1046c4694717",
+            "installedTimestamp": 1739890670271,
+            "isApplicationScoped": false,
+            "isBuiltin": false,
+            "isMachineScoped": false,
+            "isPreReleaseVersion": false,
+            "pinned": false,
+            "preRelease": false,
+            "publisherDisplayName": "Aqua Security",
+            "publisherId": "25caa913-f051-42de-bb1c-c8e47ad81417",
+            "source": "gallery",
+            "targetPlatform": "undefined",
+            "updated": true
+        },
+        "relativeLocation": "aquasecurityofficial.trivy-vulnerability-scanner-0.8.1",
+        "version": "0.8.1"
     }
 ]

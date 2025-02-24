@@ -181,93 +181,6 @@
     },
     {
         "identifier": {
-            "id": "redhat.vscode-yaml",
-            "uuid": "2061917f-f76a-458a-8da9-f162de22b97e"
-        },
-        "location": {
-            "$mid": 1,
-            "path": "/Users/austin.mcconnell/.vscode/extensions/redhat.vscode-yaml-1.15.0",
-            "scheme": "file"
-        },
-        "metadata": {
-            "hasPreReleaseVersion": false,
-            "id": "2061917f-f76a-458a-8da9-f162de22b97e",
-            "installedTimestamp": 1730926504681,
-            "isApplicationScoped": false,
-            "isBuiltin": false,
-            "isMachineScoped": false,
-            "isPreReleaseVersion": false,
-            "pinned": false,
-            "preRelease": false,
-            "publisherDisplayName": "Red Hat",
-            "publisherId": "eed56242-9699-4317-8bc7-e9f4b9bdd3ff",
-            "source": "gallery",
-            "targetPlatform": "undefined",
-            "updated": true
-        },
-        "relativeLocation": "redhat.vscode-yaml-1.15.0",
-        "version": "1.15.0"
-    },
-    {
-        "identifier": {
-            "id": "ms-vscode-remote.remote-containers",
-            "uuid": "93ce222b-5f6f-49b7-9ab1-a0463c6238df"
-        },
-        "location": {
-            "$mid": 1,
-            "path": "/Users/austin.mcconnell/.vscode/extensions/ms-vscode-remote.remote-containers-0.394.0",
-            "scheme": "file"
-        },
-        "metadata": {
-            "hasPreReleaseVersion": false,
-            "id": "93ce222b-5f6f-49b7-9ab1-a0463c6238df",
-            "installedTimestamp": 1733950778682,
-            "isApplicationScoped": false,
-            "isBuiltin": false,
-            "isMachineScoped": false,
-            "isPreReleaseVersion": false,
-            "pinned": false,
-            "preRelease": false,
-            "publisherDisplayName": "Microsoft",
-            "publisherId": "ac9410a2-0d75-40ec-90de-b59bb705801d",
-            "source": "gallery",
-            "targetPlatform": "undefined",
-            "updated": true
-        },
-        "relativeLocation": "ms-vscode-remote.remote-containers-0.394.0",
-        "version": "0.394.0"
-    },
-    {
-        "identifier": {
-            "id": "ms-vscode-remote.remote-ssh",
-            "uuid": "607fd052-be03-4363-b657-2bd62b83d28a"
-        },
-        "location": {
-            "$mid": 1,
-            "path": "/Users/austin.mcconnell/.vscode/extensions/ms-vscode-remote.remote-ssh-0.116.1",
-            "scheme": "file"
-        },
-        "metadata": {
-            "hasPreReleaseVersion": false,
-            "id": "607fd052-be03-4363-b657-2bd62b83d28a",
-            "installedTimestamp": 1734451849162,
-            "isApplicationScoped": false,
-            "isBuiltin": false,
-            "isMachineScoped": false,
-            "isPreReleaseVersion": false,
-            "pinned": false,
-            "preRelease": false,
-            "publisherDisplayName": "Microsoft",
-            "publisherId": "ac9410a2-0d75-40ec-90de-b59bb705801d",
-            "source": "gallery",
-            "targetPlatform": "undefined",
-            "updated": true
-        },
-        "relativeLocation": "ms-vscode-remote.remote-ssh-0.116.1",
-        "version": "0.116.1"
-    },
-    {
-        "identifier": {
             "id": "tamasfe.even-better-toml",
             "uuid": "b2215d5f-675e-4a2b-b6ac-1ca737518b78"
         },
@@ -294,64 +207,6 @@
         },
         "relativeLocation": "tamasfe.even-better-toml-0.21.2",
         "version": "0.21.2"
-    },
-    {
-        "identifier": {
-            "id": "timonwong.shellcheck",
-            "uuid": "f95d8fff-f70a-4ae5-bb06-5c47ddbc8fc6"
-        },
-        "location": {
-            "$mid": 1,
-            "path": "/Users/austin.mcconnell/.vscode/extensions/timonwong.shellcheck-0.37.6-darwin-arm64",
-            "scheme": "file"
-        },
-        "metadata": {
-            "hasPreReleaseVersion": false,
-            "id": "f95d8fff-f70a-4ae5-bb06-5c47ddbc8fc6",
-            "installedTimestamp": 1736777826071,
-            "isApplicationScoped": false,
-            "isBuiltin": false,
-            "isMachineScoped": true,
-            "isPreReleaseVersion": false,
-            "pinned": false,
-            "preRelease": false,
-            "publisherDisplayName": "Timon Wong",
-            "publisherId": "04757770-dd50-443e-aae4-e1c7cf9c24f5",
-            "source": "gallery",
-            "targetPlatform": "darwin-arm64",
-            "updated": true
-        },
-        "relativeLocation": "timonwong.shellcheck-0.37.6-darwin-arm64",
-        "version": "0.37.6"
-    },
-    {
-        "identifier": {
-            "id": "davidanson.vscode-markdownlint",
-            "uuid": "daf8b44d-8aae-4da2-80c5-1f770219f643"
-        },
-        "location": {
-            "$mid": 1,
-            "path": "/Users/austin.mcconnell/.vscode/extensions/davidanson.vscode-markdownlint-0.58.2",
-            "scheme": "file"
-        },
-        "metadata": {
-            "hasPreReleaseVersion": false,
-            "id": "daf8b44d-8aae-4da2-80c5-1f770219f643",
-            "installedTimestamp": 1737475134345,
-            "isApplicationScoped": false,
-            "isBuiltin": false,
-            "isMachineScoped": false,
-            "isPreReleaseVersion": false,
-            "pinned": false,
-            "preRelease": false,
-            "publisherDisplayName": "David Anson",
-            "publisherId": "2e4d1cda-6ef0-4e42-a352-ab540afe8ff0",
-            "source": "gallery",
-            "targetPlatform": "undefined",
-            "updated": true
-        },
-        "relativeLocation": "davidanson.vscode-markdownlint-0.58.2",
-        "version": "0.58.2"
     },
     {
         "identifier": {
@@ -413,35 +268,6 @@
     },
     {
         "identifier": {
-            "id": "shopify.ruby-lsp",
-            "uuid": "ef656a13-3703-477b-9f36-672a0c949b96"
-        },
-        "location": {
-            "$mid": 1,
-            "path": "/Users/austin.mcconnell/.vscode/extensions/shopify.ruby-lsp-0.8.19",
-            "scheme": "file"
-        },
-        "metadata": {
-            "hasPreReleaseVersion": false,
-            "id": "ef656a13-3703-477b-9f36-672a0c949b96",
-            "installedTimestamp": 1738164154474,
-            "isApplicationScoped": false,
-            "isBuiltin": false,
-            "isMachineScoped": false,
-            "isPreReleaseVersion": false,
-            "pinned": false,
-            "preRelease": false,
-            "publisherDisplayName": "Shopify",
-            "publisherId": "1166cb6d-7867-45ca-9a40-f535976a40be",
-            "source": "gallery",
-            "targetPlatform": "undefined",
-            "updated": true
-        },
-        "relativeLocation": "shopify.ruby-lsp-0.8.19",
-        "version": "0.8.19"
-    },
-    {
-        "identifier": {
             "id": "amazonwebservices.amazon-q-vscode",
             "uuid": "ca77fcb4-e1aa-4cab-ba31-cbdd9436df50"
         },
@@ -476,8 +302,6 @@
         },
         "location": {
             "$mid": 1,
-            "external": "file:///Users/austin.mcconnell/.vscode/extensions/github.vscode-github-actions-0.27.1",
-            "fsPath": "/Users/austin.mcconnell/.vscode/extensions/github.vscode-github-actions-0.27.1",
             "path": "/Users/austin.mcconnell/.vscode/extensions/github.vscode-github-actions-0.27.1",
             "scheme": "file"
         },
@@ -499,5 +323,177 @@
         },
         "relativeLocation": "github.vscode-github-actions-0.27.1",
         "version": "0.27.1"
+    },
+    {
+        "identifier": {
+            "id": "ms-vscode-remote.remote-containers",
+            "uuid": "93ce222b-5f6f-49b7-9ab1-a0463c6238df"
+        },
+        "location": {
+            "$mid": 1,
+            "path": "/Users/austin.mcconnell/.vscode/extensions/ms-vscode-remote.remote-containers-0.397.0",
+            "scheme": "file"
+        },
+        "metadata": {
+            "hasPreReleaseVersion": false,
+            "id": "93ce222b-5f6f-49b7-9ab1-a0463c6238df",
+            "installedTimestamp": 1738864111949,
+            "isApplicationScoped": false,
+            "isBuiltin": false,
+            "isMachineScoped": false,
+            "isPreReleaseVersion": false,
+            "pinned": false,
+            "preRelease": false,
+            "publisherDisplayName": "Microsoft",
+            "publisherId": "ac9410a2-0d75-40ec-90de-b59bb705801d",
+            "source": "gallery",
+            "targetPlatform": "undefined",
+            "updated": true
+        },
+        "relativeLocation": "ms-vscode-remote.remote-containers-0.397.0",
+        "version": "0.397.0"
+    },
+    {
+        "identifier": {
+            "id": "redhat.vscode-yaml"
+        },
+        "location": {
+            "$mid": 1,
+            "path": "/Users/austin.mcconnell/.vscode/extensions/redhat.vscode-yaml-1.16.0",
+            "scheme": "file"
+        },
+        "metadata": {
+            "hasPreReleaseVersion": false,
+            "id": "2061917f-f76a-458a-8da9-f162de22b97e",
+            "installedTimestamp": 1739198732900,
+            "isApplicationScoped": false,
+            "isBuiltin": false,
+            "isMachineScoped": false,
+            "isPreReleaseVersion": false,
+            "pinned": false,
+            "preRelease": false,
+            "publisherDisplayName": "Red Hat",
+            "publisherId": "eed56242-9699-4317-8bc7-e9f4b9bdd3ff",
+            "source": "gallery",
+            "targetPlatform": "undefined",
+            "updated": true
+        },
+        "relativeLocation": "redhat.vscode-yaml-1.16.0",
+        "version": "1.16.0"
+    },
+    {
+        "identifier": {
+            "id": "timonwong.shellcheck",
+            "uuid": "f95d8fff-f70a-4ae5-bb06-5c47ddbc8fc6"
+        },
+        "location": {
+            "$mid": 1,
+            "path": "/Users/austin.mcconnell/.vscode/extensions/timonwong.shellcheck-0.37.7-darwin-arm64",
+            "scheme": "file"
+        },
+        "metadata": {
+            "hasPreReleaseVersion": false,
+            "id": "f95d8fff-f70a-4ae5-bb06-5c47ddbc8fc6",
+            "installedTimestamp": 1739213587078,
+            "isApplicationScoped": false,
+            "isBuiltin": false,
+            "isMachineScoped": true,
+            "isPreReleaseVersion": false,
+            "pinned": false,
+            "preRelease": false,
+            "publisherDisplayName": "Timon Wong",
+            "publisherId": "04757770-dd50-443e-aae4-e1c7cf9c24f5",
+            "source": "gallery",
+            "targetPlatform": "darwin-arm64",
+            "updated": true
+        },
+        "relativeLocation": "timonwong.shellcheck-0.37.7-darwin-arm64",
+        "version": "0.37.7"
+    },
+    {
+        "identifier": {
+            "id": "ms-vscode-remote.remote-ssh"
+        },
+        "location": {
+            "$mid": 1,
+            "path": "/Users/austin.mcconnell/.vscode/extensions/ms-vscode-remote.remote-ssh-0.117.1",
+            "scheme": "file"
+        },
+        "metadata": {
+            "hasPreReleaseVersion": false,
+            "id": "607fd052-be03-4363-b657-2bd62b83d28a",
+            "installedTimestamp": 1739482020542,
+            "isApplicationScoped": false,
+            "isBuiltin": false,
+            "isMachineScoped": false,
+            "isPreReleaseVersion": false,
+            "pinned": false,
+            "preRelease": false,
+            "publisherDisplayName": "Microsoft",
+            "publisherId": "ac9410a2-0d75-40ec-90de-b59bb705801d",
+            "source": "gallery",
+            "targetPlatform": "undefined",
+            "updated": true
+        },
+        "relativeLocation": "ms-vscode-remote.remote-ssh-0.117.1",
+        "version": "0.117.1"
+    },
+    {
+        "identifier": {
+            "id": "davidanson.vscode-markdownlint"
+        },
+        "location": {
+            "$mid": 1,
+            "path": "/Users/austin.mcconnell/.vscode/extensions/davidanson.vscode-markdownlint-0.59.0",
+            "scheme": "file"
+        },
+        "metadata": {
+            "hasPreReleaseVersion": false,
+            "id": "daf8b44d-8aae-4da2-80c5-1f770219f643",
+            "installedTimestamp": 1739890662995,
+            "isApplicationScoped": false,
+            "isBuiltin": false,
+            "isMachineScoped": false,
+            "isPreReleaseVersion": false,
+            "pinned": false,
+            "preRelease": false,
+            "publisherDisplayName": "David Anson",
+            "publisherId": "2e4d1cda-6ef0-4e42-a352-ab540afe8ff0",
+            "source": "gallery",
+            "targetPlatform": "undefined",
+            "updated": true
+        },
+        "relativeLocation": "davidanson.vscode-markdownlint-0.59.0",
+        "version": "0.59.0"
+    },
+    {
+        "identifier": {
+            "id": "shopify.ruby-lsp"
+        },
+        "location": {
+            "$mid": 1,
+            "external": "file:///Users/austin.mcconnell/.vscode/extensions/shopify.ruby-lsp-0.9.6",
+            "fsPath": "/Users/austin.mcconnell/.vscode/extensions/shopify.ruby-lsp-0.9.6",
+            "path": "/Users/austin.mcconnell/.vscode/extensions/shopify.ruby-lsp-0.9.6",
+            "scheme": "file"
+        },
+        "metadata": {
+            "hasPreReleaseVersion": false,
+            "id": "ef656a13-3703-477b-9f36-672a0c949b96",
+            "installedTimestamp": 1740152718884,
+            "isApplicationScoped": false,
+            "isBuiltin": false,
+            "isMachineScoped": false,
+            "isPreReleaseVersion": false,
+            "pinned": false,
+            "preRelease": false,
+            "publisherDisplayName": "Shopify",
+            "publisherId": "1166cb6d-7867-45ca-9a40-f535976a40be",
+            "source": "gallery",
+            "targetPlatform": "undefined",
+            "updated": true
+        },
+        "relativeLocation": "shopify.ruby-lsp-0.9.6",
+        "version": "0.9.6"
     }
 ]

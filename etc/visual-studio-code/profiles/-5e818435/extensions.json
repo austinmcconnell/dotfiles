@@ -73,35 +73,6 @@
     },
     {
         "identifier": {
-            "id": "redhat.vscode-yaml",
-            "uuid": "2061917f-f76a-458a-8da9-f162de22b97e"
-        },
-        "location": {
-            "$mid": 1,
-            "path": "/Users/austin.mcconnell/.vscode/extensions/redhat.vscode-yaml-1.15.0",
-            "scheme": "file"
-        },
-        "metadata": {
-            "hasPreReleaseVersion": false,
-            "id": "2061917f-f76a-458a-8da9-f162de22b97e",
-            "installedTimestamp": 1730926504686,
-            "isApplicationScoped": false,
-            "isBuiltin": false,
-            "isMachineScoped": false,
-            "isPreReleaseVersion": false,
-            "pinned": false,
-            "preRelease": false,
-            "publisherDisplayName": "Red Hat",
-            "publisherId": "eed56242-9699-4317-8bc7-e9f4b9bdd3ff",
-            "source": "gallery",
-            "targetPlatform": "undefined",
-            "updated": true
-        },
-        "relativeLocation": "redhat.vscode-yaml-1.15.0",
-        "version": "1.15.0"
-    },
-    {
-        "identifier": {
             "id": "sainnhe.everforest",
             "uuid": "330982cd-dddd-4939-b9ad-656ce474b089"
         },
@@ -241,64 +212,6 @@
     },
     {
         "identifier": {
-            "id": "timonwong.shellcheck",
-            "uuid": "f95d8fff-f70a-4ae5-bb06-5c47ddbc8fc6"
-        },
-        "location": {
-            "$mid": 1,
-            "path": "/Users/austin.mcconnell/.vscode/extensions/timonwong.shellcheck-0.37.6-darwin-arm64",
-            "scheme": "file"
-        },
-        "metadata": {
-            "hasPreReleaseVersion": false,
-            "id": "f95d8fff-f70a-4ae5-bb06-5c47ddbc8fc6",
-            "installedTimestamp": 1736777826073,
-            "isApplicationScoped": false,
-            "isBuiltin": false,
-            "isMachineScoped": true,
-            "isPreReleaseVersion": false,
-            "pinned": false,
-            "preRelease": false,
-            "publisherDisplayName": "Timon Wong",
-            "publisherId": "04757770-dd50-443e-aae4-e1c7cf9c24f5",
-            "source": "gallery",
-            "targetPlatform": "darwin-arm64",
-            "updated": true
-        },
-        "relativeLocation": "timonwong.shellcheck-0.37.6-darwin-arm64",
-        "version": "0.37.6"
-    },
-    {
-        "identifier": {
-            "id": "davidanson.vscode-markdownlint",
-            "uuid": "daf8b44d-8aae-4da2-80c5-1f770219f643"
-        },
-        "location": {
-            "$mid": 1,
-            "path": "/Users/austin.mcconnell/.vscode/extensions/davidanson.vscode-markdownlint-0.58.2",
-            "scheme": "file"
-        },
-        "metadata": {
-            "hasPreReleaseVersion": false,
-            "id": "daf8b44d-8aae-4da2-80c5-1f770219f643",
-            "installedTimestamp": 1737475134350,
-            "isApplicationScoped": false,
-            "isBuiltin": false,
-            "isMachineScoped": false,
-            "isPreReleaseVersion": false,
-            "pinned": false,
-            "preRelease": false,
-            "publisherDisplayName": "David Anson",
-            "publisherId": "2e4d1cda-6ef0-4e42-a352-ab540afe8ff0",
-            "source": "gallery",
-            "targetPlatform": "undefined",
-            "updated": true
-        },
-        "relativeLocation": "davidanson.vscode-markdownlint-0.58.2",
-        "version": "0.58.2"
-    },
-    {
-        "identifier": {
             "id": "hashicorp.terraform",
             "uuid": "4a23294b-fd16-4c51-9759-da9936474cf8"
         },
@@ -333,8 +246,6 @@
         },
         "location": {
             "$mid": 1,
-            "external": "file:///Users/austin.mcconnell/.vscode/extensions/pkief.material-icon-theme-5.19.0",
-            "fsPath": "/Users/austin.mcconnell/.vscode/extensions/pkief.material-icon-theme-5.19.0",
             "path": "/Users/austin.mcconnell/.vscode/extensions/pkief.material-icon-theme-5.19.0",
             "scheme": "file"
         },
@@ -356,5 +267,92 @@
         },
         "relativeLocation": "pkief.material-icon-theme-5.19.0",
         "version": "5.19.0"
+    },
+    {
+        "identifier": {
+            "id": "redhat.vscode-yaml"
+        },
+        "location": {
+            "$mid": 1,
+            "path": "/Users/austin.mcconnell/.vscode/extensions/redhat.vscode-yaml-1.16.0",
+            "scheme": "file"
+        },
+        "metadata": {
+            "hasPreReleaseVersion": false,
+            "id": "2061917f-f76a-458a-8da9-f162de22b97e",
+            "installedTimestamp": 1739198732902,
+            "isApplicationScoped": false,
+            "isBuiltin": false,
+            "isMachineScoped": false,
+            "isPreReleaseVersion": false,
+            "pinned": false,
+            "preRelease": false,
+            "publisherDisplayName": "Red Hat",
+            "publisherId": "eed56242-9699-4317-8bc7-e9f4b9bdd3ff",
+            "source": "gallery",
+            "targetPlatform": "undefined",
+            "updated": true
+        },
+        "relativeLocation": "redhat.vscode-yaml-1.16.0",
+        "version": "1.16.0"
+    },
+    {
+        "identifier": {
+            "id": "timonwong.shellcheck",
+            "uuid": "f95d8fff-f70a-4ae5-bb06-5c47ddbc8fc6"
+        },
+        "location": {
+            "$mid": 1,
+            "path": "/Users/austin.mcconnell/.vscode/extensions/timonwong.shellcheck-0.37.7-darwin-arm64",
+            "scheme": "file"
+        },
+        "metadata": {
+            "hasPreReleaseVersion": false,
+            "id": "f95d8fff-f70a-4ae5-bb06-5c47ddbc8fc6",
+            "installedTimestamp": 1739213587083,
+            "isApplicationScoped": false,
+            "isBuiltin": false,
+            "isMachineScoped": true,
+            "isPreReleaseVersion": false,
+            "pinned": false,
+            "preRelease": false,
+            "publisherDisplayName": "Timon Wong",
+            "publisherId": "04757770-dd50-443e-aae4-e1c7cf9c24f5",
+            "source": "gallery",
+            "targetPlatform": "darwin-arm64",
+            "updated": true
+        },
+        "relativeLocation": "timonwong.shellcheck-0.37.7-darwin-arm64",
+        "version": "0.37.7"
+    },
+    {
+        "identifier": {
+            "id": "davidanson.vscode-markdownlint"
+        },
+        "location": {
+            "$mid": 1,
+            "external": "file:///Users/austin.mcconnell/.vscode/extensions/davidanson.vscode-markdownlint-0.59.0",
+            "fsPath": "/Users/austin.mcconnell/.vscode/extensions/davidanson.vscode-markdownlint-0.59.0",
+            "path": "/Users/austin.mcconnell/.vscode/extensions/davidanson.vscode-markdownlint-0.59.0",
+            "scheme": "file"
+        },
+        "metadata": {
+            "hasPreReleaseVersion": false,
+            "id": "daf8b44d-8aae-4da2-80c5-1f770219f643",
+            "installedTimestamp": 1739890663001,
+            "isApplicationScoped": false,
+            "isBuiltin": false,
+            "isMachineScoped": false,
+            "isPreReleaseVersion": false,
+            "pinned": false,
+            "preRelease": false,
+            "publisherDisplayName": "David Anson",
+            "publisherId": "2e4d1cda-6ef0-4e42-a352-ab540afe8ff0",
+            "source": "gallery",
+            "targetPlatform": "undefined",
+            "updated": true
+        },
+        "relativeLocation": "davidanson.vscode-markdownlint-0.59.0",
+        "version": "0.59.0"
     }
 ]

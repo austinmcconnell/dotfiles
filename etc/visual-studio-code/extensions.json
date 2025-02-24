@@ -48,35 +48,6 @@
     },
     {
         "identifier": {
-            "id": "redhat.vscode-yaml",
-            "uuid": "2061917f-f76a-458a-8da9-f162de22b97e"
-        },
-        "location": {
-            "$mid": 1,
-            "path": "/Users/austin.mcconnell/.vscode/extensions/redhat.vscode-yaml-1.15.0",
-            "scheme": "file"
-        },
-        "metadata": {
-            "hasPreReleaseVersion": false,
-            "id": "2061917f-f76a-458a-8da9-f162de22b97e",
-            "installedTimestamp": 1730926504681,
-            "isApplicationScoped": false,
-            "isBuiltin": false,
-            "isMachineScoped": false,
-            "isPreReleaseVersion": false,
-            "pinned": false,
-            "preRelease": false,
-            "publisherDisplayName": "Red Hat",
-            "publisherId": "eed56242-9699-4317-8bc7-e9f4b9bdd3ff",
-            "source": "gallery",
-            "targetPlatform": "undefined",
-            "updated": true
-        },
-        "relativeLocation": "redhat.vscode-yaml-1.15.0",
-        "version": "1.15.0"
-    },
-    {
-        "identifier": {
             "id": "esbenp.prettier-vscode",
             "uuid": "96fa4707-6983-4489-b7c5-d5ffdfdcce90"
         },
@@ -135,35 +106,6 @@
     },
     {
         "identifier": {
-            "id": "ms-vscode-remote.remote-containers",
-            "uuid": "93ce222b-5f6f-49b7-9ab1-a0463c6238df"
-        },
-        "location": {
-            "$mid": 1,
-            "path": "/Users/austin.mcconnell/.vscode/extensions/ms-vscode-remote.remote-containers-0.394.0",
-            "scheme": "file"
-        },
-        "metadata": {
-            "hasPreReleaseVersion": false,
-            "id": "93ce222b-5f6f-49b7-9ab1-a0463c6238df",
-            "installedTimestamp": 1733950778677,
-            "isApplicationScoped": false,
-            "isBuiltin": false,
-            "isMachineScoped": false,
-            "isPreReleaseVersion": false,
-            "pinned": false,
-            "preRelease": false,
-            "publisherDisplayName": "Microsoft",
-            "publisherId": "ac9410a2-0d75-40ec-90de-b59bb705801d",
-            "source": "gallery",
-            "targetPlatform": "undefined",
-            "updated": true
-        },
-        "relativeLocation": "ms-vscode-remote.remote-containers-0.394.0",
-        "version": "0.394.0"
-    },
-    {
-        "identifier": {
             "id": "tamasfe.even-better-toml",
             "uuid": "b2215d5f-675e-4a2b-b6ac-1ca737518b78"
         },
@@ -193,35 +135,6 @@
     },
     {
         "identifier": {
-            "id": "davidanson.vscode-markdownlint",
-            "uuid": "daf8b44d-8aae-4da2-80c5-1f770219f643"
-        },
-        "location": {
-            "$mid": 1,
-            "path": "/Users/austin.mcconnell/.vscode/extensions/davidanson.vscode-markdownlint-0.58.2",
-            "scheme": "file"
-        },
-        "metadata": {
-            "hasPreReleaseVersion": false,
-            "id": "daf8b44d-8aae-4da2-80c5-1f770219f643",
-            "installedTimestamp": 1737475134340,
-            "isApplicationScoped": false,
-            "isBuiltin": false,
-            "isMachineScoped": false,
-            "isPreReleaseVersion": false,
-            "pinned": false,
-            "preRelease": false,
-            "publisherDisplayName": "David Anson",
-            "publisherId": "2e4d1cda-6ef0-4e42-a352-ab540afe8ff0",
-            "source": "gallery",
-            "targetPlatform": "undefined",
-            "updated": true
-        },
-        "relativeLocation": "davidanson.vscode-markdownlint-0.58.2",
-        "version": "0.58.2"
-    },
-    {
-        "identifier": {
             "id": "pkief.material-icon-theme",
             "uuid": "5db78037-f674-459f-a236-db622c427c5b"
         },
@@ -248,35 +161,6 @@
         },
         "relativeLocation": "pkief.material-icon-theme-5.19.0",
         "version": "5.19.0"
-    },
-    {
-        "identifier": {
-            "id": "amazonwebservices.amazon-q-vscode",
-            "uuid": "ca77fcb4-e1aa-4cab-ba31-cbdd9436df50"
-        },
-        "location": {
-            "$mid": 1,
-            "path": "/Users/austin.mcconnell/.vscode/extensions/amazonwebservices.amazon-q-vscode-1.45.0",
-            "scheme": "file"
-        },
-        "metadata": {
-            "hasPreReleaseVersion": false,
-            "id": "ca77fcb4-e1aa-4cab-ba31-cbdd9436df50",
-            "installedTimestamp": 1738307183561,
-            "isApplicationScoped": true,
-            "isBuiltin": false,
-            "isMachineScoped": false,
-            "isPreReleaseVersion": false,
-            "pinned": false,
-            "preRelease": false,
-            "publisherDisplayName": "Amazon Web Services",
-            "publisherId": "e5177ad8-ec3b-4d49-aefd-3d3331129b54",
-            "source": "gallery",
-            "targetPlatform": "undefined",
-            "updated": true
-        },
-        "relativeLocation": "amazonwebservices.amazon-q-vscode-1.45.0",
-        "version": "1.45.0"
     },
     {
         "identifier": {
@@ -327,5 +211,120 @@
         },
         "relativeLocation": "foxundermoon.shell-format-7.2.5",
         "version": "7.2.5"
+    },
+    {
+        "identifier": {
+            "id": "ms-vscode-remote.remote-containers",
+            "uuid": "93ce222b-5f6f-49b7-9ab1-a0463c6238df"
+        },
+        "location": {
+            "$mid": 1,
+            "path": "/Users/austin.mcconnell/.vscode/extensions/ms-vscode-remote.remote-containers-0.397.0",
+            "scheme": "file"
+        },
+        "metadata": {
+            "hasPreReleaseVersion": false,
+            "id": "93ce222b-5f6f-49b7-9ab1-a0463c6238df",
+            "installedTimestamp": 1738864111947,
+            "isApplicationScoped": false,
+            "isBuiltin": false,
+            "isMachineScoped": false,
+            "isPreReleaseVersion": false,
+            "pinned": false,
+            "preRelease": false,
+            "publisherDisplayName": "Microsoft",
+            "publisherId": "ac9410a2-0d75-40ec-90de-b59bb705801d",
+            "source": "gallery",
+            "targetPlatform": "undefined",
+            "updated": true
+        },
+        "relativeLocation": "ms-vscode-remote.remote-containers-0.397.0",
+        "version": "0.397.0"
+    },
+    {
+        "identifier": {
+            "id": "redhat.vscode-yaml"
+        },
+        "location": {
+            "$mid": 1,
+            "path": "/Users/austin.mcconnell/.vscode/extensions/redhat.vscode-yaml-1.16.0",
+            "scheme": "file"
+        },
+        "metadata": {
+            "hasPreReleaseVersion": false,
+            "id": "2061917f-f76a-458a-8da9-f162de22b97e",
+            "installedTimestamp": 1739198732892,
+            "isApplicationScoped": false,
+            "isBuiltin": false,
+            "isMachineScoped": false,
+            "isPreReleaseVersion": false,
+            "pinned": false,
+            "preRelease": false,
+            "publisherDisplayName": "Red Hat",
+            "publisherId": "eed56242-9699-4317-8bc7-e9f4b9bdd3ff",
+            "source": "gallery",
+            "targetPlatform": "undefined",
+            "updated": true
+        },
+        "relativeLocation": "redhat.vscode-yaml-1.16.0",
+        "version": "1.16.0"
+    },
+    {
+        "identifier": {
+            "id": "davidanson.vscode-markdownlint"
+        },
+        "location": {
+            "$mid": 1,
+            "path": "/Users/austin.mcconnell/.vscode/extensions/davidanson.vscode-markdownlint-0.59.0",
+            "scheme": "file"
+        },
+        "metadata": {
+            "hasPreReleaseVersion": false,
+            "id": "daf8b44d-8aae-4da2-80c5-1f770219f643",
+            "installedTimestamp": 1739890662988,
+            "isApplicationScoped": false,
+            "isBuiltin": false,
+            "isMachineScoped": false,
+            "isPreReleaseVersion": false,
+            "pinned": false,
+            "preRelease": false,
+            "publisherDisplayName": "David Anson",
+            "publisherId": "2e4d1cda-6ef0-4e42-a352-ab540afe8ff0",
+            "source": "gallery",
+            "targetPlatform": "undefined",
+            "updated": true
+        },
+        "relativeLocation": "davidanson.vscode-markdownlint-0.59.0",
+        "version": "0.59.0"
+    },
+    {
+        "identifier": {
+            "id": "amazonwebservices.amazon-q-vscode"
+        },
+        "location": {
+            "$mid": 1,
+            "external": "file:///Users/austin.mcconnell/.vscode/extensions/amazonwebservices.amazon-q-vscode-1.48.0",
+            "fsPath": "/Users/austin.mcconnell/.vscode/extensions/amazonwebservices.amazon-q-vscode-1.48.0",
+            "path": "/Users/austin.mcconnell/.vscode/extensions/amazonwebservices.amazon-q-vscode-1.48.0",
+            "scheme": "file"
+        },
+        "metadata": {
+            "hasPreReleaseVersion": false,
+            "id": "ca77fcb4-e1aa-4cab-ba31-cbdd9436df50",
+            "installedTimestamp": 1740109038031,
+            "isApplicationScoped": true,
+            "isBuiltin": false,
+            "isMachineScoped": false,
+            "isPreReleaseVersion": false,
+            "pinned": false,
+            "preRelease": false,
+            "publisherDisplayName": "Amazon Web Services",
+            "publisherId": "e5177ad8-ec3b-4d49-aefd-3d3331129b54",
+            "source": "gallery",
+            "targetPlatform": "undefined",
+            "updated": true
+        },
+        "relativeLocation": "amazonwebservices.amazon-q-vscode-1.48.0",
+        "version": "1.48.0"
     }
 ]
