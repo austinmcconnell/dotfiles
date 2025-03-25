@@ -1,9 +1,0 @@
-{
-    "[markdown]": {
-        "editor.rulers": [
-            100
-        ]
-    },
-    "go.inferGopath": true,
-    "workbench.colorTheme": "Everforest Dark"
-}

@@ -1,7 +1,0 @@
-{
-    "[shellscript]": {
-        "editor.defaultFormatter": "foxundermoon.shell-format"
-    },
-    "bashIde.shellcheckArguments": "--external-sources",
-    "workbench.colorTheme": "Everforest Dark"
-}
