@@ -97,7 +97,6 @@ tap_if_needed() {
     if ! echo "$BREW_TAPS" | grep -q "^$tap\$"; then
         echo "Tapping $tap..."
         brew tap "$tap"
-        init_tap_cache
     else
         echo "Tap $tap already exists"
     fi
