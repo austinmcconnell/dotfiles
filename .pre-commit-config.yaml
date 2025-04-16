@@ -19,7 +19,7 @@ repos:
         args: [--autofix, --indent=4]
         types: [text]
         files: \.(json)$
-        exclude: ^obsidian/
+        exclude: (obsidian|etc/amazon-q/rules.json)
       - id: mixed-line-ending
         exclude: \.plist$
       - id: trailing-whitespace
