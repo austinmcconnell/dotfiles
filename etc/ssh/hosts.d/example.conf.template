@@ -1,0 +1,7 @@
+# Machine-specific SSH configuration
+# Copy this file to ~/.ssh/hosts.d/local.conf and customize
+
+Host example-host
+    HostName example.com
+    User username
+    IdentityFile ~/.ssh/id_ed25519

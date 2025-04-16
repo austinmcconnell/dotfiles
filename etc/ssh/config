@@ -1,0 +1,19 @@
+# Base SSH Configuration
+# Machine-specific configs are in hosts.d/
+
+# Global settings
+Host *
+    UseKeychain yes
+    AddKeysToAgent yes
+    ControlMaster auto
+    ControlPath ~/.ssh/controlmasters/%r@%h:%p
+    ControlPersist 4h
+    ServerAliveInterval 60
+    ServerAliveCountMax 30
+
+# Include machine-specific configurations
+Include ~/.ssh/hosts.d/*.conf
+
+# Amazon Q SSH Integration. Keep at the bottom of this file.
+Match all
+  Include "~/Library/Application Support/amazon-q/ssh"
