@@ -90,7 +90,6 @@ install_if_needed "awscli" "formula"
 
 print_header "Installing casks"
 install_if_needed "alfred" "cask"
-install_if_needed "amazon-q" "cask"
 install_if_needed "backuploupe" "cask" "personal"
 install_if_needed "bartender" "cask"
 install_if_needed "bluesnooze" "cask"

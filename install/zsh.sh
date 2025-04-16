@@ -54,14 +54,6 @@ tic -o "$HOME"/.terminfo "$DOTFILES_DIR"/etc/terminfo/tmux.terminfo
 tic -o "$HOME"/.terminfo "$DOTFILES_DIR"/etc/terminfo/tmux-256color.terminfo
 tic -o "$HOME"/.terminfo "$DOTFILES_DIR"/etc/terminfo/xterm-256color.terminfo
 
-# Amazon Q
-AMAZON_Q_APPLICATION_SUPPORT_DIR="$HOME/Library/Application Support/amazon-q"
-AMAZON_Q_DOT_DIR="$HOME/.amazonq"
-mkdir -p "$AMAZON_Q_APPLICATION_SUPPORT_DIR"
-mkdir -p "$AMAZON_Q_DOT_DIR"
-ln -sfv "$DOTFILES_DIR/etc/amazon-q/settings.json" "$AMAZON_Q_APPLICATION_SUPPORT_DIR"
-ln -sfv "$DOTFILES_DIR/amazon-q/rules.json" "$AMAZON_Q_DOT_DIR/rules.json"
-
 grep "$(which zsh)" /etc/shells &>/dev/null || sudo zsh -c "echo $(which zsh) >> /etc/shells"
 
 if [ "$SHELL" != "$(which zsh)" ]; then
