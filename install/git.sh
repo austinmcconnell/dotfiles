@@ -31,6 +31,7 @@ mkdir -p "$GIT_CONFIG_DIR"/templates/hooks
 ln -sfv "$DOTFILES_DIR/etc/git/config" "$GIT_CONFIG_DIR"
 ln -sfv "$DOTFILES_DIR/etc/git/ignore" "$GIT_CONFIG_DIR"
 ln -sfv "$DOTFILES_DIR/etc/git/hooks/pre-push" "$GIT_CONFIG_DIR"/templates/hooks/pre-push
+ln -sfv "$DOTFILES_DIR/etc/git/hooks/post-checkout" "$GIT_CONFIG_DIR"/templates/hooks/post-checkout
 ln -sfv "$DOTFILES_DIR/etc/git/config-uniteus" "$GIT_CONFIG_DIR"
 
 if is-macos; then

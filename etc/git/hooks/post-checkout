@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# This hook runs after git checkout operations, including after a clone
+# $1 - the ref of the previous HEAD
+# $2 - the ref of the new HEAD
+# $3 - flag indicating if it's a branch checkout (1) or a file checkout (0)
+
+# If this is a clone operation, $1 will be all zeros
+if [ "$1" = "0000000000000000000000000000000000000000" ]; then
+    # Check if we have a remote named origin
+    if git remote | grep -q "^origin$"; then
+        echo "Setting up origin/HEAD reference..."
+        git remote set-head origin -a
+    fi
+fi
+
+exit 0
