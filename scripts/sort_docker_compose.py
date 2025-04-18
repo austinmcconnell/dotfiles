@@ -53,11 +53,11 @@ def order_dictionary(data, top_keys: list):
     for key in top_keys:
         if key in data:
             ordered_data[key] = data[key]
-        if key == 'services':
-            for service in ordered_data[key].keys():
-                ordered_data[key][service] = order_dictionary(
-                    ordered_data[key][service], top_keys=services_key_order
-                )
+            if key == 'services' and key in ordered_data:
+                for service in ordered_data[key].keys():
+                    ordered_data[key][service] = order_dictionary(
+                        ordered_data[key][service], top_keys=services_key_order
+                    )
 
     remaining_keys = keys - top_keys
 
