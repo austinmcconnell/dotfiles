@@ -22,7 +22,8 @@ This script:
 The configuration files are stored in:
 
 - `etc/amazon-q/settings.json` - Application settings
-- `etc/amazon-q/rules.json` - Rules for code generation and execution
+- `etc/amazon-q/global_context.json` - Contexts which apply to all profiles
+- `etc/amazon-q/profiles/default/context.json` - Contexts which apply only to the default profile
 
 ## Manual Steps
 
