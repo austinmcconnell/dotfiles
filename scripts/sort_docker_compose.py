@@ -44,6 +44,12 @@ services_key_order = [
     'restart',
     'pull_policy'
 ]
+networks_key_order = [
+    'name',
+    'external',
+    'driver',
+    'driver_opts',
+]
 
 
 def order_dictionary(data, top_keys: list):
@@ -58,6 +64,12 @@ def order_dictionary(data, top_keys: list):
                     ordered_data[key][service] = order_dictionary(
                         ordered_data[key][service], top_keys=services_key_order
                     )
+            elif key == 'networks' and key in ordered_data:
+                for network in ordered_data[key].keys():
+                    if isinstance(ordered_data[key][network], dict):
+                        ordered_data[key][network] = order_dictionary(
+                            ordered_data[key][network], top_keys=networks_key_order
+                        )
 
     remaining_keys = keys - top_keys
 
