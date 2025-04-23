@@ -27,7 +27,7 @@ class MyDumper(yaml.Dumper):
         return super().increase_indent(flow, False)
 
 
-top_level_key_order = ['version', 'services', 'volumes', 'networks']
+top_level_key_order = ['version', 'include', 'services', 'volumes', 'networks']
 services_key_order = [
     'container_name',
     'image',
