@@ -2,7 +2,8 @@
 system/.custom
 MYFILE
 *.swp
-todo.txt
+todo*.txt
+todo*.md
 *.spl
 Session.vim
 etc/iterm/colorschemes
