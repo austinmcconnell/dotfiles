@@ -28,6 +28,7 @@ pre-commit run markdownlint --files path/to/markdown/file.md
 ### Markdown
 
 - Line length limited to 100 characters (except tables)
+  - Words should not begin before the 100-character limit and extend beyond it
 - Headers must be surrounded by blank lines
 - Lists must be surrounded by blank lines
 - Ordered lists should use consistent item prefixes (all 1.)
