@@ -1,14 +1,25 @@
 #!/usr/bin/env bash
 
+# ---------------------------------------------------------------
+# The dotfiles command - a unified interface for managing dotfiles
+# This script provides various subcommands for common dotfiles tasks:
+# - Updating packages and configurations
+# - Applying system settings
+# - Running tests
+# - Cleaning up caches
+# ---------------------------------------------------------------
+
 BIN_NAME=$(basename "$0")
 COMMAND_NAME=$1
 
+# Helper function to print section headers in a consistent format
 print_section_header() {
     echo "**********************************************************************"
     echo "$1"
     echo "**********************************************************************"
 }
 
+# Display help information about available commands
 sub_help() {
     echo "Usage: $BIN_NAME <command>"
     echo
@@ -25,16 +36,21 @@ sub_help() {
     echo "   clean                Clean up caches (e.g. brew, apt)"
 }
 
+# Open the dotfiles directory in the configured IDE
 sub_edit() {
     sh -c "cd $DOTFILES_DIR && $DOTFILES_IDE"
 }
 
+# Run the test suite to verify dotfiles functionality
 sub_test() {
     cd "$DOTFILES_DIR" && zunit "$DOTFILES_DIR"/tests/
 }
 
+# Update all packages and package managers
 sub_update() {
+    # macOS-specific updates
     if is-macos; then
+        # Only update Mac App Store apps on personal computers
         if ! is-work; then
             print_section_header "Updating Mac App Store applications"
             mas upgrade
@@ -43,6 +59,8 @@ sub_update() {
         brew update
         brew upgrade
     fi
+
+    # Debian-specific updates
     if is-debian; then
         print_section_header "Running apt update & upgrade"
         sudo apt update
@@ -50,18 +68,25 @@ sub_update() {
         print_section_header "Running snap refresh"
         sudo snap refresh
     fi
+
+    # Update language-specific package managers and tools
     print_section_header "Updating antidote"
     PATH="$ZDOTDIR/.antidote/":$PATH
     antidote update
+
     print_section_header "Updating pyenv"
     pyenv update
+
     print_section_header "Updating vim-plug"
     vim -i NONE -c "PlugUpdate" -c "qa"
     vim -es -i NONE -c "PlugUpgrade" -c "qa"
+
+    # Update external repositories and clean up
     sub_update-repos
     sub_clean
 }
 
+# Update all git repositories in the ~/.repositories directory
 sub_update-repos() {
     print_section_header "Updating repositories"
     for REPO_DIR in "$HOME"/.repositories/*; do
@@ -70,23 +95,30 @@ sub_update-repos() {
     done
 }
 
+# Clean up package manager caches and remove unused packages
 sub_clean() {
+    # macOS cleanup
     if is-macos; then
         print_section_header "Runing brew cleanup"
         brew cleanup
         print_section_header "Runing brew autoremove"
         brew autoremove
     fi
+
+    # Debian cleanup
     if is-debian; then
         print_section_header "Runing apt clean"
         sudo apt clean
         print_section_header "Runing apt autoremove"
         sudo apt autoremove
     fi
+
+    # Clean up Vim plugins
     print_section_header "Updating PlugClean"
     vim -i NONE -c "PlugClean" -c "qa"
 }
 
+# Apply macOS system defaults from all defaults-*.sh files
 sub_mac-defaults() {
     for DEFAULTS_FILE in "${DOTFILES_DIR}"/macos/defaults*.sh; do
         # shellcheck source=SCRIPTDIR/../macos/defaults.sh
@@ -95,24 +127,28 @@ sub_mac-defaults() {
     echo "Done. Some changes may require a logout/restart to take effect."
 }
 
+# Install macOS applications
 sub_mac-apps() {
     . "${DOTFILES_DIR}/macos/apps.sh"
 }
 
+# Configure the macOS Dock with personal layout
 sub_mac-dock-personal() {
     . "${DOTFILES_DIR}/macos/dock-personal.sh" && echo "Dock reloaded."
 }
 
+# Configure the macOS Dock with work layout
 sub_mac-dock-work() {
     . "${DOTFILES_DIR}/macos/dock-work.sh" && echo "Dock reloaded."
 }
 
+# Shell completion for available commands
 # Make sure to keep this in sync with the available public commands
-
 sub_completion() {
     echo "clean dock edit help macos test update"
 }
 
+# Command dispatcher
 case $COMMAND_NAME in
 "" | "-h" | "--help")
     sub_help
