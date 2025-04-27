@@ -7,6 +7,7 @@
 # - Applying system settings
 # - Running tests
 # - Cleaning up caches
+# - Managing configuration profiles
 # ---------------------------------------------------------------
 
 BIN_NAME=$(basename "$0")
@@ -34,6 +35,7 @@ sub_help() {
     echo "   update               Update packages and pkg managers (e.g. OS, brew, apt)"
     echo "   update-repos         Update repos in ~/.repositories"
     echo "   clean                Clean up caches (e.g. brew, apt)"
+    echo "   config               Manage configuration profiles and modules"
 }
 
 # Open the dotfiles directory in the configured IDE
@@ -142,10 +144,65 @@ sub_mac-dock-work() {
     . "${DOTFILES_DIR}/macos/dock-work.sh" && echo "Dock reloaded."
 }
 
+# Manage configuration profiles and modules
+sub_config() {
+    "$DOTFILES_DIR/bin/config-manager" "$@"
+}
+
+# Apply configuration changes by re-running specific installation scripts
+sub_apply() {
+    local component="$1"
+
+    case "$component" in
+    "all")
+        echo "Re-applying all configurations based on current profile..."
+        "$DOTFILES_DIR/install.sh"
+        ;;
+    "shell")
+        echo "Re-applying shell configurations..."
+        . "$DOTFILES_DIR/install/zsh.sh"
+        ;;
+    "git")
+        echo "Re-applying git configurations..."
+        . "$DOTFILES_DIR/install/git.sh"
+        ;;
+    "python")
+        echo "Re-applying python configurations..."
+        . "$DOTFILES_DIR/install/python.sh"
+        ;;
+    "node")
+        echo "Re-applying node configurations..."
+        . "$DOTFILES_DIR/install/node.sh"
+        ;;
+    "vim")
+        echo "Re-applying vim configurations..."
+        . "$DOTFILES_DIR/install/vim.sh"
+        ;;
+    "packages")
+        echo "Re-applying package manager configurations..."
+        if is-macos; then
+            . "$DOTFILES_DIR/install/brew.sh"
+        elif is-debian; then
+            . "$DOTFILES_DIR/install/apt.sh"
+        fi
+        ;;
+    "apps")
+        echo "Re-applying application configurations..."
+        if is-macos; then
+            . "$DOTFILES_DIR/macos/apps.sh"
+        fi
+        ;;
+    *)
+        echo "Unknown component: $component"
+        echo "Available components: all, shell, git, python, node, vim, packages, apps"
+        ;;
+    esac
+}
+
 # Shell completion for available commands
 # Make sure to keep this in sync with the available public commands
 sub_completion() {
-    echo "clean dock edit help macos test update"
+    echo "clean config dock edit help mac-defaults mac-dock-personal mac-dock-work mac-apps test update update-repos apply"
 }
 
 # Command dispatcher

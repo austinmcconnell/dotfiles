@@ -1,0 +1,251 @@
+#!/usr/bin/env bash
+
+# ---------------------------------------------------------------
+# Configuration Manager for Dotfiles
+# This script provides utilities for reading and manipulating the
+# configuration system that separates core functionality from user preferences
+# ---------------------------------------------------------------
+
+set -e
+
+# Get current dir and dotfiles directory
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DOTFILES_DIR="$(dirname "$SCRIPT_DIR")"
+CONFIG_FILE="${DOTFILES_DIR}/etc/core/config.yaml"
+USER_CONFIG_FILE="${HOME}/.extra/config.yaml"
+
+# Ensure yq is available for YAML parsing
+ensure_yq() {
+    if ! command -v yq &>/dev/null; then
+        echo "yq is required for configuration management"
+        echo "Installing yq..."
+        if is-macos; then
+            brew install yq
+        elif is-debian; then
+            sudo apt-get update && sudo apt-get install -y yq
+        else
+            echo "Please install yq manually: https://github.com/mikefarah/yq"
+            exit 1
+        fi
+    fi
+}
+
+# Create user config if it doesn't exist
+ensure_user_config() {
+    if [ ! -f "$USER_CONFIG_FILE" ]; then
+        mkdir -p "$(dirname "$USER_CONFIG_FILE")"
+        cat >"$USER_CONFIG_FILE" <<EOF
+# User configuration for dotfiles
+# This file overrides the core configuration
+
+# Selected profile (default, work, minimal)
+profile: default
+
+# Override specific module settings
+modules:
+  # Example: Disable a module
+  # cloud:
+  #   enabled: false
+
+  # Example: Enable only specific components
+  # development:
+  #   enabled: true
+  #   components:
+  #     - git
+  #     - python
+EOF
+    fi
+}
+
+# Get the active profile name
+get_active_profile() {
+    ensure_yq
+    if [ -f "$USER_CONFIG_FILE" ]; then
+        profile=$(yq eval '.profile' "$USER_CONFIG_FILE")
+        if [ "$profile" = "null" ]; then
+            echo "default"
+        else
+            echo "$profile"
+        fi
+    else
+        echo "default"
+    fi
+}
+
+# Check if a module is enabled
+is_module_enabled() {
+    local module_name="$1"
+    ensure_yq
+
+    # First check user overrides
+    if [ -f "$USER_CONFIG_FILE" ]; then
+        local user_setting
+        user_setting=$(yq eval ".modules.$module_name.enabled" "$USER_CONFIG_FILE")
+        if [ "$user_setting" != "null" ]; then
+            [ "$user_setting" = "true" ] && return 0 || return 1
+        fi
+    fi
+
+    # Then check profile settings
+    local profile
+    profile=$(get_active_profile)
+    local profile_setting
+    profile_setting=$(yq eval ".profiles.$profile.modules.$module_name" "$CONFIG_FILE")
+
+    # If it's a boolean, use it directly
+    if [ "$profile_setting" = "true" ] || [ "$profile_setting" = "false" ]; then
+        [ "$profile_setting" = "true" ] && return 0 || return 1
+    fi
+
+    # If it's an object, check the enabled property
+    if [ "$profile_setting" != "null" ]; then
+        profile_setting=$(yq eval ".profiles.$profile.modules.$module_name.enabled" "$CONFIG_FILE")
+        if [ "$profile_setting" != "null" ]; then
+            [ "$profile_setting" = "true" ] && return 0 || return 1
+        fi
+    fi
+
+    # Finally, check the module default
+    local default_setting
+    default_setting=$(yq eval ".modules.$module_name.default" "$CONFIG_FILE")
+    [ "$default_setting" = "true" ] && return 0 || return 1
+}
+
+# Check if a component is enabled
+is_component_enabled() {
+    local module_name="$1"
+    local component_name="$2"
+    ensure_yq
+
+    # First check if the module is enabled at all
+    if ! is_module_enabled "$module_name"; then
+        return 1
+    fi
+
+    # Check user overrides for specific components
+    if [ -f "$USER_CONFIG_FILE" ]; then
+        local user_components
+        user_components=$(yq eval ".modules.$module_name.components" "$USER_CONFIG_FILE")
+        if [ "$user_components" != "null" ]; then
+            yq eval ".modules.$module_name.components | contains([\"$component_name\"])" "$USER_CONFIG_FILE" | grep -q "true" && return 0 || return 1
+        fi
+    fi
+
+    # Check profile settings for specific components
+    local profile
+    profile=$(get_active_profile)
+    local profile_components
+    profile_components=$(yq eval ".profiles.$profile.modules.$module_name.components" "$CONFIG_FILE")
+    if [ "$profile_components" != "null" ]; then
+        yq eval ".profiles.$profile.modules.$module_name.components | contains([\"$component_name\"])" "$CONFIG_FILE" | grep -q "true" && return 0 || return 1
+    fi
+
+    # If no specific component list is defined, the component is enabled if the module is enabled
+    return 0
+}
+
+# List all available modules
+list_modules() {
+    ensure_yq
+    yq eval '.modules | keys | .[]' "$CONFIG_FILE"
+}
+
+# List all available profiles
+list_profiles() {
+    ensure_yq
+    yq eval '.profiles | keys | .[]' "$CONFIG_FILE"
+}
+
+# Set the active profile
+set_profile() {
+    local profile="$1"
+    ensure_yq
+    ensure_user_config
+
+    # Check if profile exists
+    if ! yq eval ".profiles.$profile" "$CONFIG_FILE" | grep -q -v "null"; then
+        echo "Error: Profile '$profile' does not exist"
+        echo "Available profiles:"
+        list_profiles
+        return 1
+    fi
+
+    # Update user config
+    yq eval -i ".profile = \"$profile\"" "$USER_CONFIG_FILE"
+    echo "Active profile set to: $profile"
+}
+
+# Enable or disable a module
+set_module_status() {
+    local module="$1"
+    local status="$2"
+    ensure_yq
+    ensure_user_config
+
+    # Check if module exists
+    if ! yq eval ".modules.$module" "$CONFIG_FILE" | grep -q -v "null"; then
+        echo "Error: Module '$module' does not exist"
+        echo "Available modules:"
+        list_modules
+        return 1
+    fi
+
+    # Update user config
+    yq eval -i ".modules.$module.enabled = $status" "$USER_CONFIG_FILE"
+    echo "Module '$module' is now $([ "$status" = "true" ] && echo "enabled" || echo "disabled")"
+}
+
+# Main command dispatcher
+case "$1" in
+"profile")
+    if [ -z "$2" ]; then
+        echo "Current profile: $(get_active_profile)"
+        echo "Available profiles:"
+        list_profiles
+    else
+        set_profile "$2"
+    fi
+    ;;
+"list-modules")
+    echo "Available modules:"
+    list_modules
+    ;;
+"enable")
+    if [ -z "$2" ]; then
+        echo "Error: No module specified"
+        echo "Usage: $(basename "$0") enable <module>"
+        exit 1
+    fi
+    set_module_status "$2" "true"
+    ;;
+"disable")
+    if [ -z "$2" ]; then
+        echo "Error: No module specified"
+        echo "Usage: $(basename "$0") disable <module>"
+        exit 1
+    fi
+    set_module_status "$2" "false"
+    ;;
+"is-enabled")
+    if [ -z "$2" ]; then
+        echo "Error: No module specified"
+        echo "Usage: $(basename "$0") is-enabled <module> [component]"
+        exit 1
+    fi
+    if [ -z "$3" ]; then
+        is_module_enabled "$2" && echo "Module '$2' is enabled" || echo "Module '$2' is disabled"
+    else
+        is_component_enabled "$2" "$3" && echo "Component '$3' in module '$2' is enabled" || echo "Component '$3' in module '$2' is disabled"
+    fi
+    ;;
+*)
+    echo "Usage: $(basename "$0") <command> [options]"
+    echo
+    echo "Commands:"
+    echo "  profile [name]        Get or set the active profile"
+    echo "  list-modules          List all available modules"
+    echo "  enable <module>       Enable a module"
+    echo "  disable <module>      Disable a module"
+    echo "  is-enabled <module> [component]  Check if a module or component is enabled"
+    ;;
+esac

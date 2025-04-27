@@ -4,8 +4,8 @@
 # Main installation script for dotfiles
 # This script coordinates the entire installation process by:
 # 1. Setting up environment variables and directories
-# 2. Determining if this is a work or personal computer
-# 3. Running individual installation scripts for different components
+# 2. Installing core components and configuration system
+# 3. Running individual installation scripts based on user configuration
 # ---------------------------------------------------------------
 
 # Get current dir (so run this script from anywhere)
@@ -54,22 +54,56 @@ if [ ! -f "$HOME/.extra/.env" ] || ! grep -q "^export IS_WORK_COMPUTER=" "$HOME/
     done
 fi
 
-# Install and configure components in a specific order:
+# Install core components first (required for configuration system)
+. "$DOTFILES_DIR/install/core.sh"
+
+# Function to conditionally load a module based on configuration
+load_module_if_enabled() {
+    local module="$1"
+    local script="$2"
+
+    if "$DOTFILES_DIR/bin/config-manager" is-enabled "$module" | grep -q "enabled"; then
+        echo "Loading module: $module"
+        # shellcheck source=./install/git.sh source=./install/zsh.sh source=./install/brew.sh source=./install/apt.sh source=./install/python.sh source=./install/node.sh source=./install/vim.sh source=./install/ruby.sh source=./install/scripts.sh source=./install/ssh.sh source=./install/amazon-q.sh source=./macos/apps.sh
+        . "$script"
+    else
+        echo "Skipping module: $module (disabled in configuration)"
+    fi
+}
+
+# Install and configure components based on user configuration:
 # 1. Core tools (git, zsh)
 # 2. Package managers (brew, apt)
 # 3. Programming languages and environments
 # 4. Applications and utilities
 # 5. System configurations
-. "$DOTFILES_DIR/install/git.sh"     # Git configuration and aliases
-. "$DOTFILES_DIR/install/zsh.sh"     # Zsh shell with antidote plugin manager
-. "$DOTFILES_DIR/install/brew.sh"    # Homebrew packages (macOS)
-. "$DOTFILES_DIR/macos/apps.sh"      # macOS applications
-. "$DOTFILES_DIR/install/apt.sh"     # APT packages (Debian)
-. "$DOTFILES_DIR/install/python.sh"  # Python with pyenv
-. "$DOTFILES_DIR/install/node.sh"    # Node.js with nvm
-. "$DOTFILES_DIR/install/vim.sh"     # Vim with vim-plug
-. "$DOTFILES_DIR/install/scripts.sh" # Utility scripts
-. "$DOTFILES_DIR/install/ssh.sh"     # SSH configuration
+
+# Shell environment
+load_module_if_enabled "shell" "$DOTFILES_DIR/install/zsh.sh"
+
+# Development tools
+load_module_if_enabled "development" "$DOTFILES_DIR/install/git.sh"
+load_module_if_enabled "development" "$DOTFILES_DIR/install/python.sh"
+load_module_if_enabled "development" "$DOTFILES_DIR/install/node.sh"
+load_module_if_enabled "development" "$DOTFILES_DIR/install/vim.sh"
+load_module_if_enabled "development" "$DOTFILES_DIR/install/ruby.sh"
+
+# Package managers
+if is-macos; then
+    load_module_if_enabled "package_managers" "$DOTFILES_DIR/install/brew.sh"
+    load_module_if_enabled "applications" "$DOTFILES_DIR/macos/apps.sh"
+elif is-debian; then
+    load_module_if_enabled "package_managers" "$DOTFILES_DIR/install/apt.sh"
+fi
+
+# System configuration
+load_module_if_enabled "system" "$DOTFILES_DIR/install/ssh.sh"
+
+# Utility scripts
+load_module_if_enabled "development" "$DOTFILES_DIR/install/scripts.sh"
+
+# AI tools
+load_module_if_enabled "ai" "$DOTFILES_DIR/install/amazon-q.sh"
 
 # Create .hushlogin to disable the login message
 touch ~/.hushlogin
