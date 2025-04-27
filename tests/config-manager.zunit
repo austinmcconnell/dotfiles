@@ -1,0 +1,139 @@
+#!/usr/bin/env zunit
+
+# Setup function to create test environment
+setup() {
+    # Create temporary directories for testing
+    TEST_DIR="$(mktemp -d)"
+    TEST_XDG_CONFIG_HOME="$TEST_DIR/.config"
+    TEST_DOTFILES_DIR="$TEST_DIR/dotfiles"
+
+    # Create test directory structure
+    mkdir -p "$TEST_XDG_CONFIG_HOME/dotfiles"
+    mkdir -p "$TEST_DOTFILES_DIR/etc/core"
+
+    # Copy the actual core config file
+    cp "$DOTFILES_DIR/etc/core/config.yaml" "$TEST_DOTFILES_DIR/etc/core/config.yaml"
+
+    # Set environment variables for all tests
+    export XDG_CONFIG_HOME="$TEST_XDG_CONFIG_HOME"
+    export TEST_DOTFILES_DIR="$TEST_DOTFILES_DIR"
+    export USER_CONFIG_FILE="$TEST_XDG_CONFIG_HOME/dotfiles/config.yaml"
+
+    # Let config-manager generate the default user config
+    # First, make sure the directory exists
+    mkdir -p "$(dirname "$USER_CONFIG_FILE")"
+
+    # Then run config-manager once to generate the default config using env to pass variables
+    # We'll use a simple command that doesn't modify anything
+    env USER_CONFIG_FILE="$TEST_XDG_CONFIG_HOME/dotfiles/config.yaml" DOTFILES_DIR="$TEST_DOTFILES_DIR" "$DOTFILES_DIR/bin/config-manager" profile > /dev/null 2>&1
+
+    # Now modify the generated config to set specific test values
+    # This ensures we have a known state for testing
+    if command -v yq &>/dev/null; then
+        yq eval -i '.modules.development.enabled = true' "$USER_CONFIG_FILE"
+        yq eval -i '.modules.system.enabled = false' "$USER_CONFIG_FILE"
+    else
+        echo "Warning: yq is required for these tests but not found"
+        # Fall back to sed for basic modifications
+        sed -i.bak 's/# modules:/modules:\n  development:\n    enabled: true\n  system:\n    enabled: false/' "$USER_CONFIG_FILE"
+        rm -f "${USER_CONFIG_FILE}.bak"
+    fi
+
+    # Make sure yq is available for the tests
+    if ! command -v yq &>/dev/null; then
+        echo "Warning: yq is required for these tests but not found"
+    fi
+}
+
+# Teardown function to clean up test environment
+teardown() {
+    rm -rf "$TEST_DIR"
+}
+
+@test 'config-manager - list modules' {
+    run env USER_CONFIG_FILE="$TEST_XDG_CONFIG_HOME/dotfiles/config.yaml" DOTFILES_DIR="$TEST_DOTFILES_DIR" "$DOTFILES_DIR/bin/config-manager" list-modules
+
+    assert $state equals 0
+    assert "$output" contains "shell"
+    assert "$output" contains "development"
+    assert "$output" contains "system"
+}
+
+@test 'config-manager - get active profile' {
+    run env USER_CONFIG_FILE="$TEST_XDG_CONFIG_HOME/dotfiles/config.yaml" DOTFILES_DIR="$TEST_DOTFILES_DIR" "$DOTFILES_DIR/bin/config-manager" profile
+
+    assert $state equals 0
+    assert "$output" contains "Current profile: default"
+}
+
+@test 'config-manager - set profile' {
+    run env USER_CONFIG_FILE="$TEST_XDG_CONFIG_HOME/dotfiles/config.yaml" DOTFILES_DIR="$TEST_DOTFILES_DIR" "$DOTFILES_DIR/bin/config-manager" profile minimal
+
+    assert $state equals 0
+
+    # Verify the profile was actually changed
+    run cat "$TEST_XDG_CONFIG_HOME/dotfiles/config.yaml"
+    assert "$output" contains "profile: minimal"
+}
+
+@test 'config-manager - is-enabled for enabled module' {
+    run env USER_CONFIG_FILE="$TEST_XDG_CONFIG_HOME/dotfiles/config.yaml" DOTFILES_DIR="$TEST_DOTFILES_DIR" "$DOTFILES_DIR/bin/config-manager" is-enabled development
+
+    assert $state equals 0
+    assert "$output" contains "Module 'development' is enabled"
+}
+
+@test 'config-manager - is-enabled for disabled module' {
+    run env USER_CONFIG_FILE="$TEST_XDG_CONFIG_HOME/dotfiles/config.yaml" DOTFILES_DIR="$TEST_DOTFILES_DIR" "$DOTFILES_DIR/bin/config-manager" is-enabled system
+
+    assert $state not_equal_to 0
+    assert "$output" contains "Module 'system' is disabled"
+}
+
+@test 'config-manager - enable module' {
+    # First check that system is disabled
+    run env USER_CONFIG_FILE="$TEST_XDG_CONFIG_HOME/dotfiles/config.yaml" DOTFILES_DIR="$TEST_DOTFILES_DIR" "$DOTFILES_DIR/bin/config-manager" is-enabled system
+    assert $state not_equal_to 0
+
+    # Then enable it
+    run env USER_CONFIG_FILE="$TEST_XDG_CONFIG_HOME/dotfiles/config.yaml" DOTFILES_DIR="$TEST_DOTFILES_DIR" "$DOTFILES_DIR/bin/config-manager" enable system
+    assert $state equals 0
+    assert "$output" contains "Module 'system' is now enabled"
+
+    # Verify it was enabled
+    run env USER_CONFIG_FILE="$TEST_XDG_CONFIG_HOME/dotfiles/config.yaml" DOTFILES_DIR="$TEST_DOTFILES_DIR" "$DOTFILES_DIR/bin/config-manager" is-enabled system
+    assert $state equals 0
+    assert "$output" contains "Module 'system' is enabled"
+}
+
+@test 'config-manager - disable module' {
+    # First check that development is enabled
+    run env USER_CONFIG_FILE="$TEST_XDG_CONFIG_HOME/dotfiles/config.yaml" DOTFILES_DIR="$TEST_DOTFILES_DIR" "$DOTFILES_DIR/bin/config-manager" is-enabled development
+    assert $state equals 0
+
+    # Then disable it
+    run env USER_CONFIG_FILE="$TEST_XDG_CONFIG_HOME/dotfiles/config.yaml" DOTFILES_DIR="$TEST_DOTFILES_DIR" "$DOTFILES_DIR/bin/config-manager" disable development
+    assert $state equals 0
+    assert "$output" contains "Module 'development' is now disabled"
+
+    # Verify it was disabled
+    run env USER_CONFIG_FILE="$TEST_XDG_CONFIG_HOME/dotfiles/config.yaml" DOTFILES_DIR="$TEST_DOTFILES_DIR" "$DOTFILES_DIR/bin/config-manager" is-enabled development
+    assert $state not_equal_to 0
+    assert "$output" contains "Module 'development' is disabled"
+}
+
+@test 'config-manager - list profiles' {
+    run env USER_CONFIG_FILE="$TEST_XDG_CONFIG_HOME/dotfiles/config.yaml" DOTFILES_DIR="$TEST_DOTFILES_DIR" "$DOTFILES_DIR/bin/config-manager" profile
+
+    assert $state equals 0
+    assert "$output" contains "Available profiles:"
+    assert "$output" contains "default"
+    assert "$output" contains "minimal"
+}
+
+@test 'config-manager - invalid command' {
+    run env USER_CONFIG_FILE="$TEST_XDG_CONFIG_HOME/dotfiles/config.yaml" DOTFILES_DIR="$TEST_DOTFILES_DIR" "$DOTFILES_DIR/bin/config-manager" invalid-command
+
+    assert $state not_equal_to 0
+    assert "$output" contains "Usage:"
+}
