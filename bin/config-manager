@@ -61,8 +61,8 @@ EOF
 get_active_profile() {
     ensure_yq
     if [ -f "$USER_CONFIG_FILE" ]; then
-        profile=$(yq eval '.profile' "$USER_CONFIG_FILE")
-        if [ "$profile" = "null" ]; then
+        profile=$(yq eval '.profile' "$USER_CONFIG_FILE" 2>/dev/null)
+        if [ "$profile" = "null" ] || [ -z "$profile" ]; then
             echo "default"
         else
             echo "$profile"
@@ -76,6 +76,19 @@ get_active_profile() {
 is_module_enabled() {
     local module_name="$1"
     ensure_yq
+
+    # Check if config file exists
+    if [ ! -f "$CONFIG_FILE" ]; then
+        # Default behavior if config file doesn't exist yet
+        case "$module_name" in
+        "shell" | "package_managers" | "development" | "system")
+            return 0 # These core modules are enabled by default
+            ;;
+        *)
+            return 1 # Other modules are disabled by default
+            ;;
+        esac
+    fi
 
     # First check user overrides
     if [ -f "$USER_CONFIG_FILE" ]; then
@@ -153,7 +166,14 @@ list_modules() {
 # List all available profiles
 list_profiles() {
     ensure_yq
-    yq eval '.profiles | keys | .[]' "$CONFIG_FILE"
+    if [ -f "$CONFIG_FILE" ]; then
+        yq eval '.profiles | keys | .[]' "$CONFIG_FILE"
+    else
+        # Fallback if config file doesn't exist yet
+        echo "default"
+        echo "work"
+        echo "minimal"
+    fi
 }
 
 # Set the active profile

@@ -1,7 +1,4 @@
 #!/usr/bin/env bash
 
-if [[ "$IS_WORK_COMPUTER" ]]; then
-    exit 0
-else
-    exit 1
-fi
+# Check if the current profile is "work"
+[ "$("$DOTFILES_DIR/bin/config-manager" profile)" = "work" ] && exit 0 || exit 1

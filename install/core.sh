@@ -28,20 +28,13 @@ mkdir -p "$HOME/.extra"
 
 # Initialize user configuration if it doesn't exist
 if [ ! -f "$HOME/.extra/config.yaml" ]; then
-    # Determine default profile based on work status
-    if is-work; then
-        DEFAULT_PROFILE="work"
-    else
-        DEFAULT_PROFILE="default"
-    fi
-
-    # Create initial user configuration
+    # Create initial user configuration with selected profile
     cat >"$HOME/.extra/config.yaml" <<EOF
 # User configuration for dotfiles
 # This file overrides the core configuration
 
 # Selected profile (default, work, minimal)
-profile: $DEFAULT_PROFILE
+profile: ${SELECTED_PROFILE:-default}
 
 # Override specific module settings
 modules:

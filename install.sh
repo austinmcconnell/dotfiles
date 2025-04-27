@@ -30,32 +30,43 @@ mkdir -p "$XDG_CONFIG_HOME"
 mkdir -p ~/.repositories
 mkdir -p "$HOME/.extra"
 
-# Check if .env file exists and if IS_WORK_COMPUTER is already set
-# This determines whether this is a work or personal computer, which affects:
-# - Which packages are installed
-# - Which configurations are applied
-# - Default settings for various tools
-if [ ! -f "$HOME/.extra/.env" ] || ! grep -q "^export IS_WORK_COMPUTER=" "$HOME/.extra/.env"; then
+# Prompt user to select a profile
+select_profile() {
+    local profile
     while true; do
-        read -r -p "Is this script being run on a work computer? (y/n): " yn
-        case $yn in
-        [Yy]*)
-            echo "export IS_WORK_COMPUTER=1" >>"$HOME/.extra/.env"
+        read -r -p "Enter profile name [default]: " profile
+        profile=${profile:-default}
+
+        # Check if profile is valid (we can't use config-manager yet as it's not installed)
+        if [ "$profile" = "default" ] || [ "$profile" = "work" ] || [ "$profile" = "minimal" ]; then
+            echo "$profile"
             break
-            ;;
-        [Nn]*)
-            echo "export IS_WORK_COMPUTER=0" >>"$HOME/.extra/.env"
-            break
-            ;;
-        *)
-            echo "Please answer yes (y) or no (n)."
-            ;;
-        esac
+        else
+            echo "Invalid profile. Please choose from: default, work, minimal"
+        fi
     done
+}
+
+# Select profile if config doesn't exist
+SELECTED_PROFILE="default"
+if [ ! -f "$HOME/.extra/config.yaml" ]; then
+    # Display profile selection prompt
+    echo "Please select a profile for your dotfiles installation:"
+    echo "-----------------------------------------------------"
+    echo "default  - Standard configuration for personal use"
+    echo "work     - Configuration optimized for work environment"
+    echo "minimal  - Lightweight configuration for servers or minimal setups"
+    echo "-----------------------------------------------------"
+
+    SELECTED_PROFILE=$(select_profile)
 fi
 
 # Install core components first (required for configuration system)
+export SELECTED_PROFILE
 . "$DOTFILES_DIR/install/core.sh"
+
+# Set the selected profile in the configuration
+"$DOTFILES_DIR/bin/config-manager" profile "$SELECTED_PROFILE"
 
 # Function to conditionally load a module based on configuration
 load_module_if_enabled() {

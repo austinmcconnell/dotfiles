@@ -67,13 +67,26 @@ export PATH="$HOME/.local/bin:$PATH"
 
 ## Work vs. Personal Configuration
 
-The dotfiles repository distinguishes between work and personal environments through the `IS_WORK_COMPUTER`
-environment variable, which is set during installation.
+The dotfiles repository distinguishes between work and personal environments through profiles.
+The default profiles are:
 
-### Checking Work Status in Scripts
+- `default`: Standard configuration for personal use
+- `work`: Configuration optimized for work environment
+- `minimal`: Lightweight configuration for servers or minimal setups
 
-You can use the `is-work` utility function in your scripts to conditionally execute code based on whether
-it's a work or personal computer:
+### Checking Profile in Scripts
+
+You can check the current profile using the configuration manager:
+
+```bash
+if [ "$("$DOTFILES_DIR/bin/config-manager" profile)" = "work" ]; then
+    # Work-specific configuration
+else
+    # Personal configuration
+fi
+```
+
+For backward compatibility, the `is-work` utility function is still available:
 
 ```bash
 if is-work; then
@@ -83,14 +96,14 @@ else
 fi
 ```
 
-### Work-Specific Customizations
+### Profile-Specific Customizations
 
-For work environments, you might want to:
+For different environments, you might want to:
 
 - Configure different Git user information
-- Install work-specific tools and applications
-- Set up VPN configurations
-- Configure proxy settings
+- Install environment-specific tools and applications
+- Set up different network configurations
+- Apply different system settings
 
 ## Adding New Tools
 

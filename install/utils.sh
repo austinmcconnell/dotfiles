@@ -46,19 +46,17 @@ install_if_needed() {
     local package_type=${2:-formula}
     local install_type="${3:-both}" # Default to 'both' if not specified
 
-    if [ -f "$HOME/.extra/.env" ]; then
-        source "$HOME/.extra/.env"
-    else
-        echo "Error: $HOME/.extra/.env not found. Please run install.sh first."
-        exit 1
-    fi
+    # Get current profile
+    local current_profile
+    current_profile=$("$DOTFILES_DIR/bin/config-manager" profile)
 
-    if [ "$install_type" = "personal" ] && [ "$IS_WORK_COMPUTER" = "1" ]; then
-        echo -e "\033[33m⚠️ Skipping $package ($package_type) installation on work computer\033[0m"
+    # Skip installation based on profile and install_type
+    if [ "$install_type" = "personal" ] && [ "$current_profile" = "work" ]; then
+        echo -e "\033[33m⚠️ Skipping $package ($package_type) installation on work profile\033[0m"
         return 0
     fi
-    if [ "$install_type" = "work" ] && [ "$IS_WORK_COMPUTER" = "0" ]; then
-        echo -e "\033[33m⚠️ Skipping $package ($package_type) installation on personal computer\033[0m"
+    if [ "$install_type" = "work" ] && [ "$current_profile" != "work" ]; then
+        echo -e "\033[33m⚠️ Skipping $package ($package_type) installation on non-work profile\033[0m"
         return 0
     fi
 
