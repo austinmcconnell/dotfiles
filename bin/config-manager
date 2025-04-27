@@ -10,9 +10,9 @@ set -e
 
 # Get current dir and dotfiles directory
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-DOTFILES_DIR="$(dirname "$SCRIPT_DIR")"
+DOTFILES_DIR="${DOTFILES_DIR:-$(dirname "$SCRIPT_DIR")}"
 CONFIG_FILE="${DOTFILES_DIR}/etc/core/config.yaml"
-USER_CONFIG_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/dotfiles/config.yaml"
+USER_CONFIG_FILE="${USER_CONFIG_FILE:-${XDG_CONFIG_HOME:-$HOME/.config}/dotfiles/config.yaml}"
 
 # Ensure yq is available for YAML parsing
 ensure_yq() {
