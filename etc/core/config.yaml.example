@@ -1,0 +1,116 @@
+# Core configuration for dotfiles
+# This file defines the core structure and available modules
+
+# System detection and core utilities
+core:
+  enabled: true  # Core is always enabled
+  components:
+    - utils      # Core utility functions
+    - detection  # OS/environment detection
+
+# Available modules that can be enabled/disabled
+modules:
+  shell:
+    name: "Shell Environment"
+    description: "Zsh configuration with plugins and themes"
+    default: true
+    components:
+      - zsh
+      - prompt
+      - aliases
+      - functions
+
+  package_managers:
+    name: "Package Managers"
+    description: "System package managers (Homebrew, APT)"
+    default: true
+    components:
+      - brew
+      - apt
+
+  development:
+    name: "Development Environment"
+    description: "Programming languages and development tools"
+    default: true
+    components:
+      - git
+      - python
+      - node
+      - ruby
+      - vim
+
+  system:
+    name: "System Configuration"
+    description: "OS-specific settings and configurations"
+    default: true
+    components:
+      - macos_defaults
+      - macos_dock
+      - ssh
+
+  applications:
+    name: "Applications"
+    description: "Desktop applications and utilities"
+    default: true
+    components:
+      - terminal
+      - browser
+      - productivity
+      - development_tools
+
+  cloud:
+    name: "Cloud Tools"
+    description: "Cloud service provider tools and configurations"
+    default: true
+    components:
+      - aws
+      - kubernetes
+      - docker
+
+  ai:
+    name: "AI Tools"
+    description: "AI assistant configurations and integrations"
+    default: true
+    components:
+      - amazon_q
+
+# Profiles define sets of configurations for different use cases
+profiles:
+  default:
+    name: "Default Profile"
+    description: "Standard configuration for personal use"
+    extends: []
+    modules:
+      shell: true
+      package_managers: true
+      development: true
+      system: true
+      applications: true
+      cloud: true
+      ai: true
+
+  work:
+    name: "Work Profile"
+    description: "Configuration optimized for work environment"
+    extends: ["default"]
+    modules:
+      # Override specific modules or components
+
+  minimal:
+    name: "Minimal Profile"
+    description: "Lightweight configuration for servers or minimal setups"
+    extends: []
+    modules:
+      shell: true
+      package_managers: true
+      development:
+        enabled: true
+        components:
+          - git
+      system:
+        enabled: true
+        components:
+          - ssh
+      applications: false
+      cloud: false
+      ai: false

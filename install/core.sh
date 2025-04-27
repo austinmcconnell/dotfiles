@@ -24,12 +24,12 @@ if ! is-executable yq; then
 fi
 
 # Create user config directory if it doesn't exist
-mkdir -p "$HOME/.extra"
+mkdir -p "$XDG_CONFIG_HOME/dotfiles"
 
 # Initialize user configuration if it doesn't exist
-if [ ! -f "$HOME/.extra/config.yaml" ]; then
+if [ ! -f "$XDG_CONFIG_HOME/dotfiles/config.yaml" ]; then
     # Create initial user configuration with selected profile
-    cat >"$HOME/.extra/config.yaml" <<EOF
+    cat >"$XDG_CONFIG_HOME/dotfiles/config.yaml" <<EOF
 # User configuration for dotfiles
 # This file overrides the core configuration
 

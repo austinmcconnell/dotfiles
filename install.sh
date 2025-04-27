@@ -4,8 +4,9 @@
 # Main installation script for dotfiles
 # This script coordinates the entire installation process by:
 # 1. Setting up environment variables and directories
-# 2. Installing core components and configuration system
-# 3. Running individual installation scripts based on user configuration
+# 2. Running the configuration wizard
+# 3. Installing core components and configuration system
+# 4. Running individual installation scripts based on user configuration
 # ---------------------------------------------------------------
 
 # Get current dir (so run this script from anywhere)
@@ -30,43 +31,20 @@ mkdir -p "$XDG_CONFIG_HOME"
 mkdir -p ~/.repositories
 mkdir -p "$HOME/.extra"
 
-# Prompt user to select a profile
-select_profile() {
-    local profile
-    while true; do
-        read -r -p "Enter profile name [default]: " profile
-        profile=${profile:-default}
+# Run the configuration wizard if config doesn't exist
+if [ ! -f "$XDG_CONFIG_HOME/dotfiles/config.yaml" ]; then
+    # Source the wizard script
+    . "$DOTFILES_DIR/install/wizard.sh"
 
-        # Check if profile is valid (we can't use config-manager yet as it's not installed)
-        if [ "$profile" = "default" ] || [ "$profile" = "work" ] || [ "$profile" = "minimal" ]; then
-            echo "$profile"
-            break
-        else
-            echo "Invalid profile. Please choose from: default, work, minimal"
-        fi
-    done
-}
-
-# Select profile if config doesn't exist
-SELECTED_PROFILE="default"
-if [ ! -f "$HOME/.extra/config.yaml" ]; then
-    # Display profile selection prompt
-    echo "Please select a profile for your dotfiles installation:"
-    echo "-----------------------------------------------------"
-    echo "default  - Standard configuration for personal use"
-    echo "work     - Configuration optimized for work environment"
-    echo "minimal  - Lightweight configuration for servers or minimal setups"
-    echo "-----------------------------------------------------"
-
-    SELECTED_PROFILE=$(select_profile)
+    # Run the wizard
+    if ! run_wizard; then
+        echo "Installation cancelled."
+        exit 1
+    fi
 fi
 
-# Install core components first (required for configuration system)
-export SELECTED_PROFILE
+# Install core components (required for configuration system)
 . "$DOTFILES_DIR/install/core.sh"
-
-# Set the selected profile in the configuration
-"$DOTFILES_DIR/bin/config-manager" profile "$SELECTED_PROFILE"
 
 # Function to conditionally load a module based on configuration
 load_module_if_enabled() {
