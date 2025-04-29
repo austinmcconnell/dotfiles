@@ -27,9 +27,11 @@ else
 fi
 
 ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+ZSH_COMPLETIONS_DIR="$ZDOTDIR/completions"
 ITERM_COLORSCHEME_DIR="$DOTFILES_DIR/etc/iterm/colorschemes"
 
 mkdir -p "$ZDOTDIR"
+mkdir -p "$ZSH_COMPLETIONS_DIR"
 mkdir -p "$XDG_CONFIG_HOME"/spaceship
 mkdir -p "$XDG_CONFIG_HOME"/direnv
 mkdir -p "$ITERM_COLORSCHEME_DIR"
@@ -89,6 +91,5 @@ done
 
 # Docker completions
 if is-executable docker; then
-    mkdir -p ~/.docker/completions
-    docker completion zsh >~/.docker/completions/_docker
+    docker completion zsh >"$ZSH_COMPLETIONS_DIR/_docker"
 fi
