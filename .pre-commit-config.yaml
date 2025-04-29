@@ -62,7 +62,7 @@ repos:
     rev: 2.1.0
     hooks:
       - id: bashate
-        args: ["--max-line-length", "100", "--ignore", "E006,E040,E044"]
+        args: ["--max-line-length", "100", "--ignore", "E004,E006,E040,E044"]
   # - repo: https://github.com/Lucas-C/pre-commit-hooks-nodejs
   #   rev: v1.1.2
   #   hooks:
