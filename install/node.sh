@@ -23,4 +23,12 @@ ln -sfv "$DOTFILES_DIR/etc/node/prettier.toml" "$XDG_CONFIG_HOME/prettier.toml"
 fnm install --lts
 fnm default lts-latest
 
+ZSH_COMPLETIONS_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh/completions"
+
+# Only try to generate completions if the directory exists
+# (which means zsh was already set up)
+if [[ -d "$ZSH_COMPLETIONS_DIR" ]]; then
+    fnm completions --shell=zsh >"$ZSH_COMPLETIONS_DIR/_fnm"
+fi
+
 install-node-packages
