@@ -17,6 +17,7 @@ init_brew_cache() {
     BREW_OUTDATED_CASKS=$(brew outdated --cask 2>/dev/null)
     BREW_TAPS=$(brew tap)
     CACHE_INITIALIZED=true
+    echo "Cache initialized"
 }
 
 is_package_installed() {

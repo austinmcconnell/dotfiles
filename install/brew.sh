@@ -34,7 +34,6 @@ if is-macos; then
     ln -sfv "$DOTFILES_DIR/etc/sublime-text/Default (OSX).sublime-keymap" "$HOME/Library/Application Support/Sublime Text/Packages/User"
 fi
 
-print_header "Initializing brew cache"
 init_brew_cache
 
 print_header "Adding taps"
@@ -139,9 +138,9 @@ print_header "Running brew doctor"
 brew doctor || true
 
 # Add helm charts repository
-print_header "Adding helm charts repositories"
+echo "Adding helm charts repositories"
 helm repo add stable https://charts.helm.sh/stable
 
 # Add brew installed bash as an allowed shell
-print_header "Adding brew installed bash as an allowed shell"
+echo "Adding brew installed bash as an allowed shell"
 grep "$(which bash)" /etc/shells &>/dev/null || sudo zsh -c "echo $(which bash) >> /etc/shells"
