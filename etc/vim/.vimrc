@@ -103,7 +103,8 @@ augroup nord-overrides
   autocmd ColorScheme nord highlight Folded ctermbg=DarkGrey ctermfg=white
 augroup END
 set background=dark         " set dark mode
-colorscheme everforest
+" colorscheme everforest
+" colorscheme nord
 set termguicolors
 
 " Editing
