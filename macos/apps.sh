@@ -11,6 +11,11 @@ else
     echo "**************************************************"
 fi
 
+if [ "$IS_WORK_COMPUTER" = "1" ]; then
+    echo -e "[33m⚠️ Skipping macOS app installs for work computer[0m"
+    return
+fi
+
 # Mac App Store application
 mas install 1236045954 # Canary mail
 mas install 926036361  # Lastpass
