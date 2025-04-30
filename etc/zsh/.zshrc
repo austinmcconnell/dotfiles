@@ -48,3 +48,6 @@ fi
 
 # done profiling
 [[ ${ZSH_PROFILE_RC:-0} -eq 0 ]] || { unset ZSH_PROFILE_RC && zprof }
+
+# direnv
+eval "$(direnv hook zsh)"
