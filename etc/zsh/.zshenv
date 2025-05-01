@@ -75,3 +75,6 @@ if [[ ("$SHLVL" -eq 1 && ! -o LOGIN) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; the
 fi
 
 export ABBR_USER_ABBREVIATIONS_FILE="$DOTFILES_DIR/etc/zsh/zsh-abbr/user-abbreviations"
+
+# rbenv
+export RBENV_ROOT="$XDG_DATA_HOME/rbenv"
