@@ -22,9 +22,6 @@
 [clone]
     defaultRemoteName = origin
 
-[remote "origin"]
-    fetch = +refs/heads/*:refs/remotes/origin/*
-
 [alias]
     amend = commit --amend --reuse-message=HEAD
     contrib = shortlog --summary --numbered
