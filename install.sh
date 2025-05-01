@@ -70,6 +70,7 @@ fi
 . "$DOTFILES_DIR/install/vim.sh"     # Vim with vim-plug
 . "$DOTFILES_DIR/install/scripts.sh" # Utility scripts
 . "$DOTFILES_DIR/install/ssh.sh"     # SSH configuration
+. "$DOTFILES_DIR/install/wget.sh"    # Wget with XDG compliance
 
 # Create .hushlogin to disable the login message
 touch ~/.hushlogin
