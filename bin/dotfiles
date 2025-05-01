@@ -77,6 +77,9 @@ sub_update() {
     print_section_header "Updating pyenv"
     pyenv update
 
+    print_section_header "Updating rbenv"
+    rbenv update
+
     print_section_header "Updating vim-plug"
     vim -i NONE -c "PlugUpdate" -c "qa"
     vim -es -i NONE -c "PlugUpgrade" -c "qa"

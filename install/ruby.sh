@@ -42,6 +42,13 @@ else
     git clone https://github.com/rbenv/rbenv-default-gems.git "$REPO_DIR"
 fi
 
+REPO_DIR="$RBENV_ROOT/plugins/rbenv-update"
+if [ -d "$REPO_DIR/.git" ]; then
+    git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull origin master
+else
+    git clone https://github.com/rkh/rbenv-update.git "$REPO_DIR"
+fi
+
 rbenv install --skip-existing "${DEFAULT_RUBY_VERSION}"
 rbenv global "${DEFAULT_RUBY_VERSION}"
 
