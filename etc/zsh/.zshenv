@@ -11,7 +11,6 @@ export DOTFILES_IDE="vim"
 export ZDOTDIR=${ZDOTDIR:-$XDG_CONFIG_HOME/zsh}
 export DOTFILES_DIR="$HOME/.dotfiles"
 
-
 # Mac OS
 export HOMEBREW_API_AUTO_UPDATE_SECS=86400
 
@@ -25,7 +24,7 @@ export CLICOLOR=1
 export LC_ALL="en_US.UTF-8"
 
 # Pyenv
-export PYENV_ROOT="$HOME/.pyenv"
+export PYENV_ROOT="$XDG_DATA_HOME/pyenv"
 
 # PIPENV
 export WORKON_HOME=~/.venvs
@@ -36,7 +35,7 @@ export PIPENV_VERBOSITY=-1
 export AUTOENV_ASSUME_YES=1
 
 # Google Cloud SDK
-export CLOUDSDK_PYTHON=~/.pyenv/shims/python3.7
+export CLOUDSDK_PYTHON="$PYENV_ROOT/shims/python3.7"
 
 # Set FLAGS
 export PATH="$BREW_PREFIX/opt/openssl@1.1/bin:$PATH"

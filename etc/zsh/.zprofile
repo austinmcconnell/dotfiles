@@ -22,6 +22,7 @@ path=(
     /opt/homebrew/opt/{coreutils,grep,findutils}/libexec/gnubin(N)
     /opt/homebrew/opt/ccache/libexec(N)
     /usr/local/{,s}bin(N)
+    $PYENV_ROOT/bin
     $DOTFILES_DIR/bin(N)
     $DOTFILES_DIR/etc/zsh/functions(N)
     $HOME/go/bin

@@ -10,7 +10,7 @@ else
         echo "**************************************************"
         echo "Installing Python"
         echo "**************************************************"
-        brew install ncurses openssl readline xz elib
+        brew install ncurses openssl readline xz
         LDFLAGS="-L$(brew --prefix openssl)/lib"
         CPPFLAGS="-I$(brew --prefix openssl)/include"
         CONFIGURE_OPTS="--with-openssl=$(brew --prefix openssl)"
@@ -50,12 +50,11 @@ if is-executable pyenv; then
     pyenv update
 fi
 
-PYENV_DIR="$HOME/.pyenv"
-PYENV_PLUGINS_DIR="$PYENV_DIR/plugins"
+PYENV_ROOT="$XDG_DATA_HOME/pyenv"
+PYENV_PLUGINS_DIR="$PYENV_ROOT/plugins"
 
-REPO_NAME=pyenv
-if [ ! -d "$PYENV_DIR" ]; then
-    git clone https://github.com/pyenv/pyenv.git "$PYENV_DIR"
+if [ ! -f "$PYENV_ROOT/bin/pyenv" ]; then
+    git clone https://github.com/pyenv/pyenv.git "$PYENV_ROOT"
 fi
 
 pyenv_plugins=(pyenv/pyenv-ccache jawshooah/pyenv-default-packages pyenv/pyenv-doctor pyenv/pyenv-implicit pyenv/pyenv-update)
@@ -68,9 +67,10 @@ for plugin in "${pyenv_plugins[@]}"; do
     fi
 done
 
-ln -sfv "$DOTFILES_DIR/etc/python/default-packages" "$PYENV_DIR" # <-- At end because PYENV_DIR doesn't exist before pyenv install
-"$PYENV_DIR"/bin/pyenv install --skip-existing $DEFAULT_PYTHON_VERSION
-"$PYENV_DIR"/bin/pyenv global $DEFAULT_PYTHON_VERSION
+ln -sfv "$DOTFILES_DIR/etc/python/default-packages" "$PYENV_ROOT" # <-- At end because PYENV_ROOT doesn't exist before pyenv install
+
+"$PYENV_ROOT"/bin/pyenv install --skip-existing $DEFAULT_PYTHON_VERSION
+"$PYENV_ROOT"/bin/pyenv global $DEFAULT_PYTHON_VERSION
 pip install --upgrade pip setuptools wheel
 
 pre-commit init-templatedir "$HOME"/.config/git/templates
