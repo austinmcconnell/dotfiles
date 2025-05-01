@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+
+require 'irb'
+require 'irb/completion'
+
+# Enable history
+IRB.conf[:SAVE_HISTORY] = 1000
+IRB.conf[:HISTORY_FILE] = "#{ENV['XDG_DATA_HOME']}/irb/history"
+
+# Enable auto-indent
+IRB.conf[:AUTO_INDENT] = true
+
+# Configure prompt
+IRB.conf[:PROMPT_MODE] = :SIMPLE
+
+# Load rubygems
+begin
+  require 'rubygems'
+rescue LoadError
+end

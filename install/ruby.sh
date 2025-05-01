@@ -31,9 +31,22 @@ PATH="$RBENV_ROOT/bin:$RBENV_ROOT/shims:$PATH"
 mkdir -p "$RBENV_ROOT"
 mkdir -p "$RBENV_ROOT/plugins"
 mkdir -p "$XDG_CONFIG_HOME/rubocop"
+mkdir -p "$XDG_CONFIG_HOME/irb"
+mkdir -p "$XDG_DATA_HOME/irb"
+
+if [[ -f "$HOME/.irb_history" ]]; then
+    echo "Moving existing .irb_history file to XDG_DATA_HOME/irb/history"
+    mv "$HOME/.irb_history" "$XDG_DATA_HOME/irb/history"
+fi
+
+if [[ -f "$HOME/.irb-history" ]]; then
+    echo "Moving existing .irb-history file to XDG_DATA_HOME/irb/history"
+    mv "$HOME/.irb-history" "$XDG_DATA_HOME/irb/history"
+fi
 
 ln -sfv "$DOTFILES_DIR/etc/ruby/default-gems" "$RBENV_ROOT/default-gems"
 ln -sfv "$DOTFILES_DIR/etc/ruby/rubocop.yml" "$XDG_CONFIG_HOME/rubocop/config.yml"
+ln -sfv "$DOTFILES_DIR/etc/ruby/irbrc" "$XDG_CONFIG_HOME/irb/irbrc"
 
 REPO_DIR="$RBENV_ROOT/plugins/rbenv-default-gems"
 if [ -d "$REPO_DIR/.git" ]; then

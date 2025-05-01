@@ -79,6 +79,9 @@ export ABBR_USER_ABBREVIATIONS_FILE="$DOTFILES_DIR/etc/zsh/zsh-abbr/user-abbrevi
 # rbenv
 export RBENV_ROOT="$XDG_DATA_HOME/rbenv"
 
+# Ruby
+export IRBRC="$XDG_CONFIG_HOME/irb/irbrc"
+
 # wget
 export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
 
