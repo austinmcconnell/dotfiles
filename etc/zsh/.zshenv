@@ -4,10 +4,20 @@ export DOTFILES_IDE="vim"
 
 # Part of https://github.com/mattmc3/zephyr/blob/main/plugins/environment/environment.plugin.zsh
 # Config directories
-# export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
-# export XDG_CACHE_HOME="$HOME/.cache"
-# export XDG_DATA_HOME="$HOME/.local/share"
-# export XDG_RUNTIME_DIR="$HOME/.xdg"
+export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_STATE_HOME=${XDG_STATE_HOME:-$HOME/.local/state}
+
+# Create user-specific runtime directory in macOS temp location
+if [[ "$(uname)" == "Darwin" ]]; then
+    export XDG_RUNTIME_DIR="${TMPDIR}user-${UID}"
+    if [[ ! -d "$XDG_RUNTIME_DIR" ]]; then
+        mkdir -p "$XDG_RUNTIME_DIR"
+        chmod 0700 "$XDG_RUNTIME_DIR"
+    fi
+fi
+
 export ZDOTDIR=${ZDOTDIR:-$XDG_CONFIG_HOME/zsh}
 export DOTFILES_DIR="$HOME/.dotfiles"
 
