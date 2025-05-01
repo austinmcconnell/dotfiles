@@ -91,6 +91,9 @@ export PSQLRC="$XDG_CONFIG_HOME/pg/psqlrc"
 export PSQL_HISTORY="$XDG_DATA_HOME/pg/psql_history"
 export PGPASSFILE="$XDG_CONFIG_HOME/pg/pgpass"
 
+# Terraform
+export TF_CLI_CONFIG_FILE="$XDG_CONFIG_HOME/terraform/terraform.rc"
+
 # wget
 export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
 
