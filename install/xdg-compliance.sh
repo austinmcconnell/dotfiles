@@ -1,9 +1,20 @@
 #!/bin/bash
 
 echo "**************************************************"
-echo "Configuring wget"
+echo "Configuring XDG compliance for CLI tools"
 echo "**************************************************"
 
+# Less
+echo "Configuring Less for XDG compliance"
+mkdir -p "$XDG_CONFIG_HOME/less"
+mkdir -p "$XDG_CACHE_HOME/less"
+if [[ -f "$HOME/.lesshst" ]]; then
+    echo "Moving existing .lesshst file to XDG_CACHE_HOME/less/history"
+    mv "$HOME/.lesshst" "$XDG_CACHE_HOME/less/history"
+fi
+
+# Wget
+echo "Configuring Wget for XDG compliance"
 mkdir -p "$XDG_CONFIG_HOME/wget"
 mkdir -p "$XDG_DATA_HOME/wget"
 
@@ -18,4 +29,4 @@ if [[ -f "$HOME/.wget-hsts" ]]; then
     mv "$HOME/.wget-hsts" "$XDG_DATA_HOME/wget/wget-hsts"
 fi
 
-echo "wget configured to use XDG directories"
+echo "XDG compliance configuration completed"

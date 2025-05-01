@@ -82,6 +82,10 @@ export RBENV_ROOT="$XDG_DATA_HOME/rbenv"
 # Ruby
 export IRBRC="$XDG_CONFIG_HOME/irb/irbrc"
 
+# Less
+export LESSKEY="$XDG_CONFIG_HOME/less/lesskey"
+export LESSHISTFILE="$XDG_CACHE_HOME/less/history"
+
 # wget
 export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
 
