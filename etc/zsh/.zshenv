@@ -81,3 +81,6 @@ export RBENV_ROOT="$XDG_DATA_HOME/rbenv"
 
 # wget
 export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
+
+# Python
+export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pythonrc"

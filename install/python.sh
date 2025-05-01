@@ -34,6 +34,8 @@ mkdir -p "$XDG_CONFIG_HOME/proselint"
 mkdir -p "$XDG_CONFIG_HOME/mypy"
 mkdir -p "$XDG_CONFIG_HOME/yapf"
 mkdir -p "$XDG_CONFIG_HOME/isort/"
+mkdir -p "$XDG_CONFIG_HOME/python"
+mkdir -p "$XDG_DATA_HOME/python"
 mkdir -p ~/.git-templates
 
 ln -sfv "$DOTFILES_DIR/etc/python/pip.conf" "$XDG_CONFIG_HOME/pip"
@@ -43,6 +45,13 @@ ln -sfv "$DOTFILES_DIR/etc/python/pylintrc" "$XDG_CONFIG_HOME"
 ln -sfv "$DOTFILES_DIR/etc/python/proselint.json" "$XDG_CONFIG_HOME/proselint/config.json"
 ln -sfv "$DOTFILES_DIR/etc/python/mypy" "$XDG_CONFIG_HOME/mypy/config"
 ln -sfv "$DOTFILES_DIR/etc/python/.isort.cfg" "$XDG_CONFIG_HOME/isort/config"
+ln -sfv "$DOTFILES_DIR/etc/python/pythonrc" "$XDG_CONFIG_HOME/python/pythonrc"
+
+# If there's an existing .python_history file, move it to XDG location
+if [[ -f "$HOME/.python_history" ]]; then
+    echo "Moving existing .python_history file to XDG_DATA_HOME/python"
+    mv "$HOME/.python_history" "$XDG_DATA_HOME/python/python_history"
+fi
 
 DEFAULT_PYTHON_VERSION=3.10.6
 

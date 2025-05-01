@@ -1,0 +1,23 @@
+# This configures the interactive Python interpreter to use XDG directories
+import os
+import atexit
+import readline
+
+# Set history file path according to XDG spec
+xdg_data_home = os.environ.get('XDG_DATA_HOME', os.path.expanduser('~/.local/share'))
+history_path = os.path.join(xdg_data_home, 'python', 'python_history')
+
+# Create directory if it doesn't exist
+os.makedirs(os.path.dirname(history_path), exist_ok=True)
+
+# Read existing history file
+try:
+    readline.read_history_file(history_path)
+except FileNotFoundError:
+    pass
+
+# Set history file path
+readline.set_history_length(10000)
+
+# Save history on exit
+atexit.register(readline.write_history_file, history_path)
