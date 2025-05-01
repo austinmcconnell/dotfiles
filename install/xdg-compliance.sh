@@ -29,4 +29,25 @@ if [[ -f "$HOME/.wget-hsts" ]]; then
     mv "$HOME/.wget-hsts" "$XDG_DATA_HOME/wget/wget-hsts"
 fi
 
+# PostgreSQL
+echo "Configuring PostgreSQL for XDG compliance"
+mkdir -p "$XDG_CONFIG_HOME/pg"
+mkdir -p "$XDG_DATA_HOME/pg"
+
+if [[ -f "$HOME/.psql_history" ]]; then
+    echo "Moving existing .psql_history file to XDG_DATA_HOME/pg/psql_history"
+    mv "$HOME/.psql_history" "$XDG_DATA_HOME/pg/psql_history"
+fi
+
+if [[ -f "$HOME/.pgpass" ]]; then
+    echo "Moving existing .pgpass file to XDG_CONFIG_HOME/pg/pgpass"
+    mv "$HOME/.pgpass" "$XDG_CONFIG_HOME/pg/pgpass"
+    chmod 0600 "$XDG_CONFIG_HOME/pg/pgpass"
+fi
+
+if [[ -f "$HOME/.psqlrc" ]]; then
+    echo "Moving existing .psqlrc file to XDG_CONFIG_HOME/pg/psqlrc"
+    mv "$HOME/.psqlrc" "$XDG_CONFIG_HOME/pg/psqlrc"
+fi
+
 echo "XDG compliance configuration completed"

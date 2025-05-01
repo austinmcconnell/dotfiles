@@ -86,6 +86,11 @@ export IRBRC="$XDG_CONFIG_HOME/irb/irbrc"
 export LESSKEY="$XDG_CONFIG_HOME/less/lesskey"
 export LESSHISTFILE="$XDG_CACHE_HOME/less/history"
 
+# PostgreSQL
+export PSQLRC="$XDG_CONFIG_HOME/pg/psqlrc"
+export PSQL_HISTORY="$XDG_DATA_HOME/pg/psql_history"
+export PGPASSFILE="$XDG_CONFIG_HOME/pg/pgpass"
+
 # wget
 export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
 
