@@ -1,6 +1,6 @@
 set noshowmode
 let g:lightline = {
-    \ 'colorscheme': 'everforest',
+    \ 'colorscheme': 'nord',
     \ 'component_function': {
     \     'gitbranch': 'gitbranch#name',
     \     'gitrelativedir': 'LightlineFilename',
