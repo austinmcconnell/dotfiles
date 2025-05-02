@@ -99,6 +99,9 @@ export PGPASSFILE="$XDG_CONFIG_HOME/pg/pgpass"
 # Terraform
 export TF_CLI_CONFIG_FILE="$XDG_CONFIG_HOME/terraform/terraform.rc"
 
+# Docker
+export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
+
 # wget
 export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
 

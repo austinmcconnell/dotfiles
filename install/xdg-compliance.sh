@@ -68,4 +68,14 @@ if [[ -d "$HOME/.terraform.d" ]]; then
     rm -rf "$HOME/.terraform.d"
 fi
 
+# Docker
+echo "Configuring Docker for XDG compliance"
+mkdir -p "$XDG_CONFIG_HOME/docker"
+
+if [[ -d "$HOME/.docker" ]]; then
+    echo "Moving existing .docker directory contents to XDG_CONFIG_HOME/docker"
+    cp -r "$HOME/.docker/"* "$XDG_CONFIG_HOME/docker/"
+    rm -rf "$HOME/.docker"
+fi
+
 echo "XDG compliance configuration completed"
