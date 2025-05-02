@@ -86,6 +86,7 @@ export GEM_SPEC_CACHE="$XDG_CACHE_HOME/gem/specs"
 export BUNDLE_USER_CONFIG="$XDG_CONFIG_HOME/bundle/config"
 export BUNDLE_USER_CACHE="$XDG_CACHE_HOME/bundle"
 export BUNDLE_USER_PLUGIN="$XDG_DATA_HOME/bundle/plugin"
+export RUBY_LSP_CONFIG_HOME="$XDG_CONFIG_HOME/ruby-lsp"
 
 # Less
 export LESSKEY="$XDG_CONFIG_HOME/less/lesskey"
@@ -101,6 +102,13 @@ export TF_CLI_CONFIG_FILE="$XDG_CONFIG_HOME/terraform/terraform.rc"
 
 # Docker
 export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
+
+# .NET and NuGet
+export DOTNET_CLI_HOME="$XDG_DATA_HOME/dotnet"
+export NUGET_PACKAGES="$XDG_DATA_HOME/nuget/packages"
+export NUGET_HTTP_CACHE_PATH="$XDG_CACHE_HOME/nuget/http-cache"
+export NUGET_PLUGINS_CACHE_PATH="$XDG_CACHE_HOME/nuget/plugins-cache"
+export OMNISHARPHOME="$XDG_DATA_HOME/omnisharp"
 
 # wget
 export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"

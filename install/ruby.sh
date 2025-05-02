@@ -39,6 +39,7 @@ mkdir -p "$XDG_CACHE_HOME/gem/specs"
 mkdir -p "$XDG_CONFIG_HOME/bundle"
 mkdir -p "$XDG_CACHE_HOME/bundle"
 mkdir -p "$XDG_DATA_HOME/bundle/plugin"
+mkdir -p "$XDG_CONFIG_HOME/ruby-lsp"
 
 # Migrate IRB history files
 if [[ -f "$HOME/.irb_history" ]]; then
@@ -78,6 +79,13 @@ if [[ -d "$HOME/.bundle" ]]; then
         cp -r "$HOME/.bundle/plugin/"* "$XDG_DATA_HOME/bundle/plugin/"
     fi
     rm -rf "$HOME/.bundle"
+fi
+
+# Migrate Ruby-LSP files
+if [[ -d "$HOME/.ruby-lsp" ]]; then
+    echo "Moving existing .ruby-lsp directory to XDG_CONFIG_HOME/ruby-lsp"
+    cp -r "$HOME/.ruby-lsp/"* "$XDG_CONFIG_HOME/ruby-lsp/"
+    rm -rf "$HOME/.ruby-lsp"
 fi
 
 # Link configuration files
