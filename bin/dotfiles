@@ -80,6 +80,12 @@ sub_update() {
     print_section_header "Updating rbenv"
     rbenv update
 
+    if is-executable gem; then
+        print_section_header "Updating Ruby gems"
+        gem update --system
+        gem update
+    fi
+
     print_section_header "Updating vim-plug"
     vim -i NONE -c "PlugUpdate" -c "qa"
     vim -es -i NONE -c "PlugUpgrade" -c "qa"
@@ -114,6 +120,11 @@ sub_clean() {
         sudo apt clean
         print_section_header "Runing apt autoremove"
         sudo apt autoremove
+    fi
+
+    if is-executable gem; then
+        print_section_header "Cleaning Ruby gems"
+        gem cleanup
     fi
 
     # Clean up Vim plugins
