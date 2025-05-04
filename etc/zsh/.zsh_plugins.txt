@@ -10,7 +10,8 @@ https://github.com/mattmc3/zephyr/ path:plugins/homebrew
 https://github.com/mattmc3/zephyr/ path:plugins/utility
 https://github.com/mattmc3/zephyr/ path:plugins/zfunctions
 https://github.com/mattmc3/zephyr/ path:plugins/prompt
-https://github.com/mattmc3/zephyr/ path:plugins/confd
+# Load confd plugin with defer to ensure it runs only once
+https://github.com/mattmc3/zephyr/ path:plugins/confd kind:defer
 
 ### Completions
 https://github.com/mattmc3/zephyr path:plugins/completion
