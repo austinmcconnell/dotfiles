@@ -15,24 +15,7 @@ source ${ZDOTDIR:-~}/.antidote/antidote.zsh
 # Set Zephyr home directory
 export ZEPHYR_HOME=${ANTIDOTE_HOME:-$HOME/Library/Caches/antidote}/mattmc3/zephyr
 
-# Configure Zephyr plugins
-zephyr_plugins=(
-  color
-  directory
-  environment
-  history
-  homebrew
-  prompt
-  utility
-  zfunctions
-  confd
-)
-zstyle ':zephyr:load' plugins $zephyr_plugins
-
-# Tell confd to run immediately (only once)
-zstyle ':zephyr:plugin:confd' immediate 'yes'
-
-# Source Zephyr
+# Source Zephyr - core functionality only, plugins will be loaded by Antidote
 source $ZEPHYR_HOME/zephyr.zsh
 
 # Generate static plugin file if needed
