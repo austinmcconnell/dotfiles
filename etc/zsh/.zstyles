@@ -5,6 +5,8 @@
 
 # Antidote
 zstyle ':antidote:bundle' use-friendly-names 'yes'  # obsolete after antidote 2.0 is released
+# Enable zcompilation for static files
+zstyle ':antidote:static' zcompile on
 
 # Docker
 zstyle ':completion:*:*:docker:*' option-stacking yes
