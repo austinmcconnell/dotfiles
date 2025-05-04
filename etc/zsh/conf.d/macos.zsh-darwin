@@ -1,0 +1,13 @@
+#!/bin/zsh
+#
+# macos.zsh-darwin - macOS specific configurations
+# This file will only be loaded on macOS systems
+#
+
+# macOS specific aliases
+alias showfiles="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
+alias hidefiles="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+
+# Use macOS clipboard
+alias pbp="pbpaste"
+alias pbc="pbcopy"

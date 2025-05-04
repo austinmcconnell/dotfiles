@@ -31,7 +31,7 @@ ZSH_COMPLETIONS_DIR="$ZDOTDIR/completions"
 ITERM_COLORSCHEME_DIR="$DOTFILES_DIR/etc/iterm/colorschemes"
 
 mkdir -p "$ZDOTDIR"
-mkdir -p "$ZDOTDIR/zshrc.d"
+mkdir -p "$ZDOTDIR/conf.d"
 mkdir -p "$ZDOTDIR/custom/plugins/extra"
 mkdir -p "$ZDOTDIR/custom/plugins/fzf"
 mkdir -p "$ZDOTDIR/custom/plugins/pyenv"
@@ -66,10 +66,10 @@ ln -sfv "$DOTFILES_DIR/etc/zsh/custom/plugins/fnm/fnm.plugin.zsh" "$ZDOTDIR/cust
 ln -sfv "$DOTFILES_DIR/etc/zsh/custom/plugins/chtf/chtf.plugin.zsh" "$ZDOTDIR/custom/plugins/chtf/chtf.plugin.zsh"
 ln -sfv "$DOTFILES_DIR/etc/zsh/custom/plugins/iterm2/iterm2.plugin.zsh" "$ZDOTDIR/custom/plugins/iterm2/iterm2.plugin.zsh"
 
-# Link modular configuration files
-for config_file in "$DOTFILES_DIR/etc/zsh/zshrc.d"/*.zsh; do
+# Link conf.d configuration files
+for config_file in "$DOTFILES_DIR/etc/zsh/conf.d"/*.zsh*; do
     if [ -f "$config_file" ]; then
-        ln -sfv "$config_file" "$ZDOTDIR/zshrc.d/$(basename "$config_file")"
+        ln -sfv "$config_file" "$ZDOTDIR/conf.d/$(basename "$config_file")"
     fi
 done
 

@@ -11,6 +11,9 @@ zstyle ':antidote:static' zcompile on
 zstyle ':antidote:bundle' file ${ZDOTDIR:-$HOME}/.zsh_plugins.txt
 zstyle ':antidote:static' file ${ZDOTDIR:-$HOME}/.zsh_plugins.zsh
 
+# Zephyr confd
+zstyle ':zephyr:plugin:confd' config-dirs ${ZDOTDIR:-$HOME}/conf.d
+
 # Docker
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
