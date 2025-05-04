@@ -31,6 +31,7 @@ ZSH_COMPLETIONS_DIR="$ZDOTDIR/completions"
 ITERM_COLORSCHEME_DIR="$DOTFILES_DIR/etc/iterm/colorschemes"
 
 mkdir -p "$ZDOTDIR"
+mkdir -p "$ZDOTDIR/zshrc.d"
 mkdir -p "$ZSH_COMPLETIONS_DIR"
 mkdir -p "$XDG_CONFIG_HOME"/spaceship
 mkdir -p "$XDG_CONFIG_HOME"/direnv
@@ -39,6 +40,7 @@ mkdir -p "$ITERM_COLORSCHEME_DIR"
 echo "ZDOTDIR=${ZDOTDIR:-$XDG_CONFIG_HOME/zsh}" >"$HOME"/.zshenv
 echo "source \$ZDOTDIR/.zshenv" >>"$HOME"/.zshenv
 
+# Link main configuration files
 ln -sfv "$DOTFILES_DIR/etc/zsh/functions" "$ZDOTDIR"
 ln -sfv "$DOTFILES_DIR/etc/zsh/.aliases" "$ZDOTDIR"
 ln -sfv "$DOTFILES_DIR/etc/zsh/.zlogin" "$ZDOTDIR"
@@ -47,25 +49,38 @@ ln -sfv "$DOTFILES_DIR/etc/zsh/.zsh_plugins.txt" "$ZDOTDIR"
 ln -sfv "$DOTFILES_DIR/etc/zsh/.zshenv" "$ZDOTDIR"
 ln -sfv "$DOTFILES_DIR/etc/zsh/.zshrc" "$ZDOTDIR"
 ln -sfv "$DOTFILES_DIR/etc/zsh/.zstyles" "$ZDOTDIR"
+
+# Link modular configuration files
+for config_file in "$DOTFILES_DIR/etc/zsh/zshrc.d"/*.zsh; do
+    if [ -f "$config_file" ]; then
+        ln -sfv "$config_file" "$ZDOTDIR/zshrc.d/$(basename "$config_file")"
+    fi
+done
+
+# Link other configuration files
 ln -sfv "$DOTFILES_DIR/etc/spaceship/spaceship.zsh" "$XDG_CONFIG_HOME"/spaceship/spaceship.zsh
 ln -sfv "$DOTFILES_DIR/etc/starship/starship.toml" "$XDG_CONFIG_HOME"
 ln -sfv "$DOTFILES_DIR/etc/direnv/direnv.toml" "$XDG_CONFIG_HOME"/direnv
 
+# Setup terminfo
 mkdir -p "$HOME"/.terminfo
 tic -o "$HOME"/.terminfo "$DOTFILES_DIR"/etc/terminfo/tmux.terminfo
 tic -o "$HOME"/.terminfo "$DOTFILES_DIR"/etc/terminfo/tmux-256color.terminfo
 tic -o "$HOME"/.terminfo "$DOTFILES_DIR"/etc/terminfo/xterm-256color.terminfo
 
+# Set zsh as default shell
 grep "$(which zsh)" /etc/shells &>/dev/null || sudo zsh -c "echo $(which zsh) >> /etc/shells"
 
 if [ "$SHELL" != "$(which zsh)" ]; then
     sudo chsh -s "$(which zsh)" "$USER"
 fi
 
+# Install iTerm2 shell integration
 if [ ! -f "$HOME/.iterm2_shell_integration.zsh" ]; then
     curl -L https://iterm2.com/shell_integration/zsh -o "$HOME/.iterm2_shell_integration.zsh"
 fi
 
+# Install antidote plugin manager
 REPO_DIR="${ZDOTDIR:-$HOME}"/.antidote
 if [ ! -d "$REPO_DIR/.git" ]; then
     git clone --depth=1 https://github.com/mattmc3/antidote.git "$REPO_DIR"
@@ -73,6 +88,7 @@ if [ ! -d "$REPO_DIR/.git" ]; then
     mkdir -p "$ZDOTDIR/completions"
 fi
 
+# Install iTerm2 color schemes
 iterm_colorschemes=(
     https://raw.githubusercontent.com/nordtheme/iterm2/233a2462e04e07a9676386a52dad0c2ff6666d72/src/xml/Nord.itermcolors
     https://raw.githubusercontent.com/rose-pine/iterm/main/rose-pine.itermcolors

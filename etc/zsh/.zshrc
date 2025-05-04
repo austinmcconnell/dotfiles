@@ -8,50 +8,7 @@
 
 [[ -e ${ZDOTDIR:-~}/.zstyles ]] && source ${ZDOTDIR:-~}/.zstyles
 
-# Add functions directory to fpath and autoload all functions
-fpath=($DOTFILES_DIR/etc/zsh/functions $fpath)
-autoload -Uz $DOTFILES_DIR/etc/zsh/functions/*
-
-source ${ZDOTDIR:-~}/.antidote/antidote.zsh
-antidote load
-
-# # Hook for extra/custom stuff (e.g. settings for work laptop)
-EXTRA_DIR="$HOME/.extra"
-if [ -d "$EXTRA_DIR" ]; then
-    for EXTRA_FILE in "$EXTRA_DIR"/.{env,alias,function,path}; do
-        [ -f "$EXTRA_FILE" ] && . "$EXTRA_FILE"
-    done
-fi
-
-# Source fzf key bindings and completions
-source /opt/homebrew/opt/fzf/shell/key-bindings.zsh
-# [[ $- == *i* ]] && source "/opt/homebrew/opt/fzf/shell/completion.zsh" 2>/dev/null # Doesn't seem to do anything
-
-
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
-# Bindkeys
-bindkey "^e" fzf-cd-widget
-# bindkey '\t' end-of-line  # For zsh-autosuggestions. This was messing up directory tab completion
-
-# fnm
-if [ -d "$FNM_PATH" ]; then
-    export PATH="$FNM_PATH:$PATH"
-    eval "`fnm env --use-on-cd --version-file-strategy=recursive`"
-fi
-
-# Pyenv
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init - --no-rehash zsh)"
-
-# chtf
-CHTF_AUTO_INSTALL="yes" # yes/no/ask
-if [[ -f "/opt/homebrew/share/chtf/chtf.sh" ]]; then
-    source "/opt/homebrew/share/chtf/chtf.sh"
-fi
-
-# done profiling
-[[ ${ZSH_PROFILE_RC:-0} -eq 0 ]] || { unset ZSH_PROFILE_RC && zprof }
-
-# direnv
-eval "$(direnv hook zsh)"
+# Load all files from zshrc.d directory
+for config_file ($ZDOTDIR/zshrc.d/*.zsh(N)); do
+    source $config_file
+done
