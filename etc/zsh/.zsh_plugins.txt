@@ -12,6 +12,7 @@ https://github.com/ael-code/zsh-colored-man-pages
 ### Local Plugins
 $ZDOTDIR/.aliases
 $ZDOTDIR/completions kind:fpath
+$ZDOTDIR/custom/plugins/extra
 
 
 ### Prompts

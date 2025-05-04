@@ -32,6 +32,7 @@ ITERM_COLORSCHEME_DIR="$DOTFILES_DIR/etc/iterm/colorschemes"
 
 mkdir -p "$ZDOTDIR"
 mkdir -p "$ZDOTDIR/zshrc.d"
+mkdir -p "$ZDOTDIR/custom/plugins/extra"
 mkdir -p "$ZSH_COMPLETIONS_DIR"
 mkdir -p "$XDG_CONFIG_HOME"/spaceship
 mkdir -p "$XDG_CONFIG_HOME"/direnv
@@ -49,6 +50,9 @@ ln -sfv "$DOTFILES_DIR/etc/zsh/.zsh_plugins.txt" "$ZDOTDIR"
 ln -sfv "$DOTFILES_DIR/etc/zsh/.zshenv" "$ZDOTDIR"
 ln -sfv "$DOTFILES_DIR/etc/zsh/.zshrc" "$ZDOTDIR"
 ln -sfv "$DOTFILES_DIR/etc/zsh/.zstyles" "$ZDOTDIR"
+
+# Link custom plugins
+ln -sfv "$DOTFILES_DIR/etc/zsh/custom/plugins/extra/extra.plugin.zsh" "$ZDOTDIR/custom/plugins/extra/extra.plugin.zsh"
 
 # Link modular configuration files
 for config_file in "$DOTFILES_DIR/etc/zsh/zshrc.d"/*.zsh; do
