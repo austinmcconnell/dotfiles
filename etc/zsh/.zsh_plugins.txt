@@ -1,17 +1,28 @@
 #!/bin/zsh
 
+### Zephyr Framework Components
+# These should be loaded first as they provide core functionality
+https://github.com/mattmc3/zephyr/ path:plugins/environment
+https://github.com/mattmc3/zephyr/ path:plugins/color
+https://github.com/mattmc3/zephyr/ path:plugins/directory
+https://github.com/mattmc3/zephyr/ path:plugins/history
+https://github.com/mattmc3/zephyr/ path:plugins/homebrew
+https://github.com/mattmc3/zephyr/ path:plugins/utility
+https://github.com/mattmc3/zephyr/ path:plugins/zfunctions
+https://github.com/mattmc3/zephyr/ path:plugins/prompt
 
 ### Completions
 https://github.com/mattmc3/zephyr path:plugins/completion
+$ZDOTDIR/completions kind:fpath
 
+### Editor Configuration
+https://github.com/belak/zsh-utils path:editor
 
 ### Regular Plugins
 https://github.com/ael-code/zsh-colored-man-pages
 
-
 ### Local Plugins
 $ZDOTDIR/.aliases
-$ZDOTDIR/completions kind:fpath
 $ZDOTDIR/custom/plugins/extra
 $ZDOTDIR/custom/plugins/fzf
 $ZDOTDIR/custom/plugins/pyenv
@@ -20,32 +31,13 @@ $ZDOTDIR/custom/plugins/fnm
 $ZDOTDIR/custom/plugins/chtf
 $ZDOTDIR/custom/plugins/iterm2
 
-
 ### Prompts
 https://github.com/romkatv/powerlevel10k kind:fpath
 https://github.com/sindresorhus/pure kind:fpath
 https://github.com/spaceship-prompt/spaceship-prompt kind:fpath
 
-
 ### Utilities
 https://github.com/romkatv/zsh-bench kind:path
-
-
-### Frameworks
-
-#zephyr
-https://github.com/mattmc3/zephyr/ path:plugins/color
-https://github.com/mattmc3/zephyr/ path:plugins/directory
-https://github.com/mattmc3/zephyr/ path:plugins/environment
-https://github.com/mattmc3/zephyr/ path:plugins/history
-https://github.com/mattmc3/zephyr/ path:plugins/homebrew
-https://github.com/mattmc3/zephyr/ path:plugins/prompt
-https://github.com/mattmc3/zephyr/ path:plugins/utility
-https://github.com/mattmc3/zephyr/ path:plugins/zfunctions
-
-# zsh-utils
-https://github.com/belak/zsh-utils path:editor
-
 
 ### Deferred Plugins
 https://github.com/MichaelAquilina/zsh-autoswitch-virtualenv kind:defer
