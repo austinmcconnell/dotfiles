@@ -29,6 +29,9 @@ zephyr_plugins=(
 )
 zstyle ':zephyr:load' plugins $zephyr_plugins
 
+# Tell confd to run immediately (only once)
+zstyle ':zephyr:plugin:confd' immediate 'yes'
+
 # Source Zephyr
 source $ZEPHYR_HOME/zephyr.zsh
 

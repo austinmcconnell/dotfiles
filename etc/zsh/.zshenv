@@ -1,20 +1,21 @@
 #!/bin/zsh
+#
+# .zshenv - Core environment variables that should be available to all shells
+#
 
 export DOTFILES_IDE="vim"
 
-# Part of https://github.com/mattmc3/zephyr/blob/main/plugins/environment/environment.plugin.zsh
-# Config directories
+# XDG Base Directories
 export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME=${XDG_STATE_HOME:-$HOME/.local/state}
 
-# Create user-specific runtime directory in macOS temp location
-# Moved to macos.zsh-darwin
-
+# Zsh directories
 export ZDOTDIR=${ZDOTDIR:-$XDG_CONFIG_HOME/zsh}
 export DOTFILES_DIR="$HOME/.dotfiles"
 
+# GPG
 GPG_TTY="$(tty)"
 export GPG_TTY
 
@@ -24,85 +25,7 @@ export CLICOLOR=1
 # Prefer US English and use UTF-8
 export LC_ALL="en_US.UTF-8"
 
-# Pyenv
-export PYENV_ROOT="$XDG_DATA_HOME/pyenv"
-
-# PIPENV
-export WORKON_HOME=~/.venvs
-export PIPENV_VENV_IN_PROJECT=1
-export PIPENV_VERBOSITY=-1
-
-# Autoenv
-export AUTOENV_ASSUME_YES=1
-
-# Google Cloud SDK
-export CLOUDSDK_PYTHON="$PYENV_ROOT/shims/python3.7"
-
-# Set FLAGS
-# OpenSSL path moved to macos.zsh-darwin
-export RUBY_CFLAGS=-DUSE_FFI_CLOSURE_ALLOC
-export optflags="-Wno-error=implicit-function-declaration"
-
-# fnm
-export FNM_PATH="/Users/$(whoami)/.local/share/fnm"
-
-export KUBE_PS1_SYMBOL_ENABLE=false
-export KUBE_PS1_NS_COLOR=yellow
-export KUBE_PS1_CTX_COLOR=yellow
-export KUBE_PS1_CLUSTER_FUNCTION=get_cluster_short
-
-# fzf settings
-export FZF_DEFAULT_COMMAND="fd --hidden --follow --color=always"
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type directory"
-export FZF_DEFAULT_OPTS="--ansi --color=dark --color fg:#D8DEE9,bg:#2E3440,hl:#A3BE8C,fg+:#D8DEE9,bg+:#434C5E,hl+:#A3BE8C --color pointer:#BF616A,info:#4C566A,spinner:#4C566A,header:#4C566A,prompt:#81A1C1,marker:#EBCB8B"
-export FZF_CTRL_T_OPTS="--preview '([[ -f {} ]] && (bat --style=numbers --color=always {} || cat {})) || ([[ -d {} ]] && (tree -C {} | less)) || echo {} 2> /dev/null | head -200'"
-# FZF_CTRL_R_OPTS moved to macos.zsh-darwin
-export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
-
 # Use .zprofile to set environment vars for non-login, non-interactive shells.
 if [[ ("$SHLVL" -eq 1 && ! -o LOGIN) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
     source "${ZDOTDIR:-$HOME}/.zprofile"
 fi
-
-export ABBR_USER_ABBREVIATIONS_FILE="$DOTFILES_DIR/etc/zsh/zsh-abbr/user-abbreviations"
-
-# rbenv
-export RBENV_ROOT="$XDG_DATA_HOME/rbenv"
-
-# Ruby
-export IRBRC="$XDG_CONFIG_HOME/irb/irbrc"
-export GEM_HOME="$XDG_DATA_HOME/gem"
-export GEM_SPEC_CACHE="$XDG_CACHE_HOME/gem/specs"
-export BUNDLE_USER_CONFIG="$XDG_CONFIG_HOME/bundle/config"
-export BUNDLE_USER_CACHE="$XDG_CACHE_HOME/bundle"
-export BUNDLE_USER_PLUGIN="$XDG_DATA_HOME/bundle/plugin"
-export RUBY_LSP_CONFIG_HOME="$XDG_CONFIG_HOME/ruby-lsp"
-
-# Less
-export LESSKEY="$XDG_CONFIG_HOME/less/lesskey"
-export LESSHISTFILE="$XDG_CACHE_HOME/less/history"
-
-# PostgreSQL
-export PSQLRC="$XDG_CONFIG_HOME/pg/psqlrc"
-export PSQL_HISTORY="$XDG_DATA_HOME/pg/psql_history"
-export PGPASSFILE="$XDG_CONFIG_HOME/pg/pgpass"
-
-# Terraform
-export TF_CLI_CONFIG_FILE="$XDG_CONFIG_HOME/terraform/terraform.rc"
-
-# Docker
-export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
-
-# .NET and NuGet
-export DOTNET_CLI_HOME="$XDG_DATA_HOME/dotnet"
-export NUGET_PACKAGES="$XDG_DATA_HOME/nuget/packages"
-export NUGET_HTTP_CACHE_PATH="$XDG_CACHE_HOME/nuget/http-cache"
-export NUGET_PLUGINS_CACHE_PATH="$XDG_CACHE_HOME/nuget/plugins-cache"
-export OMNISHARPHOME="$XDG_DATA_HOME/omnisharp"
-
-# wget
-export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
-
-# Python
-export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pythonrc"

@@ -23,7 +23,6 @@ https://github.com/belak/zsh-utils path:editor
 https://github.com/ael-code/zsh-colored-man-pages
 
 ### Local Plugins
-$ZDOTDIR/.aliases
 $ZDOTDIR/custom/plugins/extra
 $ZDOTDIR/custom/plugins/fzf
 $ZDOTDIR/custom/plugins/pyenv
