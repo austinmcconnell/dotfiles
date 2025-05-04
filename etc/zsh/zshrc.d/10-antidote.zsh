@@ -6,11 +6,15 @@
 # Load antidote
 source ${ZDOTDIR:-~}/.antidote/antidote.zsh
 
+# Get paths from zstyle configuration
+local bundle_file static_file
+zstyle -s ':antidote:bundle' file bundle_file
+zstyle -s ':antidote:static' file static_file
+
 # Generate static plugin file if needed
-zsh_plugins=${ZDOTDIR:-~}/.zsh_plugins
-if [[ ! ${zsh_plugins}.zsh -nt ${zsh_plugins}.txt ]]; then
-  antidote bundle <${zsh_plugins}.txt >${zsh_plugins}.zsh
+if [[ ! ${static_file} -nt ${bundle_file} ]]; then
+  antidote bundle <${bundle_file} >${static_file}
 fi
 
 # Source the static plugins file
-source ${zsh_plugins}.zsh
+source ${static_file}
