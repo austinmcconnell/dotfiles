@@ -10,19 +10,10 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME=${XDG_STATE_HOME:-$HOME/.local/state}
 
 # Create user-specific runtime directory in macOS temp location
-if [[ "$(uname)" == "Darwin" ]]; then
-    export XDG_RUNTIME_DIR="${TMPDIR}user-${UID}"
-    if [[ ! -d "$XDG_RUNTIME_DIR" ]]; then
-        mkdir -p "$XDG_RUNTIME_DIR"
-        chmod 0700 "$XDG_RUNTIME_DIR"
-    fi
-fi
+# Moved to macos.zsh-darwin
 
 export ZDOTDIR=${ZDOTDIR:-$XDG_CONFIG_HOME/zsh}
 export DOTFILES_DIR="$HOME/.dotfiles"
-
-# Mac OS
-export HOMEBREW_API_AUTO_UPDATE_SECS=86400
 
 GPG_TTY="$(tty)"
 export GPG_TTY
@@ -48,7 +39,7 @@ export AUTOENV_ASSUME_YES=1
 export CLOUDSDK_PYTHON="$PYENV_ROOT/shims/python3.7"
 
 # Set FLAGS
-export PATH="$BREW_PREFIX/opt/openssl@1.1/bin:$PATH"
+# OpenSSL path moved to macos.zsh-darwin
 export RUBY_CFLAGS=-DUSE_FFI_CLOSURE_ALLOC
 export optflags="-Wno-error=implicit-function-declaration"
 
@@ -66,7 +57,7 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type directory"
 export FZF_DEFAULT_OPTS="--ansi --color=dark --color fg:#D8DEE9,bg:#2E3440,hl:#A3BE8C,fg+:#D8DEE9,bg+:#434C5E,hl+:#A3BE8C --color pointer:#BF616A,info:#4C566A,spinner:#4C566A,header:#4C566A,prompt:#81A1C1,marker:#EBCB8B"
 export FZF_CTRL_T_OPTS="--preview '([[ -f {} ]] && (bat --style=numbers --color=always {} || cat {})) || ([[ -d {} ]] && (tree -C {} | less)) || echo {} 2> /dev/null | head -200'"
-export FZF_CTRL_R_OPTS="--bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' --color header:italic --header 'Press CTRL-Y to copy command into clipboard'"
+# FZF_CTRL_R_OPTS moved to macos.zsh-darwin
 export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 
 # Use .zprofile to set environment vars for non-login, non-interactive shells.

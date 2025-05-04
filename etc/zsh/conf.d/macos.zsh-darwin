@@ -4,10 +4,70 @@
 # This file will only be loaded on macOS systems
 #
 
-# macOS specific aliases
+##############################
+# Environment Variables
+##############################
+
+# macOS runtime directory
+export XDG_RUNTIME_DIR="${TMPDIR}user-${UID}"
+if [[ ! -d "$XDG_RUNTIME_DIR" ]]; then
+    mkdir -p "$XDG_RUNTIME_DIR"
+    chmod 0700 "$XDG_RUNTIME_DIR"
+fi
+
+# FZF clipboard integration (macOS specific)
+export FZF_CTRL_R_OPTS="--bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' --color header:italic --header 'Press CTRL-Y to copy command into clipboard'"
+
+##############################
+# Filesystem Aliases
+##############################
 alias showfiles="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
 alias hidefiles="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+alias logoff="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 
-# Use macOS clipboard
+alias cleanupds="find . -type f -name '*.DS_Store' -ls -exec /bin/rm {} \;"
+alias cleanupad="find . -type d -name '.AppleD*' -ls -exec /bin/rm -r {} \;"
+
+# Empty trash on mounted volumes and main HDD, and clear system logs
+alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl"
+
+# Show time machine excluded files and folders
+alias tmexcluded="mdfind \"com_apple_backup_excludeItem = 'com.apple.backupd'\" | sort"
+
+##############################
+# macOS App Control
+##############################
+# Reload native apps
+alias killfinder="killall Finder"
+alias killdock="killall Dock"
+alias killmenubar="killall SystemUIServer NotificationCenter"
+alias killos="killfinder && killdock && killmenubar"
+alias killbluetooth="blueutil -p 0 && sleep 1 && blueutil -p 1"
+
+# sleepWake reasons
+alias wakereason="log show --style syslog --last 3h | fgrep \"[powerd:sleepWake]\""
+
+##############################
+# Clipboard
+##############################
 alias pbp="pbpaste"
 alias pbc="pbcopy"
+
+##############################
+# macOS Paths
+##############################
+# Add macOS specific paths if they exist
+if [[ -d "/opt/homebrew/bin" ]]; then
+    export PATH="/opt/homebrew/bin:$PATH"
+fi
+
+if [[ -d "/opt/homebrew/opt/openssl@1.1/bin" ]]; then
+    export PATH="/opt/homebrew/opt/openssl@1.1/bin:$PATH"
+fi
+
+##############################
+# iTerm2 Integration
+##############################
+if [[ -f "$HOME/.iterm2_shell_integration.zsh" ]]; then
+    source "$HOME/.iterm2_shell_integration.zsh"
+fi
