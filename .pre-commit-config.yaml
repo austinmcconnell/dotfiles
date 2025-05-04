@@ -63,6 +63,7 @@ repos:
     hooks:
       - id: bashate
         args: ["--max-line-length", "100", "--ignore", "E004,E006,E040,E044"]
+        exclude_types: ["zsh"]
   # - repo: https://github.com/Lucas-C/pre-commit-hooks-nodejs
   #   rev: v1.1.2
   #   hooks:
