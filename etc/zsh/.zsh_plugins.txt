@@ -14,17 +14,24 @@ https://github.com/mattmc3/zephyr/ path:plugins/prompt
 https://github.com/mattmc3/zephyr/ path:plugins/confd kind:defer
 
 ### Completions
-https://github.com/mattmc3/zephyr path:plugins/completion
+https://github.com/mattmc3/zephyr path:plugins/completion kind:defer
 $ZDOTDIR/completions kind:fpath
 
 ### Editor Configuration
-https://github.com/belak/zsh-utils path:editor
+https://github.com/belak/zsh-utils path:editor kind:defer
 
 ### Regular Plugins
-https://github.com/ael-code/zsh-colored-man-pages
+https://github.com/ael-code/zsh-colored-man-pages kind:defer
 
 ### Local Plugins
 $ZDOTDIR/custom/plugins/extra
+# Plugins moved to conf.d:
+# - pyenv -> conf.d/python.zsh
+# - direnv -> conf.d/direnv.zsh
+# - fnm -> conf.d/node.zsh
+# - chtf -> conf.d/terraform.zsh
+# - iterm2 -> conf.d/iterm2.zsh
+# - fzf -> conf.d/fzf.zsh
 
 ### Prompts
 https://github.com/romkatv/powerlevel10k kind:fpath

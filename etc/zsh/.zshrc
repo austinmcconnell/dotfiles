@@ -30,5 +30,19 @@ fi
 # Source the static plugins file
 source ${static_file}
 
+# Compile zsh files for faster loading
+for file in ${ZDOTDIR:-~}/.zshrc ${ZDOTDIR:-~}/.zstyles ${ZDOTDIR:-~}/.zsh_plugins.zsh; do
+  if [[ -f $file && ( ! -f ${file}.zwc || $file -nt ${file}.zwc ) ]]; then
+    zcompile $file
+  fi
+done
+
+# Compile conf.d files for faster loading
+for file in ${ZDOTDIR:-~}/conf.d/*.zsh; do
+  if [[ -f $file && ( ! -f ${file}.zwc || $file -nt ${file}.zwc ) ]]; then
+    zcompile $file
+  fi
+done
+
 # done profiling
 [[ ${ZSH_PROFILE_RC:-0} -eq 0 ]] || { unset ZSH_PROFILE_RC && zprof }

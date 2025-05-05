@@ -7,12 +7,20 @@
 zstyle ':antidote:bundle' use-friendly-names 'yes'  # obsolete after antidote 2.0 is released
 # Enable zcompilation for static files
 zstyle ':antidote:static' zcompile on
+# Only regenerate static file if bundle file has changed and is newer
+zstyle ':antidote:static' refresh-on-update true
 # Antidote file paths
 zstyle ':antidote:bundle' file ${ZDOTDIR:-$HOME}/.zsh_plugins.txt
 zstyle ':antidote:static' file ${ZDOTDIR:-$HOME}/.zsh_plugins.zsh
 
+# Zephyr core
+zstyle ':zephyr:core' load-core-functions-only yes
+
 # Zephyr confd
 zstyle ':zephyr:plugin:confd' config-dirs ${ZDOTDIR:-$HOME}/conf.d
+zstyle ':zephyr:plugin:confd' lazy yes
+# Optimize conf.d loading by using zcompile
+zstyle ':zephyr:plugin:confd' zcompile yes
 
 # Docker
 zstyle ':completion:*:*:docker:*' option-stacking yes
