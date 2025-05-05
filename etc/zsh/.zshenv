@@ -26,6 +26,6 @@ export CLICOLOR=1
 export LC_ALL="en_US.UTF-8"
 
 # Use .zprofile to set environment vars for non-login, non-interactive shells.
-if [[ ("$SHLVL" -eq 1 && ! -o LOGIN) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
-    source "${ZDOTDIR:-$HOME}/.zprofile"
+if [[ ("$SHLVL" -eq 1 && ! -o LOGIN) && -s "$ZDOTDIR/.zprofile" ]]; then
+    source "$ZDOTDIR/.zprofile"
 fi

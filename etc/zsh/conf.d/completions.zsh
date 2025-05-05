@@ -11,7 +11,7 @@
 autoload -Uz compinit
 
 # Only check completion dump once a day
-if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qN.mh+24) ]]; then
+if [[ -n $ZDOTDIR/.zcompdump(#qN.mh+24) ]]; then
   compinit
 else
   compinit -C

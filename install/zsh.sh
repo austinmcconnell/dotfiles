@@ -84,7 +84,7 @@ if [ ! -f "$HOME/.iterm2_shell_integration.zsh" ]; then
 fi
 
 # Install antidote plugin manager
-REPO_DIR="${ZDOTDIR:-$HOME}"/.antidote
+REPO_DIR="$ZDOTDIR/.antidote"
 if [ ! -d "$REPO_DIR/.git" ]; then
     git clone --depth=1 https://github.com/mattmc3/antidote.git "$REPO_DIR"
     chmod +x "$REPO_DIR/antidote"
