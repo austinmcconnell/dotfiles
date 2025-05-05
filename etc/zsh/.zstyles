@@ -3,43 +3,45 @@
 # .zstyles - Set zstyle settings for plugins that need them.
 #
 
-# Antidote
-zstyle ':antidote:bundle' path ${ZDOTDIR:-$HOME}/.antidote
-zstyle ':antidote:bundle' use-friendly-names 'yes' # obsolete after antidote 2.0 is released
-zstyle ':antidote:bundle' parallel yes
-zstyle ':antidote:static' zcompile on                             # Enable zcompilation for static files
-zstyle ':antidote:static' refresh-on-update true                  # Only regenerate static file if bundle file has changed and is newer
-zstyle ':antidote:bundle' file ${ZDOTDIR:-$HOME}/.zsh_plugins.txt # Antidote file paths
-zstyle ':antidote:static' file ${ZDOTDIR:-$HOME}/.zsh_plugins.zsh # Antidote file paths
+# Antidote - Plugin manager for zsh
+zstyle ':antidote:bundle' path ${ZDOTDIR:-$HOME}/.antidote        # Directory where plugins will be cloned
+zstyle ':antidote:bundle' use-friendly-names 'yes'                # Use plugin name instead of full URL (obsolete after antidote 2.0)
+zstyle ':antidote:bundle' parallel yes                            # Load plugins in parallel for faster startup
+zstyle ':antidote:static' zcompile on                             # Compile plugins to .zwc files for faster loading
+zstyle ':antidote:static' refresh-on-update true                  # Recompile plugins when they're updated
+zstyle ':antidote:bundle' file ${ZDOTDIR:-$HOME}/.zsh_plugins.txt # File listing plugins to be loaded
+zstyle ':antidote:static' file ${ZDOTDIR:-$HOME}/.zsh_plugins.zsh # Generated file containing all plugin code
 
-# Zephyr core
-zstyle ':zephyr:core' load-core-functions-only yes
+# Zephyr core - Core framework functionality and initialization
+zstyle ':zephyr:core' load-core-functions-only yes # Only load essential functions for better performance
 
-# Completion
-zstyle ':zephyr:plugin:completion' force-rehash yes
-zstyle ':zephyr:plugin:completion:*' use-cache yes
-zstyle ':zephyr:plugin:completion:*' cache-path "${ZDOTDIR:-$HOME}/.zcompcache"
+# Completion - Intelligent tab completion and suggestion system
+zstyle ':zephyr:plugin:completion' force-rehash yes                             # Rehash command paths when new commands are installed
+zstyle ':zephyr:plugin:completion:*' use-cache yes                              # Cache completion for faster startup
+zstyle ':zephyr:plugin:completion:*' cache-path "${ZDOTDIR:-$HOME}/.zcompcache" # Where to store completion cache
 
-# Confd
-zstyle ':zephyr:plugin:confd' config-dirs ${ZDOTDIR:-$HOME}/conf.d
-zstyle ':zephyr:plugin:confd' zcompile yes
+# Confd - Configuration directory management and loading
+zstyle ':zephyr:plugin:confd' config-dirs ${ZDOTDIR:-$HOME}/conf.d # Directory containing additional config files
+zstyle ':zephyr:plugin:confd' zcompile yes                         # Compile config files for faster loading
 
-# Editor
-zstyle ':zephyr:plugin:editor' key-bindings 'emacs'
+# Editor - Text editing, input handling, and keyboard interaction
+zstyle ':zephyr:plugin:editor' key-bindings 'emacs' # Use emacs-style keybindings (ctrl+a for start of line, etc.)
 
-# History
-zstyle ':zephyr:plugin:history' histfile ${ZDOTDIR:-$HOME}/.zsh_history
-zstyle ':zephyr:plugin:history' histsize 10000000 # How many commands from history file are loaded into shell's memory
-zstyle ':zephyr:plugin:history' savehist 10000000 # How many commands history file can hold. Should be equal to or larger than HISTSIZE
+# History - Command history management and search functionality
+zstyle ':zephyr:plugin:history' histfile ${ZDOTDIR:-$HOME}/.zsh_history # File to store command history
+zstyle ':zephyr:plugin:history' histsize 10000000                       # Number of commands loaded into memory
+zstyle ':zephyr:plugin:history' savehist 10000000                       # Number of commands saved to history file
 
-# Prompt
-zstyle ':zephyr:plugin:prompt' theme 'starship'
+# Prompt - Interactive prompt system and theme management
+zstyle ':zephyr:plugin:prompt' theme 'starship' # Use starship prompt (requires starship to be installed)
 
-# Terminal
-zstyle ':zephyr:plugin:terminal' auto-title yes
-zstyle ':zephyr:plugin:terminal' title-format '%n@%m: %~'
-zstyle ':zephyr:plugin:utility' safe-ops yes
+# Terminal - Terminal emulator integration and window management
+zstyle ':zephyr:plugin:terminal' auto-title yes           # Automatically update terminal window title
+zstyle ':zephyr:plugin:terminal' title-format '%n@%m: %~' # Format: username@host: current_directory
 
-# Docker
-zstyle ':completion:*:*:docker:*' option-stacking yes
-zstyle ':completion:*:*:docker-*:*' option-stacking yes
+# Utility - Enhanced command utilities and safety features
+zstyle ':zephyr:plugin:utility' safe-ops yes # Confirm potentially dangerous operations (like rm -rf *)
+
+# Docker - Container management and orchestration integration
+zstyle ':completion:*:*:docker:*' option-stacking yes   # Allow stacking options in docker commands
+zstyle ':completion:*:*:docker-*:*' option-stacking yes # Same for docker-compose and other docker-* commands
