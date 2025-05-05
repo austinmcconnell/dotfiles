@@ -32,11 +32,3 @@ function load-docker-completion() {
 if command -v zsh-defer >/dev/null; then
   zsh-defer load-docker-completion
 fi
-
-# Completion options
-setopt COMPLETE_IN_WORD    # Complete from both ends of a word
-setopt ALWAYS_TO_END       # Move cursor to the end of a completed word
-setopt AUTO_MENU           # Show completion menu on a successive tab press
-setopt AUTO_LIST           # Automatically list choices on ambiguous completion
-setopt AUTO_PARAM_SLASH    # If completed parameter is a directory, add a trailing slash
-setopt EXTENDED_GLOB       # Needed for file modification glob modifiers with compinit
