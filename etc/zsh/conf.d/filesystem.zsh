@@ -9,7 +9,8 @@
 alias reload="exec zsh"
 alias rr="rm -rf"
 alias aliases="alias | sed 's/=.*//'"
-alias functions="declare -f | grep '^[a-z].* ()' | sed 's/{$//'"
+# Use the zsh built-in functions keyword instead
+# alias functions="declare -f | grep '^[a-z].* ()' | sed 's/{$//'"
 alias paths='echo -e ${PATH//:/\\n}'
 alias df='df -H -l'
 alias cleanupnode="find . -name 'node_modules' -exec rm -rf '{}' +"
