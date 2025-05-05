@@ -22,7 +22,6 @@ zstyle ':zephyr:plugin:completion:*' cache-path "$ZDOTDIR/.zcompcache" # Where t
 
 # Confd - Configuration directory management and loading
 zstyle ':zephyr:plugin:confd' config-dirs $ZDOTDIR/conf.d # Directory containing additional config files
-zstyle ':zephyr:plugin:confd' zcompile yes                # Compile config files for faster loading
 
 # Editor - Text editing, input handling, and keyboard interaction
 zstyle ':zephyr:plugin:editor' key-bindings 'emacs' # Use emacs-style keybindings (ctrl+a for start of line, etc.)
@@ -34,10 +33,6 @@ zstyle ':zephyr:plugin:history' savehist 10000000              # Number of comma
 
 # Prompt - Interactive prompt system and theme management
 zstyle ':zephyr:plugin:prompt' theme 'starship' # Use starship prompt (requires starship to be installed)
-
-# Terminal - Terminal emulator integration and window management
-zstyle ':zephyr:plugin:terminal' auto-title yes           # Automatically update terminal window title
-zstyle ':zephyr:plugin:terminal' title-format '%n@%m: %~' # Format: username@host: current_directory
 
 # Utility - Enhanced command utilities and safety features
 zstyle ':zephyr:plugin:utility' safe-ops yes # Confirm potentially dangerous operations (like rm -rf *)
