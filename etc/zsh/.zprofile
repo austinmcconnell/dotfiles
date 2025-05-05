@@ -36,6 +36,3 @@ export CPPFLAGS="-I$(brew --prefix openssl)/include"  # pyenv python builds
 export CONFIGURE_OPTS="--with-openssl=$(brew --prefix openssl)"  # pyenv python builds
 
 export REPO_DIR="$HOME/.repositories"
-
-# Added by `rbenv init` on Tue Dec 10 15:55:41 CST 2024
-eval "$(rbenv init - --no-rehash zsh)"

@@ -10,6 +10,16 @@
 # rbenv
 export RBENV_ROOT="$XDG_DATA_HOME/rbenv"
 
+# Add rbenv to PATH early to ensure it's available
+if [[ -d "$RBENV_ROOT/bin" ]]; then
+    export PATH="$RBENV_ROOT/bin:$PATH"
+fi
+
+# Initialize rbenv if available
+if command -v rbenv >/dev/null; then
+    eval "$(rbenv init - --no-rehash zsh)"
+fi
+
 # Ruby
 export RUBY_CFLAGS=-DUSE_FFI_CLOSURE_ALLOC
 export IRBRC="$XDG_CONFIG_HOME/irb/irbrc"
