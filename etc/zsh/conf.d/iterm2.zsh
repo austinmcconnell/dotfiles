@@ -1,6 +1,6 @@
 #!/bin/zsh
 #
-# iterm2.plugin.zsh - iTerm2 shell integration
+# iterm2.zsh - iTerm2 shell integration
 #
 
 # Load iTerm2 shell integration if it exists

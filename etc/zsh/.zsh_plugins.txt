@@ -25,11 +25,6 @@ https://github.com/ael-code/zsh-colored-man-pages
 
 ### Local Plugins
 $ZDOTDIR/custom/plugins/extra
-$ZDOTDIR/custom/plugins/fzf
-$ZDOTDIR/custom/plugins/direnv
-$ZDOTDIR/custom/plugins/fnm
-$ZDOTDIR/custom/plugins/chtf
-$ZDOTDIR/custom/plugins/iterm2
 
 ### Prompts
 https://github.com/romkatv/powerlevel10k kind:fpath
