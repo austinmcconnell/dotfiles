@@ -39,8 +39,21 @@ done
 
 # Compile conf.d files for faster loading
 for file in ${ZDOTDIR:-~}/conf.d/*.zsh; do
-  if [[ -f $file && ( ! -f ${file}.zwc || $file -nt ${file}.zwc ) ]]; then
-    zcompile $file
+  if [[ -f "$file" ]]; then
+    # For symlinks, check the target file's timestamp
+    if [[ -L "$file" ]]; then
+      target=$(readlink "$file")
+      if [[ ! -f "${file}.zwc" || "$target" -nt "${file}.zwc" ]]; then
+        echo "Compiling $file (symlink to $target)"
+        zcompile "$file"
+      fi
+    else
+      # Regular file check
+      if [[ ! -f "${file}.zwc" || "$file" -nt "${file}.zwc" ]]; then
+        echo "Compiling $file"
+        zcompile "$file"
+      fi
+    fi
   fi
 done
 
