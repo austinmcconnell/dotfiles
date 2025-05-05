@@ -4,7 +4,7 @@
 #
 
 # Antidote
-zstyle ':antidote:bundle' use-friendly-names 'yes'  # obsolete after antidote 2.0 is released
+zstyle ':antidote:bundle' use-friendly-names 'yes' # obsolete after antidote 2.0 is released
 # Enable zcompilation for static files
 zstyle ':antidote:static' zcompile on
 # Only regenerate static file if bundle file has changed and is newer
@@ -28,8 +28,8 @@ zstyle ':completion:*:*:docker-*:*' option-stacking yes
 
 # History
 zstyle ':zephyr:plugin:history' histfile ${ZDOTDIR:-$HOME}/.zsh_history
-zstyle ':zephyr:plugin:history' histsize 10000000  # How many commands from history file are loaded into shell's memory
-zstyle ':zephyr:plugin:history' savehist 10000000  # How many commands history file can hold. Should be equal to or larger than HISTSIZE
+zstyle ':zephyr:plugin:history' histsize 10000000 # How many commands from history file are loaded into shell's memory
+zstyle ':zephyr:plugin:history' savehist 10000000 # How many commands history file can hold. Should be equal to or larger than HISTSIZE
 
 # Prompt
 zstyle ':zephyr:plugin:prompt' theme 'starship'

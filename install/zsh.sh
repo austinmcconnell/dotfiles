@@ -33,12 +33,6 @@ ITERM_COLORSCHEME_DIR="$DOTFILES_DIR/etc/iterm/colorschemes"
 mkdir -p "$ZDOTDIR"
 mkdir -p "$ZDOTDIR/conf.d"
 mkdir -p "$ZDOTDIR/custom/plugins/extra"
-mkdir -p "$ZDOTDIR/custom/plugins/fzf"
-mkdir -p "$ZDOTDIR/custom/plugins/pyenv"
-mkdir -p "$ZDOTDIR/custom/plugins/direnv"
-mkdir -p "$ZDOTDIR/custom/plugins/fnm"
-mkdir -p "$ZDOTDIR/custom/plugins/chtf"
-mkdir -p "$ZDOTDIR/custom/plugins/iterm2"
 mkdir -p "$ZSH_COMPLETIONS_DIR"
 mkdir -p "$XDG_CONFIG_HOME"/spaceship
 mkdir -p "$XDG_CONFIG_HOME"/direnv
@@ -59,12 +53,6 @@ ln -sfv "$DOTFILES_DIR/etc/zsh/.zstyles" "$ZDOTDIR"
 
 # Link custom plugins
 ln -sfv "$DOTFILES_DIR/etc/zsh/custom/plugins/extra/extra.plugin.zsh" "$ZDOTDIR/custom/plugins/extra/extra.plugin.zsh"
-ln -sfv "$DOTFILES_DIR/etc/zsh/custom/plugins/fzf/fzf.plugin.zsh" "$ZDOTDIR/custom/plugins/fzf/fzf.plugin.zsh"
-ln -sfv "$DOTFILES_DIR/etc/zsh/custom/plugins/pyenv/pyenv.plugin.zsh" "$ZDOTDIR/custom/plugins/pyenv/pyenv.plugin.zsh"
-ln -sfv "$DOTFILES_DIR/etc/zsh/custom/plugins/direnv/direnv.plugin.zsh" "$ZDOTDIR/custom/plugins/direnv/direnv.plugin.zsh"
-ln -sfv "$DOTFILES_DIR/etc/zsh/custom/plugins/fnm/fnm.plugin.zsh" "$ZDOTDIR/custom/plugins/fnm/fnm.plugin.zsh"
-ln -sfv "$DOTFILES_DIR/etc/zsh/custom/plugins/chtf/chtf.plugin.zsh" "$ZDOTDIR/custom/plugins/chtf/chtf.plugin.zsh"
-ln -sfv "$DOTFILES_DIR/etc/zsh/custom/plugins/iterm2/iterm2.plugin.zsh" "$ZDOTDIR/custom/plugins/iterm2/iterm2.plugin.zsh"
 
 # Link conf.d configuration files
 for config_file in "$DOTFILES_DIR/etc/zsh/conf.d"/*.zsh*; do
