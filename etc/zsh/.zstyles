@@ -4,25 +4,28 @@
 #
 
 # Antidote
+zstyle ':antidote:bundle' path ${ZDOTDIR:-$HOME}/.antidote
 zstyle ':antidote:bundle' use-friendly-names 'yes' # obsolete after antidote 2.0 is released
-# Enable zcompilation for static files
-zstyle ':antidote:static' zcompile on
-# Only regenerate static file if bundle file has changed and is newer
-zstyle ':antidote:static' refresh-on-update true
-# Antidote file paths
-zstyle ':antidote:bundle' file ${ZDOTDIR:-$HOME}/.zsh_plugins.txt
-zstyle ':antidote:static' file ${ZDOTDIR:-$HOME}/.zsh_plugins.zsh
+zstyle ':antidote:bundle' parallel yes
+zstyle ':antidote:static' zcompile on                             # Enable zcompilation for static files
+zstyle ':antidote:static' refresh-on-update true                  # Only regenerate static file if bundle file has changed and is newer
+zstyle ':antidote:bundle' file ${ZDOTDIR:-$HOME}/.zsh_plugins.txt # Antidote file paths
+zstyle ':antidote:static' file ${ZDOTDIR:-$HOME}/.zsh_plugins.zsh # Antidote file paths
 
 # Zephyr core
 zstyle ':zephyr:core' load-core-functions-only yes
 
-# Zephyr confd
+# Completion
+zstyle ':zephyr:plugin:completion' force-rehash yes
+zstyle ':zephyr:plugin:completion:*' use-cache yes
+zstyle ':zephyr:plugin:completion:*' cache-path "${ZDOTDIR:-$HOME}/.zcompcache"
+
+# Confd
 zstyle ':zephyr:plugin:confd' config-dirs ${ZDOTDIR:-$HOME}/conf.d
 zstyle ':zephyr:plugin:confd' zcompile yes
 
-# Docker
-zstyle ':completion:*:*:docker:*' option-stacking yes
-zstyle ':completion:*:*:docker-*:*' option-stacking yes
+# Editor
+zstyle ':zephyr:plugin:editor' key-bindings 'emacs'
 
 # History
 zstyle ':zephyr:plugin:history' histfile ${ZDOTDIR:-$HOME}/.zsh_history
@@ -31,3 +34,12 @@ zstyle ':zephyr:plugin:history' savehist 10000000 # How many commands history fi
 
 # Prompt
 zstyle ':zephyr:plugin:prompt' theme 'starship'
+
+# Terminal
+zstyle ':zephyr:plugin:terminal' auto-title yes
+zstyle ':zephyr:plugin:terminal' title-format '%n@%m: %~'
+zstyle ':zephyr:plugin:utility' safe-ops yes
+
+# Docker
+zstyle ':completion:*:*:docker:*' option-stacking yes
+zstyle ':completion:*:*:docker-*:*' option-stacking yes
