@@ -10,28 +10,20 @@ https://github.com/mattmc3/zephyr/ path:plugins/homebrew
 https://github.com/mattmc3/zephyr/ path:plugins/utility
 https://github.com/mattmc3/zephyr/ path:plugins/zfunctions
 https://github.com/mattmc3/zephyr/ path:plugins/prompt
-# Load confd plugin with defer to ensure it runs only once
-https://github.com/mattmc3/zephyr/ path:plugins/confd kind:defer
+https://github.com/mattmc3/zephyr/ path:plugins/confd
+https://github.com/mattmc3/zephyr path:plugins/completion
 
 ### Completions
-https://github.com/mattmc3/zephyr path:plugins/completion kind:defer
 $ZDOTDIR/completions kind:fpath
 
 ### Editor Configuration
-https://github.com/belak/zsh-utils path:editor kind:defer
+https://github.com/belak/zsh-utils path:editor
 
 ### Regular Plugins
-https://github.com/ael-code/zsh-colored-man-pages kind:defer
+https://github.com/ael-code/zsh-colored-man-pages
 
 ### Local Plugins
 $ZDOTDIR/custom/plugins/extra
-# Plugins moved to conf.d:
-# - pyenv -> conf.d/python.zsh
-# - direnv -> conf.d/direnv.zsh
-# - fnm -> conf.d/node.zsh
-# - chtf -> conf.d/terraform.zsh
-# - iterm2 -> conf.d/iterm2.zsh
-# - fzf -> conf.d/fzf.zsh
 
 ### Prompts
 https://github.com/romkatv/powerlevel10k kind:fpath

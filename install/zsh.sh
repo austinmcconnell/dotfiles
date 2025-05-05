@@ -43,7 +43,6 @@ echo "source \$ZDOTDIR/.zshenv" >>"$HOME"/.zshenv
 
 # Link main configuration files
 ln -sfv "$DOTFILES_DIR/etc/zsh/functions" "$ZDOTDIR"
-ln -sfv "$DOTFILES_DIR/etc/zsh/.aliases" "$ZDOTDIR"
 ln -sfv "$DOTFILES_DIR/etc/zsh/.zlogin" "$ZDOTDIR"
 ln -sfv "$DOTFILES_DIR/etc/zsh/.zprofile" "$ZDOTDIR"
 ln -sfv "$DOTFILES_DIR/etc/zsh/.zsh_plugins.txt" "$ZDOTDIR"

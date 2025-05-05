@@ -18,8 +18,6 @@ zstyle ':zephyr:core' load-core-functions-only yes
 
 # Zephyr confd
 zstyle ':zephyr:plugin:confd' config-dirs ${ZDOTDIR:-$HOME}/conf.d
-zstyle ':zephyr:plugin:confd' lazy yes
-# Optimize conf.d loading by using zcompile
 zstyle ':zephyr:plugin:confd' zcompile yes
 
 # Docker
