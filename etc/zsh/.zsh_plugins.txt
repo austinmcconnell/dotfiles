@@ -26,7 +26,6 @@ https://github.com/ael-code/zsh-colored-man-pages
 ### Local Plugins
 $ZDOTDIR/custom/plugins/extra
 $ZDOTDIR/custom/plugins/fzf
-$ZDOTDIR/custom/plugins/pyenv
 $ZDOTDIR/custom/plugins/direnv
 $ZDOTDIR/custom/plugins/fnm
 $ZDOTDIR/custom/plugins/chtf
