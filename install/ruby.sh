@@ -35,6 +35,7 @@ mkdir -p "$XDG_CONFIG_HOME/rubocop"
 mkdir -p "$XDG_CONFIG_HOME/irb"
 mkdir -p "$XDG_DATA_HOME/irb"
 mkdir -p "$XDG_DATA_HOME/gem"
+mkdir -p "$XDG_CONFIG_HOME/gem"
 mkdir -p "$XDG_CACHE_HOME/gem/specs"
 mkdir -p "$XDG_CONFIG_HOME/bundle"
 mkdir -p "$XDG_CACHE_HOME/bundle"
@@ -92,6 +93,8 @@ fi
 ln -sfv "$DOTFILES_DIR/etc/ruby/default-gems" "$RBENV_ROOT/default-gems"
 ln -sfv "$DOTFILES_DIR/etc/ruby/rubocop.yml" "$XDG_CONFIG_HOME/rubocop/config.yml"
 ln -sfv "$DOTFILES_DIR/etc/ruby/irbrc" "$XDG_CONFIG_HOME/irb/irbrc"
+ln -sfv "$DOTFILES_DIR/etc/ruby/gemrc" "$XDG_CONFIG_HOME/gem/gemrc"
+ln -sfv "$DOTFILES_DIR/etc/ruby/bundle-config" "$XDG_CONFIG_HOME/bundle/config"
 
 # Install rbenv plugins
 REPO_DIR="$RBENV_ROOT/plugins/rbenv-default-gems"
