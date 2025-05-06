@@ -35,4 +35,4 @@ if [[ -d "$ZSH_COMPLETIONS_DIR" ]]; then
     fnm completions --shell=zsh >"$ZSH_COMPLETIONS_DIR/_fnm"
 fi
 
-install-node-packages
+source "$DOTFILES_DIR/etc/zsh/functions/install-node-packages"
