@@ -15,6 +15,9 @@ zstyle ':antidote:static' file $ZDOTDIR/.zsh_plugins.zsh # Generated file contai
 # Zephyr core - Core framework functionality and initialization
 zstyle ':zephyr:core' load-core-functions-only yes # Only load essential functions for better performance
 
+# Color - Terminal color support and configuration
+zstyle ':zephyr:plugin:color' use-cache true # Cache color settings for faster startup
+
 # Completion - Intelligent tab completion and suggestion system
 zstyle ':zephyr:plugin:completion' force-rehash yes                    # Rehash command paths when new commands are installed
 zstyle ':zephyr:plugin:completion:*' use-cache yes                     # Cache completion for faster startup
@@ -31,8 +34,12 @@ zstyle ':zephyr:plugin:history' histfile $ZDOTDIR/.zsh_history # File to store c
 zstyle ':zephyr:plugin:history' histsize 10000000              # Number of commands loaded into memory
 zstyle ':zephyr:plugin:history' savehist 10000000              # Number of commands saved to history file
 
+# Homebrew - Package manager integration
+zstyle ':zephyr:plugin:homebrew' use-cache true # Cache Homebrew environment for faster startup
+
 # Prompt - Interactive prompt system and theme management
 zstyle ':zephyr:plugin:prompt' theme 'starship' # Use starship prompt (requires starship to be installed)
+zstyle ':zephyr:plugin:prompt' use-cache true   # Cache prompt initialization for faster startup
 
 # Utility - Enhanced command utilities and safety features
 zstyle ':zephyr:plugin:utility' safe-ops yes # Confirm potentially dangerous operations (like rm -rf *)
