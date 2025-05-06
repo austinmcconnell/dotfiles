@@ -9,7 +9,7 @@ echo "Timestamp file: $timestamp_file"
 
 if [[ -f "$timestamp_file" ]] && [[ "$packages_file" -ot "$timestamp_file" ]] && [[ "$1" != "--force" ]]; then
     echo "Node packages are up to date. Use --force to reinstall."
-    exit 0
+    return 0
 fi
 
 echo "Installing Node packages..."
@@ -21,7 +21,7 @@ if [[ -f "$packages_file" ]]; then
     fi
 else
     echo "Warning: Default packages file not found at $packages_file"
-    exit 1
+    return 1
 fi
 
 date >"$timestamp_file"
