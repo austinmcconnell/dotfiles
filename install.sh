@@ -71,7 +71,7 @@ fi
 . "$DOTFILES_DIR/install/ruby.sh"           # Ruby with rbenv
 . "$DOTFILES_DIR/install/scripts.sh"        # Utility scripts
 . "$DOTFILES_DIR/install/ssh.sh"            # SSH configuration
-. "$DOTFILES_DIR/install/nord-dircolors.sh" # Nord dircolors theme
+. "$DOTFILES_DIR/install/dircolors.sh"      # Dircolors themes
 . "$DOTFILES_DIR/install/xdg-compliance.sh" # XDG compliance for CLI tools
 
 # Create .hushlogin to disable the login message
