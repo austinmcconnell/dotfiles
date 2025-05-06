@@ -12,7 +12,11 @@ fi
 
 brew install --formula fnm
 
+FNM_PATH="${XDG_DATA_HOME:-$HOME/.local/share}/fnm"
+NPM_PATH="${XDG_DATA_HOME:-$HOME/.local/share}/npm"
+
 mkdir -p "$FNM_PATH"
+mkdir -p "$NPM_PATH"
 
 # FNM doesn't support installing default packages
 # https://github.com/Schniz/fnm/issues/139
