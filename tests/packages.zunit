@@ -58,9 +58,13 @@
 
 @test 'python default packages installed' {
     installed_packages=$(pip freeze | cut -d '=' -f 1)
+    # Normalize package name by replacing hyphens with underscores
+    normalized_packages=$(echo $installed_packages | tr '-' '_')
     for package in $(cat $DOTFILES_DIR/etc/python/default-packages); do
-        trimmed_package=$(echo $package | cut -d '[' -f 1 )
-        assert $trimmed_package in $installed_packages
+        # Trim package name to remove any [extras]
+        trimmed_package=$(echo $package | cut -d '[' -f 1)
+        normalized_package=$(echo $trimmed_package | tr '-' '_')
+        assert $normalized_package in $normalized_packages
         echo "$package is installed"
     done
 }
