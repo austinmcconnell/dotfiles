@@ -1,7 +1,7 @@
 #!/usr/bin/env zunit
 
 @setup {
-   fpath=(/Users/austin/.dotfiles/etc/zsh/functions $fpath)
+   fpath=($DOTFILES_DIR/etc/zsh/functions $fpath)
    autoload -Uz calc get_trunk_branch
 }
 
