@@ -1,5 +1,10 @@
 #!/usr/bin/env zunit
 
+@setup {
+   fpath=(/Users/austin/.dotfiles/etc/zsh/functions $fpath)
+   autoload -Uz calc get_trunk_branch
+}
+
 @test 'calc' {
     run calc 1 + 2
     assert $output equals 3
