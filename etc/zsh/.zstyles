@@ -23,6 +23,11 @@ zstyle ':zephyr:plugin:completion' force-rehash yes                    # Rehash 
 zstyle ':zephyr:plugin:completion:*' use-cache yes                     # Cache completion for faster startup
 zstyle ':zephyr:plugin:completion:*' cache-path "$ZDOTDIR/.zcompcache" # Where to store completion cache
 
+# Compstyle - Completion styling system
+zstyle ':zephyr:plugin:compstyle:*' style 'zephyr'       # Use the default Zephyr style
+zstyle ':zephyr:plugin:compstyle:*' case-sensitive false # Case-insensitive completion
+zstyle ':zephyr:plugin:compstyle:*' use-cache true       # Cache compstyle settings for faster startup
+
 # Confd - Configuration directory management and loading
 zstyle ':zephyr:plugin:confd' config-dirs $ZDOTDIR/conf.d # Directory containing additional config files
 

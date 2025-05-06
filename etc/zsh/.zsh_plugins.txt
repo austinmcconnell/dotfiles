@@ -12,6 +12,7 @@ https://github.com/mattmc3/zephyr/ path:plugins/zfunctions
 https://github.com/mattmc3/zephyr/ path:plugins/prompt
 https://github.com/mattmc3/zephyr/ path:plugins/confd
 https://github.com/mattmc3/zephyr path:plugins/completion
+https://github.com/mattmc3/zephyr/ path:plugins/compstyle
 
 ### Completions
 $ZDOTDIR/completions kind:fpath
