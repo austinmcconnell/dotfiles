@@ -55,8 +55,7 @@ sub_update() {
             print_section_header "Updating Mac App Store applications"
             mas upgrade
         fi
-        print_section_header "Running brew update & upgrade "
-        brew update
+        print_section_header "Upgrading Homebrew packages"
         brew upgrade
     fi
 
