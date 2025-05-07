@@ -89,6 +89,8 @@ if [ ! -d "$REPO_DIR/.git" ]; then
     git clone --depth=1 https://github.com/mattmc3/antidote.git "$REPO_DIR"
     chmod +x "$REPO_DIR/antidote"
     mkdir -p "$ZDOTDIR/completions"
+else
+    zsh -c "source \"$REPO_DIR/antidote.zsh\" && antidote update"
 fi
 
 # Install iTerm2 color schemes
