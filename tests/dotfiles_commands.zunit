@@ -148,8 +148,8 @@ EOF
              "$DOTFILES_DIR/macos/dock-work.sh"
 
     # Create mock repositories directory
-    mkdir -p "$TEMP_DIR/.repositories/test-repo"
-    touch "$TEMP_DIR/.repositories/test-repo/.git"
+    mkdir -p "$TEMP_DIR/.repositories/test-repo/.git"
+    touch "$TEMP_DIR/.repositories/test-repo/.git/config"
 
     # Set up environment for testing
     export HOME="$TEMP_DIR"

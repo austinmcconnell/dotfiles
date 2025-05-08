@@ -11,6 +11,32 @@
 
 BIN_NAME=$(basename "$0")
 COMMAND_NAME=$1
+LOG_LEVEL=${DOTFILES_LOG_LEVEL:-"info"} # Default log level is info
+
+# Logging functions with different severity levels
+log_debug() {
+    if [[ "$LOG_LEVEL" == "debug" ]]; then
+        echo -e "\033[0;37m[DEBUG] $*\033[0m"
+    fi
+}
+
+log_info() {
+    if [[ "$LOG_LEVEL" == "debug" || "$LOG_LEVEL" == "info" ]]; then
+        echo -e "\033[0;34m[INFO] $*\033[0m"
+    fi
+}
+
+log_warning() {
+    if [[ "$LOG_LEVEL" != "error" && "$LOG_LEVEL" != "none" ]]; then
+        echo -e "\033[0;33m[WARNING] $*\033[0m" >&2
+    fi
+}
+
+log_error() {
+    if [[ "$LOG_LEVEL" != "none" ]]; then
+        echo -e "\033[0;31m[ERROR] $*\033[0m" >&2
+    fi
+}
 
 # Helper function to print section headers in a consistent format
 print_section_header() {
@@ -24,82 +50,135 @@ sub_help() {
     echo "Usage: $BIN_NAME <command>"
     echo
     echo "Commands:"
+    echo "   clean                Clean up caches (brew, apt, gem, vim plugins)"
     echo "   edit                 Open dotfiles in IDE ($DOTFILES_IDE)"
     echo "   help                 This help message"
+    echo "   mac-apps             Install macOS applications"
+    echo "   mac-defaults         Apply macOS system defaults"
     echo "   mac-dock-personal    Apply personal macOS Dock settings"
     echo "   mac-dock-work        Apply work macOS Dock settings"
-    echo "   mac-defaults         Apply macOS system defaults"
-    echo "   mac-apps             Install macOS applications"
     echo "   test                 Run tests"
-    echo "   update               Update packages and pkg managers (e.g. OS, brew, apt)"
-    echo "   update-repos         Update repos in ~/.repositories"
-    echo "   clean                Clean up caches (e.g. brew, apt)"
+    echo "   update               Update packages and pkg managers (OS, brew, apt)"
+    echo "   update-repos         Update git repositories in ~/.repositories"
+    echo
+    echo "Options:"
+    echo "   --debug              Set log level to debug"
+    echo "   --quiet              Set log level to error (only show errors)"
+    echo "   --silent             Set log level to none (show no output)"
+    echo
+    echo "Examples:"
+    echo "   $BIN_NAME update     Update all packages and package managers"
+    echo "   $BIN_NAME clean      Clean up package caches"
+    echo "   $BIN_NAME --debug update  Run update with debug logging"
 }
 
 # Open the dotfiles directory in the configured IDE
 sub_edit() {
+    log_info "Opening dotfiles in $DOTFILES_IDE"
     sh -c "cd $DOTFILES_DIR && $DOTFILES_IDE"
 }
 
 # Run the test suite to verify dotfiles functionality
 sub_test() {
+    log_info "Running tests in $DOTFILES_DIR/tests/"
     cd "$DOTFILES_DIR" && zunit "$DOTFILES_DIR"/tests/
 }
 
 # Update all packages and package managers
 sub_update() {
+    log_info "Starting update process"
+
     # macOS-specific updates
     if is-macos; then
         # Only update Mac App Store apps on personal computers
         if ! is-work; then
             print_section_header "Updating Mac App Store applications"
+            log_debug "Running: mas upgrade"
             mas upgrade
+        else
+            log_debug "Skipping Mac App Store updates on work computer"
         fi
+
         print_section_header "Upgrading Homebrew packages"
+        log_debug "Running: brew upgrade"
         brew upgrade
     fi
 
     # Debian-specific updates
     if is-debian; then
         print_section_header "Running apt update & upgrade"
+        log_debug "Running: sudo apt update"
         sudo apt update
+        log_debug "Running: sudo apt upgrade -y"
         sudo apt upgrade -y
+
         print_section_header "Running snap refresh"
+        log_debug "Running: sudo snap refresh"
         sudo snap refresh
     fi
 
     # Update language-specific package managers and tools
     print_section_header "Updating antidote"
+    log_debug "Running: antidote update"
     PATH="$ZDOTDIR/.antidote/":$PATH
     antidote update
 
     print_section_header "Updating pyenv"
+    log_debug "Running: pyenv update"
     pyenv update
 
     print_section_header "Updating rbenv"
+    log_debug "Running: rbenv update"
     rbenv update
 
     if is-executable gem; then
         print_section_header "Updating Ruby gems"
+        log_debug "Running: gem update --system"
         gem update --system
+        log_debug "Running: gem update"
         gem update
     fi
 
     print_section_header "Updating vim-plug"
+    log_debug "Running: vim -i NONE -c \"PlugUpdate\" -c \"qa\""
     vim -i NONE -c "PlugUpdate" -c "qa"
+    log_debug "Running: vim -es -i NONE -c \"PlugUpgrade\" -c \"qa\""
     vim -es -i NONE -c "PlugUpgrade" -c "qa"
 
     # Update external repositories and clean up
+    log_info "Updating external repositories"
     sub_update-repos
+    log_info "Cleaning up"
     sub_clean
+
+    log_info "Update process completed"
 }
 
 # Update all git repositories in the ~/.repositories directory
 sub_update-repos() {
     print_section_header "Updating repositories"
+
+    # Check if repositories directory exists
+    if [[ ! -d "$HOME/.repositories" ]]; then
+        log_warning "No repositories directory found at ~/.repositories"
+        return 0
+    fi
+
+    # Check if there are any repositories
+    repo_count=$(find "$HOME/.repositories" -maxdepth 1 -mindepth 1 -type d | wc -l)
+    if [[ $repo_count -eq 0 ]]; then
+        log_info "No repositories found in ~/.repositories"
+        return 0
+    fi
+
     for REPO_DIR in "$HOME"/.repositories/*; do
-        echo Updating repository: "$(basename "$REPO_DIR")"
-        git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull
+        if [[ -d "$REPO_DIR/.git" ]]; then
+            echo "Updating repository: $(basename "$REPO_DIR")"
+            log_debug "Running: git --work-tree=\"$REPO_DIR\" --git-dir=\"$REPO_DIR/.git\" pull"
+            git --work-tree="$REPO_DIR" --git-dir="$REPO_DIR/.git" pull
+        else
+            log_warning "Directory $(basename "$REPO_DIR") is not a git repository"
+        fi
     done
 }
 
@@ -107,59 +186,133 @@ sub_update-repos() {
 sub_clean() {
     # macOS cleanup
     if is-macos; then
-        print_section_header "Runing brew cleanup"
+        print_section_header "Running brew cleanup"
+        log_debug "Running: brew cleanup"
         brew cleanup
-        print_section_header "Runing brew autoremove"
+
+        print_section_header "Running brew autoremove"
+        log_debug "Running: brew autoremove"
         brew autoremove
     fi
 
     # Debian cleanup
     if is-debian; then
-        print_section_header "Runing apt clean"
+        print_section_header "Running apt clean"
+        log_debug "Running: sudo apt clean"
         sudo apt clean
-        print_section_header "Runing apt autoremove"
+
+        print_section_header "Running apt autoremove"
+        log_debug "Running: sudo apt autoremove"
         sudo apt autoremove
     fi
 
     if is-executable gem; then
         print_section_header "Cleaning Ruby gems"
+        log_debug "Running: gem cleanup"
         gem cleanup
     fi
 
     # Clean up Vim plugins
-    print_section_header "Updating PlugClean"
+    print_section_header "Running PlugClean"
+    log_debug "Running: vim -i NONE -c \"PlugClean\" -c \"qa\""
     vim -i NONE -c "PlugClean" -c "qa"
+
+    log_info "Cleanup completed"
 }
 
 # Apply macOS system defaults from all defaults-*.sh files
 sub_mac-defaults() {
+    log_info "Applying macOS system defaults"
+
+    # Check if we're on macOS
+    if ! is-macos; then
+        log_error "This command is only available on macOS"
+        return 1
+    fi
+
     for DEFAULTS_FILE in "${DOTFILES_DIR}"/macos/defaults*.sh; do
+        echo "Applying ${DEFAULTS_FILE}"
+        log_debug "Sourcing: ${DEFAULTS_FILE}"
         # shellcheck source=SCRIPTDIR/../macos/defaults.sh
-        echo "Applying ${DEFAULTS_FILE}" && . "${DEFAULTS_FILE}"
+        . "${DEFAULTS_FILE}"
     done
     echo "Done. Some changes may require a logout/restart to take effect."
 }
 
 # Install macOS applications
 sub_mac-apps() {
+    log_info "Installing macOS applications"
+
+    # Check if we're on macOS
+    if ! is-macos; then
+        log_error "This command is only available on macOS"
+        return 1
+    fi
+
+    log_debug "Sourcing: ${DOTFILES_DIR}/macos/apps.sh"
     . "${DOTFILES_DIR}/macos/apps.sh"
 }
 
 # Configure the macOS Dock with personal layout
 sub_mac-dock-personal() {
+    log_info "Configuring personal macOS Dock layout"
+
+    # Check if we're on macOS
+    if ! is-macos; then
+        log_error "This command is only available on macOS"
+        return 1
+    fi
+
+    log_debug "Sourcing: ${DOTFILES_DIR}/macos/dock-personal.sh"
     . "${DOTFILES_DIR}/macos/dock-personal.sh" && echo "Dock reloaded."
 }
 
 # Configure the macOS Dock with work layout
 sub_mac-dock-work() {
+    log_info "Configuring work macOS Dock layout"
+
+    # Check if we're on macOS
+    if ! is-macos; then
+        log_error "This command is only available on macOS"
+        return 1
+    fi
+
+    log_debug "Sourcing: ${DOTFILES_DIR}/macos/dock-work.sh"
     . "${DOTFILES_DIR}/macos/dock-work.sh" && echo "Dock reloaded."
 }
 
 # Shell completion for available commands
 # Make sure to keep this in sync with the available public commands
 sub_completion() {
-    echo "clean dock edit help macos test update"
+    echo "clean edit help mac-apps mac-defaults mac-dock-personal mac-dock-work test update update-repos"
 }
+
+# Process global options
+process_options() {
+    case "$1" in
+    --debug)
+        LOG_LEVEL="debug"
+        return 1
+        ;;
+    --quiet)
+        LOG_LEVEL="error"
+        return 1
+        ;;
+    --silent)
+        LOG_LEVEL="none"
+        return 1
+        ;;
+    *)
+        return 0
+        ;;
+    esac
+}
+
+# Process command line arguments
+while ! process_options "$COMMAND_NAME"; do
+    shift
+    COMMAND_NAME=$1
+done
 
 # Command dispatcher
 case $COMMAND_NAME in
@@ -168,9 +321,10 @@ case $COMMAND_NAME in
     ;;
 *)
     shift
-    "sub_${COMMAND_NAME}" "$@"
-    if [ $? = 127 ]; then
-        echo "'$COMMAND_NAME' is not a known command or has errors." >&2
+    if declare -f "sub_${COMMAND_NAME}" >/dev/null; then
+        "sub_${COMMAND_NAME}" "$@"
+    else
+        log_error "'$COMMAND_NAME' is not a known command or has errors."
         sub_help
         exit 1
     fi
