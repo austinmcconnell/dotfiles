@@ -41,9 +41,11 @@ log_error() {
 
 # Helper function to print section headers in a consistent format
 print_section_header() {
-    echo "**********************************************************************"
-    echo "$1"
-    echo "**********************************************************************"
+    if [[ "$LOG_LEVEL" != "none" ]]; then
+        echo "**********************************************************************"
+        echo -e "\033[1;36m[SECTION] $1\033[0m" # Cyan, bold section header
+        echo "**********************************************************************"
+    fi
 }
 
 # Display help information about available commands
