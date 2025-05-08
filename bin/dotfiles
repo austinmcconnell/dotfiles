@@ -11,6 +11,7 @@
 
 BIN_NAME=$(basename "$0")
 COMMAND_NAME=$1
+SUBCOMMAND_NAME=$2
 LOG_LEVEL=${DOTFILES_LOG_LEVEL:-"info"} # Default log level is info
 
 # Logging functions with different severity levels
@@ -47,19 +48,22 @@ print_section_header() {
 
 # Display help information about available commands
 sub_help() {
-    echo "Usage: $BIN_NAME <command>"
+    echo "Usage: $BIN_NAME <command> [subcommand] [options]"
     echo
     echo "Commands:"
     echo "   clean                Clean up caches (brew, apt, gem, vim plugins)"
     echo "   edit                 Open dotfiles in IDE ($DOTFILES_IDE)"
     echo "   help                 This help message"
-    echo "   mac-apps             Install macOS applications"
-    echo "   mac-defaults         Apply macOS system defaults"
-    echo "   mac-dock-personal    Apply personal macOS Dock settings"
-    echo "   mac-dock-work        Apply work macOS Dock settings"
+    echo "   mac                  macOS specific commands (see below)"
     echo "   test                 Run tests"
     echo "   update               Update packages and pkg managers (OS, brew, apt)"
     echo "   update-repos         Update git repositories in ~/.repositories"
+    echo
+    echo "Mac Commands:"
+    echo "   mac apps             Install macOS applications"
+    echo "   mac defaults         Apply macOS system defaults"
+    echo "   mac dock personal    Apply personal macOS Dock settings"
+    echo "   mac dock work        Apply work macOS Dock settings"
     echo
     echo "Options:"
     echo "   --debug              Set log level to debug"
@@ -69,6 +73,7 @@ sub_help() {
     echo "Examples:"
     echo "   $BIN_NAME update     Update all packages and package managers"
     echo "   $BIN_NAME clean      Clean up package caches"
+    echo "   $BIN_NAME mac dock personal  Configure personal dock layout"
     echo "   $BIN_NAME --debug update  Run update with debug logging"
 }
 
@@ -220,15 +225,52 @@ sub_clean() {
     log_info "Cleanup completed"
 }
 
-# Apply macOS system defaults from all defaults-*.sh files
-sub_mac-defaults() {
-    log_info "Applying macOS system defaults"
-
+# macOS namespace command handler
+sub_mac() {
     # Check if we're on macOS
     if ! is-macos; then
-        log_error "This command is only available on macOS"
+        log_error "Mac commands are only available on macOS"
         return 1
     fi
+
+    # If no subcommand is provided, show help
+    if [[ -z "$SUBCOMMAND_NAME" ]]; then
+        log_error "No mac subcommand specified"
+        echo "Available mac subcommands:"
+        echo "   apps             Install macOS applications"
+        echo "   defaults         Apply macOS system defaults"
+        echo "   dock personal    Apply personal macOS Dock settings"
+        echo "   dock work        Apply work macOS Dock settings"
+        return 1
+    fi
+
+    # Handle mac subcommands
+    case "$SUBCOMMAND_NAME" in
+    apps)
+        sub_mac_apps "$@"
+        ;;
+    defaults)
+        sub_mac_defaults "$@"
+        ;;
+    dock)
+        shift # Remove 'dock' from arguments
+        sub_mac_dock "$@"
+        ;;
+    *)
+        log_error "Unknown mac subcommand: $SUBCOMMAND_NAME"
+        echo "Available mac subcommands:"
+        echo "   apps             Install macOS applications"
+        echo "   defaults         Apply macOS system defaults"
+        echo "   dock personal    Apply personal macOS Dock settings"
+        echo "   dock work        Apply work macOS Dock settings"
+        return 1
+        ;;
+    esac
+}
+
+# Apply macOS system defaults from all defaults-*.sh files
+sub_mac_defaults() {
+    log_info "Applying macOS system defaults"
 
     for DEFAULTS_FILE in "${DOTFILES_DIR}"/macos/defaults*.sh; do
         echo "Applying ${DEFAULTS_FILE}"
@@ -240,42 +282,53 @@ sub_mac-defaults() {
 }
 
 # Install macOS applications
-sub_mac-apps() {
+sub_mac_apps() {
     log_info "Installing macOS applications"
-
-    # Check if we're on macOS
-    if ! is-macos; then
-        log_error "This command is only available on macOS"
-        return 1
-    fi
 
     log_debug "Sourcing: ${DOTFILES_DIR}/macos/apps.sh"
     . "${DOTFILES_DIR}/macos/apps.sh"
 }
 
-# Configure the macOS Dock with personal layout
-sub_mac-dock-personal() {
-    log_info "Configuring personal macOS Dock layout"
+# Handle dock subcommands
+sub_mac_dock() {
+    local dock_type="$1"
 
-    # Check if we're on macOS
-    if ! is-macos; then
-        log_error "This command is only available on macOS"
+    if [[ -z "$dock_type" ]]; then
+        log_error "No dock type specified"
+        echo "Available dock types:"
+        echo "   personal    Apply personal macOS Dock settings"
+        echo "   work        Apply work macOS Dock settings"
         return 1
     fi
+
+    case "$dock_type" in
+    personal)
+        sub_mac_dock_personal
+        ;;
+    work)
+        sub_mac_dock_work
+        ;;
+    *)
+        log_error "Unknown dock type: $dock_type"
+        echo "Available dock types:"
+        echo "   personal    Apply personal macOS Dock settings"
+        echo "   work        Apply work macOS Dock settings"
+        return 1
+        ;;
+    esac
+}
+
+# Configure the macOS Dock with personal layout
+sub_mac_dock_personal() {
+    log_info "Configuring personal macOS Dock layout"
 
     log_debug "Sourcing: ${DOTFILES_DIR}/macos/dock-personal.sh"
     . "${DOTFILES_DIR}/macos/dock-personal.sh" && echo "Dock reloaded."
 }
 
 # Configure the macOS Dock with work layout
-sub_mac-dock-work() {
+sub_mac_dock_work() {
     log_info "Configuring work macOS Dock layout"
-
-    # Check if we're on macOS
-    if ! is-macos; then
-        log_error "This command is only available on macOS"
-        return 1
-    fi
 
     log_debug "Sourcing: ${DOTFILES_DIR}/macos/dock-work.sh"
     . "${DOTFILES_DIR}/macos/dock-work.sh" && echo "Dock reloaded."
@@ -284,7 +337,7 @@ sub_mac-dock-work() {
 # Shell completion for available commands
 # Make sure to keep this in sync with the available public commands
 sub_completion() {
-    echo "clean edit help mac-apps mac-defaults mac-dock-personal mac-dock-work test update update-repos"
+    echo "clean edit help mac test update update-repos"
 }
 
 # Process global options
@@ -330,3 +383,27 @@ case $COMMAND_NAME in
     fi
     ;;
 esac
+
+# For backward compatibility
+# These functions are kept for backward compatibility with existing scripts
+# They will be removed in a future version
+
+sub_mac-defaults() {
+    log_warning "The command 'mac-defaults' is deprecated. Please use 'mac defaults' instead."
+    sub_mac_defaults "$@"
+}
+
+sub_mac-apps() {
+    log_warning "The command 'mac-apps' is deprecated. Please use 'mac apps' instead."
+    sub_mac_apps "$@"
+}
+
+sub_mac-dock-personal() {
+    log_warning "The command 'mac-dock-personal' is deprecated. Please use 'mac dock personal' instead."
+    sub_mac_dock_personal "$@"
+}
+
+sub_mac-dock-work() {
+    log_warning "The command 'mac-dock-work' is deprecated. Please use 'mac dock work' instead."
+    sub_mac_dock_work "$@"
+}

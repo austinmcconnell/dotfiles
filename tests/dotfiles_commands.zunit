@@ -230,7 +230,7 @@ EOF
 
 # Test mac-defaults command
 @test 'dotfiles mac-defaults command' {
-    run "$TEMP_DIR/dotfiles_test" mac-defaults
+    run "$TEMP_DIR/dotfiles_test" mac defaults
     assert $state equals 0
     assert "$output" contains "Applied defaults"
     assert "$output" contains "Applied defaults-extra"
@@ -239,14 +239,14 @@ EOF
 
 # Test mac-apps command
 @test 'dotfiles mac-apps command' {
-    run "$TEMP_DIR/dotfiles_test" mac-apps
+    run "$TEMP_DIR/dotfiles_test" mac apps
     assert $state equals 0
     assert "$output" contains "Installing applications"
 }
 
 # Test mac-dock-personal command
 @test 'dotfiles mac-dock-personal command' {
-    run "$TEMP_DIR/dotfiles_test" mac-dock-personal
+    run "$TEMP_DIR/dotfiles_test" mac dock personal
     assert $state equals 0
     assert "$output" contains "Configuring personal dock"
     assert "$output" contains "Dock reloaded"
@@ -254,7 +254,7 @@ EOF
 
 # Test mac-dock-work command
 @test 'dotfiles mac-dock-work command' {
-    run "$TEMP_DIR/dotfiles_test" mac-dock-work
+    run "$TEMP_DIR/dotfiles_test" mac dock work
     assert $state equals 0
     assert "$output" contains "Configuring work dock"
     assert "$output" contains "Dock reloaded"
