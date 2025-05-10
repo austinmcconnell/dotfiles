@@ -18,11 +18,16 @@ install_metrics_server() {
         helm repo update
     fi
 
-    if helm list --namespace cert-manager | grep --quiet cert-manager; then
-        echo "cert-manager installation found"
+    # Check if cert-manager is enabled and installed
+    if [ "$ENABLE_CERT_MANAGER" = "true" ]; then
+        if helm list --namespace cert-manager | grep --quiet cert-manager; then
+            echo "cert-manager installation found"
+        else
+            echo "cert-manager is enabled but not installed. Installing cert-manager first..."
+            source "$SCRIPT_DIR/cert-manager.sh"
+        fi
     else
-        echo "cert-manager needs to be installed before you install metrics-server"
-        exit 1
+        echo "WARNING: cert-manager is disabled. metrics-server may not function correctly."
     fi
 
     if helm list --namespace metrics-server | grep --quiet metrics-server; then

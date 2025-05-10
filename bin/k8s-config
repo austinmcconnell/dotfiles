@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Wrapper script for the Kubernetes configuration CLI
+"$DOTFILES_DIR/install/kubernetes/cli.sh" "$@"

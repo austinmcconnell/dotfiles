@@ -1,9 +1,47 @@
 #!/bin/bash
 
 # Common variables
-KUBERNETES_VERSION=v1.29.2
-: "${LOCAL_DOMAIN:=dev.test}"
 DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
+CONFIG_DIR="$DOTFILES_DIR/etc/kind"
+ENV_FILE="$CONFIG_DIR/.env"
+ENV_TEMPLATE="$CONFIG_DIR/.env.template"
+
+# Function to load environment variables from .env file
+load_env_file() {
+    local env_file=$1
+    if [ -f "$env_file" ]; then
+        while IFS= read -r line || [ -n "$line" ]; do
+            # Skip comments and empty lines
+            if [[ $line =~ ^[[:space:]]*# ]] || [[ -z $line ]]; then
+                continue
+            fi
+
+            # Extract variable and value
+            if [[ $line =~ ^([^=]+)=(.*)$ ]]; then
+                local key="${BASH_REMATCH[1]}"
+                local value="${BASH_REMATCH[2]}"
+
+                # Remove quotes if present
+                value="${value%\"}"
+                value="${value#\"}"
+                value="${value%\'}"
+                value="${value#\'}"
+
+                # Export the variable
+                export "$key=$value"
+            fi
+        done <"$env_file"
+    fi
+}
+
+# Create .env file from template if it doesn't exist
+if [ ! -f "$ENV_FILE" ] && [ -f "$ENV_TEMPLATE" ]; then
+    mkdir -p "$CONFIG_DIR"
+    cp "$ENV_TEMPLATE" "$ENV_FILE"
+fi
+
+# Load environment variables
+load_env_file "$ENV_FILE"
 
 # Common functions
 print_section_header() {

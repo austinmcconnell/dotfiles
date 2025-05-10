@@ -37,13 +37,31 @@ source "$SCRIPT_DIR/components/helm-plugins.sh"
 # Create Kind cluster
 source "$SCRIPT_DIR/kind-create.sh"
 
-# Install components
-source "$SCRIPT_DIR/components/metallb.sh"
-source "$SCRIPT_DIR/components/ingress-nginx.sh"
-source "$SCRIPT_DIR/components/cert-manager.sh"
-source "$SCRIPT_DIR/components/prometheus.sh"
-source "$SCRIPT_DIR/components/metrics-server.sh"
+# Install components based on configuration
+if [ "$ENABLE_METALLB" = "true" ]; then
+    source "$SCRIPT_DIR/components/metallb.sh"
+fi
+
+if [ "$ENABLE_INGRESS_NGINX" = "true" ]; then
+    source "$SCRIPT_DIR/components/ingress-nginx.sh"
+fi
+
+if [ "$ENABLE_CERT_MANAGER" = "true" ]; then
+    source "$SCRIPT_DIR/components/cert-manager.sh"
+fi
+
+if [ "$ENABLE_PROMETHEUS" = "true" ]; then
+    source "$SCRIPT_DIR/components/prometheus.sh"
+fi
+
+if [ "$ENABLE_METRICS_SERVER" = "true" ]; then
+    source "$SCRIPT_DIR/components/metrics-server.sh"
+fi
 
 echo "**************************************************"
 echo "Kubernetes setup complete"
 echo "**************************************************"
+echo ""
+echo "To manage component configuration, use:"
+echo "k8s-config --list         # List enabled components"
+echo "k8s-config --help         # Show all options"
