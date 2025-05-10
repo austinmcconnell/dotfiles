@@ -15,3 +15,6 @@ etc/iterm/colorschemes
 
 # VS Code Profiles
 etc/visual-studio-code/profiles/**/globalStorage
+
+# Environment Variables
+**/.env
