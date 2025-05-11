@@ -34,6 +34,11 @@ fi
 # Install Helm plugins
 source "$SCRIPT_DIR/components/helm-plugins.sh"
 
+# Install docker-mac-net-connect for macOS (required for proper network connectivity)
+if is-macos; then
+    source "$SCRIPT_DIR/docker-mac-net-connect.sh"
+fi
+
 # Create Kind cluster
 source "$SCRIPT_DIR/kind-create.sh"
 

@@ -8,23 +8,6 @@ if [ -z "$KUBERNETES_VERSION" ]; then
     source "$SCRIPT_DIR/common.sh"
 fi
 
-install_docker_mac_net_connect() {
-    # Allows connecting directly to Docker-for-Mac container via their IP address
-    # https://github.com/chipmk/docker-mac-net-connect
-
-    print_section_header "Installing docker-mac-net-connect"
-
-    if brew services list | grep -q docker-mac-net-connect; then
-        brew services info docker-mac-net-connect
-    else
-        brew install chipmk/tap/docker-mac-net-connect
-        sudo brew services start chipmk/tap/docker-mac-net-connect
-    fi
-
-    print_section_header "Testing docker-mac-net-connect"
-    sh "$DOTFILES_DIR/etc/kind/test/test-docker-mac-net-connect.sh"
-}
-
 verify_node_reservations() {
     print_section_header "Verifying node resource reservations"
 
@@ -91,11 +74,6 @@ create_kind_cluster() {
     # Add verification of node reservations
     verify_node_reservations
 }
-
-# Only run on macOS
-if is-macos; then
-    install_docker_mac_net_connect
-fi
 
 # Create the cluster
 create_kind_cluster
