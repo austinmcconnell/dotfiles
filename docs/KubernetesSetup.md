@@ -68,6 +68,19 @@ at `~/.dotfiles/etc/kind/.env.template` if it doesn't exist.
 You can edit this file directly, but it's recommended to use the `k8s-config` command to ensure
 proper formatting.
 
+## Resource Management
+
+The Kind cluster is configured with system resource reservations to ensure stability:
+
+- **Control Plane Node**:
+  - System reservation: 1GB memory and 500m CPU
+
+- **Worker Nodes**:
+  - System reservation: 512MB memory and 250m CPU
+
+These reservations ensure that the Kubernetes system components have dedicated resources.
+You can adjust these settings in the `~/.dotfiles/etc/kind/cluster-config.yaml` file if needed.
+
 ## Advanced Usage
 
 ### Manual Component Installation
@@ -111,6 +124,8 @@ sh ~/.dotfiles/etc/kind/test/test-metallb.sh
 1. **Docker not running**: Ensure Docker is running before creating a Kind cluster
 2. **Port conflicts**: If ports are already in use, the setup may fail
 3. **Network issues**: If you have VPN software running, it may interfere with the network setup
+4. **Resource constraints**: If your system is low on resources, try reducing the system
+reservations in the cluster configuration
 
 ### Logs and Debugging
 
@@ -151,4 +166,4 @@ To add a new component:
 - [Ingress NGINX Documentation](https://kubernetes.github.io/ingress-nginx/)
 - [Cert Manager Documentation](https://cert-manager.io/docs/)
 - [Prometheus Documentation](https://prometheus.io/docs/introduction/overview/)
-- [Metrics Server Documentation](https://github.com/kubernetes-sigs/metrics-server)
+- [Metrics Server Documentation](https://github.com/kubernetes-sigs/metrics-server/)

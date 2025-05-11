@@ -9,6 +9,12 @@ networking:
   serviceSubnet: "10.96.0.0/12"
 nodes:
   - role: control-plane
+    kubeadmConfigPatches:
+      - |
+        kind: InitConfiguration
+        nodeRegistration:
+          kubeletExtraArgs:
+            system-reserved: memory=1Gi,cpu=500m
     extraMounts:
         # mount docker config with auth credentials for pulling images
       - hostPath: $HOME/.docker/config.json
@@ -17,6 +23,12 @@ nodes:
       - hostPath: /etc/ssl/certs/corporate.crt
         containerPath: /usr/local/share/ca-certificates/corporate.crt
   - role: worker
+    kubeadmConfigPatches:
+      - |
+        kind: JoinConfiguration
+        nodeRegistration:
+          kubeletExtraArgs:
+            system-reserved: memory=512Mi,cpu=250m
     extraMounts:
         # mount docker config with auth credentials for pulling images
       - hostPath: $HOME/.docker/config.json
@@ -25,6 +37,12 @@ nodes:
       - hostPath: /etc/ssl/certs/corporate.crt
         containerPath: /usr/local/share/ca-certificates/corporate.crt
   - role: worker
+    kubeadmConfigPatches:
+      - |
+        kind: JoinConfiguration
+        nodeRegistration:
+          kubeletExtraArgs:
+            system-reserved: memory=512Mi,cpu=250m
     extraMounts:
         # mount docker config with auth credentials for pulling images
       - hostPath: $HOME/.docker/config.json
