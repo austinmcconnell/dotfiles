@@ -29,6 +29,8 @@ show_help() {
     echo "  no-prometheus           Disable Prometheus Stack"
     echo "  metrics-server          Enable Metrics Server"
     echo "  no-metrics-server       Disable Metrics Server"
+    echo "  limit-range             Enable Default LimitRange"
+    echo "  no-limit-range          Disable Default LimitRange"
     echo ""
     echo "Examples:"
     echo "  $0 --list               List component status"
@@ -49,6 +51,7 @@ list_components() {
     echo "Optional Components:"
     echo "  Prometheus:    ${ENABLE_PROMETHEUS}"
     echo "  Metrics Server: ${ENABLE_METRICS_SERVER}"
+    echo "  LimitRange:    ${ENABLE_LIMIT_RANGE:-false}"
     echo ""
     echo "Configuration file: $ENV_FILE"
 }
@@ -86,6 +89,7 @@ enable_all() {
     update_env_value "ENABLE_CERT_MANAGER" "true"
     update_env_value "ENABLE_PROMETHEUS" "true"
     update_env_value "ENABLE_METRICS_SERVER" "true"
+    update_env_value "ENABLE_LIMIT_RANGE" "true"
     echo "All components enabled"
 }
 
@@ -96,6 +100,7 @@ disable_all() {
     update_env_value "ENABLE_CERT_MANAGER" "false"
     update_env_value "ENABLE_PROMETHEUS" "false"
     update_env_value "ENABLE_METRICS_SERVER" "false"
+    update_env_value "ENABLE_LIMIT_RANGE" "false"
     echo "All components disabled"
 }
 
@@ -178,6 +183,14 @@ while [ $# -gt 0 ]; do
         ;;
     no-metrics-server)
         update_env_value "ENABLE_METRICS_SERVER" "false"
+        shift
+        ;;
+    limit-range)
+        update_env_value "ENABLE_LIMIT_RANGE" "true"
+        shift
+        ;;
+    no-limit-range)
+        update_env_value "ENABLE_LIMIT_RANGE" "false"
         shift
         ;;
     *)

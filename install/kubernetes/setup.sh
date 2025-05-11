@@ -63,6 +63,10 @@ if [ "$ENABLE_METRICS_SERVER" = "true" ]; then
     source "$SCRIPT_DIR/components/metrics-server.sh"
 fi
 
+if [ "$ENABLE_LIMIT_RANGE" = "true" ]; then
+    source "$SCRIPT_DIR/components/limit-range.sh"
+fi
+
 echo "**************************************************"
 echo "Kubernetes setup complete"
 echo "**************************************************"
