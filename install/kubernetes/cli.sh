@@ -31,6 +31,8 @@ show_help() {
     echo "  no-metrics-server       Disable Metrics Server"
     echo "  limit-range             Enable Default LimitRange"
     echo "  no-limit-range          Disable Default LimitRange"
+    echo "  resource-quota          Enable ResourceQuota"
+    echo "  no-resource-quota       Disable ResourceQuota"
     echo ""
     echo "Examples:"
     echo "  $0 --list               List component status"
@@ -52,6 +54,7 @@ list_components() {
     echo "  Prometheus:    ${ENABLE_PROMETHEUS}"
     echo "  Metrics Server: ${ENABLE_METRICS_SERVER}"
     echo "  LimitRange:    ${ENABLE_LIMIT_RANGE:-false}"
+    echo "  ResourceQuota: ${ENABLE_RESOURCE_QUOTA:-false}"
     echo ""
     echo "Configuration file: $ENV_FILE"
 }
@@ -90,6 +93,7 @@ enable_all() {
     update_env_value "ENABLE_PROMETHEUS" "true"
     update_env_value "ENABLE_METRICS_SERVER" "true"
     update_env_value "ENABLE_LIMIT_RANGE" "true"
+    update_env_value "ENABLE_RESOURCE_QUOTA" "true"
     echo "All components enabled"
 }
 
@@ -101,6 +105,7 @@ disable_all() {
     update_env_value "ENABLE_PROMETHEUS" "false"
     update_env_value "ENABLE_METRICS_SERVER" "false"
     update_env_value "ENABLE_LIMIT_RANGE" "false"
+    update_env_value "ENABLE_RESOURCE_QUOTA" "false"
     echo "All components disabled"
 }
 
@@ -191,6 +196,14 @@ while [ $# -gt 0 ]; do
         ;;
     no-limit-range)
         update_env_value "ENABLE_LIMIT_RANGE" "false"
+        shift
+        ;;
+    resource-quota)
+        update_env_value "ENABLE_RESOURCE_QUOTA" "true"
+        shift
+        ;;
+    no-resource-quota)
+        update_env_value "ENABLE_RESOURCE_QUOTA" "false"
         shift
         ;;
     *)

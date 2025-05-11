@@ -67,6 +67,10 @@ if [ "$ENABLE_LIMIT_RANGE" = "true" ]; then
     source "$SCRIPT_DIR/components/limit-range.sh"
 fi
 
+if [ "$ENABLE_RESOURCE_QUOTA" = "true" ]; then
+    source "$SCRIPT_DIR/components/resource-quota.sh"
+fi
+
 echo "**************************************************"
 echo "Kubernetes setup complete"
 echo "**************************************************"
