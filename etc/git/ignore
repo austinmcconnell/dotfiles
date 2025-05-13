@@ -10,3 +10,6 @@ Session.vim
 # OS files
 Thumbs.db
 .DS_Store
+
+# TODO Markdown documents
+todo-*.md
