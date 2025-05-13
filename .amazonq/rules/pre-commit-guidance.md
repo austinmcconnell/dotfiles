@@ -52,6 +52,15 @@ pre-commit run markdownlint --files path/to/markdown/file.md
 - Ordered lists should use consistent item prefixes (all 1.)
 - Code blocks must specify a language and be surrounded by blank lines
 
+### Python
+
+- Imports are sorted using isort
+- Code is formatted according to autopep8 and yapf standards
+- Line length typically limited to 100 characters
+- Double quotes are converted to single quotes where appropriate
+- Trailing whitespace is removed
+- Unused imports are removed
+
 ### YAML/Docker Compose
 
 - Docker Compose files must be sorted according to the custom sorter
