@@ -10,6 +10,24 @@ ensure all code and documentation passes pre-commit checks before finalizing.
 1. Fix any issues identified by the checks
 1. Verify the fixed content passes all checks
 
+## Handling Files Modified by Hooks
+
+When pre-commit output shows "files were modified by this hook":
+
+1. Read the modified files to understand changes made by the hooks
+
+   ```bash
+   fs_read mode=Line path=path/to/modified/file
+   ```
+
+2. Incorporate those hook-made changes into your understanding of the current file state
+3. Make any additional modifications on top of the hook-modified version
+4. Run pre-commit checks again to ensure all issues are resolved
+
+This is important because pre-commit hooks often automatically fix formatting issues, import ordering,
+trailing whitespace, and other style violations. Working with the post-hook version ensures you're
+building on the corrected files rather than the original ones with style issues.
+
 ## Example Validation Commands
 
 ```bash
