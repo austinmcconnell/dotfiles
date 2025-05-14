@@ -26,5 +26,6 @@
   "templates": true,
   "word-count": true,
   "workspaces": false,
-  "zk-prefixer": false
+  "zk-prefixer": false,
+  "webviewer": false
 }
