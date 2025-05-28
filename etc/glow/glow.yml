@@ -1,0 +1,20 @@
+# Glow configuration file
+# Location: ~/.config/glow/glow.yml
+
+# Style name or JSON path (default is "auto")
+style: "auto"
+
+# Show line numbers
+line-numbers: false
+
+# Width of the text
+width: 80
+
+# Enable mouse support
+mouse: true
+
+# Enable paging
+pager: true
+
+# Word wrap
+wrap: true

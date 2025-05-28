@@ -13,6 +13,7 @@ in the `etc/` directory of the dotfiles repository.
 - [direnv](#direnv)
 - [fd](#fd)
 - [Git](#git)
+- [Glow](#glow)
 - [HTTPie](#httpie)
 - [iTerm2](#iterm2)
 - [kind (Kubernetes in Docker)](#kind-kubernetes-in-docker)
@@ -107,6 +108,20 @@ Configuration options include:
 - **Ignore patterns**: Global patterns for files to exclude from Git repositories
 - **Branch management**: Default branch names and remote tracking behavior
 - **Commit message templates**: Standardized formats for commit messages
+
+## Glow
+
+Glow is a terminal-based markdown reader designed for the command line, featuring syntax highlighting
+and a clean interface for viewing markdown documents.
+
+Configuration options include:
+
+- **Style selection**: Choose from various syntax highlighting styles
+- **Line numbers**: Toggle display of line numbers
+- **Width settings**: Configure the text width for optimal reading
+- **Pager options**: Control how content is paginated
+- **Mouse support**: Enable or disable mouse interactions
+- **Word wrap**: Configure text wrapping behavior
 
 ## HTTPie
 

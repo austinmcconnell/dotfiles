@@ -73,6 +73,7 @@ fi
 . "$DOTFILES_DIR/install/ssh.sh"            # SSH configuration
 . "$DOTFILES_DIR/install/dircolors.sh"      # Dircolors themes
 . "$DOTFILES_DIR/install/xdg-compliance.sh" # XDG compliance for CLI tools
+. "$DOTFILES_DIR/install/glow.sh"           # Glow markdown viewer
 
 # Create .hushlogin to disable the login message
 touch ~/.hushlogin
