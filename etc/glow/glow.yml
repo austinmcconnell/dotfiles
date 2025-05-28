@@ -2,7 +2,9 @@
 # Location: ~/.config/glow/glow.yml
 
 # Style name or JSON path (default is "auto")
-style: "auto"
+# Available styles: auto, dark, light, notty, dracula, tokyo-night
+# Custom style: nord
+style: "/Users/austin.mcconnell/.dotfiles/etc/glow/nord.json"
 
 # Show line numbers
 line-numbers: false
