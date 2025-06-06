@@ -39,6 +39,7 @@
 
 [commit]
     gpgsign = false
+    template = ~/.config/git/commit-template
 
 [pull]
     ff = only
