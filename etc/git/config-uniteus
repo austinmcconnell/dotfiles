@@ -1,6 +1,6 @@
 [user]
     email = austin.mcconnell@uniteus.com
-    signingkey = F4EDEC4AAE43C136
+    signingkey = ~/.ssh/id_github_enterprise
 
 [commit]
     gpgsign = true
