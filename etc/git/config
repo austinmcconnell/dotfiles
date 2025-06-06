@@ -106,3 +106,13 @@
     layout = "@LOCAL, REMOTE"  # equivalent to old vimdiff1
     ; layout = "LOCAL, MERGED, REMOTE"  # equivalent to old vimdiff2
     ; layout = "LOCAL,BASE,REMOTE / MERGED"  # equivalent to old vimdiff3
+
+[color]
+    ui = auto
+
+[color "status"]
+    added     = "#A3BE8C"  # Nord14 (green)
+    changed   = "#EBCB8B"  # Nord13 (yellow)
+    untracked = "#88C0D0"  # Nord8 (cyan)
+    branch    = "#B48EAD"  # Nord15 (magenta)
+    unmerged  = "#BF616A"  # Nord11 (red)
