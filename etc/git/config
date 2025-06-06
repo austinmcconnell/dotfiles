@@ -72,6 +72,7 @@
 # https://github.com/dandavison/delta
 [core]
     pager = delta
+    excludesfile = ~/.config/git/ignore
 
 [interactive]
     diffFilter = delta --color-only
