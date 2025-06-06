@@ -1,7 +1,7 @@
 [user]
     name = Austin McConnell
     email = austin.s.mcconnell@gmail.com
-    signingkey = D10D0D7DE28CE6C6
+    signingkey = ~/.ssh/id_personal
 
 [credential]
     helper = osxkeychain
@@ -38,8 +38,11 @@
     defaultBranch = main
 
 [commit]
-    gpgsign = false
+    gpgsign = true
     template = ~/.config/git/commit-template
+
+[gpg]
+    format = ssh
 
 [pull]
     ff = only
