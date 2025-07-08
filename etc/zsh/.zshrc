@@ -14,4 +14,7 @@ source ${ZDOTDIR:-~}/.antidote/antidote.zsh
 antidote load
 
 # done profiling
-[[ ${ZSH_PROFILE_RC:-0} -eq 0 ]] || { unset ZSH_PROFILE_RC && zprof }
+[[ ${ZSH_PROFILE_RC:-0} -eq 0 ]] || {
+    unset ZSH_PROFILE_RC
+    zprof
+}
