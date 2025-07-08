@@ -54,9 +54,29 @@ ln -sfv "$DOTFILES_DIR/etc/zsh/.zstyles" "$ZDOTDIR"
 ln -sfv "$DOTFILES_DIR/etc/zsh/custom/plugins/extra/extra.plugin.zsh" "$ZDOTDIR/custom/plugins/extra/extra.plugin.zsh"
 
 # Link conf.d configuration files
+echo "Linking conf.d configuration files..."
 for config_file in "$DOTFILES_DIR/etc/zsh/conf.d"/*.zsh*; do
+    # Skip if no files match the pattern
+    [ -e "$config_file" ] || continue
+
+    config_basename="$(basename "$config_file")"
+
+    # Skip platform-specific files that don't match current OS
+    case "$config_basename" in
+    *.zsh-darwin)
+        is-macos || continue
+        ;;
+    *.zsh-linux)
+        is-debian || continue
+        ;;
+    esac
+
+    # Skip disabled files (prefixed with underscore)
+    [[ "$config_basename" != _* ]] || continue
+
     if [ -f "$config_file" ]; then
-        ln -sfv "$config_file" "$ZDOTDIR/conf.d/$(basename "$config_file")"
+        ln -sfv "$config_file" "$ZDOTDIR/conf.d/$config_basename"
+        echo "✓ Linked: $config_basename"
     fi
 done
 
