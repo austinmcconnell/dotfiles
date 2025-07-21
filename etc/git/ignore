@@ -1,20 +1,22 @@
-# Debug logs (npm, yarn)
+# Global gitignore rules
+
+## Debug logs (npm, yarn)
 
 *.log
 
-# Editor artifacts
+## Editor artifacts
 
 *~
 ._*
 *.swp
 Session.vim
 
-# OS files
+## OS files
 
 Thumbs.db
 .DS_Store
 
-# TODO Markdown documents
+## TODO or Plan Markdown documents
 
 todo-*.md
 plan-*.md
