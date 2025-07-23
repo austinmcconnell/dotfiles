@@ -118,6 +118,8 @@ set autoread                                                 " auto load externa
 set autowriteall                                             " automatically write to file
 set undofile                                                 " Maintain undo history between sessions
 set undodir=~/.vim/undodir                                   " Store all undo history files in a single directory
+set nowritebackup                                            " Don't create backup before overwriting (default: on)
+set noswapfile                                               " Disable swap files (rely on auto-save and git)
 
 " Spelling
 "set spell                                                   " enable spellchecking
