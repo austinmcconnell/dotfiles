@@ -145,6 +145,8 @@ set smartindent     " indent after if and for statements
 set number              " show line numbers
 set ruler               " show cursor line and column number
 set showmatch           " highlight matching [{()}]
+set signcolumn=yes      " always show sign column (prevents text jumping)
+set mouse=a             " enable mouse support
 syntax enable           " enable syntax highlighting
 set laststatus=2        " always show statusline
 set title               " let vim set title of terminal window
