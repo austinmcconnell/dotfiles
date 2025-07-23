@@ -211,6 +211,6 @@ nnoremap <space> za|    " fold via spacebar
 
 " Terminal
 tnoremap <Esc> <C-\><C-n>|      " get to terminal normal mode
-map <Leader>T :term <cr>|       " vim-powered terminal in split window
+map <leader>T :term <cr>|       " vim-powered terminal in split window
 
 set tags+=.git/tags                                            " add custom tags build location to tags search path

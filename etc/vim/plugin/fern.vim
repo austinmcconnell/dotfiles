@@ -1,6 +1,6 @@
-" noremap <silent> <Leader>n :Fern . -drawer -width=35 -toggle -reveal=%<CR><C-w>=
-noremap <silent> <Leader>d :Fern . -drawer -width=35 -toggle -reveal=%<CR><C-w>=
-noremap <silent> <Leader>. :Fern %:h -drawer -width=35 -toggle<CR><C-w>=
+" noremap <silent> <leader>n :Fern . -drawer -width=35 -toggle -reveal=%<CR><C-w>=
+noremap <silent> <leader>d :Fern . -drawer -width=35 -toggle -reveal=%<CR><C-w>=
+noremap <silent> <leader>. :Fern %:h -drawer -width=35 -toggle<CR><C-w>=
 
 
 let g:fern#disable_default_mappings = 1
