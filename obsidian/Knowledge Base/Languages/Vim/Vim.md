@@ -7,6 +7,7 @@
 - [[Learning]]
 - [[Miscellaneous]]
 - **Modes**
+  - [[Command-line Mode]]
   - [[Insert Mode]]
   - [[Terminal Mode]]
   - [[Visual Mode]]

@@ -34,10 +34,13 @@
 - `zt`: redraw the screen with the current line at the top of the window
 - `zz`: redraw the screen with the current line in the middle of the window
 - `zb`: redraw the screen with the current line at the bottom of the window
-- `<C-j>`: jump to the split above current window
-- `<C-k>`: jump to the split below current window
-- `<C-h>`: jump to the split to the right of current window
-- `<C-l>`: jump to the split to the left of current window
+
+## Window Navigation
+
+- `<C-j>`: jump to the split below current window
+- `<C-k>`: jump to the split above current window
+- `<C-h>`: jump to the split to the left of current window
+- `<C-l>`: jump to the split to the right of current window
 
 ## Word Motions
 

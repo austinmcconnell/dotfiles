@@ -13,7 +13,29 @@
 - `:b{num}`: move to the specified buffer
 - `:bd`: close/delete a buffer
 - `:%bd`: delete all buffers
-- `%bd|e#`: delete all buffers except current one
+- `:%bd|e#`: delete all buffers except current one
+
+### Buffer/Split Behavior
+
+Understanding how `:bd` interacts with splits:
+
+- **`:bd` on active buffer in split** → closes the split (no buffer left to display)
+- **`:bd` on inactive buffer** → split stays open (continues showing active buffer)
+
+**To delete buffer but keep split open:**
+
+```vim
+:bp          " Switch to previous buffer (makes it active in split)
+:bd #        " Delete the previous buffer (now inactive)
+```
+
+**Alternative approaches:**
+
+```vim
+:ls          " List buffers to see numbers
+:bd 5        " Delete specific buffer by number
+:bn          " Switch to next buffer, then :bd # to delete previous
+```
 
 ### Do a command in all {}
 
