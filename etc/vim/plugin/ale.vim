@@ -1,10 +1,20 @@
-let g:ale_fix_on_save = 1
+" Core ALE Settings
+let g:ale_fix_on_save = 1                     " automatically fix issues on save
 let g:ale_open_list=0                         " automatically open location list when issues found
-let g:ale_lint_on_text_changed='always'       " run linter when text changed in insert or normal mode
-let g:ale_completion_enabled = 1              " enable ale completion
+let g:ale_lint_on_text_changed='always'      " run linter when text changed in insert or normal mode
 let g:ale_set_balloons=1                      " show help documentation in popups
-let g:ale_sign_error = '✘'
-let g:ale_sign_warning = '⚠'
+let g:ale_sign_error = '✘'                   " error sign in gutter
+let g:ale_sign_warning = '⚠'                 " warning sign in gutter
+
+" Completion Settings
+let g:ale_completion_enabled = 1              " enable ale completion
+let g:ale_completion_autoimport = 1           " enable auto-import suggestions
+let g:ale_completion_delay = 500              " delay before showing completion (ms)
+let g:ale_completion_max_suggestions = 50     " maximum number of completion suggestions
+
+" Debug Settings (for troubleshooting performance issues)
+let g:ale_history_enabled = 1                 " enable command history tracking (minimal overhead)
+let g:ale_history_log_output = 0              " log linter output for debugging (set to 1 when needed)
 
 nnoremap gd :ALEGoToDefinition<CR>
 nnoremap gr :ALEFindReferences<CR>
@@ -39,13 +49,14 @@ let g:ale_linters = {
 \   'dockerfile': ['hadolint'],
 \   'json': ['jq', 'jsonlint', 'spectral'],
 \   'markdown': ['markdownlint'],
-\   'python': ['pylint', 'pyright'],
+\   'python': ['pylint'],
 \   'ruby': ['rubocop'],
 \   'sh': ['bashate', 'shellcheck', 'language_server'],
 \   'terraform': ['terraform'],
 \   'yaml': ['spectral', 'yamllint'],
 \   'zsh': ['bashate', 'shellcheck', 'language_server'],
 \}
+", 'mypy' disable python mypy linter. When I am braver, try this again
 " , 'proselint', 'writegood' disable markdown prose linters. Optionally enable when I am writing prose
 
 " Enable fixers
@@ -53,7 +64,7 @@ let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'json': ['jq'],
 \   'markdown': ['prettier'],
-\   'python': ['isort', 'yapf'],
+\   'python': ['isort', 'yapf', 'autoflake'],
 \   'ruby': ['rubocop'],
 \   'sh': ['shfmt'],
 \   'terraform': ['terraform'],
@@ -70,6 +81,10 @@ let g:ale_python_auto_pipenv=1
 
 let g:ale_python_isort_options = '--settings-path ~/.config/isort/config'
 
+" Python autoflake options for removing unused imports
+let g:ale_python_autoflake_options = '--remove-all-unused-imports --remove-unused-variables'
+
+" Python mypy options
 let g:ale_python_mypy_auto_pipenv = 1
 let g:ale_python_mypy_ignore_invalid_syntax = 1
 

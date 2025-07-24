@@ -177,7 +177,7 @@ set wildignore+=*/dist/*             " ignore dist directory when searching
 set wildignore+=*/node_modules/*     " ignore node_modules directory when searching
 
 " Completion
-set completeopt=menuone,longest,preview
+set completeopt=menu,menuone,preview,noselect,noinsert
 set complete-=i                               " don't scan system/language included files
 set complete+=kspell                          " match dictionary words
 inoremap <C-]> <C-X><C-]>
