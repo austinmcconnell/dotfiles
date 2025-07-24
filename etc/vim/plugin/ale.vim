@@ -1,7 +1,7 @@
 let g:ale_fix_on_save = 1
 let g:ale_open_list=0                         " automatically open location list when issues found
 let g:ale_lint_on_text_changed='always'       " run linter when text changed in insert or normal mode
-let g:ale_completion_enabled = 0              " turn on ale completion
+let g:ale_completion_enabled = 1              " enable ale completion
 let g:ale_set_balloons=1                      " show help documentation in popups
 let g:ale_sign_error = '✘'
 let g:ale_sign_warning = '⚠'
