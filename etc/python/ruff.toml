@@ -1,0 +1,33 @@
+# Ruff configuration following best practices
+# https://docs.astral.sh/ruff/configuration/
+
+line-length = 100
+target-version = "py310"
+
+[lint]
+# Essential rules matching pylint/flake8 coverage
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # Pyflakes
+    "I",   # isort
+    "B",   # flake8-bugbear
+    "UP",  # pyupgrade
+    "C4",  # flake8-comprehensions
+    "N",   # pep8-naming
+    "ARG", # flake8-unused-arguments
+]
+
+# Minimal ignores - only what's necessary
+ignore = [
+    "E501", # Line too long (handled by formatter)
+]
+
+[lint.isort]
+combine-as-imports = true
+force-sort-within-sections = true
+
+[format]
+quote-style = "single"
+indent-style = "space"
+line-ending = "auto"
