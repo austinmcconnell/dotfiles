@@ -25,7 +25,7 @@ let g:ale_linters = {
 \   'go': ['gopls', 'gofmt'],
 \   'json': ['jq', 'jsonlint', 'spectral'],
 \   'markdown': ['markdownlint'],
-\   'python': ['pylint', 'pylsp', 'flake8'],
+\   'python': ['ruff'],
 \   'ruby': ['rubocop', 'ruby_lsp'],
 \   'sh': ['bashate', 'shellcheck', 'language_server'],
 \   'terraform': ['terraform'],
@@ -40,7 +40,7 @@ let g:ale_fixers = {
 \   'go': ['gofmt', 'goimports'],
 \   'json': ['jq', 'prettier'],
 \   'markdown': ['prettier'],
-\   'python': ['isort', 'yapf', 'autoflake'],
+\   'python': ['ruff', 'yapf', 'autoflake'],
 \   'ruby': ['rubocop'],
 \   'sh': ['shfmt'],
 \   'terraform': ['terraform'],
@@ -74,13 +74,8 @@ let g:ale_python_auto_pipenv=1
 let g:ale_go_gofmt_options = '-s'  " Simplify code
 let g:ale_go_goimports_options = '-local'  " Group local imports
 
-let g:ale_python_isort_options = '--settings-path ~/.config/isort/config'
-
 " Python yapf options for formatting
 let g:ale_python_yapf_options = '--style ~/.config/yapf/style'
-
-" Python flake8 options for linting
-let g:ale_python_flake8_options = '--config ~/.config/flake8'
 
 " Python autoflake options for removing unused imports
 let g:ale_python_autoflake_options = '--remove-all-unused-imports --remove-unused-variables'
