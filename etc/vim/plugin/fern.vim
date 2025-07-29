@@ -1,6 +1,9 @@
-" noremap <silent> <leader>n :Fern . -drawer -width=35 -toggle -reveal=%<CR><C-w>=
-noremap <silent> <leader>d :Fern . -drawer -width=35 -toggle -reveal=%<CR><C-w>=
-noremap <silent> <leader>. :Fern %:h -drawer -width=35 -toggle<CR><C-w>=
+" Reveal nothing
+noremap <silent> <leader>d :Fern . -drawer -width=35 -toggle -stay<CR><C-w>=
+" Reveal current file
+noremap <silent> <leader>D :Fern . -drawer -width=35 -toggle -stay -reveal=%<CR><C-w>=
+" Reveal in current file's directory
+noremap <silent> <leader>. :Fern %:h -drawer -width=35 -toggle -stay<CR><C-w>=
 
 
 let g:fern#disable_default_mappings = 1
