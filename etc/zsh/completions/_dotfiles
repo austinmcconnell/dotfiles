@@ -1,0 +1,62 @@
+#compdef dotfiles
+
+# Dotfiles command completion for zsh
+# This file should be in your fpath for completion to work
+
+_dotfiles() {
+    local context state state_descr line
+    typeset -A opt_args
+
+    _arguments -C \
+        '(--debug --quiet --silent)--debug[Set log level to debug]' \
+        '(--debug --quiet --silent)--quiet[Set log level to error (only show errors)]' \
+        '(--debug --quiet --silent)--silent[Set log level to none (show no output)]' \
+        '1: :_dotfiles_commands' \
+        '*: :_dotfiles_args' \
+        && return 0
+}
+
+_dotfiles_commands() {
+    local commands=(
+        'clean:Clean up caches (brew, apt, gem, vim plugins)'
+        'edit:Open dotfiles in IDE'
+        'help:Show help message'
+        'mac:macOS specific commands'
+        'test:Run tests'
+        'update:Update packages and pkg managers (OS, brew, apt)'
+        'update-repos:Update git repositories in ~/.repositories'
+    )
+    _describe 'commands' commands
+}
+
+_dotfiles_args() {
+    case $words[2] in
+        mac)
+            _dotfiles_mac_commands
+            ;;
+        clean|edit|help|test|update|update-repos)
+            # These commands don't take additional arguments
+            ;;
+    esac
+}
+
+_dotfiles_mac_commands() {
+    if [[ $CURRENT -eq 3 ]]; then
+        # First subcommand after 'mac'
+        local mac_commands=(
+            'apps:Install macOS applications'
+            'defaults:Apply macOS system defaults'
+            'dock:Configure macOS Dock settings'
+        )
+        _describe 'mac commands' mac_commands
+    elif [[ $CURRENT -eq 4 && $words[3] == "dock" ]]; then
+        # Second subcommand after 'mac dock'
+        local dock_commands=(
+            'personal:Apply personal macOS Dock settings'
+            'work:Apply work macOS Dock settings'
+        )
+        _describe 'dock commands' dock_commands
+    fi
+}
+
+_dotfiles "$@"
