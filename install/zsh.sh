@@ -80,6 +80,20 @@ for config_file in "$DOTFILES_DIR/etc/zsh/conf.d"/*.zsh*; do
     fi
 done
 
+# Link completion files
+echo "Linking completion files..."
+for completion_file in "$DOTFILES_DIR/etc/zsh/completions"/_*; do
+    # Skip if no files match the pattern
+    [ -e "$completion_file" ] || continue
+
+    completion_basename="$(basename "$completion_file")"
+
+    if [ -f "$completion_file" ]; then
+        ln -sfv "$completion_file" "$ZSH_COMPLETIONS_DIR/$completion_basename"
+        echo "✓ Linked completion: $completion_basename"
+    fi
+done
+
 # Link other configuration files
 ln -sfv "$DOTFILES_DIR/etc/spaceship/spaceship.zsh" "$XDG_CONFIG_HOME"/spaceship/spaceship.zsh
 ln -sfv "$DOTFILES_DIR/etc/starship/starship.toml" "$XDG_CONFIG_HOME"
