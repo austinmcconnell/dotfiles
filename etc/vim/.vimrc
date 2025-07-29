@@ -62,11 +62,8 @@ Plug 'lambdalisue/fern-hijack.vim'
 Plug 'lambdalisue/fern-mapping-mark-children.vim'
 Plug 'lambdalisue/fern-git-status.vim'
 
-" ruby development
-Plug 'tpope/vim-bundler', { 'for': 'ruby' }
-Plug 'tpope/vim-endwise', { 'for': ['ruby', 'sh', 'zsh', 'vim'] }
-
-Plug 'tpope/vim-rails', { 'for': 'ruby' }
+" language support
+Plug 'tpope/vim-endwise', { 'for': ['sh', 'zsh', 'vim'] }
 
 " session management
 Plug 'tpope/vim-obsession'
