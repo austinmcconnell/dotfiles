@@ -65,7 +65,7 @@ Plug 'lambdalisue/fern-git-status.vim'
 " ruby development
 Plug 'tpope/vim-bundler', { 'for': 'ruby' }
 Plug 'tpope/vim-endwise', { 'for': ['ruby', 'sh', 'zsh', 'vim'] }
-Plug 'tpope/vim-dispatch', { 'for': 'ruby' }
+
 Plug 'tpope/vim-rails', { 'for': 'ruby' }
 
 " session management

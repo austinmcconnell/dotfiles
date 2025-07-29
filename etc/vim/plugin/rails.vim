@@ -55,8 +55,7 @@ augroup rails_settings
     autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
 augroup END
 
-" Integration with dispatch for test running
-" This allows :Rails to use dispatch for background test execution
+" Rails configuration
 let g:rails_default_file='config/database.yml'
 
 " Note: Default Rails.vim mappings:
