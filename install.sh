@@ -67,6 +67,7 @@ fi
 . "$DOTFILES_DIR/install/apt.sh"            # APT packages (Debian)
 . "$DOTFILES_DIR/install/python.sh"         # Python with pyenv
 . "$DOTFILES_DIR/install/node.sh"           # Node.js with nvm
+. "$DOTFILES_DIR/install/go.sh"             # Go with development tools
 . "$DOTFILES_DIR/install/vim.sh"            # Vim with vim-plug
 . "$DOTFILES_DIR/install/ruby.sh"           # Ruby with rbenv
 . "$DOTFILES_DIR/install/scripts.sh"        # Utility scripts
