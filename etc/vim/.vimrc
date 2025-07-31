@@ -86,9 +86,7 @@ set nrformats -=octal       " don't treat numbers with leading zeros as octal nu
 
 
 " Filetypes
-filetype on                 " try to detect filetype when opening a file
-filetype plugin on          " load plugin for related filetype
-filetype indent on          " load indent standards for related filetype
+filetype plugin indent on   " enable filetype detection, plugins, and indentation
 
 " Colors
 augroup solarized-overrides
