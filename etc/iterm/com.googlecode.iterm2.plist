@@ -1757,6 +1757,10 @@
 	<string>k8s pods</string>
 	<key>Default Bookmark Guid</key>
 	<string>8689A38D-207E-47CE-AAD6-80F071FE119D</string>
+	<key>DimBackgroundWindows</key>
+	<false/>
+	<key>DimOnlyText</key>
+	<true/>
 	<key>GlobalKeyMap</key>
 	<dict>
 		<key>0x7f-0x100000-0x33</key>
@@ -6831,6 +6835,8 @@
 	<true/>
 	<key>SoundForEsc</key>
 	<false/>
+	<key>SplitPaneDimmingAmount</key>
+	<real>0.29875114329268304</real>
 	<key>SwitchPaneModifier</key>
 	<integer>5</integer>
 	<key>VisualIndicatorForEsc</key>
