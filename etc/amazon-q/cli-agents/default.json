@@ -7,7 +7,8 @@
         "@filesystem/list_allowed_directories",
         "@filesystem/search_files",
         "@filesystem/get_file_info",
-        "@filesystem/directory_tree"
+        "@filesystem/directory_tree",
+        "@sequential-thinking/sequentialthinking"
     ],
     "description": "Default CLI agent configuration",
     "hooks": {
@@ -24,6 +25,15 @@
             ],
             "env": {},
             "timeout": 120000,
+            "disabled": false
+        },
+        "sequential-thinking": {
+            "command": "npx",
+            "args": [
+                "@modelcontextprotocol/server-sequential-thinking"
+            ],
+            "env": {},
+            "timeout": 300000,
             "disabled": false
         }
     },
