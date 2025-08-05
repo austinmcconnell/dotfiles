@@ -14,7 +14,8 @@
         "@git/git_diff",
         "@time/get_current_time",
         "@time/get_timezone",
-        "@time/format_time"
+        "@time/format_time",
+        "@fetch/fetch_url"
     ],
     "description": "Default CLI agent configuration",
     "hooks": {
@@ -60,6 +61,15 @@
             ],
             "env": {},
             "timeout": 30000,
+            "disabled": false
+        },
+        "fetch": {
+            "command": "python",
+            "args": [
+                "-m", "mcp_server_fetch"
+            ],
+            "env": {},
+            "timeout": 120000,
             "disabled": false
         }
     },
