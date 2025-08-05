@@ -109,6 +109,7 @@ if is-executable npm; then
     MCP_SERVERS=(
         "@modelcontextprotocol/server-filesystem"
         "@modelcontextprotocol/server-sequential-thinking"
+        "enhanced-postgres-mcp-server"
     )
 
     # Install each MCP server

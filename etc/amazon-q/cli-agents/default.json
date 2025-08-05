@@ -15,7 +15,8 @@
         "@time/get_current_time",
         "@time/get_timezone",
         "@time/format_time",
-        "@fetch/fetch_url"
+        "@fetch/fetch_url",
+        "@postgres/query"
     ],
     "description": "Default CLI agent configuration",
     "hooks": {
@@ -67,6 +68,16 @@
             "command": "python",
             "args": [
                 "-m", "mcp_server_fetch"
+            ],
+            "env": {},
+            "timeout": 120000,
+            "disabled": false
+        },
+        "postgres": {
+            "command": "npx",
+            "args": [
+                "enhanced-postgres-mcp-server",
+                "postgresql://localhost:5432/postgres"
             ],
             "env": {},
             "timeout": 120000,
