@@ -110,6 +110,7 @@ if is-executable npm; then
         "@modelcontextprotocol/server-filesystem"
         "@modelcontextprotocol/server-sequential-thinking"
         "enhanced-postgres-mcp-server"
+        "@aashari/mcp-server-atlassian-jira"
     )
 
     # Install each MCP server

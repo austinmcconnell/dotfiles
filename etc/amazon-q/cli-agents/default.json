@@ -16,7 +16,19 @@
         "@time/get_timezone",
         "@time/format_time",
         "@fetch/fetch_url",
-        "@postgres/query"
+        "@postgres/query",
+        "@jira/list_projects",
+        "@jira/search_issues",
+        "@jira/get_issue",
+        "@jira/add_comment",
+        "@jira/add_worklog",
+        "@jira/update_worklog",
+        "@jira/list_worklogs",
+        "@jira/list_comments",
+        "@jira/create_issue",
+        "@jira/get_create_meta",
+        "@jira/get_project",
+        "@jira/list_statuses"
     ],
     "description": "Default CLI agent configuration",
     "hooks": {
@@ -82,6 +94,15 @@
             "env": {},
             "timeout": 120000,
             "disabled": false
+        },
+        "jira": {
+            "command": "npx",
+            "args": [
+                "@aashari/mcp-server-atlassian-jira"
+            ],
+            "env": {},
+            "timeout": 120000,
+            "disabled": false
         }
     },
     "name": "default",
@@ -92,7 +113,27 @@
         "file://README.md",
         "file://docs/**/*.md"
     ],
-    "toolAliases": {},
+    "toolAliases": {
+        "@git/git_status": "status",
+        "@git/git_log": "log",
+        "@git/git_diff": "diff",
+        "@filesystem/read_text_file": "read",
+        "@filesystem/list_directory": "ls",
+        "@filesystem/search_files": "find",
+        "@postgres/query": "query",
+        "@time/get_current_time": "now",
+        "@jira/get_issue": "jira_get_issue",
+        "@jira/list_projects": "jira_ls_projects",
+        "@jira/search_issues": "jira_ls_issues",
+        "@jira/add_comment": "jira_add_comment",
+        "@jira/add_worklog": "jira_add_worklog",
+        "@jira/list_worklogs": "jira_ls_worklogs",
+        "@jira/list_comments": "jira_ls_comments",
+        "@jira/create_issue": "jira_create_issue",
+        "@jira/get_create_meta": "jira_get_create_meta",
+        "@jira/get_project": "jira_get_project",
+        "@jira/list_statuses": "jira_ls_statuses"
+    },
     "tools": [
         "*"
     ],
