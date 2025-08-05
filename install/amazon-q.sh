@@ -134,6 +134,7 @@ if is-executable pip; then
     # List of Python MCP servers to install
     PYTHON_MCP_SERVERS=(
         "mcp-server-git"
+        "mcp-server-time"
     )
 
     # Install each Python MCP server
