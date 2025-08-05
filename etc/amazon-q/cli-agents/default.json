@@ -8,7 +8,10 @@
         "@filesystem/search_files",
         "@filesystem/get_file_info",
         "@filesystem/directory_tree",
-        "@sequential-thinking/sequentialthinking"
+        "@sequential-thinking/sequentialthinking",
+        "@git/git_status",
+        "@git/git_log",
+        "@git/git_diff"
     ],
     "description": "Default CLI agent configuration",
     "hooks": {
@@ -34,6 +37,16 @@
             ],
             "env": {},
             "timeout": 300000,
+            "disabled": false
+        },
+        "git": {
+            "command": "python",
+            "args": [
+                "-m", "mcp_server_git",
+                "--repository", "."
+            ],
+            "env": {},
+            "timeout": 120000,
             "disabled": false
         }
     },

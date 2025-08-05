@@ -126,3 +126,28 @@ if is-executable npm; then
 else
     echo "npm not found. Skipping Node.js MCP server installation."
 fi
+
+# Install Python MCP servers if pip is available
+if is-executable pip; then
+    print_header "Installing Python MCP servers"
+
+    # List of Python MCP servers to install
+    PYTHON_MCP_SERVERS=(
+        "mcp-server-git"
+    )
+
+    # Install each Python MCP server
+    for server in "${PYTHON_MCP_SERVERS[@]}"; do
+        echo "Installing $server..."
+        if pip show "$server" >/dev/null 2>&1; then
+            echo "✓ $server is already installed"
+        else
+            pip install "$server"
+            echo "✓ $server installed successfully"
+        fi
+    done
+
+    echo "✅ All Python MCP servers installed successfully"
+else
+    echo "pip not found. Skipping Python MCP server installation."
+fi
