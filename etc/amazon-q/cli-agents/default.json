@@ -1,13 +1,32 @@
 {
     "allowedTools": [
-        "fs_read"
+        "fs_read",
+        "@filesystem/read_text_file",
+        "@filesystem/read_multiple_files",
+        "@filesystem/list_directory",
+        "@filesystem/list_allowed_directories",
+        "@filesystem/search_files",
+        "@filesystem/get_file_info",
+        "@filesystem/directory_tree"
     ],
     "description": "Default CLI agent configuration",
     "hooks": {
         "agentSpawn": [],
         "userPromptSubmit": []
     },
-    "mcpServers": {},
+    "mcpServers": {
+        "filesystem": {
+            "command": "npx",
+            "args": [
+                "@modelcontextprotocol/server-filesystem",
+                "~/.dotfiles",
+                "."
+            ],
+            "env": {},
+            "timeout": 120000,
+            "disabled": false
+        }
+    },
     "name": "default",
     "prompt": null,
     "resources": [

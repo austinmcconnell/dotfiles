@@ -100,3 +100,28 @@ if is-executable q; then
 else
     echo "Amazon Q CLI not found. Skipping integrations installation."
 fi
+
+# Install MCP servers if npm is available
+if is-executable npm; then
+    print_header "Installing Amazon Q MCP servers"
+
+    # List of Node.js MCP servers to install
+    MCP_SERVERS=(
+        "@modelcontextprotocol/server-filesystem"
+    )
+
+    # Install each MCP server
+    for server in "${MCP_SERVERS[@]}"; do
+        echo "Installing $server..."
+        if npm list -g "$server" >/dev/null 2>&1; then
+            echo "✓ $server is already installed"
+        else
+            npm install -g "$server"
+            echo "✓ $server installed successfully"
+        fi
+    done
+
+    echo "✅ All Node.js MCP servers installed successfully"
+else
+    echo "npm not found. Skipping Node.js MCP server installation."
+fi
