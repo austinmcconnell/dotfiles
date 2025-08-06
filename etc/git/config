@@ -10,6 +10,7 @@
     default = simple
     followTags = true
     autoSetupRemote = true
+    useForceIfIncludes = true
 
 [merge]
     ff = only
