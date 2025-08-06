@@ -121,3 +121,7 @@
     untracked = "#88C0D0"  # Nord8 (cyan)
     branch    = "#B48EAD"  # Nord15 (magenta)
     unmerged  = "#BF616A"  # Nord11 (red)
+
+[rerere]
+    enabled = true
+    autoUpdate = true
