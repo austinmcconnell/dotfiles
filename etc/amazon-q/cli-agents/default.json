@@ -115,8 +115,7 @@
     "resources": [
         "file://~/.dotfiles/etc/amazon-q/global_rules/**/*.md",
         "file://.amazonq/rules/**/*.md",
-        "file://README.md",
-        "file://docs/**/*.md"
+        "file://README.md"
     ],
     "toolAliases": {
         "@git/git_status": "status",
