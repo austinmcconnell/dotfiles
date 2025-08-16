@@ -7,10 +7,8 @@
 # Environment Variables
 ##############################
 
-# Set auto-install behavior for chtf
-export CHTF_AUTO_INSTALL="yes" # yes/no/ask
+# Enable auto-install for tfenv (same behavior as chtf)
+export TFENV_AUTO_INSTALL=true
 
-# Initialize chtf if it exists
-if [[ -f "/opt/homebrew/share/chtf/chtf.sh" ]]; then
-  source "/opt/homebrew/share/chtf/chtf.sh"
-fi
+# tfenv automatically detects .terraform-version files in current/parent directories
+# and switches versions when running terraform commands
