@@ -75,6 +75,7 @@ fi
 . "$DOTFILES_DIR/install/dircolors.sh"      # Dircolors themes
 . "$DOTFILES_DIR/install/xdg-compliance.sh" # XDG compliance for CLI tools
 . "$DOTFILES_DIR/install/glow.sh"           # Glow markdown viewer
+. "$DOTFILES_DIR/install/terraform.sh"      # Terraform with rc file
 
 # Create .hushlogin to disable the login message
 touch ~/.hushlogin

@@ -1,0 +1,12 @@
+# Terraform CLI Configuration
+# https://www.terraform.io/docs/cli/config/config-file.html
+
+# Enable plugin caching to avoid re-downloading providers
+# Uses XDG-compliant data directory
+plugin_cache_dir = "$XDG_DATA_HOME/terraform/plugin-cache"
+
+# Disable checkpoint calls to HashiCorp for privacy/performance
+disable_checkpoint = true
+
+# Disable upgrade and security notices
+disable_checkpoint_signature = true
