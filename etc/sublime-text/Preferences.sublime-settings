@@ -6,8 +6,31 @@
     "highlight_modified_tabs": true,
     "ignored_packages": ["Vintage"],
     "index_files": true,
+    "index_exclude_patterns": [
+        "*.log",
+        "*.tmp",
+        "node_modules/*",
+        ".git/*",
+        ".venv/*",
+        "venv/*",
+        "__pycache__/*",
+        "*.pyc",
+        ".pytest_cache/*",
+        ".coverage",
+        "dist/*",
+        "build/*",
+        ".DS_Store"
+    ],
     "save_on_focus_lost": true,
     "theme": "Default Dark.sublime-theme",
     "translate_tabs_to_spaces": true,
-    "trim_trailing_white_space_on_save": "all"
+    "trim_trailing_white_space_on_save": "all",
+    "word_wrap": true,
+    "rulers": [100],
+    "show_encoding": true,
+    "show_line_endings": true,
+    "auto_complete_commit_on_tab": true,
+    "auto_complete_with_fields": true,
+    "atomic_save": false,
+    "close_windows_when_empty": false
 }
