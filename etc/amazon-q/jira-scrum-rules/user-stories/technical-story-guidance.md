@@ -25,10 +25,11 @@ Use bullet points to list:
 - Observable consequences
 - Business impact
 
-### 4. Organize Acceptance Criteria Logically
+### 4. Organize Acceptance Criteria Simply
 
-- **Core Functionality**: What the system should do (behavior changes)
-- **Technical Implementation**: How it will be implemented (specific tasks)
+- Use simple bullet points for Acceptance Criteria (not checklists or subsections)
+- Add a separate "Technical Implementation" section with bullet points (not checklists) for
+  implementation details
 
 ### 5. Avoid Over-Engineering
 
@@ -65,14 +66,12 @@ Current Issue
 • [Business impact]
 
 Acceptance Criteria
-
-Core Functionality
-• [ ] [Primary system behavior change]
-• [ ] [Secondary system behavior change]
+• [Primary system behavior change]
+• [Secondary system behavior change]
 
 Technical Implementation
-• [ ] [Specific technical task 1]
-• [ ] [Specific technical task 2]
+• [Specific technical task 1]
+• [Specific technical task 2]
 ```
 
 ## Examples of Good Technical Stories
@@ -93,14 +92,12 @@ Current Issue
 • Can result in screenings being attributed to technology platforms or payers instead of the actual care provider
 
 Acceptance Criteria
-
-Core Functionality
-• [ ] Observation-Referenced Organization: System identifies which organization is referenced in the Observation resources as the performing organization
-• [ ] Primary Provider Selection: Use the organization referenced in observations as the primary care provider for screening attribution
+• **Observation-Referenced Organization**: System identifies which organization is referenced in the Observation resources as the performing organization
+• **Primary Provider Selection**: Use the organization referenced in observations as the primary care provider for screening attribution
 
 Technical Implementation
-• [ ] Organization Reference Extraction: Extract performer references from Observation resources
-• [ ] Provider Matching: Match the observation-performing organization against the provider database
+• Organization Reference Extraction: Extract performer references from Observation resources
+• Provider Matching: Match the observation-performing organization against the provider database
 ```
 
 ### API Integration Story
@@ -119,14 +116,12 @@ Current Issue
 • Users receive unhelpful error messages that don't guide them toward resolution
 
 Acceptance Criteria
-
-Core Functionality
-• [ ] Structured Error Responses: API returns JSON error responses with specific error codes and messages
-• [ ] Error Type Differentiation: System distinguishes between expired tokens, invalid credentials, and account lockouts
+• **Structured Error Responses**: API returns JSON error responses with specific error codes and messages
+• **Error Type Differentiation**: System distinguishes between expired tokens, invalid credentials, and account lockouts
 
 Technical Implementation
-• [ ] Error Response Schema: Define standardized error response format with code, message, and details fields
-• [ ] Error Code Mapping: Map internal authentication failures to specific client-facing error codes
+• Error Response Schema: Define standardized error response format with code, message, and details fields
+• Error Code Mapping: Map internal authentication failures to specific client-facing error codes
 ```
 
 ## Common Mistakes to Avoid
@@ -162,14 +157,12 @@ Priority Justification
 
 ```text
 Acceptance Criteria
-
-Core Functionality
-• [ ] System does X with specific behavior change
-• [ ] System handles Y scenario appropriately
+• System does X with specific behavior change
+• System handles Y scenario appropriately
 
 Technical Implementation
-• [ ] Implement specific technical task 1
-• [ ] Implement specific technical task 2
+• Implement specific technical task 1
+• Implement specific technical task 2
 ```
 
 ### ❌ Implementation-Focused User Role
@@ -212,7 +205,8 @@ so that preference updates are consistent across all user interfaces instead of 
 - [ ] **Business Impact**: Clearly explains why the change matters
 - [ ] **Background**: Provides context about current problematic behavior
 - [ ] **Current Issues**: Lists specific, observable problems
-- [ ] **Clean Acceptance Criteria**: Organized into Core Functionality and Technical Implementation
+- [ ] **Clean Acceptance Criteria**: Uses simple bullet points for Acceptance Criteria and
+  separate Technical Implementation section
 - [ ] **No Over-Engineering**: Avoids unnecessary generic sections
 - [ ] **Testable**: Criteria can be verified and demonstrated
 - [ ] **Focused**: Single system behavior change, not multiple unrelated changes
