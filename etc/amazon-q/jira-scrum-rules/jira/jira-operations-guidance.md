@@ -327,6 +327,37 @@ project = "PROJ" AND assignee = "john.doe" AND status in ("In Progress", "In Rev
 - Consider pagination for large result sets
 - Cache frequently accessed data when appropriate
 
+## Bug Ticket Creation Guidelines
+
+### Structure for Bug Tickets
+
+Bug tickets should follow this structure:
+
+1. **Summary**: Clear, non-technical description
+2. **Description** with subsections:
+   - Background
+   - Root Cause
+   - Current Impact
+   - Evidence
+3. **Acceptance Criteria**: Observable outcomes only
+
+### Language Precision for Data Issues
+
+When describing data-related bugs:
+
+- Distinguish between "data loss" (actual deletion) vs "data processing issues" (incorrect derived fields)
+- Use specific numbers from database queries when available
+- Avoid alarming language unless the situation truly warrants it
+
+### Sections to Exclude by Default
+
+Unless specifically requested, don't include:
+
+- Issue Type/Priority (set in JIRA interface)
+- Labels
+- "What Still Works" sections
+- Implementation steps in Acceptance Criteria
+
 ## Response Formatting Guidelines
 
 ### JIRA URL Formatting
