@@ -27,6 +27,7 @@ in the `etc/` directory of the dotfiles repository.
 - [Starship](#starship)
 - [Sublime Text](#sublime-text)
 - [Terminfo](#terminfo)
+- [Typora](#typora)
 - [Vim](#vim)
 - [YAML](#yaml)
 - [Zsh](#zsh)
@@ -273,6 +274,21 @@ Configuration options include:
 - **Color support**: Define color capabilities for various terminals
 - **Special keys**: Map keyboard input to terminal control sequences
 - **Screen capabilities**: Configure terminal screen management features
+
+## Typora
+
+Typora is a markdown editor and reader with live preview capabilities, excellent for creating
+professional documents and exporting to PDF.
+
+Configuration options include:
+
+- **Themes**: Visual themes for editing and PDF export
+- **Export settings**: PDF margins, page size, and formatting options
+- **Editor preferences**: Live preview, outline panel, and editing behavior
+- **Custom CSS**: Advanced styling for themes and export formats
+
+The dotfiles setup automatically downloads popular themes optimized for professional PDF export,
+such as the Lapis theme for clean, academic papers.
 
 ## Vim
 
