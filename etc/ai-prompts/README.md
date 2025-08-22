@@ -77,6 +77,11 @@ These prompts work with any AI chat service:
 - `project-analysis` - Comprehensive project overview and current state (outputs to `analysis-project.md`)
 - `architecture-analysis` - Technical architecture and system design analysis (outputs to `analysis-architecture.md`)
 - `integration-analysis` - External integrations, APIs, and data flows (outputs to `analysis-integration.md`)
+- `security-analysis` - Security posture, vulnerabilities, and compliance (outputs to `analysis-security.md`)
+- `performance-analysis` - Performance characteristics, bottlenecks, and optimization (outputs to `analysis-performance.md`)
+- `testing-analysis` - Testing strategy, coverage, and quality assurance (outputs to `analysis-testing.md`)
+- `documentation-analysis` - Documentation quality, completeness, and maintenance (outputs to `analysis-documentation.md`)
+- `technical-debt-analysis` - Code quality issues and refactoring opportunities (outputs to `analysis-technical-debt.md`)
 
 ### Git and Code Review
 
