@@ -4,3 +4,8 @@
 
 [commit]
     gpgsign = true
+
+[maintenance]
+    repo = /Users/austin.mcconnell/projects/unite-us/web-app
+    repo = /Users/austin.mcconnell/projects/unite-us/core
+    repo = /Users/austin.mcconnell/projects/unite-us/screenings-ingestion
