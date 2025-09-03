@@ -134,3 +134,13 @@
 [gc]
     writeCommitGraph = true
     autoDetach = false
+
+[transfer]
+    fsckObjects = true
+
+[receive]
+    fsckObjects = true
+
+[fetch]
+    fsckObjects = true
+    writeCommitGraph = true
