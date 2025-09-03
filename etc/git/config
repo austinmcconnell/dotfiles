@@ -104,7 +104,12 @@
     map-styles = bold purple => syntax darkmagenta, bold cyan => syntax darkcyan
 
 [diff]
+    algorithm = histogram
     colorMoved = default
+    compactionHeuristic = true
+    indentHeuristic = true
+    mnemonicPrefix = true
+    renames = copies
     wordRegex = "[^[:space:]\"]+"
 # End delta-specific settings
 ############################################################
