@@ -26,7 +26,7 @@
 [alias]
     amend = commit --amend --reuse-message=HEAD
     contrib = shortlog --summary --numbered
-    history = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    history = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%n%-N' --abbrev-commit --show-notes=*
     # Undo last commit and keep changes staged
     undo = "reset --soft HEAD^"
     # Stash changes as a WIP commit
@@ -36,6 +36,9 @@
     edit-all = "!git ls-files --modified --other --exclude-standard | sort --unique | xargs --no-run-if-empty --open-tty --delimiter \"\n\" $EDITOR"
     # AI-enhanced Git operations
     ai-commit = "!q chat --agent default --no-interactive 'Generate a conventional commit message for the currently staged changes'"
+    # Git Notes operations
+    note = notes add
+    noted = "!git log --oneline --show-notes=* | awk '/Notes:/{getline; print prev} {prev=$0}'"
 [init]
     templatedir = ~/.config/git/templates
     defaultBranch = main
@@ -146,3 +149,7 @@
 [fetch]
     fsckObjects = true
     writeCommitGraph = true
+
+[notes]
+    displayRef = refs/notes/*
+    rewriteRef = refs/notes/*
