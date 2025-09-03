@@ -26,7 +26,7 @@
 [alias]
     amend = commit --amend --reuse-message=HEAD
     contrib = shortlog --summary --numbered
-    history = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%n%-N' --abbrev-commit --show-notes=*
+    history = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%n%-N' --show-notes=*
     # Undo last commit and keep changes staged
     undo = "reset --soft HEAD^"
     # Stash changes as a WIP commit
