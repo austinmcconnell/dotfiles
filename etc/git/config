@@ -126,3 +126,11 @@
 [rerere]
     enabled = true
     autoUpdate = true
+
+[maintenance]
+    auto = false
+    strategy = incremental
+
+[gc]
+    writeCommitGraph = true
+    autoDetach = false
