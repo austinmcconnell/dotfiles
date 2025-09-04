@@ -21,3 +21,7 @@ Thumbs.db
 todo-*.md
 plan-*.md
 analysis/
+
+## Git worktrees
+
+worktrees/
