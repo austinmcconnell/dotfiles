@@ -14,7 +14,7 @@ repos:
       - id: debug-statements
       - id: double-quote-string-fixer
       - id: end-of-file-fixer
-        exclude: ^obsidian/
+        exclude: (obsidian|etc/amazon-q/)
       - id: pretty-format-json
         args: [--autofix, --indent=4]
         types: [text]
