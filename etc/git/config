@@ -159,3 +159,8 @@
 [notes]
     displayRef = refs/notes/*
     rewriteRef = refs/notes/*
+
+[url "git@github.com:"]
+    insteadOf = https://github.com/
+    insteadOf = gh:
+    pushInsteadOf = https://github.com/
