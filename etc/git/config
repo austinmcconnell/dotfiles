@@ -110,7 +110,7 @@
     indentHeuristic = true
     mnemonicPrefix = true
     renames = copies
-    wordRegex = "[^[:space:]\"]+"
+    wordRegex = "[^[:space:]\":#]+"  # Exclude quotes, colons, hash from word boundaries
 # End delta-specific settings
 ############################################################
 
