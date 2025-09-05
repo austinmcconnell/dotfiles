@@ -36,8 +36,8 @@ zstyle ':zephyr:plugin:editor' key-bindings 'emacs' # Use emacs-style keybinding
 
 # History - Command history management and search functionality
 zstyle ':zephyr:plugin:history' histfile $ZDOTDIR/.zsh_history # File to store command history
-zstyle ':zephyr:plugin:history' histsize 10000000              # Number of commands loaded into memory
-zstyle ':zephyr:plugin:history' savehist 10000000              # Number of commands saved to history file
+zstyle ':zephyr:plugin:history' histsize 100000                # Number of commands loaded into memory
+zstyle ':zephyr:plugin:history' savehist 100000                # Number of commands saved to history file
 
 # Homebrew - Package manager integration
 zstyle ':zephyr:plugin:homebrew' use-cache true # Cache Homebrew environment for faster startup
