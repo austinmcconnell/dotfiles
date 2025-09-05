@@ -29,3 +29,11 @@ fi
 
 # Custom key bindings for fzf
 bindkey "^e" fzf-cd-widget
+
+# Override fzf history widget to reload history first
+fzf-history-widget-with-reload() {
+  fc -R  # Reload history from file
+  fzf-history-widget
+}
+zle -N fzf-history-widget-with-reload
+bindkey '^r' fzf-history-widget-with-reload
