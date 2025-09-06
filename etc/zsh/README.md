@@ -1,250 +1,103 @@
-# Zsh Configuration with Zephyr and Antidote
+# Zsh Configuration
 
-This document explains how Zephyr and Antidote work together to create a powerful, modular Zsh environment.
+A comprehensive Zsh configuration system built on the Zephyr framework with modular architecture,
+intelligent completions, and productivity-focused tooling.
 
-## Table of Contents
+## Philosophy
 
-- [Overview](#overview)
-- [Zephyr Framework](#zephyr-framework)
-  - [Core Concepts](#core-concepts)
-  - [Plugin System](#plugin-system)
-  - [Configuration](#configuration)
-- [Antidote Plugin Manager](#antidote-plugin-manager)
-  - [Core Concepts](#core-concepts-1)
-  - [Bundle Management](#bundle-management)
-  - [Performance Optimization](#performance-optimization)
-- [Integration](#integration)
-  - [Best Practices](#best-practices)
-  - [Example Configuration](#example-configuration)
+- **Modular architecture**: Organized configuration files for maintainability and performance
+- **Framework-based**: Built on Zephyr framework for consistent, well-tested functionality
+- **Performance-first**: Lazy loading, caching, and parallel plugin loading for fast startup
+- **Developer-focused**: Git integration, fuzzy finding, and AI-assisted workflows
+- **Extensible**: Plugin system with custom functions and abbreviations
 
-## Overview
+## Directory Structure
 
-The Zsh configuration in this dotfiles repository leverages two powerful tools:
-
-1. **Zephyr**: A lightweight, modular Zsh framework that provides core functionality
-2. **Antidote**: A high-performance plugin manager for Zsh
-
-Together, these tools create a fast, flexible, and maintainable Zsh environment that can be
-customized to your specific needs.
-
-## Zephyr Framework
-
-Zephyr is a lightweight Zsh framework designed to be modular and fast. It provides essential Zsh
-functionality through independent plugins that can be used individually or together.
-
-### Core Concepts
-
-Zephyr is built around several key principles:
-
-- **Modularity**: Each component works independently and can be enabled or disabled
-- **Speed**: Optimized for fast shell startup times
-- **Simplicity**: Clean, well-organized code that's easy to understand and modify
-- **Compatibility**: Works well with other Zsh plugins and tools
-
-### Plugin System
-
-Zephyr organizes functionality into discrete plugins:
-
-- **color**: Terminal color support and configuration
-- **completion**: Zsh's powerful completion system
-- **compstyle**: Completion styling and configuration
-- **confd**: Fish-like configuration directory support
-- **directory**: Directory navigation and management
-- **editor**: Keybindings and editor integration
-- **environment**: Environment variable management
-- **history**: Command history configuration
-- **homebrew**: Homebrew integration for macOS
-- **macos**: macOS-specific functionality
-- **prompt**: Prompt configuration (with optional Starship support)
-- **utility**: Common shell utilities and functions
-- **zfunctions**: Fish-like function autoloading
-
-Each plugin is contained in its own directory with a consistent structure:
-
-```shell
-plugins/
-  plugin-name/
-    plugin-name.plugin.zsh  # Main plugin file
-    functions/              # Optional functions directory
-    completions/            # Optional completions directory
+```text
+etc/zsh/
+├── .zshrc                 # Main interactive shell configuration
+├── .zshenv                # Environment variables for all shells
+├── .zprofile              # Login shell configuration
+├── .zlogin                # Post-login configuration
+├── .zstyles               # Plugin and framework styling configuration
+├── .zsh_plugins.txt       # Plugin manifest for Antidote plugin manager
+├── conf.d/                # Modular configuration files by topic
+├── functions/             # Custom shell functions
+├── completions/           # Custom tab completion definitions
+├── custom/                # Local customizations and extra plugins
+└── zsh-abbr/              # Command abbreviations and shortcuts
 ```
 
-### Configuration
+## Architecture Overview
 
-Zephyr uses Zsh's built-in `zstyle` system for configuration. This provides a flexible way to
-customize behavior without modifying the core code.
+### Configuration Loading Order
 
-Example configuration:
+Zsh configuration follows the standard loading sequence with framework integration:
 
-```zsh
-# Specify which plugins to load
-zephyr_plugins=(
-  zfunctions
-  directory
-  editor
-  history
-)
-zstyle ':zephyr:load' plugins $zephyr_plugins
+1. **`.zshenv`** - Core environment variables and XDG directories
+2. **`.zprofile`** - Login shell environment setup
+3. **`.zshrc`** - Interactive shell configuration with plugin loading
+4. **`.zlogin`** - Post-login initialization
 
-# Source Zephyr
-source ${ZDOTDIR:-~}/.zephyr/zephyr.zsh
-```
+### Plugin Management
 
-Zephyr also supports a post-initialization hook system that allows code to run after Zsh is fully initialized:
+Uses Antidote plugin manager with Zephyr framework components:
 
-```zsh
-# Add a function to the post_zshrc hook
-post_zshrc_hook+=('my_custom_function')
-```
+- **Framework plugins**: Core Zephyr components for history, completion, utilities
+- **External plugins**: Community plugins for enhanced functionality
+- **Custom plugins**: Local customizations and work-specific configurations
+- **Deferred loading**: Performance optimization for non-essential plugins
 
-## Antidote Plugin Manager
+### Modular Configuration (conf.d/)
 
-Antidote is a high-performance Zsh plugin manager that handles downloading, updating, and loading Zsh
-plugins. It's a feature-complete implementation of the legacy Antibody plugin manager, with improvements
-for speed and usability.
+Topic-based configuration files loaded automatically:
 
-### Core Concepts
+- **Development tools**: Git, Docker, Terraform, Python, Node.js, Ruby
+- **System integration**: macOS, Homebrew, iTerm2, direnv
+- **Productivity**: FZF, AI prompts, filesystem utilities
+- **Platform-specific**: Conditional loading based on operating system
 
-Antidote is built around several key features:
+### Key Conventions
 
-- **Speed**: Optimized for fast plugin loading
-- **Simplicity**: Easy-to-understand bundle format
-- **Flexibility**: Supports various plugin sources and configurations
-- **Static Generation**: Creates static load files for maximum performance
+- **XDG compliance**: Follows XDG Base Directory specification
+- **Performance optimization**: Caching, parallel loading, and lazy initialization
+- **Conditional loading**: Platform and context-aware configuration
+- **Abbreviation system**: Short aliases that expand for common commands
 
-### Bundle Management
+## Finding Specific Information
 
-Antidote uses a simple text file (typically `.zsh_plugins.txt`) to define plugins:
+- **Plugin configuration**: Check `.zstyles` for framework and plugin settings
+- **Plugin list**: See `.zsh_plugins.txt` for all loaded plugins
+- **Topic-specific settings**: Look in `conf.d/{topic}.zsh` files
+- **Custom functions**: Browse `functions/` directory for utility functions
+- **Command shortcuts**: Check `zsh-abbr/user-abbreviations` for abbreviations
+- **Completions**: Find custom completions in `completions/` directory
+- **Local customizations**: See `custom/` directory for additional plugins
+- **Environment setup**: Reference `.zshenv` for core environment variables
+- **Framework documentation**: Check `zephyr.md` and related docs for framework details
 
-```conf
-# Plugin bundles
-rupa/z
-sindresorhus/pure
+## Key Features
 
-# Oh My Zsh plugins
-getantidote/use-omz
-ohmyzsh/ohmyzsh path:lib
-ohmyzsh/ohmyzsh path:plugins/extract
+### Development Workflow
 
-# Fish-like features
-zsh-users/zsh-syntax-highlighting
-zsh-users/zsh-autosuggestions
-zsh-users/zsh-history-substring-search
-```
+- Git integration with fuzzy selection for branches, commits, and files
+- AI-assisted command generation and prompt management
+- Docker and container orchestration shortcuts
+- Language-specific environment management (Python, Node.js, Ruby)
 
-Each line specifies a plugin with optional parameters:
+### Productivity Tools
 
-- **GitHub shorthand**: `user/repo` for GitHub repositories
-- **Full URLs**: `https://host.com/user/repo` for other git hosts
-- **Path specifier**: `path:subdirectory` to load specific parts of a repository
-- **Branch/tag/commit**: `branch:main` to specify a git reference
-- **Kind**: `kind:defer` for plugins that support deferred loading
-- **Clone-only**: `kind:clone` to clone without sourcing
-- **FPATH-only**: `kind:fpath` to add to FPATH without sourcing
+- FZF integration for file, directory, and history search
+- Command abbreviations for frequently used operations
+- Intelligent tab completion with caching
+- Shared history across multiple shell sessions
 
-### Performance Optimization
+### System Integration
 
-Antidote offers several performance optimizations:
+- Homebrew package manager integration
+- macOS-specific optimizations and iTerm2 integration
+- Directory environment management with direnv
+- XDG Base Directory compliance for clean home directory
 
-1. **Static Loading**: Generates a static file that can be sourced directly
-2. **Deferred Loading**: Supports loading plugins after Zsh initialization
-3. **Parallel Cloning**: Downloads multiple plugins simultaneously
-4. **Zcompilation**: Compiles scripts for faster loading
-
-Example of optimized loading:
-
-```zsh
-# .zshrc
-zsh_plugins=${ZDOTDIR:-$HOME}/.zsh_plugins
-if [[ ! ${zsh_plugins}.zsh -nt ${zsh_plugins}.txt ]]; then
-  (
-    source ${ZDOTDIR:-$HOME}/.antidote/antidote.zsh
-    antidote bundle <${zsh_plugins}.txt >${zsh_plugins}.zsh
-  )
-fi
-source ${zsh_plugins}.zsh
-```
-
-## Integration
-
-Zephyr and Antidote work together seamlessly, with Antidote managing plugin installation and Zephyr
-providing core functionality.
-
-### Best Practices
-
-1. **Use Zephyr for Core Functionality**:
-   - Load Zephyr's modular plugins for essential Zsh features
-   - Configure using `zstyle` for flexibility
-
-2. **Use Antidote for External Plugins**:
-   - Manage third-party plugins with Antidote
-   - Create a static load file for performance
-
-3. **Organize Configuration**:
-   - Keep plugin list in `.zsh_plugins.txt`
-   - Use Zephyr's `confd` plugin for modular configuration
-
-4. **Optimize Performance**:
-   - Use static loading with Antidote
-   - Defer non-essential plugins
-   - Consider zcompiling frequently used scripts
-
-### Example Configuration
-
-A well-structured Zsh configuration might look like this:
-
-```zsh
-# .zshrc
-
-# Load Antidote
-source ${ZDOTDIR:-$HOME}/.antidote/antidote.zsh
-
-# Generate static plugin file if needed
-zsh_plugins=${ZDOTDIR:-$HOME}/.zsh_plugins
-if [[ ! ${zsh_plugins}.zsh -nt ${zsh_plugins}.txt ]]; then
-  antidote bundle <${zsh_plugins}.txt >${zsh_plugins}.zsh
-fi
-
-# Configure Zephyr
-zephyr_plugins=(
-  environment
-  directory
-  history
-  editor
-  utility
-  completion
-)
-zstyle ':zephyr:load' plugins $zephyr_plugins
-
-# Source Zephyr
-source ${ZDOTDIR:-$HOME}/.zephyr/zephyr.zsh
-
-# Source static plugins file
-source ${zsh_plugins}.zsh
-
-# Custom configuration
-# ...
-```
-
-With `.zsh_plugins.txt`:
-
-```conf
-# Zephyr core plugins
-mattmc3/zephyr path:plugins/color
-mattmc3/zephyr path:plugins/completion
-mattmc3/zephyr path:plugins/directory
-mattmc3/zephyr path:plugins/editor
-mattmc3/zephyr path:plugins/history
-mattmc3/zephyr path:plugins/utility
-
-# Additional plugins
-zsh-users/zsh-autosuggestions kind:defer
-zsh-users/zsh-syntax-highlighting kind:defer
-zsh-users/zsh-history-substring-search kind:defer
-
-# Prompt
-sindresorhus/pure
-```
-
-This configuration provides a clean, modular setup that leverages the strengths of both Zephyr and
-Antidote while maintaining excellent performance.
+This configuration provides a complete shell environment optimized for development workflows
+while maintaining fast startup times and extensibility for custom requirements.
