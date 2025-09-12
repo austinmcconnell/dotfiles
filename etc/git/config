@@ -19,6 +19,19 @@
 
 [fetch]
     prune = true
+    parallel = 0
+
+[feature]
+    manyFiles = true
+
+[protocol]
+    version = 2
+
+[index]
+    version = 4
+
+[pack]
+    useSparse = true
 
 [clone]
     defaultRemoteName = origin
@@ -90,6 +103,9 @@
 [core]
     pager = delta
     excludesfile = ~/.config/git/ignore
+    untrackedcache = true
+    preloadindex = true
+    fsmonitor = true
 
 [interactive]
     diffFilter = delta --color-only
