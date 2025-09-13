@@ -7,17 +7,53 @@ BREW_INSTALLED_CASKS=""
 BREW_OUTDATED_FORMULAE=""
 BREW_OUTDATED_CASKS=""
 BREW_TAPS=""
-CACHE_INITIALIZED=false
+CACHE_DIR="$HOME/.cache/dotfiles"
+CACHE_FILE="$CACHE_DIR/brew_cache"
+CACHE_TTL=300 # 5 minutes
 
 init_brew_cache() {
-    echo "Initializing brew cache..."
-    BREW_INSTALLED_FORMULAE=$(brew list --formula 2>/dev/null)
-    BREW_INSTALLED_CASKS=$(brew list --cask 2>/dev/null)
-    BREW_OUTDATED_FORMULAE=$(brew outdated --formula 2>/dev/null)
-    BREW_OUTDATED_CASKS=$(brew outdated --cask 2>/dev/null)
-    BREW_TAPS=$(brew tap)
-    CACHE_INITIALIZED=true
-    echo "Cache initialized"
+    mkdir -p "$CACHE_DIR"
+
+    # Check if cache exists and is fresh
+    if [[ -f "$CACHE_FILE" ]]; then
+        local cache_mtime
+        cache_mtime=$(stat -c %Y "$CACHE_FILE" 2>/dev/null || echo 0)
+        local cache_age
+        cache_age=$(($(date +%s) - cache_mtime))
+        if [[ $cache_age -lt $CACHE_TTL ]]; then
+            # shellcheck source=/dev/null
+            source "$CACHE_FILE"
+            echo "Using cached brew data"
+            return
+        fi
+    fi
+
+    echo "Refreshing brew cache..."
+    BREW_INSTALLED_FORMULAE=$(brew list --formula 2>/dev/null || echo "")
+    BREW_INSTALLED_CASKS=$(brew list --cask 2>/dev/null || echo "")
+    BREW_OUTDATED_FORMULAE=$(brew outdated --formula 2>/dev/null || echo "")
+    BREW_OUTDATED_CASKS=$(brew outdated --cask 2>/dev/null || echo "")
+    BREW_TAPS=$(brew tap 2>/dev/null || echo "")
+
+    if [[ -z "$BREW_INSTALLED_FORMULAE" && -z "$BREW_INSTALLED_CASKS" ]]; then
+        echo "Warning: Failed to initialize brew cache"
+        return 1
+    fi
+
+    # Save to disk
+    cat >"$CACHE_FILE" <<EOF
+BREW_INSTALLED_FORMULAE="$BREW_INSTALLED_FORMULAE"
+BREW_INSTALLED_CASKS="$BREW_INSTALLED_CASKS"
+BREW_OUTDATED_FORMULAE="$BREW_OUTDATED_FORMULAE"
+BREW_OUTDATED_CASKS="$BREW_OUTDATED_CASKS"
+BREW_TAPS="$BREW_TAPS"
+EOF
+    echo "Cache initialized and saved"
+}
+
+refresh_brew_cache() {
+    rm -f "$CACHE_FILE"
+    init_brew_cache
 }
 
 is_package_installed() {
@@ -63,9 +99,7 @@ install_if_needed() {
         return 0
     fi
 
-    if [[ "$CACHE_INITIALIZED" != "true" ]]; then
-        init_brew_cache
-    fi
+    init_brew_cache
 
     if ! is_package_installed "$package" "$package_type"; then
         echo "Installing $package ($package_type)..."
@@ -74,7 +108,7 @@ install_if_needed() {
         else
             brew install --formula "$package"
         fi
-        init_brew_cache
+        refresh_brew_cache
     elif is_package_outdated "$package" "$package_type"; then
         echo "Updating $package ($package_type)..."
         if [[ "$package_type" == "cask" ]]; then
@@ -82,7 +116,7 @@ install_if_needed() {
         else
             brew upgrade --formula "$package"
         fi
-        init_brew_cache
+        refresh_brew_cache
     else
         echo -e "\033[32m✓ $package is already installed and up to date\033[0m"
     fi
@@ -91,13 +125,12 @@ install_if_needed() {
 tap_if_needed() {
     local tap=$1
 
-    if [[ "$CACHE_INITIALIZED" != "true" ]]; then
-        init_brew_cache
-    fi
+    init_brew_cache
 
     if ! echo "$BREW_TAPS" | grep -q "^$tap\$"; then
         echo "Tapping $tap..."
         brew tap "$tap"
+        refresh_brew_cache
     else
         echo "Tap $tap already exists"
     fi
