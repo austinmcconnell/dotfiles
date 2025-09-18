@@ -312,3 +312,21 @@ echo "[file_into_library] Filed into: $DEST"
 - Hazel runs scripts in a non‑interactive shell; always use **absolute paths**.
 - Use **`mediainfo`** to verify language/default/forced flags and streams before filing.
 - For HEVC MP4s, if Apple playback is picky, add `-tag:v hvc1` to the `remux_mp4.sh` ffmpeg command.
+
+### 8) Fetch NFO & images for new movie folders
+
+Run after filing, or watch `/media/movies` for newly created `Title (Year)` folders.
+
+```json
+{
+  "name": "Fetch NFO & images (TMDb)",
+  "folder": "/media/movies",
+  "if": [
+    { "is_folder": true },
+    { "name_regex": ".* \\(\\d{4}\\)$" }
+  ],
+  "do": [
+    { "run_shell_script": "/usr/local/bin/fetch_nfo_art.sh", "args": ["-d","{file}"] }
+  ]
+}
+```
