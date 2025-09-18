@@ -1,51 +1,40 @@
-# 4b-jellyfin-clients.md — Clients, Direct Play, and Version Defaults
+# 4b — Jellyfin Clients & Playback Behavior (tvOS / iOS / Web)
 
-This page explains **client behavior** (tvOS/iOS/Web), **Swiftfin player modes**, **Infuse**, and
-how to make the **right version** play by default.
+This file explains **Direct Play vs remux/transcode**, and how **Swiftfin (AVKit vs VLCKit)** and
+**Infuse** behave with MKV/MP4.
 
-## Direct Play vs Remux vs Transcode (Jellyfin)
+## Default version is not device-aware
 
-- **Direct Play:** client supports container + video + audio + subs as‑is → best quality/no server
-  work.
-- **Direct Stream (remux/partial):** small conversion (e.g., container ONLY, or audio ONLY).
-- **Transcode:** re‑encode video and/or audio → highest server load.
-Docs: <https://jellyfin.org/docs/general/clients/codec-support/> ·
-<https://jellyfin.org/docs/general/post-install/transcoding/>
+Jellyfin selects the **first** version by its ordering rules; it does **not** auto-pick per client.
+If the default isn’t compatible, the server **remuxes/transcodes that same version**. Use labels to
+control the default.
 
-## Apple ecosystem — AVKit vs VLCKit vs Infuse
+Docs: <https://jellyfin.org/docs/general/server/media/movies/#multiple-versions>
 
-- **AVKit/AVPlayer** (Safari, system player, “Native” Swiftfin) favors **.mp4/.m4v/.mov/HLS**;
-  **MKV** typically needs **remux** and **DTS/TrueHD** often needs **audio transcode**.
-- **Swiftfin (VLCKit)** can **demux MKV** and decode many codecs in‑app → more MKV direct‑play
-  scenarios.
-- **Infuse** (tvOS/iOS) plays **MKV** directly and decodes DTS/TrueHD to multichannel PCM locally;
-  great for MKV‑first libraries.
+## Apple clients at a glance
 
-> **One‑liner:** If your Apple clients are **Infuse**, MKV‑only is fine. Add MP4 versions only for
-> **AVKit‑based** clients.
+- **AVKit / system players (Safari, “Native” player)**: prefer `.mp4/.m4v/.mov`/HLS. MKV not natively
+    supported.
+- **Swiftfin (VLCKit)**: plays MKV directly in-app (demux/decoding provided by VLC).
+- **Infuse (tvOS/iOS)**: plays MKV directly and decodes DTS/DTS-HD/TrueHD to multichannel PCM; Atmos
+    via E-AC-3 only.
 
-## Picking the default version
+> **One-liner:** If your Apple clients are **Infuse**, MKV‑only is fine. Add MP4 versions only for
+**AVKit‑based** clients.
 
-Jellyfin plays **the first version** in its sorted list; it **does not** pick a version per device
-automatically. Use **labels** for deterministic order:
+## Matrix (labels, containers, subs)
 
-- **MKV‑first (recommended for Infuse households)**
-  - `- A-1080p MKV`  ← default
-  - `- B-1080p AppleTV`
-  - `- C-720p iPhone`
+| Client | Default label (if most-used) | Container/Video | Audio | Subtitles | Notes |
+|---|---|---|---|---|---|
+| **tvOS (Swiftfin)** | `- 1080p B-AppleTV` or keep MKV as default and pick MP4 when desired | MP4 (H.264/HEVC copy) | AC‑3 5.1 + AAC stereo | mov_text/WebVTT | Swiftfin can often play MKV too (VLCKit). |
+| **iOS (Swiftfin)** | `- 720p C-iPhone` for mobile copy | MP4 (H.264/HEVC) 720p | AAC stereo | mov_text/WebVTT | User chooses version; not auto-picked. |
+| **Web (browser)** | `- 1080p B-AppleTV` (MP4 often safest) | MP4 (H.264/HEVC) | AAC/AC‑3 (varies) | Text subs | Browser container support varies; MP4 tends to avoid remux. |
 
-- **Apple‑first (for AVKit‑heavy households)**
-  - `- A-1080p AppleTV`  ← default
-  - `- B-1080p MKV`
-  - `- C-720p iPhone`
-
-Docs (multiple versions & ordering):
-<https://jellyfin.org/docs/general/server/media/movies/#multiple-versions>
+For details and exact containers/subtitle compat tables, see:
+<https://jellyfin.org/docs/general/clients/codec-support/>
 
 ## Verify Direct Play
 
-- **Web:** start playback → “...” → **Playback Info**; confirm **Direct Play**/**Direct
-  Stream**/**Transcode**.
-- **tvOS/iOS:** similar indicators in Swiftfin; server logs also note transcoding.
-If you see unexpected transcodes, check: container, audio codec (DTS/TrueHD on Apple), and subtitle
-type (PGS in MP4 forces work).
+- In Web client: open **Playback Info** during playback to see Direct Play/Remux/Transcode.
+- In tvOS/iOS (Swiftfin): check the playback overlay; consult server logs if something transcodes
+    unexpectedly.

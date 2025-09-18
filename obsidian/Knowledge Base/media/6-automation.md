@@ -1,8 +1,6 @@
 # Automation on macOS with Hazel (Consolidated Rules + Scripts)
 
-This document **consolidates** the previous automation pieces (Hazel rules + shell toolkit) into a
-single, easy‑to‑apply guide. It uses **only Hazel** for orchestration and standardizes folder paths
-as requested.
+This document **consolidates** the previous automation pieces (Hazel rules + shell toolkit) into a single, easy‑to‑apply guide. It uses **only Hazel** for orchestration and standardizes folder paths as requested.
 
 ## Standard Folders
 
@@ -14,13 +12,11 @@ Set these once and use them everywhere:
 /path/to/transcoded/   # smaller mobile copies (use “transcoded”, not “encoded”)
 /path/to/tagged/       # optional staging after tagging
 /media/movies          # Jellyfin movies library root
-```text
+```
 
 ### Why “transcoded” (not “encoded”)?
 
-Both are common, but **transcoded** is clearer for “derived lower‑bitrate copies”; **encoded** can
-mean any encode, including the original. Using `/path/to/transcoded/` avoids ambiguity in logs and
-rules.
+Both are common, but **transcoded** is clearer for “derived lower‑bitrate copies”; **encoded** can mean any encode, including the original. Using `/path/to/transcoded/` avoids ambiguity in logs and rules.
 
 ---
 
@@ -33,11 +29,10 @@ rules.
                  └─→ /path/to/transcoded/  (ffmpeg H.264/HEVC 720p for mobile)
                  └─→ /path/to/tagged/      (SublerCLI/AtomicParsley)
                        └─(Hazel)→ file_into_library.sh → /media/movies/Title (Year)/
-```text
+```
 
 - **Rips** remain your **archival MKVs**.
-- **Remuxed** MP4 aims to **avoid Jellyfin transcoding** on Apple devices (copy video, fix
-  audio/subs).
+- **Remuxed** MP4 aims to **avoid Jellyfin transcoding** on Apple devices (copy video, fix audio/subs).
 - **Transcoded** copy is small for phones/tablets.
 - **Tagged** stage is optional—if you embed iTunes‑style tags in MP4s.
 - Final **library filing** creates the `Title (Year)` folder and drops all versions inside.
@@ -46,8 +41,7 @@ rules.
 
 ## Hazel Rule Definitions (pseudo‑JSON)
 
-> Recreate these in Hazel’s UI. Hazel’s “Run shell script” passes the matched file as `$1`. Docs:
-> <https://www.noodlesoft.com/kb/hazel-user-guide/using-scripts/>
+> Recreate these in Hazel’s UI. Hazel’s “Run shell script” passes the matched file as `$1`. Docs: <https://www.noodlesoft.com/kb/hazel-user-guide/using-scripts/>
 
 ### 1) Post‑rip: set flags, verify, and move to remux/transcode staging
 
@@ -64,7 +58,7 @@ rules.
     { "move": "/path/to/remuxed/" }
   ]
 }
-```text
+```
 
 ### 2) Create Apple‑friendly MP4 remux (copy video; AAC/AC‑3)
 
@@ -77,7 +71,7 @@ rules.
     { "run_shell_script": "/usr/local/bin/remux_mp4.sh", "args": ["{file}"] }
   ]
 }
-```text
+```
 
 ### 3) Make a smaller mobile copy (optional 720p)
 
@@ -90,7 +84,7 @@ rules.
     { "run_shell_script": "/usr/local/bin/mobile_encode.sh", "args": ["{file}"] }
   ]
 }
-```text
+```
 
 ### 4) Tag MP4s (optional; SublerCLI or AtomicParsley) and stage
 
@@ -104,7 +98,7 @@ rules.
     { "move": "/path/to/tagged/" }
   ]
 }
-```text
+```
 
 ### 5) File into Jellyfin library (creates Title (Year) folder)
 
@@ -119,7 +113,7 @@ rules.
     { "run_shell_script": "/usr/local/bin/file_into_library.sh", "args": ["{title}", "{year}", "{file}"] }
   ]
 }
-```text
+```
 
 > If you skip tagging, point rule 5 at `/path/to/remuxed/` and/or `/path/to/transcoded/` instead.
 
@@ -127,8 +121,7 @@ rules.
 
 ## Shell Toolkit
 
-> Put scripts in `/usr/local/bin` or `~/bin`, `chmod +x`, and adjust paths if your Homebrew lives at
-> `/opt/homebrew` (Apple Silicon). These scripts are **idempotent** and safe on re‑runs.
+> Put scripts in `/usr/local/bin` or `~/bin`, `chmod +x`, and adjust paths if your Homebrew lives at `/opt/homebrew` (Apple Silicon). These scripts are **idempotent** and safe on re‑runs.
 
 ### Common config (optional): `~/.video-pipeline.conf`
 
@@ -139,7 +132,7 @@ REMUXED_DIR="/path/to/remuxed"
 TRANSCODED_DIR="/path/to/transcoded"
 TAGGED_DIR="/path/to/tagged"
 LIB_DIR="/media/movies"
-```text
+```
 
 Each script will source it if present: `[[ -f ~/.video-pipeline.conf ]] && . ~/.video-pipeline.conf`
 
@@ -162,7 +155,7 @@ fi
 if command -v mediainfo >/dev/null; then
   mediainfo "$IN" | sed -n '1,60p' || true
 fi
-```text
+```
 
 ---
 
@@ -188,10 +181,9 @@ ffmpeg -hide_banner -y -i "$IN" \
   "$OUT"
 
 echo "[remux_mp4] Wrote: $OUT"
-```text
+```
 
-> If you have **SRT** sidecars you want embedded, extend with `-i subtitles.srt -c:s mov_text -map
-> 1:0` (don’t try to force PGS → mov_text; use OCR to SRT first).
+> If you have **SRT** sidecars you want embedded, extend with `-i subtitles.srt -c:s mov_text -map 1:0` (don’t try to force PGS → mov_text; use OCR to SRT first).
 
 ---
 
@@ -215,7 +207,7 @@ ffmpeg -hide_banner -y -i "$IN" \
   "$OUT"
 
 echo "[mobile_encode] Wrote: $OUT"
-```text
+```
 
 *Alternative AVC (H.264) version:* replace video line with `-c:v libx264 -preset slow -crf 21`.
 
@@ -246,7 +238,7 @@ fi
 
 mv -f "$IN" "${TAGGED_DIR:-/path/to/tagged}/"
 echo "[tag_mp4] Moved to: ${TAGGED_DIR:-/path/to/tagged}/"
-```text
+```
 
 ---
 
@@ -274,7 +266,7 @@ for f in "$BASE"*; do
   mv -v "$f" "$DEST/"
 done
 echo "[file_into_library] Filed into: $DEST"
-```text
+```
 
 ---
 
@@ -282,27 +274,38 @@ echo "[file_into_library] Filed into: $DEST"
 
 1. **Install dependencies** (Homebrew):
 
-```bash brew install --cask makemkv subler sublercli brew install ffmpeg mkvtoolnix mediainfo
-atomicparsley ```
+   ```bash
+   brew install --cask makemkv subler sublercli
+   brew install ffmpeg mkvtoolnix mediainfo atomicparsley
+   ```
 
-1. **Create folders**:
+2. **Create folders**:
 
-```bash mkdir -p /path/to/{ripped,remuxed,transcoded,tagged} /media/movies ```
+   ```bash
+   mkdir -p /path/to/{ripped,remuxed,transcoded,tagged} /media/movies
+   ```
 
-1. **Create config** (optional):
+3. **Create config** (optional):
 
-```bash cat > ~/.video-pipeline.conf <<'EOF' RIPPED_DIR="/path/to/ripped"
-REMUXED_DIR="/path/to/remuxed" TRANSCODED_DIR="/path/to/transcoded" TAGGED_DIR="/path/to/tagged"
-LIB_DIR="/media/movies" EOF ```
+   ```bash
+   cat > ~/.video-pipeline.conf <<'EOF'
+   RIPPED_DIR="/path/to/ripped"
+   REMUXED_DIR="/path/to/remuxed"
+   TRANSCODED_DIR="/path/to/transcoded"
+   TAGGED_DIR="/path/to/tagged"
+   LIB_DIR="/media/movies"
+   EOF
+   ```
 
-1. **Install scripts**:
+4. **Install scripts**:
 
-```bash install -m 0755 post_mkv.sh remux_mp4.sh mobile_encode.sh tag_mp4.sh file_into_library.sh
-/usr/local/bin/ ```
+   ```bash
+   install -m 0755 post_mkv.sh remux_mp4.sh mobile_encode.sh tag_mp4.sh file_into_library.sh /usr/local/bin/
+   ```
 
-1. **Create Hazel rules** using the JSON above as a guide, pointing to your folders.
+5. **Create Hazel rules** using the JSON above as a guide, pointing to your folders.
 
-1. **Smoke test** on a single title before bulk runs.
+6. **Smoke test** on a single title before bulk runs.
 
 ### Notes
 

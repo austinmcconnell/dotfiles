@@ -1,51 +1,67 @@
-# A-naming-style.md — Naming & Labels (Jellyfin-friendly)
+# A-naming-style.md — Naming Rules & Label Whitelist
 
-A tiny style guide so every title scans cleanly and sorts the way we expect.
+A one‑page reference your automation can enforce.
 
-## Base pattern
+## Folder structure
 
 ```text
-Title (Year) - LABEL.ext
+/media/movies/Title (Year)/
+```
+
+## Base filename
+
 ```text
-- **One folder per movie:** `Title (Year)`
-- **Version label required** after a space‑hyphen‑space.
-- **Provider IDs** optional in folder/filename: `[imdbid-tt1234567]`, `[tmdbid-12345]`
+Title (Year)
+```
 
-## Standard labels (A/B/C; MKV‑first)
-- `A-<resolution> MKV` — archival (e.g., `A-1080p MKV`, `A-480p MKV` for DVD NTSC, `A-576p MKV` for
-  PAL)
-- `B-<resolution> AppleTV` — Apple‑friendly MP4 remux (copy video; AC‑3 + AAC; text subs)
-- `C-<resolution> iPhone` — small mobile HEVC/H.264
+## Version labels (deterministic, MKV‑first)
 
-#### Examples
+Append **`- LABEL`** with a single space, hyphen, space.
+
+### Whitelist (order matters)
+
+- `A-<res> MKV` — archival default (e.g., `A-1080p MKV`, `A-480p MKV`)
+- `B-<res> AppleTV` — Apple‑friendly MP4/M4V remux (copy video; AAC/AC‑3; mov_text/WebVTT)
+- `C-<res> iPhone` — small mobile encode (HEVC/H.264)
+
+### Examples
+
 ```text
 Movie (2009) - A-1080p MKV.mkv
 Movie (2009) - B-1080p AppleTV.mp4
 Movie (2009) - C-720p iPhone.mp4
+```
+
+## Extras (three supported forms)
+
+1. **Subfolders**: `featurettes/`, `trailers/`, `behind the scenes/`, `deleted scenes/`, `interviews/`, `clips/`, `shorts/`, `extras/`
+1. **Suffixes**: `-trailer`, `-featurette`, `-clip`, `-interview`, `-deleted`, `-short`, `-other`, `-extra`
+1. **Special filenames**: `trailer`, `sample`, `theme`
+
+## Subtitles & audio sidecars
+
+Use language codes and flags as dot‑segments:
+
 ```text
+Title (Year).default.en.forced.srt
+Title (Year).en.sdh.srt
+Title (Year).English Commentary.en.mp3
+```
 
-## Allowed/reserved tokens
-- **Resolutions:** `480p`, `576p`, `720p`, `1080p`
-- **Types:** `MKV`, `AppleTV`, `iPhone`
-- Optional cuts (add after the type): `Directors Cut`, `Extended Cut`
-Example: `Movie (2009) - A-1080p MKV Directors Cut.mkv`
+## Unsafe characters (avoid in names)
 
-## Disallowed characters (filesystem)
-Avoid characters: `< > : " / \ | ? *`
+`< > : " / \ | ? *` and trailing dots/spaces. Keep ASCII where possible.
 
-## Extras (same folder)
-Use recognized subfolders **or** suffixes:
-- Folders: `featurettes/`, `trailers/`, `behind the scenes/`, `deleted scenes/`, `interviews/`,
-  `clips/`, `shorts/`, `other/`, `extras/`
-- Suffixes: `-trailer`, `-featurette`, `-clip`, etc.
+## Provider IDs (optional but precise)
 
-## Sidecars (subs/audio)
 ```text
-Movie (2009).en.srt
-Movie (2009).default.en.forced.srt
-Movie (2009).English Commentary.en.mp3
-```text
+Title (Year) [imdbid-tt1234567]
+Title (Year) [tmdbid-12345]
+```
 
-## Why labels matter
-Jellyfin chooses the **first** version by its ordering rules; the **A/B/C prefixes** guarantee a
-deterministic default (MKV‑first in this scheme). See 4a‑organization.md for details.
+## Regex helpers
+
+- **Movie folder**: `^(?P<title>.+) \((?P<year>\d{4})\)$`
+- **Version label**: `^.+ - (?P<label>[ABC]-\d{3,4}p .*?)\.(mkv|mp4|m4v)$`
+- **Extras suffix**: `^.+[-._
+    ](trailer|featurette|clip|interview|deleted(scene)?|short|other|extra)\.`
