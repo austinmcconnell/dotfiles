@@ -7,12 +7,13 @@ base="$(basename "$f")"
 name="${base%.*}"
 ext="${base##*.}"
 
+# resolution label via ffprobe (fallback to mediainfo height)
 resolution_label() {
     local in="$1" h
     if command -v ffprobe >/dev/null 2>&1; then
         h="$(ffprobe -v error -select_streams v:0 -show_entries stream=height -of csv=p=0 "$in" 2>/dev/null || echo 0)"
     elif command -v mediainfo >/dev/null 2>&1; then
-        h="$(mediainfo --Inform='Video;%Height%' "$in" 2>/div/null || echo 0)"
+        h="$(mediainfo --Inform='Video;%Height%' "$in" 2>/dev/null || echo 0)"
     else
         h=0
     fi
@@ -24,6 +25,7 @@ resolution_label() {
         echo "576p"
     else echo "480p"; fi
 }
+
 res="$(resolution_label "$f")"
 
 # If already labeled A-/B-/C-, keep as-is
@@ -36,6 +38,7 @@ mkv)
     new="${name} - A-${res} MKV.${ext}"
     ;;
 mp4 | m4v)
+    # classify MP4s by resolution
     if [[ "$res" =~ ^(480p|576p|720p)$ ]]; then
         new="${name} - C-${res} iPhone.${ext}"
     else
@@ -47,6 +50,7 @@ mp4 | m4v)
     ;;
 esac
 
+# Only rename if it actually changes
 if [[ "$base" != "$(basename "$new")" ]]; then
     mv -v "$f" "$dir/$(basename "$new")"
 fi

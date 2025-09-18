@@ -1,70 +1,59 @@
 #!/usr/bin/env bash
 set -euo pipefail
-[[ -f "$DOTFILES_DIR/etc/media/media-pipeline.conf" ]] && . "$DOTFILES_DIR/etc/media/media-pipeline.conf"
 
-# Input validation
-if [[ $# -lt 1 ]]; then
-    echo "Usage: $0 <input_file> [poster_file]" >&2
+# Config: prefer DOTFILES_DIR config, fallback to HOME
+if [ -n "${DOTFILES_DIR:-}" ] && [ -f "${DOTFILES_DIR}/etc/media/media-pipeline.conf" ]; then
+    # shellcheck disable=SC1090
+    . "${DOTFILES_DIR}/etc/media/media-pipeline.conf"
+elif [ -f "${HOME}/.video-pipeline.conf" ]; then
+    # shellcheck disable=SC1090
+    . "${HOME}/.video-pipeline.conf"
+fi
+
+# Usage
+if [ $# -lt 1 ]; then
+    echo "Usage: $0 <input.mp4>" >&2
     exit 1
 fi
 
 IN="$1"
-POSTER="${2:-${POSTER:-}}"
-
-# Validate input file exists
-if [[ ! -f "$IN" ]]; then
-    echo "Error: Input file '$IN' does not exist" >&2
+if [ ! -f "$IN" ]; then
+    echo "Error: input file not found: $IN" >&2
     exit 1
 fi
 
-# Validate poster file if provided
-if [[ -n "$POSTER" && ! -f "$POSTER" ]]; then
-    echo "Error: Poster file '$POSTER' does not exist" >&2
+TAGGED_DIR="${TAGGED_DIR:-/path/to/tagged}"
+mkdir -p "$TAGGED_DIR"
+POSTER="${POSTER:-}"
+
+if [ -n "$POSTER" ] && [ ! -f "$POSTER" ]; then
+    echo "Error: poster not found: $POSTER" >&2
     exit 1
 fi
 
-mkdir -p "${TAGGED_DIR:-/path/to/tagged}"
+# Dependencies (at least one tagger should exist)
+have_subler=0
+have_ap=0
+command -v SublerCLI >/dev/null 2>&1 && have_subler=1
+command -v AtomicParsley >/dev/null 2>&1 && have_ap=1
+if [ $have_subler -eq 0 ] && [ $have_ap -eq 0 ]; then
+    echo "Warning: neither SublerCLI nor AtomicParsley present; skipping tagging" >&2
+fi
 
-# Create temp file for atomic operations
-TEMP_FILE="${IN}.tmp"
-cp "$IN" "$TEMP_FILE" || {
-    echo "Error: Failed to create temp file" >&2
-    exit 1
-}
+# Work on a temp copy, then move atomically
+tmp="${IN}.tagging"
+cp -f "$IN" "$tmp"
 
-# Write tags to temp file
-if command -v SublerCLI >/dev/null 2>&1; then
-    if [[ -n "$POSTER" && -f "$POSTER" ]]; then
-        SublerCLI -source "$TEMP_FILE" -dest "$TEMP_FILE" -poster "$POSTER" -optimize || {
-            echo "Error: SublerCLI tagging failed" >&2
-            rm -f "$TEMP_FILE"
-            exit 1
-        }
+if [ $have_subler -eq 1 ]; then
+    if [ -n "$POSTER" ]; then
+        SublerCLI -source "$tmp" -dest "$tmp" -poster "$POSTER" -optimize
     else
-        SublerCLI -source "$TEMP_FILE" -dest "$TEMP_FILE" -optimize || {
-            echo "Error: SublerCLI optimization failed" >&2
-            rm -f "$TEMP_FILE"
-            exit 1
-        }
+        SublerCLI -source "$tmp" -dest "$tmp" -optimize
     fi
-elif command -v AtomicParsley >/dev/null 2>&1; then
-    AtomicParsley "$TEMP_FILE" --overWrite || {
-        echo "Error: AtomicParsley tagging failed" >&2
-        rm -f "$TEMP_FILE"
-        exit 1
-    }
-else
-    echo "Warning: No tagging tool available (SublerCLI or AtomicParsley)" >&2
+elif [ $have_ap -eq 1 ]; then
+    AtomicParsley "$tmp" --overWrite
 fi
 
-# Move temp file to final destination
-FINAL_DEST="${TAGGED_DIR:-/path/to/tagged}/$(basename "$IN")"
-mv "$TEMP_FILE" "$FINAL_DEST" || {
-    echo "Error: Failed to move to tagged directory" >&2
-    rm -f "$TEMP_FILE"
-    exit 1
-}
-
-# Remove original only after successful move
-rm -f "$IN"
-echo "[tag_mp4] Tagged and moved to: $FINAL_DEST"
+dest="${TAGGED_DIR}/$(basename "$IN")"
+mv -f "$tmp" "$dest"
+echo "[tag_mp4] Tagged and moved to: $dest"

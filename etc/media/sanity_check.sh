@@ -38,6 +38,7 @@ if [[ $have_ffprobe -eq 1 ]]; then
         forced="yes"
     fi
 else
+    # Best-effort with mediainfo
     if mediainfo "$f" 2>/dev/null | grep -qi 'Text'; then
         if mediainfo "$f" 2>/dev/null | grep -qi 'Forced *: *Yes'; then forced="yes"; fi
     fi
