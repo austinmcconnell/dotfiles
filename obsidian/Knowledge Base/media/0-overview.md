@@ -1,66 +1,60 @@
-# Overview — Disc to Jellyfin (v2)
+# Overview — Disc → MKV → (Remux/Transcode) → Tag → Jellyfin
 
-This is the **starting point**. It shows the entire flow, the two common "paths", and links into the
-details.
-
-## Goals (recap)
-
-- **MKV-first** archival rips (bit-perfect video/audio, full subtitles).
-- **Optional** Apple-friendly MP4 remuxes (copy video; AC-3/AAC audio; text subs) and **optional**
-  smaller mobile encodes.
-- **Jellyfin**-friendly naming/versions, **NFO-first** metadata, and **Hazel** automation.
-
-> **If your Apple clients are Infuse, MKV-only is fine. Add MP4 versions only for AVKit-based
-> clients (e.g., Safari, Native players).**
-
-## Flow
+This is the quick start for the whole pipeline with links to the deeper docs.
 
 ```mermaid
 flowchart LR
   A[Disc] --> B[MakeMKV to MKV]
-  B --> C{Need Apple-native?}
-  C -- Yes --> D[Remux to MP4 (copy video; AC-3 & AAC, mov_text/VTT)]
-  C -- No --> H
-  B --> E{Need small mobile?}
-  E -- Yes --> F[Transcode to HEVC / H.264 720p/1080p]
-  E -- No --> H[ ]
-  B --> G[Set flags (mkvpropedit); verify (MediaInfo)]
-  D --> I[Tag (Subler/AtomicParsley)]
+  B --> C{Need Apple-native copy?}
+  C -- Yes --> D[Remux to MP4]
+  C -- No --> H[ ]
+  B --> E{Need smaller mobile copy?}
+  E -- Yes --> F[Transcode to 720p/1080p]
+  E -- No --> H
+  B --> G[Set flags; verify]
+  D --> I[Tag MP4]
   F --> I
-  G --> J[Organize & label (A/B/C) to 4a-organization.md]
+  G --> J[Organize & label (A/B/C)]
   I --> J
   J --> K[Jellyfin scan]
-```text
+```
 
-## Paths
+## Two common paths
 
-### Path A — **Infuse household (MKV-first)**
-- Keep only the **MKV** archive per title, labeled as **`- A-1080p MKV`** (or the correct `p` for
-  DVDs).
-- Optionally add a **mobile 720p** for iPhone: **`- C-720p iPhone`**.
-- Skip MP4 unless you also use **AVKit-based** players.
+- **Infuse household (tvOS/iOS):**
+Keep **MKV-only**. Infuse (and Swiftfin with VLCKit) play MKV directly. Add MP4 only if you
+introduce **AVKit-based** clients (Safari/system players).
+→ See: `2-transcode.md` (“Should I keep MP4 only?”) and `5-clients.md`.
 
-### Path B — **Mixed Apple clients**
-- Keep **MKV** archive (**`- A-1080p MKV`**).
-- Add **MP4 remux** (**`- B-1080p AppleTV`**) for native iOS/tvOS/Safari direct-play.
-- Optionally add **mobile** (**`- C-720p iPhone`**).
+- **Mixed Apple clients:**
+Keep **MKV master** + **Apple-friendly MP4** (copy video; AC‑3 5.1 + AAC stereo; text subs) +
+**mobile 720p**. Label so the default sorts how you want.
+→ See: `2-transcode.md`, `4-organization.md`, `5-clients.md`.
 
-## Standard labels (enforced via Hazel)
-- `A-<resolution> MKV` — archival default (e.g., `A-1080p MKV`, `A-480p MKV`).
-- `B-<resolution> AppleTV` — Apple-friendly remux.
-- `C-<resolution> iPhone` — small mobile encode.
+## Table of contents
 
-## Where to go next
-- **1-rip.md** — What actually comes off the disc (DVD vs Blu-ray audio/subs), why MKV preserves
-  everything.
-- **2-transcode.md** — How to adapt for Apple/mobile; decision tables; storage math.
-- **3-metadata.md** — NFO-first strategy, embedded vs scraping, Subler vs NFO side-by-side.
-- **4a-organization.md** — Folder structure, naming, versions, extras, local images/NFO.
-- **4b-jellyfin-clients.md** — tvOS vs iOS vs Web; Swiftfin AVKit vs VLCKit; Infuse.
-- **5-automation.md** — Hazel rules + scripts (label enforcement, resolution detection).
-- **7-uhd-4k.md** — UHD-only notes (separate).
+- `1-rip.md` — Disc formats → MKV: audio/subs you’ll get, and why MKV first.
+- `2-transcode.md` — Remux vs transcode; Apple-friendly copies; decision tables; storage math.
+- `3-metadata.md` — Strategy: Embedded vs NFO vs Jellyfin scraping (+ tool commands).
+- `4-organization.md` — Folder layout, naming, multiple versions, extras, images, NFO.
+- `5-clients.md` — Client behavior: tvOS/iOS/Web, Swiftfin AVKit vs VLCKit, Infuse.
+- `6-automation.md` — Hazel rules + scripts; standardized labels enforced.
+- `7-uhd-4k.md` — Separate UHD notes.
 
+## Standardized version labels (MKV-first)
+
+Because your household uses **Infuse**, we’ll make **MKV sort first** by default:
+
+- `- 1080p A-MKV.mkv`  ← default (archive, all tracks)
+- `- 1080p B-AppleTV.mp4`  ← Apple-friendly remux (copy video; AC‑3 + AAC; text subs)
+- `- 720p C-iPhone.mp4`  ← mobile copy (HEVC/H.264)
+
+See `4-organization.md` for version ordering rules and `6-automation.md` for Hazel rename steps.
+
+> **One-liner:** If your Apple clients are **Infuse**, MKV‑only is fine. Add MP4 versions only for
+**AVKit‑based** clients.
 
 ## Appendices
-- [A-naming-style.md](sandbox:/mnt/data/A-naming-style.md)
-- [A-troubleshooting.md](sandbox:/mnt/data/A-troubleshooting.md)
+
+- [A‑troubleshooting.md](A-troubleshooting.md)
+- [A‑naming-style.md](A-naming-style.md)
