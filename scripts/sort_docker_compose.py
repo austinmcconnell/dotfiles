@@ -27,7 +27,7 @@ class MyDumper(yaml.Dumper):
         return super().increase_indent(flow, False)
 
 
-top_level_key_order = ['version', 'include', 'services', 'volumes', 'networks']
+top_level_key_order = ['name', 'include', 'services', 'volumes', 'networks']
 services_key_order = [
     'container_name',
     'image',
@@ -64,7 +64,7 @@ def order_dictionary(data, top_keys: list):
                     ordered_data[key][service] = order_dictionary(
                         ordered_data[key][service], top_keys=services_key_order
                     )
-            elif key == 'networks' and key in ordered_data:
+            elif key == 'networks' and key in ordered_data and isinstance(ordered_data[key], dict):
                 for network in ordered_data[key].keys():
                     if isinstance(ordered_data[key][network], dict):
                         ordered_data[key][network] = order_dictionary(
