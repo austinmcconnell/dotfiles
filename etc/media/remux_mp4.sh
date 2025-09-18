@@ -1,73 +1,79 @@
 #!/usr/bin/env bash
 set -euo pipefail
-[[ -f "$DOTFILES_DIR/etc/media/media-pipeline.conf" ]] && . "$DOTFILES_DIR/etc/media/media-pipeline.conf"
 
-# Input validation
-if [[ $# -lt 1 ]]; then
-    echo "Usage: $0 <input_file>" >&2
-    exit 1
+# Config: prefer DOTFILES_DIR config, fallback to HOME
+if [ -n "${DOTFILES_DIR:-}" ] && [ -f "${DOTFILES_DIR}/etc/media/media-pipeline.conf" ]; then
+    # shellcheck disable=SC1090
+    . "${DOTFILES_DIR}/etc/media/media-pipeline.conf"
+elif [ -f "${HOME}/.video-pipeline.conf" ]; then
+    # shellcheck disable=SC1090
+    . "${HOME}/.video-pipeline.conf"
 fi
 
-# Dependency check
-command -v ffmpeg >/dev/null || {
-    echo "Error: ffmpeg is required but not installed" >&2
+# Usage
+if [ $# -lt 1 ]; then
+    echo "Usage: $0 <input.mkv>" >&2
     exit 1
-}
+fi
 
 IN="$1"
-
-# Validate input file exists
-if [[ ! -f "$IN" ]]; then
-    echo "Error: Input file '$IN' does not exist" >&2
+if [ ! -f "$IN" ]; then
+    echo "Error: input file not found: $IN" >&2
     exit 1
 fi
-DIR="$(dirname "$IN")"
-NAME="$(basename "$IN" .mkv)"
 
-# Detect resolution & codec for tagging hvc1 when HEVC
-get_res() {
-    local in="$1"
-    local h
-    h="$(ffprobe -v error -select_streams v:0 -show_entries stream=height -of csv=p=0 "$in" 2>/dev/null || echo 0)"
-    if [[ "$h" -ge 1000 ]]; then
+# Dependencies
+for bin in ffmpeg ffprobe; do
+    if ! command -v "$bin" >/dev/null 2>&1; then
+        echo "Error: $bin is required but not found in PATH" >&2
+        exit 1
+    fi
+done
+
+# Helpers
+vcodec() {
+    ffprobe -v error -select_streams v:0 -show_entries stream=codec_name \
+        -of csv=p=0 "$1" 2>/dev/null || echo "unknown"
+}
+
+resolution_label() {
+    local in="$1" h
+    h="$(ffprobe -v error -select_streams v:0 -show_entries stream=height \
+        -of csv=p=0 "$in" 2>/dev/null || echo 0)"
+    if [ "$h" -ge 1000 ]; then
         echo "1080p"
-    elif [[ "$h" -ge 700 ]]; then
+    elif [ "$h" -ge 700 ]; then
         echo "720p"
-    elif [[ "$h" -ge 570 ]]; then
+    elif [ "$h" -ge 570 ]; then
         echo "576p"
     else echo "480p"; fi
 }
-is_hevc() {
-    ffprobe -v error -select_streams v:0 -show_entries stream=codec_name -of csv=p=0 "$1" 2>/dev/null | grep -qiE '^hevc$'
-}
 
-RES="$(get_res "$IN")"
+# Compute Title (Year) prefix safely
+base_no_ext="$(basename "$IN")"
+base_no_ext="${base_no_ext%.*}"
+if printf "%s" "$base_no_ext" | grep -Eq "\([0-9]{4}\)"; then
+    PREFIX="$(printf "%s" "$base_no_ext" | sed -E 's/^(.*\([0-9]{4}\)).*$/\1/')"
+else
+    # Fallback: strip trailing " - LABEL" if present
+    PREFIX="${base_no_ext%% - *}"
+fi
+
+RES="$(resolution_label "$IN")"
 OUTDIR="${REMUXED_DIR:-/path/to/remuxed}"
 mkdir -p "$OUTDIR"
-OUT="${OUTDIR}/${NAME} - B-${RES} AppleTV.mp4"
+OUT="${OUTDIR}/${PREFIX} - B-${RES} AppleTV.mp4"
 
-# Include SRT sidecar as mov_text if it exists
-SRT_BASENAME="${DIR}/${NAME}.en.srt"
-MAP_SUBS=()
-if [[ -f "$SRT_BASENAME" ]]; then
-    MAP_SUBS=(-i "$SRT_BASENAME" -c:s mov_text -map 1:0)
-else
-    MAP_SUBS=(-map 0:s? -c:s mov_text)
-fi
+VCODEC="$(vcodec "$IN")"
+TAGV=()
+[ "$VCODEC" = "hevc" ] && TAGV=(-tag:v hvc1)
 
-FFMPEG_OPTS=(-hide_banner -y -i "$IN"
-    -map 0:v:0 -c:v copy
-    -map 0:a:0 -c:a:0 ac3 -b:a:0 640k
-    -map 0:a:0 -c:a:1 aac -b:a:1 160k -ac:a:1 2
-    "${MAP_SUBS[@]}"
-    -movflags +faststart)
+# Remux: copy video; create AC-3 5.1 and AAC stereo; faststart for streaming
+ffmpeg -hide_banner -y -i "$IN" \
+    -map 0:v:0 -c:v copy "${TAGV[@]}" \
+    -map 0:a:0 -c:a:0 ac3 -b:a:0 640k \
+    -map 0:a:0 -c:a:1 aac -b:a:1 160k -ac:a:1 2 \
+    -movflags +faststart \
+    "$OUT"
 
-if is_hevc "$IN"; then
-    FFMPEG_OPTS+=(-tag:v hvc1)
-fi
-
-ffmpeg "${FFMPEG_OPTS[@]}" "$OUT" || {
-    echo "Error: ffmpeg remux failed" >&2
-    exit 1
-}
 echo "[remux_mp4] Wrote: $OUT"
