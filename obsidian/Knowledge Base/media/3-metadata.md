@@ -60,3 +60,35 @@ AtomicParsley "Movie (2009) - AppleTV.mp4" \
 ```
 
 AtomicParsley repo: <https://github.com/wez/atomicparsley>.
+
+## CLI: Generate `.nfo` + `poster.jpg`/`backdrop.jpg` with TMDb (`curl` + `jq`)
+
+If you want a scriptable, deterministic path, use TMDb’s API with `curl` + `jq`. The helper script
+below writes **Kodi/Jellyfin‑style NFO** and downloads **poster/backdrop** next to your movie.
+
+**Dependencies**: `curl`, `jq`, a TMDb API key (`TMDB_API_KEY`).
+
+**Install**:
+
+```bash
+brew install jq
+install -m 0755 /mnt/data/fetch_nfo_art.sh /usr/local/bin/
+```
+
+**Use**:
+
+```bash
+# Using folder name "Title (Year)"
+fetch_nfo_art.sh -d "/media/movies/Inception (2010)"
+
+# Explicit title/year
+fetch_nfo_art.sh -d "/media/movies/Inception (2010)" -t "Inception" -y 2010
+
+# Using a TMDb ID or IMDb ID
+fetch_nfo_art.sh -d "/media/movies/Inception (2010)" -m 27205
+fetch_nfo_art.sh -d "/media/movies/Inception (2010)" -i tt1375666
+```
+
+The script creates `Title (Year).nfo` (or `movie.nfo` if it can’t parse the folder), plus `poster.jpg`
+and `backdrop.jpg`. Jellyfin prefers **local images** when present, so this fits the **NFO‑first**
+strategy here. See recognized image names in the organization doc.
