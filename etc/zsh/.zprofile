@@ -25,6 +25,7 @@ path=(
     $PYENV_ROOT/bin
     $RBENV_ROOT/bin
     $DOTFILES_DIR/bin(N)
+    $DOTFILES_DIR/etc/media
     $HOME/go/bin
     $HOME/.rvm/bin
     $HOME/projects/scripts
