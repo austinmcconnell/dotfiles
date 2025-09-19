@@ -42,7 +42,9 @@ services_key_order = [
     'entrypoint',
     'command',
     'restart',
-    'pull_policy'
+    'pull_policy',
+    'healthcheck',
+    'depends_on'
 ]
 networks_key_order = [
     'name',
