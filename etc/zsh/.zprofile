@@ -28,6 +28,7 @@ path=(
     $RBENV_ROOT/bin
     $DOTFILES_DIR/bin(N)
     $DOTFILES_DIR/scripts(N)
+    $DOTFILES_DIR/etc/media
     $HOME/go/bin
     $HOME/.rvm/bin
     $path
