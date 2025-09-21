@@ -6,7 +6,9 @@ usage() {
     exit 1
 }
 
-(($# == 1)) || usage
+if [[ $# -ne 1 ]]; then
+    usage
+fi
 
 f="$1"
 [[ -f "$f" ]] || {
@@ -123,13 +125,96 @@ lookup_year() {
     return 1
 }
 
+map_standard_height() {
+    local width="$1" height="$2" approx diff tolerance best="" best_diff=0 candidate
+    local -a standards=(4320 2880 2160 1440 1080 864 720 576 540 480 432 360 320 240)
+
+    if [[ "$width" =~ ^[0-9]+$ ]]; then
+        approx=$(((width * 9 + 8) / 16))
+        case "$approx" in
+        4320 | 2880 | 2160 | 1440 | 1080 | 864 | 720 | 576 | 540 | 480 | 432 | 360 | 320 | 240)
+            diff=$((approx > height ? approx - height : height - approx))
+            tolerance=$((approx * 3 / 10))
+            if ((tolerance < 12)); then
+                tolerance=12
+            fi
+            if ((diff <= tolerance)) && ((height * 10 >= approx * 7)); then
+                printf '%s' "$approx"
+                return 0
+            fi
+            ;;
+        esac
+
+        if ((width >= 3600)) && ((height >= 1500)); then
+            printf '%s' 2160
+            return 0
+        fi
+
+        if ((width >= 1880 && width <= 2000)) && ((height >= 780 && height <= 940)); then
+            printf '%s' 1080
+            return 0
+        fi
+    fi
+
+    case "$height" in
+    1600 | 1596 | 1604 | 1608 | 1616 | 1620)
+        printf '%s' 2160
+        return 0
+        ;;
+    1080 | 1072 | 1074 | 1076 | 1078 | 1088 | 1090 | 792 | 794 | 796 | 798 | 800 | 802 | 804 | 806 | 808 | 810 | 812 | 816 | 818 | 820)
+        printf '%s' 1080
+        return 0
+        ;;
+    720 | 704 | 706 | 708 | 712 | 714 | 716 | 732 | 736 | 738 | 744 | 746 | 748)
+        printf '%s' 720
+        return 0
+        ;;
+    576 | 570 | 572 | 574 | 578 | 580 | 582)
+        printf '%s' 576
+        return 0
+        ;;
+    540 | 536 | 538 | 542 | 544 | 546 | 548)
+        printf '%s' 540
+        return 0
+        ;;
+    480 | 472 | 474 | 476 | 478 | 482 | 484 | 486)
+        printf '%s' 480
+        return 0
+        ;;
+    esac
+
+    for candidate in "${standards[@]}"; do
+        diff=$((height > candidate ? height - candidate : candidate - height))
+        if [[ -z "$best" ]] || ((diff < best_diff)); then
+            best="$candidate"
+            best_diff=$diff
+        fi
+    done
+
+    tolerance=$((best / 10))
+    if ((tolerance < 12)); then
+        tolerance=12
+    fi
+
+    if ((best_diff <= tolerance)); then
+        printf '%s' "$best"
+        return 0
+    fi
+
+    printf '%s' "$height"
+    return 1
+}
+
 resolution_label() {
-    local file="$1" height="" field="" suffix="p" scan=""
+    local file="$1" height="" width="" field="" suffix="p" scan="" mapped=""
     if command -v ffprobe >/dev/null 2>&1; then
         height="$(ffprobe -v error -select_streams v:0 -show_entries stream=height -of csv=p=0 "$file" 2>/dev/null || printf '')"
+        width="$(ffprobe -v error -select_streams v:0 -show_entries stream=width -of csv=p=0 "$file" 2>/dev/null || printf '')"
         field="$(ffprobe -v error -select_streams v:0 -show_entries stream=field_order -of default=noprint_wrappers=1:nokey=1 "$file" 2>/dev/null || printf '')"
         height="$(trim "$height")"
         height="${height%%.*}"
+        width="$(trim "$width")"
+        width="${width%%.*}"
         field="$(trim "$field")"
         field="${field,,}"
         if [[ "$field" =~ ^(tt|bb|tb|bt|interlaced)$ ]]; then
@@ -144,6 +229,8 @@ resolution_label() {
     if [[ -z "$height" ]] && command -v mediainfo >/dev/null 2>&1; then
         height="$(mediainfo --Inform='Video;%Height%' "$file" 2>/dev/null || printf '')"
         height="${height//[^0-9]/}"
+        width="$(mediainfo --Inform='Video;%Width%' "$file" 2>/dev/null || printf '')"
+        width="${width//[^0-9]/}"
         scan="$(mediainfo --Inform='Video;%ScanType%' "$file" 2>/dev/null || printf '')"
         scan="$(trim "$scan")"
         scan="${scan,,}"
@@ -155,6 +242,11 @@ resolution_label() {
     if [[ ! "$height" =~ ^[0-9]+$ ]] || ((height == 0)); then
         echo "unknown"
         return 0
+    fi
+
+    mapped="$(map_standard_height "$width" "$height")"
+    if [[ -n "$mapped" ]]; then
+        height="$mapped"
     fi
 
     printf '%s%s' "$height" "$suffix"
