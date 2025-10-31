@@ -1,0 +1,61 @@
+You are a technical researcher and builder. Design a quiet, low-heat TrueNAS-based NAS for a 10″ mini rack (DeskPi T0/T1 class) from first principles.
+
+CONTEXT & GOALS
+
+- Purpose: learning-focused TrueNAS/ZFS box; not primary storage.
+- Form factor: must fit a 10″ rack using 1U–2U per component; aim for a total ≤3U if possible.
+- Priority: low noise and low heat over raw performance.
+- Network: 2.5 GbE is required; 10 GbE is optional (do not optimize for 10G).
+- Drives: start with 2–4 drives; allow a path to 4–6 later. Prefer 2.5″ SATA SSDs or NVMe (justify your choice).
+- Compute: minimal. Heavy apps/VMs run elsewhere.
+- Power: favor efficient DC solutions; consider 19 V bricks and PoE++ splitters; avoid ATX unless warranted.
+- Mods: 3D-print parts/brackets are OK; no drilling/cutting metal.
+
+WHAT TO DELIVER
+
+1) **Architectures (no brand bias up front):** Propose 2–3 viable architectures such as:
+   - Mini-ITX board + front SSD cage (SATA-first).
+   - Embedded/SoC board with native SATA + NVMe boot.
+   - Mini-PC with dual 2.5 GbE and multiple M.2 (all-NVMe or hybrid).
+   For each: explain why it fits low-noise 10″ rack use, and highlight lane/port limits.
+
+2) **1U vs 2U tradeoffs:** Cooling/airflow, fan sizes/RPM, acoustic expectations, cable management in a 10″ depth, and total cost differences.
+
+3) **ZFS layout guidance:** Show 2–4 drive options (mirrors vs RAIDZ1/2), future 6-drive growth, and how many SATA/NVMe lanes/ports are required. Include ARC sizing advice and boot-device guidance (NVMe vs SATA; avoid USB thumb drives per TrueNAS docs).
+
+4) **Power plan:** Estimate idle/load watts for each architecture; recommend PSU approach (e.g., 19 V DC brick vs PoE++ splitter), include connector specifics (barrel size, SATA power distribution), and call out any current limits (e.g., board SATA power headers).
+
+5) **Mechanical fit & thermals:** Verify heights (1U=44.45 mm), board/cooler heights, underside M.2 clearance, cable bend radius, and where 2U is required. Provide a simple airflow sketch and fan recommendations (sizes, PWM curve philosophy).
+
+6) **Bill of Materials:** For each architecture, produce a US-sourced BOM with line items and links (Amazon, Newegg, Micro Center, Mouser, Digi-Key, ameriDroid, manufacturer store). Include quantity, current US price, subtotal, and availability notes. Prefer parts that ship from the US (avoid EU-only sellers). Flag anything subject to import duties and provide a domestic alternative.
+
+7) **Operations plan:**
+   - Initial TrueNAS setup (pool creation, datasets, compression, autotrim).
+   - How to use it as: (a) a **replication target** from a Synology box (pull/push replication outline), and (b) an **iSCSI target** for a Proxmox host (Zvol → target → multipath note).
+   - Scrub schedule, SMART, and temperature/alert thresholds.
+
+8) **Risk & pitfalls:** Lane bottlenecks (PCIe x1 vs x2/x4), NVMe thermals in 2U, SATA backplane power limits, USB-boot pitfalls, and noisy 40 mm fans. Offer mitigations (e.g., special vdev, mirrors for faster resilver, low-RPM fan tables).
+
+RESEARCH RULES
+
+- Cite current sources with links and dates for: prices, dimensions/heights, lane diagrams, TrueNAS guidance, and community build notes.
+- Prioritize community receipts and small-rack experience:
+  • <https://github.com/geerlingguy/mini-rack> and its Issues (search for NAS/TrueNAS/SSD cages)
+  • <https://mtlynch.io/budget-nas/> and <https://mtlynch.io/building-first-homelab-rack/>
+  • <https://reddit.com/r/homelab> and <https://reddit.com/r/minilab> (find recent build threads)
+  • TrueNAS documentation for OS/boot guidance
+- US pricing only; include the retailer and “in stock / back-order” status. Note if a price is a sale/coupon.
+- If any spec is uncertain (e.g., board height, barrel connector), state the uncertainty and provide two alternatives with different assumptions.
+
+OUTPUT FORMAT
+
+- Executive Summary (one page).
+- Comparison Table (architectures): Option | Rack Height | Drives Supported | Network | Boot Device | Est. Idle/Load (W) | Approx. Cost (USD) | Noise | Expandability | Notes (with citations).
+- For each architecture: short narrative, BOM table with links, airflow diagram (ASCII is fine), and a 10-step build checklist.
+- End with a clear recommendation for a quiet learner build, and a “stretch” option for later expansion.
+
+TONE & STYLE
+
+- Concise, source-backed, and practical. No brand hype. Prefer serviceable, low-noise, US-available parts.
+
+Assume the reader is comfortable with Linux and 3D printing but wants to avoid metalcase modifications. Ask one clarifying question only if absolutely required; otherwise, state assumptions and proceed.
