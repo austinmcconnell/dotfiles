@@ -1,0 +1,62 @@
+OUTPUT FORMAT (Downloadable Markdown Bundle)
+
+Produce a small, linked doc set. Each item must be emitted as an individual Markdown attachment AND included together in a single ZIP attachment named truenas-10in-rack-kit.zip.
+
+Files (use these exact names):
+  00-README.md
+  01-Executive-Summary.md
+  02-Comparison-Table.md
+  03-Architecture-A.md
+  04-Architecture-B.md
+  05-Architecture-C.md
+  06-Operations-Plan.md
+  07-BOMs-and-Links.md
+  08-Risks-and-Pitfalls.md
+
+Content requirements:
+
+- 00-README.md
+  - Title, date, “Last updated”, and a one-paragraph overview.
+  - Linked Table of Contents to all other files.
+  - Quick-start (“If you only read one page, open 01-Executive-Summary.md”).
+
+- 01-Executive-Summary.md (≤1 page)
+  - The short answer, assumptions, and the recommended path.
+
+- 02-Comparison-Table.md
+  - A single table with columns:
+    Option | Rack Height | Drives Supported | Network | Boot Device |
+    Est. Idle/Load (W) | Approx. Cost (USD) | Noise | Expandability | Notes (with citations)
+
+- 03- / 04- / 05-Architecture-*.md (one per architecture)
+  - Short narrative, ASCII airflow sketch, lane/port diagram.
+  - 10-step build checklist (bulleted, each step ≤2 lines).
+  - Link to the specific BOM section in 07-BOMs-and-Links.md.
+
+- 06-Operations-Plan.md
+  - Initial TrueNAS setup (pool/datasets/compression/autotrim), replication target from Synology, iSCSI target for Proxmox, scrub/SMART schedules.
+
+- 07-BOMs-and-Links.md
+  - US-sourced line items with links, quantity, unit price, subtotal, stock note.
+  - Grouped by architecture. Flag any import-risk items and give a domestic alternative.
+
+- 08-Risks-and-Pitfalls.md
+  - Lane bottlenecks, NVMe thermals in 2U, backplane power limits, USB-boot pitfalls, noisy 40 mm fans, mitigation tips.
+
+Download/Rendition rules:
+
+- Attach each .md file as a downloadable artifact.
+- Also attach a ZIP named truenas-10in-rack-kit.zip containing all files.
+- If the platform cannot attach files, include a shell-ready block at the end that writes all files to disk (one `cat <<'EOF' > filename` per file), and a command to zip them:
+  - `zip -9r truenas-10in-rack-kit.zip 0*-*.md`
+- All links must be absolute URLs; include citation links inline (at the end of sentences).
+- Keep images/diagrams as ASCII in the docs; no external images.
+
+Style:
+
+- Concise, source-backed, US pricing only.
+- Headings use `#`/`##`. Tables in pure Markdown (no HTML).
+- Each file starts with a 3-line header:
+  - `# Title`
+  - `**Date:** YYYY-MM-DD`
+  - `**Last updated:** YYYY-MM-DD`
