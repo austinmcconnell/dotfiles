@@ -1,6 +1,3 @@
-# Example Code for Follow Up Prompt
-
-```python
 class Library:
     def __init__(self):
         self.titles_by_isbn = {}        # isbn -> BookTitle
@@ -16,7 +13,7 @@ class Library:
     def checkin(self, copy_id):
         copy = self.copies_by_id[copy_id]
         if not copy.checked_out:
-            raise ValueError("Copy is not checked out")
+            raise ValueError('Copy is not checked out')
 
         isbn = copy.isbn
         copy.checked_out_to = None
@@ -40,4 +37,3 @@ class Library:
             self.reservations_by_isbn[isbn] = deque()
         self.reservations_by_isbn[isbn].append(user_id)
         ...
-```

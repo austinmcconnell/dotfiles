@@ -1,6 +1,3 @@
-# Example Code for Initial Prompt
-
-```python
 from uuid import uuid4
 
 class BookTitle:
@@ -38,18 +35,18 @@ class Library:
     # catalog operations
     def add_title(self, title):
         if title.isbn in self.titles_by_isbn:
-            raise ValueError("Title already exists")
+            raise ValueError('Title already exists')
         self.titles_by_isbn[title.isbn] = title
 
     def remove_title(self, isbn):
         if isbn in self.copy_ids_by_isbn and len(self.copy_ids_by_isbn[isbn]) > 0:
-            raise ValueError("Cannot remove; copies still exist")
+            raise ValueError('Cannot remove; copies still exist')
         self.titles_by_isbn.pop(isbn, None)
 
     # inventory operations
     def add_copy(self, isbn):
         if isbn not in self.titles_by_isbn:
-            raise ValueError("Unknown ISBN")
+            raise ValueError('Unknown ISBN')
 
         copy = BookCopy(isbn)
         self.copies_by_id[copy.id] = copy
@@ -75,13 +72,13 @@ class Library:
     def checkout(self, copy_id, user_id):
         copy = self.copies_by_id[copy_id]
         if copy.checked_out:
-            raise ValueError("Copy is already checked out")
+            raise ValueError('Copy is already checked out')
         copy.checked_out_to = user_id
 
     def checkin(self, copy_id):
         copy = self.copies_by_id[copy_id]
         if not copy.checked_out:
-            raise ValueError("Copy is not checked out")
+            raise ValueError('Copy is not checked out')
         copy.checked_out_to = None
 
     def get_book_status(self, copy_id):
@@ -94,4 +91,3 @@ class Library:
             for copy in self.copies_by_id.values()
             if copy.checked_out_to == user_id
         ]
-```
