@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# ---------------------------------------------------------------
+# Setup Codex AGENTS.md
+# Creates a symlink to the global agents.md file in the current
+# project root for Codex CLI to use.
+# ---------------------------------------------------------------
+
+set -euo pipefail
+
+# Get the dotfiles directory
+DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
+AGENTS_MD="$DOTFILES_DIR/etc/ai-prompts/agents.md"
+PROJECT_AGENTS_MD="$(pwd)/AGENTS.md"
+
+# Check if agents.md exists in dotfiles
+if [ ! -f "$AGENTS_MD" ]; then
+    echo "❌ Error: agents.md not found at $AGENTS_MD"
+    echo "   Make sure your dotfiles are properly set up."
+    exit 1
+fi
+
+# Check if AGENTS.md already exists
+if [ -f "$PROJECT_AGENTS_MD" ] || [ -L "$PROJECT_AGENTS_MD" ]; then
+    echo "⚠️  AGENTS.md already exists in $(pwd)"
+    read -p "Replace it with a symlink to global agents.md? (y/N) " -n 1 -r
+    echo
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+        echo "Aborted."
+        exit 0
+    fi
+    rm -f "$PROJECT_AGENTS_MD"
+fi
+
+# Create symlink
+ln -sfv "$AGENTS_MD" "$PROJECT_AGENTS_MD"
+
+echo "✅ AGENTS.md symlinked to global agents.md"
+echo ""
+echo "Codex CLI will now use the global AI agent guidelines for this project."
+echo ""
+echo "To remove the symlink:"
+echo "  rm $PROJECT_AGENTS_MD"

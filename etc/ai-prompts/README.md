@@ -4,6 +4,20 @@ This directory contains reusable prompts for AI chat sessions. The prompt manage
 provides shell functions to easily save, organize, and reuse common prompts across any AI
 service (Amazon Q, Claude, ChatGPT, Gemini, etc.).
 
+## Global AI Agent Guidelines
+
+**`agents.md`** - This file provides comprehensive guidelines for AI agents working across all
+development tools and projects. It ensures consistent behavior, security, and quality across
+all AI-assisted development workflows.
+
+This file is automatically configured for:
+
+- **Amazon Q CLI** - Included in all agent configurations via the `resources` array
+- **Cursor IDE** - Referenced via rules in `.cursor/rules/agents.mdc`
+- **Codex CLI** - Can be symlinked to project roots as `AGENTS.md` (per-project)
+
+See the [AI Agent Guidelines Documentation](../../docs/AIAgentGuidelines.md) for more details.
+
 ## Available Commands
 
 - `ai-save <name>` - Save a new prompt (will prompt for input)
