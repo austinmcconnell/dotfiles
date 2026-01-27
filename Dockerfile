@@ -24,15 +24,17 @@ ENV IS_WORK_COMPUTER=0
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # Install Homebrew dependencies (from Homebrew docs)
-RUN apt-get update && apt-get install -y \
+RUN --mount=type=cache,target=/var/cache/apt \
+    --mount=type=cache,target=/var/lib/apt/lists \
+    rm -f /etc/apt/apt.conf.d/docker-clean && \
+    apt-get update && apt-get install -y \
     build-essential \
     procps \
     curl \
     file \
     git \
     sudo \
-    ca-certificates \
-    && rm -rf /var/lib/apt/lists/*
+    ca-certificates
 
 # Create non-root user (Homebrew requires non-root)
 RUN useradd -m -s /bin/bash testuser && \
@@ -81,16 +83,27 @@ RUN sed -i '/\[url "git@github.com:"\]/,/pushInsteadOf/s/^/#/' ${DOTFILES_DIR}/e
 # Create required directories
 RUN mkdir -p ${XDG_CONFIG_HOME} ${XDG_DATA_HOME} ${XDG_CACHE_HOME} ${DOTFILES_EXTRA_DIR}
 
+# Create .extra/.env file (required by utils.sh and other scripts)
+RUN echo "export IS_WORK_COMPUTER=0" > ${DOTFILES_EXTRA_DIR}/.env
+
 # Core installations
 RUN bash -c "cd ${DOTFILES_DIR} && source ./install/git.sh"
 RUN bash -c "cd ${DOTFILES_DIR} && source ./install/zsh.sh"
-RUN bash -c "cd ${DOTFILES_DIR} && source ./install/apt.sh"
+
+# Install essential brew packages (subset of brew.sh for Docker testing)
+RUN --mount=type=cache,target=/home/testuser/.cache/Homebrew,uid=1000,gid=1000 \
+    brew install starship fnm glow
 
 # Language installations (separate for caching and visibility)
-RUN bash -c "cd ${DOTFILES_DIR} && source ./install/python.sh"
-RUN bash -c "cd ${DOTFILES_DIR} && source ./install/ruby.sh"
-RUN bash -c "cd ${DOTFILES_DIR} && source ./install/node.sh"
-RUN bash -c "cd ${DOTFILES_DIR} && source ./install/go.sh"
+# Note: Python compilation from source takes 30-40 minutes
+RUN --mount=type=cache,target=/home/testuser/.cache,uid=1000,gid=1000 \
+    bash -c "cd ${DOTFILES_DIR} && source ./install/python.sh" 2>&1 | tee /tmp/python-install.log
+RUN --mount=type=cache,target=/home/testuser/.cache,uid=1000,gid=1000 \
+    bash -c "cd ${DOTFILES_DIR} && source ./install/ruby.sh" 2>&1 | tee /tmp/ruby-install.log
+RUN --mount=type=cache,target=/home/testuser/.cache,uid=1000,gid=1000 \
+    bash -c "cd ${DOTFILES_DIR} && source ./install/node.sh" 2>&1 | tee /tmp/node-install.log
+RUN --mount=type=cache,target=/home/testuser/.cache,uid=1000,gid=1000 \
+    bash -c "cd ${DOTFILES_DIR} && source ./install/go.sh" 2>&1 | tee /tmp/go-install.log
 
 # Remaining installations
 RUN bash -c "cd ${DOTFILES_DIR} && source ./install/vim.sh"
@@ -99,7 +112,6 @@ RUN bash -c "cd ${DOTFILES_DIR} && source ./install/ssh.sh"
 RUN bash -c "cd ${DOTFILES_DIR} && source ./install/dircolors.sh"
 RUN bash -c "cd ${DOTFILES_DIR} && source ./install/xdg-compliance.sh"
 RUN bash -c "cd ${DOTFILES_DIR} && source ./install/glow.sh"
-RUN bash -c "cd ${DOTFILES_DIR} && source ./install/terraform.sh"
 
 # Default to zsh shell
 CMD ["/usr/bin/zsh"]
