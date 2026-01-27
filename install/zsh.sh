@@ -12,12 +12,18 @@ else
         brew install zsh starship
     elif is-debian; then
         echo "**************************************************"
-        echo "Installing Zsh with apt"
+        echo "Installing Zsh with apt and starship with brew"
         echo "**************************************************"
         sudo apt update
         sudo apt install -y software-properties-common curl
         sudo add-apt-repository -y universe
         sudo apt install -y zsh
+        # Install starship via brew (more reliable than manual install)
+        if is-executable brew; then
+            brew install starship
+        else
+            echo "Warning: brew not found, starship may not be available"
+        fi
     else
         echo "**************************************************"
         echo "Skipping Zsh installation: Unidentified OS"
