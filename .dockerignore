@@ -1,0 +1,32 @@
+# Git directory
+.git/
+.gitignore
+.gitattributes
+
+# Documentation (not needed for installation)
+*.md
+!install/*.md
+docs/
+
+# CI/CD
+.github/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Test files (tests run inside container, don't need to copy)
+tests/
+
+# Temporary files
+*.log
+tmp/
+temp/
