@@ -89,10 +89,8 @@ RUN echo "export IS_WORK_COMPUTER=0" > ${DOTFILES_EXTRA_DIR}/.env
 # Core installations
 RUN bash -c "cd ${DOTFILES_DIR} && source ./install/git.sh"
 RUN bash -c "cd ${DOTFILES_DIR} && source ./install/zsh.sh"
-
-# Install essential brew packages (subset of brew.sh for Docker testing)
 RUN --mount=type=cache,target=/home/testuser/.cache/Homebrew,uid=1000,gid=1000 \
-    brew install starship fnm glow
+    bash -c "cd ${DOTFILES_DIR} && source ./install/brew.sh"
 
 # Language installations (separate for caching and visibility)
 # Note: Python compilation from source takes 30-40 minutes
