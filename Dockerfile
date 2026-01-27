@@ -19,6 +19,9 @@ FROM ubuntu:22.04
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=America/Chicago
 ENV IS_WORK_COMPUTER=0
+# Set locale to prevent warnings
+ENV LANG=C.UTF-8
+ENV LC_ALL=C.UTF-8
 
 # Configure timezone (must be done before any package installation)
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
