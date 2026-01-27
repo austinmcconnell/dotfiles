@@ -11,8 +11,13 @@ else
     if is-macos; then
         print_header "Installing Homebrew"
         NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    elif is-debian; then
+        print_header "Installing Homebrew on Linux"
+        NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        # Add Homebrew to PATH for current session
+        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
     else
-        print_header "Skipping Homebrew installation: Not macOS"
+        print_header "Skipping Homebrew installation: Unsupported OS"
         return
     fi
 fi
