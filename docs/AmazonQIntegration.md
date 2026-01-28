@@ -1,17 +1,20 @@
 # Amazon Q Integration
 
-This guide explains how Amazon Q is integrated into the dotfiles repository and how to configure and
+> **Note:** Amazon Q has been rebranded as **Kiro CLI**. Configuration directories still
+>use `amazon-q` for backward compatibility.
+
+This guide explains how Kiro CLI is integrated into the dotfiles repository and how to configure and
 use it effectively.
 
 ## Overview
 
-Amazon Q is an AI-powered assistant that helps with coding, answering questions, and providing
-recommendations. This dotfiles repository includes configuration and setup for Amazon Q to enhance your
-development workflow.
+Kiro CLI (formerly Amazon Q) is an AI-powered assistant that helps with coding, answering questions,
+and providing recommendations. This dotfiles repository includes configuration and setup for Kiro
+CLI to enhance your development workflow.
 
 ## Installation
 
-Amazon Q is installed via the dedicated installation script:
+Kiro CLI is installed via the dedicated installation script:
 
 ```bash
 ./install/amazon-q.sh
@@ -19,41 +22,51 @@ Amazon Q is installed via the dedicated installation script:
 
 This script:
 
-1. Installs the Amazon Q cask using Homebrew
+1. Installs the Kiro CLI cask using Homebrew
 2. Creates necessary configuration directories
 3. Links configuration files from the dotfiles repository
-4. Installs Amazon Q integrations (like SSH)
+4. Installs Kiro CLI integrations (like SSH)
+5. Installs MCP servers for extended functionality
 
 ## Configuration Files
 
 The configuration files are stored in:
 
 - `etc/amazon-q/settings.json` - Application settings
-- `etc/amazon-q/global_context.json` - Contexts which apply to all profiles
-- `etc/amazon-q/profiles/default/context.json` - Contexts which apply only to the default profile
+- `etc/amazon-q/cli-agents/*.json` - CLI agent configurations
+- `etc/amazon-q/profiles/*/context.json` - Profile-specific contexts
+- `etc/amazon-q/global_rules/**/*.md` - Global guidance documents
 
 ## Configuration Structure
 
-### Global Context
+### CLI Agents
 
-The global context provides Amazon Q with information about your environment that applies across all
-profiles.
+Kiro CLI uses specialized agents for different tasks. Each agent has its own configuration in `etc/amazon-q/cli-agents/`:
 
-This typically includes:
+- **default.json** - General development assistant with AWS, database, and infrastructure capabilities
+- **jira.json** - JIRA-focused agent for SCRUM and user story management
+- **github.json** - GitHub-focused agent for repository and code management
 
-- Repository structure information
-- Common development patterns
-- Standard tools and frameworks used
+Each agent configuration includes:
+
+- **resources** - Markdown files providing context and guidance to the agent
+- **mcpServers** - MCP server integrations (filesystem, git, time, fetch, postgres, jira)
+- **allowedTools** - Specific tools the agent can use
+- **toolsSettings** - Security restrictions and tool configurations
+- **prompt** - Custom system prompt defining the agent's role and behavior
+
+This architecture allows each agent to have specialized knowledge and capabilities while sharing
+common infrastructure.
 
 ### Profile-Specific Context
 
-Profile-specific contexts allow you to customize Amazon Q's behavior for different scenarios:
+Profile-specific contexts allow you to customize Kiro CLI's behavior for different scenarios:
 
 - Development contexts for specific languages or frameworks
 - Project-specific information
 - Role-specific configurations (e.g., frontend, backend, DevOps)
 
-## Customizing Amazon Q
+## Customizing Kiro CLI
 
 ### Adding Custom Contexts
 
@@ -69,9 +82,9 @@ To add a custom context:
 
    ```json
    {
-     "name": "Custom Development Context",
-     "description": "Information about my custom development environment",
-     "content": "This is a custom development environment for XYZ project..."
+     "paths": [
+       "path/to/custom/documentation.md"
+     ]
    }
    ```
 
@@ -93,56 +106,78 @@ For different development scenarios, you can create specialized profiles:
 
 3. Configure the profile in your settings.json
 
-## Using Amazon Q Effectively
+### Customizing CLI Agents
+
+To customize an existing agent or create a new one:
+
+1. Copy an existing agent configuration:
+
+   ```bash
+   cp ~/.dotfiles/etc/amazon-q/cli-agents/default.json ~/.dotfiles/etc/amazon-q/cli-agents/custom.json
+   ```
+
+2. Modify the `resources`, `prompt`, and `allowedTools` as needed
+
+3. Use the custom agent:
+
+   ```bash
+   kiro-cli chat --agent custom
+   ```
+
+## Using Kiro CLI Effectively
 
 ### Command Line Integration
 
-Amazon Q can be used directly from the command line:
+Kiro CLI can be used directly from the command line:
 
 ```bash
-q "How do I create a virtual environment in Python?"
+kiro-cli chat                           # Start interactive chat with default agent
+kiro-cli chat --agent jira              # Use JIRA agent
+kiro-cli chat --agent github            # Use GitHub agent
+q "How do I create a virtual environment in Python?"  # Legacy wrapper
 ```
 
 ### IDE Integration
 
-Amazon Q integrates with various IDEs:
+Kiro CLI integrates with various IDEs:
 
-- VS Code: Install the Amazon Q extension
-- JetBrains IDEs: Install the Amazon Q plugin
+- VS Code: Install the Kiro CLI extension
+- JetBrains IDEs: Install the Kiro CLI plugin
 - Vim/Neovim: Configure through the appropriate plugin
 
 ### Best Practices
 
 1. **Be Specific**: Provide clear, specific questions to get the best answers
 2. **Use Context**: Reference specific files or code when asking questions
-3. **Iterate**: Refine your questions based on the responses
-4. **Verify**: Always verify generated code or suggestions before implementing
+3. **Choose the Right Agent**: Use specialized agents (jira, github) for domain-specific tasks
+4. **Iterate**: Refine your questions based on the responses
+5. **Verify**: Always verify generated code or suggestions before implementing
 
 ## Troubleshooting
 
-If you encounter issues with Amazon Q:
+If you encounter issues with Kiro CLI:
 
 1. Check that the configuration directories exist
 2. Verify that the symbolic links are correctly established
-3. Restart Amazon Q after making configuration changes
-4. Check the Amazon Q logs for error messages
+3. Restart Kiro CLI after making configuration changes
+4. Check the Kiro CLI logs for error messages
 
 ## Advanced Configuration
 
 ### Custom Commands
 
-You can create custom commands for Amazon Q by adding them to your shell configuration:
+You can create custom commands for Kiro CLI by adding them to your shell configuration:
 
 ```bash
 # Example custom command for generating unit tests
 function q-test() {
-  q "Generate unit tests for the following code: $(cat $1)"
+  kiro-cli chat "Generate unit tests for the following code: $(cat $1)"
 }
 ```
 
 ### Integration with Other Tools
 
-Amazon Q can be integrated with other development tools:
+Kiro CLI can be integrated with other development tools:
 
 - Git hooks for pre-commit code reviews
 - CI/CD pipelines for automated code analysis
@@ -150,5 +185,5 @@ Amazon Q can be integrated with other development tools:
 
 ## Resources
 
-- [Amazon Q Documentation](https://aws.amazon.com/q/)
-- [Amazon Q CLI Reference](https://docs.aws.amazon.com/amazonq/latest/cli-reference/)
+- [Kiro CLI Documentation](https://kiro.dev/docs/cli/)
+- [AWS Documentation](https://aws.amazon.com/)

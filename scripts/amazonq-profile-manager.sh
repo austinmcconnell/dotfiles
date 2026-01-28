@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # ---------------------------------------------------------------
-# Amazon Q Profile Manager
-# This script helps manage Amazon Q profiles in your dotfiles
+# Kiro CLI (formerly Amazon Q) Profile Manager
+# This script helps manage Kiro CLI profiles in your dotfiles
 # ---------------------------------------------------------------
 
 set -euo pipefail
@@ -36,14 +36,14 @@ print_error() {
 
 # List all Amazon Q profiles
 list_profiles() {
-    print_header "Amazon Q Profiles"
+    print_header "Kiro CLI Profiles"
 
     if [ ! -d "$AMAZON_Q_PROFILES_DIR" ]; then
-        print_error "Amazon Q profiles directory not found: $AMAZON_Q_PROFILES_DIR"
+        print_error "Kiro CLI profiles directory not found: $AMAZON_Q_PROFILES_DIR"
         return 1
     fi
 
-    echo "Profiles found in Amazon Q:"
+    echo "Profiles found in Kiro CLI:"
     for profile_dir in "$AMAZON_Q_PROFILES_DIR"/*; do
         if [ -d "$profile_dir" ]; then
             profile_name=$(basename "$profile_dir")
@@ -64,7 +64,7 @@ import_profile() {
     local target_file="$target_dir/context.json"
 
     if [ ! -f "$source_file" ]; then
-        print_error "Profile '$profile_name' not found in Amazon Q"
+        print_error "Profile '$profile_name' not found in Kiro CLI"
         return 1
     fi
 
@@ -117,14 +117,14 @@ show_untracked() {
 
 # Show help
 show_help() {
-    echo "Amazon Q Profile Manager"
+    echo "Kiro CLI (formerly Amazon Q) Profile Manager"
     echo ""
     echo "Usage: $0 <command> [arguments]"
     echo ""
     echo "Commands:"
-    echo "  list              List all Amazon Q profiles"
+    echo "  list              List all Kiro CLI profiles"
     echo "  untracked         Show profiles not tracked in dotfiles"
-    echo "  import <profile>  Import a profile from Amazon Q to dotfiles"
+    echo "  import <profile>  Import a profile from Kiro CLI to dotfiles"
     echo "  help              Show this help message"
 }
 

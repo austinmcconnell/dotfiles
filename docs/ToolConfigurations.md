@@ -47,15 +47,18 @@ Configuration options include:
 
 ## Amazon Q
 
-Amazon Q is an AI-powered assistant that helps with coding, answering questions, and providing
-recommendations. It integrates with your development workflow to enhance productivity.
+> **Note:** Amazon Q has been rebranded as **Kiro CLI**. Configuration directories still
+> use `amazon-q` for backward compatibility.
+
+Kiro CLI (formerly Amazon Q) is an AI-powered assistant that helps with coding, answering questions,
+and providing recommendations. It integrates with your development workflow to enhance productivity.
 
 Configuration options include:
 
-- **Global context**: Settings in `global_context.json` that apply across all profiles
+- **CLI agents**: Specialized agent configurations in `cli-agents/*.json` for different tasks
 - **Profile-specific contexts**: Custom configurations for different development scenarios
-- **Application settings**: General settings for the Amazon Q application
-- **IDE integrations**: Configuration for editor integrations
+- **Application settings**: General settings for the Kiro CLI application
+- **Global rules**: Markdown guidance documents in `global_rules/**/*.md`
 
 For more detailed information, see the [Amazon Q Integration](AmazonQIntegration.md) guide.
 
