@@ -17,3 +17,7 @@ Include ~/.ssh/hosts.d/*.conf
 # Amazon Q SSH Integration. Keep at the bottom of this file.
 Match all
   Include "~/Library/Application Support/amazon-q/ssh"
+
+# Kiro CLI SSH Integration. Keep at the bottom of this file.
+Match all
+  Include "~/Library/Application Support/kiro-cli/ssh"
