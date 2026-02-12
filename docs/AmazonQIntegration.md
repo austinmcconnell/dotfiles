@@ -32,16 +32,16 @@ This script:
 
 The configuration files are stored in:
 
-- `etc/amazon-q/settings.json` - Application settings
-- `etc/amazon-q/cli-agents/*.json` - CLI agent configurations
-- `etc/amazon-q/profiles/*/context.json` - Profile-specific contexts
-- `etc/amazon-q/global_rules/**/*.md` - Global guidance documents
+- `etc/kiro-cli/settings.json` - Application settings
+- `etc/kiro-cli/cli-agents/*.json` - CLI agent configurations
+- `etc/kiro-cli/profiles/*/context.json` - Profile-specific contexts
+- `etc/kiro-cli/global_rules/**/*.md` - Global guidance documents
 
 ## Configuration Structure
 
 ### CLI Agents
 
-Kiro CLI uses specialized agents for different tasks. Each agent has its own configuration in `etc/amazon-q/cli-agents/`:
+Kiro CLI uses specialized agents for different tasks. Each agent has its own configuration in `etc/kiro-cli/cli-agents/`:
 
 - **default.json** - General development assistant with AWS, database, and infrastructure capabilities
 - **jira.json** - JIRA-focused agent for SCRUM and user story management
@@ -75,7 +75,7 @@ To add a custom context:
 1. Create a new context file in the appropriate directory:
 
    ```bash
-   touch ~/.dotfiles/etc/amazon-q/profiles/custom-profile/context.json
+   touch ~/.dotfiles/etc/kiro-cli/profiles/custom-profile/context.json
    ```
 
 2. Add your context information in JSON format:
@@ -95,13 +95,13 @@ For different development scenarios, you can create specialized profiles:
 1. Create a new profile directory:
 
    ```bash
-   mkdir -p ~/.dotfiles/etc/amazon-q/profiles/python-dev
+   mkdir -p ~/.dotfiles/etc/kiro-cli/profiles/python-dev
    ```
 
 2. Add profile-specific context files:
 
    ```bash
-   touch ~/.dotfiles/etc/amazon-q/profiles/python-dev/context.json
+   touch ~/.dotfiles/etc/kiro-cli/profiles/python-dev/context.json
    ```
 
 3. Configure the profile in your settings.json
@@ -113,7 +113,7 @@ To customize an existing agent or create a new one:
 1. Copy an existing agent configuration:
 
    ```bash
-   cp ~/.dotfiles/etc/amazon-q/cli-agents/default.json ~/.dotfiles/etc/amazon-q/cli-agents/custom.json
+   cp ~/.dotfiles/etc/kiro-cli/cli-agents/default.json ~/.dotfiles/etc/kiro-cli/cli-agents/custom.json
    ```
 
 2. Modify the `resources`, `prompt`, and `allowedTools` as needed

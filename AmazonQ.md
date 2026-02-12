@@ -25,14 +25,14 @@ This script:
 
 The configuration files are stored in:
 
-- `etc/amazon-q/settings.json` - Application settings
-- `etc/amazon-q/cli-agents/*.json` - CLI agent configurations (default, jira, github)
-- `etc/amazon-q/profiles/*/context.json` - Profile-specific contexts
-- `etc/amazon-q/global_rules/**/*.md` - Global guidance documents
+- `etc/kiro-cli/settings.json` - Application settings
+- `etc/kiro-cli/cli-agents/*.json` - CLI agent configurations (default, jira, github)
+- `etc/kiro-cli/profiles/*/context.json` - Profile-specific contexts
+- `etc/kiro-cli/global_rules/**/*.md` - Global guidance documents
 
 ## CLI Agents
 
-Kiro CLI uses specialized agents for different tasks. Each agent has its own configuration in `etc/amazon-q/cli-agents/`:
+Kiro CLI uses specialized agents for different tasks. Each agent has its own configuration in `etc/kiro-cli/cli-agents/`:
 
 - **default.json** - General development assistant with AWS, database, and infrastructure capabilities
 - **jira.json** - JIRA-focused agent for SCRUM and user story management

@@ -14,12 +14,12 @@ repos:
       - id: debug-statements
       - id: double-quote-string-fixer
       - id: end-of-file-fixer
-        exclude: (obsidian|etc/amazon-q/)
+        exclude: (obsidian|etc/kiro-cli/)
       - id: pretty-format-json
         args: [--autofix, --indent=4]
         types: [text]
         files: \.(json)$
-        exclude: (obsidian|etc/amazon-q/)
+        exclude: (obsidian|etc/kiro-cli/)
       - id: mixed-line-ending
         exclude: \.plist$
       - id: trailing-whitespace
