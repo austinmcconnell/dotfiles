@@ -1,7 +1,4 @@
-# Amazon Q Integration
-
-> **Note:** Amazon Q has been rebranded as **Kiro CLI**. Configuration directories still
->use `amazon-q` for backward compatibility.
+# Kiro CLI Integration
 
 This guide explains how Kiro CLI is integrated into the dotfiles repository and how to configure and
 use it effectively.
@@ -17,7 +14,7 @@ CLI to enhance your development workflow.
 Kiro CLI is installed via the dedicated installation script:
 
 ```bash
-./install/amazon-q.sh
+./install/kiro-cli.sh
 ```
 
 This script:

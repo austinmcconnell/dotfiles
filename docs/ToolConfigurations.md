@@ -8,7 +8,7 @@ in the `etc/` directory of the dotfiles repository.
 <!-- toc -->
 
 - [ag (The Silver Searcher)](#ag-the-silver-searcher)
-- [Amazon Q](#amazon-q)
+- [Kiro CLI](#kiro-cli)
 - [bat](#bat)
 - [direnv](#direnv)
 - [fd](#fd)
@@ -45,10 +45,7 @@ Configuration options include:
 - **Search depth**: Control how deep in the directory structure to search
 - **Output formatting**: Customize how search results are displayed
 
-## Amazon Q
-
-> **Note:** Amazon Q has been rebranded as **Kiro CLI**. Configuration directories still
-> use `amazon-q` for backward compatibility.
+## Kiro CLI
 
 Kiro CLI (formerly Amazon Q) is an AI-powered assistant that helps with coding, answering questions,
 and providing recommendations. It integrates with your development workflow to enhance productivity.

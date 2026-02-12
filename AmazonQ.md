@@ -10,7 +10,7 @@ This document describes how Kiro CLI is set up in this dotfiles repository.
 Kiro CLI is installed via the dedicated installation script:
 
 ```bash
-./install/amazon-q.sh
+./install/kiro-cli.sh
 ```
 
 This script:
