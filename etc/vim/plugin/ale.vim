@@ -9,7 +9,7 @@ let g:ale_sign_error = '✘'                    " error sign in gutter
 let g:ale_sign_warning = '⚠'                  " warning sign in gutter
 
 " Completion Settings
-let g:ale_completion_enabled = 0              " disable ale completion (use native vim completion)
+let g:ale_completion_enabled = 1              " disable ale completion (use native vim completion)
 let g:ale_completion_autoimport = 1           " enable auto-import suggestions
 let g:ale_completion_delay = 200              " delay before showing completion (ms)
 let g:ale_completion_max_suggestions = 25     " maximum number of completion suggestions
