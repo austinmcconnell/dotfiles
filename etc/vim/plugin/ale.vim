@@ -2,7 +2,7 @@
 let g:ale_fix_on_save = 1                     " automatically fix issues on save
 let g:ale_open_list = 0                       " don't auto-open location list
 let g:ale_lint_on_text_changed='always'       " run linter when text changed in insert or normal mode
-let g:ale_lint_delay=1000                     " wait 1 second after stopping typing before linting
+let g:ale_lint_delay=200                      " wait time in ms after stopping typing before linting
 let g:ale_lint_on_enter = 1                   " lint when entering buffer
 let g:ale_set_balloons = 1                    " show help documentation in popups
 let g:ale_sign_error = '✘'                    " error sign in gutter
