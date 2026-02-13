@@ -7,4 +7,6 @@ pre-commit
 proselint
 pylint
 python-lsp-server[all]
+ruff
+ruff-lsp
 yamllint
