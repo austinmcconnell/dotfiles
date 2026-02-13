@@ -1,12 +1,12 @@
 bashate
-flake8
-isort
+flake8  # Keeping for now - replaced by ruff but useful fallback
+isort  # Keeping for now - replaced by ruff but useful fallback
 mypy
 pipenv
 pre-commit
 proselint
-pylint
-python-lsp-server[all]
+pylint  # Keeping for now - replaced by ruff but useful fallback
+python-lsp-server[all]  # Keeping for now - replaced by ruff-lsp but useful fallback
 ruff
 ruff-lsp
 yamllint
