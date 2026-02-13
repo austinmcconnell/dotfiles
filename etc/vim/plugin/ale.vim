@@ -29,6 +29,7 @@ let g:ale_linters = {
 \   'ruby': ['rubocop', 'ruby_lsp'],
 \   'sh': ['bashate', 'shellcheck', 'language_server'],
 \   'terraform': ['terraform'],
+\   'toml': ['taplo'],
 \   'yaml': ['spectral', 'yamllint'],
 \   'zsh': ['bashate', 'shellcheck', 'language_server'],
 \}
