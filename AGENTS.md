@@ -21,7 +21,7 @@ works across fresh macOS installations.
 ### Key Configuration Areas
 
 - **Shell**: Zsh with antidote plugin manager, custom functions, completions
-- **Development Tools**: Git, Vim, Python, Node, Ruby, Go, Terraform
+- **Development Tools**: Git, Vim (with ALE linting), Python, Node, Ruby, Go, Terraform
 - **Kiro CLI**: Custom agents (default, github, jira) with security restrictions
 - **Kubernetes**: Kind cluster configurations and components
 - **AI Prompts**: Reusable prompts for code analysis and documentation
@@ -37,6 +37,20 @@ works across fresh macOS installations.
 - **Custom Functions**: Autoloaded from `etc/zsh/functions/`
 - **Completions**: Custom completions in `etc/zsh/completions/`
 - **Abbreviations**: Command shortcuts via zsh-abbr in `etc/zsh/zsh-abbr/`
+
+### Vim Configuration Architecture
+
+- **Plugin Manager**: vim-plug (automatic installation and management)
+- **Configuration File**: `etc/vim/.vimrc` (symlinked to `~/.vim/vimrc`)
+- **Modular Plugins**: Each plugin has its own config file in `etc/vim/plugin/`
+- **Primary Linter/Fixer**: ALE (Asynchronous Lint Engine) with language-specific configs
+- **Language Settings**: Override files in `etc/vim/after/ftplugin/` for per-language customization
+- **Custom Syntax**: Language-specific syntax files in `etc/vim/syntax/`
+- **Filetype Detection**: Custom rules in `etc/vim/filetype.vim`
+- **Leader Key**: Semicolon (`;`) for custom mappings
+- **Dependencies**: ctags (tag generation), the_silver_searcher (ag for searching)
+- **Philosophy**: Git-centric, auto-saving, comprehensive tooling, cross-platform
+- **Detailed Documentation**: See `etc/vim/README.md` for complete architecture overview
 
 ## Installation Philosophy
 
@@ -85,6 +99,17 @@ works across fresh macOS installations.
 3. **Keep resources focused** - Only include relevant steering files per agent
 4. **Document agent purpose** - Update `description` field when changing behavior
 
+### When Modifying Vim Configuration
+
+1. **Understand the modular structure** - Each plugin has its own config file in `etc/vim/plugin/`
+2. **Modify plugin configs, not .vimrc** - Keep `.vimrc` for general settings, use `plugin/` for
+plugin-specific configs
+3. **Language-specific settings** - Add overrides to `etc/vim/after/ftplugin/{language}.vim`
+4. **ALE linter/fixer changes** - Edit `etc/vim/plugin/ale.vim` for language tool configurations
+5. **Test changes immediately** - Reload vim with `:source ~/.vim/vimrc` or restart vim
+6. **Check plugin installation** - Run `:PlugInstall` after adding new plugins to `.vimrc`
+7. **Reference the README** - See `etc/vim/README.md` for detailed architecture and conventions
+
 ## Key Conventions
 
 ### Shell Scripts
@@ -113,7 +138,7 @@ works across fresh macOS installations.
 - **Shell**: Zsh, Bash
 - **Languages**: Python, Node.js, Ruby, Go
 - **Infrastructure**: Kubernetes (Kind), Terraform, AWS CLI
-- **Editors**: Vim, Sublime Text
+- **Editors**: Vim (vim-plug, ALE, 20+ plugins), Sublime Text
 - **Version Control**: Git with custom aliases and hooks
 - **AI Tools**: Kiro CLI with custom agents and MCP servers
 
