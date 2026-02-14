@@ -1,18 +1,19 @@
 # Base SSH Configuration
 # Machine-specific configs are in hosts.d/
 
+# Include machine-specific configurations (must come before Host * for precedence)
+Include ~/.ssh/hosts.d/*.conf
+
 # Global settings
 Host *
     UseKeychain yes
     AddKeysToAgent yes
     ControlMaster auto
-    ControlPath ~/.ssh/controlmasters/%r@%h:%p-%n
+    ControlPath ~/.ssh/controlmasters/%C
     ControlPersist 4h
+    TCPKeepAlive no
     ServerAliveInterval 60
     ServerAliveCountMax 30
-
-# Include machine-specific configurations
-Include ~/.ssh/hosts.d/*.conf
 
 # Kiro CLI SSH Integration. Keep at the bottom of this file.
 Match all
