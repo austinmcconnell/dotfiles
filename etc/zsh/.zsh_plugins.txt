@@ -22,6 +22,7 @@ https://github.com/belak/zsh-utils path:editor
 
 ### Regular Plugins
 https://github.com/ael-code/zsh-colored-man-pages
+https://github.com/olets/zsh-abbr
 
 ### Local Plugins
 $ZDOTDIR/custom/plugins/extra
@@ -36,4 +37,3 @@ https://github.com/romkatv/zsh-bench kind:path
 
 ### Deferred Plugins
 https://github.com/MichaelAquilina/zsh-autoswitch-virtualenv kind:defer
-https://github.com/olets/zsh-abbr kind:defer
