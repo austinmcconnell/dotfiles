@@ -29,7 +29,7 @@ zstyle ':zephyr:plugin:compstyle:*' case-sensitive false # Case-insensitive comp
 zstyle ':zephyr:plugin:compstyle:*' use-cache true       # Cache compstyle settings for faster startup
 
 # Confd - Configuration directory management and loading
-zstyle ':zephyr:plugin:confd' config-dirs $ZDOTDIR/conf.d # Directory containing additional config files
+zstyle ':zephyr:plugin:confd' directory $ZDOTDIR/conf.d # Directory containing additional config files
 
 # Editor - Text editing, input handling, and keyboard interaction
 zstyle ':zephyr:plugin:editor' key-bindings 'emacs' # Use emacs-style keybindings (ctrl+a for start of line, etc.)
