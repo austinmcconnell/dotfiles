@@ -8,6 +8,7 @@ Include ~/.ssh/hosts.d/*.conf
 Host *
     UseKeychain yes
     AddKeysToAgent yes
+    IdentitiesOnly yes
     ControlMaster auto
     # Using %r@%h:%p-%n instead of %C to create separate sockets for different host aliases
     # This prevents key conflicts when using both personal and github.com SSH aliases
