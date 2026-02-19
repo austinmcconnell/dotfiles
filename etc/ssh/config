@@ -9,7 +9,9 @@ Host *
     UseKeychain yes
     AddKeysToAgent yes
     ControlMaster auto
-    ControlPath ~/.ssh/controlmasters/%C
+    # Using %r@%h:%p-%n instead of %C to create separate sockets for different host aliases
+    # This prevents key conflicts when using both personal and github.com SSH aliases
+    ControlPath ~/.ssh/controlmasters/%r@%h:%p-%n
     ControlPersist 4h
     TCPKeepAlive no
     ServerAliveInterval 60
