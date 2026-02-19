@@ -28,9 +28,10 @@ https://github.com/olets/zsh-abbr
 $ZDOTDIR/custom/plugins/extra
 
 ### Prompts
-https://github.com/romkatv/powerlevel10k kind:fpath
-https://github.com/sindresorhus/pure kind:fpath
-https://github.com/spaceship-prompt/spaceship-prompt kind:fpath
+# Commented out unused prompts (using starship instead)
+#https://github.com/romkatv/powerlevel10k kind:fpath
+#https://github.com/sindresorhus/pure kind:fpath
+#https://github.com/spaceship-prompt/spaceship-prompt kind:fpath
 
 ### Utilities
 https://github.com/romkatv/zsh-bench kind:path
