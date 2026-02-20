@@ -9,6 +9,7 @@ https://github.com/mattmc3/zephyr/ path:plugins/history
 https://github.com/mattmc3/zephyr/ path:plugins/homebrew
 https://github.com/mattmc3/zephyr/ path:plugins/utility
 https://github.com/mattmc3/zephyr/ path:plugins/zfunctions
+https://github.com/mattmc3/zephyr/ path:plugins/editor
 https://github.com/mattmc3/zephyr/ path:plugins/prompt
 https://github.com/mattmc3/zephyr/ path:plugins/confd
 https://github.com/mattmc3/zephyr path:plugins/completion
@@ -16,9 +17,6 @@ https://github.com/mattmc3/zephyr/ path:plugins/compstyle
 
 ### Completions
 $ZDOTDIR/completions kind:fpath
-
-### Editor Configuration
-https://github.com/belak/zsh-utils path:editor
 
 ### Regular Plugins
 https://github.com/ael-code/zsh-colored-man-pages
