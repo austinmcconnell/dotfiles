@@ -3,9 +3,6 @@
     email = austin.s.mcconnell@gmail.com
     signingkey = ~/.ssh/id_personal
 
-[credential]
-    helper = osxkeychain
-
 [push]
     default = simple
     followTags = true
@@ -14,7 +11,7 @@
 
 [merge]
     ff = only
-    conflictstyle = diff3  # delta-specific setting
+    conflictstyle = zdiff3  # Shows base version with cleaner conflict markers
     tool = vimdiff
 
 [fetch]
@@ -67,6 +64,10 @@
 [commit]
     gpgsign = true
     template = ~/.config/git/commit-template
+    verbose = true
+
+[log]
+    date = iso
 
 [gpg]
     format = ssh
@@ -163,8 +164,12 @@
     autoUpdate = true
 
 [maintenance]
-    auto = false
+    auto = true
     strategy = incremental
+    repo = /Users/austin.mcconnell/projects/unite-us/web-app
+    repo = /Users/austin.mcconnell/projects/unite-us/core
+    repo = /Users/austin.mcconnell/projects/unite-us/screenings-ingestion
+    repo = /Users/austin.mcconnell/.dotfiles
 
 [gc]
     writeCommitGraph = true
@@ -179,6 +184,7 @@
 [fetch]
     fsckObjects = true
     writeCommitGraph = true
+    pruneTags = true
 
 [notes]
     displayRef = refs/notes/*
