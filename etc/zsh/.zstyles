@@ -12,9 +12,6 @@ zstyle ':antidote:static' refresh-on-update true         # Recompile plugins whe
 zstyle ':antidote:bundle' file $ZDOTDIR/.zsh_plugins.txt # File listing plugins to be loaded
 zstyle ':antidote:static' file $ZDOTDIR/.zsh_plugins.zsh # Generated file containing all plugin code
 
-# Zephyr core - Core framework functionality and initialization
-zstyle ':zephyr:core' load-core-functions-only yes # Only load essential functions for better performance
-
 # Color - Terminal color support and configuration
 zstyle ':zephyr:plugin:color' use-cache true # Cache color settings for faster startup
 
@@ -41,9 +38,6 @@ zstyle ':zephyr:plugin:homebrew' use-cache true # Cache Homebrew environment for
 # Prompt - Interactive prompt system and theme management
 zstyle ':zephyr:plugin:prompt' theme 'starship' # Use starship prompt (requires starship to be installed)
 zstyle ':zephyr:plugin:prompt' use-cache true   # Cache prompt initialization for faster startup
-
-# Utility - Enhanced command utilities and safety features
-zstyle ':zephyr:plugin:utility' safe-ops yes # Confirm potentially dangerous operations (like rm -rf *)
 
 # Docker - Container management and orchestration integration
 zstyle ':completion:*:*:docker:*' option-stacking yes   # Allow stacking options in docker commands
