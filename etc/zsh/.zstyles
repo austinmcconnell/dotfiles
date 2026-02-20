@@ -4,9 +4,6 @@
 #
 
 # Antidote - Plugin manager for zsh
-zstyle ':antidote:bundle' path $ZDOTDIR/.antidote        # Directory where plugins will be cloned
-zstyle ':antidote:bundle' use-friendly-names 'yes'       # Use plugin name instead of full URL (obsolete after antidote 2.0)
-zstyle ':antidote:bundle' parallel yes                   # Load plugins in parallel for faster startup
 zstyle ':antidote:static' zcompile on                    # Compile plugins to .zwc files for faster loading
 zstyle ':antidote:static' refresh-on-update true         # Recompile plugins when they're updated
 zstyle ':antidote:bundle' file $ZDOTDIR/.zsh_plugins.txt # File listing plugins to be loaded
