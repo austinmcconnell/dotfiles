@@ -19,14 +19,10 @@ zstyle ':zephyr:core' load-core-functions-only yes # Only load essential functio
 zstyle ':zephyr:plugin:color' use-cache true # Cache color settings for faster startup
 
 # Completion - Intelligent tab completion and suggestion system
-zstyle ':zephyr:plugin:completion' force-rehash yes                    # Rehash command paths when new commands are installed
-zstyle ':zephyr:plugin:completion:*' use-cache yes                     # Cache completion for faster startup
-zstyle ':zephyr:plugin:completion:*' cache-path "$ZDOTDIR/.zcompcache" # Where to store completion cache
+zstyle ':zephyr:plugin:completion' use-cache yes # Cache completion for faster startup
 
 # Compstyle - Completion styling system
-zstyle ':zephyr:plugin:compstyle:*' style 'zephyr'       # Use the default Zephyr style
 zstyle ':zephyr:plugin:compstyle:*' case-sensitive false # Case-insensitive completion
-zstyle ':zephyr:plugin:compstyle:*' use-cache true       # Cache compstyle settings for faster startup
 
 # Confd - Configuration directory management and loading
 zstyle ':zephyr:plugin:confd' directory $ZDOTDIR/conf.d # Directory containing additional config files
