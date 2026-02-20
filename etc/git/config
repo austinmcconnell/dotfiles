@@ -4,13 +4,13 @@
     signingkey = ~/.ssh/id_personal
 
 [push]
-    default = simple
+    # default = simple  # Redundant (Git default since 2.0), autoSetupRemote handles convenience
     followTags = true
     autoSetupRemote = true
     useForceIfIncludes = true
 
 [merge]
-    ff = only
+    ff = only  # Linear history via rebase workflow (rebase feature branches onto main, never merge main into feature)
     conflictstyle = zdiff3  # Shows base version with cleaner conflict markers
     tool = vimdiff
 
@@ -39,7 +39,7 @@
     history = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%n%-N' --show-notes=*
     # Undo last commit and keep changes staged
     undo = "reset --soft HEAD^"
-    # Stash changes as a WIP commit
+    # Stash changes as a WIP commit (preferred over git stash - survives rebases, visible in log)
     wip = "!git add . && git commit -m 'wip' --no-verify"
     # Select modified files to edit
     edit = "!git ls-files --modified --other --exclude-standard | sort --unique | fzf --exit-0 --multi --preview 'git diff --color {}' | xargs --no-run-if-empty --open-tty $EDITOR"
@@ -60,6 +60,13 @@
 [init]
     templatedir = ~/.config/git/templates
     defaultBranch = main
+    defaultRefFormat = reftable
+
+[branch]
+    sort = refname  # Alphabetical sorting (explicit default)
+
+[column]
+    ui = never  # Disable column output (explicit default)
 
 [commit]
     gpgsign = true
@@ -73,7 +80,6 @@
     format = ssh
 
 [pull]
-    ff = only
     rebase = true
 
 [rebase]
@@ -97,6 +103,9 @@
 
 [advice]
     skippedCherryPicks = false
+
+[help]
+    autocorrect = never  # Explicit default: show suggestions only, no auto-run or prompts
 
 ############################################################
 # Start delta-specific settings
@@ -131,8 +140,6 @@
 [diff]
     algorithm = histogram
     colorMoved = default
-    compactionHeuristic = true
-    indentHeuristic = true
     mnemonicPrefix = true
     renames = copies
     wordRegex = "[^[:space:]\":#]+"  # Exclude quotes, colons, hash from word boundaries
