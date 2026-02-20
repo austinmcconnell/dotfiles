@@ -7,9 +7,6 @@
 # Environment Variables
 ##############################
 
-# Pyenv
-export PYENV_ROOT="$XDG_DATA_HOME/pyenv"
-
 # Add pyenv to PATH early to ensure it's available
 if [[ -d "$PYENV_ROOT/bin" ]]; then
   export PATH="$PYENV_ROOT/bin:$PATH"

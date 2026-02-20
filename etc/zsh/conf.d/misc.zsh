@@ -41,14 +41,8 @@ export OMNISHARPHOME="$XDG_DATA_HOME/omnisharp"
 # wget
 export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
 
-# fnm
-export FNM_PATH="/Users/$(whoami)/.local/share/fnm"
-
 # Kubernetes
 export KUBE_PS1_SYMBOL_ENABLE=false
 export KUBE_PS1_NS_COLOR=yellow
 export KUBE_PS1_CTX_COLOR=yellow
 export KUBE_PS1_CLUSTER_FUNCTION=get_cluster_short
-
-# zsh-abbr
-export ABBR_USER_ABBREVIATIONS_FILE="$DOTFILES_DIR/etc/zsh/zsh-abbr/user-abbreviations"

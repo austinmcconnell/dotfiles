@@ -7,9 +7,6 @@
 # Environment Variables
 ##############################
 
-# FNM (Fast Node Manager)
-export FNM_PATH="$XDG_DATA_HOME/fnm"
-
 # Initialize fnm if it exists
 if [[ -d "$FNM_PATH" ]]; then
   export PATH="$FNM_PATH:$PATH"

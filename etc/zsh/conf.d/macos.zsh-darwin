@@ -8,13 +8,6 @@
 # Environment Variables
 ##############################
 
-# macOS runtime directory
-export XDG_RUNTIME_DIR="${TMPDIR}user-${UID}"
-if [[ ! -d "$XDG_RUNTIME_DIR" ]]; then
-    mkdir -p "$XDG_RUNTIME_DIR"
-    chmod 0700 "$XDG_RUNTIME_DIR"
-fi
-
 # FZF clipboard integration (macOS specific)
 export FZF_CTRL_R_OPTS="--bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' --color header:italic --header 'Press CTRL-Y to copy command into clipboard'"
 

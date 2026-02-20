@@ -7,9 +7,6 @@
 # Environment Variables
 ##############################
 
-# rbenv
-export RBENV_ROOT="$XDG_DATA_HOME/rbenv"
-
 # Add rbenv to PATH early to ensure it's available
 if [[ -d "$RBENV_ROOT/bin" ]]; then
     export PATH="$RBENV_ROOT/bin:$PATH"
