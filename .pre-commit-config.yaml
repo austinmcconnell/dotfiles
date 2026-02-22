@@ -41,15 +41,22 @@ repos:
         entry: shellcheck
         types: [shell]
         exclude_types: ["zsh"]
-      # Prettier for Sublime Text settings files only
+      # Prettier for Sublime Text settings files
       # Uses .prettierrc.json (4 spaces, specific JSON formatting for Sublime)
-      # Note: Vim uses etc/node/prettier.toml for markdown/other files (2 spaces)
-      - id: prettier
-        name: prettier
+      - id: prettier-sublime
+        name: prettier (sublime settings)
         language: node
         entry: prettier
         args: ["--write", "--config", ".prettierrc.json"]
         files: \.(sublime-settings$)
+      # Prettier for markdown files
+      # Uses etc/node/prettier.toml (2 spaces, 100 char wrap, consistent with Vim/Sublime)
+      - id: prettier-markdown
+        name: prettier (markdown)
+        language: node
+        entry: prettier
+        args: ["--write", "--config", "etc/node/prettier.toml"]
+        files: \.(md|markdown)$
   # - repo: https://github.com/btford/write-good
   #   rev: v1.0.4
   #   hooks:
@@ -80,5 +87,5 @@ repos:
   - repo: https://github.com/igorshubovych/markdownlint-cli
     rev: v0.41.0
     hooks:
-      - id: markdownlint-fix
+      - id: markdownlint
         args: ["--config", "~/.markdownlintrc"]
