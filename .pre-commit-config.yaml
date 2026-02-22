@@ -41,6 +41,9 @@ repos:
         entry: shellcheck
         types: [shell]
         exclude_types: ["zsh"]
+      # Prettier for Sublime Text settings files only
+      # Uses .prettierrc.json (4 spaces, specific JSON formatting for Sublime)
+      # Note: Vim uses etc/node/prettier.toml for markdown/other files (2 spaces)
       - id: prettier
         name: prettier
         language: node
