@@ -1,6 +1,7 @@
 # Zephyr Plugins Configuration
 
-This document outlines the available zsh options and zstyles for each plugin in the Zephyr framework.
+This document outlines the available zsh options and zstyles for each plugin in the Zephyr
+framework.
 
 ## Table of Contents
 

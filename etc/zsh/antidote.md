@@ -71,12 +71,12 @@ https://github.com/romkatv/powerlevel10k
 
 ### Bundle Parameters
 
-| Parameter | Description | Example |
-|-----------|-------------|---------|
-| `path:` | Subdirectory to load | `path:plugins/git` |
-| `branch:` | Git reference to use | `branch:develop` |
-| `kind:` | Loading behavior | `kind:defer` |
-| `pick:` | Specific files to source | `pick:theme.zsh` |
+| Parameter | Description              | Example            |
+| --------- | ------------------------ | ------------------ |
+| `path:`   | Subdirectory to load     | `path:plugins/git` |
+| `branch:` | Git reference to use     | `branch:develop`   |
+| `kind:`   | Loading behavior         | `kind:defer`       |
+| `pick:`   | Specific files to source | `pick:theme.zsh`   |
 
 ### Loading Kinds
 
@@ -98,18 +98,18 @@ antidote [command] [options]
 
 ### Core Commands
 
-| Command | Description |
-|---------|-------------|
-| `bundle` | Generate static load script from bundle file |
-| `help` | Show help information |
-| `home` | Print or change the antidote home directory |
-| `init` | Initialize antidote |
-| `install` | Install a plugin |
-| `list` | List installed plugins |
-| `load` | Load plugins from a bundle file |
-| `path` | Print the path to a plugin |
-| `purge` | Remove a plugin |
-| `update` | Update plugins |
+| Command   | Description                                  |
+| --------- | -------------------------------------------- |
+| `bundle`  | Generate static load script from bundle file |
+| `help`    | Show help information                        |
+| `home`    | Print or change the antidote home directory  |
+| `init`    | Initialize antidote                          |
+| `install` | Install a plugin                             |
+| `list`    | List installed plugins                       |
+| `load`    | Load plugins from a bundle file              |
+| `path`    | Print the path to a plugin                   |
+| `purge`   | Remove a plugin                              |
+| `update`  | Update plugins                               |
 
 ## Performance Optimization
 
@@ -187,7 +187,8 @@ zstyle ':antidote:compatibility-mode' 'antibody' 'on'
 
 ## Integration with Zsh Frameworks
 
-Antidote works well with Zsh frameworks like Zephyr. It can be used to load framework components selectively:
+Antidote works well with Zsh frameworks like Zephyr. It can be used to load framework components
+selectively:
 
 ```conf
 # .zsh_plugins.txt

@@ -124,15 +124,15 @@ aws-sso-util login --browser-type none
 
 ## Comparison with Native AWS CLI SSO
 
-| Feature | Native AWS CLI | aws-sso-util |
-|---------|---------------|--------------|
-| Profile creation | Manual, one at a time | Bulk creation for all accounts/roles |
-| Profile naming | Manual configuration | Templated naming schemes |
-| Login process | Per profile or shared | Single login for all profiles |
-| Session management | Limited visibility | Enhanced session management |
-| Official support | AWS supported | Community maintained |
-| Dependencies | AWS CLI only | Requires Python/pip |
-| Role chaining | Basic support | Enhanced support |
+| Feature            | Native AWS CLI        | aws-sso-util                         |
+| ------------------ | --------------------- | ------------------------------------ |
+| Profile creation   | Manual, one at a time | Bulk creation for all accounts/roles |
+| Profile naming     | Manual configuration  | Templated naming schemes             |
+| Login process      | Per profile or shared | Single login for all profiles        |
+| Session management | Limited visibility    | Enhanced session management          |
+| Official support   | AWS supported         | Community maintained                 |
+| Dependencies       | AWS CLI only          | Requires Python/pip                  |
+| Role chaining      | Basic support         | Enhanced support                     |
 
 ## Related Resources
 

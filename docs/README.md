@@ -1,13 +1,14 @@
 # Dotfiles Documentation
 
-Welcome to the documentation for the dotfiles repository. This documentation provides detailed information
-about the structure, installation, and customization of the dotfiles system.
+Welcome to the documentation for the dotfiles repository. This documentation provides detailed
+information about the structure, installation, and customization of the dotfiles system.
 
 ## Table of Contents
 
 1. [Getting Started](GettingStarted.md) - Philosophy, repository structure, and core components
 2. [Installation Guide](InstallationGuide.md) - Detailed installation instructions
-3. [Package Management](PackageManagement.md) - How package management works across different systems
+3. [Package Management](PackageManagement.md) - How package management works across different
+   systems
 4. [Customization Guide](CustomizationGuide.md) - How to customize the dotfiles for your needs
 5. [Amazon Q Integration](AmazonQIntegration.md) - How Amazon Q is integrated and configured
 

@@ -1,14 +1,14 @@
 # Vim Configuration
 
-A comprehensive, modern Vim configuration optimized for cross-platform development with
-Git-centric workflows and auto-saving capabilities.
+A comprehensive, modern Vim configuration optimized for cross-platform development with Git-centric
+workflows and auto-saving capabilities.
 
 ## Philosophy
 
 - **Git-centric**: Integrated Git workflow with status indicators and branch information
 - **Auto-saving**: Automatic file writing with undo history persistence
-- **Comprehensive tooling**: Full-featured development environment with linting, completion,
-  and navigation
+- **Comprehensive tooling**: Full-featured development environment with linting, completion, and
+  navigation
 - **Cross-platform**: Works consistently across macOS, Linux, and other Unix-like systems
 
 ## Directory Structure
@@ -29,13 +29,13 @@ etc/vim/
 
 ### Core Configuration (.vimrc)
 
-The main configuration follows a structured approach with automatic plugin management via
-vim-plug. Contains general settings, UI configuration, editing behavior, and navigation setup.
+The main configuration follows a structured approach with automatic plugin management via vim-plug.
+Contains general settings, UI configuration, editing behavior, and navigation setup.
 
 ### Plugin System
 
-Modular plugin configuration with each plugin having its own file in `plugin/` directory.
-Key categories include:
+Modular plugin configuration with each plugin having its own file in `plugin/` directory. Key
+categories include:
 
 - **Development**: Linting (ALE), completion, Git integration, file navigation
 - **Editing**: Auto-pairs, commenting, undo management, text objects
@@ -65,5 +65,5 @@ Language-specific configurations in `after/ftplugin/` override defaults for:
 - **Custom syntax**: Check `syntax/` and `filetype.vim` for special file types
 - **Spell checking**: Custom dictionary in `spell/en.utf-8.add`
 
-This configuration provides a complete development environment while maintaining Vim's
-philosophy of efficiency and keyboard-driven workflows.
+This configuration provides a complete development environment while maintaining Vim's philosophy of
+efficiency and keyboard-driven workflows.

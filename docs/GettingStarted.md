@@ -46,8 +46,8 @@ The `dotfiles` command provides a unified interface for managing your dotfiles:
 
 ### Configuration Files
 
-Configuration files in the `etc/` directory are symlinked to their appropriate locations in your home
-directory. This allows you to:
+Configuration files in the `etc/` directory are symlinked to their appropriate locations in your
+home directory. This allows you to:
 
 1. Keep all configurations in one place
 2. Track changes with git

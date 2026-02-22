@@ -1,7 +1,7 @@
 # Tool Configurations
 
-This document provides detailed information about the purpose and configuration options for each tool
-in the `etc/` directory of the dotfiles repository.
+This document provides detailed information about the purpose and configuration options for each
+tool in the `etc/` directory of the dotfiles repository.
 
 ## Table of Contents
 
@@ -36,8 +36,8 @@ in the `etc/` directory of the dotfiles repository.
 
 ## ag (The Silver Searcher)
 
-The Silver Searcher is a code-searching tool similar to `ack` but faster. It helps you search through
-codebases quickly with support for regular expressions.
+The Silver Searcher is a code-searching tool similar to `ack` but faster. It helps you search
+through codebases quickly with support for regular expressions.
 
 Configuration options include:
 
@@ -73,8 +73,8 @@ Configuration options include:
 
 ## direnv
 
-direnv is an environment switcher that automatically loads and unloads environment variables depending
-on the current directory, making project-specific environments easier to manage.
+direnv is an environment switcher that automatically loads and unloads environment variables
+depending on the current directory, making project-specific environments easier to manage.
 
 Configuration options include:
 
@@ -85,8 +85,8 @@ Configuration options include:
 
 ## fd
 
-`fd` is a simple, fast, and user-friendly alternative to the `find` command, optimized for
-developer workflows.
+`fd` is a simple, fast, and user-friendly alternative to the `find` command, optimized for developer
+workflows.
 
 Configuration options include:
 
@@ -97,8 +97,8 @@ Configuration options include:
 
 ## Git
 
-Git is a distributed version control system. The configuration in this directory manages Git behavior,
-aliases, and templates.
+Git is a distributed version control system. The configuration in this directory manages Git
+behavior, aliases, and templates.
 
 Configuration options include:
 
@@ -112,8 +112,8 @@ Configuration options include:
 
 ## Glow
 
-Glow is a terminal-based markdown reader designed for the command line, featuring syntax highlighting
-and a clean interface for viewing markdown documents.
+Glow is a terminal-based markdown reader designed for the command line, featuring syntax
+highlighting and a clean interface for viewing markdown documents.
 
 Configuration options include:
 
@@ -126,8 +126,8 @@ Configuration options include:
 
 ## HTTPie
 
-HTTPie is a command-line HTTP client that makes CLI interaction with web services as
-user-friendly as possible.
+HTTPie is a command-line HTTP client that makes CLI interaction with web services as user-friendly
+as possible.
 
 Configuration options include:
 
@@ -192,8 +192,8 @@ Configuration options include:
 
 ## Python
 
-Python development environment configuration, including package management and virtual
-environment settings.
+Python development environment configuration, including package management and virtual environment
+settings.
 
 Configuration options include:
 
@@ -216,8 +216,8 @@ Configuration options include:
 
 ## Spaceship
 
-Spaceship is a prompt for Zsh that displays information about the current directory, Git status,
-and more in a clean, minimal way.
+Spaceship is a prompt for Zsh that displays information about the current directory, Git status, and
+more in a clean, minimal way.
 
 Configuration options include:
 

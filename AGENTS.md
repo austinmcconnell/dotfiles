@@ -73,8 +73,8 @@ works across fresh macOS installations.
 
 1. **Understand the loading order** - Changes in `.zshenv` affect all shells, `.zshrc` only
    interactive
-2. **Use conf.d for new features** - Add topic-specific files to `etc/zsh/conf.d/` (loaded by
-   Zephyr confd plugin)
+2. **Use conf.d for new features** - Add topic-specific files to `etc/zsh/conf.d/` (loaded by Zephyr
+   confd plugin)
 3. **Update plugin manifest** - Edit `.zsh_plugins.txt` and regenerate static file with
    `antidote bundle`
 4. **Test startup performance** - Use `ZSH_PROFILE_RC=1 zsh` to profile startup time
@@ -103,7 +103,7 @@ works across fresh macOS installations.
 
 1. **Understand the modular structure** - Each plugin has its own config file in `etc/vim/plugin/`
 2. **Modify plugin configs, not .vimrc** - Keep `.vimrc` for general settings, use `plugin/` for
-plugin-specific configs
+   plugin-specific configs
 3. **Language-specific settings** - Add overrides to `etc/vim/after/ftplugin/{language}.vim`
 4. **ALE linter/fixer changes** - Edit `etc/vim/plugin/ale.vim` for language tool configurations
 5. **Test changes immediately** - Reload vim with `:source ~/.vim/vimrc` or restart vim

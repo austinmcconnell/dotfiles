@@ -22,6 +22,7 @@
 ## Search and Navigation
 
 - [FZF](https://github.com/junegunn/fzf.vim)
+
   - `<C-p>`: Launch Files finder
   - `;b`: Open buffer selector
   - Open selected file:
@@ -75,8 +76,8 @@
   - `[w`: go to previous warning/error
   - `[W`: go to first warning/error
   - `]W`: go to last warning/error
-  - Supports: Python (pylint, pyright), Ruby (rubocop), Shell (shellcheck, bashate),
-    Terraform, YAML, JSON, Markdown, and more
+  - Supports: Python (pylint, pyright), Ruby (rubocop), Shell (shellcheck, bashate), Terraform,
+    YAML, JSON, Markdown, and more
 - [Auto Pairs](https://github.com/jiangmiao/auto-pairs)
   - Automatically closes brackets, quotes, and parentheses
 - [Nerd Commenter](https://github.com/preservim/nerdcommenter)

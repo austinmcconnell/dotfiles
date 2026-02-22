@@ -59,22 +59,22 @@ Zephyr's plugin system is the core of its modularity. Each plugin:
 
 Zephyr includes the following core plugins:
 
-| Plugin | Description |
-|--------|-------------|
-| `color` | Terminal color support and configuration |
-| `completion` | Zsh's powerful completion system |
-| `compstyle` | Completion styling and configuration |
-| `confd` | Fish-like configuration directory support |
-| `directory` | Directory navigation and management |
-| `editor` | Keybindings and editor integration |
-| `environment` | Environment variable management |
-| `helper` | Internal helper functions |
-| `history` | Command history configuration |
-| `homebrew` | Homebrew integration for macOS |
-| `macos` | macOS-specific functionality |
-| `prompt` | Prompt configuration (with optional Starship support) |
-| `utility` | Common shell utilities and functions |
-| `zfunctions` | Fish-like function autoloading |
+| Plugin        | Description                                           |
+| ------------- | ----------------------------------------------------- |
+| `color`       | Terminal color support and configuration              |
+| `completion`  | Zsh's powerful completion system                      |
+| `compstyle`   | Completion styling and configuration                  |
+| `confd`       | Fish-like configuration directory support             |
+| `directory`   | Directory navigation and management                   |
+| `editor`      | Keybindings and editor integration                    |
+| `environment` | Environment variable management                       |
+| `helper`      | Internal helper functions                             |
+| `history`     | Command history configuration                         |
+| `homebrew`    | Homebrew integration for macOS                        |
+| `macos`       | macOS-specific functionality                          |
+| `prompt`      | Prompt configuration (with optional Starship support) |
+| `utility`     | Common shell utilities and functions                  |
+| `zfunctions`  | Fish-like function autoloading                        |
 
 ### Plugin Structure
 
@@ -107,7 +107,8 @@ zstyle ':zephyr:plugin:editor' key-bindings 'emacs'
 
 ### Post-Initialization Hooks
 
-Zephyr provides a post-initialization hook system that allows code to run after Zsh is fully initialized:
+Zephyr provides a post-initialization hook system that allows code to run after Zsh is fully
+initialized:
 
 ```zsh
 # Add functions to the post_zshrc hook

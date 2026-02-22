@@ -115,8 +115,8 @@ aws ec2 describe-instances --profile account2-developer
 
 ## Session Duration
 
-By default, SSO sessions last for 8 hours. After expiration, you'll need to log in again
-using `aws sso login`.
+By default, SSO sessions last for 8 hours. After expiration, you'll need to log in again using
+`aws sso login`.
 
 ## Troubleshooting
 
@@ -132,8 +132,8 @@ Run `aws sso login` again to refresh your token.
 
 ### Multiple SSO Configurations
 
-If you have access to multiple SSO providers, ensure you're using the correct SSO start URL for
-your organization.
+If you have access to multiple SSO providers, ensure you're using the correct SSO start URL for your
+organization.
 
 ### Credential Process Alternative
 

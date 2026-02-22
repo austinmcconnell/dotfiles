@@ -1,6 +1,7 @@
 # Customization Guide
 
-This guide explains how to customize your dotfiles setup to match your specific needs and preferences.
+This guide explains how to customize your dotfiles setup to match your specific needs and
+preferences.
 
 ## Overview
 
@@ -67,13 +68,13 @@ export PATH="$HOME/.local/bin:$PATH"
 
 ## Work vs. Personal Configuration
 
-The dotfiles repository distinguishes between work and personal environments through the `IS_WORK_COMPUTER`
-environment variable, which is set during installation.
+The dotfiles repository distinguishes between work and personal environments through the
+`IS_WORK_COMPUTER` environment variable, which is set during installation.
 
 ### Checking Work Status in Scripts
 
-You can use the `is-work` utility function in your scripts to conditionally execute code based on whether
-it's a work or personal computer:
+You can use the `is-work` utility function in your scripts to conditionally execute code based on
+whether it's a work or personal computer:
 
 ```bash
 if is-work; then
@@ -167,8 +168,8 @@ You can customize the Dock by modifying the appropriate Dock script:
 
 ### System Defaults
 
-To customize macOS system defaults, modify the `~/.dotfiles/macos/defaults.sh` file or create a new file
-with the pattern `defaults-*.sh` in the `macos` directory.
+To customize macOS system defaults, modify the `~/.dotfiles/macos/defaults.sh` file or create a new
+file with the pattern `defaults-*.sh` in the `macos` directory.
 
 ## Extending the `dotfiles` Command
 
@@ -197,4 +198,5 @@ sub_help() {
 2. **Document Customizations**: Add comments to your custom scripts and configurations
 3. **Keep It Modular**: Create separate files for different functionalities
 4. **Use Version Control**: Commit changes to your dotfiles repository regularly
-5. **Backup Before Changes**: Always backup important configurations before making significant changes
+5. **Backup Before Changes**: Always backup important configurations before making significant
+   changes

@@ -39,8 +39,8 @@ Target: senior engineers who are experienced but new to this domain.
 
 ## Background
 
-Explain the ecosystem, typical stack components, and constraints (e.g., frameworks, infra, databases).
-Introduce key vocabulary and frame the high-level trade-offs.
+Explain the ecosystem, typical stack components, and constraints (e.g., frameworks, infra,
+databases). Introduce key vocabulary and frame the high-level trade-offs.
 
 ---
 
@@ -48,7 +48,8 @@ Introduce key vocabulary and frame the high-level trade-offs.
 
 - **Principle 1 — [Name]:** Short explanation of the rule or guideline.
 - **Principle 2 — [Name]:** Another guiding principle.
-- **Trade-offs:** Explicitly state where principles may conflict (e.g., performance vs. consistency).
+- **Trade-offs:** Explicitly state where principles may conflict (e.g., performance vs.
+  consistency).
 
 ---
 
@@ -105,8 +106,7 @@ Concrete platform/framework-specific details. Group by stack components. Example
 
 ## Recommendations
 
-A bulleted punch list of actionable best practices.
-E.g.:
+A bulleted punch list of actionable best practices. E.g.:
 
 - Always configure timeouts ladder-style (shortest → longest).
 - Reserve 30–40% of DB connections for admin/maintenance.
@@ -116,7 +116,6 @@ E.g.:
 
 ## Conclusion
 
-Tie the loop: how this topic fits into the broader System Design Standards.
-Reiterate key benefits (reliability, performance, scalability).
-End with a principle like: *“Design with failure in mind, and this practice becomes not a crutch
-but a foundation.”*
+Tie the loop: how this topic fits into the broader System Design Standards. Reiterate key benefits
+(reliability, performance, scalability). End with a principle like: _“Design with failure in mind,
+and this practice becomes not a crutch but a foundation.”_

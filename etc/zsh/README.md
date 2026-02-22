@@ -99,5 +99,5 @@ Topic-based configuration files loaded automatically:
 - Directory environment management with direnv
 - XDG Base Directory compliance for clean home directory
 
-This configuration provides a complete shell environment optimized for development workflows
-while maintaining fast startup times and extensibility for custom requirements.
+This configuration provides a complete shell environment optimized for development workflows while
+maintaining fast startup times and extensibility for custom requirements.

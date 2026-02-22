@@ -29,12 +29,13 @@
 
 ## Marks
 
-Vim has 26 "marks". A mark is set to any cursor location using the `m` command. Each mark
-is designated by a single lower case letter
+Vim has 26 "marks". A mark is set to any cursor location using the `m` command. Each mark is
+designated by a single lower case letter
 
-- `m{lowercase letter}`: set the {lowercase letter} mark to the current location in the current buffer
-- `m{uppercase letter}`: set the {lowercase letter} mark to the current location for that file (usable
-  from other buffers)
+- `m{lowercase letter}`: set the {lowercase letter} mark to the current location in the current
+  buffer
+- `m{uppercase letter}`: set the {lowercase letter} mark to the current location for that file
+  (usable from other buffers)
 - `'{letter}`: move to beginning of line containing the {letter} mark
 - `` `{letter}``: move to exact location of the {letter} mark
 - `:delmarks a`: delete mark a

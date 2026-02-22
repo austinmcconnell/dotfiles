@@ -30,7 +30,8 @@ fi
 
 #### Core Packages
 
-A set of core command-line utilities is installed regardless of whether it's a work or personal computer:
+A set of core command-line utilities is installed regardless of whether it's a work or personal
+computer:
 
 ```bash
 brew install coreutils
@@ -146,10 +147,11 @@ To clean up caches and remove unused packages, use the `dotfiles clean` command,
 
 To add new packages to your dotfiles:
 
-1. For system-wide packages, add them to the appropriate section in `install/brew.sh` or `install/apt.sh`
+1. For system-wide packages, add them to the appropriate section in `install/brew.sh` or
+   `install/apt.sh`
 2. For Python packages, add them to `install/python.sh`
 3. For Node.js packages, add them to `install/node.sh`
 4. For Vim plugins, add them to your `.vimrc` file
 
-Remember to test your changes by running the appropriate installation script or using the `dotfiles update`
-command.
+Remember to test your changes by running the appropriate installation script or using the
+`dotfiles update` command.

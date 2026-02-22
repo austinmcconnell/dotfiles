@@ -38,9 +38,11 @@ The configuration files are stored in:
 
 ### CLI Agents
 
-Kiro CLI uses specialized agents for different tasks. Each agent has its own configuration in `etc/kiro-cli/cli-agents/`:
+Kiro CLI uses specialized agents for different tasks. Each agent has its own configuration in
+`etc/kiro-cli/cli-agents/`:
 
-- **default.json** - General development assistant with AWS, database, and infrastructure capabilities
+- **default.json** - General development assistant with AWS, database, and infrastructure
+  capabilities
 - **jira.json** - JIRA-focused agent for SCRUM and user story management
 - **github.json** - GitHub-focused agent for repository and code management
 
@@ -79,9 +81,7 @@ To add a custom context:
 
    ```json
    {
-     "paths": [
-       "path/to/custom/documentation.md"
-     ]
+     "paths": ["path/to/custom/documentation.md"]
    }
    ```
 

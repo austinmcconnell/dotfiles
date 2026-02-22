@@ -2,38 +2,37 @@
 
 ## Executive Summary
 
-Caching is one of the strongest levers for performance, reliability, and cost efficiency.
-It reduces latency, absorbs traffic spikes, and shields databases from overload.
+Caching is one of the strongest levers for performance, reliability, and cost efficiency. It reduces
+latency, absorbs traffic spikes, and shields databases from overload.
 
-In modern services on Kubernetes with PostgreSQL-class databases, caching acts both as a
-shield and a scalpel. It protects backends from bursts and lets you carve down the hot path
-to sub-millisecond reads where appropriate.
+In modern services on Kubernetes with PostgreSQL-class databases, caching acts both as a shield and
+a scalpel. It protects backends from bursts and lets you carve down the hot path to sub-millisecond
+reads where appropriate.
 
-Poorly designed caching can cause correctness issues, inconsistency, and cascading failures.
-This paper explains fundamentals, architectural trade-offs, and best practices. It then
-offers concrete implementation guidance for Flask/FastAPI/Django behind Gunicorn/UVicorn,
-Kubernetes Ingress/Service/Deployments, AWS ALB or NGINX Ingress, and PostgreSQL or
-Aurora PostgreSQL.
+Poorly designed caching can cause correctness issues, inconsistency, and cascading failures. This
+paper explains fundamentals, architectural trade-offs, and best practices. It then offers concrete
+implementation guidance for Flask/FastAPI/Django behind Gunicorn/UVicorn, Kubernetes
+Ingress/Service/Deployments, AWS ALB or NGINX Ingress, and PostgreSQL or Aurora PostgreSQL.
 
 ---
 
 ## Background
 
-Cloud-native systems face high concurrency and variable traffic. They must deliver low
-latency under changing load.
+Cloud-native systems face high concurrency and variable traffic. They must deliver low latency under
+changing load.
 
-PostgreSQL provides strong guarantees, but it is bound by I/O and concurrency limits.
-Caching addresses this by absorbing read-heavy work, smoothing spikes, and isolating
-backends from unpredictable client behavior.
+PostgreSQL provides strong guarantees, but it is bound by I/O and concurrency limits. Caching
+addresses this by absorbing read-heavy work, smoothing spikes, and isolating backends from
+unpredictable client behavior.
 
 Relevant cache types in this ecosystem include:
 
-- **In-memory caches (per pod):** Fast, localized, and ephemeral. Good for very hot data.
-  Not shared across replicas.
-- **Distributed caches (Redis, Memcached):** Shared across pods, resilient to restarts,
-  with eviction policies and rich data structures.
-- **CDN/Edge caches (CloudFront, Fastly):** Cache static assets and cacheable API responses
-  close to clients to reduce latency and egress.
+- **In-memory caches (per pod):** Fast, localized, and ephemeral. Good for very hot data. Not shared
+  across replicas.
+- **Distributed caches (Redis, Memcached):** Shared across pods, resilient to restarts, with
+  eviction policies and rich data structures.
+- **CDN/Edge caches (CloudFront, Fastly):** Cache static assets and cacheable API responses close to
+  clients to reduce latency and egress.
 
 ---
 
@@ -42,10 +41,10 @@ Relevant cache types in this ecosystem include:
 ### Principle 1: Cache Where It Counts
 
 - **Client-side caches** reduce network hops but can increase staleness risk.
-- **Pod-local caches** (for example, `functools.lru_cache` or `aiocache`) provide
-  microsecond reads. Horizontal scaling weakens their consistency.
-- **Distributed caches** (for example, Redis on ElastiCache) trade a small amount of latency
-  for shared correctness across pods.
+- **Pod-local caches** (for example, `functools.lru_cache` or `aiocache`) provide microsecond reads.
+  Horizontal scaling weakens their consistency.
+- **Distributed caches** (for example, Redis on ElastiCache) trade a small amount of latency for
+  shared correctness across pods.
 
 ### Principle 2: Embrace Cache Invalidation
 
@@ -66,8 +65,8 @@ Relevant cache types in this ecosystem include:
 
 ### Trade-offs
 
-- **Consistency vs. Performance:** Freshness needs frequent invalidation. Performance prefers
-  longer TTLs.
+- **Consistency vs. Performance:** Freshness needs frequent invalidation. Performance prefers longer
+  TTLs.
 - **Local vs. Distributed:** Local caches are faster. Distributed caches offer cross-pod
   correctness.
 - **Cost vs. Reliability:** Larger caches cut DB load. They also add infra cost and complexity.
@@ -125,8 +124,8 @@ async def get_or_set(key, fetch_func, ttl=60):
 
 ## Anti-Patterns
 
-1. **Cache stampede:** Many clients hammer the DB after TTL expiry. Mitigate with coalescing
-   and jittered TTLs.
+1. **Cache stampede:** Many clients hammer the DB after TTL expiry. Mitigate with coalescing and
+   jittered TTLs.
 2. **Unbounded local caches:** Per-pod dicts without eviction cause memory bloat and OOM kills.
 3. **Blind writes:** Overwriting cache without a clear invalidation plan leads to stale data.
 4. **Over-caching:** Caching every query without studying hit ratios wastes memory and time.
@@ -193,8 +192,7 @@ maxmemory 2gb
 maxmemory-policy allkeys-lru
 ```
 
-- **Monitoring:** Track `evicted_keys`, `keyspace_hits`, `keyspace_misses`, and latency
-  percentiles.
+- **Monitoring:** Track `evicted_keys`, `keyspace_hits`, `keyspace_misses`, and latency percentiles.
 - **Topology:** Use Redis Cluster or ElastiCache for sharding and failover.
 
 ### PostgreSQL and Aurora
@@ -228,10 +226,9 @@ REFRESH MATERIALIZED VIEW recent_orders;
 
 ## Conclusion
 
-Caching balances performance, consistency, and reliability.
-With PostgreSQL as the source of truth and Kubernetes or AWS as the substrate, caches
-form a critical protective layer.
+Caching balances performance, consistency, and reliability. With PostgreSQL as the source of truth
+and Kubernetes or AWS as the substrate, caches form a critical protective layer.
 
-By layering caches, coalescing requests, and instrumenting aggressively, teams can deliver
-fast and resilient systems. The most dangerous cache is the one you cannot see. Make
-instrumentation and failure testing as important as code and configuration.
+By layering caches, coalescing requests, and instrumenting aggressively, teams can deliver fast and
+resilient systems. The most dangerous cache is the one you cannot see. Make instrumentation and
+failure testing as important as code and configuration.

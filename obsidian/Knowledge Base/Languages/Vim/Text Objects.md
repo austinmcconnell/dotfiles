@@ -1,6 +1,7 @@
 # Text Objects
 
-Use Text objects in commands by specifying a modifier and then the text-object itself (like `{a|i}{text-object}`)
+Use Text objects in commands by specifying a modifier and then the text-object itself (like
+`{a|i}{text-object}`)
 
 ## Modifiers
 
@@ -24,8 +25,8 @@ Use Text objects in commands by specifying a modifier and then the text-object i
 ### word vs WORD
 
 - A `word` is delimited by _non-keyword_ characters, which are configurable. Whitespace characters
-  and other characters (like `()[],-`) are not keywords. Therefore, a word
-  usually is smaller than a WORD; the word-navigation is more fine-grained.
+  and other characters (like `()[],-`) are not keywords. Therefore, a word usually is smaller than a
+  WORD; the word-navigation is more fine-grained.
 - A WORD is always delimited by _whitespace_.
 
 Example:

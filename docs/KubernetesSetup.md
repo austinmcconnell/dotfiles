@@ -4,9 +4,9 @@ This guide explains how to use the modular Kubernetes setup in the dotfiles repo
 
 ## Overview
 
-The Kubernetes setup provides a modular, configurable local Kubernetes environment using
-Kind (Kubernetes in Docker). The setup includes several components that can be enabled or
-disabled as needed:
+The Kubernetes setup provides a modular, configurable local Kubernetes environment using Kind
+(Kubernetes in Docker). The setup includes several components that can be enabled or disabled as
+needed:
 
 - **MetalLB**: Load balancer implementation for Kubernetes
 - **Ingress NGINX**: Ingress controller for routing external traffic
@@ -23,8 +23,8 @@ cd ~/.dotfiles
 ./install/kubernetes.sh
 ```
 
-This will install all necessary tools and set up a Kind cluster with the components enabled in
-your configuration.
+This will install all necessary tools and set up a Kind cluster with the components enabled in your
+configuration.
 
 ## Configuration
 
@@ -73,13 +73,14 @@ proper formatting.
 The Kind cluster is configured with system resource reservations to ensure stability:
 
 - **Control Plane Node**:
+
   - System reservation: 1GB memory and 500m CPU
 
 - **Worker Nodes**:
   - System reservation: 512MB memory and 250m CPU
 
-These reservations ensure that the Kubernetes system components have dedicated resources.
-You can adjust these settings in the `~/.dotfiles/etc/kind/cluster-config.yaml` file if needed.
+These reservations ensure that the Kubernetes system components have dedicated resources. You can
+adjust these settings in the `~/.dotfiles/etc/kind/cluster-config.yaml` file if needed.
 
 ## Advanced Usage
 
@@ -97,8 +98,8 @@ source ~/.dotfiles/install/kubernetes/components/metallb.sh
 
 ### Custom Domain
 
-By default, the setup uses `dev.test` as the local domain. You can change this by editing
-the `.env` file:
+By default, the setup uses `dev.test` as the local domain. You can change this by editing the `.env`
+file:
 
 ```bash
 # Using the k8s-config CLI to update the domain
@@ -125,7 +126,7 @@ sh ~/.dotfiles/etc/kind/test/test-metallb.sh
 2. **Port conflicts**: If ports are already in use, the setup may fail
 3. **Network issues**: If you have VPN software running, it may interfere with the network setup
 4. **Resource constraints**: If your system is low on resources, try reducing the system
-reservations in the cluster configuration
+   reservations in the cluster configuration
 
 ### Logs and Debugging
 
