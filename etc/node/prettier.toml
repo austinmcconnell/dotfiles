@@ -5,6 +5,12 @@
 # Use 2-space indentation for markdown (standard convention)
 tabWidth = 2
 
+# Wrap lines at 100 characters
+printWidth = 100
+
+# Wrap markdown prose
+proseWrap = "always"
+
 # Don't add semicolons in JavaScript
 semi = false
 
