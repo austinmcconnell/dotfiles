@@ -1,6 +1,5 @@
 {
-  "default": true,
-  "line-length": false,
+  "extends": "markdownlint/style/prettier",
   "MD007": {
     "indent": 2
   },

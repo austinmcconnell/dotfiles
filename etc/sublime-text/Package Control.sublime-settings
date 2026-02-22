@@ -3,6 +3,7 @@
     "in_process_packages": [],
     "installed_packages": [
         "everforest-sublime",
+        "JsPrettier",
         "Nord",
         "Package Control",
         "Pretty JSON",

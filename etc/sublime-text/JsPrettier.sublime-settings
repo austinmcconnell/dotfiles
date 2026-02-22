@@ -1,0 +1,9 @@
+{
+    "auto_format_on_save": true,
+    "auto_format_on_save_excludes": [],
+    "prettier_cli_path": "~/.local/share/npm/bin/prettier",
+    "node_path": "~/.local/share/fnm/aliases/default/bin/node",
+    "additional_cli_args": {
+        "--config": "~/.config/prettier.toml"
+    }
+}
