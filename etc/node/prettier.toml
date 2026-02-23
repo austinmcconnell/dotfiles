@@ -9,7 +9,7 @@ tabWidth = 2
 printWidth = 100
 
 # Wrap markdown prose
-proseWrap = "always"
+proseWrap = "preserve"
 
 # Don't add semicolons in JavaScript
 semi = false
