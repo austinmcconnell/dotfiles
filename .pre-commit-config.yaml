@@ -42,7 +42,7 @@ repos:
         language: node
         entry: prettier
         args: ["--write", "--config", "etc/node/prettier.toml"]
-        files: \.(json|sublime-settings|md|markdown)$
+        files: \.(json|sublime-settings|md|markdown|yaml|yml)$
         exclude: (obsidian|etc/kiro-cli/)
   # - repo: https://github.com/btford/write-good
   #   rev: v1.0.4
@@ -76,3 +76,8 @@ repos:
     hooks:
       - id: markdownlint
         args: ["--config", "~/.markdownlintrc"]
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.35.1
+    hooks:
+      - id: yamllint
+        args: ["-c", "etc/yaml/yamllint"]
