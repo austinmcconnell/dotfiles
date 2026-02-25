@@ -38,7 +38,7 @@ let g:ale_linters = {
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'go': ['gofmt', 'goimports'],
-\   'json': ['jq', 'prettier'],
+\   'json': ['prettier'],
 \   'markdown': ['prettier'],
 \   'python': ['isort', 'yapf', 'autoflake'],
 \   'ruby': ['rubocop'],

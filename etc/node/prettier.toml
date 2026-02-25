@@ -1,4 +1,4 @@
-# Prettier configuration for Vim ALE (used for markdown and other files)
+# Prettier configuration for Vim ALE and Sublime Text
 # Note: A separate .prettierrc.json exists for pre-commit formatting of Sublime Text settings files
 # which require different formatting (4 spaces, specific JSON style)
 
@@ -16,3 +16,9 @@ semi = false
 
 # Single quotes disabled - using Prettier defaults
 #singleQuote = true
+
+# JSON-specific overrides (4 spaces for JSON files)
+[[overrides]]
+files = "*.json"
+[overrides.options]
+tabWidth = 4
