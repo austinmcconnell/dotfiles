@@ -1,6 +1,5 @@
 # Prettier configuration for Vim ALE and Sublime Text
-# Note: A separate .prettierrc.json exists for pre-commit formatting of Sublime Text settings files
-# which require different formatting (4 spaces, specific JSON style)
+# Handles markdown (2 spaces), JSON (4 spaces), and Sublime settings (4 spaces, no trailing commas)
 
 # Use 2-space indentation for markdown (standard convention)
 tabWidth = 2
@@ -22,3 +21,10 @@ semi = false
 files = "*.json"
 [overrides.options]
 tabWidth = 4
+
+# Sublime settings overrides (4 spaces, no trailing commas)
+[[overrides]]
+files = "*.sublime-settings"
+[overrides.options]
+tabWidth = 4
+trailingComma = "none"
