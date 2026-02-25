@@ -1,6 +1,3 @@
 {
-    "default_options": [
-        "--verify=no",
-        "--verbose"
-    ]
+    "default_options": ["--verify=no", "--verbose"]
 }
