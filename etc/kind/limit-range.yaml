@@ -4,10 +4,10 @@ metadata:
   name: default-limit-range
 spec:
   limits:
-  - default:
-      memory: 512Mi
-      cpu: 500m
-    defaultRequest:
-      memory: 256Mi
-      cpu: 200m
-    type: Container
+    - default:
+        memory: 512Mi
+        cpu: 500m
+      defaultRequest:
+        memory: 256Mi
+        cpu: 200m
+      type: Container

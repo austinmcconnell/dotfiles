@@ -10,9 +10,9 @@ prometheus:
       - /
     pathType: ImplementationSpecific
     tls:
-    - secretName: prometheus-general-tls
-      hosts:
-      - prometheus.example
+      - secretName: prometheus-general-tls
+        hosts:
+          - prometheus.example
 
 grafana:
   ingress:
@@ -26,9 +26,9 @@ grafana:
       - /
     pathType: ImplementationSpecific
     tls:
-    - secretName: grafana-general-tls
-      hosts:
-      - grafana.example
+      - secretName: grafana-general-tls
+        hosts:
+          - grafana.example
 
 alertmanager:
   ingress:
@@ -42,10 +42,9 @@ alertmanager:
       - /
     pathType: ImplementationSpecific
     tls:
-    - secretName: alertmanager-general-tls
-      hosts:
-      - alertmanager.example
-
+      - secretName: alertmanager-general-tls
+        hosts:
+          - alertmanager.example
 # prometheus-node-exporter:
 #   service:
 #     type: NodePort

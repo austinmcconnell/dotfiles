@@ -16,7 +16,7 @@ nodes:
           kubeletExtraArgs:
             system-reserved: memory=1Gi,cpu=500m
     extraMounts:
-        # mount docker config with auth credentials for pulling images
+      # mount docker config with auth credentials for pulling images
       - hostPath: $HOME/.docker/config.json
         containerPath: /var/lib/kubelet/config.json
         # mount CA for validating TLS
@@ -30,7 +30,7 @@ nodes:
           kubeletExtraArgs:
             system-reserved: memory=512Mi,cpu=250m
     extraMounts:
-        # mount docker config with auth credentials for pulling images
+      # mount docker config with auth credentials for pulling images
       - hostPath: $HOME/.docker/config.json
         containerPath: /var/lib/kubelet/config.json
         # mount CA for validating TLS
@@ -44,7 +44,7 @@ nodes:
           kubeletExtraArgs:
             system-reserved: memory=512Mi,cpu=250m
     extraMounts:
-        # mount docker config with auth credentials for pulling images
+      # mount docker config with auth credentials for pulling images
       - hostPath: $HOME/.docker/config.json
         containerPath: /var/lib/kubelet/config.json
         # mount CA for validating TLS

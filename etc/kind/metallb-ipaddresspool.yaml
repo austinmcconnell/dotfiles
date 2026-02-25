@@ -6,7 +6,7 @@ metadata:
   namespace: metallb-system
 spec:
   ipAddressPools:
-  - local-pool
+    - local-pool
 ---
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
@@ -15,4 +15,4 @@ metadata:
   namespace: metallb-system
 spec:
   addresses:
-  - 1.1.1.1-2.2.2.2
+    - 1.1.1.1-2.2.2.2
