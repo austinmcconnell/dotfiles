@@ -23,6 +23,7 @@ mkdir -p "$NPM_PATH"
 ln -sfv "$DOTFILES_DIR/etc/node/default-packages" "$FNM_PATH"
 ln -sfv "$DOTFILES_DIR/etc/node/markdownlint" ~/.markdownlintrc
 ln -sfv "$DOTFILES_DIR/etc/node/prettier.toml" "$XDG_CONFIG_HOME/prettier.toml"
+ln -sfv "$DOTFILES_DIR/etc/node/write-good.json" "$HOME/.write-goodrc"
 
 fnm install --lts
 fnm default lts-latest

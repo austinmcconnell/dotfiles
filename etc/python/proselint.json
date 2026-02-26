@@ -1,7 +1,7 @@
 {
     "checks": {
-        "annotations.misc": false,
-        "typography.exclamation": false,
-        "typography.symbols": false
+        "annotations.misc": true,
+        "typography.exclamation": true,
+        "typography.symbols": true
     }
 }
