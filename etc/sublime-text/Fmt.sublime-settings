@@ -1,0 +1,16 @@
+{
+    "rules": [
+        {
+            "selector": "source.shell",
+            "cmd": ["shfmt", "--indent", "4"],
+            "format_on_save": true,
+            "merge_type": "diff"
+        },
+        {
+            "selector": "source.terraform",
+            "cmd": ["terraform", "fmt", "-"],
+            "format_on_save": true,
+            "merge_type": "diff"
+        }
+    ]
+}

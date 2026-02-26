@@ -2,7 +2,9 @@
     "bootstrapped": true,
     "in_process_packages": [],
     "installed_packages": [
+        "Dockerfile Syntax Highlighting",
         "everforest-sublime",
+        "Fmt",
         "JsPrettier",
         "Nord",
         "Package Control",
@@ -11,9 +13,13 @@
         "SublimeLinter-contrib-markdownlint",
         "SublimeLinter-contrib-yamllint",
         "SublimeLinter-json",
+        "SublimeLinter-shellcheck",
+        "SublimeLinter-contrib-terraform",
+        "SublimeLinter-contrib-hadolint",
         "SublimeLinter-pycodestyle",
         "SublimeLinter-pydocstyle",
         "SublimeLinter-pylint",
+        "Terraform",
         "Theme - Rose Pine"
     ],
     "repositories": ["https://github.com/avelican/everforest-sublime"]

@@ -10,6 +10,13 @@
         "yamllint": {
             "args": ["-c", "~/.config/yamllint/config"],
             "executable": "yamllint"
+        },
+        "shellcheck": {
+            "args": ["--rcfile", "~/.config/shellcheckrc"]
+        },
+        "terraform": {},
+        "hadolint": {
+            "args": ["--config", "~/.config/hadolint.yaml"]
         }
     }
 }
