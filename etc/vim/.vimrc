@@ -119,11 +119,22 @@ set undodir=~/.vim/undodir                                   " Store all undo hi
 set nowritebackup                                            " Don't create backup before overwriting (default: on)
 set noswapfile                                               " Disable swap files (rely on auto-save and git)
 
+" Undo points at punctuation (better granularity for prose writing)
+inoremap ! !<C-g>u
+inoremap , ,<C-g>u
+inoremap . .<C-g>u
+inoremap : :<C-g>u
+inoremap ; ;<C-g>u
+inoremap ? ?<C-g>u
+inoremap ( <C-g>u(
+inoremap ) )<C-g>u
+
 " Spelling
 "set spell                                                   " enable spellchecking
 set spelllang=en_us                                          " set spell language to US English
 nnoremap <leader>s :set spell!<CR>|                          " toggle spellchecking
 set spellfile=$DOTFILES_DIR/etc/vim/spell/en.utf-8.add                " set custom dictionary file location
+inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u|                    " auto-correct previous misspelled word
 
 for d in glob('$DOTFILES_DIR/etc/vim/spell/*.add', 1, 1)
     if filereadable(d) && (!filereadable(d . '.spl') || getftime(d) > getftime(d . '.spl'))
@@ -175,10 +186,6 @@ set wildignore+=*/node_modules/*     " ignore node_modules directory when search
 set completeopt=menu,menuone,preview,noselect,noinsert
 set complete-=i                               " don't scan system/language included files
 set complete+=kspell                          " match dictionary words
-inoremap <C-]> <C-X><C-]>
-inoremap <C-F> <C-X><C-F>
-inoremap <C-D> <C-X><C-D>
-inoremap <C-L> <C-X><C-L>
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
