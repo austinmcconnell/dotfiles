@@ -72,6 +72,7 @@ Plug 'dhruvasagar/vim-prosession'
 " writing
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
+Plug 'dbmrq/vim-ditto'
 
 call plug#end()
 

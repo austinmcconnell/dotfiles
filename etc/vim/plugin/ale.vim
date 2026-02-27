@@ -35,8 +35,9 @@ let g:ale_linters = {
 ", 'mypy' disable python mypy linter. When I am braver, try this again
 " , 'proselint', 'writegood' disable markdown prose linters. Optionally enable when I am writing prose
 
-" Define prose linter list in one place
+" Define prose linter list and writing directories in one place
 let g:prose_linters = ['markdownlint', 'proselint', 'writegood']
+let g:prose_writing_dirs = '*/writing/*.md,*/blog/*.md,*/essays/*.md,*/articles/*.md,*/drafts/*.md,*/posts/*.md'
 
 " Prose linter toggle commands
 command! ProseOn  let b:ale_linters = g:prose_linters | ALELint
@@ -45,8 +46,7 @@ command! ProseOff let b:ale_linters = ['markdownlint'] | ALELint
 " Auto-enable prose linters for common writing directories
 augroup prose_linters
   autocmd!
-  autocmd BufRead,BufNewFile */writing/*.md,*/blog/*.md,*/essays/*.md,*/articles/*.md,*/drafts/*.md,*/posts/*.md
-    \ let b:ale_linters = g:prose_linters
+  execute 'autocmd BufRead,BufNewFile ' . g:prose_writing_dirs . ' let b:ale_linters = g:prose_linters'
 augroup END
 
 let g:ale_fixers = {
