@@ -53,7 +53,7 @@ if [[ -f "$HOME/.python_history" ]]; then
     mv "$HOME/.python_history" "$XDG_DATA_HOME/python/python_history"
 fi
 
-DEFAULT_PYTHON_VERSION=3.10.6
+DEFAULT_PYTHON_VERSION=3.13.12
 
 if is-executable pyenv; then
     pyenv update
