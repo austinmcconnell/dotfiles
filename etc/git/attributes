@@ -1,0 +1,25 @@
+# Global gitattributes - language-specific diff patterns
+# These use Git's built-in diff drivers optimized for each language
+
+# Primary languages
+*.py diff=python
+*.rb diff=ruby
+*.go diff=golang
+*.rs diff=rust
+*.java diff=java
+*.php diff=php
+
+# Shell scripting
+*.sh diff=bash
+*.bash diff=bash
+*.zsh diff=bash
+
+# Web
+*.html diff=html
+*.htm diff=html
+*.css diff=css
+
+# Documentation
+*.md diff=markdown
+*.markdown diff=markdown
+*.tex diff=tex
