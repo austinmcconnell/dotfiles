@@ -143,6 +143,9 @@ for d in glob('$DOTFILES_DIR/etc/vim/spell/*.add', 1, 1)
     endif
 endfor
 
+" Viminfo: persist history, registers, marks between sessions
+set viminfo='100,<50,s10,h,n~/.vim/viminfo
+
 " Spaces & Tabs
 set tabstop=4       " number of visual spaces per TAB
 set softtabstop=4   " number of spaces in tab when editing
