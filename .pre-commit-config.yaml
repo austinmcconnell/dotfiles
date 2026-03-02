@@ -1,7 +1,7 @@
 ---
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v2.2.3
+    rev: v6.0.0
     hooks:
       - id: check-executables-have-shebangs
       - id: check-json
@@ -56,7 +56,7 @@ repos:
   #     - id: proselint
   #       files: "\\.(rst|md|markdown|mdown|mkdn)$"
   - repo: https://github.com/openstack/bashate
-    rev: 2.1.0
+    rev: 2.1.1
     hooks:
       - id: bashate
         args: ["--max-line-length", "100", "--ignore", "E004,E006,E040,E044"]
@@ -67,17 +67,17 @@ repos:
   #     - id: markdown-toc
   #       args: ["-i", "--bullets", "-"]
   - repo: https://github.com/Lucas-C/pre-commit-hooks
-    rev: v1.5.5
+    rev: v1.5.6
     hooks:
       - id: remove-tabs
         files: "etc/git"
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.41.0
+    rev: v0.47.0
     hooks:
       - id: markdownlint
         args: ["--config", "~/.markdownlintrc"]
   - repo: https://github.com/adrienverge/yamllint
-    rev: v1.35.1
+    rev: v1.38.0
     hooks:
       - id: yamllint
         args: ["-c", "etc/yaml/yamllint"]
