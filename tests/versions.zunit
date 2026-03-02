@@ -5,7 +5,8 @@
     assert $output is_greater_than 7
 }
 
-@test 'verify python version' {
+@test 'verify python version matches default' {
+    DEFAULT_PYTHON_VERSION=$(grep '^DEFAULT_PYTHON_VERSION=' install/python.sh | cut -d '=' -f 2 | tr -d '"' | cut -d '.' -f 1,2)
     run bash -c "python --version | cut -d ' ' -f 2 | cut -d '.' -f 1,2"
-    assert $output in "3.8" "3.9" "3.10" "3.11" "3.12"
+    assert "$output" same_as "$DEFAULT_PYTHON_VERSION"
 }
