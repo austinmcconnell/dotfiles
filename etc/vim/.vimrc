@@ -107,8 +107,8 @@ set termguicolors
 
 " Editing
 set backspace=indent,eol,start                               " make backspace behave like normal in insert mode
-nnoremap j gj|                                               " move cursor visually down one line even when text is wrapped
-nnoremap k gk|                                               " move cursor visually up one line even when text is wrapped
+" nnoremap j gj|                                             " move cursor visually down one line even when text is wrapped
+" nnoremap k gk|                                             " move cursor visually up one line even when text is wrapped
 vnoremap . :norm.<CR>|                                       " use period to execute a stored action in visual mode
 set scrolloff=1                                              " show at least one line below cursor
 set list                                                     " display whitespace
@@ -212,7 +212,7 @@ nnoremap <C-H> <C-W><C-H>|      " jump to split to the left of current
 set foldenable          " enable folding
 set foldmethod=indent   " fold based on indent level
 set foldlevelstart=99   " open all folds by default
-nnoremap <space> za|    " fold via spacebar
+" nnoremap <space> za|  " fold via spacebar
 
 " Buffers
 " nnoremap <Leader>b :buffers<CR>:buffer<Space>

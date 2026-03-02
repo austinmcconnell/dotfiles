@@ -112,10 +112,10 @@ let g:ale_sh_shfmt_options = '--indent 4'
 " YAML yamllint options
 let g:ale_yaml_yamllint_options = '-c ~/.config/yamllint/config'
 
-nnoremap gd :ALEGoToDefinition<CR>
+nnoremap <leader>gd :ALEGoToDefinition<CR>
 nnoremap gr :ALEFindReferences<CR>
 nnoremap gR :ALERename<CR>
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent> <leader>K :call <SID>show_documentation()<CR>
 
 nmap [w <Plug>(ale_previous)
 nmap ]w <Plug>(ale_next)
