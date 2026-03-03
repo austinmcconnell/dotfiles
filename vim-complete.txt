@@ -53,8 +53,6 @@ w/W              word/WORD               s/p             Sentence/paragraph
 t/b              Tag/block               (/)/{/}/[/]     Brackets
 '/"/`            Quotes
 
-EXAMPLES: daw ciw di" yap ci( das dit yi{
-
 MARKS ─────────────────────────────────────────────────────────────────────────
 m{letter}        Set mark                '{letter}       Jump to line
 `{letter}        Jump to exact pos       '.              Last change line
@@ -118,6 +116,10 @@ TABS:
 :tabedit [file]  New tab                 gt/gT           Next/prev tab
 :tabclose        Close tab               :tabs           List tabs
 
+
+
+
+
 ═══════════════════════════════════════════════════════════════════════════════
                   VIM REFERENCE - COMPLETE GUIDE                 Page 3 of 5
 ═══════════════════════════════════════════════════════════════════════════════
@@ -176,6 +178,9 @@ HISTORY & EDITING:
 <C-a/e>          Line start/end          <C-w/u>         Delete word/line
 <Tab>/<C-d>      Complete/list
 
+
+
+
 ═══════════════════════════════════════════════════════════════════════════════
                   VIM REFERENCE - COMPLETE GUIDE                 Page 4 of 5
 ═══════════════════════════════════════════════════════════════════════════════
@@ -231,6 +236,10 @@ gw{motion}       Format, keep cursor     gwip            Format paragraph
 MISC:
 <C-g>            File info               %               Match bracket
 [[/]]/[]/][      Section navigation
+
+
+
+
 
 ═══════════════════════════════════════════════════════════════════════════════
                   VIM REFERENCE - COMPLETE GUIDE                 Page 5 of 5
