@@ -1,10 +1,10 @@
 ═══════════════════════════════════════════════════════════════════════════════
-                          VIM REFERENCE - INTERMEDIATE
+                 VIM REFERENCE - INTERMEDIATE                    Page 1 of 4
 ═══════════════════════════════════════════════════════════════════════════════
 
 ADVANCED MOTIONS ──────────────────────────────────────────────────────────────
-)/(              Sentence forward/back   <C-e>      Scroll down line
-}/               Paragraph forward/back  <C-y>      Scroll up line
+)/(              Sentence forward/back   <C-e>           Scroll down line
+}/               Paragraph forward/back  <C-y>           Scroll up line
 ]m               Next method start
 
 TEXT OBJECTS DEEP DIVE ────────────────────────────────────────────────────────
@@ -13,21 +13,21 @@ word             Delimited by non-keywords (punctuation, whitespace)
 WORD             Delimited by whitespace only
 
 ALL OBJECTS:
-w/W              word/WORD               t          Tag (HTML/XML)
-s                Sentence                b          Block
+w/W              word/WORD               t               Tag (HTML/XML)
+s                Sentence                b               Block
 p                Paragraph               [/]/(/)/{}/<>/'/"/`  Brackets/quotes
 
 EXAMPLES:
-das              Delete a sentence       dit        Delete inside tag
-cis              Change inner sentence   cat        Change around tag
+das              Delete a sentence       dit             Delete inside tag
+cis              Change inner sentence   cat             Change around tag
 yi{              Yank inside braces
 
 OPERATORS ─────────────────────────────────────────────────────────────────────
-d/c/y/p          Delete/Change/Yank/Paste    =      Auto-format
->/<              Indent/Unindent             v      Visual select
-gu/gU            Lowercase/Uppercase         !      Filter external
-guu              Lowercase line              g~~    Swap case line
-gUU              Uppercase line              !}fmt  Format paragraph
+d/c/y/p          Delete/Change/Yank/Paste    =           Auto-format
+>/<              Indent/Unindent             v           Visual select
+gu/gU            Lowercase/Uppercase         !           Filter external
+guu              Lowercase line              g~~         Swap case line
+gUU              Uppercase line              !}fmt       Format paragraph
 
 MARKS ─────────────────────────────────────────────────────────────────────────
 m{letter}        Set mark (lowercase=buffer, uppercase=global)
@@ -35,70 +35,62 @@ m{letter}        Set mark (lowercase=buffer, uppercase=global)
 `{letter}        Jump to exact mark position
 
 SPECIAL MARKS:
-'.               Line of last change     `.         Exact last change
+'.               Line of last change     `.              Exact last change
 ''               Position before jump
 
 COMMANDS:
-:marks           List marks              :delmarks a-d  Delete marks a-d
-:delmarks a      Delete mark a           :delmarks!     Delete all lowercase
+:marks           List marks              :delmarks a-d   Delete marks a-d
+:delmarks a      Delete mark a           :delmarks!      Delete all lowercase
 
 JUMPS & CHANGES ───────────────────────────────────────────────────────────────
-<C-o>            Previous jump           g;         Previous change
-<C-i>            Next jump               g,         Next change
-:jumps           Show jump list          :changes   Show change list
-
-
-
-
-
-
-
-
+<C-o>            Previous jump           g;              Previous change
+<C-i>            Next jump               g,              Next change
+:jumps           Show jump list          :changes        Show change list
 
 
 
 
 ═══════════════════════════════════════════════════════════════════════════════
-                                    PAGE 2
+                 VIM REFERENCE - INTERMEDIATE                    Page 2 of 4
 ═══════════════════════════════════════════════════════════════════════════════
 
 BUFFERS, WINDOWS, TABS ────────────────────────────────────────────────────────
 BUFFERS:
-:ls              List buffers            :bd        Delete buffer
-:b{num}          Switch to buffer        :%bd       Delete all buffers
-:bn              Next buffer             :%bd|e#    Delete all except current
-:bp              Previous buffer         :e#        Edit alternate buffer
+:ls              List buffers            :bd             Delete buffer
+:b{num}          Switch to buffer        :%bd            Delete all buffers
+:bn              Next buffer             :%bd|e#         Delete all except current
+:bp              Previous buffer         :e#             Edit alternate buffer
 
 WINDOWS (SPLITS):
-:sp [file]       Horizontal split        <C-w>c     Close window
-:vsp [file]      Vertical split          <C-w>o     Close all others
-<C-w>h/j/k/l     Navigate splits         <C-w>=     Equal size
-<C-w>_           Max height              <C-w>|     Max width
+:sp [file]       Horizontal split        <C-w>c          Close window
+:vsp [file]      Vertical split          <C-w>o          Close all others
+<C-w>h/j/k/l     Navigate splits         <C-w>=          Equal size
+<C-w>_           Max height              <C-w>|          Max width
 <C-w>+/-         Increase/decrease height
 <C-w></>         Increase/decrease width
 
 TABS:
-:tabedit [file]  New tab                 gt         Next tab
-:tabclose        Close tab               gT         Previous tab
+:tabedit [file]  New tab                 gt              Next tab
+:tabclose        Close tab               gT              Previous tab
 :tabs            List tabs
 
 QUICKFIX & LOCATION LISTS ─────────────────────────────────────────────────────
 QUICKFIX (project-wide):
-:copen           Open quickfix           :cnext     Next item
-:cclose          Close quickfix          :cprev     Previous item
-:cfirst          First item              :clast     Last item
+:copen           Open quickfix           :cnext          Next item
+:cclose          Close quickfix          :cprev          Previous item
+:cfirst          First item              :clast          Last item
 :cc{num}         Go to item #
 
 LOCATION LIST (window-specific):
-:lopen           Open location list      :lnext     Next item
-:lclose          Close location list     :lprev     Previous item
-:lfirst          First item              :llast     Last item
+:lopen           Open location list      :lnext          Next item
+:lclose          Close location list     :lprev          Previous item
+:lfirst          First item              :llast          Last item
 :ll{num}         Go to item #
 
 SEARCHING & SUBSTITUTION ──────────────────────────────────────────────────────
 ADVANCED SEARCH:
-gd               Local definition        gf         Go to file
-gD               Global definition       :noh       Clear highlighting
+gd               Local definition        gf              Go to file
+gD               Global definition       :noh            Clear highlighting
 
 SUBSTITUTION:
 :s/old/new/      Replace first on line   :%s/old/new/g   Replace all in file
@@ -111,67 +103,112 @@ VIMGREP:
 :cdo s/old/new/g    Substitute in quickfix entries
 :cfdo s/old/new/g   Substitute in quickfix files
 
-
-
-
-
-
-
-
 ═══════════════════════════════════════════════════════════════════════════════
-                                    PAGE 3
+                 VIM REFERENCE - INTERMEDIATE                    Page 3 of 4
 ═══════════════════════════════════════════════════════════════════════════════
 
 COMPLETIONS (INSERT MODE) ─────────────────────────────────────────────────────
-<C-n>            Next keyword            <C-x><C-f> Filename
-<C-p>            Previous keyword        <C-x><C-o> Omni completion
-<C-x><C-l>       Line completion         <C-x><C-]> Tag completion
-<C-x><C-n>       Current file keywords   <C-x>s     Spelling suggestions
+<C-n>            Next keyword            <C-x><C-f>      Filename
+<C-p>            Previous keyword        <C-x><C-o>      Omni completion
+<C-x><C-l>       Line completion         <C-x><C-]>      Tag completion
+<C-x><C-n>       Current file keywords   <C-x>s          Spelling suggestions
 <C-x><C-i>       Included file keywords
 
 SORTING ───────────────────────────────────────────────────────────────────────
-:sort            Sort lines              :sort u    Sort, remove duplicates
-:sort i          Sort ignore case        :sort!     Reverse sort
+:sort            Sort lines              :sort u         Sort, remove duplicates
+:sort i          Sort ignore case        :sort!          Reverse sort
 :[range]sort     Sort range
 
 SPELLING ──────────────────────────────────────────────────────────────────────
-:set spell       Enable spell check      z=         Suggestions
-:set nospell     Disable spell check     zg         Add to dictionary
-]s               Next misspelled         zw         Mark as misspelled
+:set spell       Enable spell check      z=              Suggestions
+:set nospell     Disable spell check     zg              Add to dictionary
+]s               Next misspelled         zw              Mark as misspelled
 [s               Previous misspelled
 
 FOLDS ─────────────────────────────────────────────────────────────────────────
 OPEN/CLOSE:                              ALL FOLDS:
-zo               Open fold               zR         Open all
-zc               Close fold              zM         Close all
-za               Toggle fold             zi         Toggle globally
+zo               Open fold               zR              Open all
+zc               Close fold              zM              Close all
+za               Toggle fold             zi              Toggle globally
 zO/zC/zA         Recursive open/close/toggle
 
 NAVIGATION:                              CREATE:
-zj               Next fold               zf{motion} Create fold
-zk               Previous fold           zd         Delete fold
-[z               Start of fold           zD         Delete recursively
+zj               Next fold               zf{motion}      Create fold
+zk               Previous fold           zd              Delete fold
+[z               Start of fold           zD              Delete recursively
 ]z               End of fold
 
 VIMDIFF ───────────────────────────────────────────────────────────────────────
-]c               Next change             dp         Put change
-[c               Previous change         do         Obtain change
-:diffupdate      Update diff             :cq        Quit without saving
+]c               Next change             dp              Put change
+[c               Previous change         do              Obtain change
+:diffupdate      Update diff             :cq             Quit without saving
 
 COMMAND-LINE RANGES ───────────────────────────────────────────────────────────
-.                Current line            'a         Line with mark a
-$                Last line               /pattern/  Next matching line
+.                Current line            'a              Line with mark a
+$                Last line               /pattern/       Next matching line
 %                Entire file (1,$)
 
 EXAMPLES:
-:1,5d            Delete lines 1-5        :'a,'bd    Delete mark a to b
+:1,5d            Delete lines 1-5        :'a,'bd         Delete mark a to b
 :.,$s/old/new/g  Substitute current to end
 
 BATCH OPERATIONS ──────────────────────────────────────────────────────────────
-:windo {cmd}     Execute in each window  :cdo {cmd}     Each quickfix entry
-:bufdo {cmd}     Execute in each buffer  :cfdo {cmd}    Each quickfix file
-:tabdo {cmd}     Execute in each tab
-:argdo {cmd}     Execute for each arg
+:windo {cmd}     Execute in each window  :cdo {cmd}      Each quickfix entry
+:bufdo {cmd}     Execute in each buffer  :cfdo {cmd}     Each quickfix file
+:tabdo {cmd}     Execute in each tab     :argdo {cmd}    Execute for each arg
+
+═══════════════════════════════════════════════════════════════════════════════
+                 VIM REFERENCE - INTERMEDIATE                    Page 4 of 4
+═══════════════════════════════════════════════════════════════════════════════
+
+REGISTERS ─────────────────────────────────────────────────────────────────────
+NAMED REGISTERS:
+"{letter}yy      Yank to register        "{letter}p      Paste from register
+"{letter}dd      Cut to register
+
+SPECIAL REGISTERS:
+"0               Last yank only          "%              Current filename
+".               Last inserted text      "#              Alternate filename
+":               Last command            "/              Last search
+"*               System clipboard (pri)  "+              System clipboard
+"_               Black hole (discard)    "-              Small delete (<1 line)
+
+COMMANDS:
+:reg             Show all registers      "0p             Paste last yank
+:reg a b c       Show specific regs      ""p             Paste unnamed reg
+
+SIMPLE MACROS ─────────────────────────────────────────────────────────────────
+RECORDING:
+q{letter}        Start recording         @{letter}       Execute macro
+q                Stop recording          @@              Repeat last macro
+{num}@{letter}   Execute N times
+
+EDITING:
+"{letter}p       Paste macro contents    "{letter}yy     Yank back to register
 
 EXAMPLE:
-:windo diffthis  Enable diff in all windows
+qa               Start recording 'a'     5@a             Execute 5 times
+I# <Esc>j        Insert '# ', move down
+q                Stop recording
+
+COMMON WORKFLOWS ──────────────────────────────────────────────────────────────
+# Search and replace in multiple files
+:args **/*.py | argdo %s/old/new/ge | update
+
+# Delete all lines matching pattern
+:g/pattern/d
+
+# Delete all lines NOT matching pattern
+:v/pattern/d
+
+# Copy all TODO lines to end of file
+:g/TODO/t$
+
+# Execute macro on all matching lines
+:g/pattern/normal @a
+
+# Format all paragraphs
+:%normal gqap
+
+# Increment numbers in visual selection
+<C-v> (select column) g<C-a>
