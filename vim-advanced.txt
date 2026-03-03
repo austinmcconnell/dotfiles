@@ -1,0 +1,211 @@
+═══════════════════════════════════════════════════════════════════════════════
+                           VIM REFERENCE - ADVANCED
+═══════════════════════════════════════════════════════════════════════════════
+
+REGISTERS ─────────────────────────────────────────────────────────────────────
+NAMED REGISTERS:
+"{letter}yy      Yank to register        "{letter}p     Paste from register
+"{letter}dd      Cut to register
+
+SPECIAL REGISTERS:
+"0               Last yank only          "%             Current filename
+".               Last inserted text      "#             Alternate filename
+":               Last command            "/             Last search
+"*               System clipboard (pri)  "+             System clipboard
+"_               Black hole (discard)    "-             Small delete (<1 line)
+
+NUMBERED REGISTERS:
+"0               Last yank               "2-"9          Delete history
+"1               Last delete (≥1 line)
+
+COMMANDS:
+:reg             Show all registers      "0p            Paste last yank
+:reg a b c       Show specific regs      ""p            Paste unnamed reg
+
+REGISTER TYPES:  Character-wise | Line-wise (dd,yy) | Block-wise (visual block)
+
+MACROS ────────────────────────────────────────────────────────────────────────
+RECORDING:
+q{letter}        Start recording         @{letter}      Execute macro
+q                Stop recording          @@             Repeat last macro
+{num}@{letter}   Execute N times
+
+EDITING:
+"{letter}p       Paste macro contents    "{letter}yy    Yank back to register
+
+EXAMPLE:
+qa               Start recording 'a'     5@a            Execute 5 times
+I# <Esc>j        Insert '# ', move down
+q                Stop recording
+
+TAGS ──────────────────────────────────────────────────────────────────────────
+<C-]>            Jump to tag             :tags          Show tag stack
+g<C-]>           Show all matching       :ts[elect]     List all matches
+<C-t>            Jump back in stack      :tn[ext]       Next match
+:tag             Jump to next in stack   :tp[revious]   Previous match
+                                         :tf[irst]/tl[ast]  First/last match
+
+ARGUMENT LIST ─────────────────────────────────────────────────────────────────
+:args            Show arg list           :n             Next file
+:arga {file}     Add file to args        :prev          Previous file
+:args **/*.py    Set args to all .py
+
+WHY USE ARGS?    Stable subset of buffer list, doesn't change when viewing
+                 files, useful with :argdo for batch operations
+
+
+
+
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                                    PAGE 2
+═══════════════════════════════════════════════════════════════════════════════
+
+ADVANCED COMMAND-LINE MODE ────────────────────────────────────────────────────
+HISTORY:
+<Up>/<C-p>       Previous command        :history       Show history
+<Down>/<C-n>     Next command            q:             History window
+
+EDITING:
+<C-a>            Line start              <C-w>          Delete word back
+<C-e>            Line end                <C-u>          Delete to start
+
+COMPLETION:
+<Tab>            Complete                <C-d>          List completions
+<C-a>            Insert all completions
+
+EXTERNAL COMMANDS:
+:!{cmd}          Execute shell command   :.!{cmd}       Filter line
+:r !{cmd}        Read output into buffer :%!{cmd}       Filter entire file
+:w !{cmd}        Write buffer to command
+
+LINE OPERATIONS:
+:{num}           Go to line              :{num}co{dest} Copy line
+:{num}d          Delete line             :{num}m{dest}  Move line
+:5,10d           Delete lines 5-10
+:.,$d            Delete current to end
+
+INSERT MODE ADVANCED ──────────────────────────────────────────────────────────
+DELETING:
+<C-h>            Delete character        <C-w>          Delete word
+<C-u>            Delete to line start
+
+SPECIAL INSERTS:
+<C-o>            Execute one normal cmd  <C-r>{reg}     Paste from register
+<C-r><C-p>{reg}  Literal paste           <C-r>=         Expression register
+
+EXAMPLES:
+<C-r>=5*8<CR>    Insert "40"             <C-o>zz        Center screen
+<C-r>%           Insert filename
+
+VISUAL MODE ADVANCED ──────────────────────────────────────────────────────────
+OPERATORS:
+U                Uppercase (vs gU)       o              Toggle selection end
+u                Lowercase (vs gu)       gv             Reselect last
+
+VISUAL BLOCK MODE:
+<C-v>            Enter block mode        c              Change block
+I                Insert before block     r              Replace all in block
+A                Append after block
+
+EXAMPLE:
+<C-v>jjj         Select 4-line column    I# <Esc>       Insert '# ' at start
+
+
+
+
+
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                                    PAGE 3
+═══════════════════════════════════════════════════════════════════════════════
+
+ADVANCED SEARCHING ────────────────────────────────────────────────────────────
+SEARCH OPTIONS:
+/pattern/e       Cursor at end of match  /pattern/b-2   2 chars before match
+/pattern/+2      2 lines after match
+
+MODIFIERS:
+\c               Case insensitive        \v             Very magic (less escape)
+\C               Case sensitive          \V             Very nomagic (literal)
+
+EXAMPLES:
+/\vword|term     Search "word" OR "term" /\V.           Literal dot search
+
+ADVANCED SUBSTITUTION ─────────────────────────────────────────────────────────
+FLAGS:
+g                All on line             i              Case insensitive
+c                Confirm each            I              Case sensitive
+n                Report count only
+
+ADVANCED PATTERNS:
+:%s/\v(\w+)\s+(\w+)/\2 \1/g     Swap two words
+:%s/$/;/g                        Add semicolon to end
+:%s/^/# /g                       Comment all lines
+:%s/\d\+/\=submatch(0)*2/g       Double all numbers
+
+TERMINAL MODE ─────────────────────────────────────────────────────────────────
+:term            Open terminal split     i              Terminal-insert mode
+<C-\><C-n>       Terminal-normal mode    <C-d>/exit     Close terminal
+
+ADVANCED FILE OPERATIONS ──────────────────────────────────────────────────────
+:e .             File explorer           :Sex           Split & explore
+:E               Explore current dir     :Vex           Vertical split & explore
+:w !sudo tee %   Save with sudo          :saveas {file} Save as new file
+:f {name}        Rename buffer
+
+GLOBAL COMMANDS ───────────────────────────────────────────────────────────────
+:g/pattern/d     Delete matching lines       :v/pattern/d   Delete non-matching
+:g/pattern/normal @a  Execute macro on matches
+:g/TODO/t$       Copy TODO lines to end
+
+NORMAL MODE FROM COMMAND ──────────────────────────────────────────────────────
+:normal {cmds}   Execute normal commands     :%normal A;    Append ; to all
+:'<,'>normal .   Repeat change on selection
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                                    PAGE 4
+═══════════════════════════════════════════════════════════════════════════════
+
+MISCELLANEOUS ADVANCED ────────────────────────────────────────────────────────
+UNDO TREE:
+g-               Older text state        :earlier 5m    State 5 min ago
+g+               Newer text state        :later 10s     State 10 sec later
+
+SETTINGS:
+:set number      Show line numbers       :set list      Show invisible chars
+:set relativenumber  Relative numbers    :set nolist    Hide invisible chars
+:set nonumber    Hide line numbers
+
+HELP SYSTEM:
+:help            Open help               <C-]>          Follow help link
+:help {topic}    Help on topic           <C-t>          Go back in help
+:helpgrep {pat}  Search all help         :helptags ALL  Regenerate tags
+
+SPECIAL MOTIONS:
+%                Jump to matching bracket    [[/]]      Prev/next section
+[]/][            End prev/next section
+
+INCREMENT/DECREMENT:
+<C-a>            Increment number        <C-x>          Decrement number
+g<C-a>           Increment sequence (visual mode)
+
+DIGRAPHS (SPECIAL CHARACTERS):
+<C-k>{c1}{c2}    Insert digraph (insert mode)
+:digraphs        List all digraphs
+EXAMPLES:        <C-k>a' = á    <C-k><< = «
