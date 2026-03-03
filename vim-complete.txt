@@ -55,15 +55,15 @@ t/b              Tag/block               (/)/{/}/[/]     Brackets
 
 EXAMPLES: daw ciw di" yap ci( das dit yi{
 
-═══════════════════════════════════════════════════════════════════════════════
-                  VIM REFERENCE - COMPLETE GUIDE                 Page 2 of 5
-═══════════════════════════════════════════════════════════════════════════════
-
 MARKS ─────────────────────────────────────────────────────────────────────────
 m{letter}        Set mark                '{letter}       Jump to line
 `{letter}        Jump to exact pos       '.              Last change line
 ''               Before last jump        `.              Last change exact
 :marks           List marks              :delmarks a-d   Delete marks
+
+═══════════════════════════════════════════════════════════════════════════════
+                  VIM REFERENCE - COMPLETE GUIDE                 Page 2 of 5
+═══════════════════════════════════════════════════════════════════════════════
 
 JUMPS & CHANGES ───────────────────────────────────────────────────────────────
 <C-o/i>          Jump back/forward       g;/g,           Change back/forward
@@ -109,10 +109,6 @@ BUFFERS:
 :b{num}          Switch to buffer        :%bd|e#         Delete all but current
 :bn/:bp          Next/prev buffer
 
-═══════════════════════════════════════════════════════════════════════════════
-                  VIM REFERENCE - COMPLETE GUIDE                 Page 3 of 5
-═══════════════════════════════════════════════════════════════════════════════
-
 WINDOWS:
 :sp/:vsp [file]  H/V split               <C-w>c/o        Close/only
 <C-w>h/j/k/l     Navigate splits         <C-w>=          Equal size
@@ -121,6 +117,10 @@ WINDOWS:
 TABS:
 :tabedit [file]  New tab                 gt/gT           Next/prev tab
 :tabclose        Close tab               :tabs           List tabs
+
+═══════════════════════════════════════════════════════════════════════════════
+                  VIM REFERENCE - COMPLETE GUIDE                 Page 3 of 5
+═══════════════════════════════════════════════════════════════════════════════
 
 QUICKFIX & LOCATION ───────────────────────────────────────────────────────────
 QUICKFIX (project):                      LOCATION (window):
@@ -161,10 +161,6 @@ VIMDIFF ────────────────────────
 ]c/[c            Next/prev change        dp/do           Put/obtain change
 :diffupdate      Update diff             :cq             Quit no save
 
-═══════════════════════════════════════════════════════════════════════════════
-                  VIM REFERENCE - COMPLETE GUIDE                 Page 4 of 5
-═══════════════════════════════════════════════════════════════════════════════
-
 COMMAND-LINE MODE ─────────────────────────────────────────────────────────────
 RANGES:
 ./$/%            Current/last/all        'a              Mark a
@@ -179,6 +175,10 @@ HISTORY & EDITING:
 <Up>/<C-p>       Prev command            :history/q:     Show/window
 <C-a/e>          Line start/end          <C-w/u>         Delete word/line
 <Tab>/<C-d>      Complete/list
+
+═══════════════════════════════════════════════════════════════════════════════
+                  VIM REFERENCE - COMPLETE GUIDE                 Page 4 of 5
+═══════════════════════════════════════════════════════════════════════════════
 
 EXTERNAL:
 :!{cmd}          Execute shell           :r !{cmd}       Read output
@@ -213,10 +213,6 @@ HELP:
 :help [topic]    Get help                :helpgrep {pat} Search help
 <C-]>/<C-t>      Follow/back link        :helptags ALL   Regenerate
 
-═══════════════════════════════════════════════════════════════════════════════
-                  VIM REFERENCE - COMPLETE GUIDE                 Page 5 of 5
-═══════════════════════════════════════════════════════════════════════════════
-
 SETTINGS:
 :set number/relativenumber/list/spell    Show numbers/relative/invisible/spell
 :set nonumber/norelativenumber/nolist/nospell    Disable above
@@ -235,6 +231,10 @@ gw{motion}       Format, keep cursor     gwip            Format paragraph
 MISC:
 <C-g>            File info               %               Match bracket
 [[/]]/[]/][      Section navigation
+
+═══════════════════════════════════════════════════════════════════════════════
+                  VIM REFERENCE - COMPLETE GUIDE                 Page 5 of 5
+═══════════════════════════════════════════════════════════════════════════════
 
 COMMON WORKFLOWS ──────────────────────────────────────────────────────────────
 # Search and replace in multiple files
@@ -272,3 +272,13 @@ COMMON WORKFLOWS ─────────────────────
 
 # Delete trailing whitespace
 :%s/\s\+$//
+
+# Yank all matching lines to register a
+:g/pattern/yank A
+
+# Replace in all quickfix results
+:vim /pattern/ **/*.py
+:cdo s/old/new/gc | update
+
+# Convert all function names to uppercase
+:%s/\v<(\w+)\(/\U\1(/g
