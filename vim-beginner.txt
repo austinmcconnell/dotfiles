@@ -1,94 +1,93 @@
 ═══════════════════════════════════════════════════════════════════════════════
-                            VIM REFERENCE - BEGINNER
+                   VIM REFERENCE - BEGINNER                      Page 1 of 3
 ═══════════════════════════════════════════════════════════════════════════════
 
 OPENING & CLOSING ─────────────────────────────────────────────────────────────
-vim              Start vim               :q         Quit
-vim .            Open in current dir     :q!        Quit without saving
-vim file.txt     Open file               :qa        Quit all
-vim f1.txt f2    Open multiple           :wq / :x   Write and quit
-<C-z>            Suspend vim             :w         Write (save)
+vim              Start vim               :q              Quit
+vim .            Open in current dir     :q!             Quit without saving
+vim file.txt     Open file               :qa             Quit all
+vim f1.txt f2    Open multiple           :wq / :x        Write and quit
+<C-z>            Suspend vim             :w              Write (save)
 fg               Resume vim
 
 MODES ─────────────────────────────────────────────────────────────────────────
 <Esc>            Return to normal mode
 
 INSERT MODE:
-i                Insert before cursor    o          Open line below
-a                Append after cursor     O          Open line above
-I                Insert at line start    s          Substitute character
-A                Append at line end      S          Substitute line
+i                Insert before cursor    o               Open line below
+a                Append after cursor     O               Open line above
+I                Insert at line start    s               Substitute character
+A                Append at line end      S               Substitute line
 C                Change to line end
 
 VISUAL MODE:
-v                Character visual        V          Line visual
-<C-v>            Block visual            gv         Reselect last
+v                Character visual        V               Line visual
+<C-v>            Block visual            gv              Reselect last
+
+EXAMPLES:
+vw               Select word             Vjjd            Delete 3 lines
+vi"              Select inside quotes    <C-v>jjjI#<Esc> Comment 4 lines
 
 COMMAND MODE:
 :                Enter command mode
 
 BASIC MOTIONS ─────────────────────────────────────────────────────────────────
 LEFT-RIGHT:                              UP-DOWN:
-h                Left                    j          Down
-l                Right                   k          Up
-0                Line start              gg         File top
-^                First non-blank         G          File bottom
-$                Line end                #G         Go to line #
-                                         H          Screen top
-WORD MOVEMENT:                           M          Screen middle
-w                Forward word            L          Screen bottom
-b                Back word               <C-u>      Up half screen
-e                End of word             <C-d>      Down half screen
-                                         <C-f>      Page down
-CHARACTER SEARCH:                        <C-b>      Page up
+h                Left                    j               Down
+l                Right                   k               Up
+0                Line start              gg              File top
+^                First non-blank         G               File bottom
+$                Line end                #G              Go to line #
+                                         H               Screen top
+WORD MOVEMENT:                           M               Screen middle
+w                Forward word            L               Screen bottom
+b                Back word               <C-u>           Up half screen
+e                End of word             <C-d>           Down half screen
+                                         <C-f>           Page down
+CHARACTER SEARCH:                        <C-b>           Page up
 f{char}          Jump to char →
 F{char}          Jump to char ←          SCREEN POSITION:
-t{char}          Jump before char →      zt         Line to top
-T{char}          Jump before char ←      zz         Line to middle
-;                Repeat f/t/F/T          zb         Line to bottom
+t{char}          Jump before char →      zt              Line to top
+T{char}          Jump before char ←      zz              Line to middle
+;                Repeat f/t/F/T          zb              Line to bottom
 ,                Repeat opposite
 
 SEARCHING ─────────────────────────────────────────────────────────────────────
-/pattern         Search forward          *          Search word forward
-?pattern         Search backward         #          Search word backward
-n                Next match
-N                Previous match
-
-
-
-
+/pattern         Search forward          *               Search word forward
+?pattern         Search backward         #               Search word backward
+n                Next match              N               Previous match
 
 ═══════════════════════════════════════════════════════════════════════════════
-                                    PAGE 2
+                   VIM REFERENCE - BEGINNER                      Page 2 of 3
 ═══════════════════════════════════════════════════════════════════════════════
 
 OPERATORS ─────────────────────────────────────────────────────────────────────
 DELETING:                                COPYING & PASTING:
-x                Delete char             y          Yank (copy)
-X                Delete char before      yy         Yank line
-dd               Delete line             yw         Yank word
-D                Delete to line end      p          Paste after
-dw               Delete word             P          Paste before
+x                Delete char             y               Yank (copy)
+X                Delete char before      yy              Yank line
+dd               Delete line             yw              Yank word
+D                Delete to line end      p               Paste after
+dw               Delete word             P               Paste before
 d$               Delete to line end
 d0               Delete to line start    OTHER:
-                                         J          Join lines
-CHANGING:                                r          Replace char
-c                Change                  R          Replace mode
-cc               Change line             ~          Swap case
-cw               Change word             u          Undo
-C                Change to line end      <C-r>      Redo
-                                         .          Repeat change
+                                         J               Join lines
+CHANGING:                                r               Replace char
+c                Change                  R               Replace mode
+cc               Change line             ~               Swap case
+cw               Change word             u               Undo
+C                Change to line end      <C-r>           Redo
+                                         .               Repeat change
 
 TEXT OBJECTS ──────────────────────────────────────────────────────────────────
 Format: {operator}{a|i}{object}
   a = "a" (includes whitespace)    i = "inner" (excludes whitespace)
 
 OBJECTS:
-w                Word                    (/)        Parentheses
-s                Sentence                {/}        Curly braces
-p                Paragraph               [/]        Square brackets
-                                         '          Single quotes
-EXAMPLES:                                "          Double quotes
+w                Word                    (/)             Parentheses
+s                Sentence                {/}             Curly braces
+p                Paragraph               [/]             Square brackets
+                                         '               Single quotes
+EXAMPLES:                                "               Double quotes
 daw              Delete a word
 ciw              Change inner word
 di"              Delete inside quotes
@@ -96,13 +95,58 @@ yap              Yank a paragraph
 ci(              Change inside parens
 
 BASIC FILE OPERATIONS ─────────────────────────────────────────────────────────
-:e filename      Edit file               :w         Write file
-:e               Reload file             :w file    Write to file
-:e!              Reload, discard changes :wa        Write all
+:e filename      Edit file               :w              Write file
+:e               Reload file             :w file         Write to file
+:e!              Reload, discard changes :wa             Write all
 
 INDENTATION ───────────────────────────────────────────────────────────────────
->>               Indent line             ==         Auto-indent line
+>>               Indent line             ==              Auto-indent line
 <<               Unindent line
 
 USEFUL COMMANDS ───────────────────────────────────────────────────────────────
-<C-g>            Show file info          :help      Get help
+<C-g>            Show file info          :help           Get help
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                   VIM REFERENCE - BEGINNER                      Page 3 of 3
+═══════════════════════════════════════════════════════════════════════════════
+
+BASIC REGISTERS ───────────────────────────────────────────────────────────────
+""               Unnamed register        "0              Last yank
+"*               System clipboard        "+              System clipboard (alt)
+
+USAGE:
+"*yy             Yank line to clipboard  "*p             Paste from clipboard
+"0p              Paste last yank         "ayy            Yank to register a
+                                         "ap             Paste from register a
+
+SIMPLE MACROS ─────────────────────────────────────────────────────────────────
+RECORDING:
+qa               Start recording to 'a'  q               Stop recording
+@a               Execute macro 'a'       @@              Repeat last macro
+5@a              Execute macro 5 times
+
+EXAMPLE WORKFLOW:
+qa               Start recording         @a              Execute once
+I# <Esc>j        Insert '# ', move down  10@a            Execute 10 times
+q                Stop recording
+
+COMMON WORKFLOWS ──────────────────────────────────────────────────────────────
+# Delete all blank lines
+:g/^$/d
+
+# Copy all lines containing "TODO" to end of file
+:g/TODO/t$
+
+# Replace word under cursor in entire file
+*               (search for word)
+:%s//newword/g  (replace with newword)
+
+# Indent entire file
+gg=G
+
+# Delete trailing whitespace
+:%s/\s\+$//
+
+# Sort lines alphabetically
+:sort
