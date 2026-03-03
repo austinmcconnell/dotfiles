@@ -58,6 +58,7 @@ HISTORY:
 <Up>/<C-p>       Previous command        :history        Show history
 <Down>/<C-n>     Next command            q:              History window
 
+
 ═══════════════════════════════════════════════════════════════════════════════
                    VIM REFERENCE - ADVANCED                      Page 2 of 4
 ═══════════════════════════════════════════════════════════════════════════════
@@ -176,6 +177,9 @@ SPECIAL MOTIONS:
 INCREMENT/DECREMENT:
 <C-a>            Increment number        <C-x>           Decrement number
 g<C-a>           Increment sequence (visual mode)
+
+
+
 
 ═══════════════════════════════════════════════════════════════════════════════
                    VIM REFERENCE - ADVANCED                      Page 4 of 4

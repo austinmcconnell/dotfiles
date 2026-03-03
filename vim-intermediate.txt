@@ -119,6 +119,7 @@ ADVANCED SEARCH:
 gd               Local definition        gf              Go to file
 gD               Global definition       :noh            Clear highlighting
 
+
 ═══════════════════════════════════════════════════════════════════════════════
                  VIM REFERENCE - INTERMEDIATE                    Page 3 of 4
 ═══════════════════════════════════════════════════════════════════════════════
@@ -178,6 +179,7 @@ $                Last line               /pattern/       Next matching line
 EXAMPLES:
 :1,5d            Delete lines 1-5        :'a,'bd         Delete mark a to b
 :.,$s/old/new/g  Substitute current to end
+
 
 ═══════════════════════════════════════════════════════════════════════════════
                  VIM REFERENCE - INTERMEDIATE                    Page 4 of 4
