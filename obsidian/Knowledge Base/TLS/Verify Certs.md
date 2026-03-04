@@ -47,5 +47,4 @@ echo -e '\nVerifying complete chain...'
 openssl verify -verbose -untrusted chain.pem chain.pem
 ```
 
-A link to the above script can be found
-[here](https://github.com/austinmcconnell/dotfiles/blob/main/scripts/verify-certs.sh)
+The above script can be found [online](https://github.com/austinmcconnell/dotfiles/blob/main/scripts/verify-certs.sh)

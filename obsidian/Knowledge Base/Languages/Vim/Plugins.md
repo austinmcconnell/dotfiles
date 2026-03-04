@@ -119,7 +119,7 @@
   - Automatically generates and maintains tags files
   - Does not generate tags for project dependencies (e.g. flask, sqlalchemy) unless the virtual
     environment is located in the project directory (e.g `.venv`)
-    - Possible workarounds [here](https://github.com/ludovicchabant/vim-gutentags/issues/179)
+    - [Possible workarounds](https://github.com/ludovicchabant/vim-gutentags/issues/179)
 
 ## Language-Specific (Ruby)
 
