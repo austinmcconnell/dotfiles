@@ -174,6 +174,10 @@
     # Git Notes operations
     note = notes add
     noted = "!git log --oneline --show-notes=* | awk '/Notes:/{getline; print prev} {prev=$0}'"
+    # Kiro CLI session management
+    sessions = "!git log --all --oneline --notes=kiro/sessions | grep -B1 'Notes (kiro/sessions)' | grep -v '^--$' | grep -v 'Notes (kiro/sessions)'"
+    session-show = notes --ref=kiro/sessions show
+    session-list = notes --ref=kiro/sessions list
     # Enhanced reflog matching hist alias style
     reflog-pretty = reflog --format='%Cred%h%Creset -%C(yellow)%d%Creset %gs %Cgreen(%cr)%Creset %C(bold blue)<%an>%Creset'
     # Enhanced blame matching hist alias style
@@ -229,6 +233,10 @@
 
 [help]
     autocorrect = never  # Explicit default: show suggestions only, no auto-run or prompts
+
+[remote "origin"]
+    # Prevent accidental push of kiro/sessions notes (reference local files)
+    push = ^refs/notes/kiro/sessions
 
 
 #==========================================

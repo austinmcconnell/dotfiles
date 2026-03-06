@@ -1,0 +1,28 @@
+#!/bin/bash
+# Save Kiro CLI session - hybrid approach
+# - Git repo: saves to .kiro/sessions/ and adds note with file reference
+# - Non-git: saves to ~/.kiro/sessions/
+
+set -e
+
+COMMIT=$(git rev-parse --short HEAD 2>/dev/null || echo "")
+TIMESTAMP=$(date +%Y%m%d-%H%M%S)
+
+if [ -n "$COMMIT" ]; then
+    # In git repo - save to .kiro/sessions/ and add note reference
+    mkdir -p .kiro/sessions
+    SESSION_FILE=".kiro/sessions/${COMMIT}-${TIMESTAMP}.json"
+    cat >"$SESSION_FILE"
+
+    # Add note with just the file path
+    git notes --ref=kiro/sessions add -m "Session: $SESSION_FILE" --force
+
+    echo "✓ Saved session to $SESSION_FILE" >&2
+    echo "✓ Added note to commit $COMMIT" >&2
+else
+    # Not in git repo - save to global sessions
+    mkdir -p ~/.kiro/sessions
+    SESSION_FILE="$HOME/.kiro/sessions/${TIMESTAMP}.json"
+    cat >"$SESSION_FILE"
+    echo "✓ Saved session to $SESSION_FILE" >&2
+fi

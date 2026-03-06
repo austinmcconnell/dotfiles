@@ -1,0 +1,47 @@
+#!/bin/bash
+# Load Kiro CLI session - hybrid approach
+# - Git repo: reads file path from git note and loads that file
+# - Non-git: interactive picker from ~/.kiro/sessions/
+
+set -e
+
+COMMIT=$(git rev-parse --short HEAD 2>/dev/null || echo "")
+
+if [ -n "$COMMIT" ]; then
+    # In git repo - get file path from note
+    NOTE=$(git notes --ref=kiro/sessions show "${1:-HEAD}" 2>/dev/null || echo "")
+
+    if [ -z "$NOTE" ]; then
+        echo "✗ No session found for commit ${1:-HEAD}" >&2
+        exit 1
+    fi
+
+    # Extract file path from note (format: "Session: .kiro/sessions/abc123-20260306-133000.json")
+    SESSION_FILE=${NOTE#Session: }
+
+    if [ -f "$SESSION_FILE" ]; then
+        cat "$SESSION_FILE"
+        echo "✓ Loaded session from $SESSION_FILE" >&2
+    else
+        echo "✗ Session file not found: $SESSION_FILE" >&2
+        exit 1
+    fi
+else
+    # Not in git repo - load from global sessions
+    if [ -n "$1" ]; then
+        SESSION_FILE="$HOME/.kiro/sessions/${1}.json"
+        if [ -f "$SESSION_FILE" ]; then
+            cat "$SESSION_FILE"
+            echo "✓ Loaded session from $SESSION_FILE" >&2
+        else
+            echo "✗ Session not found: ${1}" >&2
+            exit 1
+        fi
+    else
+        echo "Available sessions in ~/.kiro/sessions/:" >&2
+        find ~/.kiro/sessions -name "*.json" -print0 2>/dev/null | xargs -0 -n1 basename | sed 's/.json$//' >&2
+        echo "" >&2
+        echo "Usage: /chat load-via-script ./bin/kiro-load-session <session-name>" >&2
+        exit 1
+    fi
+fi

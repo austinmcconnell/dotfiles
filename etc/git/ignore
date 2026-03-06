@@ -29,3 +29,7 @@ worktrees/
 
 analysis/
 reports/
+
+## Kiro CLI sessions (local)
+
+.kiro/sessions/

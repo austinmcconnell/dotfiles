@@ -45,12 +45,14 @@ KIRO_SETTINGS_DIR="$HOME/.kiro/settings"
 KIRO_AGENTS_DIR="$HOME/.kiro/agents"
 KIRO_SKILLS_DIR="$HOME/.kiro/skills"
 KIRO_LOGS_DIR="$HOME/.kiro/logs"
+KIRO_SESSIONS_DIR="$HOME/.kiro/sessions"
 
 # Create necessary directories
 mkdir -p "$KIRO_SETTINGS_DIR"
 mkdir -p "$KIRO_AGENTS_DIR"
 mkdir -p "$KIRO_SKILLS_DIR"
 mkdir -p "$KIRO_LOGS_DIR"
+mkdir -p "$KIRO_SESSIONS_DIR"
 mkdir -p "$DOTFILES_DIR/etc/ai-prompts"
 
 # Create audit log files with proper permissions
