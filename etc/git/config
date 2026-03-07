@@ -17,6 +17,9 @@
 [fetch]
     prune = true
     parallel = 0
+    fsckObjects = true
+    writeCommitGraph = true
+    pruneTags = true
 
 [feature]
     manyFiles = true
@@ -107,9 +110,6 @@
 [help]
     autocorrect = never  # Explicit default: show suggestions only, no auto-run or prompts
 
-############################################################
-# Start delta-specific settings
-# https://github.com/dandavison/delta
 [core]
     pager = delta
     excludesfile = ~/.config/git/ignore
@@ -143,8 +143,6 @@
     colorMoved = default
     mnemonicPrefix = true
     renames = copies
-# End delta-specific settings
-############################################################
 
 [mergetool]
     prompt = false
@@ -187,11 +185,6 @@
 
 [receive]
     fsckObjects = true
-
-[fetch]
-    fsckObjects = true
-    writeCommitGraph = true
-    pruneTags = true
 
 [notes]
     displayRef = refs/notes/*
