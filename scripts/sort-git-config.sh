@@ -36,24 +36,52 @@ declare -a SECTION_ORDER=(
     "[includeIf \"gitdir:~/projects/unite-us/\"]" "[includeIf \"gitdir:/Users\"]" "[includeIf \"gitdir:/home\"]"
 )
 
-# Section groups for spacing (2 blank lines before each group header)
-declare -A SECTION_GROUPS=(
+# Map each section to its group name
+# This allows any section in a group to trigger the group header
+declare -A SECTION_TO_GROUP=(
     ["[user]"]="Identity & Signing"
+    ["[gpg]"]="Identity & Signing"
+    ["[commit]"]="Identity & Signing"
+    ["[credential]"]="Identity & Signing"
     ["[init]"]="Repository Initialization"
+    ["[clone]"]="Repository Initialization"
     ["[core]"]="Core Git Behavior"
     ["[fetch]"]="Workflow: Fetching & Pulling"
+    ["[pull]"]="Workflow: Fetching & Pulling"
     ["[branch]"]="Workflow: Branching & Merging"
+    ["[merge]"]="Workflow: Branching & Merging"
+    ["[mergetool]"]="Workflow: Branching & Merging"
+    ["[mergetool \"vimdiff\"]"]="Workflow: Branching & Merging"
+    ["[rebase]"]="Workflow: Branching & Merging"
+    ["[rerere]"]="Workflow: Branching & Merging"
     ["[push]"]="Workflow: Committing & Pushing"
     ["[log]"]="Display & Output"
+    ["[blame]"]="Display & Output"
+    ["[column]"]="Display & Output"
+    ["[color]"]="Display & Output"
+    ["[color \"status\"]"]="Display & Output"
+    ["[tag]"]="Display & Output"
     ["[diff]"]="Diff & Delta"
+    ["[interactive]"]="Diff & Delta"
+    ["[delta]"]="Diff & Delta"
+    ["[delta \"nord-vscode-diff-colors\"]"]="Diff & Delta"
     ["[alias]"]="Aliases"
     ["[notes]"]="Notes"
     ["[feature]"]="Performance & Optimization"
+    ["[protocol]"]="Performance & Optimization"
+    ["[index]"]="Performance & Optimization"
+    ["[pack]"]="Performance & Optimization"
+    ["[submodule]"]="Performance & Optimization"
     ["[maintenance]"]="Maintenance & Integrity"
+    ["[gc]"]="Maintenance & Integrity"
+    ["[transfer]"]="Maintenance & Integrity"
+    ["[receive]"]="Maintenance & Integrity"
     ["[advice]"]="Advice & Help"
+    ["[help]"]="Advice & Help"
     ["[url \"git@github.com:\"]"]="URL Shortcuts"
     ["[includeIf \"gitdir:~/projects/unite-us/\"]"]="Environment-Specific Includes"
-    ["__OTHER__"]="Other"
+    ["[includeIf \"gitdir:/Users\"]"]="Environment-Specific Includes"
+    ["[includeIf \"gitdir:/home\"]"]="Environment-Specific Includes"
 )
 
 # Parse config and merge duplicates
@@ -114,6 +142,7 @@ fi
 TEMP_FILE=$(mktemp)
 {
     first_section=true
+    last_group=""
 
     # Track which sections we've output
     declare -A output_sections
@@ -122,12 +151,15 @@ TEMP_FILE=$(mktemp)
     for section in "${SECTION_ORDER[@]}"; do
         [[ -z "${sections[$section]:-}" ]] && continue
 
-        # Add group header if this starts a new group
-        if [[ -n "${SECTION_GROUPS[$section]:-}" ]]; then
+        current_group="${SECTION_TO_GROUP[$section]:-}"
+
+        # Add group header when entering a new group
+        if [[ -n "$current_group" && "$current_group" != "$last_group" ]]; then
             [[ "$first_section" == false ]] && echo ""
             echo "#=========================================="
-            echo "# ${SECTION_GROUPS[$section]}"
+            echo "# $current_group"
             echo "#=========================================="
+            last_group="$current_group"
         fi
 
         echo "$section"
@@ -144,7 +176,7 @@ TEMP_FILE=$(mktemp)
             if [[ "$has_other" == false ]]; then
                 [[ "$first_section" == false ]] && echo ""
                 echo "#=========================================="
-                echo "# ${SECTION_GROUPS[__OTHER__]}"
+                echo "# Other"
                 echo "#=========================================="
                 has_other=true
             fi
