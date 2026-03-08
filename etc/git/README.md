@@ -26,6 +26,30 @@ etc/git/
     └── pre-push          # Quality checks before push (tests, linting)
 ```
 
+## Maintenance
+
+### Sorting Configuration
+
+The `scripts/sort-git-config.sh` script organizes the main config file into logical section groups:
+
+```bash
+# Sort the config file
+~/dotfiles/scripts/sort-git-config.sh
+
+# Or specify a different config
+~/dotfiles/scripts/sort-git-config.sh path/to/config
+```
+
+**What it does:**
+
+- Organizes sections into logical groups (Identity, Workflow, Display, etc.)
+- Merges duplicate sections automatically
+- Preserves all settings and comments
+- Adds unknown sections under "Other" group
+
+**Adding new sections:**
+Edit `scripts/sort-git-config.sh` and add the section name to `SECTION_ORDER` array in the appropriate group. Unknown sections are automatically preserved at the end.
+
 ## Architecture Overview
 
 ### Configuration Hierarchy
