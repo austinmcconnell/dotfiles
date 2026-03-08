@@ -21,6 +21,12 @@ repos:
       - id: trailing-whitespace
   - repo: local
     hooks:
+      - id: sort-git-config
+        name: Sort git config
+        language: script
+        entry: scripts/sort-git-config.sh
+        files: ^etc/git/config$
+        pass_filenames: false
       - id: shfmt
         name: shfmt
         minimum_pre_commit_version: 2.4.0
