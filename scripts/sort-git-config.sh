@@ -25,7 +25,7 @@ declare -a SECTION_ORDER=(
     "[fetch]" "[pull]"
     "[branch]" "[merge]" "[mergetool]" "[mergetool \"vimdiff\"]" "[rebase]" "[rerere]"
     "[push]"
-    "[log]" "[blame]" "[column]" "[color]" "[color \"status\"]"
+    "[log]" "[blame]" "[column]" "[color]" "[color \"status\"]" "[tag]"
     "[diff]" "[interactive]" "[delta]" "[delta \"nord-vscode-diff-colors\"]"
     "[alias]"
     "[notes]"
@@ -53,6 +53,7 @@ declare -A SECTION_GROUPS=(
     ["[advice]"]="Advice & Help"
     ["[url \"git@github.com:\"]"]="URL Shortcuts"
     ["[includeIf \"gitdir:~/projects/unite-us/\"]"]="Environment-Specific Includes"
+    ["__OTHER__"]="Other"
 )
 
 # Parse config and merge duplicates
@@ -113,6 +114,11 @@ fi
 TEMP_FILE=$(mktemp)
 {
     first_section=true
+
+    # Track which sections we've output
+    declare -A output_sections
+
+    # First, output all sections in defined order
     for section in "${SECTION_ORDER[@]}"; do
         [[ -z "${sections[$section]:-}" ]] && continue
 
@@ -127,7 +133,26 @@ TEMP_FILE=$(mktemp)
         echo "$section"
         echo "${sections[$section]}"
         echo ""
+        output_sections[$section]=1
         first_section=false
+    done
+
+    # Then, output any remaining sections under "Other"
+    has_other=false
+    for section in "${!sections[@]}"; do
+        if [[ -z "${output_sections[$section]:-}" ]]; then
+            if [[ "$has_other" == false ]]; then
+                [[ "$first_section" == false ]] && echo ""
+                echo "#=========================================="
+                echo "# ${SECTION_GROUPS[__OTHER__]}"
+                echo "#=========================================="
+                has_other=true
+            fi
+            echo "$section"
+            echo "${sections[$section]}"
+            echo ""
+            first_section=false
+        fi
     done
 } | sed '1{/^$/d;}; ${/^$/d;}' >"$TEMP_FILE"
 
