@@ -19,7 +19,7 @@ fi
 
 # Define section order (sections only, spacing handled separately)
 declare -a SECTION_ORDER=(
-    "[user]" "[gpg]" "[commit]"
+    "[user]" "[gpg]" "[commit]" "[credential]"
     "[init]" "[clone]"
     "[core]"
     "[fetch]" "[pull]"
