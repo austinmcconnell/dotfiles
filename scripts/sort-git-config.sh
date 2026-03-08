@@ -17,168 +17,119 @@ if [[ ! -f "$CONFIG_FILE" ]]; then
     exit 1
 fi
 
-# Define section order with comments
+# Define section order (sections only, spacing handled separately)
 declare -a SECTION_ORDER=(
-    "#=========================================="
-    "# Identity & Signing"
-    "#=========================================="
-    "[user]"
-    "[gpg]"
-    "[commit]"
-    ""
-    "#=========================================="
-    "# Repository Initialization"
-    "#=========================================="
-    "[init]"
-    "[clone]"
-    ""
-    "#=========================================="
-    "# Core Git Behavior"
-    "#=========================================="
+    "[user]" "[gpg]" "[commit]"
+    "[init]" "[clone]"
     "[core]"
-    ""
-    "#=========================================="
-    "# Workflow: Fetching & Pulling"
-    "#=========================================="
-    "[fetch]"
-    "[pull]"
-    ""
-    "#=========================================="
-    "# Workflow: Branching & Merging"
-    "#=========================================="
-    "[branch]"
-    "[merge]"
-    "[mergetool]"
-    "[mergetool \"vimdiff\"]"
-    "[rebase]"
-    "[rerere]"
-    ""
-    "#=========================================="
-    "# Workflow: Committing & Pushing"
-    "#=========================================="
+    "[fetch]" "[pull]"
+    "[branch]" "[merge]" "[mergetool]" "[mergetool \"vimdiff\"]" "[rebase]" "[rerere]"
     "[push]"
-    ""
-    "#=========================================="
-    "# Display & Output"
-    "#=========================================="
-    "[log]"
-    "[blame]"
-    "[column]"
-    "[color]"
-    "[color \"status\"]"
-    ""
-    "#=========================================="
-    "# Diff & Delta"
-    "#=========================================="
-    "[diff]"
-    "[interactive]"
-    "[delta]"
-    "[delta \"nord-vscode-diff-colors\"]"
-    ""
-    "#=========================================="
-    "# Aliases"
-    "#=========================================="
+    "[log]" "[blame]" "[column]" "[color]" "[color \"status\"]"
+    "[diff]" "[interactive]" "[delta]" "[delta \"nord-vscode-diff-colors\"]"
     "[alias]"
-    ""
-    "#=========================================="
-    "# Notes"
-    "#=========================================="
     "[notes]"
-    ""
-    "#=========================================="
-    "# Performance & Optimization"
-    "#=========================================="
-    "[feature]"
-    "[protocol]"
-    "[index]"
-    "[pack]"
-    "[submodule]"
-    ""
-    "#=========================================="
-    "# Maintenance & Integrity"
-    "#=========================================="
-    "[maintenance]"
-    "[gc]"
-    "[transfer]"
-    "[receive]"
-    ""
-    "#=========================================="
-    "# Advice & Help"
-    "#=========================================="
-    "[advice]"
-    "[help]"
-    ""
-    "#=========================================="
-    "# URL Shortcuts"
-    "#=========================================="
+    "[feature]" "[protocol]" "[index]" "[pack]" "[submodule]"
+    "[maintenance]" "[gc]" "[transfer]" "[receive]"
+    "[advice]" "[help]"
     "[url \"git@github.com:\"]"
-    ""
-    "#=========================================="
-    "# Environment-Specific Includes"
-    "#=========================================="
-    "[includeIf \"gitdir:~/projects/unite-us/\"]"
-    "[includeIf \"gitdir:/Users\"]"
-    "[includeIf \"gitdir:/home\"]"
+    "[includeIf \"gitdir:~/projects/unite-us/\"]" "[includeIf \"gitdir:/Users\"]" "[includeIf \"gitdir:/home\"]"
 )
 
-# Parse config file into associative array: section_name -> section_content
+# Section groups for spacing (2 blank lines before each group header)
+declare -A SECTION_GROUPS=(
+    ["[user]"]="Identity & Signing"
+    ["[init]"]="Repository Initialization"
+    ["[core]"]="Core Git Behavior"
+    ["[fetch]"]="Workflow: Fetching & Pulling"
+    ["[branch]"]="Workflow: Branching & Merging"
+    ["[push]"]="Workflow: Committing & Pushing"
+    ["[log]"]="Display & Output"
+    ["[diff]"]="Diff & Delta"
+    ["[alias]"]="Aliases"
+    ["[notes]"]="Notes"
+    ["[feature]"]="Performance & Optimization"
+    ["[maintenance]"]="Maintenance & Integrity"
+    ["[advice]"]="Advice & Help"
+    ["[url \"git@github.com:\"]"]="URL Shortcuts"
+    ["[includeIf \"gitdir:~/projects/unite-us/\"]"]="Environment-Specific Includes"
+)
+
+# Parse config and merge duplicates
 declare -A sections
 current_section=""
 current_content=""
 
 while IFS= read -r line; do
-    # Check if line is a section header
     if [[ "$line" =~ ^\[.*\]$ ]]; then
-        # Save previous section if exists
+        # Save previous section
         if [[ -n "$current_section" ]]; then
-            sections["$current_section"]="$current_content"
+            # Trim trailing blank lines before saving
+            while [[ "$current_content" =~ $'\n'$ ]]; do
+                current_content="${current_content%$'\n'}"
+            done
+
+            if [[ -n "${sections[$current_section]:-}" ]]; then
+                # Merge: trim existing trailing blanks, add newline, add new content
+                existing="${sections[$current_section]}"
+                while [[ "$existing" =~ $'\n'$ ]]; do
+                    existing="${existing%$'\n'}"
+                done
+                sections[$current_section]="$existing"$'\n'"$current_content"
+            else
+                sections[$current_section]="$current_content"
+            fi
         fi
-        # Start new section
         current_section="$line"
         current_content=""
     else
-        # Skip old section comments and delta markers
-        if [[ "$line" =~ ^#.*[Ss]tart.*delta || "$line" =~ ^#.*[Ee]nd.*delta || "$line" =~ ^#{10,} ]]; then
+        # Skip old headers/comments
+        if [[ "$line" =~ ^#={10,} || "$line" =~ ^#\ [A-Z] ]]; then
             continue
         fi
-        # Add line to current section content
-        if [[ -n "$current_content" ]]; then
-            current_content+=$'\n'
-        fi
+        [[ -n "$current_content" ]] && current_content+=$'\n'
         current_content+="$line"
     fi
 done <"$CONFIG_FILE"
 
 # Save last section
 if [[ -n "$current_section" ]]; then
-    sections["$current_section"]="$current_content"
+    while [[ "$current_content" =~ $'\n'$ ]]; do
+        current_content="${current_content%$'\n'}"
+    done
+
+    if [[ -n "${sections[$current_section]:-}" ]]; then
+        existing="${sections[$current_section]}"
+        while [[ "$existing" =~ $'\n'$ ]]; do
+            existing="${existing%$'\n'}"
+        done
+        sections[$current_section]="$existing"$'\n'"$current_content"
+    else
+        sections[$current_section]="$current_content"
+    fi
 fi
 
-# Merge duplicate sections (e.g., [fetch])
-declare -A merged_sections
-for section in "${!sections[@]}"; do
-    if [[ -n "${merged_sections[$section]:-}" ]]; then
-        # Append to existing section, removing leading blank lines
-        content="${sections[$section]}"
-        content="${content#$'\n'}" # Remove leading newline
-        merged_sections[$section]+=$'\n'"$content"
-    else
-        merged_sections[$section]="${sections[$section]}"
-    fi
-done
-
-# Output sections in defined order to temp file
+# Output with proper spacing
 TEMP_FILE=$(mktemp)
-for item in "${SECTION_ORDER[@]}"; do
-    if [[ "$item" == "" ]]; then
+{
+    first_section=true
+    for section in "${SECTION_ORDER[@]}"; do
+        [[ -z "${sections[$section]:-}" ]] && continue
+
+        # Add group header if this starts a new group
+        if [[ -n "${SECTION_GROUPS[$section]:-}" ]]; then
+            [[ "$first_section" == false ]] && echo ""
+            echo "#=========================================="
+            echo "# ${SECTION_GROUPS[$section]}"
+            echo "#=========================================="
+        fi
+
+        echo "$section"
+        echo "${sections[$section]}"
         echo ""
-    elif [[ "$item" =~ ^# ]]; then
-        echo "$item"
-    elif [[ -n "${merged_sections[$item]:-}" ]]; then
-        echo "$item"
-        echo "${merged_sections[$item]}"
-    fi
-done >"$TEMP_FILE"
+        first_section=false
+    done
+} | sed '1{/^$/d;}; ${/^$/d;}' >"$TEMP_FILE"
 
 # Replace original file
 mv "$TEMP_FILE" "$CONFIG_FILE"
