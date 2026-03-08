@@ -77,6 +77,7 @@
 [rebase]
     autostash = true
     autosquash = true
+    updateRefs = true
 
 [rerere]
     enabled = true
@@ -114,6 +115,9 @@
     untracked = "#88C0D0"  # Nord8 (cyan)
     branch    = "#B48EAD"  # Nord15 (magenta)
     unmerged  = "#BF616A"  # Nord11 (red)
+
+[tag]
+    sort = version:refname
 
 
 #==========================================
@@ -173,6 +177,7 @@
     blame-clean = blame -w --date=short --color-lines --no-follow --ignore-revs-file .git-blame-ignore-revs
     # Track file history through renames with patches
     file-history = log --follow --patch --color-words --
+
 
 #==========================================
 # Notes
@@ -240,6 +245,7 @@
     insteadOf = https://github.com/
     insteadOf = gh:
     pushInsteadOf = https://github.com/
+
 
 #==========================================
 # Environment-Specific Includes
