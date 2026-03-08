@@ -1,3 +1,6 @@
+#==========================================
+# Identity & Signing
+#==========================================
 [user]
     email = austin.mcconnell@uniteus.com
     signingkey = ~/.ssh/id_github_enterprise
