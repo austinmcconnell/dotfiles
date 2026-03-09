@@ -45,3 +45,17 @@ ln -sfv "$DOTFILES_DIR/etc/vim/.vimrc" "$VIM_DIR/vimrc"
 ln -sfv "$DOTFILES_DIR/etc/vim/.ctags" "$HOME/.ctags"
 ln -sfv "$DOTFILES_DIR/etc/ag/.agignore" "$HOME/.agignore"
 ln -sfv "$DOTFILES_DIR/etc/yaml/yamllint" "$XDG_CONFIG_HOME/yamllint/config"
+
+# Setup wiki directories if WIKI_ROOT is accessible
+if [[ -n "$WIKI_ROOT" ]]; then
+    WIKI_BASE_DIR="$(dirname "$WIKI_ROOT")"
+    if [[ -d "$WIKI_BASE_DIR" ]]; then
+        echo "Setting up wiki directories at $WIKI_ROOT"
+        mkdir -p "$WIKI_ROOT"/{commonplace,zettelkasten,journal}
+    else
+        echo "⚠️  Skipping wiki setup: $WIKI_BASE_DIR not accessible on this machine"
+        echo "   Set WIKI_ROOT to a valid location or create the directories manually"
+    fi
+else
+    echo "⚠️  WIKI_ROOT not set, skipping wiki directory creation"
+fi

@@ -49,6 +49,7 @@ Plug 'pedrohdz/vim-yaml-folds'
 Plug 'dense-analysis/ale'
 Plug 'tpope/vim-surround'
 Plug 'Valloric/ListToggle'
+Plug 'lervag/wiki.vim'
 
 " tags
 Plug 'ludovicchabant/vim-gutentags'
