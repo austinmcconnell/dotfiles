@@ -36,6 +36,9 @@ export LC_ALL="en_US.UTF-8"
 # zsh-abbr
 export ABBR_USER_ABBREVIATIONS_FILE="$DOTFILES_DIR/etc/zsh/zsh-abbr/user-abbreviations"
 
+# Wiki root directory
+export WIKI_ROOT="${HOME}/Library/CloudStorage/SynologyDrive-Home/wiki"
+
 # Create XDG_RUNTIME_DIR if it doesn't exist
 if [[ ! -d "$XDG_RUNTIME_DIR" ]]; then
     mkdir -p "$XDG_RUNTIME_DIR"
