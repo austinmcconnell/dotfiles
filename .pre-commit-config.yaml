@@ -78,12 +78,16 @@ repos:
       - id: remove-tabs
         files: "etc/git"
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.47.0
+    rev: v0.48.0
     hooks:
       - id: markdownlint
-        args: ["--config", "~/.markdownlintrc"]
   - repo: https://github.com/adrienverge/yamllint
     rev: v1.38.0
     hooks:
       - id: yamllint
         args: ["-c", "etc/yaml/yamllint"]
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.4.2
+    hooks:
+      - id: codespell
+        args: ["--skip", "*.json,*.yaml"]
