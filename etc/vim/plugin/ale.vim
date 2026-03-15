@@ -53,7 +53,7 @@ let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'go': ['gofmt', 'goimports'],
 \   'json': ['prettier'],
-\   'markdown': ['prettier'],
+\   'markdown': ['mdformat'],
 \   'python': ['isort', 'yapf', 'autoflake'],
 \   'ruby': ['rubocop'],
 \   'sh': ['shfmt'],
@@ -79,6 +79,11 @@ let g:ale_python_pylsp_config = {
 
 
 let g:ale_javascript_prettier_options = '--config ~/.config/prettier.toml'
+
+function! FixMdformat(buffer) abort
+  return {'command': 'mdformat -'}
+endfunction
+call ale#fix#registry#Add('mdformat', 'FixMdformat', ['markdown'], 'mdformat for markdown')
 
 let g:ale_json_jq_options = '--indent 4'
 

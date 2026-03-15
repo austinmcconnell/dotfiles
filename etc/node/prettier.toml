@@ -1,14 +1,11 @@
 # Prettier configuration for Vim ALE and Sublime Text
-# Handles markdown (2 spaces), JSON (4 spaces), and Sublime settings (4 spaces, no trailing commas)
+# Handles JSON (4 spaces) and Sublime settings (4 spaces, no trailing commas)
+# Note: Markdown formatting is handled by mdformat, not Prettier
 
-# Use 2-space indentation for markdown (standard convention)
 tabWidth = 2
 
 # Wrap lines at 100 characters
 printWidth = 100
-
-# Wrap markdown prose
-proseWrap = "always"
 
 # Don't add semicolons in JavaScript
 semi = false

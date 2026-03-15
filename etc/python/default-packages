@@ -8,3 +8,8 @@ proselint
 pylint
 python-lsp-server[all]
 yamllint
+mdformat
+mdformat-gfm
+mdformat-gfm-alerts
+mdformat-frontmatter
+mdformat-simple-breaks

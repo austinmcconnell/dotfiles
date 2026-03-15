@@ -1,0 +1,6 @@
+# mdformat configuration for markdown formatting
+# Used by Vim ALE, Sublime Text, and pre-commit
+
+wrap = 100
+number = false
+end_of_line = "lf"

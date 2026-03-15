@@ -1,6 +1,12 @@
 {
     "rules": [
         {
+            "selector": "text.html.markdown",
+            "cmd": ["mdformat", "-"],
+            "format_on_save": true,
+            "merge_type": "diff"
+        },
+        {
             "selector": "source.shell",
             "cmd": ["shfmt", "--indent", "4"],
             "format_on_save": true,

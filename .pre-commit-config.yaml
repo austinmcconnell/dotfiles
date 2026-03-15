@@ -48,7 +48,7 @@ repos:
         language: node
         entry: prettier
         args: ["--write", "--config", "etc/node/prettier.toml"]
-        files: \.(json|sublime-settings|md|markdown|yaml|yml)$
+        files: \.(json|sublime-settings|yaml|yml)$
         exclude: (obsidian|etc/kiro-cli/)
   # - repo: https://github.com/btford/write-good
   #   rev: v1.0.4
@@ -77,12 +77,16 @@ repos:
     hooks:
       - id: remove-tabs
         files: "etc/git"
-  - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.48.0
+  - repo: https://github.com/hukkin/mdformat
+    rev: 1.0.0
     hooks:
-      - id: markdownlint-fix
-        name: markdownlint-fix (ol-prefix only)
-        args: ["--config", "etc/node/markdownlint-fix-only.json"]
+      - id: mdformat
+        exclude: (obsidian)
+        additional_dependencies:
+          - mdformat-gfm
+          - mdformat-gfm-alerts
+          - mdformat-frontmatter
+          - mdformat-simple-breaks
   - repo: https://github.com/igorshubovych/markdownlint-cli
     rev: v0.48.0
     hooks:
