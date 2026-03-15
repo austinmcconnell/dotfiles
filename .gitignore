@@ -8,11 +8,6 @@ todo*.md
 Session.vim
 etc/iterm/colorschemes
 
-# Obsidian
-**/.obsidian/workspace.json
-**/.obsidian/graph.json
-**/.obsidian/plugins
-
 # VS Code Profiles
 etc/visual-studio-code/profiles/**/globalStorage
 

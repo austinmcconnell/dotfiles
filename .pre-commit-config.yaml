@@ -14,7 +14,7 @@ repos:
       - id: debug-statements
       - id: double-quote-string-fixer
       - id: end-of-file-fixer
-        exclude: (obsidian|etc/kiro-cli/)
+        exclude: etc/kiro-cli/
 
       - id: mixed-line-ending
         exclude: \.plist$
@@ -49,13 +49,13 @@ repos:
         entry: prettier
         args: ["--write", "--config", "etc/node/prettier.toml"]
         files: \.(json|sublime-settings|yaml|yml)$
-        exclude: (obsidian|etc/kiro-cli/)
+        exclude: etc/kiro-cli/
   # - repo: https://github.com/btford/write-good
   #   rev: v1.0.4
   #   hooks:
   #     - id: write-good
   #       args: ["--no-passive", "--no-tooWordy"]
-  #       exclude: ^obsidian/
+
   # - repo: https://github.com/amperser/proselint
   #   rev: 0.12.0
   #   hooks:
@@ -81,7 +81,6 @@ repos:
     rev: 1.0.0
     hooks:
       - id: mdformat
-        exclude: (obsidian)
         additional_dependencies:
           - mdformat-gfm
           - mdformat-gfm-alerts
