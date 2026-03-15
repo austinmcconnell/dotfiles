@@ -62,7 +62,7 @@ windo diffthis
 ## Using splits
 
 - `:sp`: horizontally split window in two. The result is two viewports on the same file
-- `:sp [filename]`: horizontally screen window in two and load or create [filname] buffer
+- `:sp [filename]`: horizontally screen window in two and load or create [filename] buffer
 - `:sf {filename}`: horizontally split window and use `:find` to search for {filename}. **Does not
   split if file not found**
 - `:vert` or `:vsp`: vertically split window in two. The result is two viewports on the same file
@@ -138,20 +138,20 @@ to when viewing files. You can explicitly add a file to the arg list, if desired
 to the matches `%`: the current file name `#`: the alternate file name `##`: all names in the
 argument list
 
-To find all occurances of `TODO` in the current file, run
+To find all occurrences of `TODO` in the current file, run
 
 ```vim
 :vim /TODO/ %
 ```
 
-To find all occurances of `TODO` in all files in the arg list, run
+To find all occurrences of `TODO` in all files in the arg list, run
 
 ```vim
 :vim /TODO/ ##
 
 ```
 
-To replace all occurances of TODO with DONE for each entry in the quickfix list
+To replace all occurrences of TODO with DONE for each entry in the quickfix list
 
 ```vim
 :cdo s/TODO/DONE/g

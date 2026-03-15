@@ -15,7 +15,7 @@ output
 [fd](https://github.com/sharkdp/fd) is a simple, fast and user-friendly alternative to `find`
 
 - It ignores hidden directories and files by default
-- Ignores pattens from .gitignore by default
+- Ignores patterns from .gitignore by default
 - Supports parallel command execution
   - Instead of showing search results, do something with them
     - `-x`/`--exec` option runs an external command for each of the search results (in parallel)

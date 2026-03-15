@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ping_by_container_ip() {
-    echo "Pinging container using conainer ip $CONTAINER_IP"
+    echo "Pinging container using container ip $CONTAINER_IP"
     if curl --connect-timeout 5 --retry 3 "$CONTAINER_IP" | grep -q 'nginx'; then
         echo "Successfully pinged container"
         exit_code=0
@@ -24,7 +24,7 @@ if ((exit_code > 0)); then
     ping_by_container_ip
 fi
 
-echo "Stoping nginx container"
+echo "Stopping nginx container"
 docker stop nginx
 
 exit "$exit_code"

@@ -23,5 +23,5 @@ alias gcf=get_fixup_commit
 alias gr='git branch --all | grep --extended-regexp --invert-match "HEAD|$(git branch --show-current)" | fzf | xargs git rebase --autostash'
 # Select branch to interactively rebase onto, excluding current
 alias gri='git branch --all | grep --extended-regexp --invert-match "HEAD|$(git branch --show-current)" | fzf | xargs -o git rebase --autostash --autosquash --interactive'
-# Select branch to switch to, exclusing current
+# Select branch to switch to, excluding current
 alias gsw='git branch --all | grep --extended-regexp --invert-match "HEAD|$(git branch --show-current)$" | fzf | sed "s#remotes/[^/]*/##" | xargs git switch'

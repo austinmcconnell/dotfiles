@@ -8,4 +8,4 @@
 
 If you visually select some text (e.g. `Vap` to visually select a paragraph), you can sort using
 similar commands. While in Visual Mode, press `:` and it'll prepend :`'<,'>` to refer to the first
-and last line visuall selected
+and last line visually selected
