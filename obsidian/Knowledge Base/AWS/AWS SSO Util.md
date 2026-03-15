@@ -25,8 +25,8 @@ aws-sso-util configure profile
 This interactive command will:
 
 1. Prompt for your SSO start URL and region
-2. Allow you to select which accounts and roles to configure
-3. Generate profiles in your AWS config file
+1. Allow you to select which accounts and roles to configure
+1. Generate profiles in your AWS config file
 
 ### Login Management
 
@@ -63,12 +63,12 @@ aws s3 ls --profile account-name-role-name
 ## Benefits of Using aws-sso-util
 
 1. **Bulk Profile Creation**: Automatically creates profiles for all accounts and roles
-2. **Customizable Profile Names**: Offers flexible naming schemes for profiles
-3. **Simplified Login**: Single command to authenticate and retrieve credentials for all profiles
-4. **Role Chaining Support**: Better handling of role chaining scenarios
-5. **Consistent Naming**: Enforces consistent profile naming across teams
-6. **Session Management**: Better visibility and control over active sessions
-7. **Login Process Automation**: Can be integrated into scripts for automated workflows
+1. **Customizable Profile Names**: Offers flexible naming schemes for profiles
+1. **Simplified Login**: Single command to authenticate and retrieve credentials for all profiles
+1. **Role Chaining Support**: Better handling of role chaining scenarios
+1. **Consistent Naming**: Enforces consistent profile naming across teams
+1. **Session Management**: Better visibility and control over active sessions
+1. **Login Process Automation**: Can be integrated into scripts for automated workflows
 
 ## Example Workflow
 
@@ -80,13 +80,13 @@ A typical workflow using `aws-sso-util`:
    aws-sso-util configure profile --sso-start-url https://your-domain.awsapps.com/start --sso-region us-east-1
    ```
 
-2. Daily login:
+1. Daily login:
 
    ```bash
    aws-sso-util login
    ```
 
-3. Use profiles with standard AWS CLI:
+1. Use profiles with standard AWS CLI:
 
    ```bash
    aws s3 ls --profile dev-admin

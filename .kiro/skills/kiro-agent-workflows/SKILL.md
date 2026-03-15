@@ -1,6 +1,9 @@
 ---
 name: kiro-agent-workflows
-description: Guide for using Kiro CLI custom agents, when to use each agent, how to create new agents, and MCP server configuration. Use when switching agents, adding new agents, configuring MCP servers, or understanding agent architecture.
+description:
+  Guide for using Kiro CLI custom agents, when to use each agent, how to create new agents, and MCP
+  server configuration. Use when switching agents, adding new agents, configuring MCP servers, or
+  understanding agent architecture.
 ---
 
 # Kiro Agent Workflows
@@ -78,9 +81,9 @@ See `references/agent-configuration.md` for detailed configuration fields and ex
 **Quick steps:**
 
 1. Create agent JSON in `~/.dotfiles/etc/kiro-cli/cli-agents/`
-2. Create prompt file
-3. Run `./install/kiro-cli.sh` to link
-4. Test with `kiro-cli chat --agent myagent`
+1. Create prompt file
+1. Run `./install/kiro-cli.sh` to link
+1. Test with `kiro-cli chat --agent myagent`
 
 ## MCP Server Setup
 

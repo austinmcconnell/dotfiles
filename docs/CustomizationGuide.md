@@ -105,14 +105,14 @@ To add configuration for a new tool:
    touch ~/.dotfiles/etc/toolname/config
    ```
 
-2. Add an installation script in the `install/` directory:
+1. Add an installation script in the `install/` directory:
 
    ```bash
    touch ~/.dotfiles/install/toolname.sh
    chmod +x ~/.dotfiles/install/toolname.sh
    ```
 
-3. Update the main `install.sh` to include your new script:
+1. Update the main `install.sh` to include your new script:
 
    ```bash
    echo '. "$DOTFILES_DIR/install/toolname.sh"' >> ~/.dotfiles/install.sh
@@ -129,7 +129,7 @@ Here's an example of adding configuration for a hypothetical tool called "devtoo
    touch ~/.dotfiles/etc/devtool/config.yml
    ```
 
-2. Create the installation script:
+1. Create the installation script:
 
    ```bash
    # ~/.dotfiles/install/devtool.sh
@@ -149,13 +149,13 @@ Here's an example of adding configuration for a hypothetical tool called "devtoo
    ln -sf "$DOTFILES_DIR/etc/devtool/config.yml" ~/.config/devtool/config.yml
    ```
 
-3. Make the script executable:
+1. Make the script executable:
 
    ```bash
    chmod +x ~/.dotfiles/install/devtool.sh
    ```
 
-4. Add it to the main installation script.
+1. Add it to the main installation script.
 
 ## Customizing macOS Settings
 
@@ -195,8 +195,8 @@ sub_help() {
 ## Best Practices
 
 1. **Test Changes**: Always test your changes before committing them
-2. **Document Customizations**: Add comments to your custom scripts and configurations
-3. **Keep It Modular**: Create separate files for different functionalities
-4. **Use Version Control**: Commit changes to your dotfiles repository regularly
-5. **Backup Before Changes**: Always backup important configurations before making significant
+1. **Document Customizations**: Add comments to your custom scripts and configurations
+1. **Keep It Modular**: Create separate files for different functionalities
+1. **Use Version Control**: Commit changes to your dotfiles repository regularly
+1. **Backup Before Changes**: Always backup important configurations before making significant
    changes

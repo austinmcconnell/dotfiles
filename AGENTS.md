@@ -65,50 +65,50 @@ works across fresh macOS installations.
 ### When Modifying Dotfiles
 
 1. **Test locally first** - Changes affect your entire development environment
-2. **Maintain symlink structure** - Files in `etc/` are symlinked to home directory
-3. **Keep it minimal** - Only include essential configuration
-4. **Document non-obvious choices** - Add comments for complex configurations
+1. **Maintain symlink structure** - Files in `etc/` are symlinked to home directory
+1. **Keep it minimal** - Only include essential configuration
+1. **Document non-obvious choices** - Add comments for complex configurations
 
 ### When Modifying Zsh Configuration
 
 1. **Understand the loading order** - Changes in `.zshenv` affect all shells, `.zshrc` only
    interactive
-2. **Use conf.d for new features** - Add topic-specific files to `etc/zsh/conf.d/` (loaded by Zephyr
+1. **Use conf.d for new features** - Add topic-specific files to `etc/zsh/conf.d/` (loaded by Zephyr
    confd plugin)
-3. **Update plugin manifest** - Edit `.zsh_plugins.txt` and regenerate static file with
+1. **Update plugin manifest** - Edit `.zsh_plugins.txt` and regenerate static file with
    `antidote bundle`
-4. **Test startup performance** - Use `ZSH_PROFILE_RC=1 zsh` to profile startup time
-5. **Defer non-essential plugins** - Add `kind:defer` to plugins in `.zsh_plugins.txt` for faster
+1. **Test startup performance** - Use `ZSH_PROFILE_RC=1 zsh` to profile startup time
+1. **Defer non-essential plugins** - Add `kind:defer` to plugins in `.zsh_plugins.txt` for faster
    startup
-6. **Platform-specific configs** - Use `.zsh-darwin` or `.zsh-linux` suffixes for OS-specific files
-7. **Regenerate static file** - After changing `.zsh_plugins.txt`, run:
+1. **Platform-specific configs** - Use `.zsh-darwin` or `.zsh-linux` suffixes for OS-specific files
+1. **Regenerate static file** - After changing `.zsh_plugins.txt`, run:
    `antidote bundle <~/.config/zsh/.zsh_plugins.txt >~/.config/zsh/.zsh_plugins.zsh`
 
 ### When Modifying Install Scripts
 
 1. **Preserve idempotency** - Scripts must be safe to run multiple times
-2. **Use utility functions** - Leverage `install/utils.sh` helpers
-3. **Check for existing installations** - Don't reinstall unnecessarily
-4. **Handle both macOS and Linux** - Use `is-macos` and `is-debian` checks
-5. **Print clear status messages** - Use `print_header` and success/error indicators
+1. **Use utility functions** - Leverage `install/utils.sh` helpers
+1. **Check for existing installations** - Don't reinstall unnecessarily
+1. **Handle both macOS and Linux** - Use `is-macos` and `is-debian` checks
+1. **Print clear status messages** - Use `print_header` and success/error indicators
 
 ### When Modifying Kiro CLI Configs
 
 1. **Security first** - Maintain restrictive `allowedTools` and `toolsSettings`
-2. **Test agent behavior** - Verify tools and permissions work as expected
-3. **Keep resources focused** - Only include relevant steering files per agent
-4. **Document agent purpose** - Update `description` field when changing behavior
+1. **Test agent behavior** - Verify tools and permissions work as expected
+1. **Keep resources focused** - Only include relevant steering files per agent
+1. **Document agent purpose** - Update `description` field when changing behavior
 
 ### When Modifying Vim Configuration
 
 1. **Understand the modular structure** - Each plugin has its own config file in `etc/vim/plugin/`
-2. **Modify plugin configs, not .vimrc** - Keep `.vimrc` for general settings, use `plugin/` for
+1. **Modify plugin configs, not .vimrc** - Keep `.vimrc` for general settings, use `plugin/` for
    plugin-specific configs
-3. **Language-specific settings** - Add overrides to `etc/vim/after/ftplugin/{language}.vim`
-4. **ALE linter/fixer changes** - Edit `etc/vim/plugin/ale.vim` for language tool configurations
-5. **Test changes immediately** - Reload vim with `:source ~/.vim/vimrc` or restart vim
-6. **Check plugin installation** - Run `:PlugInstall` after adding new plugins to `.vimrc`
-7. **Reference the README** - See `etc/vim/README.md` for detailed architecture and conventions
+1. **Language-specific settings** - Add overrides to `etc/vim/after/ftplugin/{language}.vim`
+1. **ALE linter/fixer changes** - Edit `etc/vim/plugin/ale.vim` for language tool configurations
+1. **Test changes immediately** - Reload vim with `:source ~/.vim/vimrc` or restart vim
+1. **Check plugin installation** - Run `:PlugInstall` after adding new plugins to `.vimrc`
+1. **Reference the README** - See `etc/vim/README.md` for detailed architecture and conventions
 
 ## Key Conventions
 
@@ -147,18 +147,18 @@ works across fresh macOS installations.
 ### Adding a New Tool Configuration
 
 1. Create directory: `etc/<tool>/`
-2. Add config files to `etc/<tool>/`
-3. Create install script: `install/<tool>.sh`
-4. Add symlink logic to install script
-5. Source install script in `install.sh`
-6. Document in `docs/ToolConfigurations.md`
+1. Add config files to `etc/<tool>/`
+1. Create install script: `install/<tool>.sh`
+1. Add symlink logic to install script
+1. Source install script in `install.sh`
+1. Document in `docs/ToolConfigurations.md`
 
 ### Updating Kiro CLI Agents
 
 1. Edit agent JSON in `etc/kiro-cli/cli-agents/`
-2. Test with `kiro-cli chat --agent <agent-name>`
-3. Verify tools and permissions work correctly
-4. Update steering files if needed in `etc/kiro-cli/steering/`
+1. Test with `kiro-cli chat --agent <agent-name>`
+1. Verify tools and permissions work correctly
+1. Update steering files if needed in `etc/kiro-cli/steering/`
 
 ### Running the Dotfiles Command
 

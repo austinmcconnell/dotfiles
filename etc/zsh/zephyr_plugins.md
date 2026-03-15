@@ -27,7 +27,7 @@ key-value pairs, zsh options are simply turned on or off using the setopt and un
 Here's how they work:
 
 1. Enable an option: setopt option_name
-2. Disable an option: unsetopt option_name or setopt NO_option_name
+1. Disable an option: unsetopt option_name or setopt NO_option_name
 
 ## bootstrap
 

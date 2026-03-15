@@ -147,9 +147,9 @@ credential_process = aws sso get-credentials --profile sso-profile
 ## Best Practices
 
 1. **Use named profiles** for different accounts/roles
-2. **Enable auto-refresh** to minimize login frequency
-3. **Set default profile** in your shell with `export AWS_PROFILE=your-default-profile`
-4. **Use AWS CLI aliases** for common commands across profiles
+1. **Enable auto-refresh** to minimize login frequency
+1. **Set default profile** in your shell with `export AWS_PROFILE=your-default-profile`
+1. **Use AWS CLI aliases** for common commands across profiles
 
 ## Related Resources
 

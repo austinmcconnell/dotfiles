@@ -20,9 +20,9 @@ Access via: File → Preferences → Export → PDF
 ### Best Themes for PDF Export
 
 1. **GitHub** - Clean, familiar formatting
-2. **Academic** - Professional, paper-like appearance
-3. **Lapis** - Clean academic style
-4. **Dotfiles Clean** - Custom theme optimized for PDFs
+1. **Academic** - Professional, paper-like appearance
+1. **Lapis** - Clean academic style
+1. **Dotfiles Clean** - Custom theme optimized for PDFs
 
 ## HTML Export Settings
 
@@ -35,7 +35,7 @@ For web sharing:
 ## Tips for Better PDFs
 
 1. Use consistent heading levels (H1 → H2 → H3)
-2. Keep line lengths reasonable (themes handle this)
-3. Use code blocks with language specification
-4. Include alt text for images
-5. Test export before sharing
+1. Keep line lengths reasonable (themes handle this)
+1. Use code blocks with language specification
+1. Include alt text for images
+1. Test export before sharing

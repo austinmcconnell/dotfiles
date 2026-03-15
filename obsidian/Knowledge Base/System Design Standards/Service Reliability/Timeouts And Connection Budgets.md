@@ -96,9 +96,9 @@ clean up, causing retries and connection explosions.
 ### Anti-Patterns for Timeouts
 
 1. **Edge timeout < web timeout** — causes premature retries at the edge.
-2. **Pool timeout > web timeout** — web request dies while pool is still waiting.
-3. **Infinite statement_timeout** — queries hang forever, workers pile up.
-4. **Long graceful timeouts without matching kube grace** — pods killed before draining.
+1. **Pool timeout > web timeout** — web request dies while pool is still waiting.
+1. **Infinite statement_timeout** — queries hang forever, workers pile up.
+1. **Long graceful timeouts without matching kube grace** — pods killed before draining.
 
 ---
 
@@ -110,8 +110,8 @@ below it.
 ### Step A — Compute a safe application budget
 
 1. Determine `max_connections`. For Aurora: `LEAST(DBInstanceClassMemory/9531392,5000)`
-2. Reserve 30–40% for autovacuum, admin, migrations, maintenance.
-3. The remainder is your application budget (~60–70%).
+1. Reserve 30–40% for autovacuum, admin, migrations, maintenance.
+1. The remainder is your application budget (~60–70%).
 
 ### Step B — Calculate worst-case per tier
 
@@ -142,10 +142,10 @@ Add background jobs (Celery/RQ: 1 connection per worker), schedulers (1), migrat
 ### Anti-Patterns for Connection Budgets
 
 1. **Ignoring HPA ceiling** — scaling can silently push apps over DB cap.
-2. **Large per-worker pools** — multiplied by pods and workers, they blow past budget.
-3. **Mixing pooling modes** — using PgBouncer transaction pooling for migrations (breaks long-lived
+1. **Large per-worker pools** — multiplied by pods and workers, they blow past budget.
+1. **Mixing pooling modes** — using PgBouncer transaction pooling for migrations (breaks long-lived
    transactions).
-4. **No headroom** — using 100% of DB max, leaving nothing for autovacuum or admin.
+1. **No headroom** — using 100% of DB max, leaving nothing for autovacuum or admin.
 
 ---
 

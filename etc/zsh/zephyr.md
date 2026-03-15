@@ -36,8 +36,8 @@ zephyr/
 When Zephyr is sourced, it follows this initialization process:
 
 1. **Bootstrap**: Sets up essential environment variables and functions
-2. **Plugin Loading**: Loads the specified plugins in order
-3. **Post-Initialization**: Executes any registered post-initialization hooks
+1. **Plugin Loading**: Loads the specified plugins in order
+1. **Post-Initialization**: Executes any registered post-initialization hooks
 
 The bootstrap phase is particularly important as it:
 
@@ -154,7 +154,7 @@ Zephyr is designed with performance in mind:
 ## Best Practices
 
 1. **Load Only What You Need**: Only enable the plugins you actually use
-2. **Order Matters**: Some plugins depend on others, so order can be important
-3. **Use Custom Plugins**: Override built-in plugins with custom versions when needed
-4. **Leverage Post-Initialization**: Use hooks for operations that can be deferred
-5. **Combine with Antidote**: Use Antidote to manage Zephyr and other plugins together
+1. **Order Matters**: Some plugins depend on others, so order can be important
+1. **Use Custom Plugins**: Override built-in plugins with custom versions when needed
+1. **Leverage Post-Initialization**: Use hooks for operations that can be deferred
+1. **Combine with Antidote**: Use Antidote to manage Zephyr and other plugins together

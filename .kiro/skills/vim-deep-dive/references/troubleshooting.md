@@ -81,7 +81,7 @@ which flake8
 pip install flake8
 ```
 
-2. **Wrong linter name:**
+1. **Wrong linter name:**
 
 ```vim
 " Check available linters
@@ -89,7 +89,7 @@ pip install flake8
 " Look for "Available Linters" section
 ```
 
-3. **Linter disabled:**
+1. **Linter disabled:**
 
 ```vim
 " Check if linter is in disabled list
@@ -97,7 +97,7 @@ pip install flake8
 " Look for "Linters Disabled" section
 ```
 
-4. **Project config overriding:**
+1. **Project config overriding:**
 
 ```bash
 # Check for project config files
@@ -249,9 +249,9 @@ cat vim.log | sort -k2 -n
 **Common culprits:**
 
 1. Too many plugins
-2. Expensive autocommands
-3. Large syntax files
-4. Unoptimized plugin configs
+1. Expensive autocommands
+1. Large syntax files
+1. Unoptimized plugin configs
 
 **Lazy-load plugins:**
 

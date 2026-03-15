@@ -23,20 +23,20 @@ For a strong answer to this follow-up, the candidate should:
        equivalent.
    - Keep the existing book/copy model intact rather than hacking reservations into random fields.
 
-2. **Add clear API methods** At minimum, something like:
+1. **Add clear API methods** At minimum, something like:
 
    - reserve(isbn, user_id) or similar to place a reservation.
    - get_user_reservations(user_id) to view a user’s reservations.
    - A clear place where the “copy returned → next user in queue gets it” logic happens (usually
      inside checkin or a dedicated helper used by it).
 
-3. **Respect core reservation invariants**
+1. **Respect core reservation invariants**
 
    - Reservations are **FIFO** (first come, first served).
    - A user cannot reserve the **same ISBN multiple times**.
    - Returned copies go to the **queue first**, not to general availability.
 
-4. **Explain the flow**
+1. **Explain the flow**
    - Can verbally walk through:
      - “All copies are checked out → user reserves → another user returns a copy → reservation is
        fulfilled and state updates.”

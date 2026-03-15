@@ -7,7 +7,7 @@ MCP (Model Context Protocol) servers extend agent capabilities with specialized 
 **Two configuration locations:**
 
 1. **Global:** `~/.kiro/settings/mcp.json` (all agents)
-2. **Agent-specific:** In agent JSON `mcpServers` field
+1. **Agent-specific:** In agent JSON `mcpServers` field
 
 ## Global MCP Configuration
 
@@ -385,9 +385,9 @@ source ~/.extra/.env
 ## Best Practices
 
 1. **Global for common tools** - filesystem, git, time, fetch
-2. **Agent-specific for specialized** - github, jira, kubernetes
-3. **Use environment variables** - Never hardcode credentials
-4. **Set reasonable timeouts** - Default 120000ms (2 minutes)
-5. **Test servers individually** - Verify before adding to agent
-6. **Version control configs** - Track MCP server versions
-7. **Document required env vars** - In agent prompt or README
+1. **Agent-specific for specialized** - github, jira, kubernetes
+1. **Use environment variables** - Never hardcode credentials
+1. **Set reasonable timeouts** - Default 120000ms (2 minutes)
+1. **Test servers individually** - Verify before adding to agent
+1. **Version control configs** - Track MCP server versions
+1. **Document required env vars** - In agent prompt or README

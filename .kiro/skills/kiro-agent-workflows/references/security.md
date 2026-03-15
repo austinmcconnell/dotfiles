@@ -3,10 +3,10 @@
 ## Security Principles
 
 1. **Restrictive by default** - Add permissions as needed
-2. **Audit sensitive operations** - AWS, kubectl, etc.
-3. **Explicit tool permissions** - No wildcards in production
-4. **Path-based restrictions** - Limit file operations
-5. **Command restrictions** - Block destructive operations
+1. **Audit sensitive operations** - AWS, kubectl, etc.
+1. **Explicit tool permissions** - No wildcards in production
+1. **Path-based restrictions** - Limit file operations
+1. **Command restrictions** - Block destructive operations
 
 ## Shell Command Restrictions
 
@@ -199,8 +199,8 @@
 }
 ```
 
-**availableAgents** - Which agents can be spawned
-**trustedAgents** - Which agents don't require permission prompt
+**availableAgents** - Which agents can be spawned **trustedAgents** - Which agents don't require
+permission prompt
 
 ## Audit Logging
 
@@ -318,15 +318,15 @@ tail -f ~/.kiro/logs/kubectl-audit.jsonl | jq
 ## Security Best Practices
 
 1. **Start restrictive** - Add permissions as needed
-2. **Audit sensitive operations** - AWS, kubectl, shell commands
-3. **Use path restrictions** - Limit file operations to project directories
-4. **Block destructive commands** - rm, sudo, git commit, kubectl delete
-5. **Auto-allow read-only** - Use `autoAllowReadonly` for AWS
-6. **Trust specific domains** - Use `trusted` patterns for web_fetch
-7. **Review audit logs** - Regularly check for unexpected operations
-8. **Test in safe environment** - Verify restrictions work as expected
-9. **Document security model** - In agent prompt or README
-10. **Version control configs** - Track security changes
+1. **Audit sensitive operations** - AWS, kubectl, shell commands
+1. **Use path restrictions** - Limit file operations to project directories
+1. **Block destructive commands** - rm, sudo, git commit, kubectl delete
+1. **Auto-allow read-only** - Use `autoAllowReadonly` for AWS
+1. **Trust specific domains** - Use `trusted` patterns for web_fetch
+1. **Review audit logs** - Regularly check for unexpected operations
+1. **Test in safe environment** - Verify restrictions work as expected
+1. **Document security model** - In agent prompt or README
+1. **Version control configs** - Track security changes
 
 ## Common Security Patterns
 

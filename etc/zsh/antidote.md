@@ -32,8 +32,8 @@ antidote/
 When Antidote is sourced, it follows this initialization process:
 
 1. **Version Check**: Ensures Zsh version is compatible (5.4.2+)
-2. **Setup**: Loads functions and sets up environment
-3. **Configuration**: Applies user configuration via zstyle
+1. **Setup**: Loads functions and sets up environment
+1. **Configuration**: Applies user configuration via zstyle
 
 The setup phase is particularly important as it:
 
@@ -201,9 +201,9 @@ This allows for fine-grained control over which parts of a framework are loaded.
 ## Best Practices
 
 1. **Use Static Loading**: Generate a static file for maximum performance
-2. **Defer Non-Essential Plugins**: Use `kind:defer` for plugins that don't need immediate loading
-3. **Organize Your Bundle File**: Group plugins by category and use comments
-4. **Consider Dependencies**: Order plugins correctly if they depend on each other
-5. **Use Zcompilation**: Enable zcompilation for frequently used scripts
-6. **Update Regularly**: Keep plugins updated with `antidote update`
-7. **Be Selective**: Only load plugins you actually use
+1. **Defer Non-Essential Plugins**: Use `kind:defer` for plugins that don't need immediate loading
+1. **Organize Your Bundle File**: Group plugins by category and use comments
+1. **Consider Dependencies**: Order plugins correctly if they depend on each other
+1. **Use Zcompilation**: Enable zcompilation for frequently used scripts
+1. **Update Regularly**: Keep plugins updated with `antidote update`
+1. **Be Selective**: Only load plugins you actually use

@@ -353,9 +353,9 @@ which rubocop
 ## Best Practices
 
 1. **Install linters globally** - Available in all projects
-2. **Use project configs** - `.flake8`, `.eslintrc`, etc.
-3. **Enable fix on save** - Automatic formatting
-4. **Check :ALEInfo first** - Debug linter issues
-5. **Use buffer-local settings** - Per-file configuration
-6. **Test linters manually** - Verify before enabling
-7. **Keep linters updated** - Latest versions have bug fixes
+1. **Use project configs** - `.flake8`, `.eslintrc`, etc.
+1. **Enable fix on save** - Automatic formatting
+1. **Check :ALEInfo first** - Debug linter issues
+1. **Use buffer-local settings** - Per-file configuration
+1. **Test linters manually** - Verify before enabling
+1. **Keep linters updated** - Latest versions have bug fixes

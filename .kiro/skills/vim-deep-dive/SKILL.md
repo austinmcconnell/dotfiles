@@ -1,6 +1,8 @@
 ---
 name: vim-deep-dive
-description: Deep technical guide for Vim configuration with vim-plug and ALE. Use when adding plugins, configuring language support, troubleshooting linters, or customizing language-specific behavior.
+description:
+  Deep technical guide for Vim configuration with vim-plug and ALE. Use when adding plugins,
+  configuring language support, troubleshooting linters, or customizing language-specific behavior.
 ---
 
 # Vim Configuration Deep Dive
@@ -103,8 +105,8 @@ let b:ale_fixers = ['black', 'isort']
 **Three ways to enable:**
 
 1. Modeline: `<!-- vim: set ft=markdown.prose: -->`
-2. Commands: `:ProseOn` / `:ProseOff`
-3. Auto-enable in `writing/`, `blog/`, `essays/` directories
+1. Commands: `:ProseOn` / `:ProseOff`
+1. Auto-enable in `writing/`, `blog/`, `essays/` directories
 
 **Features:**
 
@@ -139,11 +141,11 @@ See `references/troubleshooting.md` for detailed troubleshooting guide.
 ## Best Practices
 
 1. **One plugin config per file** - Easy to debug
-2. **Use after/ftplugin for language settings** - Clean overrides
-3. **Buffer-local settings** - Prevent conflicts
-4. **Test changes incrementally** - `:source ~/.vim/vimrc`
-5. **Check :messages for errors** - Catch issues early
-6. **Use :ALEInfo for linter debugging** - See what's running
+1. **Use after/ftplugin for language settings** - Clean overrides
+1. **Buffer-local settings** - Prevent conflicts
+1. **Test changes incrementally** - `:source ~/.vim/vimrc`
+1. **Check :messages for errors** - Catch issues early
+1. **Use :ALEInfo for linter debugging** - See what's running
 
 ## Quick Reference
 

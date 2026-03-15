@@ -447,15 +447,15 @@ echo "Return code: $?"
 ## Best Practices
 
 1. **One function per file** - Easy to manage
-2. **Use descriptive names** - Clear purpose
-3. **Add documentation** - Usage and examples
-4. **Validate arguments** - Check required args
-5. **Handle errors** - Check command availability
-6. **Use local variables** - Prevent pollution
-7. **Make executable** - `chmod +x`
-8. **Test thoroughly** - Verify behavior
-9. **Prefix with topic** - Organization
-10. **Keep it simple** - Single responsibility
+1. **Use descriptive names** - Clear purpose
+1. **Add documentation** - Usage and examples
+1. **Validate arguments** - Check required args
+1. **Handle errors** - Check command availability
+1. **Use local variables** - Prevent pollution
+1. **Make executable** - `chmod +x`
+1. **Test thoroughly** - Verify behavior
+1. **Prefix with topic** - Organization
+1. **Keep it simple** - Single responsibility
 
 ## Quick Reference
 

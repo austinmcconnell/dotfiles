@@ -70,7 +70,7 @@ databases). Introduce key vocabulary and frame the high-level trade-offs.
 ## Anti-Patterns
 
 1. **Anti-pattern 1 — [Name]:** Description of the common mistake and its failure mode.
-2. **Anti-pattern 2 — [Name]:** Same format.
+1. **Anti-pattern 2 — [Name]:** Same format.
 
 ---
 

@@ -126,10 +126,10 @@ async def get_or_set(key, fetch_func, ttl=60):
 
 1. **Cache stampede:** Many clients hammer the DB after TTL expiry. Mitigate with coalescing and
    jittered TTLs.
-2. **Unbounded local caches:** Per-pod dicts without eviction cause memory bloat and OOM kills.
-3. **Blind writes:** Overwriting cache without a clear invalidation plan leads to stale data.
-4. **Over-caching:** Caching every query without studying hit ratios wastes memory and time.
-5. **Ignoring observability:** Lack of hit/miss, latency, and eviction metrics hides problems.
+1. **Unbounded local caches:** Per-pod dicts without eviction cause memory bloat and OOM kills.
+1. **Blind writes:** Overwriting cache without a clear invalidation plan leads to stale data.
+1. **Over-caching:** Caching every query without studying hit ratios wastes memory and time.
+1. **Ignoring observability:** Lack of hit/miss, latency, and eviction metrics hides problems.
 
 ---
 

@@ -379,10 +379,10 @@ augroup END
 ## Best Practices
 
 1. **Use setlocal** - Only affects current buffer
-2. **Use \<buffer> for mappings** - Prevents conflicts
-3. **Use b:variable** - Buffer-local variables
-4. **Test incrementally** - Reload file to test changes
-5. **Document non-obvious settings** - Add comments
-6. **Follow language conventions** - Match community standards
-7. **Enable fix on save** - Automatic formatting
-8. **Keep it minimal** - Only override what's needed
+1. **Use \<buffer> for mappings** - Prevents conflicts
+1. **Use b:variable** - Buffer-local variables
+1. **Test incrementally** - Reload file to test changes
+1. **Document non-obvious settings** - Add comments
+1. **Follow language conventions** - Match community standards
+1. **Enable fix on save** - Automatic formatting
+1. **Keep it minimal** - Only override what's needed

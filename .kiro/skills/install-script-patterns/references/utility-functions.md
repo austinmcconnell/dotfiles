@@ -23,7 +23,8 @@ init_brew_cache
 
 **Cache TTL:** 300 seconds (5 minutes)
 
-**Why use it:** Significantly speeds up multiple install scripts by avoiding repeated `brew list` calls.
+**Why use it:** Significantly speeds up multiple install scripts by avoiding repeated `brew list`
+calls.
 
 ---
 
@@ -61,10 +62,10 @@ refresh_brew_cache
 **Behavior:**
 
 1. Checks if package is installed
-2. If not installed: installs package
-3. If installed but outdated: updates package
-4. If installed and up-to-date: skips with success message
-5. Respects work/personal computer settings from `~/.extra/.env`
+1. If not installed: installs package
+1. If installed but outdated: updates package
+1. If installed and up-to-date: skips with success message
+1. Respects work/personal computer settings from `~/.extra/.env`
 
 **Examples:**
 
@@ -110,8 +111,8 @@ install_if_needed "git" "formula" "both"
 **Behavior:**
 
 1. Checks if tap exists
-2. If not: adds tap
-3. If exists: skips with message
+1. If not: adds tap
+1. If exists: skips with message
 
 **Usage:**
 
@@ -284,7 +285,8 @@ Error: /Users/user/.extra/.env not found. Please run install.sh first.
 Warning: Failed to initialize brew cache
 ```
 
-**Cache initialization returns 1** if both `BREW_INSTALLED_FORMULAE` and `BREW_INSTALLED_CASKS` are empty.
+**Cache initialization returns 1** if both `BREW_INSTALLED_FORMULAE` and `BREW_INSTALLED_CASKS` are
+empty.
 
 ---
 
@@ -312,10 +314,10 @@ Warning: Failed to initialize brew cache
 ## Best Practices
 
 1. **Always call `init_brew_cache()` first** - Required for package functions
-2. **Call `refresh_brew_cache()` after modifications** - Keeps cache current
-3. **Use `install_if_needed` over direct `brew install`** - Handles idempotency
-4. **Check package status before custom logic** - Use `is_package_installed`
-5. **Group related packages** - Install in batches for efficiency
-6. **Print clear messages** - Use `print_header` for sections
-7. **Handle work/personal split** - Use install_type parameter
-8. **Don't assume cache is fresh** - Always call `init_brew_cache()`
+1. **Call `refresh_brew_cache()` after modifications** - Keeps cache current
+1. **Use `install_if_needed` over direct `brew install`** - Handles idempotency
+1. **Check package status before custom logic** - Use `is_package_installed`
+1. **Group related packages** - Install in batches for efficiency
+1. **Print clear messages** - Use `print_header` for sections
+1. **Handle work/personal split** - Use install_type parameter
+1. **Don't assume cache is fresh** - Always call `init_brew_cache()`

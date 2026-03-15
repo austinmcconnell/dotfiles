@@ -20,14 +20,14 @@ For a strong answer, the candidate should:
    - Acknowledge or model **multiple copies per ISBN** (e.g., a separate Copy/BookCopy with its own
      ID/barcode).
 
-2. **Choose reasonable data structures**
+1. **Choose reasonable data structures**
 
    - Use maps/dicts for fast lookup:
      - e.g. by ISBN (for titles / groups of copies)
      - and/or by copy ID (for a specific physical book)
    - Avoid “everything in a list and just loop it” unless justified.
 
-3. **Design a minimal, coherent API**
+1. **Design a minimal, coherent API**
 
    - Function signatures for at least:
      - adding a book / copy
@@ -37,12 +37,12 @@ For a strong answer, the candidate should:
      - listing books/copies a user has
    - Clear parameter choices (e.g. use IDs, not raw objects, for operations).
 
-4. **Respect basic invariants**
+1. **Respect basic invariants**
 
    - A given **copy** can be checked out to **at most one user at a time**.
    - Returning a book updates state consistently (no ghost loans).
 
-5. **Explain their thinking briefly**
+1. **Explain their thinking briefly**
    - Can articulate _why_ they chose their data structures and how the flow “add → borrow → return →
      query status” works end-to-end.
 

@@ -1,6 +1,9 @@
 ---
 name: install-script-patterns
-description: Guide for writing dotfiles install scripts with idempotency patterns and utility functions. Use when creating new install scripts, troubleshooting installation issues, or understanding the install system architecture.
+description:
+  Guide for writing dotfiles install scripts with idempotency patterns and utility functions. Use
+  when creating new install scripts, troubleshooting installation issues, or understanding the
+  install system architecture.
 ---
 
 # Install Script Patterns
@@ -132,15 +135,15 @@ See `references/examples.md` for complete example scripts.
 ## Best Practices
 
 1. **One tool per script** - Easy to maintain
-2. **Use utility functions** - Don't reinvent
-3. **Initialize brew cache** - Faster execution
-4. **Clear status messages** - User feedback
-5. **Check before installing** - Idempotency
-6. **Force symlinks** - `ln -sf`
-7. **Create parent directories** - `mkdir -p`
-8. **Set strict mode** - `set -euo pipefail`
-9. **Document what script does** - Header comment
-10. **Test twice** - Verify idempotency
+1. **Use utility functions** - Don't reinvent
+1. **Initialize brew cache** - Faster execution
+1. **Clear status messages** - User feedback
+1. **Check before installing** - Idempotency
+1. **Force symlinks** - `ln -sf`
+1. **Create parent directories** - `mkdir -p`
+1. **Set strict mode** - `set -euo pipefail`
+1. **Document what script does** - Header comment
+1. **Test twice** - Verify idempotency
 
 ## Troubleshooting
 

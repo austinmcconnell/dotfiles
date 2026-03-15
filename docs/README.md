@@ -6,20 +6,20 @@ information about the structure, installation, and customization of the dotfiles
 ## Table of Contents
 
 1. [Getting Started](GettingStarted.md) - Philosophy, repository structure, and core components
-2. [Installation Guide](InstallationGuide.md) - Detailed installation instructions
-3. [Package Management](PackageManagement.md) - How package management works across different
+1. [Installation Guide](InstallationGuide.md) - Detailed installation instructions
+1. [Package Management](PackageManagement.md) - How package management works across different
    systems
-4. [Customization Guide](CustomizationGuide.md) - How to customize the dotfiles for your needs
-5. [Amazon Q Integration](AmazonQIntegration.md) - How Amazon Q is integrated and configured
+1. [Customization Guide](CustomizationGuide.md) - How to customize the dotfiles for your needs
+1. [Amazon Q Integration](AmazonQIntegration.md) - How Amazon Q is integrated and configured
 
 ## Overview
 
 This dotfiles repository is a comprehensive system configuration management tool that:
 
 1. Automates the setup of a new macOS or Debian-based system
-2. Manages configuration files for various tools and applications
-3. Provides utility scripts for system maintenance
-4. Includes specialized configurations for both personal and work environments
+1. Manages configuration files for various tools and applications
+1. Provides utility scripts for system maintenance
+1. Includes specialized configurations for both personal and work environments
 
 ## Key Features
 
@@ -42,10 +42,10 @@ For installation instructions, see the [Installation Guide](InstallationGuide.md
 If you'd like to contribute to the dotfiles repository, please:
 
 1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests for your changes
-5. Submit a pull request
+1. Create a feature branch
+1. Make your changes
+1. Add tests for your changes
+1. Submit a pull request
 
 ## License
 

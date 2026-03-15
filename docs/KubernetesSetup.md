@@ -123,9 +123,9 @@ sh ~/.dotfiles/etc/kind/test/test-metallb.sh
 ### Common Issues
 
 1. **Docker not running**: Ensure Docker is running before creating a Kind cluster
-2. **Port conflicts**: If ports are already in use, the setup may fail
-3. **Network issues**: If you have VPN software running, it may interfere with the network setup
-4. **Resource constraints**: If your system is low on resources, try reducing the system
+1. **Port conflicts**: If ports are already in use, the setup may fail
+1. **Network issues**: If you have VPN software running, it may interfere with the network setup
+1. **Resource constraints**: If your system is low on resources, try reducing the system
    reservations in the cluster configuration
 
 ### Logs and Debugging
@@ -157,8 +157,8 @@ cd ~/.dotfiles
 To add a new component:
 
 1. Create a new script in `~/.dotfiles/install/kubernetes/components/`
-2. Add the component to the `.env.template` file
-3. Update the CLI tool in `~/.dotfiles/install/kubernetes/cli.sh`
+1. Add the component to the `.env.template` file
+1. Update the CLI tool in `~/.dotfiles/install/kubernetes/cli.sh`
 
 ## Resources
 

@@ -233,10 +233,7 @@ Example: (450ms - 150ms) / 450ms * 100 = 66% faster
 
 ## Startup Time Targets
 
-**Excellent:** < 100ms
-**Good:** 100-200ms
-**Acceptable:** 200-300ms
-**Needs optimization:** > 300ms
+**Excellent:** < 100ms **Good:** 100-200ms **Acceptable:** 200-300ms **Needs optimization:** > 300ms
 
 ## Debugging Slow Startup
 
@@ -343,15 +340,15 @@ fi
 ## Best Practices
 
 1. **Profile before optimizing** - Measure first
-2. **Defer non-essential plugins** - Faster startup
-3. **Lazy-load version managers** - Biggest impact
-4. **Keep .zshenv minimal** - Only essentials
-5. **Cache expensive operations** - Avoid repeated work
-6. **Compile Zsh files** - Small improvement
-7. **Regular audits** - Remove unused plugins
-8. **Monitor over time** - Catch regressions
-9. **Target < 200ms** - Good user experience
-10. **Test after changes** - Verify improvements
+1. **Defer non-essential plugins** - Faster startup
+1. **Lazy-load version managers** - Biggest impact
+1. **Keep .zshenv minimal** - Only essentials
+1. **Cache expensive operations** - Avoid repeated work
+1. **Compile Zsh files** - Small improvement
+1. **Regular audits** - Remove unused plugins
+1. **Monitor over time** - Catch regressions
+1. **Target < 200ms** - Good user experience
+1. **Test after changes** - Verify improvements
 
 ## Quick Reference
 

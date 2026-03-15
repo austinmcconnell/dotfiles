@@ -1,6 +1,9 @@
 ---
 name: zsh-deep-dive
-description: Deep technical guide for Zsh configuration using Zephyr framework and Antidote plugin manager. Use when adding plugins, debugging startup performance, creating custom functions, or troubleshooting shell configuration issues.
+description:
+  Deep technical guide for Zsh configuration using Zephyr framework and Antidote plugin manager. Use
+  when adding plugins, debugging startup performance, creating custom functions, or troubleshooting
+  shell configuration issues.
 ---
 
 # Zsh Configuration Deep Dive
@@ -54,8 +57,9 @@ See `references/antidote-plugins.md` for detailed plugin management.
 **Quick steps:**
 
 1. Add to `.zsh_plugins.txt`
-2. Regenerate static file: `antidote bundle <~/.config/zsh/.zsh_plugins.txt >~/.config/zsh/.zsh_plugins.zsh`
-3. Reload shell: `exec zsh`
+1. Regenerate static file:
+   `antidote bundle <~/.config/zsh/.zsh_plugins.txt >~/.config/zsh/.zsh_plugins.zsh`
+1. Reload shell: `exec zsh`
 
 ## Modular Configuration (conf.d/)
 
@@ -161,30 +165,30 @@ touch ~/.config/zsh/conf.d/linux.zsh-linux   # Only loads on Linux
 **Plugin not loading:**
 
 1. Check `.zsh_plugins.txt` syntax
-2. Regenerate static file
-3. Verify plugin exists: `antidote list`
+1. Regenerate static file
+1. Verify plugin exists: `antidote list`
 
 **Completion not working:**
 
 1. Rebuild cache: `rm -f ~/.cache/zsh/zcompcache/.zcompdump*`
-2. Check fpath: `echo $fpath`
-3. Verify completion file starts with underscore
+1. Check fpath: `echo $fpath`
+1. Verify completion file starts with underscore
 
 **Function not found:**
 
 1. Verify file in `~/.config/zsh/functions/`
-2. Check fpath includes functions directory
-3. Reload: `exec zsh`
+1. Check fpath includes functions directory
+1. Reload: `exec zsh`
 
 ## Best Practices
 
 1. **Keep .zshenv minimal** - Only essential environment variables
-2. **Defer non-essential plugins** - Faster startup
-3. **Use conf.d for organization** - Topic-based files
-4. **Autoload custom functions** - Lazy loading
-5. **Profile before optimizing** - Measure first
-6. **Platform-specific suffixes** - Clean conditional logic
-7. **Abbreviations over aliases** - Better history
+1. **Defer non-essential plugins** - Faster startup
+1. **Use conf.d for organization** - Topic-based files
+1. **Autoload custom functions** - Lazy loading
+1. **Profile before optimizing** - Measure first
+1. **Platform-specific suffixes** - Clean conditional logic
+1. **Abbreviations over aliases** - Better history
 
 ## Quick Reference
 

@@ -20,10 +20,10 @@ Kiro CLI is installed via the dedicated installation script:
 This script:
 
 1. Installs the Kiro CLI cask using Homebrew
-2. Creates necessary configuration directories
-3. Links configuration files from the dotfiles repository
-4. Installs Kiro CLI integrations (like SSH)
-5. Installs MCP servers for extended functionality
+1. Creates necessary configuration directories
+1. Links configuration files from the dotfiles repository
+1. Installs Kiro CLI integrations (like SSH)
+1. Installs MCP servers for extended functionality
 
 ## Configuration Files
 
@@ -77,7 +77,7 @@ To add a custom context:
    touch ~/.dotfiles/etc/kiro-cli/profiles/custom-profile/context.json
    ```
 
-2. Add your context information in JSON format:
+1. Add your context information in JSON format:
 
    ```json
    {
@@ -95,13 +95,13 @@ For different development scenarios, you can create specialized profiles:
    mkdir -p ~/.dotfiles/etc/kiro-cli/profiles/python-dev
    ```
 
-2. Add profile-specific context files:
+1. Add profile-specific context files:
 
    ```bash
    touch ~/.dotfiles/etc/kiro-cli/profiles/python-dev/context.json
    ```
 
-3. Configure the profile in your settings.json
+1. Configure the profile in your settings.json
 
 ### Customizing CLI Agents
 
@@ -113,9 +113,9 @@ To customize an existing agent or create a new one:
    cp ~/.dotfiles/etc/kiro-cli/cli-agents/default.json ~/.dotfiles/etc/kiro-cli/cli-agents/custom.json
    ```
 
-2. Modify the `resources`, `prompt`, and `allowedTools` as needed
+1. Modify the `resources`, `prompt`, and `allowedTools` as needed
 
-3. Use the custom agent:
+1. Use the custom agent:
 
    ```bash
    kiro-cli chat --agent custom
@@ -145,19 +145,19 @@ Kiro CLI integrates with various IDEs:
 ### Best Practices
 
 1. **Be Specific**: Provide clear, specific questions to get the best answers
-2. **Use Context**: Reference specific files or code when asking questions
-3. **Choose the Right Agent**: Use specialized agents (jira, github) for domain-specific tasks
-4. **Iterate**: Refine your questions based on the responses
-5. **Verify**: Always verify generated code or suggestions before implementing
+1. **Use Context**: Reference specific files or code when asking questions
+1. **Choose the Right Agent**: Use specialized agents (jira, github) for domain-specific tasks
+1. **Iterate**: Refine your questions based on the responses
+1. **Verify**: Always verify generated code or suggestions before implementing
 
 ## Troubleshooting
 
 If you encounter issues with Kiro CLI:
 
 1. Check that the configuration directories exist
-2. Verify that the symbolic links are correctly established
-3. Restart Kiro CLI after making configuration changes
-4. Check the Kiro CLI logs for error messages
+1. Verify that the symbolic links are correctly established
+1. Restart Kiro CLI after making configuration changes
+1. Check the Kiro CLI logs for error messages
 
 ## Advanced Configuration
 

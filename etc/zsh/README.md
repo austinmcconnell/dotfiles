@@ -35,9 +35,9 @@ etc/zsh/
 Zsh configuration follows the standard loading sequence with framework integration:
 
 1. **`.zshenv`** - Core environment variables and XDG directories
-2. **`.zprofile`** - Login shell environment setup
-3. **`.zshrc`** - Interactive shell configuration with plugin loading
-4. **`.zlogin`** - Post-login initialization
+1. **`.zprofile`** - Login shell environment setup
+1. **`.zshrc`** - Interactive shell configuration with plugin loading
+1. **`.zlogin`** - Post-login initialization
 
 ### Plugin Management
 

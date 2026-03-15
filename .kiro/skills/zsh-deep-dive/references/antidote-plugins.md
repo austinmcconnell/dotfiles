@@ -226,8 +226,8 @@ antidote update
 ### Remove Plugin
 
 1. Remove from `.zsh_plugins.txt`
-2. Regenerate static file
-3. Reload shell
+1. Regenerate static file
+1. Reload shell
 
 ```bash
 vim ~/.config/zsh/.zsh_plugins.txt
@@ -325,13 +325,13 @@ heavy-plugin kind:defer
 ## Best Practices
 
 1. **Defer non-essential plugins** - Faster startup
-2. **Load framework first** - Provides base functionality
-3. **Syntax highlighting last** - Heavy processing
-4. **Use path: for monorepos** - Load specific components
-5. **Configure before loading** - Set plugin options early
-6. **Regenerate after changes** - Static file must be updated
-7. **Test incrementally** - Add one plugin at a time
-8. **Profile regularly** - Catch performance regressions
+1. **Load framework first** - Provides base functionality
+1. **Syntax highlighting last** - Heavy processing
+1. **Use path: for monorepos** - Load specific components
+1. **Configure before loading** - Set plugin options early
+1. **Regenerate after changes** - Static file must be updated
+1. **Test incrementally** - Add one plugin at a time
+1. **Profile regularly** - Catch performance regressions
 
 ## Example Plugin Manifest
 
