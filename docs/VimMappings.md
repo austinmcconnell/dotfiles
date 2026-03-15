@@ -24,7 +24,7 @@ Auto-generated documentation of custom Vim mappings.
 | n    | `<C-H>`     | `\<C-W\>\<C-H\>`                                 |       |
 | n    | `<C-J>`     | `\<C-W\>\<C-J\>`                                 |       |
 | n    | `<C-K>`     | `\<C-W\>\<C-K\>`                                 |       |
-| i    | `<C-l>`     | `\<c-g\>u\<Esc\>[s1z=`]a\<c-g\>u`                |       |
+| i    | `<C-l>`     | `\<c-g\>u\<Esc\>[s1z=`\]a\<c-g>u\`               |       |
 | n    | `<C-L>`     | `\<C-W\>\<C-L\>`                                 |       |
 | t    | `<Esc>`     | `\<C-\>\<C-n\>`                                  |       |
 | i    | `<expr>`    | `\<cr\> pumvisible() ? \\<C-y\> : \\<cr\>`       |       |
@@ -137,4 +137,5 @@ Auto-generated documentation of custom Vim mappings.
 
 ## Standard Vim Overrides
 
-These mappings override standard Vim behavior. Consider remapping to preserve standard functionality:
+These mappings override standard Vim behavior. Consider remapping to preserve standard
+functionality:

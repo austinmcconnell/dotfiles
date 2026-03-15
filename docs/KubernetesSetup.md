@@ -77,6 +77,7 @@ The Kind cluster is configured with system resource reservations to ensure stabi
   - System reservation: 1GB memory and 500m CPU
 
 - **Worker Nodes**:
+
   - System reservation: 512MB memory and 250m CPU
 
 These reservations ensure that the Kubernetes system components have dedicated resources. You can

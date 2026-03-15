@@ -1,9 +1,6 @@
 ---
 name: install-script-patterns
-description:
-  Guide for writing dotfiles install scripts with idempotency patterns and utility functions. Use
-  when creating new install scripts, troubleshooting installation issues, or understanding the
-  install system architecture.
+description: Guide for writing dotfiles install scripts with idempotency patterns and utility functions. Use when creating new install scripts, troubleshooting installation issues, or understanding the install system architecture.
 ---
 
 # Install Script Patterns

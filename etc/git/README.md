@@ -48,7 +48,9 @@ The `scripts/sort-git-config.sh` script organizes the main config file into logi
 - Adds unknown sections under "Other" group
 
 **Adding new sections:**
-Edit `scripts/sort-git-config.sh` and add the section name to `SECTION_ORDER` array in the appropriate group. Unknown sections are automatically preserved at the end.
+
+Edit `scripts/sort-git-config.sh` and add the section name to `SECTION_ORDER` array in the
+appropriate group. Unknown sections are automatically preserved at the end.
 
 ## Architecture Overview
 

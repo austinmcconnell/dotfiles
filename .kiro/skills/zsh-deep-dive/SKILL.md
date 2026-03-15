@@ -1,9 +1,6 @@
 ---
 name: zsh-deep-dive
-description:
-  Deep technical guide for Zsh configuration using Zephyr framework and Antidote plugin manager. Use
-  when adding plugins, debugging startup performance, creating custom functions, or troubleshooting
-  shell configuration issues.
+description: Deep technical guide for Zsh configuration using Zephyr framework and Antidote plugin manager. Use when adding plugins, debugging startup performance, creating custom functions, or troubleshooting shell configuration issues.
 ---
 
 # Zsh Configuration Deep Dive

@@ -1,8 +1,6 @@
 ---
 name: vim-deep-dive
-description:
-  Deep technical guide for Vim configuration with vim-plug and ALE. Use when adding plugins,
-  configuring language support, troubleshooting linters, or customizing language-specific behavior.
+description: Deep technical guide for Vim configuration with vim-plug and ALE. Use when adding plugins, configuring language support, troubleshooting linters, or customizing language-specific behavior.
 ---
 
 # Vim Configuration Deep Dive

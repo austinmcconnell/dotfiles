@@ -215,12 +215,12 @@ After calling `init_brew_cache()`, these variables are available:
 **`BREW_INSTALLED_FORMULAE`**
 
 - Newline-separated list of installed formulae
-- Example: "git\nvim\ntmux"
+- Example: "git\\nvim\\ntmux"
 
 **`BREW_INSTALLED_CASKS`**
 
 - Newline-separated list of installed casks
-- Example: "visual-studio-code\niterm2"
+- Example: "visual-studio-code\\niterm2"
 
 **`BREW_OUTDATED_FORMULAE`**
 
@@ -233,7 +233,7 @@ After calling `init_brew_cache()`, these variables are available:
 **`BREW_TAPS`**
 
 - Newline-separated list of taps
-- Example: "homebrew/core\nhomebrew/cask"
+- Example: "homebrew/core\\nhomebrew/cask"
 
 **Usage:**
 
