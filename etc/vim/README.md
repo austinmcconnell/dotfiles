@@ -42,7 +42,7 @@ categories include:
 - **Editing**: Auto-pairs, commenting, undo management, text objects
 - **UI**: Status line, colorschemes, file explorer
 - **Workflow**: Session management, search tools, tag navigation
-- **Writing**: Distraction-free mode (Goyo + Limelight), prose linters (opt-in)
+- **Writing**: Distraction-free mode (Goyo + Limelight), prose linters (opt-in), table formatting
 
 ### Language Support
 

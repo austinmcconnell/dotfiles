@@ -73,6 +73,7 @@ Plug 'dhruvasagar/vim-prosession'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'dbmrq/vim-ditto'
+Plug 'dhruvasagar/vim-table-mode'
 
 call plug#end()
 
