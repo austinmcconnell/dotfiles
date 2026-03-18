@@ -18,8 +18,8 @@ Thumbs.db
 
 ## TODO or Plan Markdown documents
 
-todo-*.md
-plan-*.md
+todo*.md
+plan*.md
 analysis/
 
 ## Git worktrees
