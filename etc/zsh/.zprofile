@@ -22,7 +22,9 @@ path=(
     /opt/homebrew/opt/{coreutils,grep,findutils}/libexec/gnubin(N)
     /opt/homebrew/opt/ccache/libexec(N)
     /usr/local/{,s}bin(N)
+    $PYENV_ROOT/shims
     $PYENV_ROOT/bin
+    $RBENV_ROOT/shims
     $RBENV_ROOT/bin
     $DOTFILES_DIR/bin(N)
     $HOME/go/bin
