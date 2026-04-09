@@ -11,7 +11,7 @@ tell the application "Finder"
 
 	set min_free_space to (total_gbytes * 0.2)
 
-	if free_gbytes < 30 then
+	if free_gbytes < 100 then
 		return true
 	else
 		return false
