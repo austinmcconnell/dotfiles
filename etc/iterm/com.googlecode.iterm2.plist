@@ -6853,6 +6853,8 @@
 	<true/>
 	<key>RunJobsInServers</key>
 	<true/>
+	<key>Selection Respects Soft Boundaries</key>
+	<false/>
 	<key>ShowFullScreenTabBar</key>
 	<false/>
 	<key>ShowSessionRestoredBanner</key>
