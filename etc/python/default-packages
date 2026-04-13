@@ -7,6 +7,7 @@ pre-commit
 proselint
 pylint
 python-lsp-server[all]
+uv
 yamllint
 mdformat
 mdformat-gfm
