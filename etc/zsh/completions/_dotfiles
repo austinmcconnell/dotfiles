@@ -22,6 +22,7 @@ _dotfiles_commands() {
         'edit:Open dotfiles in IDE'
         'help:Show help message'
         'mac:macOS specific commands'
+        'sync-projects:Fetch and fast-forward ~/projects repositories'
         'test:Run tests'
         'update:Update packages and pkg managers (OS, brew, apt)'
         'update-repos:Update git repositories in ~/.repositories'
@@ -34,7 +35,7 @@ _dotfiles_args() {
         mac)
             _dotfiles_mac_commands
             ;;
-        clean|edit|help|test|update|update-repos)
+        clean|edit|help|test|update|update-repos|sync-projects)
             # These commands don't take additional arguments
             ;;
     esac

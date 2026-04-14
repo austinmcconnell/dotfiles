@@ -57,6 +57,7 @@ sub_help() {
     echo "   edit                 Open dotfiles in IDE ($DOTFILES_IDE)"
     echo "   help                 This help message"
     echo "   mac                  macOS specific commands (see below)"
+    echo "   sync-projects        Fetch and fast-forward ~/projects repositories"
     echo "   test                 Run tests"
     echo "   update               Update packages and pkg managers (OS, brew, apt)"
     echo "   update-repos         Update git repositories in ~/.repositories"
@@ -336,10 +337,179 @@ sub_mac_dock_work() {
     . "${DOTFILES_DIR}/macos/dock-work.sh" && echo "Dock reloaded."
 }
 
+# Fetch and fast-forward project repositories in ~/projects/<owner>/<repo>
+sub_sync-projects() {
+    print_section_header "Syncing project repositories"
+
+    local projects_dir="$HOME/projects"
+
+    if [[ ! -d "$projects_dir" ]]; then
+        log_warning "No projects directory found at ~/projects"
+        return 0
+    fi
+
+    # Collect results for the summary table
+    local repos=()
+    local statuses=()
+    local details=()
+
+    local GREEN="\033[32m"
+    local YELLOW="\033[0;33m"
+    local RED="\033[0;31m"
+    local BLUE="\033[0;34m"
+    local RESET="\033[0m"
+
+    local total=0
+    for repo_dir in "$projects_dir"/*/*; do
+        [[ -d "$repo_dir/.git" ]] && ((total++))
+    done
+
+    local count=0
+    for repo_dir in "$projects_dir"/*/*; do
+        [[ -d "$repo_dir/.git" ]] || continue
+
+        local display_path="${repo_dir#"$projects_dir/"}"
+        repos+=("$display_path")
+        ((count++))
+
+        printf "\r\033[K  Fetching [%d/%d] %s..." "$count" "$total" "$display_path" >&2
+
+        log_debug "Processing: $display_path"
+
+        # Fetch all remotes
+        if ! git -C "$repo_dir" fetch --all --prune --quiet 2>/dev/null; then
+            statuses+=("error")
+            details+=("fetch failed")
+            continue
+        fi
+
+        # Detect primary branch
+        local primary_branch
+        primary_branch=$(git -C "$repo_dir" symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's|refs/remotes/origin/||')
+        if [[ -z "$primary_branch" ]]; then
+            for candidate in main master; do
+                if git -C "$repo_dir" rev-parse --verify "refs/heads/$candidate" &>/dev/null; then
+                    primary_branch="$candidate"
+                    break
+                fi
+            done
+        fi
+
+        if [[ -z "$primary_branch" ]]; then
+            statuses+=("warning")
+            details+=("no primary branch detected")
+            continue
+        fi
+
+        # Check current branch
+        local current_branch
+        current_branch=$(git -C "$repo_dir" branch --show-current 2>/dev/null)
+
+        if [[ "$current_branch" != "$primary_branch" ]]; then
+            statuses+=("skipped")
+            details+=("on branch $current_branch")
+            continue
+        fi
+
+        # Check for dirty working tree
+        if [[ -n $(git -C "$repo_dir" status --porcelain 2>/dev/null) ]]; then
+            statuses+=("skipped")
+            details+=("dirty working tree")
+            continue
+        fi
+
+        # Check how far behind
+        local behind
+        behind=$(git -C "$repo_dir" rev-list --count HEAD..origin/"$primary_branch" 2>/dev/null)
+
+        if [[ "$behind" -eq 0 ]]; then
+            statuses+=("current")
+            details+=("")
+            continue
+        fi
+
+        # Attempt fast-forward merge
+        if git -C "$repo_dir" merge --ff-only origin/"$primary_branch" --quiet 2>/dev/null; then
+            statuses+=("updated")
+            details+=("$behind commit(s)")
+        else
+            statuses+=("diverged")
+            details+=("$behind behind, cannot fast-forward")
+        fi
+    done
+
+    if [[ ${#repos[@]} -eq 0 ]]; then
+        log_info "No repositories found in ~/projects"
+        return 0
+    fi
+
+    # Calculate column widths
+    printf "\r\033[K" >&2
+    local max_repo=10 max_detail=7
+    for i in "${!repos[@]}"; do
+        ((${#repos[$i]} > max_repo)) && max_repo=${#repos[$i]}
+        ((${#details[$i]} > max_detail)) && max_detail=${#details[$i]}
+    done
+
+    # Print table
+    echo ""
+    local divider
+    divider=$(printf '─%.0s' $(seq 1 $((max_repo + max_detail + 20))))
+    printf " %-${max_repo}s │ %-11s │ %s\n" "Repository" "Status" "Details"
+    echo " $divider"
+
+    for i in "${!repos[@]}"; do
+        local color status_str
+        # Pad status strings to 11 visual columns
+        # ✓/✗ are single-width (1 col), ⏭/⚠ are double-width (2 cols)
+        case "${statuses[$i]}" in
+        updated)
+            color="$GREEN"
+            status_str="✓ updated  "
+            ;;
+        current)
+            color="$BLUE"
+            status_str="✓ current  "
+            ;;
+        skipped)
+            color="$YELLOW"
+            status_str="⏭ skipped "
+            ;;
+        diverged)
+            color="$YELLOW"
+            status_str="⚠ diverged"
+            ;;
+        warning)
+            color="$YELLOW"
+            status_str="⚠ warning "
+            ;;
+        error)
+            color="$RED"
+            status_str="✗ error    "
+            ;;
+        esac
+        printf " %-${max_repo}s │ ${color}%s${RESET} │ %s\n" \
+            "${repos[$i]}" "$status_str" "${details[$i]}"
+    done
+
+    # Summary counts
+    local updated=0 current=0 skipped=0 problems=0
+    for s in "${statuses[@]}"; do
+        case "$s" in
+        updated) ((updated++)) ;;
+        current) ((current++)) ;;
+        skipped) ((skipped++)) ;;
+        diverged | warning | error) ((problems++)) ;;
+        esac
+    done
+    echo ""
+    echo " ${#repos[@]} repos: ${updated} updated, ${current} current, ${skipped} skipped, ${problems} need attention"
+}
+
 # Shell completion for available commands
 # Make sure to keep this in sync with the available public commands
 sub_completion() {
-    echo "clean edit help mac test update update-repos"
+    echo "clean edit help mac sync-projects test update update-repos"
 }
 
 # Process global options
