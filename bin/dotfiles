@@ -53,6 +53,7 @@ sub_help() {
     echo "Usage: $BIN_NAME <command> [subcommand] [options]"
     echo
     echo "Commands:"
+    echo "   analysis-status      Show analysis report status for ~/projects"
     echo "   clean                Clean up caches (brew, apt, gem, vim plugins)"
     echo "   edit                 Open dotfiles in IDE ($DOTFILES_IDE)"
     echo "   help                 This help message"
@@ -506,10 +507,145 @@ sub_sync-projects() {
     echo " ${#repos[@]} repos: ${updated} updated, ${current} current, ${skipped} skipped, ${problems} need attention"
 }
 
+# Show analysis report status for project repositories
+sub_analysis-status() {
+    local projects_dir="$HOME/projects"
+
+    if [[ ! -d "$projects_dir" ]]; then
+        log_warning "No projects directory found at ~/projects"
+        return 0
+    fi
+
+    local GREEN="\033[32m"
+    local YELLOW="\033[0;33m"
+    local RED="\033[0;31m"
+    local BLUE="\033[0;34m"
+    local DIM="\033[2m"
+    local RESET="\033[0m"
+
+    # Analysis files in dependency order
+    local analysis_names=(project architecture schema documentation integration testing technical-debt performance security)
+    local analysis_letters=(P A S D I T X F E)
+
+    local repos=()
+    local drifts=()
+    local -a all_flags=()
+
+    for repo_dir in "$projects_dir"/*/*; do
+        [[ -d "$repo_dir/.git" ]] || continue
+
+        local display_path="${repo_dir#"$projects_dir/"}"
+        repos+=("$display_path")
+
+        local analysis_dir="$repo_dir/analysis"
+        local drift=""
+        local flags=()
+
+        for name in "${analysis_names[@]}"; do
+            local file="$analysis_dir/${name}-analysis.md"
+            if [[ -f "$file" ]]; then
+                flags+=("yes")
+                # Get drift from project-analysis (the foundation)
+                if [[ "$name" == "project" ]]; then
+                    local analysis_commit
+                    analysis_commit=$(grep -m1 '^\*\*HEAD Commit:\*\*' "$file" 2>/dev/null | awk '{print $NF}')
+                    if [[ -n "$analysis_commit" ]]; then
+                        drift=$(git -C "$repo_dir" rev-list --count "$analysis_commit"..HEAD 2>/dev/null || echo "?")
+                    fi
+                fi
+            else
+                flags+=("no")
+            fi
+        done
+
+        drifts+=("$drift")
+        all_flags+=("${flags[*]}")
+    done
+
+    if [[ ${#repos[@]} -eq 0 ]]; then
+        log_info "No repositories found in ~/projects"
+        return 0
+    fi
+
+    # Calculate repo column width
+    local max_repo=10
+    for r in "${repos[@]}"; do
+        ((${#r} > max_repo)) && max_repo=${#r}
+    done
+
+    # Print table
+    echo ""
+    local header_cols=""
+    for l in "${analysis_letters[@]}"; do
+        header_cols+="  $l"
+    done
+    local divider
+    divider=$(printf '─%.0s' $(seq 1 $((max_repo + 36))))
+    printf " %-${max_repo}s │ %5s │%s\n" "Repository" "Drift" "$header_cols"
+    echo " $divider"
+
+    for i in "${!repos[@]}"; do
+        local drift_display="${drifts[$i]}"
+        local drift_color="$RESET"
+        if [[ -z "$drift_display" ]]; then
+            drift_display="    -"
+            drift_color="$DIM"
+        elif [[ "$drift_display" == "0" ]]; then
+            drift_color="$GREEN"
+            drift_display=$(printf "%5s" "$drift_display")
+        elif [[ "$drift_display" -le 20 ]]; then
+            drift_color="$BLUE"
+            drift_display=$(printf "%5s" "$drift_display")
+        elif [[ "$drift_display" -le 100 ]]; then
+            drift_color="$YELLOW"
+            drift_display=$(printf "%5s" "$drift_display")
+        else
+            drift_color="$RED"
+            drift_display=$(printf "%5s" "$drift_display")
+        fi
+
+        local flag_str=""
+        read -ra flags_arr <<<"${all_flags[$i]}"
+        for f in "${flags_arr[@]}"; do
+            if [[ "$f" == "yes" ]]; then
+                flag_str+="  ${GREEN}✓${RESET}"
+            else
+                flag_str+="  ${DIM}·${RESET}"
+            fi
+        done
+
+        printf " %-${max_repo}s │ ${drift_color}%s${RESET} │%b\n" \
+            "${repos[$i]}" "$drift_display" "$flag_str"
+    done
+
+    # Summary
+    local total=${#repos[@]} with_any=0 complete=0 none=0
+    for i in "${!repos[@]}"; do
+        read -ra flags_arr <<<"${all_flags[$i]}"
+        local count=0
+        for f in "${flags_arr[@]}"; do
+            [[ "$f" == "yes" ]] && ((count++))
+        done
+        if [[ $count -eq 9 ]]; then
+            ((complete++))
+        elif [[ $count -gt 0 ]]; then
+            ((with_any++))
+        else
+            ((none++))
+        fi
+    done
+    echo ""
+    echo " $total repos: $complete complete, $with_any partial, $none none"
+    echo ""
+    echo " Legend: P=project A=architecture S=schema D=documentation I=integration"
+    echo "         T=testing X=tech-debt F=performance E=security"
+    echo " Drift: commits since last project-analysis (— = no analysis)"
+}
+
 # Shell completion for available commands
 # Make sure to keep this in sync with the available public commands
 sub_completion() {
-    echo "clean edit help mac sync-projects test update update-repos"
+    echo "analysis-status clean edit help mac sync-projects test update update-repos"
 }
 
 # Process global options

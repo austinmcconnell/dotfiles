@@ -18,6 +18,7 @@ _dotfiles() {
 
 _dotfiles_commands() {
     local commands=(
+        'analysis-status:Show analysis report status for ~/projects'
         'clean:Clean up caches (brew, apt, gem, vim plugins)'
         'edit:Open dotfiles in IDE'
         'help:Show help message'
@@ -35,7 +36,7 @@ _dotfiles_args() {
         mac)
             _dotfiles_mac_commands
             ;;
-        clean|edit|help|test|update|update-repos|sync-projects)
+        analysis-status|clean|edit|help|test|update|update-repos|sync-projects)
             # These commands don't take additional arguments
             ;;
     esac
