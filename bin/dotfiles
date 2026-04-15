@@ -524,8 +524,8 @@ sub_analysis-status() {
     local RESET="\033[0m"
 
     # Analysis files in dependency order
-    local analysis_names=(project architecture schema documentation integration testing technical-debt performance security)
-    local analysis_letters=(P A S D I T X F E)
+    local analysis_names=(project architecture schema integration documentation testing technical-debt performance security)
+    local analysis_letters=(P A S I D T X F E)
 
     local repos=()
     local drifts=()
@@ -637,8 +637,12 @@ sub_analysis-status() {
     echo ""
     echo " $total repos: $complete complete, $with_any partial, $none none"
     echo ""
-    echo " Legend: P=project A=architecture S=schema D=documentation I=integration"
-    echo "         T=testing X=tech-debt F=performance E=security"
+    echo " Core:  P = project         Deep:  D = documentation"
+    echo "        A = architecture           T = testing"
+    echo "        S = schema                 X = tech-debt"
+    echo "        I = integration            F = performance"
+    echo "                                   E = security"
+    echo ""
     echo " Drift: commits since last project-analysis (— = no analysis)"
 }
 
