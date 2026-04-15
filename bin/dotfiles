@@ -540,18 +540,22 @@ sub_analysis-status() {
         local analysis_dir="$repo_dir/analysis"
         local drift=""
         local flags=()
+        local repo_head
+        repo_head=$(git -C "$repo_dir" rev-parse HEAD 2>/dev/null)
 
         for name in "${analysis_names[@]}"; do
             local file="$analysis_dir/${name}-analysis.md"
             if [[ -f "$file" ]]; then
-                flags+=("yes")
+                local analysis_commit
+                analysis_commit=$(grep -m1 '^\*\*HEAD Commit:\*\*' "$file" 2>/dev/null | awk '{print $NF}')
+                if [[ "$analysis_commit" == "$repo_head" ]]; then
+                    flags+=("current")
+                else
+                    flags+=("stale")
+                fi
                 # Get drift from project-analysis (the foundation)
-                if [[ "$name" == "project" ]]; then
-                    local analysis_commit
-                    analysis_commit=$(grep -m1 '^\*\*HEAD Commit:\*\*' "$file" 2>/dev/null | awk '{print $NF}')
-                    if [[ -n "$analysis_commit" ]]; then
-                        drift=$(git -C "$repo_dir" rev-list --count "$analysis_commit"..HEAD 2>/dev/null || echo "?")
-                    fi
+                if [[ "$name" == "project" && -n "$analysis_commit" ]]; then
+                    drift=$(git -C "$repo_dir" rev-list --count "$analysis_commit"..HEAD 2>/dev/null || echo "?")
                 fi
             else
                 flags+=("no")
@@ -607,8 +611,10 @@ sub_analysis-status() {
         local flag_str=""
         read -ra flags_arr <<<"${all_flags[$i]}"
         for f in "${flags_arr[@]}"; do
-            if [[ "$f" == "yes" ]]; then
+            if [[ "$f" == "current" ]]; then
                 flag_str+="  ${GREEN}✓${RESET}"
+            elif [[ "$f" == "stale" ]]; then
+                flag_str+="  ${YELLOW}◐${RESET}"
             else
                 flag_str+="  ${DIM}·${RESET}"
             fi
@@ -624,7 +630,7 @@ sub_analysis-status() {
         read -ra flags_arr <<<"${all_flags[$i]}"
         local count=0
         for f in "${flags_arr[@]}"; do
-            [[ "$f" == "yes" ]] && ((count++))
+            [[ "$f" == "current" || "$f" == "stale" ]] && ((count++))
         done
         if [[ $count -eq 9 ]]; then
             ((complete++))
@@ -642,6 +648,8 @@ sub_analysis-status() {
     echo "        S = schema                 X = tech-debt"
     echo "        I = integration            F = performance"
     echo "                                   E = security"
+    echo ""
+    echo " ✓ = current  ◐ = stale  · = missing"
     echo ""
     echo " Drift: commits since last project-analysis (— = no analysis)"
 }
