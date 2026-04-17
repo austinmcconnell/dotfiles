@@ -154,9 +154,48 @@ sub_update() {
     log_debug "Running: vim -es -i NONE -c \"PlugUpgrade\" -c \"qa\""
     vim -es -i NONE -c "PlugUpgrade" -c "qa"
 
+    if is-executable npm; then
+        print_section_header "Updating global npm packages"
+        log_debug "Running: npm update -g"
+        npm update -g
+    fi
+
+    source "$DOTFILES_DIR/etc/kiro-cli/mcp-servers.conf"
+
+    if is-executable uv; then
+        print_section_header "Refreshing uvx-cached Python packages"
+        for server in "${PYTHON_MCP_SERVERS[@]}"; do
+            echo "Updating $server..."
+            log_debug "Running: uv tool upgrade $server"
+            if uv tool upgrade "$server" 2>&1; then
+                echo "✓ $server updated"
+            elif uv tool install "$server" 2>&1; then
+                echo "✓ $server installed"
+            else
+                log_warning "Failed to update $server"
+            fi
+        done
+    fi
+
     # Update external repositories and clean up
     log_info "Updating external repositories"
     sub_update-repos
+
+    # Rebuild github-mcp-server if repo was updated
+    if is-executable go && [[ -d "$GITHUB_MCP_REPO_DIR" ]]; then
+        print_section_header "Rebuilding github-mcp-server"
+        local VERSION COMMIT DATE
+        VERSION=$(git -C "$GITHUB_MCP_REPO_DIR" describe --tags --always --dirty 2>/dev/null || echo "dev")
+        COMMIT=$(git -C "$GITHUB_MCP_REPO_DIR" rev-parse --short HEAD 2>/dev/null || echo "unknown")
+        DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+        log_debug "Building version=$VERSION commit=$COMMIT"
+        if go build -C "$GITHUB_MCP_REPO_DIR" -ldflags "-s -w -X main.version=$VERSION -X main.commit=$COMMIT -X main.date=$DATE" -o "$GITHUB_MCP_BINARY" ./cmd/github-mcp-server; then
+            echo "✅ github-mcp-server rebuilt ($VERSION)"
+        else
+            log_warning "Failed to rebuild github-mcp-server"
+        fi
+    fi
+
     log_info "Cleaning up"
     sub_clean
 
