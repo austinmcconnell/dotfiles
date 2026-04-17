@@ -52,12 +52,12 @@ _ai_prompt_args() {
     esac
 }
 
-# Get list of available prompts (without .txt extension)
+# Get list of available prompts (without .md extension)
 _ai_prompt_names() {
     local prompt_dir="$HOME/.dotfiles/etc/ai-prompts"
 
     if [[ -d "$prompt_dir" ]]; then
-        find "$prompt_dir" -name "*.txt" -type f 2>/dev/null | sed 's|.*/||; s|\.txt$||' | sort
+        find "$prompt_dir" -name "*.md" -not -name "README.md" -type f 2>/dev/null | sed 's|.*/||; s|\.md$||' | sort
     fi
 }
 
