@@ -142,10 +142,10 @@ sub_update() {
 
     if is-executable gem; then
         print_section_header "Updating Ruby gems"
-        log_debug "Running: gem update --system"
-        gem update --system
-        log_debug "Running: gem update"
-        gem update
+        log_debug "Running: gem update --system --no-document"
+        gem update --system --no-document
+        log_debug "Running: gem update --no-document"
+        gem update --no-document
     fi
 
     print_section_header "Updating vim-plug"
