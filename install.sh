@@ -24,10 +24,8 @@ fi
 
 # Create necessary directories:
 # - XDG_CONFIG_HOME: Standard location for application configs
-# - ~/.repositories: For external git repositories
 # - ~/.extra: For machine-specific configurations not tracked by git
 mkdir -p "$XDG_CONFIG_HOME"
-mkdir -p ~/.repositories
 mkdir -p "$HOME/.extra"
 
 # Check if .env file exists and if IS_WORK_COMPUTER is already set

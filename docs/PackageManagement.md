@@ -133,9 +133,7 @@ To update all packages across all package managers, use the `dotfiles update` co
 1. Updates antidote (Zsh plugin manager)
 1. Updates pyenv
 1. Updates vim-plug plugins
-1. Updates repositories in `~/.repositories`
-
-## Cleaning Up
+1. Updates repositories in `~/.repositories`## Cleaning Up
 
 To clean up caches and remove unused packages, use the `dotfiles clean` command, which:
 

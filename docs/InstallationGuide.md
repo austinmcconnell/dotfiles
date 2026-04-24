@@ -61,7 +61,6 @@ The installation script performs the following steps:
 1. Updates the dotfiles repository if it already exists
 1. Creates necessary directories:
    - `~/.config` (XDG config directory)
-   - `~/.repositories` (for external repositories)
    - `~/.extra` (for machine-specific configurations)
 1. Asks if this is a work computer to customize the setup
 1. Installs and configures:
