@@ -27,9 +27,9 @@ path=(
     $RBENV_ROOT/shims
     $RBENV_ROOT/bin
     $DOTFILES_DIR/bin(N)
+    $DOTFILES_DIR/scripts(N)
     $HOME/go/bin
     $HOME/.rvm/bin
-    $HOME/projects/scripts
     $path
 )
 
