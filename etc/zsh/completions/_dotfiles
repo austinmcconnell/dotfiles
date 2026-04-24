@@ -18,12 +18,12 @@ _dotfiles() {
 
 _dotfiles_commands() {
     local commands=(
-        'analysis-status:Show analysis report status for ~/projects'
+        'analysis-status:Show analysis report status for $PROJECTS_DIR'
         'clean:Clean up caches (brew, apt, gem, vim plugins)'
         'edit:Open dotfiles in IDE'
         'help:Show help message'
         'mac:macOS specific commands'
-        'sync-projects:Fetch and fast-forward ~/projects repositories'
+        'sync-projects:Fetch and fast-forward $PROJECTS_DIR repositories'
         'test:Run tests'
         'update:Update packages and pkg managers (OS, brew, apt)'
     )

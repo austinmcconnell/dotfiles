@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 from pathlib import Path
+import os
 
-REPOSITORIES_DIR = Path.home() / 'projects'
+REPOSITORIES_DIR = Path(os.environ.get('PROJECTS_DIR', Path.home() / 'projects'))
 
 # This assumes git repos have been sorted by owner as in scripts/sort_git_repos_by_owner.py
 owner_dirs = sorted([x for x in REPOSITORIES_DIR.iterdir() if x.is_dir()])

@@ -59,7 +59,7 @@ appropriate group. Unknown sections are automatically preserved at the end.
 The main `config` file includes context-specific configurations using `includeIf` directives:
 
 - **Platform detection**: Automatically loads macOS or Linux settings based on directory paths
-- **Work context**: Loads work-specific settings for projects in `~/projects/unite-us/`
+- **Work context**: Loads work-specific settings for projects in `$PROJECTS_DIR/unite-us/`
 - **Cascading settings**: Work and platform configs override base configuration as needed
 
 ### Core Features

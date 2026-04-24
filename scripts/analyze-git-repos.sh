@@ -3,7 +3,7 @@
 # Script to analyze Git repositories and recommend maintenance
 # Usage: ./analyze-git-repos.sh [directory]
 
-SCAN_DIR="${1:-$HOME/projects}"
+SCAN_DIR="${1:-${PROJECTS_DIR:-$HOME/projects}}"
 MAINTENANCE_THRESHOLD_MB=50
 MAINTENANCE_THRESHOLD_OBJECTS=1000
 ACTIVITY_THRESHOLD_DAYS=90 # Skip maintenance for repos inactive longer than this

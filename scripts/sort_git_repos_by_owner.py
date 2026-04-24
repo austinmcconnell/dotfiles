@@ -3,18 +3,19 @@
 # ---------------------------------------------------------------
 # Git Repository Organizer
 #
-# This script organizes Git repositories in the ~/projects directory
+# This script organizes Git repositories in the $PROJECTS_DIR directory
 # by moving them into subdirectories based on their remote owner.
 #
 # For example:
 # - A repo with remote URL https://github.com/owner/repo-name
-#   will be moved to ~/projects/owner/repo-name
+#   will be moved to $PROJECTS_DIR/owner/repo-name
 #
 # - A repo with SSH URL git@github.com:owner/repo-name.git
-#   will be moved to ~/projects/owner/repo-name
+#   will be moved to $PROJECTS_DIR/owner/repo-name
 # ---------------------------------------------------------------
 
 from pathlib import Path
+import os
 import subprocess
 
 def yes_or_no_question(question, default_no=True):
@@ -39,7 +40,7 @@ def yes_or_no_question(question, default_no=True):
         return False if default_no else True
 
 # Directory containing all projects
-REPOSITORIES_DIR = Path.home() / 'projects'
+REPOSITORIES_DIR = Path(os.environ.get('PROJECTS_DIR', Path.home() / 'projects'))
 
 # Get all directories in the projects folder
 projects = sorted([x for x in REPOSITORIES_DIR.iterdir() if x.is_dir()])

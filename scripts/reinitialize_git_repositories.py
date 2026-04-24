@@ -3,7 +3,7 @@
 # ---------------------------------------------------------------
 # Git Repository Reinitializer
 #
-# This script recursively finds Git repositories in the ~/projects
+# This script recursively finds Git repositories in the $PROJECTS_DIR
 # directory and reinitializes them by:
 # 1. Removing Git hooks or symlinks to hooks
 # 2. Reinitializing the Git repository
@@ -15,6 +15,7 @@
 # ---------------------------------------------------------------
 
 from pathlib import Path
+import os
 import subprocess
 
 def find_repos_in_dir(directory, level=1):
@@ -82,7 +83,7 @@ def find_repos_in_dir(directory, level=1):
             print('No pre-commit config found. Skipping initialization...')
 
 # Directory containing all projects
-REPOSITORIES_DIR = Path.home() / 'projects'
+REPOSITORIES_DIR = Path(os.environ.get('PROJECTS_DIR', Path.home() / 'projects'))
 
 # Start the recursive search
 find_repos_in_dir(directory=REPOSITORIES_DIR)

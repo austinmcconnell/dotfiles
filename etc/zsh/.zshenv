@@ -14,6 +14,7 @@ export XDG_STATE_HOME=${XDG_STATE_HOME:-$HOME/.local/state}
 # Zsh directories
 export ZDOTDIR=${ZDOTDIR:-$XDG_CONFIG_HOME/zsh}
 export DOTFILES_DIR="$HOME/.dotfiles"
+export PROJECTS_DIR="$HOME/projects"
 
 # macOS runtime directory
 export XDG_RUNTIME_DIR="${TMPDIR}user-${UID}"

@@ -3,7 +3,7 @@
 # ---------------------------------------------------------------
 # Git Repository Reftable Migrator
 #
-# This script recursively finds Git repositories in the ~/projects
+# This script recursively finds Git repositories in the $PROJECTS_DIR
 # directory and migrates them to the reftable reference format by:
 # 1. Checking if the repository is already using reftable
 # 2. Migrating to reftable format if using the files backend
@@ -18,6 +18,7 @@
 # ---------------------------------------------------------------
 
 from pathlib import Path
+import os
 import subprocess
 
 def find_repos_in_dir(directory, level=1):
@@ -76,7 +77,7 @@ def find_repos_in_dir(directory, level=1):
                 print(f'Error: {result.stderr}')
 
 # Directory containing all projects
-REPOSITORIES_DIR = Path.home() / 'projects'
+REPOSITORIES_DIR = Path(os.environ.get('PROJECTS_DIR', Path.home() / 'projects'))
 
 # Start the recursive search
 find_repos_in_dir(directory=REPOSITORIES_DIR)

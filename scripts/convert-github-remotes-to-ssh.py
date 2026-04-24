@@ -13,9 +13,10 @@
 # Usage:
 #   ./convert-github-remotes-to-ssh.py [directory]
 #
-# If no directory is provided, defaults to ~/projects
+# If no directory is provided, defaults to $PROJECTS_DIR
 # ---------------------------------------------------------------
 
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -142,15 +143,15 @@ def find_repos_in_dir(directory, level=1):
 
 def select_directory():
     """
-    Interactive directory selection from ~/projects
+    Interactive directory selection from $PROJECTS_DIR
     """
-    projects_dir = Path.home() / 'projects'
+    projects_dir = Path(os.environ.get('PROJECTS_DIR', Path.home() / 'projects'))
 
     if not projects_dir.exists():
         print(f'Directory {projects_dir} does not exist')
         sys.exit(1)
 
-    # Get all directories in ~/projects
+    # Get all directories in $PROJECTS_DIR
     try:
         owner_dirs = sorted([x for x in projects_dir.iterdir()
                            if x.is_dir() and not x.name.startswith('.')])
@@ -162,7 +163,7 @@ def select_directory():
         print(f'No directories found in {projects_dir}')
         sys.exit(1)
 
-    print('Available directories in ~/projects:')
+    print(f'Available directories in {projects_dir}:')
     print()
     for i, dir_path in enumerate(owner_dirs, 1):
         # Count git repos in this directory

@@ -53,12 +53,12 @@ sub_help() {
     echo "Usage: $BIN_NAME <command> [subcommand] [options]"
     echo
     echo "Commands:"
-    echo "   analysis-status      Show analysis report status for ~/projects"
+    echo "   analysis-status      Show analysis report status for \$PROJECTS_DIR"
     echo "   clean                Clean up caches (brew, apt, gem, vim plugins)"
     echo "   edit                 Open dotfiles in IDE ($DOTFILES_IDE)"
     echo "   help                 This help message"
     echo "   mac                  macOS specific commands (see below)"
-    echo "   sync-projects        Fetch and fast-forward ~/projects repositories"
+    echo "   sync-projects        Fetch and fast-forward \$PROJECTS_DIR repositories"
     echo "   test                 Run tests"
     echo "   update               Update packages and pkg managers (OS, brew, apt)"
     echo
@@ -340,14 +340,14 @@ sub_mac_dock_work() {
     . "${DOTFILES_DIR}/macos/dock-work.sh" && echo "Dock reloaded."
 }
 
-# Fetch and fast-forward project repositories in ~/projects/<owner>/<repo>
+# Fetch and fast-forward project repositories in $PROJECTS_DIR/<owner>/<repo>
 sub_sync-projects() {
     print_section_header "Syncing project repositories"
 
-    local projects_dir="$HOME/projects"
+    local projects_dir="${PROJECTS_DIR:-$HOME/projects}"
 
     if [[ ! -d "$projects_dir" ]]; then
-        log_warning "No projects directory found at ~/projects"
+        log_warning "No projects directory found at $projects_dir"
         return 0
     fi
 
@@ -442,7 +442,7 @@ sub_sync-projects() {
     done
 
     if [[ ${#repos[@]} -eq 0 ]]; then
-        log_info "No repositories found in ~/projects"
+        log_info "No repositories found in $projects_dir"
         return 0
     fi
 
@@ -511,10 +511,10 @@ sub_sync-projects() {
 
 # Show analysis report status for project repositories
 sub_analysis-status() {
-    local projects_dir="$HOME/projects"
+    local projects_dir="${PROJECTS_DIR:-$HOME/projects}"
 
     if [[ ! -d "$projects_dir" ]]; then
-        log_warning "No projects directory found at ~/projects"
+        log_warning "No projects directory found at $projects_dir"
         return 0
     fi
 
@@ -569,7 +569,7 @@ sub_analysis-status() {
     done
 
     if [[ ${#repos[@]} -eq 0 ]]; then
-        log_info "No repositories found in ~/projects"
+        log_info "No repositories found in $projects_dir"
         return 0
     fi
 

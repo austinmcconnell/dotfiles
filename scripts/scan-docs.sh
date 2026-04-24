@@ -8,7 +8,7 @@
 
 set -euo pipefail
 
-DOCS_DIR="${1:-$HOME/projects/austinmcconnell/_documentation_}"
+DOCS_DIR="${1:-${PROJECTS_DIR:-$HOME/projects}/austinmcconnell/_documentation_}"
 
 # Colors (disabled when not a terminal)
 if [[ -t 1 ]]; then
