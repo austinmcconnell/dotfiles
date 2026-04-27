@@ -4,28 +4,80 @@
 # Usage: Run this from any Python project root directory
 # Options: --yes or -y to skip interactive prompts
 #
-# This script converts common pylint disable patterns to their ruff equivalents:
+# Uses a lookup table to convert each pylint rule to its ruff equivalent.
+# Handles any combination of comma-separated rules automatically.
 #
-# BASIC PATTERNS:
+# MAPPINGS:
 # - unused-argument → ARG001
 # - unused-variable → F841
 # - unused-import → F401
-# - broad-exception-caught → BLE001
-# - line-too-long → E501
 # - wrong-import-order → I001
-# - missing-docstring → D100-D107 (commented - ruff doesn't enable by default)
-# - invalid-name → N806, N802, N801
-# - too-many-* → PLR0913, PLR0915, PLR0912, etc.
-# - redefined-outer-name → (silently dropped - no ruff equivalent, usually a pytest false positive)
-# - import-error → (commented - often environment-specific)
-# - no-member → (commented - often false positive)
-# - duplicate-code → (commented - no ruff equivalent)
+# - wrong-import-position → E402
+# - broad-exception-caught → BLE001
+# - bare-except → E722
+# - raise-missing-from → B904
+# - invalid-name → N806, N802, N801, N803
+# - constant-name → N816
+# - too-many-arguments → PLR0913
+# - too-many-locals → PLR0914
+# - too-many-statements → PLR0915
+# - too-many-branches → PLR0912
+# - too-many-return-statements → PLR0911
+# - line-too-long → E501
+# - trailing-whitespace → W291
+# - eval-used → S307
+# - exec-used → S102
+#
+# SILENTLY DROPPED (no ruff equivalent, usually noise):
+# - too-few-public-methods, redefined-outer-name
+#
+# PRESERVED AS COMMENTS (no ruff equivalent, worth keeping):
+# - duplicate-code, import-error, no-member
+# - missing-docstring, missing-module-docstring
+# - missing-class-docstring, missing-function-docstring
 
 set -euo pipefail
 
+# --- Lookup table: pylint rule → ruff code(s) ---
+# Empty string = silently drop the suppression comment
+# "!" prefix = preserve as a descriptive comment (no noqa)
+# shellcheck disable=SC2191
+declare -A RULE_MAP=(
+    ["unused-argument"]="ARG001"
+    ["unused-variable"]="F841"
+    ["unused-import"]="F401"
+    ["wrong-import-order"]="I001"
+    ["wrong-import-position"]="E402"
+    ["broad-exception-caught"]="BLE001"
+    ["bare-except"]="E722"
+    ["raise-missing-from"]="B904"
+    ["invalid-name"]="N806, N802, N801, N803"
+    ["constant-name"]="N816"
+    ["too-many-arguments"]="PLR0913"
+    ["too-many-locals"]="PLR0914"
+    ["too-many-statements"]="PLR0915"
+    ["too-many-branches"]="PLR0912"
+    ["too-many-return-statements"]="PLR0911"
+    ["line-too-long"]="E501"
+    ["trailing-whitespace"]="W291"
+    ["eval-used"]="S307"
+    ["exec-used"]="S102"
+    # Silently dropped
+    ["too-few-public-methods"]=""
+    ["redefined-outer-name"]=""
+    # Preserved as comments
+    ["duplicate-code"]="!duplicate-code (no ruff equivalent)"
+    ["import-error"]="!import-error (environment-specific)"
+    ["no-member"]="!no-member (often false positive)"
+    ["missing-docstring"]="!missing-docstring (enable D rules if needed)"
+    ["missing-module-docstring"]="!missing-module-docstring (D100)"
+    ["missing-class-docstring"]="!missing-class-docstring (D101)"
+    ["missing-function-docstring"]="!missing-function-docstring (D103)"
+)
+
 # Parse command line arguments
 SKIP_PROMPTS=false
-if [[ "$1" == "--yes" ]] || [[ "$1" == "-y" ]]; then
+if [[ "${1:-}" == "--yes" ]] || [[ "${1:-}" == "-y" ]]; then
     SKIP_PROMPTS=true
 fi
 
@@ -36,7 +88,7 @@ echo "📁 Working directory: $(pwd)"
 if [ ! -d ".git" ]; then
     echo "⚠️  Warning: Not in a git repository. Changes won't be tracked."
     if [ "$SKIP_PROMPTS" = false ]; then
-        read -p "Continue anyway? (y/N): " -n 1 -r
+        read -r -p "Continue anyway? (y/N): " -n 1 REPLY
         echo
         if [[ ! $REPLY =~ ^[Yy]$ ]]; then
             exit 1
@@ -48,21 +100,26 @@ fi
 
 # Count existing pylint disables
 echo "🔍 Analyzing current pylint disable comments..."
-pylint_count=$(grep -r "pylint: disable" --include="*.py" --exclude-dir=".venv" --exclude-dir="venv" . 2>/dev/null | wc -l || echo "0")
-echo "📊 Found $pylint_count pylint disable comments"
+pylint_count=$(grep -r "pylint: disable" --include="*.py" \
+    --exclude-dir=".venv" --exclude-dir="venv" . 2>/dev/null | wc -l)
+pylint_count=$(echo "${pylint_count}" | tr -d ' ')
+echo "📊 Found ${pylint_count} pylint disable comments"
 
-if [ "$pylint_count" -eq 0 ]; then
+if [ "${pylint_count}" -eq 0 ]; then
     echo "✅ No pylint disable comments found. Nothing to convert."
     exit 0
 fi
 
 # Show breakdown of what we found
 echo "📋 Breakdown of pylint disable patterns:"
-grep -r "pylint: disable" --include="*.py" --exclude-dir=".venv" --exclude-dir="venv" . 2>/dev/null | sed 's/.*pylint: disable=//' | sort | uniq -c | sed 's/^/   /' || true
+grep -r "pylint: disable" --include="*.py" \
+    --exclude-dir=".venv" --exclude-dir="venv" . 2>/dev/null |
+    sed 's/.*pylint: disable=//' | sed 's/ *$//' |
+    sort | uniq -c | sed 's/^/   /' || true
 
 echo ""
 if [ "$SKIP_PROMPTS" = false ]; then
-    read -p "🚀 Proceed with conversion? (y/N): " -n 1 -r
+    read -r -p "🚀 Proceed with conversion? (y/N): " -n 1 REPLY
     echo
     if [[ ! $REPLY =~ ^[Yy]$ ]]; then
         echo "❌ Conversion cancelled"
@@ -72,98 +129,106 @@ else
     echo "🚀 Proceeding with conversion (--yes flag provided)..."
 fi
 
-# Helper function to perform sed replacement on Python files
-convert_pattern() {
-    local pylint_pattern="$1"
-    local ruff_pattern="$2"
-    local description="$3"
+# Convert a single pylint disable comment to its ruff equivalent.
+# Reads comma-separated rules, looks each up, and builds the replacement.
+# Join array elements with a separator
+join_by() {
+    local sep="$1"
+    shift
+    local first="$1"
+    shift
+    printf '%s' "${first}" "${@/#/${sep}}"
+}
 
-    echo "   Converting $description"
-    find . -name "*.py" -not -path "./.venv/*" -not -path "./venv/*" \
-        -exec sed -i.bak "s/# pylint: disable=$pylint_pattern/# noqa: $ruff_pattern/g" {} \;
+convert_line() {
+    local line="$1"
+
+    # Extract the pylint rules portion, stripping trailing whitespace
+    local rules_str
+    rules_str=$(echo "${line}" | sed 's/.*# pylint: disable=//' | sed 's/ *$//')
+
+    # Split on commas and look up each rule
+    local noqa_codes=()
+    local comment_parts=()
+    local all_dropped=true
+
+    IFS=',' read -ra rules <<<"${rules_str}"
+    for rule in "${rules[@]}"; do
+        rule=$(echo "${rule}" | tr -d ' ') # trim whitespace
+        if [[ -v "RULE_MAP[${rule}]" ]]; then
+            local mapped="${RULE_MAP[${rule}]}"
+            if [[ -z "${mapped}" ]]; then
+                # Silently dropped
+                continue
+            elif [[ "${mapped}" == !* ]]; then
+                # Preserve as comment
+                comment_parts+=("${mapped#!}")
+                all_dropped=false
+            else
+                noqa_codes+=("${mapped}")
+                all_dropped=false
+            fi
+        else
+            # Unknown rule — preserve for manual review
+            comment_parts+=("${rule} (unknown pylint rule)")
+            all_dropped=false
+        fi
+    done
+
+    # Build the replacement
+    local prefix="${line%%# pylint: disable=*}"
+    # Strip trailing whitespace from prefix
+    prefix="${prefix%"${prefix##*[! 	]}"}"
+
+    if [[ ${#noqa_codes[@]} -gt 0 ]] && [[ ${#comment_parts[@]} -gt 0 ]]; then
+        local joined_codes
+        joined_codes=$(join_by ", " "${noqa_codes[@]}")
+        local joined_comments
+        joined_comments=$(join_by "; " "${comment_parts[@]}")
+        echo "${prefix}  # noqa: ${joined_codes}  # ${joined_comments}"
+    elif [[ ${#noqa_codes[@]} -gt 0 ]]; then
+        local joined_codes
+        joined_codes=$(join_by ", " "${noqa_codes[@]}")
+        echo "${prefix}  # noqa: ${joined_codes}"
+    elif [[ ${#comment_parts[@]} -gt 0 ]]; then
+        local joined_comments
+        joined_comments=$(join_by "; " "${comment_parts[@]}")
+        echo "${prefix}  # ${joined_comments}"
+    elif [[ "${all_dropped}" == true ]]; then
+        # All rules were silently dropped — remove the comment entirely
+        echo "${prefix}"
+    fi
 }
 
 echo "🔧 Converting comments..."
 
-# COMPLEX PATTERNS (handle multiple comma-separated values)
-# Must run before individual patterns to avoid partial matches
-echo "   Converting complex multi-rule patterns..."
+# Process each Python file that contains pylint disable comments
+file_count=0
+converted_count=0
 
-# This handles any remaining complex patterns by converting each rule individually
-# Note: This is a simplified approach - very complex patterns might need manual review
-find . -name "*.py" -not -path "./.venv/*" -not -path "./venv/*" \
-    -exec sed -i.bak 's/# pylint: disable=\([^,]*\),\([^,]*\),\([^,]*\)/# noqa: # complex-pattern: \1,\2,\3 (review manually)/g' {} \;
+while IFS= read -r -d '' pyfile; do
+    if ! grep -q "pylint: disable" "${pyfile}"; then
+        continue
+    fi
 
-# COMMON COMBINED PATTERNS
-# Must run before individual patterns to avoid partial matches
-echo "   Converting combined patterns..."
+    file_count=$((file_count + 1))
+    local_count=0
+    tmpfile="${pyfile}.ruff-tmp"
 
-find . -name "*.py" -not -path "./.venv/*" -not -path "./venv/*" \
-    -exec sed -i.bak 's/# pylint: disable=unused-import,wrong-import-order/# noqa: F401, I001/g' {} \;
-find . -name "*.py" -not -path "./.venv/*" -not -path "./venv/*" \
-    -exec sed -i.bak 's/# pylint: disable=wrong-import-order,unused-import/# noqa: I001, F401/g' {} \;
-find . -name "*.py" -not -path "./.venv/*" -not -path "./venv/*" \
-    -exec sed -i.bak 's/# pylint: disable=invalid-name,too-many-arguments/# noqa: N806, PLR0913/g' {} \;
-find . -name "*.py" -not -path "./.venv/*" -not -path "./venv/*" \
-    -exec sed -i.bak 's/# pylint: disable=broad-exception-caught,unused-variable/# noqa: BLE001, F841/g' {} \;
+    while IFS= read -r line; do
+        if echo "${line}" | grep -q "# pylint: disable="; then
+            convert_line "${line}" >>"${tmpfile}"
+            local_count=$((local_count + 1))
+        else
+            echo "${line}" >>"${tmpfile}"
+        fi
+    done <"${pyfile}"
 
-# BASIC CONVERSIONS (direct mappings)
-echo "   Converting basic patterns..."
+    mv "${tmpfile}" "${pyfile}"
+    converted_count=$((converted_count + local_count))
+    echo "   ${pyfile}: ${local_count} comment(s) converted"
+done < <(find . -name "*.py" -not -path "./.venv/*" -not -path "./venv/*" -print0)
 
-# Arguments and variables
-convert_pattern "unused-argument" "ARG001" "unused-argument → ARG001"
-convert_pattern "unused-variable" "F841" "unused-variable → F841"
-
-# Imports
-find . -name "*.py" -not -path "./.venv/*" -not -path "./venv/*" \
-    -exec sed -i.bak 's/# pylint: disable=unused-import$/# noqa: F401/g' {} \;
-convert_pattern "wrong-import-order" "I001" "wrong-import-order → I001"
-convert_pattern "wrong-import-position" "E402" "wrong-import-position → E402"
-
-# Exceptions
-convert_pattern "broad-exception-caught" "BLE001" "broad-exception-caught → BLE001"
-convert_pattern "bare-except" "E722" "bare-except → E722"
-convert_pattern "raise-missing-from" "B904" "raise-missing-from → B904"
-
-# Naming conventions
-convert_pattern "invalid-name" "N806" "invalid-name → N806"
-convert_pattern "constant-name" "N806" "constant-name → N806"
-
-# Code complexity
-convert_pattern "too-many-arguments" "PLR0913" "too-many-arguments → PLR0913"
-convert_pattern "too-many-locals" "PLR0914" "too-many-locals → PLR0914"
-convert_pattern "too-many-statements" "PLR0915" "too-many-statements → PLR0915"
-convert_pattern "too-many-branches" "PLR0912" "too-many-branches → PLR0912"
-convert_pattern "too-many-return-statements" "PLR0911" "too-many-return-statements → PLR0911"
-convert_pattern "too-few-public-methods" "PLR0903" "too-few-public-methods → PLR0903"
-
-# Style and formatting
-convert_pattern "line-too-long" "E501" "line-too-long → E501"
-convert_pattern "trailing-whitespace" "W291" "trailing-whitespace → W291"
-
-# Security
-convert_pattern "eval-used" "S307" "eval-used → S307"
-convert_pattern "exec-used" "S102" "exec-used → S102"
-
-# PATTERNS WITH NO DIRECT RUFF EQUIVALENT (preserve as comments)
-echo "   Converting patterns with no ruff equivalent..."
-
-find . -name "*.py" -not -path "./.venv/*" -not -path "./venv/*" \
-    -exec sed -i.bak 's/# pylint: disable=duplicate-code/# duplicate-code (no ruff equivalent)/g' {} \;
-find . -name "*.py" -not -path "./.venv/*" -not -path "./venv/*" \
-    -exec sed -i.bak 's/# pylint: disable=import-error/# import-error (environment-specific)/g' {} \;
-find . -name "*.py" -not -path "./.venv/*" -not -path "./venv/*" \
-    -exec sed -i.bak 's/# pylint: disable=no-member/# no-member (often false positive)/g' {} \;
-find . -name "*.py" -not -path "./.venv/*" -not -path "./venv/*" \
-    -exec sed -i.bak 's/# pylint: disable=missing-docstring/# missing-docstring (enable D rules if needed)/g' {} \;
-find . -name "*.py" -not -path "./.venv/*" -not -path "./venv/*" \
-    -exec sed -i.bak 's/# pylint: disable=missing-module-docstring/# missing-module-docstring (D100)/g' {} \;
-find . -name "*.py" -not -path "./.venv/*" -not -path "./venv/*" \
-    -exec sed -i.bak 's/# pylint: disable=missing-class-docstring/# missing-class-docstring (D101)/g' {} \;
-find . -name "*.py" -not -path "./.venv/*" -not -path "./venv/*" \
-    -exec sed -i.bak 's/# pylint: disable=missing-function-docstring/# missing-function-docstring (D103)/g' {} \;
-find . -name "*.py" -not -path "./.venv/*" -not -path "./venv/*" \
-    -exec sed -i.bak 's/ *# pylint: disable=redefined-outer-name//g' {} \;
-
-# Clean up sed backup files
-find . -name "*.py.bak" -not -path "./.venv/*" -not -path "./venv/*" -delete
+echo ""
+echo "✅ Done! Converted ${converted_count} comments across ${file_count} files."
+echo "💡 Review changes with: git diff"
