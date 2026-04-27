@@ -16,7 +16,7 @@
 # - broad-exception-caught → BLE001
 # - bare-except → E722
 # - raise-missing-from → B904
-# - invalid-name → N806, N802, N801, N803
+# - invalid-name → (deferred to ruff --add-noqa for precise N8xx codes)
 # - constant-name → N816
 # - too-many-arguments → PLR0913
 # - too-many-locals → PLR0914
@@ -30,6 +30,9 @@
 #
 # SILENTLY DROPPED (no ruff equivalent, usually noise):
 # - too-few-public-methods, redefined-outer-name
+#
+# DEFERRED TO RUFF (stripped, then ruff --add-noqa adds precise codes):
+# - invalid-name → exact N8xx code(s) determined by ruff
 #
 # PRESERVED AS COMMENTS (no ruff equivalent, worth keeping):
 # - duplicate-code, import-error, no-member
@@ -51,7 +54,7 @@ declare -A RULE_MAP=(
     ["broad-exception-caught"]="BLE001"
     ["bare-except"]="E722"
     ["raise-missing-from"]="B904"
-    ["invalid-name"]="N806, N802, N801, N803"
+    ["invalid-name"]=""
     ["constant-name"]="N816"
     ["too-many-arguments"]="PLR0913"
     ["too-many-locals"]="PLR0914"
@@ -80,6 +83,9 @@ SKIP_PROMPTS=false
 if [[ "${1:-}" == "--yes" ]] || [[ "${1:-}" == "-y" ]]; then
     SKIP_PROMPTS=true
 fi
+
+# Files that had invalid-name stripped — ruff will add precise noqa codes
+DEFERRED_NOQA_FILES=()
 
 echo "🔄 Converting pylint disable comments to ruff noqa comments..."
 echo "📁 Working directory: $(pwd)"
@@ -214,9 +220,13 @@ while IFS= read -r -d '' pyfile; do
     file_count=$((file_count + 1))
     local_count=0
     tmpfile="${pyfile}.ruff-tmp"
+    has_invalid_name=false
 
     while IFS= read -r line; do
         if echo "${line}" | grep -q "# pylint: disable="; then
+            if echo "${line}" | grep -q "invalid-name"; then
+                has_invalid_name=true
+            fi
             convert_line "${line}" >>"${tmpfile}"
             local_count=$((local_count + 1))
         else
@@ -226,9 +236,27 @@ while IFS= read -r -d '' pyfile; do
 
     mv "${tmpfile}" "${pyfile}"
     converted_count=$((converted_count + local_count))
+    if [[ "${has_invalid_name}" == true ]]; then
+        DEFERRED_NOQA_FILES+=("${pyfile}")
+    fi
     echo "   ${pyfile}: ${local_count} comment(s) converted"
 done < <(find . -name "*.py" -not -path "./.venv/*" -not -path "./venv/*" -print0)
 
 echo ""
 echo "✅ Done! Converted ${converted_count} comments across ${file_count} files."
+
+# Second pass: let ruff add precise N8xx noqa codes for invalid-name
+if [[ ${#DEFERRED_NOQA_FILES[@]} -gt 0 ]]; then
+    if command -v ruff &>/dev/null; then
+        echo "🔍 Adding precise naming noqa codes via ruff..."
+        ruff check --select N801,N802,N803,N806 --add-noqa "${DEFERRED_NOQA_FILES[@]}" 2>&1 |
+            sed 's/^/   /'
+        echo "✅ Precise N8xx noqa codes added to ${#DEFERRED_NOQA_FILES[@]} file(s)."
+    else
+        echo "⚠️  ruff not found. Files with invalid-name had comments stripped but need"
+        echo "   manual noqa addition. Run: ruff check --select N801,N802,N803,N806 --add-noqa"
+        printf '   %s\n' "${DEFERRED_NOQA_FILES[@]}"
+    fi
+fi
+
 echo "💡 Review changes with: git diff"
