@@ -16,12 +16,12 @@
 # - missing-docstring → D100-D107 (commented - ruff doesn't enable by default)
 # - invalid-name → N806, N802, N801
 # - too-many-* → PLR0913, PLR0915, PLR0912, etc.
-# - redefined-outer-name → PLW0621
+# - redefined-outer-name → (silently dropped - no ruff equivalent, usually a pytest false positive)
 # - import-error → (commented - often environment-specific)
 # - no-member → (commented - often false positive)
 # - duplicate-code → (commented - no ruff equivalent)
 
-set -e
+set -euo pipefail
 
 # Parse command line arguments
 SKIP_PROMPTS=false
@@ -163,7 +163,7 @@ find . -name "*.py" -not -path "./.venv/*" -not -path "./venv/*" \
 find . -name "*.py" -not -path "./.venv/*" -not -path "./venv/*" \
     -exec sed -i.bak 's/# pylint: disable=missing-function-docstring/# missing-function-docstring (D103)/g' {} \;
 find . -name "*.py" -not -path "./.venv/*" -not -path "./venv/*" \
-    -exec sed -i.bak 's/# pylint: disable=redefined-outer-name/# redefined-outer-name (no direct ruff equivalent)/g' {} \;
+    -exec sed -i.bak 's/ *# pylint: disable=redefined-outer-name//g' {} \;
 
 # Clean up sed backup files
 find . -name "*.py.bak" -not -path "./.venv/*" -not -path "./venv/*" -delete
