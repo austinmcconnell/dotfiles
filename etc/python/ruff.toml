@@ -5,7 +5,6 @@ line-length = 100
 target-version = "py310"
 
 [lint]
-# Essential rules matching pylint/flake8 coverage
 select = [
     "E",   # pycodestyle errors
     "W",   # pycodestyle warnings
@@ -16,16 +15,34 @@ select = [
     "C4",  # flake8-comprehensions
     "N",   # pep8-naming
     "ARG", # flake8-unused-arguments
+    "D",   # pydocstyle
+    "PL",  # pylint
+    "SIM", # flake8-simplify
+    "RET", # flake8-return
+    "S",   # flake8-bandit (security: eval-used, exec-used)
 ]
 
-# Minimal ignores - only what's necessary
 ignore = [
-    "E501", # Line too long (handled by formatter)
+    "E501",  # Line too long (handled by formatter)
+    "D100",  # Missing docstring in public module
+    "D104",  # Missing docstring in public package
 ]
 
 [lint.isort]
 combine-as-imports = true
 force-sort-within-sections = true
+
+[lint.pydocstyle]
+convention = "google"
+
+[lint.pylint]
+max-args = 5
+max-locals = 15
+max-statements = 50
+max-nested-blocks = 5
+
+[lint.per-file-ignores]
+"tests/**" = ["D", "S101"]  # No docstrings or assert warnings in tests
 
 [format]
 quote-style = "single"
