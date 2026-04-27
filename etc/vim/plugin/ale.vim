@@ -55,7 +55,7 @@ let g:ale_fixers = {
 \   'go': ['gofmt', 'goimports'],
 \   'json': ['prettier'],
 \   'markdown': ['mdformat'],
-\   'python': ['ruff', 'yapf', 'autoflake'],
+\   'python': ['ruff', 'ruff_format'],
 \   'ruby': ['rubocop'],
 \   'sh': ['shfmt'],
 \   'terraform': ['terraform'],
@@ -93,12 +93,6 @@ let g:ale_python_auto_pipenv=1
 " Go-specific settings
 let g:ale_go_gofmt_options = '-s'  " Simplify code
 let g:ale_go_goimports_options = '-local'  " Group local imports
-
-" Python yapf options for formatting
-let g:ale_python_yapf_options = '--style ~/.config/yapf/style'
-
-" Python autoflake options for removing unused imports
-let g:ale_python_autoflake_options = '--remove-all-unused-imports --remove-unused-variables'
 
 " Python mypy options
 let g:ale_python_mypy_auto_pipenv = 1
