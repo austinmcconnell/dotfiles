@@ -63,17 +63,21 @@ let g:ale_fixers = {
 \   'zsh': ['shfmt'],
 \}
 
-" Python-specific settings (optimized for pylsp)
-let g:ale_python_pylsp_config = {
-\   'pylsp': {
-\     'plugins': {
-\       'pycodestyle': {'enabled': v:false},
-\       'mccabe': {'enabled': v:false},
-\       'pyflakes': {'enabled': v:false},
-\       'pylint': {'enabled': v:false},
-\     }
-\   }
-\}
+" pylsp config — kept for rollback if ruff migration is reverted.
+" pylsp is not in the Python linters list while ruff is active.
+" let g:ale_python_pylsp_config = {
+" \   'pylsp': {
+" \     'plugins': {
+" \       'pycodestyle': {
+" \         'enabled': v:true,
+" \         'maxLineLength': 100
+" \       },
+" \       'mccabe': {'enabled': v:false},
+" \       'pyflakes': {'enabled': v:true},
+" \       'pylint': {'enabled': v:false},
+" \     }
+" \   }
+" \}
 
 
 let g:ale_javascript_prettier_options = '--config ~/.config/prettier.toml'
