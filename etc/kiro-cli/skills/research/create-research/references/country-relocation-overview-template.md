@@ -135,6 +135,21 @@ The digital nomad visa is temporary. What happens after it expires? Cover:
 This section is critical for distinguishing countries that are viable for 1–2 years from those that
 offer a realistic long-term home.
 
+### With EU Citizenship
+
+If the family obtains EU citizenship, what changes? Cover briefly:
+
+- **Residency:** Right to live and work indefinitely — no visa, no income threshold, no renewal
+- **Healthcare:** Enroll in national system on same terms as locals; EHIC covers travel across
+  EU/EEA
+- **Education:** Same public school access as nationals; any tuition differences for EU vs non-EU at
+  international schools
+- **Property:** Purchase restrictions that apply to non-EU buyers are removed
+- **What doesn't change:** US tax filing obligations (worldwide income), FBAR, FATCA, PFIC rules for
+  European funds, potential double social security contributions if no totalization agreement
+- **Country-specific gotchas:** Does this country allow dual citizenship? Any military service
+  obligations? Banking complications for US citizens under FATCA?
+
 ## Tax Obligations
 
 ### Local Tax System
