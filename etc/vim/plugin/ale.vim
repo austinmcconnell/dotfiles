@@ -67,12 +67,9 @@ let g:ale_fixers = {
 let g:ale_python_pylsp_config = {
 \   'pylsp': {
 \     'plugins': {
-\       'pycodestyle': {
-\         'enabled': v:true,
-\         'maxLineLength': 100
-\       },
+\       'pycodestyle': {'enabled': v:false},
 \       'mccabe': {'enabled': v:false},
-\       'pyflakes': {'enabled': v:true},
+\       'pyflakes': {'enabled': v:false},
 \       'pylint': {'enabled': v:false},
 \     }
 \   }

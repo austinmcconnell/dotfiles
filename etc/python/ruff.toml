@@ -20,6 +20,9 @@ select = [
     "SIM", # flake8-simplify
     "RET", # flake8-return
     "S",   # flake8-bandit (security: eval-used, exec-used)
+    "A",   # flake8-builtins (redefined-builtin)
+    "G",   # flake8-logging-format
+    "LOG", # flake8-logging
 ]
 
 ignore = [
