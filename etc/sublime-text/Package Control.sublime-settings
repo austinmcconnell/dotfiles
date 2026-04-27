@@ -1,5 +1,9 @@
 {
     "bootstrapped": true,
+    "channels": [
+        "https://packagecontrol.github.io/channel/channel_v4.json",
+        "https://packagecontrol.io/channel_v3.json"
+    ],
     "in_process_packages": [],
     "installed_packages": [
         "Dockerfile Syntax Highlighting",
