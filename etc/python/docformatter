@@ -1,0 +1,3 @@
+[docformatter]
+wrap-descriptions = 100
+wrap-summaries = 100

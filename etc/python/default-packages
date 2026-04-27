@@ -1,11 +1,15 @@
+autopep8
 bashate
+docformatter
 flake8
 isort
 mypy
 pipenv
 pre-commit
 proselint
+pydocstyle
 pylint
+pyupgrade
 python-lsp-server[all]
 uv
 yamllint

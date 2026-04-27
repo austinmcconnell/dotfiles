@@ -1,0 +1,4 @@
+[pycodestyle]
+aggressive = 3
+ignore = E126
+max_line_length = 100

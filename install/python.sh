@@ -39,6 +39,7 @@ mkdir -p "$XDG_DATA_HOME/python"
 mkdir -p ~/.git-templates
 
 ln -sfv "$DOTFILES_DIR/etc/python/pip.conf" "$XDG_CONFIG_HOME/pip"
+ln -sfv "$DOTFILES_DIR/etc/python/autopep8" "$XDG_CONFIG_HOME/pycodestyle"
 ln -sfv "$DOTFILES_DIR/etc/python/flake8" "$XDG_CONFIG_HOME"
 ln -sfv "$DOTFILES_DIR/etc/python/yapf" "$XDG_CONFIG_HOME/yapf/style"
 ln -sfv "$DOTFILES_DIR/etc/python/pylintrc" "$XDG_CONFIG_HOME"
