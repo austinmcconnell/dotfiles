@@ -259,4 +259,12 @@ if [[ ${#DEFERRED_NOQA_FILES[@]} -gt 0 ]]; then
     fi
 fi
 
+# Third pass: remove stale noqa comments that no longer suppress anything
+if command -v ruff &>/dev/null; then
+    echo "🧹 Removing stale noqa comments..."
+    ruff check --extend-select RUF100 --fix \
+        --exclude ".venv" --exclude "venv" . 2>&1 |
+        sed 's/^/   /'
+fi
+
 echo "💡 Review changes with: git diff"
