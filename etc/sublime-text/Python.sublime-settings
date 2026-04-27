@@ -2,5 +2,10 @@
     "rulers": [100],
     "translate_tabs_to_spaces": true,
     "word_wrap": true,
-    "wrap_width": 100
+    "wrap_width": 100,
+    "lsp_format_on_save": true,
+    "lsp_code_actions_on_save": {
+        "source.fixAll.ruff": true,
+        "source.organizeImports.ruff": true
+    }
 }
