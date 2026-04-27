@@ -85,6 +85,28 @@ convert_pattern() {
 
 echo "🔧 Converting comments..."
 
+# COMPLEX PATTERNS (handle multiple comma-separated values)
+# Must run before individual patterns to avoid partial matches
+echo "   Converting complex multi-rule patterns..."
+
+# This handles any remaining complex patterns by converting each rule individually
+# Note: This is a simplified approach - very complex patterns might need manual review
+find . -name "*.py" -not -path "./.venv/*" -not -path "./venv/*" \
+    -exec sed -i.bak 's/# pylint: disable=\([^,]*\),\([^,]*\),\([^,]*\)/# noqa: # complex-pattern: \1,\2,\3 (review manually)/g' {} \;
+
+# COMMON COMBINED PATTERNS
+# Must run before individual patterns to avoid partial matches
+echo "   Converting combined patterns..."
+
+find . -name "*.py" -not -path "./.venv/*" -not -path "./venv/*" \
+    -exec sed -i.bak 's/# pylint: disable=unused-import,wrong-import-order/# noqa: F401, I001/g' {} \;
+find . -name "*.py" -not -path "./.venv/*" -not -path "./venv/*" \
+    -exec sed -i.bak 's/# pylint: disable=wrong-import-order,unused-import/# noqa: I001, F401/g' {} \;
+find . -name "*.py" -not -path "./.venv/*" -not -path "./venv/*" \
+    -exec sed -i.bak 's/# pylint: disable=invalid-name,too-many-arguments/# noqa: N806, PLR0913/g' {} \;
+find . -name "*.py" -not -path "./.venv/*" -not -path "./venv/*" \
+    -exec sed -i.bak 's/# pylint: disable=broad-exception-caught,unused-variable/# noqa: BLE001, F841/g' {} \;
+
 # BASIC CONVERSIONS (direct mappings)
 echo "   Converting basic patterns..."
 
@@ -142,26 +164,6 @@ find . -name "*.py" -not -path "./.venv/*" -not -path "./venv/*" \
     -exec sed -i.bak 's/# pylint: disable=missing-function-docstring/# missing-function-docstring (D103)/g' {} \;
 find . -name "*.py" -not -path "./.venv/*" -not -path "./venv/*" \
     -exec sed -i.bak 's/# pylint: disable=redefined-outer-name/# redefined-outer-name (no direct ruff equivalent)/g' {} \;
-
-# COMMON COMBINED PATTERNS
-echo "   Converting combined patterns..."
-
-find . -name "*.py" -not -path "./.venv/*" -not -path "./venv/*" \
-    -exec sed -i.bak 's/# pylint: disable=unused-import,wrong-import-order/# noqa: F401, I001/g' {} \;
-find . -name "*.py" -not -path "./.venv/*" -not -path "./venv/*" \
-    -exec sed -i.bak 's/# pylint: disable=wrong-import-order,unused-import/# noqa: I001, F401/g' {} \;
-find . -name "*.py" -not -path "./.venv/*" -not -path "./venv/*" \
-    -exec sed -i.bak 's/# pylint: disable=invalid-name,too-many-arguments/# noqa: N806, PLR0913/g' {} \;
-find . -name "*.py" -not -path "./.venv/*" -not -path "./venv/*" \
-    -exec sed -i.bak 's/# pylint: disable=broad-exception-caught,unused-variable/# noqa: BLE001, F841/g' {} \;
-
-# COMPLEX PATTERNS (handle multiple comma-separated values)
-echo "   Converting complex multi-rule patterns..."
-
-# This handles any remaining complex patterns by converting each rule individually
-# Note: This is a simplified approach - very complex patterns might need manual review
-find . -name "*.py" -not -path "./.venv/*" -not -path "./venv/*" \
-    -exec sed -i.bak 's/# pylint: disable=\([^,]*\),\([^,]*\),\([^,]*\)/# noqa: # complex-pattern: \1,\2,\3 (review manually)/g' {} \;
 
 # Clean up sed backup files
 find . -name "*.py.bak" -not -path "./.venv/*" -not -path "./venv/*" -delete
