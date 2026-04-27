@@ -34,6 +34,10 @@ ignore = [
 [lint.isort]
 combine-as-imports = true
 force-sort-within-sections = true
+# Approximate force_alphabetical_sort_within_sections (not yet supported)
+# https://github.com/astral-sh/ruff/issues/4670
+order-by-type = false
+case-sensitive = false
 
 [lint.pydocstyle]
 convention = "google"
