@@ -101,6 +101,9 @@ National-level data only. Table format:
 Key providers, rural vs urban gaps, satellite fallback (Starlink availability). Assessment for
 remote software development work.
 
+**Timezone:** State the timezone (and DST offset). Note the overlap with US Eastern and US Pacific
+business hours — this shapes daily routine for a remote developer working with US teams.
+
 ## Residency and Visa Pathways
 
 Focus on the digital nomad visa or equivalent remote worker permit. Table format for requirements:
