@@ -81,6 +81,9 @@ National-level education structure only — city files cover local school qualit
 - International schools: brief national overview (which cities have them, general fee range). Detail
   goes in city files.
 - Bilingual or multilingual programs: any national-level programs or tracks
+- **Homeschooling legality:** Is homeschooling legal? What are the requirements (registration,
+  curriculum approval, periodic testing)? This is the fallback if public school integration is weak
+  and no international school is available. Some EU countries (Germany, Sweden) effectively ban it.
 
 ## Internet Infrastructure
 
@@ -113,6 +116,24 @@ Focus on the digital nomad visa or equivalent remote worker permit. Table format
 
 Calculate the income requirement for a family of 5 specifically. Note limitations (path to PR,
 cooldown periods, etc.). Mention alternative visa categories briefly.
+
+If the country is in the EU and/or Schengen Area, explain the practical travel implications: can the
+family travel visa-free to neighboring countries for weekends/holidays? How does the residence
+permit interact with Schengen 90/180-day rules? This is a significant quality-of-life factor for
+families in Europe.
+
+### Long-Term Pathway
+
+The digital nomad visa is temporary. What happens after it expires? Cover:
+
+- Can you transition to a standard residence permit without leaving the country?
+- What visa categories allow long-term stay (work permit, self-employment, family reunification)?
+- Path to permanent residency: years required, language requirements, continuous residence rules
+- Path to citizenship: years required, dual citizenship allowed?
+- How does the tax picture change when transitioning off the DN visa to a taxable residency?
+
+This section is critical for distinguishing countries that are viable for 1–2 years from those that
+offer a realistic long-term home.
 
 ## Tax Obligations
 

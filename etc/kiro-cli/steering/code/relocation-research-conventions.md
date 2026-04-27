@@ -43,6 +43,8 @@ Run phases in order. Each phase reads the output of prior phases to avoid duplic
 | 4     | `rental-property-investment.md`   | `rental-property-investment-template.md`  | Phases 1–2 |
 | 5     | `recommendations.md`, `README.md` | *(no template — synthesis)*               | Phases 1–4 |
 
+Phases 3 and 4 are independent and can run in parallel.
+
 ### Phase 1 — Country Overview
 
 Covers country-level data only: geography, climate by region, population, language, education system
