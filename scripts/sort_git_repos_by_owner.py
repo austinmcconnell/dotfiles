@@ -14,13 +14,13 @@
 #   will be moved to $PROJECTS_DIR/owner/repo-name
 # ---------------------------------------------------------------
 
-from pathlib import Path
 import os
+from pathlib import Path
 import subprocess
 
+
 def yes_or_no_question(question, default_no=True):
-    """
-    Ask a yes/no question and return the answer as a boolean.
+    """Ask a yes/no question and return the answer as a boolean.
 
     Args:
         question (str): The question to ask
@@ -36,8 +36,8 @@ def yes_or_no_question(question, default_no=True):
         return True
     if reply[0] == 'n':
         return False
-    else:
-        return False if default_no else True
+    return not default_no
+
 
 # Directory containing all projects
 REPOSITORIES_DIR = Path(os.environ.get('PROJECTS_DIR', Path.home() / 'projects'))
@@ -59,7 +59,13 @@ for project in projects:
         continue
 
     # Get the remote origin URL
-    output = subprocess.run(['git', 'remote', 'get-url', 'origin'], cwd=project, capture_output=True, universal_newlines=True)
+    output = subprocess.run(
+        ['git', 'remote', 'get-url', 'origin'],
+        cwd=project,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
     fetch_url = output.stdout.strip('\n').rstrip('.git')
 
     if fetch_url == '':
@@ -92,7 +98,13 @@ for project in projects:
             owner_dir.mkdir()
 
         # Move the repository to the owner directory
-        output = subprocess.run(['mv', project, owner_dir], cwd=project, capture_output=True, universal_newlines=True)
+        output = subprocess.run(
+            ['mv', project, owner_dir],
+            cwd=project,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
         if output.stdout:
             print(output.stdout)
         if output.stderr:

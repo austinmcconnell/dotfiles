@@ -10,20 +10,22 @@ args = parser.parse_args()
 
 
 def represent_none(self, _):
+    """Represent None values as empty strings in YAML output."""
     return self.represent_scalar('tag:yaml.org,2002:null', '')
 
 
 yaml.add_representer(
     OrderedDict,
-    lambda dumper, data: dumper.represent_mapping(
-        'tag:yaml.org,2002:map', data.items()
-    ),
+    lambda dumper, data: dumper.represent_mapping('tag:yaml.org,2002:map', data.items()),
 )
 yaml.add_representer(type(None), represent_none)
 
 
 class MyDumper(yaml.Dumper):
-    def increase_indent(self, flow=False, indentless=False):
+    """YAML dumper that always indents list items."""
+
+    def increase_indent(self, flow=False, indentless=False):  # noqa: ARG002
+        """Override to force indentation for all block sequences."""
         return super().increase_indent(flow, False)
 
 
@@ -44,7 +46,7 @@ services_key_order = [
     'restart',
     'pull_policy',
     'healthcheck',
-    'depends_on'
+    'depends_on',
 ]
 networks_key_order = [
     'name',
@@ -55,6 +57,7 @@ networks_key_order = [
 
 
 def order_dictionary(data, top_keys: list):
+    """Reorder dictionary keys according to a preferred order."""
     keys = data.keys()
     ordered_data = OrderedDict()
 
@@ -62,12 +65,12 @@ def order_dictionary(data, top_keys: list):
         if key in data:
             ordered_data[key] = data[key]
             if key == 'services' and key in ordered_data:
-                for service in ordered_data[key].keys():
+                for service in ordered_data[key]:
                     ordered_data[key][service] = order_dictionary(
                         ordered_data[key][service], top_keys=services_key_order
                     )
             elif key == 'networks' and key in ordered_data and isinstance(ordered_data[key], dict):
-                for network in ordered_data[key].keys():
+                for network in ordered_data[key]:
                     if isinstance(ordered_data[key][network], dict):
                         ordered_data[key][network] = order_dictionary(
                             ordered_data[key][network], top_keys=networks_key_order

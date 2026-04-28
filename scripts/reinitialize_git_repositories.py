@@ -14,13 +14,13 @@
 # Git repositories.
 # ---------------------------------------------------------------
 
-from pathlib import Path
 import os
+from pathlib import Path
 import subprocess
 
+
 def find_repos_in_dir(directory, level=1):
-    """
-    Recursively find and reinitialize Git repositories in a directory.
+    """Recursively find and reinitialize Git repositories in a directory.
 
     Args:
         directory (Path): Directory to search for repositories
@@ -44,8 +44,10 @@ def find_repos_in_dir(directory, level=1):
 
         # If not a git repository, recurse into subdirectories
         if not git_dir.exists():
-            print(f'{project.relative_to(REPOSITORIES_DIR)} is not a git repository.\
-                \nRecursing into {project} directory')
+            print(
+                f'{project.relative_to(REPOSITORIES_DIR)} is not a git repository.\
+                \nRecursing into {project} directory'
+            )
             find_repos_in_dir(directory=project, level=level + 1)
             continue
 
@@ -54,7 +56,9 @@ def find_repos_in_dir(directory, level=1):
 
         # Remove symlinked hooks directory
         if hooks_dir.is_symlink():
-            print(f'{hooks_dir.relative_to(project)} is symlinked to {hooks_dir.resolve()}. Removing symlink...')
+            print(
+                f'{hooks_dir.relative_to(project)} is symlinked to {hooks_dir.resolve()}. Removing symlink...'
+            )
             hooks_dir.unlink()
         # Remove individual hooks
         elif hooks_dir.exists():
@@ -64,13 +68,13 @@ def find_repos_in_dir(directory, level=1):
                 hook.unlink()
 
         # Show remote information
-        subprocess.run(['git', 'remote', '--verbose'], cwd=project)
+        subprocess.run(['git', 'remote', '--verbose'], cwd=project, check=False)
 
         # Reinitialize the repository
-        subprocess.run(['git', 'init'], cwd=project)
+        subprocess.run(['git', 'init'], cwd=project, check=False)
 
         # Set the default branch for the origin remote
-        subprocess.run(['git', 'remote', 'set-head', 'origin', '--auto'], cwd=project)
+        subprocess.run(['git', 'remote', 'set-head', 'origin', '--auto'], cwd=project, check=False)
 
         # Check for pre-commit configuration
         pre_commit_file = project / '.pre-commit-config.yaml'
@@ -78,9 +82,10 @@ def find_repos_in_dir(directory, level=1):
         # Install pre-commit hooks if config exists
         if pre_commit_file.exists():
             print('Initializing pre-commit...')
-            subprocess.run(['pre-commit', 'install'], cwd=project)
+            subprocess.run(['pre-commit', 'install'], cwd=project, check=False)
         else:
             print('No pre-commit config found. Skipping initialization...')
+
 
 # Directory containing all projects
 REPOSITORIES_DIR = Path(os.environ.get('PROJECTS_DIR', Path.home() / 'projects'))

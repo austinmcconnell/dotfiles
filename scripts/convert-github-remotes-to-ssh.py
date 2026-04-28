@@ -17,14 +17,13 @@
 # ---------------------------------------------------------------
 
 import os
+from pathlib import Path
 import subprocess
 import sys
-from pathlib import Path
 
 
 def convert_https_to_ssh(https_url):
-    """
-    Convert GitHub HTTPS URL to SSH format.
+    """Convert GitHub HTTPS URL to SSH format.
 
     Args:
         https_url (str): HTTPS URL like https://github.com/owner/repo.git
@@ -39,14 +38,11 @@ def convert_https_to_ssh(https_url):
     path_part = https_url.replace('https://github.com/', '')
 
     # Convert to SSH format
-    ssh_url = f'git@github.com:{path_part}'
-
-    return ssh_url
+    return f'git@github.com:{path_part}'
 
 
 def find_repos_in_dir(directory, level=1):
-    """
-    Recursively find Git repositories and convert HTTPS remotes to SSH.
+    """Recursively find Git repositories and convert HTTPS remotes to SSH.
 
     Args:
         directory (Path): Directory to search for repositories
@@ -59,7 +55,9 @@ def find_repos_in_dir(directory, level=1):
 
     # Get all directories in the current directory
     try:
-        projects = sorted([x for x in directory.iterdir() if x.is_dir() and not x.name.startswith('.')])
+        projects = sorted(
+            [x for x in directory.iterdir() if x.is_dir() and not x.name.startswith('.')]
+        )
     except PermissionError:
         print(f'Permission denied accessing {directory}')
         return
@@ -82,7 +80,9 @@ def find_repos_in_dir(directory, level=1):
 
         # Get all remotes
         try:
-            result = subprocess.run(['git', 'remote'], cwd=project, capture_output=True, text=True, check=True)
+            result = subprocess.run(
+                ['git', 'remote'], cwd=project, capture_output=True, text=True, check=True
+            )
             remotes = result.stdout.strip().split('\n') if result.stdout.strip() else []
         except subprocess.CalledProcessError:
             print(f'Error getting remotes for {project.name}')
@@ -100,8 +100,13 @@ def find_repos_in_dir(directory, level=1):
 
             try:
                 # Get the current URL for this remote
-                result = subprocess.run(['git', 'remote', 'get-url', remote],
-                                      cwd=project, capture_output=True, text=True, check=True)
+                result = subprocess.run(
+                    ['git', 'remote', 'get-url', remote],
+                    cwd=project,
+                    capture_output=True,
+                    text=True,
+                    check=True,
+                )
                 current_url = result.stdout.strip()
             except subprocess.CalledProcessError:
                 print(f'Error getting URL for remote {remote}')
@@ -116,24 +121,26 @@ def find_repos_in_dir(directory, level=1):
                     print(f'  → Converting to: {ssh_url}')
 
                     try:
-                        subprocess.run(['git', 'remote', 'set-url', remote, ssh_url],
-                                     cwd=project, check=True)
+                        subprocess.run(
+                            ['git', 'remote', 'set-url', remote, ssh_url], cwd=project, check=True
+                        )
                         print(f'  ✅ Successfully converted {remote} to SSH')
                         converted_any = True
                     except subprocess.CalledProcessError as e:
                         print(f'  ❌ Error converting {remote}: {e}')
                 else:
-                    print(f'  ⚠️  Could not parse URL for conversion')
+                    print('  ⚠️  Could not parse URL for conversion')
             elif current_url.startswith('git@github.com:'):
-                print(f'  ✅ Already using SSH')
+                print('  ✅ Already using SSH')
             else:
-                print(f'  ℹ️  Not a GitHub URL, skipping')
+                print('  [i] Not a GitHub URL, skipping')
 
         if converted_any:
             print('\n📋 Updated remotes:')
             try:
-                result = subprocess.run(['git', 'remote', '-v'],
-                                      cwd=project, capture_output=True, text=True, check=True)
+                result = subprocess.run(
+                    ['git', 'remote', '-v'], cwd=project, capture_output=True, text=True, check=True
+                )
                 print(result.stdout)
             except subprocess.CalledProcessError:
                 print('Error displaying updated remotes')
@@ -142,9 +149,7 @@ def find_repos_in_dir(directory, level=1):
 
 
 def select_directory():
-    """
-    Interactive directory selection from $PROJECTS_DIR
-    """
+    """Interactive directory selection from $PROJECTS_DIR."""
     projects_dir = Path(os.environ.get('PROJECTS_DIR', Path.home() / 'projects'))
 
     if not projects_dir.exists():
@@ -153,8 +158,9 @@ def select_directory():
 
     # Get all directories in $PROJECTS_DIR
     try:
-        owner_dirs = sorted([x for x in projects_dir.iterdir()
-                           if x.is_dir() and not x.name.startswith('.')])
+        owner_dirs = sorted(
+            [x for x in projects_dir.iterdir() if x.is_dir() and not x.name.startswith('.')]
+        )
     except PermissionError:
         print(f'Permission denied accessing {projects_dir}')
         sys.exit(1)
@@ -167,8 +173,7 @@ def select_directory():
     print()
     for i, dir_path in enumerate(owner_dirs, 1):
         # Count git repos in this directory
-        git_count = len([x for x in dir_path.iterdir()
-                        if x.is_dir() and (x / '.git').exists()])
+        git_count = len([x for x in dir_path.iterdir() if x.is_dir() and (x / '.git').exists()])
         print(f'{i:2d}. {dir_path.name} ({git_count} git repos)')
 
     print(f'{len(owner_dirs) + 1:2d}. All directories')
@@ -183,10 +188,9 @@ def select_directory():
             choice_num = int(choice)
             if 1 <= choice_num <= len(owner_dirs):
                 return owner_dirs[choice_num - 1]
-            elif choice_num == len(owner_dirs) + 1:
+            if choice_num == len(owner_dirs) + 1:
                 return projects_dir
-            else:
-                print(f'Please enter a number between 1 and {len(owner_dirs) + 1}')
+            print(f'Please enter a number between 1 and {len(owner_dirs) + 1}')
         except ValueError:
             print('Please enter a valid number')
         except KeyboardInterrupt:
@@ -195,10 +199,11 @@ def select_directory():
 
 
 def main():
-    global SCAN_DIR
+    """Convert GitHub HTTPS remotes to SSH across repositories."""
+    global SCAN_DIR  # noqa: PLW0603
 
     # Get directory from command line argument or interactive selection
-    if len(sys.argv) > 1:
+    if len(sys.argv) > 1:  # noqa: SIM108
         SCAN_DIR = Path(sys.argv[1]).expanduser().resolve()
     else:
         SCAN_DIR = select_directory()

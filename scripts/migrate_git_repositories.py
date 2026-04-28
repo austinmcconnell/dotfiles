@@ -17,13 +17,13 @@
 # This migration preserves all history and reflogs.
 # ---------------------------------------------------------------
 
-from pathlib import Path
 import os
+from pathlib import Path
 import subprocess
 
+
 def find_repos_in_dir(directory, level=1):
-    """
-    Recursively find and migrate Git repositories to reftable format.
+    """Recursively find and migrate Git repositories to reftable format.
 
     Args:
         directory (Path): Directory to search for repositories
@@ -47,8 +47,10 @@ def find_repos_in_dir(directory, level=1):
 
         # If not a git repository, recurse into subdirectories
         if not git_dir.exists():
-            print(f'{project.relative_to(REPOSITORIES_DIR)} is not a git repository.\
-                \nRecursing into {project} directory')
+            print(
+                f'{project.relative_to(REPOSITORIES_DIR)} is not a git repository.\
+                \nRecursing into {project} directory'
+            )
             find_repos_in_dir(directory=project, level=level + 1)
             continue
 
@@ -66,7 +68,8 @@ def find_repos_in_dir(directory, level=1):
             ['git', 'refs', 'migrate', '--ref-format=reftable'],
             cwd=project,
             capture_output=True,
-            text=True
+            text=True,
+            check=False,
         )
 
         if result.returncode == 0:
@@ -75,6 +78,7 @@ def find_repos_in_dir(directory, level=1):
             print(f'✗ Failed to migrate {project.name}')
             if result.stderr:
                 print(f'Error: {result.stderr}')
+
 
 # Directory containing all projects
 REPOSITORIES_DIR = Path(os.environ.get('PROJECTS_DIR', Path.home() / 'projects'))

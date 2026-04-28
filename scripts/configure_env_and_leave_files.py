@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-from pathlib import Path
 import os
+from pathlib import Path
 
 REPOSITORIES_DIR = Path(os.environ.get('PROJECTS_DIR', Path.home() / 'projects'))
 
@@ -13,7 +13,6 @@ for project_dir in owner_dirs:
 projects = sorted(projects)
 
 for project in projects:
-
     print('*' * 70)
     print(f'Checking project: {project}')
     print('*' * 70)

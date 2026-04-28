@@ -99,7 +99,7 @@ def _install_missing(missing):
         try:
             if _install_library(name, info):
                 installed.append(name)
-        except Exception as e:
+        except Exception as e:  # noqa: PERF203
             print(f'LSP Library Installer: Error installing {name}: {e}')
 
     if installed:
