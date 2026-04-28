@@ -1,6 +1,5 @@
-#!/bin/bash
-packages_file="${DOTFILES_DIR}/etc/node/default-packages"
-timestamp_file="${XDG_CACHE_HOME:-$HOME/.cache}/node_packages_timestamp"
+local packages_file="${DOTFILES_DIR}/etc/node/default-packages"
+local timestamp_file="${XDG_CACHE_HOME:-$HOME/.cache}/node_packages_timestamp"
 
 mkdir -p "$(dirname "$timestamp_file")"
 
@@ -15,7 +14,7 @@ fi
 echo "Installing Node packages..."
 
 if [[ -f "$packages_file" ]]; then
-    packages=$(grep -v '^#' "$packages_file" | grep -v '^$')
+    local packages=$(grep -v '^#' "$packages_file" | grep -v '^$')
     if [[ -n "$packages" ]]; then
         echo "$packages" | xargs npm install --global --no-fund
     fi

@@ -1,5 +1,3 @@
-#!/bin/bash
-
 echo "Use bat to avoid delay"
 sleep 1
 bat "$1"

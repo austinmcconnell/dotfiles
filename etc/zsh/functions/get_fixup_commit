@@ -1,3 +1,1 @@
-#!/usr/bin/env bash
-
 git log --oneline "$(get_trunk_branch)".. | fzf --header "Select commit to fixup" --preview "git diff {1}~1 {1} --color=always" | awk '{print $1}' | xargs -t -r git commit --fixup
