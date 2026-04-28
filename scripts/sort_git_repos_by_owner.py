@@ -60,7 +60,7 @@ for project in projects:
 
     # Get the remote origin URL
     output = subprocess.run(
-        ['git', 'remote', 'get-url', 'origin'],
+        ['git', 'remote', 'get-url', 'origin'],  # noqa: S607
         cwd=project,
         capture_output=True,
         text=True,
@@ -98,8 +98,8 @@ for project in projects:
             owner_dir.mkdir()
 
         # Move the repository to the owner directory
-        output = subprocess.run(
-            ['mv', project, owner_dir],
+        output = subprocess.run(  # noqa: S603
+            ['mv', project, owner_dir],  # noqa: S607
             cwd=project,
             capture_output=True,
             text=True,

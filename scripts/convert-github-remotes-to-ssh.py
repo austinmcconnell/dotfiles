@@ -81,7 +81,11 @@ def find_repos_in_dir(directory, level=1):
         # Get all remotes
         try:
             result = subprocess.run(
-                ['git', 'remote'], cwd=project, capture_output=True, text=True, check=True
+                ['git', 'remote'],
+                cwd=project,
+                capture_output=True,
+                text=True,
+                check=True,
             )
             remotes = result.stdout.strip().split('\n') if result.stdout.strip() else []
         except subprocess.CalledProcessError:
@@ -100,8 +104,8 @@ def find_repos_in_dir(directory, level=1):
 
             try:
                 # Get the current URL for this remote
-                result = subprocess.run(
-                    ['git', 'remote', 'get-url', remote],
+                result = subprocess.run(  # noqa: S603
+                    ['git', 'remote', 'get-url', remote],  # noqa: S607
                     cwd=project,
                     capture_output=True,
                     text=True,
@@ -121,8 +125,10 @@ def find_repos_in_dir(directory, level=1):
                     print(f'  → Converting to: {ssh_url}')
 
                     try:
-                        subprocess.run(
-                            ['git', 'remote', 'set-url', remote, ssh_url], cwd=project, check=True
+                        subprocess.run(  # noqa: S603
+                            ['git', 'remote', 'set-url', remote, ssh_url],
+                            cwd=project,
+                            check=True,
                         )
                         print(f'  ✅ Successfully converted {remote} to SSH')
                         converted_any = True
@@ -139,7 +145,11 @@ def find_repos_in_dir(directory, level=1):
             print('\n📋 Updated remotes:')
             try:
                 result = subprocess.run(
-                    ['git', 'remote', '-v'], cwd=project, capture_output=True, text=True, check=True
+                    ['git', 'remote', '-v'],
+                    cwd=project,
+                    capture_output=True,
+                    text=True,
+                    check=True,
                 )
                 print(result.stdout)
             except subprocess.CalledProcessError:

@@ -65,7 +65,7 @@ def find_repos_in_dir(directory, level=1):
         # Migrate to reftable format
         print(f'Migrating {project.name} to reftable format...')
         result = subprocess.run(
-            ['git', 'refs', 'migrate', '--ref-format=reftable'],
+            ['git', 'refs', 'migrate', '--ref-format=reftable'],  # noqa: S607
             cwd=project,
             capture_output=True,
             text=True,

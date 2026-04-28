@@ -68,13 +68,13 @@ def find_repos_in_dir(directory, level=1):
                 hook.unlink()
 
         # Show remote information
-        subprocess.run(['git', 'remote', '--verbose'], cwd=project, check=False)
+        subprocess.run(['git', 'remote', '--verbose'], cwd=project, check=False)  # noqa: S607
 
         # Reinitialize the repository
-        subprocess.run(['git', 'init'], cwd=project, check=False)
+        subprocess.run(['git', 'init'], cwd=project, check=False)  # noqa: S607
 
         # Set the default branch for the origin remote
-        subprocess.run(['git', 'remote', 'set-head', 'origin', '--auto'], cwd=project, check=False)
+        subprocess.run(['git', 'remote', 'set-head', 'origin', '--auto'], cwd=project, check=False)  # noqa: S607
 
         # Check for pre-commit configuration
         pre_commit_file = project / '.pre-commit-config.yaml'
@@ -82,7 +82,7 @@ def find_repos_in_dir(directory, level=1):
         # Install pre-commit hooks if config exists
         if pre_commit_file.exists():
             print('Initializing pre-commit...')
-            subprocess.run(['pre-commit', 'install'], cwd=project, check=False)
+            subprocess.run(['pre-commit', 'install'], cwd=project, check=False)  # noqa: S607
         else:
             print('No pre-commit config found. Skipping initialization...')
 
