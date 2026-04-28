@@ -1,11 +1,10 @@
-#!/bin/bash
-
-LOCALE=$(echo "${LANG:-en}" | cut -c1-2)
+local locale=$(echo "${LANG:-en}" | cut -c1-2)
+local location
 
 if [ $# -eq 0 ]; then
-    LOCATION=$(curl -s ipinfo.io/loc)
+    location=$(curl -s ipinfo.io/loc)
 else
-    LOCATION=$1
+    location=$1
 fi
 
-curl -s "$LOCALE.wttr.in/$LOCATION"
+curl -s "$locale.wttr.in/$location"

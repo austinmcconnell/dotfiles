@@ -1,5 +1,3 @@
-#!/bin/bash
-
 if [ "$1" = "checkout" ]; then
     echo "Don't use checkout! Use switch or restore." >&2
     return 1
