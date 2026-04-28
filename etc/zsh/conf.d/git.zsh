@@ -25,3 +25,7 @@ alias gr='git branch --all | grep --extended-regexp --invert-match "HEAD|$(git b
 alias gri='git branch --all | grep --extended-regexp --invert-match "HEAD|$(git branch --show-current)" | fzf | xargs -o git rebase --autostash --autosquash --interactive'
 # Select branch to switch to, excluding current
 alias gsw='git branch --all | grep --extended-regexp --invert-match "HEAD|$(git branch --show-current)$" | fzf | sed "s#remotes/[^/]*/##" | xargs git switch'
+# Select commit to reword (Git 2.54, experimental)
+alias grw='git log --oneline -20 | fzf --no-sort --header="Select commit to reword" | cut -d" " -f1 | xargs -o git history reword'
+# Select commit to split (Git 2.54, experimental)
+alias gsp='git log --oneline -20 | fzf --no-sort --header="Select commit to split" | cut -d" " -f1 | xargs -o git history split'
