@@ -214,6 +214,18 @@ done
   repos inside the workspace they're being separated from. Option F gives them their own home. The
   cost difference is negligible (~2 extra file edits).
 
+**Dotfiles command implications:**
+
+- Rename `sync-projects` → `sync-repositories` (aligns command name with directory name).
+  Behavior unchanged: fetch all remotes, fast-forward primary branch if clean and on primary.
+- Add `sync-sources` as a separate, simpler command. Sources are synced rarely (once or twice a
+  year), so bundling them into `sync-repositories` would either slow down the common case or require
+  a flag you'd forget. `sync-sources` can be more aggressive: `fetch --all` then
+  `reset --hard origin/{primary}`, since you shouldn't have local state in `~/sources`. If a source
+  repo does have unexpected local changes, surface that as a warning.
+- Rename `analysis-status` → `analysis-repositories` (or similar) for consistency.
+- Update `_dotfiles` completions and help text to match.
+
 ## Key Blockers for a Full Split
 
 1. **Knowledge base paths are hardcoded:** 14 knowledge base entries across `default.json` and
