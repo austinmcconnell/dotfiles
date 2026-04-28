@@ -1,8 +1,9 @@
 #!/bin/zsh
 #
-# macos.zsh-darwin - macOS specific configurations
-# This file will only be loaded on macOS systems
+# macos.zsh - macOS specific configurations
 #
+
+is-macos || return 0
 
 ##############################
 # Environment Variables
