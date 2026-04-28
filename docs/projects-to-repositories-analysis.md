@@ -161,6 +161,59 @@ frequently-used directories. After a short learning period, `z screenings` jumps
   motivation (conceptual tidiness) may not justify the cost of Options C or D. Worth trying before
   committing to a restructure.
 
+### Option F: Separate ~/sources Directory
+
+Move third-party repos to `~/sources/{owner}/{repo}` — a separate top-level directory for code you
+reference but don't actively develop. Like Option C but with full separation instead of nesting.
+
+**Implementation sketch:**
+
+```bash
+# Create ~/sources and move all third-party owner dirs
+mkdir -p ~/sources
+for dir in ~/projects/*/; do
+    name=$(basename "$dir")
+    [[ "$name" == "austinmcconnell" || "$name" == "unite-us" || "$name" == _* ]] && continue
+    mv "$dir" ~/sources/
+done
+```
+
+**What changes in dotfiles (~3–5 files):**
+
+- `bin/dotfiles` — `sync-projects` and `analysis-status` need a second loop over `~/sources/*/*`
+  (or a `SOURCES_DIR` env var following the `PROJECTS_DIR` pattern). Alternatively, drop third-party
+  repos from these commands entirely.
+- `etc/zsh/.zshenv` — optionally add `export SOURCES_DIR="$HOME/sources"` for consistency.
+- No changes needed to `$PROJECTS_DIR`, kiro-cli agent paths, git config, or iTerm plist — the
+  `austinmcconnell/` and `unite-us/` paths are unchanged.
+
+**Result:**
+
+```text
+~/projects/                  # active development only
+├── austinmcconnell/         # ~33 personal repos
+└── unite-us/                # work repos
+
+~/sources/                   # third-party code (reference, forks, backups)
+├── DeskPi-Team/
+├── Shrike-Lab/
+├── fathulfahmy/
+├── geerlingguy/
+├── mattmc3/
+└── ... (~10 more)
+```
+
+- **Pros:** Clean conceptual split — `~/projects` is where you work, `~/sources` is other people's
+  code. Each directory has a clear, distinct purpose. The name "sources" is neutral enough to cover
+  forks, references, and archived repos without implying they're frozen or vendored. `ls ~/projects`
+  drops to 2 entries.
+- **Cons:** Adds a top-level directory to `~`. If you occasionally need to build or modify a fork,
+  you have to decide which directory it belongs in. Slightly more dotfile changes than Option C
+  (if you want `sync-projects` to cover both directories).
+- **vs. Option C:** Same decluttering benefit, but cleaner semantics. Option C nests third-party
+  repos inside the workspace they're being separated from. Option F gives them their own home. The
+  cost difference is negligible (~2 extra file edits).
+
 ## Key Blockers for a Full Split
 
 1. **Knowledge base paths are hardcoded:** 14 knowledge base entries across `default.json` and
@@ -226,15 +279,18 @@ likely lifetime cost of the problem.
 **Try Option E (zoxide) first.** It's near-zero cost and directly addresses the navigation pattern.
 If the clutter stops bothering you once you're never traversing `~/projects/` manually, stop there.
 
-**If conceptual tidiness still matters, do Option C.** It delivers ~80% of the decluttering benefit
-(17 entries → 3) in ~10 minutes of work, with no impact on kiro-cli paths, git config, or iTerm.
-This is the best cost/benefit ratio of any structural change.
+**If conceptual tidiness still matters, do Option C or F.** Both deliver the same decluttering
+benefit (~17 entries → 2–3) in under 15 minutes, with no impact on kiro-cli paths, git config, or
+iTerm. Option F (`~/sources`) has cleaner semantics — third-party code gets its own home rather than
+being nested inside the workspace it's being separated from — at the cost of one extra top-level
+directory. Option C (`_reference/`) keeps everything under one root. Pick whichever mental model
+feels right.
 
 **Option D remains viable but hard to justify.** The blockers are purely mechanical, and both
 machines update simultaneously. But given that the motivation is aesthetic rather than a productivity
 bottleneck — and the analysis prep work has already exceeded the likely lifetime cost of the
 problem — the one-time cost of ~25 file updates is disproportionate to the incremental benefit over
-Option C.
+Options C or F.
 
 ## Future Investigation Areas
 
