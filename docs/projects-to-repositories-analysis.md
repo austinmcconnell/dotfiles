@@ -80,39 +80,25 @@ If renaming, there's a secondary question: keep `{owner}/{repo}` or flatten to j
 
 **Recommendation:** If renaming, keep `{owner}/{repo}`. Flattening adds risk for minimal benefit.
 
-## Git Config: hasconfig Replaces gitdir
+## Git Config: hasconfig Replaces gitdir (Completed)
 
-The current git config uses `includeIf "gitdir:~/projects/unite-us/"` to load work-specific
-settings (email, signing key). This ties the config to the directory path.
+The git config previously used `includeIf "gitdir:~/projects/unite-us/"` to load work-specific
+settings (email, signing key), tying the config to the directory path.
 
-Git 2.36+ (April 2022) introduced `hasconfig:remote.*.url:` — a condition that matches on remote
-URL instead of filesystem path. Current git version is 2.54, so this is available.
-
-**Current:**
+This has been replaced with `hasconfig:remote.*.url:` (Git 2.36+), which matches on remote URL
+instead of filesystem path:
 
 ```ini
-[includeIf "gitdir:~/projects/unite-us/"]
+[includeIf "hasconfig:remote.*.url:git@github.com:unite-us-engineering/**"]
     path = ./config-uniteus
 ```
 
-**Proposed:**
+This works because the `insteadOf` rules rewrite all GitHub HTTPS URLs to SSH, so every unite-us
+repo's effective remote is `git@github.com:unite-us-engineering/...`.
 
-```ini
-[includeIf "hasconfig:remote.*.url:git@github.com:unite-us/**"]
-    path = ./config-uniteus
-```
-
-This works because the `insteadOf` rules in git config rewrite all GitHub HTTPS URLs to SSH, so
-every unite-us repo's effective remote is `git@github.com:unite-us/...`.
-
-**Impact:** The git config becomes completely location-independent. Work repos can live anywhere —
-`~/projects/unite-us/`, `~/repositories/unite-us/`, or blended alongside personal repos — and the
-work email/signing key still applies automatically.
-
-**Caveat:** `hasconfig` is slightly slower than `gitdir` (scans repo config for remote URLs vs.
-checking path). In practice this is imperceptible.
-
-**This change is valuable independent of any directory rename.** It should be done regardless.
+**Impact:** The git config is now completely location-independent. Work repos can live anywhere and
+the work email/signing key still applies automatically. This removes the git config from the
+critical path of any future directory rename.
 
 ## What Would Need to Change
 
@@ -125,10 +111,10 @@ If renaming `~/projects` → `~/repositories`:
   commands, and completions already use the env var with fallback.
 - Rename references from `PROJECTS_DIR` to `REPOSITORIES_DIR` across scripts for clarity.
 
-### Git config (~4 references)
+### Git config (~3 references)
 
-- `etc/git/config` — update `includeIf` (or switch to `hasconfig`, eliminating the path dependency)
 - `etc/git/config` — update 3 `maintenance.repo` paths that use absolute paths
+- ~~`includeIf` coupling~~ — resolved by `hasconfig:remote.*.url` migration (see above)
 
 ### Kiro-cli agent JSON (~27 references across 4 files)
 
@@ -153,7 +139,7 @@ No env var support — each is a manual find-and-replace.
 
 - `docs/CustomizationGuide.md`, `.kiro/skills/` references
 
-### Total: ~40 references across ~12 files
+### Total: ~39 references across ~12 files
 
 All mechanical find-and-replace. No architectural changes.
 
@@ -178,6 +164,8 @@ Option 1 is the obvious choice. The owner directory serves as a natural namespac
 - Kiro-cli env var investigation — confirmed no env var support in agent JSON paths.
 - `~/sources` separation — third-party repos moved, `SOURCES_DIR` env var and `sync-sources`
   command implemented.
+- `hasconfig` migration — switched `includeIf` from `gitdir:` to `hasconfig:remote.*.url:`,
+  decoupling work git config from directory structure.
 
 ## Cost of This Analysis
 
@@ -188,14 +176,11 @@ original clutter problem is solved. What remains is a naming preference.
 
 ## Recommendation
 
-**Switch `includeIf` to `hasconfig:remote.*.url` now.** This is valuable regardless of any rename —
-it decouples git config from directory structure. One-line change, zero risk.
-
 **Don't rename `~/projects` to `~/repositories`.** The original problem (15+ cluttered directories)
 is solved. Two owner directories under `~/projects` is clean and functional. Renaming ~40 references
 across ~12 files for a naming preference is not worth the effort or the weeks of broken muscle
 memory. The name `projects` is fine.
 
 **If the naming still bothers you later**, the path is clear: change `.zshenv`, find-and-replace
-across kiro-cli JSON and git config, update iTerm plist. The `hasconfig` migration (recommended
-above) removes the git config from the critical path, making a future rename even cheaper.
+across kiro-cli JSON and git config, update iTerm plist. The `hasconfig` migration is already done,
+so git config is no longer on the critical path of a rename.
