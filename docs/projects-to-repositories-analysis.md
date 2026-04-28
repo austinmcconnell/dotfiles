@@ -13,9 +13,19 @@ Open decision. No restructuring has been done to `~/projects`. Prerequisite work
 ## Motivation
 
 All git repositories currently live under `~/projects/{owner}/{repo}`. The primary working directory
-is `~/projects/austinmcconnell/` (~33 repos). Roughly 15 other owner directories (third-party forks,
-references) sit alongside it and are rarely touched. The goal is to simplify the primary working
-directory by reducing clutter.
+is `~/projects/austinmcconnell/` (~33 repos) at home and `~/projects/unite-us/` at work. Roughly 15
+other owner directories (third-party forks, references) sit alongside them and are rarely — if
+ever — touched.
+
+`~/projects` is central to daily workflow: `cd ~/projects/{owner}/{repo}` (often with tab
+completion) happens dozens of times a day. The ~15 dormant owner directories create visual noise in
+`ls` and `tree` output and make the directory feel cluttered.
+
+**Honest assessment:** This is primarily about conceptual tidiness — wanting the directory structure
+to reflect what's actively used — rather than a measurable productivity bottleneck. Tab completion
+and muscle memory mean the extra directories rarely cause wrong-directory mistakes. The friction is
+aesthetic, not mechanical. That's a valid reason to reorganize, but it should be weighed against the
+cost of each option accordingly.
 
 ## Key Constraint
 
@@ -82,10 +92,49 @@ Move third-party repos to `~/projects/_archive/{owner}/{repo}`.
 
 ### Option C: Reference Subdirectory
 
-Move third-party repos to `~/projects/_reference/{owner}/{repo}`.
+Move third-party repos to `~/projects/_reference/{owner}/{repo}`. Everything except
+`austinmcconnell/` and `unite-us/` moves.
 
-- **Tradeoff:** Same mechanics as Option B with clearer intent naming. Can optionally filter
-  `_reference` out of `sync-projects` and `analysis-status`.
+**Implementation sketch:**
+
+```bash
+# Create _reference and move all third-party owner dirs
+mkdir -p ~/projects/_reference
+for dir in ~/projects/*/; do
+    name=$(basename "$dir")
+    [[ "$name" == "austinmcconnell" || "$name" == "unite-us" || "$name" == _* ]] && continue
+    mv "$dir" ~/projects/_reference/
+done
+```
+
+**What changes in dotfiles (~3 files):**
+
+- `bin/dotfiles` — update `sync-projects` and `analysis-status` globs from `"$projects_dir"/*/*` to
+  `"$projects_dir"/*/*` plus `"$projects_dir"/_reference/*/*` (or switch to `find -maxdepth 3` to
+  catch both levels). Alternatively, exclude `_reference` from these commands entirely since those
+  repos are rarely updated.
+- No changes needed to `$PROJECTS_DIR`, kiro-cli agent paths, git config, or iTerm plist — the
+  `austinmcconnell/` and `unite-us/` paths are unchanged.
+
+**Result:**
+
+```text
+~/projects/
+├── austinmcconnell/     # ~33 personal repos
+├── unite-us/            # work repos
+└── _reference/          # everything else
+    ├── DeskPi-Team/
+    ├── Shrike-Lab/
+    ├── fathulfahmy/
+    ├── geerlingguy/
+    ├── mattmc3/
+    └── ... (~10 more)
+```
+
+- **Tradeoff:** ~10 minutes of work. `ls ~/projects` drops from ~17 entries to 3. Delivers most of
+  the decluttering benefit of Option D with almost none of the cost. The leading underscore sorts
+  `_reference` to the top, visually separating it. The only downside: `sync-projects` needs a small
+  glob adjustment if you want it to keep syncing reference repos.
 
 ### Option D: Full Split
 
@@ -95,6 +144,22 @@ eliminate it entirely.
 - **Tradeoff:** Cleanest end state — primary workspace is a top-level directory with no clutter.
   Requires updating ~25 files with ~60 path references. Since both machines update simultaneously,
   there's no compatibility concern, but it's a large mechanical change.
+
+### Option E: Smart Directory Navigation (zoxide)
+
+Install [zoxide](https://github.com/ajeetdsouza/zoxide), a smarter `cd` that learns your
+frequently-used directories. After a short learning period, `z screenings` jumps straight to
+`~/projects/unite-us/screenings-ingestion` — no tab completion, no intermediate `cd` hops.
+
+- **What changes:** Install zoxide (`brew install zoxide`), add the shell init to `.zshrc`, use it
+  for a week. Zero path changes, zero file edits beyond shell config.
+- **What it solves:** Eliminates the "cd to ~/projects, then cd deeper" pattern entirely. The ~15
+  dormant directories become invisible because you never traverse through `~/projects/` manually.
+- **What it doesn't solve:** The directories still exist. `ls ~/projects` still shows clutter. If
+  the motivation is purely conceptual tidiness, this doesn't address it.
+- **Tradeoff:** Near-zero cost to try. If it eliminates the navigation friction, the remaining
+  motivation (conceptual tidiness) may not justify the cost of Options C or D. Worth trying before
+  committing to a restructure.
 
 ## Key Blockers for a Full Split
 
@@ -119,18 +184,10 @@ eliminate it entirely.
 
 ## Prior Work (Completed)
 
-The `~/.repositories` directory previously held ~40 git clones (vim plugins, dircolors themes,
-github-mcp-server). Investigation revealed 37 were dead (orphaned by the vim-plug migration in March
-2024\) and 3 were alive. All three were migrated to better approaches:
-
-- **Dircolors themes** — vendored into `etc/dircolors/` (committed files, symlinked by install
-  script)
-- **github-mcp-server** — switched to `go install` (binary goes to `$GOPATH/bin`, already on PATH)
-- **~/.repositories infrastructure** — fully removed (REPO_DIR export, update-repos command,
-  completions, mkdir in install.sh, documentation references)
-
-This cleanup eliminated the naming collision that would have existed between `~/.repositories`
-(hidden, tools) and `~/repositories` (visible, personal repos) in the original proposal.
+`~/.repositories` previously held ~40 git clones (vim plugins, dircolors themes, github-mcp-server).
+All were migrated or removed — see commit history for details. This resolved the naming collision
+that would have existed between `~/.repositories` and `~/repositories` in the original Option D
+proposal.
 
 ## Preparatory Work (Completed)
 
@@ -156,26 +213,30 @@ Confirmed that kiro-cli does **not** support env var expansion in `resources`, k
 in MCP server `env` blocks. The ~20 hardcoded `~/projects` references in agent JSON files are the
 irreducible manual cost of any future path change.
 
+## Cost of This Analysis
+
+The preparatory work above (env var migration, scripts relocation, kiro-cli investigation,
+`~/.repositories` cleanup) was useful independently but collectively represents more engineering
+effort than the directory clutter has ever cost in lost productivity. This is worth acknowledging
+when evaluating whether Options C or D are justified: the analysis itself has already exceeded the
+likely lifetime cost of the problem.
+
 ## Recommendation
 
-Options A–C are low-effort and low-risk. Option D produces the cleanest result but requires a
-focused session of mechanical file updates.
+**Try Option E (zoxide) first.** It's near-zero cost and directly addresses the navigation pattern.
+If the clutter stops bothering you once you're never traversing `~/projects/` manually, stop there.
 
-Given that both machines update simultaneously (no backward compatibility needed) and the
-`~/.repositories` naming collision is resolved, Option D is more viable than initially assessed. The
-blockers are purely mechanical — no architectural obstacles remain.
+**If conceptual tidiness still matters, do Option C.** It delivers ~80% of the decluttering benefit
+(17 entries → 3) in ~10 minutes of work, with no impact on kiro-cli paths, git config, or iTerm.
+This is the best cost/benefit ratio of any structural change.
 
-If the clutter is a minor annoyance, Option A (alias) is the pragmatic choice. If it's a genuine
-friction point in daily work, Option D is worth the one-time cost of updating ~25 files.
+**Option D remains viable but hard to justify.** The blockers are purely mechanical, and both
+machines update simultaneously. But given that the motivation is aesthetic rather than a productivity
+bottleneck — and the analysis prep work has already exceeded the likely lifetime cost of the
+problem — the one-time cost of ~25 file updates is disproportionate to the incremental benefit over
+Option C.
 
 ## Future Investigation Areas
-
-### Smart Directory Navigation
-
-Tools like zoxide or autojump learn frequently-used directories and let you jump to them with
-partial matches (e.g., `z austin` → `~/projects/austinmcconnell`). If the core problem is "too many
-`ls` results when I cd to ~/projects," a directory jumper may eliminate the need for any
-restructuring.
 
 ### Work Repo Separation
 
