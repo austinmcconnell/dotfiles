@@ -33,7 +33,7 @@ declare -a SECTION_ORDER=(
     "[maintenance]" "[gc]" "[transfer]" "[receive]"
     "[advice]" "[help]"
     "[url \"git@github.com:\"]"
-    "[includeIf \"gitdir:~/projects/unite-us/\"]" "[includeIf \"gitdir:/Users\"]" "[includeIf \"gitdir:/home\"]"
+    "[includeIf \"hasconfig:remote.*.url:git@github.com:unite-us-engineering/**\"]" "[includeIf \"gitdir:/Users\"]" "[includeIf \"gitdir:/home\"]"
 )
 
 # Map each section to its group name
@@ -79,7 +79,7 @@ declare -A SECTION_TO_GROUP=(
     ["[advice]"]="Advice & Help"
     ["[help]"]="Advice & Help"
     ["[url \"git@github.com:\"]"]="URL Shortcuts"
-    ["[includeIf \"gitdir:~/projects/unite-us/\"]"]="Environment-Specific Includes"
+    ["[includeIf \"hasconfig:remote.*.url:git@github.com:unite-us-engineering/**\"]"]="Environment-Specific Includes"
     ["[includeIf \"gitdir:/Users\"]"]="Environment-Specific Includes"
     ["[includeIf \"gitdir:/home\"]"]="Environment-Specific Includes"
 )

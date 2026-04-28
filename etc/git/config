@@ -250,7 +250,7 @@
 #==========================================
 # Environment-Specific Includes
 #==========================================
-[includeIf "gitdir:~/projects/unite-us/"]
+[includeIf "hasconfig:remote.*.url:git@github.com:unite-us-engineering/**"]
     path = ./config-uniteus
 
 [includeIf "gitdir:/Users"]
