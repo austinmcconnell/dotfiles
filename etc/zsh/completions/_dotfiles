@@ -24,6 +24,7 @@ _dotfiles_commands() {
         'help:Show help message'
         'mac:macOS specific commands'
         'sync-projects:Fetch and fast-forward $PROJECTS_DIR repositories'
+        'sync-sources:Fetch and reset $SOURCES_DIR repositories'
         'test:Run tests'
         'update:Update packages and pkg managers (OS, brew, apt)'
     )
@@ -35,7 +36,7 @@ _dotfiles_args() {
         mac)
             _dotfiles_mac_commands
             ;;
-        analysis-status|clean|edit|help|test|update|sync-projects)
+        analysis-status|clean|edit|help|test|update|sync-projects|sync-sources)
             # These commands don't take additional arguments
             ;;
     esac

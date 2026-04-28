@@ -59,6 +59,7 @@ sub_help() {
     echo "   help                 This help message"
     echo "   mac                  macOS specific commands (see below)"
     echo "   sync-projects        Fetch and fast-forward \$PROJECTS_DIR repositories"
+    echo "   sync-sources         Fetch and reset \$SOURCES_DIR repositories"
     echo "   test                 Run tests"
     echo "   update               Update packages and pkg managers (OS, brew, apt)"
     echo
@@ -509,6 +510,154 @@ sub_sync-projects() {
     echo " ${#repos[@]} repos: ${updated} updated, ${current} current, ${skipped} skipped, ${problems} need attention"
 }
 
+# Fetch and reset source repositories in $SOURCES_DIR/<owner>/<repo>
+sub_sync-sources() {
+    print_section_header "Syncing source repositories"
+
+    local sources_dir="${SOURCES_DIR:-$HOME/sources}"
+
+    if [[ ! -d "$sources_dir" ]]; then
+        log_warning "No sources directory found at $sources_dir"
+        return 0
+    fi
+
+    local repos=()
+    local statuses=()
+    local details=()
+
+    local GREEN="\033[32m"
+    local YELLOW="\033[0;33m"
+    local RED="\033[0;31m"
+    local BLUE="\033[0;34m"
+    local RESET="\033[0m"
+
+    local total=0
+    for repo_dir in "$sources_dir"/*/*; do
+        [[ -d "$repo_dir/.git" ]] && ((total++))
+    done
+
+    local count=0
+    for repo_dir in "$sources_dir"/*/*; do
+        [[ -d "$repo_dir/.git" ]] || continue
+
+        local display_path="${repo_dir#"$sources_dir/"}"
+        repos+=("$display_path")
+        ((count++))
+
+        printf "\r\033[K  Fetching [%d/%d] %s..." "$count" "$total" "$display_path" >&2
+
+        log_debug "Processing: $display_path"
+
+        # Fetch all remotes
+        if ! git -C "$repo_dir" fetch --all --prune --quiet 2>/dev/null; then
+            statuses+=("error")
+            details+=("fetch failed")
+            continue
+        fi
+
+        # Detect primary branch
+        local primary_branch
+        primary_branch=$(git -C "$repo_dir" symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's|refs/remotes/origin/||')
+        if [[ -z "$primary_branch" ]]; then
+            for candidate in main master; do
+                if git -C "$repo_dir" rev-parse --verify "refs/heads/$candidate" &>/dev/null; then
+                    primary_branch="$candidate"
+                    break
+                fi
+            done
+        fi
+
+        if [[ -z "$primary_branch" ]]; then
+            statuses+=("warning")
+            details+=("no primary branch detected")
+            continue
+        fi
+
+        # Warn if there are unexpected local changes
+        if [[ -n $(git -C "$repo_dir" status --porcelain 2>/dev/null) ]]; then
+            statuses+=("warning")
+            details+=("unexpected local changes")
+            continue
+        fi
+
+        # Check how far behind
+        local behind
+        behind=$(git -C "$repo_dir" rev-list --count HEAD..origin/"$primary_branch" 2>/dev/null)
+
+        if [[ "$behind" -eq 0 ]]; then
+            statuses+=("current")
+            details+=("")
+            continue
+        fi
+
+        # Hard reset to origin — sources should have no local state
+        if git -C "$repo_dir" checkout "$primary_branch" --quiet 2>/dev/null &&
+            git -C "$repo_dir" reset --hard origin/"$primary_branch" --quiet 2>/dev/null; then
+            statuses+=("updated")
+            details+=("$behind commit(s)")
+        else
+            statuses+=("error")
+            details+=("reset failed")
+        fi
+    done
+
+    if [[ ${#repos[@]} -eq 0 ]]; then
+        log_info "No repositories found in $sources_dir"
+        return 0
+    fi
+
+    # Calculate column widths
+    printf "\r\033[K" >&2
+    local max_repo=10 max_detail=7
+    for i in "${!repos[@]}"; do
+        ((${#repos[$i]} > max_repo)) && max_repo=${#repos[$i]}
+        ((${#details[$i]} > max_detail)) && max_detail=${#details[$i]}
+    done
+
+    # Print table
+    echo ""
+    local divider
+    divider=$(printf '─%.0s' $(seq 1 $((max_repo + max_detail + 20))))
+    printf " %-${max_repo}s │ %-11s │ %s\n" "Repository" "Status" "Details"
+    echo " $divider"
+
+    for i in "${!repos[@]}"; do
+        local color status_str
+        case "${statuses[$i]}" in
+        updated)
+            color="$GREEN"
+            status_str="✓ updated  "
+            ;;
+        current)
+            color="$BLUE"
+            status_str="✓ current  "
+            ;;
+        warning)
+            color="$YELLOW"
+            status_str="⚠ warning "
+            ;;
+        error)
+            color="$RED"
+            status_str="✗ error    "
+            ;;
+        esac
+        printf " %-${max_repo}s │ ${color}%s${RESET} │ %s\n" \
+            "${repos[$i]}" "$status_str" "${details[$i]}"
+    done
+
+    # Summary counts
+    local updated=0 current=0 problems=0
+    for s in "${statuses[@]}"; do
+        case "$s" in
+        updated) ((updated++)) ;;
+        current) ((current++)) ;;
+        warning | error) ((problems++)) ;;
+        esac
+    done
+    echo ""
+    echo " ${#repos[@]} repos: ${updated} updated, ${current} current, ${problems} need attention"
+}
+
 # Show analysis report status for project repositories
 sub_analysis-status() {
     local projects_dir="${PROJECTS_DIR:-$HOME/projects}"
@@ -659,7 +808,7 @@ sub_analysis-status() {
 # Shell completion for available commands
 # Make sure to keep this in sync with the available public commands
 sub_completion() {
-    echo "analysis-status clean edit help mac sync-projects test update"
+    echo "analysis-status clean edit help mac sync-projects sync-sources test update"
 }
 
 # Process global options
