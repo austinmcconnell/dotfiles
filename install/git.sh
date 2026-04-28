@@ -26,13 +26,13 @@ fi
 GIT_CONFIG_DIR="$HOME/.config/git"
 
 mkdir -p "$GIT_CONFIG_DIR"
-mkdir -p "$GIT_CONFIG_DIR"/templates/hooks
+mkdir -p "$GIT_CONFIG_DIR"/hooks
 
 ln -sfv "$DOTFILES_DIR/etc/git/config" "$GIT_CONFIG_DIR"
 ln -sfv "$DOTFILES_DIR/etc/git/ignore" "$GIT_CONFIG_DIR"
 ln -sfv "$DOTFILES_DIR/etc/git/attributes" "$GIT_CONFIG_DIR"
-ln -sfv "$DOTFILES_DIR/etc/git/hooks/pre-push" "$GIT_CONFIG_DIR"/templates/hooks/pre-push
-ln -sfv "$DOTFILES_DIR/etc/git/hooks/post-checkout" "$GIT_CONFIG_DIR"/templates/hooks/post-checkout
+ln -sfv "$DOTFILES_DIR/etc/git/hooks/pre-push" "$GIT_CONFIG_DIR"/hooks/pre-push
+ln -sfv "$DOTFILES_DIR/etc/git/hooks/post-checkout" "$GIT_CONFIG_DIR"/hooks/post-checkout
 ln -sfv "$DOTFILES_DIR/etc/git/config-uniteus" "$GIT_CONFIG_DIR"
 ln -sfv "$DOTFILES_DIR/etc/git/commit-template" "$GIT_CONFIG_DIR"/commit-template
 

@@ -21,7 +21,7 @@ etc/git/
 ├── config-uniteus        # Work-specific configuration (email, signing key, repos)
 ├── commit-template       # Conventional commit message template
 ├── ignore                # Global gitignore patterns
-└── hooks/                # Git hooks for automation
+└── hooks/                # Git hooks (referenced from config, Git 2.54+)
     ├── post-checkout     # Repository setup after clone/checkout
     └── pre-push          # Quality checks before push (tests, linting)
 ```
@@ -66,9 +66,11 @@ The main `config` file includes context-specific configurations using `includeIf
 
 - **Enhanced diff visualization**: Delta integration with Nord color scheme and side-by-side view
 - **Comprehensive aliases**: Productivity shortcuts for common workflows and AI-assisted operations
-- **Security configuration**: SSH signing, credential helpers, and fsck validation
+- **Security configuration**: SSH signing, credential helpers, credential-in-URL warnings,
+  and fsck validation
 - **Performance optimization**: Commit graphs, pruning, and maintenance settings
-- **Quality automation**: Pre-push hooks for testing and post-checkout repository setup
+- **Config-based hooks**: Pre-push testing and post-checkout setup defined in config
+  (Git 2.54+), applying globally without template directories
 
 ### Key Conventions
 
