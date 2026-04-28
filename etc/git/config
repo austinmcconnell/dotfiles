@@ -156,7 +156,7 @@
 [alias]
     amend = commit --amend --reuse-message=HEAD
     contrib = shortlog --summary --numbered
-    history = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%n%-N' --show-notes=*
+    hist = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%n%-N' --show-notes=*
     # Undo last commit and keep changes staged
     undo = "reset --soft HEAD^"
     # Stash changes as a WIP commit (preferred over git stash - survives rebases, visible in log)
@@ -169,9 +169,9 @@
     # Git Notes operations
     note = notes add
     noted = "!git log --oneline --show-notes=* | awk '/Notes:/{getline; print prev} {prev=$0}'"
-    # Enhanced reflog matching history alias style
+    # Enhanced reflog matching hist alias style
     reflog-pretty = reflog --format='%Cred%h%Creset -%C(yellow)%d%Creset %gs %Cgreen(%cr)%Creset %C(bold blue)<%an>%Creset'
-    # Enhanced blame matching history alias style
+    # Enhanced blame matching hist alias style
     blame-pretty = blame -w --date=short --color-lines --no-follow
     # Blame ignoring formatting or refactor commits (requires .git-blame-ignore-revs file)
     blame-clean = blame -w --date=short --color-lines --no-follow --ignore-revs-file .git-blame-ignore-revs
