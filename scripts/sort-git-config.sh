@@ -25,7 +25,7 @@ declare -a SECTION_ORDER=(
     "[fetch]" "[pull]"
     "[branch]" "[merge]" "[mergetool]" "[mergetool \"vimdiff\"]" "[rebase]" "[rerere]"
     "[push]"
-    "[log]" "[blame]" "[column]" "[color]" "[color \"status\"]" "[tag]"
+    "[log]" "[status]" "[blame]" "[column]" "[color]" "[color \"status\"]" "[tag]"
     "[diff]" "[interactive]" "[delta]" "[delta \"nord-vscode-diff-colors\"]"
     "[alias]"
     "[notes]"
@@ -34,6 +34,7 @@ declare -a SECTION_ORDER=(
     "[advice]" "[help]"
     "[url \"git@github.com:\"]"
     "[includeIf \"hasconfig:remote.*.url:git@github.com:unite-us-engineering/**\"]" "[includeIf \"gitdir:/Users\"]" "[includeIf \"gitdir:/home\"]"
+    "[hook \"pre-push-tests\"]" "[hook \"post-checkout-setup\"]"
 )
 
 # Map each section to its group name
@@ -56,6 +57,7 @@ declare -A SECTION_TO_GROUP=(
     ["[rerere]"]="Workflow: Branching & Merging"
     ["[push]"]="Workflow: Committing & Pushing"
     ["[log]"]="Display & Output"
+    ["[status]"]="Display & Output"
     ["[blame]"]="Display & Output"
     ["[column]"]="Display & Output"
     ["[color]"]="Display & Output"
@@ -82,6 +84,8 @@ declare -A SECTION_TO_GROUP=(
     ["[includeIf \"hasconfig:remote.*.url:git@github.com:unite-us-engineering/**\"]"]="Environment-Specific Includes"
     ["[includeIf \"gitdir:/Users\"]"]="Environment-Specific Includes"
     ["[includeIf \"gitdir:/home\"]"]="Environment-Specific Includes"
+    ["[hook \"pre-push-tests\"]"]="Hooks"
+    ["[hook \"post-checkout-setup\"]"]="Hooks"
 )
 
 # Parse config and merge duplicates

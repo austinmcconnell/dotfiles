@@ -19,7 +19,6 @@
 # Repository Initialization
 #==========================================
 [init]
-    templatedir = ~/.config/git/templates
     defaultBranch = main
     defaultRefFormat = reftable
 
@@ -34,8 +33,6 @@
     pager = delta
     excludesfile = ~/.config/git/ignore
     attributesfile = ~/.config/git/attributes
-    untrackedcache = true
-    preloadindex = true
     fsmonitor = true
 
 
@@ -100,8 +97,13 @@
 [log]
     date = iso
 
+[status]
+    compareBranches = @{upstream} @{push}
+
 [blame]
     date = short
+    coloring = repeatedLines
+    ignoreRevsFile = .git-blame-ignore-revs
 
 [column]
     ui = never  # Disable column output (explicit default)
@@ -159,6 +161,9 @@
     hist = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%n%-N' --show-notes=*
     # Undo last commit and keep changes staged
     undo = "reset --soft HEAD^"
+    # Quick history rewrites without interactive rebase (Git 2.54, experimental)
+    reword = history reword
+    split = history split
     # Stash changes as a WIP commit (preferred over git stash - survives rebases, visible in log)
     wip = "!git add . && git commit -m 'wip' --no-verify"
     # Select modified files to edit
@@ -173,8 +178,6 @@
     reflog-pretty = reflog --format='%Cred%h%Creset -%C(yellow)%d%Creset %gs %Cgreen(%cr)%Creset %C(bold blue)<%an>%Creset'
     # Enhanced blame matching hist alias style
     blame-pretty = blame -w --date=short --color-lines --no-follow
-    # Blame ignoring formatting or refactor commits (requires .git-blame-ignore-revs file)
-    blame-clean = blame -w --date=short --color-lines --no-follow --ignore-revs-file .git-blame-ignore-revs
     # Track file history through renames with patches
     file-history = log --follow --patch --color-words --
 
@@ -193,15 +196,6 @@
 [feature]
     manyFiles = true
 
-[protocol]
-    version = 2
-
-[index]
-    version = 4
-
-[pack]
-    useSparse = true
-
 [submodule]
     recurse = true
 
@@ -211,18 +205,17 @@
 #==========================================
 [maintenance]
     auto = true
-    strategy = incremental
     repo = /Users/austin.mcconnell/projects/unite-us/web-app
     repo = /Users/austin.mcconnell/projects/unite-us/core
     repo = /Users/austin.mcconnell/projects/unite-us/screenings-ingestion
     repo = /Users/austin.mcconnell/.dotfiles
 
 [gc]
-    writeCommitGraph = true
     autoDetach = false
 
 [transfer]
     fsckObjects = true
+    credentialsInUrl = warn
 
 [receive]
     fsckObjects = true
@@ -258,3 +251,15 @@
 
 [includeIf "gitdir:/home"]
     path = ./config-linux
+
+
+#==========================================
+# Hooks
+#==========================================
+[hook "pre-push-tests"]
+    event = pre-push
+    command = ~/.config/git/hooks/pre-push
+
+[hook "post-checkout-setup"]
+    event = post-checkout
+    command = ~/.config/git/hooks/post-checkout
