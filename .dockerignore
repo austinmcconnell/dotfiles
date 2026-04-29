@@ -1,4 +1,5 @@
-# Git metadata (keep .git/ for test context)
+# Git metadata
+.git/
 .gitignore
 .gitattributes
 

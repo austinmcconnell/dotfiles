@@ -64,9 +64,6 @@ RUN NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.co
 # Add Homebrew to PATH
 ENV PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:${PATH}"
 
-# Copy dotfiles
-COPY --chown=testuser:testuser . /home/testuser/.dotfiles
-
 # Set required environment variables for install scripts
 ENV DOTFILES_DIR=/home/testuser/.dotfiles
 ENV DOTFILES_EXTRA_DIR=/home/testuser/.extra
@@ -82,11 +79,19 @@ ENV CURL_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
 ENV PYTHON_BUILD_CURL_OPTS="--insecure"
 ENV PYTHON_BUILD_WGET_OPTS="--no-check-certificate"
 
-# For Docker builds, comment out SSH URL rewriting in git config
-RUN sed -i '/\[url "git@github.com:"\]/,/pushInsteadOf/s/^/#/' ${DOTFILES_DIR}/etc/git/config
-
 # Create required directories
 RUN mkdir -p ${XDG_CONFIG_HOME} ${XDG_DATA_HOME} ${XDG_CACHE_HOME} ${DOTFILES_EXTRA_DIR}
+
+# --- Stage 1: Copy install scripts and their dependencies (changes rarely) ---
+# These directories are needed by the install scripts. Copying them first means
+# changes to tests/, scripts/, docs/, etc. won't invalidate the expensive
+# language compilation layers below.
+COPY --chown=testuser:testuser install/ ${DOTFILES_DIR}/install/
+COPY --chown=testuser:testuser bin/ ${DOTFILES_DIR}/bin/
+COPY --chown=testuser:testuser etc/ ${DOTFILES_DIR}/etc/
+
+# For Docker builds, comment out SSH URL rewriting in git config
+RUN sed -i '/\[url "git@github.com:"\]/,/pushInsteadOf/s/^/#/' ${DOTFILES_DIR}/etc/git/config
 
 # Create .extra/.env file (required by utils.sh and other scripts)
 RUN echo "export IS_WORK_COMPUTER=0" > ${DOTFILES_EXTRA_DIR}/.env
@@ -115,6 +120,14 @@ RUN bash -c "cd ${DOTFILES_DIR} && source ./install/ssh.sh"
 RUN bash -c "cd ${DOTFILES_DIR} && source ./install/dircolors.sh"
 RUN bash -c "cd ${DOTFILES_DIR} && source ./install/xdg-compliance.sh"
 RUN bash -c "cd ${DOTFILES_DIR} && source ./install/glow.sh"
+
+# --- Stage 2: Copy remaining files (tests, scripts, docs, etc.) ---
+# This layer changes frequently but is cheap — no compilation.
+COPY --chown=testuser:testuser . ${DOTFILES_DIR}
+
+# Initialize a git repo so tests that need git context (e.g. get_trunk_branch) work.
+# We exclude .git/ from the build context to avoid cache-busting on every commit.
+RUN cd ${DOTFILES_DIR} && git init && git checkout -b main
 
 # Default to zsh shell
 CMD ["/usr/bin/zsh"]
