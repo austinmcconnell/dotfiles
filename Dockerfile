@@ -108,7 +108,6 @@ RUN --mount=type=cache,target=/home/testuser/.cache,uid=1000,gid=1000 \
 
 # Remaining installations
 RUN bash -c "cd ${DOTFILES_DIR} && source ./install/vim.sh"
-RUN bash -c "cd ${DOTFILES_DIR} && source ./install/scripts.sh"
 RUN bash -c "cd ${DOTFILES_DIR} && source ./install/ssh.sh"
 RUN bash -c "cd ${DOTFILES_DIR} && source ./install/dircolors.sh"
 RUN bash -c "cd ${DOTFILES_DIR} && source ./install/xdg-compliance.sh"
