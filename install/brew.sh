@@ -59,6 +59,7 @@ init_brew_cache
 print_header "Adding taps"
 tap_if_needed "derailed/k9s"
 tap_if_needed "heroku/brew"
+tap_if_needed "molovo/revolver"
 tap_if_needed "zunit-zsh/zunit"
 
 print_header "Installing formulas"
