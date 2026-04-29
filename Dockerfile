@@ -127,7 +127,9 @@ COPY --chown=testuser:testuser . ${DOTFILES_DIR}
 
 # Initialize a git repo so tests that need git context (e.g. get_trunk_branch) work.
 # We exclude .git/ from the build context to avoid cache-busting on every commit.
-RUN cd ${DOTFILES_DIR} && git init && git checkout -b main
+RUN cd ${DOTFILES_DIR} && git init && git checkout -b main && \
+    git remote add origin https://github.com/placeholder/dotfiles.git && \
+    git symbolic-ref refs/remotes/origin/HEAD refs/remotes/origin/main
 
 # Default to zsh shell
 CMD ["/usr/bin/zsh"]

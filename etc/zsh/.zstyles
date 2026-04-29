@@ -20,6 +20,7 @@ zstyle ':zephyr:plugin:compstyle:*' case-sensitive false # Case-insensitive comp
 
 # Confd - Configuration directory management and loading
 zstyle ':zephyr:plugin:confd' directory $ZDOTDIR/conf.d # Directory containing additional config files
+zstyle ':zephyr:plugin:confd' immediate true             # Load during .zshrc (deferred breaks key bindings and PATH)
 
 # Editor - Text editing, input handling, and keyboard interaction
 zstyle ':zephyr:plugin:editor' key-bindings 'emacs' # Use emacs-style keybindings (ctrl+a for start of line, etc.)
