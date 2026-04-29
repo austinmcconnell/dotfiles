@@ -23,9 +23,6 @@ docs/
 *.swo
 *~
 
-# Test files (tests run inside container, don't need to copy)
-tests/
-
 # Temporary files
 *.log
 tmp/
