@@ -84,6 +84,10 @@ ln -sfv "$DOTFILES_DIR/etc/python/default-packages" "$PYENV_ROOT" # <-- At end b
 
 "$PYENV_ROOT"/bin/pyenv install --skip-existing $DEFAULT_PYTHON_VERSION
 "$PYENV_ROOT"/bin/pyenv global $DEFAULT_PYTHON_VERSION
+
+# Add pyenv shims to PATH for the rest of this script
+eval "$("$PYENV_ROOT"/bin/pyenv init --path)"
+
 pip install --upgrade pip setuptools wheel
 
 pre-commit init-templatedir "$HOME"/.config/git/templates
