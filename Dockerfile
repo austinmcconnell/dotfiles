@@ -110,6 +110,7 @@ RUN --mount=type=cache,target=/home/testuser/.cache,uid=1000,gid=1000 \
 RUN --mount=type=cache,target=/home/testuser/.cache,uid=1000,gid=1000 \
     bash -c "cd ${DOTFILES_DIR} && source ./install/ruby.sh" 2>&1 | tee /tmp/ruby-install.log
 RUN --mount=type=cache,target=/home/testuser/.cache,uid=1000,gid=1000 \
+    rm -f ${XDG_CACHE_HOME}/node_packages_timestamp && \
     bash -c "cd ${DOTFILES_DIR} && source ./install/node.sh" 2>&1 | tee /tmp/node-install.log
 RUN --mount=type=cache,target=/home/testuser/.cache,uid=1000,gid=1000 \
     bash -c "cd ${DOTFILES_DIR} && source ./install/go.sh" 2>&1 | tee /tmp/go-install.log
@@ -128,8 +129,10 @@ COPY --chown=testuser:testuser . ${DOTFILES_DIR}
 # Initialize a git repo so tests that need git context (e.g. get_trunk_branch) work.
 # We exclude .git/ from the build context to avoid cache-busting on every commit.
 RUN cd ${DOTFILES_DIR} && git init && git checkout -b main && \
+    git add -A && git commit --no-gpg-sign -m "init" --quiet && \
     git remote add origin https://github.com/placeholder/dotfiles.git && \
-    git symbolic-ref refs/remotes/origin/HEAD refs/remotes/origin/main
+    git symbolic-ref refs/remotes/origin/HEAD refs/remotes/origin/main && \
+    git update-ref refs/remotes/origin/main HEAD
 
 # Default to zsh shell
 CMD ["/usr/bin/zsh"]

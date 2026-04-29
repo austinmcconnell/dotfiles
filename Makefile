@@ -11,7 +11,7 @@ docker-build-with-ca:
 	docker build --build-arg CUSTOM_CA_CERT="$$CA_CERT" -t dotfiles-test .
 
 docker-test:
-	docker run --rm dotfiles-test zsh -lc "dotfiles test"
+	docker run --rm -e TERM=xterm dotfiles-test zsh -lc 'eval "$$(fnm env --shell zsh)" && dotfiles test'
 
 docker-shell:
 	docker run --rm -it dotfiles-test
