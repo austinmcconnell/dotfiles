@@ -27,7 +27,7 @@ fi
 
 DEFAULT_RUBY_VERSION=3.2.2
 
-RBENV_ROOT="$XDG_DATA_HOME/rbenv"
+export RBENV_ROOT="$XDG_DATA_HOME/rbenv"
 PATH="$RBENV_ROOT/bin:$RBENV_ROOT/shims:$PATH"
 
 # Create XDG directories for Ruby-related tools

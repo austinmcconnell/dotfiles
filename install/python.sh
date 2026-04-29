@@ -63,7 +63,7 @@ if is-executable pyenv; then
     pyenv update
 fi
 
-PYENV_ROOT="$XDG_DATA_HOME/pyenv"
+export PYENV_ROOT="$XDG_DATA_HOME/pyenv"
 PYENV_PLUGINS_DIR="$PYENV_ROOT/plugins"
 
 if [ ! -f "$PYENV_ROOT/bin/pyenv" ]; then
