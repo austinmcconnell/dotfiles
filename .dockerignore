@@ -1,5 +1,4 @@
-# Git directory
-.git/
+# Git metadata (keep .git/ for test context)
 .gitignore
 .gitattributes
 

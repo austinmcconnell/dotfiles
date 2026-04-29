@@ -11,7 +11,7 @@ docker-build-with-ca:
 	docker build --build-arg CUSTOM_CA_CERT="$$CA_CERT" -t dotfiles-test .
 
 docker-test:
-	docker run --rm dotfiles-test zsh -c "dotfiles test"
+	docker run --rm dotfiles-test zsh -lc "dotfiles test"
 
 docker-shell:
 	docker run --rm -it dotfiles-test

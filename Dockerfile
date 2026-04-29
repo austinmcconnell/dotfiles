@@ -20,24 +20,26 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=America/Chicago
 ENV IS_WORK_COMPUTER=0
 # Set locale to prevent warnings
-ENV LANG=C.UTF-8
-ENV LC_ALL=C.UTF-8
+ENV LANG=en_US.UTF-8
+ENV LC_ALL=en_US.UTF-8
 
 # Configure timezone (must be done before any package installation)
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-# Install Homebrew dependencies (from Homebrew docs)
+# Install Homebrew dependencies (from Homebrew docs) and base OS utilities
 RUN --mount=type=cache,target=/var/cache/apt \
     --mount=type=cache,target=/var/lib/apt/lists \
     rm -f /etc/apt/apt.conf.d/docker-clean && \
     apt-get update && apt-get install -y \
     build-essential \
-    procps \
+    ca-certificates \
     curl \
     file \
     git \
+    locales \
+    procps \
     sudo \
-    ca-certificates
+    && locale-gen en_US.UTF-8
 
 # Create non-root user (Homebrew requires non-root)
 RUN useradd -m -s /bin/bash testuser && \
@@ -94,6 +96,7 @@ RUN bash -c "cd ${DOTFILES_DIR} && source ./install/git.sh"
 RUN bash -c "cd ${DOTFILES_DIR} && source ./install/zsh.sh"
 RUN --mount=type=cache,target=/home/testuser/.cache/Homebrew,uid=1000,gid=1000 \
     bash -c "cd ${DOTFILES_DIR} && source ./install/brew.sh"
+RUN bash -c "cd ${DOTFILES_DIR} && source ./install/apt.sh"
 
 # Language installations (separate for caching and visibility)
 # Note: Python compilation from source takes 30-40 minutes
