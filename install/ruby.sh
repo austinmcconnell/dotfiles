@@ -14,7 +14,9 @@ else
         echo "**************************************************"
         echo "Installing Ruby"
         echo "**************************************************"
-        sudo apt install rbenv
+        sudo apt install -y autoconf bison build-essential libssl-dev libyaml-dev \
+            libreadline-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm-dev
+        brew install rbenv ruby-build
     else
         echo "**************************************************"
         echo "Skipping Ruby installation: Unidentified OS"
