@@ -98,7 +98,56 @@ update_ca_certificates() {
     done
 }
 
-update_helm_repos() {
-    print_section_header "Updating helm repos"
-    helm repo update
+configure_metallb() {
+    # Apply MetalLB IP address pool after helmsman installs the CRDs
+    # https://gist.github.com/RafalSkolasinski/b41b790b1c575223251ff90311419863
+    print_section_header "Configuring metallb"
+
+    kubectl rollout --namespace metallb-system status deployment metallb-controller
+
+    if kubectl get --namespace metallb-system ipaddresspools.metallb.io 2>/dev/null | grep --quiet local-pool; then
+        echo "IPAddressPool and L2Advertisement already created"
+    else
+        SUBNET=$(docker network inspect kind | jq --raw-output '.[0].IPAM.Config[1].Subnet') \
+            yq '(. | select(.kind == "IPAddressPool") | .spec.addresses.[0]) = strenv(SUBNET)' \
+            "$CONFIG_DIR/manifests/metallb-ipaddresspool.yaml" |
+            kubectl apply -f -
+    fi
+}
+
+configure_cert_manager() {
+    # Create mkcert CA secret and ClusterIssuer after helmsman installs cert-manager
+    print_section_header "Configuring cert-manager"
+
+    if kubectl get secrets --namespace cert-manager 2>/dev/null | grep --quiet mkcert-ca-key-pair; then
+        echo "mkcert-ca-key-pair already exists"
+    else
+        mkcert -install
+
+        kubectl create secret tls mkcert-ca-key-pair \
+            --key "$(mkcert -CAROOT)/rootCA-key.pem" \
+            --cert "$(mkcert -CAROOT)/rootCA.pem" \
+            --namespace cert-manager
+
+        kubectl apply -f "$CONFIG_DIR/manifests/cert-manager-cluster-issuer.yaml"
+    fi
+}
+
+add_hosts_entries() {
+    print_section_header "Adding /etc/hosts entries"
+    update_etc_hosts "${LOCAL_DOMAIN}"
+    update_etc_hosts "prometheus.${LOCAL_DOMAIN}"
+    update_etc_hosts "grafana.${LOCAL_DOMAIN}"
+    update_etc_hosts "alertmanager.${LOCAL_DOMAIN}"
+}
+
+run_tests() {
+    print_section_header "Running component tests"
+
+    sh "$DOTFILES_DIR/etc/kind/test/test-metallb.sh"
+    sh "$DOTFILES_DIR/etc/kind/test/test-ingress-nginx-port-forward.sh"
+    sh "$DOTFILES_DIR/etc/kind/test/test-ingress-nginx-hosts-entry.sh"
+    sh "$DOTFILES_DIR/etc/kind/test/test-cert-manager.sh"
+    sh "$DOTFILES_DIR/etc/kind/test/test-metrics-server.sh"
+    sh "$DOTFILES_DIR/etc/kind/test/test-horizontal-pod-autoscaler.sh"
 }

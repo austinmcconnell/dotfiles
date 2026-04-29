@@ -17,7 +17,7 @@ else
         echo "**************************************************"
         echo "Installing Kubernetes"
         echo "**************************************************"
-        brew install kind kubectl kubectx helm mkcert
+        brew install kind kubectl kubectx helm mkcert helmsman
     elif is-debian; then
         echo "**************************************************"
         echo "Installing Kubernetes"
@@ -42,39 +42,39 @@ fi
 # Create Kind cluster
 source "$SCRIPT_DIR/kind-create.sh"
 
-# Install components based on configuration
-if [ "$ENABLE_METALLB" = "true" ]; then
-    source "$SCRIPT_DIR/components/metallb.sh"
-fi
+# Deploy Helm charts via helmsman
+# Phase 1: Install metallb first (needs post-install IP pool config before other charts)
+print_section_header "Deploying metallb via helmsman"
+helmsman --apply \
+    -f "$CONFIG_DIR/cluster-infrastructure.toml" \
+    --target metallb
 
-if [ "$ENABLE_INGRESS_NGINX" = "true" ]; then
-    source "$SCRIPT_DIR/components/ingress-nginx.sh"
-fi
+configure_metallb
 
-if [ "$ENABLE_CERT_MANAGER" = "true" ]; then
-    source "$SCRIPT_DIR/components/cert-manager.sh"
-fi
+# Phase 2: Install remaining charts with env var substitution for $LOCAL_DOMAIN
+print_section_header "Deploying remaining charts via helmsman"
+LOCAL_DOMAIN="${LOCAL_DOMAIN}" helmsman --apply \
+    --subst-env-values \
+    -f "$CONFIG_DIR/cluster-infrastructure.toml"
 
-if [ "$ENABLE_PROMETHEUS" = "true" ]; then
-    source "$SCRIPT_DIR/components/prometheus.sh"
-fi
+configure_cert_manager
 
-if [ "$ENABLE_METRICS_SERVER" = "true" ]; then
-    source "$SCRIPT_DIR/components/metrics-server.sh"
-fi
-
-if [ "$ENABLE_LIMIT_RANGE" = "true" ]; then
+# Apply non-Helm resources
+if [ "${ENABLE_LIMIT_RANGE}" = "true" ]; then
     source "$SCRIPT_DIR/components/limit-range.sh"
 fi
 
-if [ "$ENABLE_RESOURCE_QUOTA" = "true" ]; then
+if [ "${ENABLE_RESOURCE_QUOTA}" = "true" ]; then
     source "$SCRIPT_DIR/components/resource-quota.sh"
 fi
+
+# Post-install: hosts entries and tests
+add_hosts_entries
+run_tests
+
+# Check for available chart updates
+helmsman --check-for-chart-updates
 
 echo "**************************************************"
 echo "Kubernetes setup complete"
 echo "**************************************************"
-echo ""
-echo "To manage component configuration, use:"
-echo "k8s-config --list         # List enabled components"
-echo "k8s-config --help         # Show all options"
