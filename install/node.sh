@@ -36,4 +36,11 @@ if [[ -d "$ZSH_COMPLETIONS_DIR" ]]; then
     fnm completions --shell=zsh >"$ZSH_COMPLETIONS_DIR/_fnm"
 fi
 
-source "$DOTFILES_DIR/etc/zsh/functions/install-node-packages"
+# install-node-packages is a zsh autoloaded function; invoke via zsh
+# with fnm environment so npm is available
+zsh -c "
+    eval \"\$(fnm env)\"
+    fpath=($DOTFILES_DIR/etc/zsh/functions \$fpath)
+    autoload -Uz install-node-packages
+    install-node-packages
+"
