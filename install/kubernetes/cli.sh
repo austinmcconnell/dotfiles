@@ -73,7 +73,7 @@ update_env_value() {
     # Check if key exists in file
     if grep -q "^${key}=" "$ENV_FILE"; then
         # Update existing key
-        sed -i '' "s|^${key}=.*|${key}=${value}|" "$ENV_FILE"
+        sed -i "s|^${key}=.*|${key}=${value}|" "$ENV_FILE"
     else
         # Add new key
         echo "${key}=${value}" >>"$ENV_FILE"

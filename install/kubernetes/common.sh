@@ -75,7 +75,7 @@ update_etc_hosts() {
             # iterate over the line numbers on which matches were found
             while read -r line_number; do
                 # append the host_name to the end of the linethe text of each line with the desired host entry
-                sudo sed -i '' "${line_number}s/$/, ${host_name}/" /etc/hosts
+                sudo sed -i "${line_number}s/$/, ${host_name}/" /etc/hosts
             done <<<"$ip_matches_in_hosts"
         else
             host_entry="${ip_address} ${host_name}"
