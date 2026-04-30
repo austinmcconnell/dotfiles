@@ -21,15 +21,14 @@
     assert $state equals 0
 }
 
-#@test 'fnm installed' {
-#   run is-executable fnm
-#   assert $state equals 0
-#
-#}
+@test 'fnm installed' {
+    run is-executable fnm
+    assert $state equals 0
+}
 
 @test 'npm installed' {
-   run is-executable npm
-   assert $state equals 0
+    run is-executable npm
+    assert $state equals 0
 }
 
 @test 'npm default packages installed' {
@@ -72,6 +71,31 @@
 @test 'ruby installed' {
     run is-executable ruby
     assert $state equals 0
+}
+
+@test 'rbenv installed' {
+    run is-executable rbenv
+    assert $state equals 0
+}
+
+@test 'ruby default gems installed' {
+    installed_gems=$(gem list --no-versions)
+    for gem_name in $(cat $DOTFILES_DIR/etc/ruby/default-gems); do
+        assert $gem_name in $installed_gems
+        echo "$gem_name is installed"
+    done
+}
+
+@test 'go installed' {
+    run is-executable go
+    assert $state equals 0
+}
+
+@test 'go default tools installed' {
+    for tool in gopls goimports godoc dlv staticcheck; do
+        assert "$HOME/go/bin/$tool" is_file
+        echo "$tool is installed"
+    done
 }
 
 @test 'vim installed' {
