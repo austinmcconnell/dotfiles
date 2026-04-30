@@ -1,0 +1,29 @@
+# Git metadata
+.git/
+.gitignore
+.gitattributes
+
+# Documentation (not needed for installation)
+*.md
+!install/*.md
+docs/
+
+# CI/CD
+.github/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.log
+tmp/
+temp/
