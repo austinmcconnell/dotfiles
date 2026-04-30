@@ -23,14 +23,14 @@ let g:ale_cache_executable_check_failures = 1 " cache missing executables
 let g:ale_linters = {
 \   'dockerfile': ['hadolint'],
 \   'go': ['gopls', 'gofmt'],
-\   'json': ['jq', 'spectral'],
+\   'json': ['jq'],
 \   'markdown': ['markdownlint'],
 \   'python': ['ruff'],
 \   'ruby': ['rubocop', 'ruby_lsp'],
 \   'sh': ['bashate', 'shellcheck', 'language_server'],
 \   'terraform': ['terraform'],
 \   'toml': ['taplo'],
-\   'yaml': ['spectral', 'yamllint'],
+\   'yaml': ['yamllint'],
 \   'zsh': ['bashate', 'shellcheck', 'language_server'],
 \}
 ", 'mypy' disable python mypy linter. When I am braver, try this again
