@@ -117,4 +117,8 @@ fi
 rbenv install --skip-existing "${DEFAULT_RUBY_VERSION}"
 rbenv global "${DEFAULT_RUBY_VERSION}"
 
+# Ensure default gems are installed (rbenv-default-gems only runs
+# during rbenv install, so gems added later would be missed)
+xargs gem install <"$DOTFILES_DIR/etc/ruby/default-gems"
+
 curl -fsSL https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-doctor | bash
