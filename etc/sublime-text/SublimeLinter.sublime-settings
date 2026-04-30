@@ -17,6 +17,12 @@
         "terraform": {},
         "hadolint": {
             "args": ["--config", "~/.config/hadolint.yaml"]
+        },
+        "vale": {
+            "args": ["--config", "~/.config/vale/vale.ini"],
+            "env": {
+                "VALE_CONFIG_PATH": "~/.config/vale/vale.ini"
+            }
         }
     }
 }

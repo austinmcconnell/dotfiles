@@ -4,4 +4,4 @@
 "   <!-- vim: set ft=markdown.prose: -->
 
 let g:ale_linters = get(g:, 'ale_linters', {})
-let g:ale_linters['markdown.prose'] = ['markdownlint', 'proselint', 'writegood']
+let g:ale_linters['markdown.prose'] = g:prose_linters

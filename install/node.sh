@@ -22,7 +22,6 @@ mkdir -p "$NPM_PATH"
 # https://github.com/Schniz/fnm/issues/139
 ln -sfv "$DOTFILES_DIR/etc/node/default-packages" "$FNM_PATH"
 ln -sfv "$DOTFILES_DIR/etc/node/markdownlint" ~/.markdownlintrc
-ln -sfv "$DOTFILES_DIR/etc/node/write-good.json" "$HOME/.write-goodrc"
 
 fnm install --lts
 fnm default lts-latest

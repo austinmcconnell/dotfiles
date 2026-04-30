@@ -34,10 +34,10 @@ let g:ale_linters = {
 \   'zsh': ['bashate', 'shellcheck', 'language_server'],
 \}
 ", 'mypy' disable python mypy linter. When I am braver, try this again
-" , 'proselint', 'writegood' disable markdown prose linters. Optionally enable when I am writing prose
+" , 'proselint', 'vale' disable markdown prose linters. Optionally enable when I am writing prose
 
 " Define prose linter list and writing directories in one place
-let g:prose_linters = ['markdownlint', 'proselint', 'writegood']
+let g:prose_linters = ['markdownlint', 'proselint', 'vale']
 let g:prose_writing_dirs = '*/writing/*.md,*/blog/*.md,*/essays/*.md,*/articles/*.md,*/drafts/*.md,*/posts/*.md'
 
 " Prose linter toggle commands
@@ -105,6 +105,9 @@ let g:ale_sh_shfmt_options = '--indent 4'
 
 " YAML yamllint options
 let g:ale_yaml_yamllint_options = '-c ~/.config/yamllint/config'
+
+" Vale options (vale lints temp files, so it can't walk up to find config)
+let g:ale_markdown_vale_options = '--config ~/.config/vale/vale.ini'
 
 nnoremap <leader>gd :ALEGoToDefinition<CR>
 nnoremap gr :ALEFindReferences<CR>

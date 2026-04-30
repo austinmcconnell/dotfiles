@@ -26,10 +26,12 @@ mkdir -p "$XDG_CONFIG_HOME/bat"
 mkdir -p "$XDG_CONFIG_HOME/dprint"
 mkdir -p "$XDG_CONFIG_HOME/fd"
 mkdir -p "$XDG_CONFIG_HOME/httpie"
+mkdir -p "$XDG_CONFIG_HOME/vale"
 
 ln -sfv "$DOTFILES_DIR/etc/misc/hadolint.yaml" "$XDG_CONFIG_HOME"
 ln -sfv "$DOTFILES_DIR/etc/misc/shellcheckrc" "$XDG_CONFIG_HOME/shellcheckrc"
 ln -sfv "$DOTFILES_DIR/etc/dprint/dprint.jsonc" "$XDG_CONFIG_HOME/dprint/dprint.jsonc"
+ln -sfv "$DOTFILES_DIR/etc/vale/vale.ini" "$XDG_CONFIG_HOME/vale/vale.ini"
 ln -sfv "$DOTFILES_DIR/etc/fd/ignore" "$XDG_CONFIG_HOME/fd/ignore"
 ln -sfv "$DOTFILES_DIR/etc/httpie/config.json" "$XDG_CONFIG_HOME/httpie/config.json"
 ln -sfv "$DOTFILES_DIR/etc/bat/config" "$XDG_CONFIG_HOME/bat/config"
@@ -100,6 +102,7 @@ install_if_needed "taplo" "formula"
 install_if_needed "tree" "formula"
 install_if_needed "trivy" "formula"
 install_if_needed "unar" "formula"
+install_if_needed "vale" "formula"
 install_if_needed "vals" "formula"
 install_if_needed "wget" "formula"
 install_if_needed "yamllint" "formula"
@@ -176,6 +179,10 @@ fi
 # Add helm charts repository
 echo "Adding helm charts repositories"
 helm repo add stable https://charts.helm.sh/stable
+
+# Download vale style packages
+echo "Downloading vale style packages"
+VALE_CONFIG_PATH="$XDG_CONFIG_HOME/vale/vale.ini" vale sync
 
 # Add brew installed bash as an allowed shell
 echo "Adding brew installed bash as an allowed shell"
