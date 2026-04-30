@@ -1,8 +1,8 @@
 #!/usr/bin/env zunit
 
 @setup {
-   fpath=($DOTFILES_DIR/etc/zsh/functions $fpath)
-   autoload -Uz calc get_trunk_branch
+    fpath=($DOTFILES_DIR/etc/zsh/functions $fpath)
+    autoload -Uz calc get_trunk_branch git
 }
 
 @test 'calc' {
@@ -13,4 +13,10 @@
 @test 'get_trunk_branch' {
     run get_trunk_branch
     assert $output equals main
+}
+
+@test 'git checkout blocked' {
+    run git checkout main
+    assert $state equals 1
+    assert $output contains "Don't use checkout"
 }

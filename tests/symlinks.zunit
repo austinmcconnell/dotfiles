@@ -1,0 +1,26 @@
+#!/usr/bin/env zunit
+
+@test 'git config symlink valid' {
+    assert "$HOME/.config/git/config" is_link
+    assert "$HOME/.config/git/config" is_readable
+}
+
+@test 'vim vimrc symlink valid' {
+    assert "$HOME/.vim/vimrc" is_link
+    assert "$HOME/.vim/vimrc" is_readable
+}
+
+@test 'zsh plugins symlink valid' {
+    assert "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/.zsh_plugins.txt" is_link
+    assert "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/.zsh_plugins.txt" is_readable
+}
+
+@test 'starship config symlink valid' {
+    assert "${XDG_CONFIG_HOME:-$HOME/.config}/starship.toml" is_link
+    assert "${XDG_CONFIG_HOME:-$HOME/.config}/starship.toml" is_readable
+}
+
+@test 'zsh functions symlink valid' {
+    assert "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/functions" is_link
+    assert "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/functions" is_readable
+}
