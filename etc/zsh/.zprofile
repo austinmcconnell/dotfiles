@@ -19,7 +19,7 @@ path=(
     $HOME/{,s}bin(N)
     /opt/{homebrew,local}/{,s}bin(N)
     /opt/homebrew/opt/ruby/bin(N)
-    /opt/homebrew/opt/{coreutils,grep,findutils}/libexec/gnubin(N)
+    /opt/homebrew/opt/{coreutils,findutils,gawk,gnu-sed,gnu-tar,gnu-time,grep}/libexec/gnubin(N)
     /opt/homebrew/opt/ccache/libexec(N)
     /usr/local/{,s}bin(N)
     $PYENV_ROOT/shims

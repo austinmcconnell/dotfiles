@@ -59,7 +59,7 @@ get_last_activity() {
     # Check last fetch time (FETCH_HEAD file modification time)
     # Only consider if it's more recent than the last commit (indicates active pulling)
     if [ -f ".git/FETCH_HEAD" ]; then
-        if fetch_time=$(stat -f "%m" ".git/FETCH_HEAD" 2>/dev/null); then
+        if fetch_time=$(stat -c %Y ".git/FETCH_HEAD" 2>/dev/null); then
             # Only use fetch time if it's significantly newer than last commit
             # This helps avoid maintenance-related fetches
             if [ "$fetch_time" -gt "$((latest_timestamp + 3600))" ]; then
@@ -72,7 +72,7 @@ get_last_activity() {
     # Check last checkout/branch switch (HEAD file modification time)
     # Only consider if significantly newer than last commit
     if [ -f ".git/HEAD" ]; then
-        if head_time=$(stat -f "%m" ".git/HEAD" 2>/dev/null); then
+        if head_time=$(stat -c %Y ".git/HEAD" 2>/dev/null); then
             # Only consider HEAD changes that are newer than the last commit
             if [ "$head_time" -gt "$((latest_timestamp + 300))" ]; then
                 latest_timestamp="$head_time"
@@ -83,7 +83,7 @@ get_last_activity() {
 
     # Check index file modification (staging area activity)
     if [ -f ".git/index" ]; then
-        if index_time=$(stat -f "%m" ".git/index" 2>/dev/null); then
+        if index_time=$(stat -c %Y ".git/index" 2>/dev/null); then
             if [ "$index_time" -gt "$latest_timestamp" ]; then
                 latest_timestamp="$index_time"
                 activity_type="staging"
@@ -94,7 +94,7 @@ get_last_activity() {
     # Check for recent manual ref updates (branch/tag creation)
     # Skip maintenance-related refs like commit-graph, packed-refs
     if [ -d ".git/refs/heads" ]; then
-        if refs_time=$(find ".git/refs/heads" -type f -exec stat -f "%m" {} \; 2>/dev/null | grep -E '^[0-9]+$' | sort -nr | head -1); then
+        if refs_time=$(find ".git/refs/heads" -type f -exec stat -c %Y {} \; 2>/dev/null | grep -E '^[0-9]+$' | sort -nr | head -1); then
             if [ -n "$refs_time" ] && [ "$refs_time" -gt "$latest_timestamp" ]; then
                 latest_timestamp="$refs_time"
                 activity_type="branch"
@@ -104,15 +104,8 @@ get_last_activity() {
 
     if [ "$latest_timestamp" -gt 0 ]; then
         # Convert timestamp to human-readable format and calculate days ago
-        if command -v gdate >/dev/null 2>&1; then
-            # Use GNU date if available (from coreutils)
-            activity_date=$(gdate -d "@$latest_timestamp" "+%Y-%m-%d")
-            days_ago=$((($(gdate +%s) - latest_timestamp) / 86400))
-        else
-            # Use BSD date (macOS default)
-            activity_date=$(date -r "$latest_timestamp" "+%Y-%m-%d")
-            days_ago=$((($(date +%s) - latest_timestamp) / 86400))
-        fi
+        activity_date=$(date -d "@$latest_timestamp" "+%Y-%m-%d")
+        days_ago=$((($(date +%s) - latest_timestamp) / 86400))
 
         echo "$days_ago|$activity_date|$activity_type"
     else

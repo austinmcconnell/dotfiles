@@ -59,7 +59,7 @@ if [[ -f "$HOME/.terraformrc" ]]; then
     echo "Moving existing .terraformrc file to XDG_CONFIG_HOME/terraform/terraform.rc"
     mv "$HOME/.terraformrc" "$XDG_CONFIG_HOME/terraform/terraform.rc"
     # shellcheck disable=SC2016
-    sed -i '' 's|$HOME/.terraform.d/plugin-cache|$XDG_DATA_HOME/terraform/plugin-cache|g' "$XDG_CONFIG_HOME/terraform/terraform.rc"
+    sed -i 's|$HOME/.terraform.d/plugin-cache|$XDG_DATA_HOME/terraform/plugin-cache|g' "$XDG_CONFIG_HOME/terraform/terraform.rc"
 fi
 
 if [[ -d "$HOME/.terraform.d" ]]; then
