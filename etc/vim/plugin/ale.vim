@@ -27,11 +27,11 @@ let g:ale_linters = {
 \   'markdown': ['markdownlint'],
 \   'python': ['ruff'],
 \   'ruby': ['rubocop', 'ruby_lsp'],
-\   'sh': ['bashate', 'shellcheck', 'language_server'],
+\   'sh': ['bashate', 'shellcheck'],
 \   'terraform': ['terraform'],
 \   'toml': ['taplo'],
 \   'yaml': ['yamllint'],
-\   'zsh': ['bashate', 'shellcheck', 'language_server'],
+\   'zsh': ['bashate', 'shellcheck'],
 \}
 ", 'mypy' disable python mypy linter. When I am braver, try this again
 " , 'proselint', 'vale' disable markdown prose linters. Optionally enable when I am writing prose
