@@ -1,9 +1,5 @@
 @stoplight/spectral-cli
 bash-language-server
-jsonlint
 markdownlint-cli
-proselint
-pyright
 write-good
 prettier
-vim-language-server

@@ -23,7 +23,7 @@ let g:ale_cache_executable_check_failures = 1 " cache missing executables
 let g:ale_linters = {
 \   'dockerfile': ['hadolint'],
 \   'go': ['gopls', 'gofmt'],
-\   'json': ['jq', 'jsonlint', 'spectral'],
+\   'json': ['jq', 'spectral'],
 \   'markdown': ['markdownlint'],
 \   'python': ['ruff'],
 \   'ruby': ['rubocop', 'ruby_lsp'],
