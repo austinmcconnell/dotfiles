@@ -12,6 +12,11 @@
 # DO NOT add manual installations of tools like ruby, node, python, starship, etc.
 # If an install script fails, fix the ENVIRONMENT or the SCRIPT, not the Dockerfile.
 # The goal is to test that the install scripts work correctly on a fresh system.
+#
+# LAYER CACHING STRATEGY: Each install script gets only the files it needs
+# copied immediately before its RUN. This prevents unrelated config changes
+# from invalidating expensive compilation layers. For example, editing
+# etc/vim/.vimrc won't trigger a Python or Ruby rebuild.
 
 FROM ubuntu:22.04
 
@@ -82,45 +87,90 @@ ENV PYTHON_BUILD_WGET_OPTS="--no-check-certificate"
 # Create required directories
 RUN mkdir -p ${XDG_CONFIG_HOME} ${XDG_DATA_HOME} ${XDG_CACHE_HOME} ${DOTFILES_EXTRA_DIR}
 
-# --- Stage 1: Copy install scripts and their dependencies (changes rarely) ---
-# These directories are needed by the install scripts. Copying them first means
-# changes to tests/, scripts/, docs/, etc. won't invalidate the expensive
-# language compilation layers below.
-COPY --chown=testuser:testuser install/ ${DOTFILES_DIR}/install/
+# --- Per-script COPY strategy ---
+# Each install script gets only the files it needs copied before its RUN.
+# This prevents unrelated config changes from invalidating expensive layers.
+
+# Shared dependencies (needed by almost all install scripts)
 COPY --chown=testuser:testuser bin/ ${DOTFILES_DIR}/bin/
-COPY --chown=testuser:testuser etc/ ${DOTFILES_DIR}/etc/
+COPY --chown=testuser:testuser install/utils.sh ${DOTFILES_DIR}/install/utils.sh
 
-# For Docker builds, comment out SSH URL rewriting in git config
-RUN sed -i '/\[url "git@github.com:"\]/,/pushInsteadOf/s/^/#/' ${DOTFILES_DIR}/etc/git/config
-
-# Create .extra/.env file (required by utils.sh and other scripts)
+# Create .extra env config (required by utils.sh and other scripts)
 RUN echo "export IS_WORK_COMPUTER=0" > ${DOTFILES_EXTRA_DIR}/.env
 
-# Core installations
+# --- git (needed by everything that clones repos) ---
+COPY --chown=testuser:testuser install/git.sh ${DOTFILES_DIR}/install/git.sh
+COPY --chown=testuser:testuser etc/git/ ${DOTFILES_DIR}/etc/git/
+RUN sed -i '/\[url "git@github.com:"\]/,/pushInsteadOf/s/^/#/' ${DOTFILES_DIR}/etc/git/config
 RUN bash -c "cd ${DOTFILES_DIR} && source ./install/git.sh"
+
+# --- zsh (sets up ZDOTDIR, functions, completions) ---
+COPY --chown=testuser:testuser install/zsh.sh ${DOTFILES_DIR}/install/zsh.sh
+COPY --chown=testuser:testuser etc/zsh/ ${DOTFILES_DIR}/etc/zsh/
+COPY --chown=testuser:testuser etc/starship/ ${DOTFILES_DIR}/etc/starship/
+COPY --chown=testuser:testuser etc/spaceship/ ${DOTFILES_DIR}/etc/spaceship/
+COPY --chown=testuser:testuser etc/direnv/ ${DOTFILES_DIR}/etc/direnv/
+COPY --chown=testuser:testuser etc/terminfo/ ${DOTFILES_DIR}/etc/terminfo/
 RUN bash -c "cd ${DOTFILES_DIR} && source ./install/zsh.sh"
+
+# --- brew (installs CLI tools needed by later scripts) ---
+COPY --chown=testuser:testuser install/brew.sh ${DOTFILES_DIR}/install/brew.sh
+COPY --chown=testuser:testuser etc/misc/ ${DOTFILES_DIR}/etc/misc/
+COPY --chown=testuser:testuser etc/fd/ ${DOTFILES_DIR}/etc/fd/
+COPY --chown=testuser:testuser etc/httpie/ ${DOTFILES_DIR}/etc/httpie/
+COPY --chown=testuser:testuser etc/bat/ ${DOTFILES_DIR}/etc/bat/
+COPY --chown=testuser:testuser etc/sublime-text/ ${DOTFILES_DIR}/etc/sublime-text/
 RUN --mount=type=cache,target=/home/testuser/.cache/Homebrew,uid=1000,gid=1000 \
     bash -c "cd ${DOTFILES_DIR} && source ./install/brew.sh"
+
+# --- apt (Linux build dependencies for compiling languages) ---
+COPY --chown=testuser:testuser install/apt.sh ${DOTFILES_DIR}/install/apt.sh
 RUN bash -c "cd ${DOTFILES_DIR} && source ./install/apt.sh"
 
-# Language installations (separate for caching and visibility)
-# Note: Python compilation from source takes 30-40 minutes
+# --- Language installations (ordered by build time, slowest first) ---
+
+# python (~2 min — compiles from source)
+COPY --chown=testuser:testuser install/python.sh ${DOTFILES_DIR}/install/python.sh
+COPY --chown=testuser:testuser etc/python/ ${DOTFILES_DIR}/etc/python/
 RUN --mount=type=cache,target=/home/testuser/.cache,uid=1000,gid=1000 \
     bash -c "cd ${DOTFILES_DIR} && source ./install/python.sh" 2>&1 | tee /tmp/python-install.log
+
+# ruby (~2 min — compiles from source)
+COPY --chown=testuser:testuser install/ruby.sh ${DOTFILES_DIR}/install/ruby.sh
+COPY --chown=testuser:testuser etc/ruby/ ${DOTFILES_DIR}/etc/ruby/
 RUN --mount=type=cache,target=/home/testuser/.cache,uid=1000,gid=1000 \
     bash -c "cd ${DOTFILES_DIR} && source ./install/ruby.sh" 2>&1 | tee /tmp/ruby-install.log
-RUN --mount=type=cache,target=/home/testuser/.cache,uid=1000,gid=1000 \
-    rm -f ${XDG_CACHE_HOME}/node_packages_timestamp && \
-    bash -c "cd ${DOTFILES_DIR} && source ./install/node.sh" 2>&1 | tee /tmp/node-install.log
+
+# go (~1 min — installs tools from source)
+COPY --chown=testuser:testuser install/go.sh ${DOTFILES_DIR}/install/go.sh
 RUN --mount=type=cache,target=/home/testuser/.cache,uid=1000,gid=1000 \
     bash -c "cd ${DOTFILES_DIR} && source ./install/go.sh" 2>&1 | tee /tmp/go-install.log
 
-# Remaining installations
+# node (~24s — fnm + npm packages)
+COPY --chown=testuser:testuser install/node.sh ${DOTFILES_DIR}/install/node.sh
+COPY --chown=testuser:testuser etc/node/ ${DOTFILES_DIR}/etc/node/
+RUN --mount=type=cache,target=/home/testuser/.cache,uid=1000,gid=1000 \
+    rm -f ${XDG_CACHE_HOME}/node_packages_timestamp && \
+    bash -c "cd ${DOTFILES_DIR} && source ./install/node.sh" 2>&1 | tee /tmp/node-install.log
+
+# --- Remaining installations (fast, minimal dependencies) ---
+COPY --chown=testuser:testuser install/vim.sh ${DOTFILES_DIR}/install/vim.sh
+COPY --chown=testuser:testuser etc/vim/ ${DOTFILES_DIR}/etc/vim/
+COPY --chown=testuser:testuser etc/ag/ ${DOTFILES_DIR}/etc/ag/
+COPY --chown=testuser:testuser etc/yaml/ ${DOTFILES_DIR}/etc/yaml/
 RUN bash -c "cd ${DOTFILES_DIR} && source ./install/vim.sh"
-RUN bash -c "cd ${DOTFILES_DIR} && source ./install/ssh.sh"
-RUN bash -c "cd ${DOTFILES_DIR} && source ./install/dircolors.sh"
-RUN bash -c "cd ${DOTFILES_DIR} && source ./install/xdg-compliance.sh"
-RUN bash -c "cd ${DOTFILES_DIR} && source ./install/glow.sh"
+
+COPY --chown=testuser:testuser install/ssh.sh ${DOTFILES_DIR}/install/ssh.sh
+COPY --chown=testuser:testuser install/dircolors.sh ${DOTFILES_DIR}/install/dircolors.sh
+COPY --chown=testuser:testuser install/xdg-compliance.sh ${DOTFILES_DIR}/install/xdg-compliance.sh
+COPY --chown=testuser:testuser install/glow.sh ${DOTFILES_DIR}/install/glow.sh
+COPY --chown=testuser:testuser etc/dircolors/ ${DOTFILES_DIR}/etc/dircolors/
+COPY --chown=testuser:testuser etc/glow/ ${DOTFILES_DIR}/etc/glow/
+RUN bash -c "cd ${DOTFILES_DIR} && \
+    source ./install/ssh.sh && \
+    source ./install/dircolors.sh && \
+    source ./install/xdg-compliance.sh && \
+    source ./install/glow.sh"
 
 # --- Stage 2: Copy remaining files (tests, scripts, docs, etc.) ---
 # This layer changes frequently but is cheap — no compilation.
