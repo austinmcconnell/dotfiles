@@ -23,11 +23,13 @@ else
 fi
 
 mkdir -p "$XDG_CONFIG_HOME/bat"
+mkdir -p "$XDG_CONFIG_HOME/dprint"
 mkdir -p "$XDG_CONFIG_HOME/fd"
 mkdir -p "$XDG_CONFIG_HOME/httpie"
 
 ln -sfv "$DOTFILES_DIR/etc/misc/hadolint.yaml" "$XDG_CONFIG_HOME"
 ln -sfv "$DOTFILES_DIR/etc/misc/shellcheckrc" "$XDG_CONFIG_HOME/shellcheckrc"
+ln -sfv "$DOTFILES_DIR/etc/dprint/dprint.jsonc" "$XDG_CONFIG_HOME/dprint/dprint.jsonc"
 ln -sfv "$DOTFILES_DIR/etc/fd/ignore" "$XDG_CONFIG_HOME/fd/ignore"
 ln -sfv "$DOTFILES_DIR/etc/httpie/config.json" "$XDG_CONFIG_HOME/httpie/config.json"
 ln -sfv "$DOTFILES_DIR/etc/bat/config" "$XDG_CONFIG_HOME/bat/config"
@@ -42,7 +44,6 @@ fi
 if [ -n "$SUBLIME_USER_DIR" ]; then
     mkdir -p "$SUBLIME_USER_DIR"
     ln -sfv "$DOTFILES_DIR/etc/sublime-text/Fmt.sublime-settings" "$SUBLIME_USER_DIR"
-    ln -sfv "$DOTFILES_DIR/etc/sublime-text/JsPrettier.sublime-settings" "$SUBLIME_USER_DIR"
     ln -sfv "$DOTFILES_DIR/etc/sublime-text/Package Control.sublime-settings" "$SUBLIME_USER_DIR"
     ln -sfv "$DOTFILES_DIR/etc/sublime-text/Preferences.sublime-settings" "$SUBLIME_USER_DIR"
     ln -sfv "$DOTFILES_DIR/etc/sublime-text/Python.sublime-settings" "$SUBLIME_USER_DIR"
@@ -70,6 +71,7 @@ install_if_needed "ccache" "formula"
 install_if_needed "coreutils" "formula"
 install_if_needed "direnv" "formula"
 install_if_needed "dive" "formula"
+install_if_needed "dprint" "formula"
 install_if_needed "fd" "formula"
 install_if_needed "findutils" "formula"
 install_if_needed "fzf" "formula"

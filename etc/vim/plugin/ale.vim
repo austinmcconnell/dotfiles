@@ -53,13 +53,13 @@ augroup END
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'go': ['gofmt', 'goimports'],
-\   'json': ['prettier'],
+\   'json': ['dprint'],
 \   'markdown': ['mdformat'],
 \   'python': ['ruff', 'ruff_format'],
 \   'ruby': ['rubocop'],
 \   'sh': ['shfmt'],
 \   'terraform': ['terraform'],
-\   'yaml': ['prettier'],
+\   'yaml': ['dprint'],
 \   'zsh': ['shfmt'],
 \}
 
@@ -79,8 +79,6 @@ let g:ale_fixers = {
 " \   }
 " \}
 
-
-let g:ale_javascript_prettier_options = '--config ~/.config/prettier.toml'
 
 function! FixMdformat(buffer) abort
   return {'command': 'mdformat -'}

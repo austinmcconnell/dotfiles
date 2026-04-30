@@ -1,6 +1,18 @@
 {
     "rules": [
         {
+            "selector": "source.json",
+            "cmd": ["dprint", "fmt", "--stdin", "$file"],
+            "format_on_save": true,
+            "merge_type": "diff"
+        },
+        {
+            "selector": "source.yaml",
+            "cmd": ["dprint", "fmt", "--stdin", "$file"],
+            "format_on_save": true,
+            "merge_type": "diff"
+        },
+        {
             "selector": "text.html.markdown",
             "cmd": ["mdformat", "-"],
             "format_on_save": true,

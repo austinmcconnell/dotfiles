@@ -53,11 +53,11 @@ repos:
         entry: shellcheck
         types: [shell]
         exclude_types: ["zsh"]
-      - id: prettier
-        name: prettier
-        language: node
-        entry: prettier
-        args: ["--write", "--config", "etc/node/prettier.toml"]
+      - id: dprint
+        name: dprint
+        language: system
+        entry: dprint fmt
+        args: ["--config", "etc/dprint/dprint.jsonc", "--allow-no-files"]
         files: \.(json|sublime-settings|yaml|yml)$
         exclude: etc/kiro-cli/
   # - repo: https://github.com/btford/write-good
