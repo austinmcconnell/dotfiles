@@ -20,7 +20,7 @@ else
         echo "**************************************************"
         sudo apt-get install -y build-essential libssl-dev zlib1g-dev libbz2-dev \
             libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
-            xz-utils tk-dev libffi-dev liblzma-dev python-openssl git
+            xz-utils tk-dev libffi-dev liblzma-dev python3-openssl git
     else
         echo "**************************************************"
         echo "Skipping Python installation: Unidentified OS"
@@ -84,6 +84,10 @@ ln -sfv "$DOTFILES_DIR/etc/python/default-packages" "$PYENV_ROOT" # <-- At end b
 
 "$PYENV_ROOT"/bin/pyenv install --skip-existing $DEFAULT_PYTHON_VERSION
 "$PYENV_ROOT"/bin/pyenv global $DEFAULT_PYTHON_VERSION
+
+# Add pyenv shims to PATH for the rest of this script
+eval "$("$PYENV_ROOT"/bin/pyenv init --path)"
+
 pip install --upgrade pip setuptools wheel
 
 pre-commit init-templatedir "$HOME"/.config/git/templates
