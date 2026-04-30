@@ -16,7 +16,6 @@
         "Package Control",
         "Pretty JSON",
         "SublimeLinter",
-        "SublimeLinter-contrib-markdownlint",
         "SublimeLinter-contrib-yamllint",
         "SublimeLinter-json",
         "SublimeLinter-shellcheck",

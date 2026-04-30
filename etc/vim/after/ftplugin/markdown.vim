@@ -1,4 +1,4 @@
-" colorcolumn=101 highlights the first invalid column (markdownlint allows 100 chars at positions 1-100)
+" colorcolumn=101 highlights the first invalid column (rumdl allows 100 chars at positions 1-100)
 setlocal colorcolumn=101               " highlight column 101 (first disallowed position)
 setlocal spell                         " enable spellcheck
 setlocal tabstop=2                     " tab width 2 spaces (markdown convention)

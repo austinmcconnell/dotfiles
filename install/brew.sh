@@ -26,6 +26,7 @@ mkdir -p "$XDG_CONFIG_HOME/bat"
 mkdir -p "$XDG_CONFIG_HOME/dprint"
 mkdir -p "$XDG_CONFIG_HOME/fd"
 mkdir -p "$XDG_CONFIG_HOME/httpie"
+mkdir -p "$XDG_CONFIG_HOME/rumdl"
 mkdir -p "$XDG_CONFIG_HOME/vale"
 
 ln -sfv "$DOTFILES_DIR/etc/misc/hadolint.yaml" "$XDG_CONFIG_HOME"
@@ -34,6 +35,7 @@ ln -sfv "$DOTFILES_DIR/etc/dprint/dprint.jsonc" "$XDG_CONFIG_HOME/dprint/dprint.
 ln -sfv "$DOTFILES_DIR/etc/vale/vale.ini" "$XDG_CONFIG_HOME/vale/vale.ini"
 ln -sfv "$DOTFILES_DIR/etc/fd/ignore" "$XDG_CONFIG_HOME/fd/ignore"
 ln -sfv "$DOTFILES_DIR/etc/httpie/config.json" "$XDG_CONFIG_HOME/httpie/config.json"
+ln -sfv "$DOTFILES_DIR/etc/rumdl/rumdl.toml" "$XDG_CONFIG_HOME/rumdl/rumdl.toml"
 ln -sfv "$DOTFILES_DIR/etc/bat/config" "$XDG_CONFIG_HOME/bat/config"
 
 # Sublime Text configuration
@@ -46,6 +48,7 @@ fi
 if [ -n "$SUBLIME_USER_DIR" ]; then
     mkdir -p "$SUBLIME_USER_DIR"
     ln -sfv "$DOTFILES_DIR/etc/sublime-text/Fmt.sublime-settings" "$SUBLIME_USER_DIR"
+    ln -sfv "$DOTFILES_DIR/etc/sublime-text/LanguageServers.sublime-settings" "$SUBLIME_USER_DIR"
     ln -sfv "$DOTFILES_DIR/etc/sublime-text/Package Control.sublime-settings" "$SUBLIME_USER_DIR"
     ln -sfv "$DOTFILES_DIR/etc/sublime-text/Preferences.sublime-settings" "$SUBLIME_USER_DIR"
     ln -sfv "$DOTFILES_DIR/etc/sublime-text/Python.sublime-settings" "$SUBLIME_USER_DIR"
@@ -96,6 +99,7 @@ install_if_needed "k9s" "formula"
 install_if_needed "kubernetes-cli" "formula"
 install_if_needed "nano" "formula"
 install_if_needed "openssl@3" "formula" # Used for compiling (e.g. pyenv building python versions from source)
+install_if_needed "rumdl" "formula"
 install_if_needed "shellcheck" "formula"
 install_if_needed "shfmt" "formula"
 install_if_needed "ssh-copy-id" "formula"

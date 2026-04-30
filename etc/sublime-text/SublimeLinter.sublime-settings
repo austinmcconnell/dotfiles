@@ -1,12 +1,5 @@
 {
     "linters": {
-        "markdownlint": {
-            "args": ["--config", "~/.markdownlintrc"],
-            "executable": "~/.local/share/npm/bin/markdownlint",
-            "env": {
-                "PATH": "~/.local/share/fnm/aliases/default/bin:~/.local/share/npm/bin:$PATH"
-            }
-        },
         "yamllint": {
             "args": ["-c", "~/.config/yamllint/config"],
             "executable": "yamllint"

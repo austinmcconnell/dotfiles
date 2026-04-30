@@ -1,0 +1,7 @@
+{
+    "rumdl": {
+        "enabled": true,
+        "command": ["rumdl", "server"],
+        "selector": "text.html.markdown"
+    }
+}

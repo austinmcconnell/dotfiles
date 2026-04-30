@@ -52,7 +52,7 @@ ALE (Asynchronous Lint Engine) runs linters and fixers asynchronously without bl
 
 **Markdown:**
 
-- Linters: markdownlint
+- Linters: rumdl
 - Fixers: prettier
 
 **JSON:**

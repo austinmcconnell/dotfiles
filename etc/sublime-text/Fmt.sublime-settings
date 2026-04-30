@@ -14,7 +14,7 @@
         },
         {
             "selector": "text.html.markdown",
-            "cmd": ["mdformat", "-"],
+            "cmd": ["bash", "-c", "mdformat - | rumdl fmt --silent -"],
             "format_on_save": true,
             "merge_type": "diff"
         },

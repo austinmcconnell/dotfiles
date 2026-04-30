@@ -1,0 +1,16 @@
+[global]
+disable = ["MD057"]
+
+[per-file-ignores]
+"docs/VimMappings.md" = ["MD033"]
+
+[MD013]
+code-blocks = false
+line-length = 100
+tables = false
+
+[MD024]
+siblings-only = true
+
+[MD029]
+style = "one"

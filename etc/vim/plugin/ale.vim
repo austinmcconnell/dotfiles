@@ -24,7 +24,7 @@ let g:ale_linters = {
 \   'dockerfile': ['hadolint'],
 \   'go': ['gopls', 'gofmt'],
 \   'json': ['jq'],
-\   'markdown': ['markdownlint'],
+\   'markdown': ['rumdl'],
 \   'python': ['ruff'],
 \   'ruby': ['rubocop', 'ruby_lsp'],
 \   'sh': ['bashate', 'shellcheck'],
@@ -37,12 +37,12 @@ let g:ale_linters = {
 " , 'proselint', 'vale' disable markdown prose linters. Optionally enable when I am writing prose
 
 " Define prose linter list and writing directories in one place
-let g:prose_linters = ['markdownlint', 'proselint', 'vale']
+let g:prose_linters = ['rumdl', 'proselint', 'vale']
 let g:prose_writing_dirs = '*/writing/*.md,*/blog/*.md,*/essays/*.md,*/articles/*.md,*/drafts/*.md,*/posts/*.md'
 
 " Prose linter toggle commands
 command! ProseOn  let b:ale_linters = g:prose_linters | ALELint
-command! ProseOff let b:ale_linters = ['markdownlint'] | ALELint
+command! ProseOff let b:ale_linters = ['rumdl'] | ALELint
 
 " Auto-enable prose linters for common writing directories
 augroup prose_linters
@@ -54,7 +54,7 @@ let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'go': ['gofmt', 'goimports'],
 \   'json': ['dprint'],
-\   'markdown': ['mdformat'],
+\   'markdown': ['mdformat', 'rumdl'],
 \   'python': ['ruff', 'ruff_format'],
 \   'ruby': ['rubocop'],
 \   'sh': ['shfmt'],
