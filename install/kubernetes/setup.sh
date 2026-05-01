@@ -56,10 +56,11 @@ print_section_header "Deploying charts via helmfile"
 # Wait for ingress-nginx admission webhook if it exists — helmfile will fail
 # validating ingress resources if the webhook isn't ready
 kubectl wait --for=condition=ready pod -l app.kubernetes.io/component=controller \
-    -n ingress-nginx --timeout=60s --context k3d-dev 2>/dev/null || true
+    -n ingress-nginx --timeout=60s --context k3d-dev 2>/dev/null >/dev/null || true
 
-helmfile --file "$CONFIG_DIR/helmfile.yaml" sync --quiet
-echo "All releases in sync"
+helmfile --file "$CONFIG_DIR/helmfile.yaml" sync --concurrency 1 2>&1 |
+    grep --line-buffered -E "^(Upgrading|Release|Building)" |
+    sed 's/Upgrading release=\([^,]*\),.*/Syncing \1.../; s/Release "\([^"]*\)".*/\1 ✓/'
 
 # Apply non-Helm resources
 if [ "${ENABLE_LIMIT_RANGE}" = "true" ]; then

@@ -99,7 +99,7 @@ apply_limit_ranges() {
     local namespaces
     namespaces=$(kubectl get namespaces --no-headers | grep -v "kube-" | awk '{print $1}')
     for ns in $namespaces; do
-        kubectl -n "$ns" apply -f "$CONFIG_DIR/limit-range.yaml" 2>&1 | sed "s/^/  $ns: /"
+        kubectl -n "$ns" apply -f "$CONFIG_DIR/limit-range.yaml" 2>&1 | sed "s/^/$ns: /"
     done
 }
 
@@ -108,7 +108,7 @@ apply_resource_quotas() {
     local namespaces
     namespaces=$(kubectl get namespaces --no-headers | grep -v "kube-\|monitoring" | awk '{print $1}')
     for ns in $namespaces; do
-        kubectl -n "$ns" apply -f "$CONFIG_DIR/resource-quota.yaml" 2>&1 | sed "s/^/  $ns: /"
+        kubectl -n "$ns" apply -f "$CONFIG_DIR/resource-quota.yaml" 2>&1 | sed "s/^/$ns: /"
     done
 }
 
