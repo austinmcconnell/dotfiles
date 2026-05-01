@@ -129,10 +129,5 @@ apply_resource_quotas() {
 
 run_tests() {
     print_section_header "Running component tests"
-
-    sh "$CONFIG_DIR/test/test-ingress-nginx-port-forward.sh"
-    sh "$CONFIG_DIR/test/test-ingress-nginx-hosts-entry.sh"
-    sh "$CONFIG_DIR/test/test-cert-manager.sh"
-    sh "$CONFIG_DIR/test/test-metrics-server.sh"
-    sh "$CONFIG_DIR/test/test-horizontal-pod-autoscaler.sh"
+    bats "$CONFIG_DIR/test/"
 }
