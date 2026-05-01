@@ -13,25 +13,15 @@ if [[ -z "${LOCAL_DOMAIN}" ]]; then
 fi
 
 # Install Kubernetes tools if not already installed
-if is-executable k3d; then
-    echo "**************************************************"
-    echo "Configuring kubernetes"
-    echo "**************************************************"
-else
+if ! is-executable k3d; then
     if is-macos; then
-        echo "**************************************************"
-        echo "Installing Kubernetes"
-        echo "**************************************************"
+        print_section_header "Installing Kubernetes"
         brew install k3d kubectl kubectx helm mkcert helmfile
     elif is-debian; then
-        echo "**************************************************"
-        echo "Installing Kubernetes"
-        echo "**************************************************"
+        print_section_header "Installing Kubernetes"
         sudo apt install -y k3d kubectl
     else
-        echo "**************************************************"
-        echo "Skipping Kubernetes installation: Unidentified OS"
-        echo "**************************************************"
+        print_section_header "Skipping Kubernetes installation: Unidentified OS"
         exit 1
     fi
 fi
@@ -39,7 +29,7 @@ fi
 # Create k3d cluster
 if k3d cluster list --no-headers 2>/dev/null | grep --quiet "^dev "; then
     print_section_header "Cluster already exists"
-    kubectl cluster-info --context k3d-dev
+    kubectl get nodes --context k3d-dev
 else
     print_section_header "Creating k3d cluster"
     cert_args=()
@@ -62,7 +52,13 @@ fi
 # Dependency ordering via needs: ensures correct install sequence
 # postsync hooks handle post-install configuration (e.g. cert-manager CA secret)
 print_section_header "Deploying charts via helmfile"
-helmfile --file "$CONFIG_DIR/helmfile.yaml" sync
+
+# Wait for ingress-nginx admission webhook if it exists — helmfile will fail
+# validating ingress resources if the webhook isn't ready
+kubectl wait --for=condition=ready pod -l app.kubernetes.io/component=controller \
+    -n ingress-nginx --timeout=60s --context k3d-dev 2>/dev/null || true
+
+helmfile --file "$CONFIG_DIR/helmfile.yaml" sync --quiet && echo "All releases in sync"
 
 # Apply non-Helm resources
 if [ "${ENABLE_LIMIT_RANGE}" = "true" ]; then
@@ -77,6 +73,14 @@ fi
 add_hosts_entries
 run_tests
 
-echo "**************************************************"
-echo "Kubernetes setup complete"
-echo "**************************************************"
+print_section_header "Kubernetes setup complete"
+echo ""
+echo "  Dashboard URLs (requires running cluster):"
+echo "    Grafana:      https://grafana.${LOCAL_DOMAIN}"
+echo "    Prometheus:   https://prometheus.${LOCAL_DOMAIN}"
+echo "    Alertmanager: https://alertmanager.${LOCAL_DOMAIN}"
+echo ""
+echo "  Grafana admin password:"
+echo "    kubectl -n monitoring get secret prometheus-grafana -o jsonpath=\"{.data.admin-password}\" | base64 -d"
+echo ""
+echo "  Start cluster:  k3d cluster start dev"

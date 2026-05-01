@@ -43,12 +43,8 @@ fi
 # Load environment variables
 load_env_file "$ENV_FILE"
 
-# Common functions
-print_section_header() {
-    echo "***********************************"
-    echo "$1"
-    echo "***********************************"
-}
+# Source shared helpers (logging, print_section_header)
+source "$DOTFILES_DIR/install/utils.sh"
 
 update_etc_hosts() {
     local host_name=$1
@@ -112,9 +108,8 @@ apply_limit_ranges() {
     local namespaces
     namespaces=$(kubectl get namespaces --no-headers | grep -v "kube-" | awk '{print $1}')
     for ns in $namespaces; do
-        kubectl -n "$ns" apply -f "$CONFIG_DIR/limit-range.yaml"
+        kubectl -n "$ns" apply -f "$CONFIG_DIR/limit-range.yaml" 2>&1 | sed "s/^/  $ns: /"
     done
-    kubectl get limitrange --all-namespaces
 }
 
 apply_resource_quotas() {
@@ -122,9 +117,8 @@ apply_resource_quotas() {
     local namespaces
     namespaces=$(kubectl get namespaces --no-headers | grep -v "kube-\|monitoring" | awk '{print $1}')
     for ns in $namespaces; do
-        kubectl -n "$ns" apply -f "$CONFIG_DIR/resource-quota.yaml"
+        kubectl -n "$ns" apply -f "$CONFIG_DIR/resource-quota.yaml" 2>&1 | sed "s/^/  $ns: /"
     done
-    kubectl get resourcequota --all-namespaces
 }
 
 run_tests() {
