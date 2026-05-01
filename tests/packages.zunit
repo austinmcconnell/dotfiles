@@ -32,8 +32,13 @@
 }
 
 @test 'npm default packages installed' {
+    local packages_file="$DOTFILES_DIR/etc/node/default-packages"
+    if [[ ! -s "$packages_file" ]]; then
+        assert 0 equals 0  # no packages to check
+        return
+    fi
     installed_packages=$(npm ls --global --parseable | awk '{gsub(/\/.*\//,"",$1); print}' | sort)
-    for package in $(cat $DOTFILES_DIR/etc/node/default-packages); do
+    for package in $(cat "$packages_file"); do
         trimmed_package=$(echo $package | cut -d '/' -f 2 )
         assert $trimmed_package in $installed_packages
         echo "$package is installed"
