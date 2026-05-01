@@ -11,7 +11,13 @@ if k3d cluster list --no-headers 2>/dev/null | grep --quiet "^dev "; then
         was_running=true
     else
         k3d cluster start dev
-        kubectl wait --for=condition=ready node --all --timeout=90s
+        # k3d stop/start doesn't reliably restart k3s inside agent containers.
+        # Wait for nodes, and if agents aren't ready, restart their containers
+        # to re-run the entrypoint which starts k3s properly.
+        if ! kubectl wait --for=condition=ready node --all --timeout=30s 2>/dev/null; then
+            docker ps --filter "name=k3d-dev-agent" --format "{{.Names}}" | xargs docker restart >/dev/null
+            kubectl wait --for=condition=ready node --all --timeout=90s
+        fi
     fi
 fi
 
