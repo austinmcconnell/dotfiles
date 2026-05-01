@@ -9,7 +9,7 @@ declaratively by helmfile.
 
 **Runtime**: k3d — lightweight k3s nodes running as Docker containers **Chart management**: helmfile
 — declarative Helm release configuration **Charts deployed**: ingress-nginx, cert-manager,
-metrics-server, kube-prometheus-stack
+metrics-server, kube-prometheus-stack, loki, alloy, podinfo (frontend + backend)
 
 ## Quick Start
 
@@ -62,7 +62,33 @@ Chart values are in `etc/kubernetes/values/`:
 
 - `cert-manager.yaml` — enables CRDs
 - `metrics-server.yaml` — kubelet args and insecure TLS for k3s
-- `kube-prometheus-stack.yaml.gotmpl` — ingress config using `LOCAL_DOMAIN`
+- `kube-prometheus-stack.yaml.gotmpl` — ingress config using `LOCAL_DOMAIN`, Loki datasource
+- `loki.yaml` — monolithic mode, filesystem storage, 7-day retention
+- `alloy.yaml` — DaemonSet log collector, ships pod logs to Loki
+- `podinfo-frontend.yaml.gotmpl` — ingress, TLS, ServiceMonitor, backend URL
+- `podinfo-backend.yaml` — Redis enabled, ServiceMonitor
+
+## Components
+
+### Ingress & TLS
+
+- **ingress-nginx** — Ingress controller routing external traffic to services
+- **cert-manager** — Automatic TLS certificates via a local mkcert CA
+
+### Monitoring & Observability
+
+- **kube-prometheus-stack** — Prometheus (metrics), Grafana (dashboards), Alertmanager (alerts)
+- **metrics-server** — Node and pod resource metrics for `kubectl top` and HPA
+- **Loki** — Log aggregation with label-based indexing (monolithic mode, filesystem storage)
+- **Alloy** — DaemonSet log collector shipping pod logs to Loki via the Kubernetes API
+
+### Sample Workload
+
+- **Podinfo frontend** — Go microservice exposed via ingress at `podinfo.dev.test`, forwards `/echo`
+  requests to the backend
+- **Podinfo backend** — Internal service with Redis caching, serves echo and cache endpoints
+
+Both podinfo services expose Prometheus metrics via ServiceMonitor CRDs.
 
 ## Architecture
 
@@ -74,40 +100,46 @@ etc/kubernetes/
 ├── limit-range.yaml                       ← default container resource limits
 ├── resource-quota.yaml                    ← default namespace resource quotas
 ├── values/
+│   ├── alloy.yaml
 │   ├── cert-manager.yaml
 │   ├── kube-prometheus-stack.yaml.gotmpl
-│   └── metrics-server.yaml
+│   ├── loki.yaml
+│   ├── metrics-server.yaml
+│   ├── podinfo-backend.yaml
+│   └── podinfo-frontend.yaml.gotmpl
 ├── manifests/
 │   └── cert-manager-cluster-issuer.yaml
 └── test/
-    ├── test-ingress-nginx-port-forward.sh
-    ├── test-ingress-nginx-hosts-entry.sh
-    ├── test-cert-manager.sh
-    ├── test-metrics-server.sh
-    └── test-horizontal-pod-autoscaler.sh
+    ├── alloy.bats
+    ├── cert-manager.bats
+    ├── helmfile-releases.bats
+    ├── ingress-nginx.bats
+    ├── loki.bats
+    ├── metrics-server.bats
+    ├── podinfo.bats
+    └── prometheus-stack.bats
 
 install/kubernetes/
 ├── setup.sh                               ← main entry point
 ├── common.sh                              ← shared functions and env loading
-├── k3d-create.sh                          ← cluster creation
 ├── hooks/
 │   └── configure-cert-manager.sh          ← helmfile postsync hook
-└── components/
-    ├── limit-range.sh                     ← kubectl-applied LimitRange
-    └── resource-quota.sh                  ← kubectl-applied ResourceQuota
 ```
 
 ## Testing Components
 
-Test scripts are in `etc/kubernetes/test/`. The setup runs them automatically, but you can run them
-individually:
+Tests use [bats](https://github.com/bats-core/bats-core) and run automatically during setup. Run
+them manually:
 
 ```bash
-sh ~/.dotfiles/etc/kubernetes/test/test-ingress-nginx-port-forward.sh
-sh ~/.dotfiles/etc/kubernetes/test/test-ingress-nginx-hosts-entry.sh
-sh ~/.dotfiles/etc/kubernetes/test/test-cert-manager.sh
-sh ~/.dotfiles/etc/kubernetes/test/test-metrics-server.sh
-sh ~/.dotfiles/etc/kubernetes/test/test-horizontal-pod-autoscaler.sh
+bats ~/.dotfiles/etc/kubernetes/test/
+```
+
+Or run individual test files:
+
+```bash
+bats ~/.dotfiles/etc/kubernetes/test/loki.bats
+bats ~/.dotfiles/etc/kubernetes/test/podinfo.bats
 ```
 
 ## Troubleshooting
@@ -133,6 +165,8 @@ helmfile --file etc/kubernetes/helmfile.yaml list
   certificate differences. If metrics-server pods crash, verify the flag is present.
 - **etcd/scheduler metrics warnings**: k3s exposes these differently than kubeadm clusters. Warnings
   from kube-prometheus-stack are expected and harmless.
+- **Loki PVC data loss**: k3d stores PVC data inside Docker containers. Deleting the cluster
+  (`k3d cluster delete`) destroys all Loki log data. This is expected for a dev cluster.
 
 ## Resources
 
@@ -142,3 +176,6 @@ helmfile --file etc/kubernetes/helmfile.yaml list
 - [Cert Manager Documentation](https://cert-manager.io/docs/)
 - [Prometheus Documentation](https://prometheus.io/docs/introduction/overview/)
 - [Metrics Server Documentation](https://github.com/kubernetes-sigs/metrics-server/)
+- [Grafana Loki Documentation](https://grafana.com/docs/loki/latest/)
+- [Grafana Alloy Documentation](https://grafana.com/docs/alloy/latest/)
+- [Podinfo Documentation](https://github.com/stefanprodan/podinfo)

@@ -58,7 +58,8 @@ print_section_header "Deploying charts via helmfile"
 kubectl wait --for=condition=ready pod -l app.kubernetes.io/component=controller \
     -n ingress-nginx --timeout=60s --context k3d-dev 2>/dev/null || true
 
-helmfile --file "$CONFIG_DIR/helmfile.yaml" sync --quiet && echo "All releases in sync"
+helmfile --file "$CONFIG_DIR/helmfile.yaml" sync --quiet
+echo "All releases in sync"
 
 # Apply non-Helm resources
 if [ "${ENABLE_LIMIT_RANGE}" = "true" ]; then
@@ -79,6 +80,7 @@ echo "  Dashboard URLs (requires running cluster):"
 echo "    Grafana:      https://grafana.${LOCAL_DOMAIN}"
 echo "    Prometheus:   https://prometheus.${LOCAL_DOMAIN}"
 echo "    Alertmanager: https://alertmanager.${LOCAL_DOMAIN}"
+echo "    Podinfo:      https://podinfo.${LOCAL_DOMAIN}"
 echo ""
 echo "  Grafana admin password:"
 echo "    kubectl -n monitoring get secret prometheus-grafana -o jsonpath=\"{.data.admin-password}\" | base64 -d"
