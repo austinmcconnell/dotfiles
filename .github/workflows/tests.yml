@@ -1,0 +1,23 @@
+name: Run dotfiles tests
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  Test:
+    strategy:
+      matrix:
+        os: [macos-14, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Pre-seed environment
+        run: |
+          mkdir -p ~/.extra
+          echo "export IS_WORK_COMPUTER=0" > ~/.extra/.env
+      - name: Install dotfiles
+        run: ./install.sh
+      - name: Run dotfiles tests
+        run: dotfiles test
