@@ -6,11 +6,11 @@ set -euo pipefail
 source "$DOTFILES_DIR/install/utils.sh"
 
 if ! is-macos; then
-    print_header "Skipping Typora setup: Not macOS"
+    print_section_header "Skipping Typora setup: Not macOS"
     return
 fi
 
-print_header "Setting up Typora configuration"
+print_section_header "Setting up Typora configuration"
 
 # Typora configuration directories
 TYPORA_APP_SUPPORT="$HOME/Library/Application Support/abnerworks.Typora"

@@ -6,18 +6,18 @@ set -euo pipefail
 source "$DOTFILES_DIR/install/utils.sh"
 
 if is-executable brew; then
-    print_header "Installing brew formulas and casks"
+    print_section_header "Installing brew formulas and casks"
 else
     if is-macos; then
-        print_header "Installing Homebrew"
+        print_section_header "Installing Homebrew"
         NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     elif is-debian; then
-        print_header "Installing Homebrew on Linux"
+        print_section_header "Installing Homebrew on Linux"
         NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
         # Add Homebrew to PATH for current session
         eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
     else
-        print_header "Skipping Homebrew installation: Unsupported OS"
+        print_section_header "Skipping Homebrew installation: Unsupported OS"
         return
     fi
 fi
@@ -59,13 +59,13 @@ fi
 
 init_brew_cache
 
-print_header "Adding taps"
+print_section_header "Adding taps"
 tap_if_needed "derailed/k9s"
 tap_if_needed "heroku/brew"
 tap_if_needed "molovo/revolver"
 tap_if_needed "zunit-zsh/zunit"
 
-print_header "Installing formulas"
+print_section_header "Installing formulas"
 install_if_needed "autoenv" "formula"
 install_if_needed "bash" "formula"
 install_if_needed "bat" "formula"
@@ -114,7 +114,7 @@ install_if_needed "zunit" "formula"
 install_if_needed "awscli" "formula"
 
 if is-macos; then
-    print_header "Installing macOS-only formulas"
+    print_section_header "Installing macOS-only formulas"
     install_if_needed "blueutil" "formula"
     install_if_needed "dockutil" "formula"
     install_if_needed "mas" "formula" "personal"
@@ -122,7 +122,7 @@ if is-macos; then
 fi
 
 if is-macos; then
-    print_header "Installing casks"
+    print_section_header "Installing casks"
     install_if_needed "alfred" "cask"
     install_if_needed "backuploupe" "cask" "personal"
     install_if_needed "bartender" "cask"
@@ -159,7 +159,7 @@ if is-macos; then
     install_if_needed "visual-studio-code" "cask"
     install_if_needed "zoom" "cask"
 
-    print_header "Installing fonts"
+    print_section_header "Installing fonts"
     install_if_needed "font-fira-code" "cask"
     install_if_needed "font-meslo-lg-nerd-font" "cask"
     install_if_needed "font-fira-code-nerd-font" "cask"
@@ -167,12 +167,12 @@ if is-macos; then
     install_if_needed "font-inconsolata-nerd-font" "cask"
     install_if_needed "font-sauce-code-pro-nerd-font" "cask"
 
-    print_header "Adding local TLS Certificate Authority"
+    print_section_header "Adding local TLS Certificate Authority"
     install_if_needed "mkcert" "formula"
     install_if_needed "nss" "formula"
     mkcert -install
 
-    print_header "Running brew doctor"
+    print_section_header "Running brew doctor"
     brew doctor || true
 fi
 

@@ -12,41 +12,9 @@
 BIN_NAME=$(basename "$0")
 COMMAND_NAME=$1
 SUBCOMMAND_NAME=$2
-LOG_LEVEL=${DOTFILES_LOG_LEVEL:-"info"} # Default log level is info
 
-# Logging functions with different severity levels
-log_debug() {
-    if [[ "$LOG_LEVEL" == "debug" ]]; then
-        echo -e "\033[0;37m[DEBUG] $*\033[0m"
-    fi
-}
-
-log_info() {
-    if [[ "$LOG_LEVEL" == "debug" || "$LOG_LEVEL" == "info" ]]; then
-        echo -e "\033[0;34m[INFO] $*\033[0m"
-    fi
-}
-
-log_warning() {
-    if [[ "$LOG_LEVEL" != "error" && "$LOG_LEVEL" != "none" ]]; then
-        echo -e "\033[0;33m[WARNING] $*\033[0m" >&2
-    fi
-}
-
-log_error() {
-    if [[ "$LOG_LEVEL" != "none" ]]; then
-        echo -e "\033[0;31m[ERROR] $*\033[0m" >&2
-    fi
-}
-
-# Helper function to print section headers in a consistent format
-print_section_header() {
-    if [[ "$LOG_LEVEL" != "none" ]]; then
-        echo "**********************************************************************"
-        echo -e "\033[1;36m[SECTION] $1\033[0m" # Cyan, bold section header
-        echo "**********************************************************************"
-    fi
-}
+# Source shared logging helpers (log_debug/info/warning/error, print_section_header)
+source "${DOTFILES_DIR}/install/utils.sh"
 
 # Display help information about available commands
 sub_help() {
@@ -812,6 +780,8 @@ sub_completion() {
 }
 
 # Process global options
+# LOG_LEVEL is defined in sourced utils.sh and read by its log_* functions
+# shellcheck disable=SC2034
 process_options() {
     case "$1" in
     --debug)
