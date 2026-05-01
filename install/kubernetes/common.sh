@@ -120,7 +120,7 @@ apply_limit_ranges() {
 apply_resource_quotas() {
     print_section_header "Applying ResourceQuota to namespaces"
     local namespaces
-    namespaces=$(kubectl get namespaces --no-headers | grep -v "kube-" | awk '{print $1}')
+    namespaces=$(kubectl get namespaces --no-headers | grep -v "kube-\|monitoring" | awk '{print $1}')
     for ns in $namespaces; do
         kubectl -n "$ns" apply -f "$CONFIG_DIR/resource-quota.yaml"
     done

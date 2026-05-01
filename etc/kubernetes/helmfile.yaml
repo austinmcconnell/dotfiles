@@ -20,12 +20,12 @@ releases:
   - name: ingress-nginx
     namespace: ingress-nginx
     chart: ingress-nginx/ingress-nginx
-    version: 4.11.3
+    version: 4.15.1
 
   - name: cert-manager
     namespace: cert-manager
     chart: jetstack/cert-manager
-    version: 1.16.1
+    version: 1.20.2
     values:
       - values/cert-manager.yaml
     hooks:
@@ -36,14 +36,14 @@ releases:
   - name: metrics-server
     namespace: monitoring
     chart: metrics-server/metrics-server
-    version: 3.12.2
+    version: 3.13.0
     values:
       - values/metrics-server.yaml
 
   - name: prometheus
     namespace: monitoring
     chart: prometheus-community/kube-prometheus-stack
-    version: 66.1.0
+    version: 84.4.0
     values:
       - values/kube-prometheus-stack.yaml.gotmpl
     needs:
