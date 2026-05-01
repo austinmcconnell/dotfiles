@@ -1,0 +1,39 @@
+# Podinfo frontend — routes /echo requests to the backend
+# Chart: podinfo/podinfo
+# Docs: https://github.com/stefanprodan/podinfo
+
+fullnameOverride: podinfo-frontend
+
+backend: http://podinfo-backend:9898/echo
+
+ui:
+  color: "#34577c"
+  message: "frontend"
+
+ingress:
+  enabled: true
+  className: nginx
+  annotations:
+    cert-manager.io/cluster-issuer: mkcert-issuer
+  hosts:
+    - host: podinfo.{{ requiredEnv "LOCAL_DOMAIN" }}
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: podinfo-frontend-tls
+      hosts:
+        - podinfo.{{ requiredEnv "LOCAL_DOMAIN" }}
+
+serviceMonitor:
+  enabled: true
+  interval: 15s
+  additionalLabels:
+    release: prometheus
+
+resources:
+  requests:
+    cpu: 10m
+    memory: 32Mi
+  limits:
+    memory: 128Mi

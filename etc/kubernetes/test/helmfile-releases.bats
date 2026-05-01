@@ -30,3 +30,31 @@ load '/opt/homebrew/lib/bats-assert/load.bash'
     run bash -c "helm status prometheus -n monitoring -o json | jq -r '.info.status'"
     assert_output "deployed"
 }
+
+@test "loki release is deployed" {
+    run helm status loki --namespace loki --output json
+    assert_success
+    run bash -c "helm status loki -n loki -o json | jq -r '.info.status'"
+    assert_output "deployed"
+}
+
+@test "alloy release is deployed" {
+    run helm status alloy --namespace loki --output json
+    assert_success
+    run bash -c "helm status alloy -n loki -o json | jq -r '.info.status'"
+    assert_output "deployed"
+}
+
+@test "podinfo-backend release is deployed" {
+    run helm status podinfo-backend --namespace podinfo --output json
+    assert_success
+    run bash -c "helm status podinfo-backend -n podinfo -o json | jq -r '.info.status'"
+    assert_output "deployed"
+}
+
+@test "podinfo-frontend release is deployed" {
+    run helm status podinfo-frontend --namespace podinfo --output json
+    assert_success
+    run bash -c "helm status podinfo-frontend -n podinfo -o json | jq -r '.info.status'"
+    assert_output "deployed"
+}

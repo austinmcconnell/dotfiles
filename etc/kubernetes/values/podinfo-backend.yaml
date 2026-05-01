@@ -1,0 +1,24 @@
+# Podinfo backend — serves /echo requests, caches via Redis
+# Chart: podinfo/podinfo
+
+fullnameOverride: podinfo-backend
+
+redis:
+  enabled: true
+
+ui:
+  color: "#577c34"
+  message: "backend"
+
+serviceMonitor:
+  enabled: true
+  interval: 15s
+  additionalLabels:
+    release: prometheus
+
+resources:
+  requests:
+    cpu: 10m
+    memory: 32Mi
+  limits:
+    memory: 128Mi

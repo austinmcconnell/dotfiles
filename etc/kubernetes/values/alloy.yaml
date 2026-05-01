@@ -1,0 +1,81 @@
+# Alloy DaemonSet — collects pod logs and ships to Loki
+# Chart: grafana/alloy
+# Docs: https://grafana.com/docs/alloy/latest/collect/logs-in-kubernetes/
+
+alloy:
+  clustering:
+    enabled: false
+
+  enableReporting: false
+
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      memory: 256Mi
+
+  configMap:
+    content: |
+      // Discover pods on this node
+      discovery.kubernetes "pod" {
+        role = "pod"
+        selectors {
+          role  = "pod"
+          field = "spec.nodeName=" + sys.env("HOSTNAME")
+        }
+      }
+
+      // Extract Kubernetes metadata as labels
+      discovery.relabel "pod_logs" {
+        targets = discovery.kubernetes.pod.targets
+
+        rule {
+          source_labels = ["__meta_kubernetes_namespace"]
+          action        = "replace"
+          target_label  = "namespace"
+        }
+
+        rule {
+          source_labels = ["__meta_kubernetes_pod_name"]
+          action        = "replace"
+          target_label  = "pod"
+        }
+
+        rule {
+          source_labels = ["__meta_kubernetes_pod_container_name"]
+          action        = "replace"
+          target_label  = "container"
+        }
+
+        rule {
+          source_labels = ["__meta_kubernetes_namespace", "__meta_kubernetes_pod_container_name"]
+          action        = "replace"
+          target_label  = "job"
+          separator     = "/"
+          replacement   = "$1"
+        }
+      }
+
+      // Tail logs via Kubernetes API (no host volume mounts needed)
+      loki.source.kubernetes "pod_logs" {
+        targets    = discovery.relabel.pod_logs.output
+        forward_to = [loki.process.pod_logs.receiver]
+      }
+
+      // Add cluster label and forward to Loki
+      loki.process "pod_logs" {
+        stage.static_labels {
+          values = {
+            cluster = "k3d-dev",
+          }
+        }
+        forward_to = [loki.write.default.receiver]
+      }
+
+      // Ship to Loki (gateway disabled, direct to port 3100)
+      loki.write "default" {
+        endpoint {
+          url = "http://loki.loki.svc.cluster.local:3100/loki/api/v1/push"
+        }
+      }

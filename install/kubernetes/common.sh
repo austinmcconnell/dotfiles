@@ -71,6 +71,7 @@ add_hosts_entries() {
         "prometheus.${LOCAL_DOMAIN}"
         "grafana.${LOCAL_DOMAIN}"
         "alertmanager.${LOCAL_DOMAIN}"
+        "podinfo.${LOCAL_DOMAIN}"
     )
     local missing=()
     for host in "${hosts[@]}"; do
