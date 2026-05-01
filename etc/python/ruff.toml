@@ -5,67 +5,67 @@ line-length = 100
 target-version = "py310"
 
 [lint]
-select = [
-    "E",   # pycodestyle errors
-    "W",   # pycodestyle warnings
-    "F",   # Pyflakes
-    "I",   # isort
-    "B",   # flake8-bugbear
-    "UP",  # pyupgrade
-    "C4",  # flake8-comprehensions
-    "N",   # pep8-naming
+  select = [
+    "E", # pycodestyle errors
+    "W", # pycodestyle warnings
+    "F", # Pyflakes
+    "I", # isort
+    "B", # flake8-bugbear
+    "UP", # pyupgrade
+    "C4", # flake8-comprehensions
+    "N", # pep8-naming
     "ARG", # flake8-unused-arguments
-    "D",   # pydocstyle
-    "PL",  # pylint
+    "D", # pydocstyle
+    "PL", # pylint
     "SIM", # flake8-simplify
     "RET", # flake8-return
-    "S",   # flake8-bandit (security: eval-used, exec-used)
-    "A",   # flake8-builtins (redefined-builtin)
-    "G",   # flake8-logging-format
+    "S", # flake8-bandit (security: eval-used, exec-used)
+    "A", # flake8-builtins (redefined-builtin)
+    "G", # flake8-logging-format
     "LOG", # flake8-logging
     "RUF", # ruff-specific (unused noqa, implicit optional, mutable defaults)
-    "PT",  # flake8-pytest-style
+    "PT", # flake8-pytest-style
     "PERF", # perflint (performance anti-patterns)
     "C90", # mccabe (cyclomatic complexity)
-]
+  ]
 
-ignore = [
-    "E501",  # Line too long (handled by formatter)
-    "D100",  # Missing docstring in public module
-    "D104",  # Missing docstring in public package
-    "D206",  # Docstring tab indentation (conflicts with formatter)
-    "D300",  # Triple single quotes (conflicts with formatter)
-]
+  ignore = [
+    "E501", # Line too long (handled by formatter)
+    "D100", # Missing docstring in public module
+    "D104", # Missing docstring in public package
+    "D206", # Docstring tab indentation (conflicts with formatter)
+    "D300", # Triple single quotes (conflicts with formatter)
+  ]
 
-[lint.isort]
-combine-as-imports = true
-force-sort-within-sections = true
-# Approximate force_alphabetical_sort_within_sections (not yet supported)
-# https://github.com/astral-sh/ruff/issues/4670
-order-by-type = false
-case-sensitive = false
+  [lint.isort]
+    combine-as-imports = true
+    force-sort-within-sections = true
+    # Approximate force_alphabetical_sort_within_sections (not yet supported)
+    # https://github.com/astral-sh/ruff/issues/4670
+    order-by-type = false
+    case-sensitive = false
 
-[lint.pydocstyle]
-convention = "google"
+  [lint.pydocstyle]
+    convention = "google"
 
-[lint.pep8-naming]
-extend-ignore-names = ["i", "j", "k", "ex", "Run", "_", "id", "db"]
+  [lint.pep8-naming]
+    extend-ignore-names = [ "i", "j", "k", "ex", "Run", "_", "id", "db" ]
 
-[lint.pylint]
-max-args = 5
-max-locals = 15
-max-statements = 50
-max-nested-blocks = 5
+  [lint.pylint]
+    max-args = 5
+    max-locals = 15
+    max-statements = 50
+    max-nested-blocks = 5
 
-[lint.mccabe]
-max-complexity = 10
+  [lint.mccabe]
+    max-complexity = 10
 
-[lint.per-file-ignores]
-"tests/**" = ["D", "S101"]  # No docstrings or assert warnings in tests
-"__init__.py" = ["F401"]    # Re-exports trigger unused import
+  [lint.per-file-ignores]
+    "tests/**" = [ "D", "S101" ] # No docstrings or assert warnings in tests
+    "__init__.py" = [ "F401" ] # Re-exports trigger unused import
 
 [format]
-quote-style = "single"
-indent-style = "space"
-line-ending = "auto"
-docstring-code-format = true
+  quote-style = "single"
+  indent-style = "space"
+  line-ending = "auto"
+  docstring-code-format = true

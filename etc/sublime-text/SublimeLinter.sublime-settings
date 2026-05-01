@@ -23,6 +23,9 @@
             "env": {
                 "VALE_CONFIG_PATH": "~/.config/vale/vale.ini"
             }
+        },
+        "taplo": {
+            "args": ["--config", "~/.dotfiles/etc/taplo/taplo.toml"]
         }
     }
 }
