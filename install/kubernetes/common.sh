@@ -46,22 +46,6 @@ load_env_file "$ENV_FILE"
 # Source shared helpers (logging, print_section_header)
 source "$DOTFILES_DIR/install/utils.sh"
 
-update_etc_hosts() {
-    local host_name=$1
-    local ip_address="127.0.0.1"
-
-    if grep --quiet --fixed-strings "$host_name" /etc/hosts; then
-        echo "Hosts entry already exists for $host_name"
-    else
-        local host_entry="${ip_address} ${host_name}"
-        local filepath
-        filepath=$(readlink -f -- "$0")
-        echo -e "\n# Added by $filepath" | sudo tee -a /etc/hosts >/dev/null
-        echo "$host_entry" | sudo tee -a /etc/hosts >/dev/null
-        echo "# End of section" | sudo tee -a /etc/hosts >/dev/null
-    fi
-}
-
 configure_cert_manager() {
     # Create mkcert CA secret and ClusterIssuer after helmfile installs cert-manager
     print_section_header "Configuring cert-manager"
@@ -88,19 +72,25 @@ add_hosts_entries() {
         "grafana.${LOCAL_DOMAIN}"
         "alertmanager.${LOCAL_DOMAIN}"
     )
-    local needs_sudo=false
+    local missing=()
     for host in "${hosts[@]}"; do
-        if ! grep --quiet --fixed-strings "$host" /etc/hosts; then
-            needs_sudo=true
-            break
+        if ! grep --quiet --perl-regexp "(^|\\s)${host}(\\s|$)" /etc/hosts; then
+            missing+=("$host")
+        else
+            echo "Hosts entry already exists for $host"
         fi
     done
-    if [ "$needs_sudo" = true ]; then
+    if [ ${#missing[@]} -gt 0 ]; then
         echo "Adding hosts entries. Please enter your password, if requested."
+        {
+            echo ""
+            echo "# Added by dotfiles kubernetes setup"
+            for host in "${missing[@]}"; do
+                echo "127.0.0.1 ${host}"
+            done
+            echo "# End of section"
+        } | sudo tee -a /etc/hosts >/dev/null
     fi
-    for host in "${hosts[@]}"; do
-        update_etc_hosts "$host"
-    done
 }
 
 apply_limit_ranges() {

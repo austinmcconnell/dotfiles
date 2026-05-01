@@ -3,7 +3,7 @@
 load '/opt/homebrew/lib/bats-support/load.bash'
 load '/opt/homebrew/lib/bats-assert/load.bash'
 
-LOCAL_DOMAIN="${LOCAL_DOMAIN:-local.dev}"
+LOCAL_DOMAIN="${LOCAL_DOMAIN:-dev.test}"
 
 setup_file() {
     kubectl create deployment demo --image=httpd --port=80

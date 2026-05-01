@@ -7,9 +7,9 @@ This guide explains the local Kubernetes environment in the dotfiles repository.
 The setup provides a local Kubernetes cluster using k3d (k3s in Docker) with Helm charts managed
 declaratively by helmfile.
 
-**Runtime**: k3d — lightweight k3s nodes running as Docker containers
-**Chart management**: helmfile — declarative Helm release configuration
-**Charts deployed**: ingress-nginx, cert-manager, metrics-server, kube-prometheus-stack
+**Runtime**: k3d — lightweight k3s nodes running as Docker containers **Chart management**: helmfile
+— declarative Helm release configuration **Charts deployed**: ingress-nginx, cert-manager,
+metrics-server, kube-prometheus-stack
 
 ## Quick Start
 
@@ -39,11 +39,11 @@ On macOS, `setup.sh` installs these automatically via Homebrew:
 
 Configuration lives in `~/.dotfiles/etc/kubernetes/.env`, created from `.env.template` on first run.
 
-| Variable                | Default     | Purpose                                              |
-| ----------------------- | ----------- | ---------------------------------------------------- |
-| `LOCAL_DOMAIN`          | `local.dev` | Base domain for ingress hostnames                    |
-| `ENABLE_LIMIT_RANGE`    | `true`      | Apply default LimitRange to non-system namespaces    |
-| `ENABLE_RESOURCE_QUOTA` | `true`      | Apply default ResourceQuota to non-system namespaces |
+| Variable                | Default    | Purpose                                              |
+| ----------------------- | ---------- | ---------------------------------------------------- |
+| `LOCAL_DOMAIN`          | `dev.test` | Base domain for ingress hostnames                    |
+| `ENABLE_LIMIT_RANGE`    | `true`     | Apply default LimitRange to non-system namespaces    |
+| `ENABLE_RESOURCE_QUOTA` | `true`     | Apply default ResourceQuota to non-system namespaces |
 
 Chart installation is controlled by `helmfile.yaml`, not environment variables.
 
@@ -131,8 +131,8 @@ helmfile --file etc/kubernetes/helmfile.yaml list
 - **Port conflicts**: If ports 80/443 are in use, the k3d load balancer will fail to start.
 - **metrics-server TLS errors**: The `--kubelet-insecure-tls` flag in the values file handles k3s
   certificate differences. If metrics-server pods crash, verify the flag is present.
-- **etcd/scheduler metrics warnings**: k3s exposes these differently than kubeadm clusters.
-  Warnings from kube-prometheus-stack are expected and harmless.
+- **etcd/scheduler metrics warnings**: k3s exposes these differently than kubeadm clusters. Warnings
+  from kube-prometheus-stack are expected and harmless.
 
 ## Resources
 
