@@ -11,7 +11,7 @@ spec:
     limits.memory: 4Gi
 
     # Pod count limits
-    pods: "10"
+    pods: "20"
 
     # Storage limits
     requests.storage: 10Gi
@@ -19,6 +19,6 @@ spec:
 
     # Workload limits
     count/deployments.apps: "5"
-    count/statefulsets.apps: "2"
+    count/statefulsets.apps: "4"
     count/jobs.batch: "5"
     count/cronjobs.batch: "3"

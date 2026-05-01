@@ -4,7 +4,7 @@ kubectl create deployment demo --image=httpd --port=80
 kubectl expose deployment demo
 kubectl create ingress demo-localhost --class=nginx --rule="demo.localdev.me/*=demo:80"
 
-kubectl wait --for=condition=ready pod --selector=app=demo
+kubectl wait --for=condition=ready pod --selector=app=demo --timeout=60s
 
 # Test the ingress bypassing the hosts file entry
 kubectl port-forward --namespace=ingress-nginx service/ingress-nginx-controller 8080:80 >/dev/null 2>&1 &

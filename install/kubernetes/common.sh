@@ -2,7 +2,7 @@
 
 # Common variables
 DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
-CONFIG_DIR="$DOTFILES_DIR/etc/kind"
+CONFIG_DIR="$DOTFILES_DIR/etc/kubernetes"
 ENV_FILE="$CONFIG_DIR/.env"
 ENV_TEMPLATE="$CONFIG_DIR/.env.template"
 
@@ -51,54 +51,88 @@ print_section_header() {
 }
 
 update_etc_hosts() {
-    host_name=$1
+    local host_name=$1
+    local ip_address="127.0.0.1"
 
-    ip_address=$(kubectl get services \
-        --namespace ingress-nginx \
-        ingress-nginx-controller \
-        --output jsonpath='{.status.loadBalancer.ingress[0].ip}')
-
-    if [ -z "$ip_address" ]; then
-        echo "Cannot find ip address of load balancer. Aborting..."
-        exit 1
-    fi
-
-    # find existing instances and save the line numbers
-    host_matches_in_hosts="$(grep -n "$host_name" /etc/hosts | cut -f 1 -d :)"
-    ip_matches_in_hosts="$(grep -n "$ip_address" /etc/hosts | cut -f 1 -d :)"
-
-    if [ -n "$host_matches_in_hosts" ]; then
+    if grep --quiet --fixed-strings "$host_name" /etc/hosts; then
         echo "Hosts entry already exists for $host_name"
     else
-        if [ -n "$ip_matches_in_hosts" ]; then
-            echo "Updating existing hosts entry. Please enter your password, if requested."
-            # iterate over the line numbers on which matches were found
-            while read -r line_number; do
-                # append the host_name to the end of the linethe text of each line with the desired host entry
-                sudo sed -i "${line_number}s/$/, ${host_name}/" /etc/hosts
-            done <<<"$ip_matches_in_hosts"
-        else
-            host_entry="${ip_address} ${host_name}"
-            filepath=$(readlink -f -- "$0")
-            echo "Adding new hosts entry. Please enter your password, if requested."
-            echo -e "\n# Added by $filepath" | sudo tee -a /etc/hosts >/dev/null
-            echo "$host_entry" | sudo tee -a /etc/hosts >/dev/null
-            echo "# End of section" | sudo tee -a /etc/hosts >/dev/null
-        fi
+        local host_entry="${ip_address} ${host_name}"
+        local filepath
+        filepath=$(readlink -f -- "$0")
+        echo -e "\n# Added by $filepath" | sudo tee -a /etc/hosts >/dev/null
+        echo "$host_entry" | sudo tee -a /etc/hosts >/dev/null
+        echo "# End of section" | sudo tee -a /etc/hosts >/dev/null
     fi
 }
 
-update_ca_certificates() {
-    print_section_header "Updating mounted certificates"
-    nodes=$(kind get nodes)
-    for node in $nodes; do
-        echo "Updating certs on node: $node"
-        docker exec "$node" update-ca-certificates
-        docker exec "$node" systemctl restart containerd
+configure_cert_manager() {
+    # Create mkcert CA secret and ClusterIssuer after helmfile installs cert-manager
+    print_section_header "Configuring cert-manager"
+
+    if kubectl get secrets --namespace cert-manager 2>/dev/null | grep --quiet mkcert-ca-key-pair; then
+        echo "mkcert-ca-key-pair already exists"
+    else
+        mkcert -install
+
+        kubectl create secret tls mkcert-ca-key-pair \
+            --key "$(mkcert -CAROOT)/rootCA-key.pem" \
+            --cert "$(mkcert -CAROOT)/rootCA.pem" \
+            --namespace cert-manager
+
+        kubectl apply -f "$CONFIG_DIR/manifests/cert-manager-cluster-issuer.yaml"
+    fi
+}
+
+add_hosts_entries() {
+    print_section_header "Adding /etc/hosts entries"
+    local hosts=(
+        "${LOCAL_DOMAIN}"
+        "prometheus.${LOCAL_DOMAIN}"
+        "grafana.${LOCAL_DOMAIN}"
+        "alertmanager.${LOCAL_DOMAIN}"
+    )
+    local needs_sudo=false
+    for host in "${hosts[@]}"; do
+        if ! grep --quiet --fixed-strings "$host" /etc/hosts; then
+            needs_sudo=true
+            break
+        fi
+    done
+    if [ "$needs_sudo" = true ]; then
+        echo "Adding hosts entries. Please enter your password, if requested."
+    fi
+    for host in "${hosts[@]}"; do
+        update_etc_hosts "$host"
     done
 }
 
-update_helm_repos() {
-    print_section_header "Updating helm repos"
-    helm repo update
+apply_limit_ranges() {
+    print_section_header "Applying LimitRange to namespaces"
+    local namespaces
+    namespaces=$(kubectl get namespaces --no-headers | grep -v "kube-" | awk '{print $1}')
+    for ns in $namespaces; do
+        kubectl -n "$ns" apply -f "$CONFIG_DIR/limit-range.yaml"
+    done
+    kubectl get limitrange --all-namespaces
+}
+
+apply_resource_quotas() {
+    print_section_header "Applying ResourceQuota to namespaces"
+    local namespaces
+    namespaces=$(kubectl get namespaces --no-headers | grep -v "kube-" | awk '{print $1}')
+    for ns in $namespaces; do
+        kubectl -n "$ns" apply -f "$CONFIG_DIR/resource-quota.yaml"
+    done
+    kubectl get resourcequota --all-namespaces
+}
+
+run_tests() {
+    print_section_header "Running component tests"
+
+    sh "$CONFIG_DIR/test/test-ingress-nginx-port-forward.sh"
+    sh "$CONFIG_DIR/test/test-ingress-nginx-hosts-entry.sh"
+    sh "$CONFIG_DIR/test/test-cert-manager.sh"
+    sh "$CONFIG_DIR/test/test-metrics-server.sh"
+    sh "$CONFIG_DIR/test/test-horizontal-pod-autoscaler.sh"
 }

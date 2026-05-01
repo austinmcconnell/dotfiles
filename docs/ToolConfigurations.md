@@ -16,7 +16,7 @@ tool in the `etc/` directory of the dotfiles repository.
 - [Glow](#glow)
 - [HTTPie](#httpie)
 - [iTerm2](#iterm2)
-- [kind (Kubernetes in Docker)](#kind-kubernetes-in-docker)
+- [Kubernetes (k3d)](#kubernetes-k3d)
 - [Miscellaneous](#miscellaneous)
 - [Node.js](#nodejs)
 - [Nuphy](#nuphy)
@@ -148,18 +148,17 @@ Configuration options include:
 - **Window arrangements**: Save and restore window layouts
 - **Shell integration**: Configure advanced shell features
 
-## kind (Kubernetes in Docker)
+## Kubernetes (k3d)
 
-kind lets you run Kubernetes clusters using Docker containers as nodes, making it easy to create and
-test Kubernetes configurations locally.
+k3d runs lightweight k3s Kubernetes clusters in Docker containers, with Helm charts managed
+declaratively by helmfile.
 
 Configuration options include:
 
-- **Cluster configurations**: Define node counts and roles
-- **Networking settings**: Configure how the cluster networks are set up
-- **Volume mounts**: Map local directories into the cluster
-- **API server settings**: Customize the Kubernetes API server
-- **Registry configuration**: Set up local container registries
+- **Cluster configuration**: Node counts, port mappings, volume mounts
+- **Chart management**: helmfile.yaml defines releases and dependency ordering
+- **Helm values**: Per-chart values files with Go template support
+- **Ingress and TLS**: ingress-nginx with cert-manager and local CA via mkcert
 
 ## Miscellaneous
 

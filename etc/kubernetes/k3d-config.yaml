@@ -1,0 +1,43 @@
+---
+apiVersion: k3d.io/v1alpha5
+kind: Simple
+metadata:
+  name: dev
+servers: 1
+agents: 2
+ports:
+  - port: "80:80"
+    nodeFilters:
+      - loadbalancer
+  - port: "443:443"
+    nodeFilters:
+      - loadbalancer
+volumes:
+  # mount docker config with auth credentials for pulling images
+  - volume: "$HOME/.docker/config.json:/var/lib/kubelet/config.json"
+    nodeFilters:
+      - server:*
+      - agent:*
+registries:
+  config: |
+    configs:
+      "*":
+        tls:
+          ca_file: "/etc/ssl/certs/corporate.crt"
+options:
+  k3s:
+    extraArgs:
+      - arg: "--disable=traefik"
+        nodeFilters:
+          - server:*
+      - arg: "--disable=metrics-server"
+        nodeFilters:
+          - server:*
+  kubeconfig:
+    updateDefaultKubeconfig: true
+    switchCurrentContext: true
+  runtime:
+    labels:
+      - label: "com.docker.compose.project=k3d-dev"
+        nodeFilters:
+          - all
