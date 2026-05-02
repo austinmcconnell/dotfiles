@@ -1,0 +1,18 @@
+git_protocol: ssh
+editor: vim
+prompt: enabled
+pager: delta
+aliases:
+  co: pr checkout
+  pc: pr create
+  pl: pr list
+  pm: pr merge
+  ps: pr status
+  pv: pr view
+  pvw: pr view --web
+  il: issue list
+  iv: issue view
+  ic: issue create
+  rl: run list
+  rw: run watch
+version: "1"
