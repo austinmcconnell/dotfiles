@@ -146,8 +146,9 @@ income, property management options. Identifies best cities for buy-to-rent.
 ### Phase 5 — Synthesis & Indexing
 
 1. `recommendations.md` — Cross-cutting analysis ranking cities for this family. Scoring weights:
-   education (40%), livability (25%), internet reliability (15%), rental investment (10%), cost of
-   living (10%). Be direct and opinionated. Use inline citations referencing data from other files.
+   education (40%), livability (25%), internet infrastructure (15%), rental investment (10%), cost
+   of living (10%). Be direct and opinionated. Use inline citations referencing data from other
+   files.
 1. `README.md` — Topic index with summary table linking all files.
 1. Update root `_research_/README.md` master index.
 
