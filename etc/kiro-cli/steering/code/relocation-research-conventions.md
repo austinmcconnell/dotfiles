@@ -110,9 +110,13 @@ tax, national healthcare, national internet stats, national education framework)
 
 **Subagent delegation:** Each city is independent — delegate all cities to parallel subagents. Each
 subagent prompt must include the path to the `city-profile-template.md` template and instruct the
-subagent to read it and follow its structure. Each subagent writes directly to its output file
-(e.g., `oslo.md`, `bergen.md`) and returns only the filename to the orchestrator — not the content.
-This keeps the orchestrator's context clean for index updates and follow-up phases.
+subagent to read it and follow its structure. Include per-city research hints extracted from the
+Recommendations section — the one-line rationale for each city identifies its key differentiators
+(e.g., expat community, specific schools, transit system, climate concern) and should be passed to
+the subagent so it focuses on what matters rather than producing generic coverage. Each subagent
+writes directly to its output file (e.g., `oslo.md`, `bergen.md`) and returns only the filename to
+the orchestrator — not the content. This keeps the orchestrator's context clean for index updates
+and follow-up phases.
 
 ### Phase 3 — Education & Family
 
@@ -136,9 +140,9 @@ income, property management options. Identifies best cities for buy-to-rent.
 
 ### Phase 5 — Synthesis & Indexing
 
-1. `recommendations.md` — Cross-cutting analysis ranking cities for this family. Weight: education
-   options > internet reliability > livability > rental investment opportunity. Be direct and
-   opinionated. Use inline citations referencing data from other files.
+1. `recommendations.md` — Cross-cutting analysis ranking cities for this family. Scoring weights:
+   education (40%), livability (25%), internet reliability (15%), rental investment (10%), cost of
+   living (10%). Be direct and opinionated. Use inline citations referencing data from other files.
 1. `README.md` — Topic index with summary table linking all files.
 1. Update root `_research_/README.md` master index.
 
