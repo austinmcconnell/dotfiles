@@ -55,6 +55,34 @@ averages), healthcare, safety, quality of life, internet infrastructure, residen
 (especially digital nomad visa), and tax obligations (both local and US). This file is the single
 source for country-level facts — city files must not duplicate it.
 
+**Subagent delegation:** Although this is a single file, it covers many independent research domains
+that require heavy web fetching. Delegate to parallel subagents by topic area (e.g.,
+geography/COL/QoL, healthcare/safety/education/internet, visa/tax/recommendations). Each subagent
+prompt must specify which template sections it owns and must write its output to a temp file — not
+return it as text. This keeps the orchestrator's context clean for assembly.
+
+**Temp-file assembly pattern:**
+
+1. Each subagent writes **two files** in the country directory:
+   - `.tmp-<topic>.md` — body sections only (complete, publication-ready markdown with inline
+     `[source-key]` citations, no YAML frontmatter, no sources block)
+   - `.tmp-<topic>-sources.yaml` — just the YAML source keys and URLs for that subagent's citations
+     (e.g., `source-key:\n  url: "https://..."\n  verified: 2026-05-02`)
+1. Each subagent returns only its temp filenames to the orchestrator — not the content.
+1. The orchestrator builds the final file **without reading the body temp files into context:**
+   - Read only the small `-sources.yaml` files to merge into a single YAML frontmatter block (with
+     `created`, `last_updated`, `last_verified`, `update_summary`, and combined `sources`)
+   - Write the frontmatter to `.tmp-frontmatter.md`
+   - Shell-concat in template order:
+     `cat .tmp-frontmatter.md .tmp-geography.md .tmp-healthcare.md .tmp-visa.md > country-overview.md`
+   - The orchestrator must not read, rewrite, re-summarize, or re-synthesize the body sections. If a
+     section needs corrections after review (phase 5 or later), fix the specific issues in the final
+     file; do not replace sections wholesale.
+1. Verify the assembled file: compare `wc -l` of the output against the sum of the temp file line
+   counts. If the output is significantly shorter, the concat failed — investigate before deleting
+   temps.
+1. The orchestrator deletes all `.tmp-*` files after successful assembly.
+
 ### Phase 2 — City Profiles
 
 One file per city.
@@ -67,7 +95,10 @@ strong school integration programs). Read the country overview before selecting 
 **Scope:** City-specific data only. Reference the country overview for national-level context (visa,
 tax, national healthcare, national internet stats, national education framework). Do not repeat it.
 
-**Subagent delegation:** Each city is independent — delegate all cities to parallel subagents.
+**Subagent delegation:** Each city is independent — delegate all cities to parallel subagents. Each
+subagent writes directly to its output file (e.g., `oslo.md`, `bergen.md`) and returns only the
+filename to the orchestrator — not the content. This keeps the orchestrator's context clean for
+index updates and follow-up phases.
 
 ### Phase 3 — Education & Family
 
@@ -75,11 +106,17 @@ Read the country overview and all city files first. Cross-cutting analysis of ed
 across all profiled cities. Covers public school integration programs (preferred), international
 schools, extracurriculars, pediatric healthcare, kid-friendliness. Ranks cities for this family.
 
+**Subagent delegation:** Single subagent writes directly to `education-and-family.md` and returns
+only the filename.
+
 ### Phase 4 — Rental Property Investment
 
 Read all prior files first. Cross-cutting analysis of rental property investment across all profiled
 cities. Covers purchase prices, rental yields, legal restrictions on US buyers, tax on rental
 income, property management options. Identifies best cities for buy-to-rent.
+
+**Subagent delegation:** Single subagent writes directly to `rental-property-investment.md` and
+returns only the filename.
 
 ### Phase 5 — Synthesis & Indexing
 
