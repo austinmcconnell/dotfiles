@@ -63,8 +63,10 @@ source for country-level facts — city files must not duplicate it.
 **Subagent delegation:** Although this is a single file, it covers many independent research domains
 that require heavy web fetching. Delegate to parallel subagents by topic area (e.g.,
 geography/COL/QoL, healthcare/safety/education/internet, visa/tax/recommendations). Each subagent
-prompt must specify which template sections it owns and must write its output to a temp file — not
-return it as text. This keeps the orchestrator's context clean for assembly.
+prompt must specify which template sections it owns, include the path to the
+`country-relocation-overview-template.md` template, and instruct the subagent to read it and use the
+exact `##` headings from the template. Subagents must write output to a temp file — not return it as
+text. This keeps the orchestrator's context clean for assembly.
 
 **Temp-file assembly pattern:**
 
@@ -92,10 +94,11 @@ return it as text. This keeps the orchestrator's context clean for assembly.
 
 One file per city.
 
-**City selection:** Start with the country's 5–8 largest or most notable cities. Drop any that are
-clearly irrelevant (e.g., purely industrial, no residential infrastructure). Add any the country
-overview suggests are worth including (e.g., known expat hubs, digital nomad hotspots, cities with
-strong school integration programs). Read the country overview before selecting cities.
+**City selection:** Use the cities listed in the country overview's Recommendations section. The
+orchestrator reads only that section (not the full file) to extract the city list, then delegates
+one subagent per city. No manual intervention needed — the phase 1 author applies the selection
+criteria (see Phase 1 Recommendations). Recommendations is always the last `##` section in the file
+— grep for `^## Recommendations` and read from that line to EOF.
 
 **Scope:** City-specific data only. Reference the country overview for national-level context (visa,
 tax, national healthcare, national internet stats, national education framework). Do not repeat it.
@@ -130,6 +133,12 @@ returns only the filename.
    opinionated. Use inline citations referencing data from other files.
 1. `README.md` — Topic index with summary table linking all files.
 1. Update root `_research_/README.md` master index.
+
+**Subagent delegation:** Delegate `recommendations.md` to a single subagent. The subagent reads all
+prior phase files (country overview + city profiles + education & family + rental investment),
+writes `recommendations.md`, and returns only the filename. The orchestrator then writes `README.md`
+(topic index) and updates the root `_research_/README.md` master index — these are small
+cross-cutting files the orchestrator can handle directly.
 
 ## Citation and Verification Rules
 

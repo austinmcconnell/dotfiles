@@ -177,4 +177,12 @@ to a standard residence permit.
 ## Recommendations
 
 Brief assessment: is this country worth proceeding to city-level research? What are the top 2–3
-strengths and top 2–3 concerns for this family? Which cities should phase 2 prioritize?
+strengths and top 2–3 concerns for this family?
+
+**Phase 2 cities:** List 4–7 cities for city-level research. Selection criteria: population size,
+tech job market or remote-work community, international school availability, expat/digital nomad
+presence, transit and walkability, and any standout factor from the research above (e.g., strong
+school integration program, unusually good internet, notable affordability). Drop cities that are
+purely industrial, lack residential infrastructure, or have no realistic path to the family's
+priorities. Include at least one smaller or unconventional pick if it has a compelling
+differentiator. Present as a bullet list with a one-line rationale per city.
