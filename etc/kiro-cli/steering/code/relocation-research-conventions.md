@@ -109,9 +109,10 @@ criteria (see Phase 1 Recommendations). Recommendations is always the last `##` 
 tax, national healthcare, national internet stats, national education framework). Do not repeat it.
 
 **Subagent delegation:** Each city is independent — delegate all cities to parallel subagents. Each
-subagent writes directly to its output file (e.g., `oslo.md`, `bergen.md`) and returns only the
-filename to the orchestrator — not the content. This keeps the orchestrator's context clean for
-index updates and follow-up phases.
+subagent prompt must include the path to the `city-profile-template.md` template and instruct the
+subagent to read it and follow its structure. Each subagent writes directly to its output file
+(e.g., `oslo.md`, `bergen.md`) and returns only the filename to the orchestrator — not the content.
+This keeps the orchestrator's context clean for index updates and follow-up phases.
 
 ### Phase 3 — Education & Family
 
@@ -119,8 +120,9 @@ Read the country overview and all city files first. Cross-cutting analysis of ed
 across all profiled cities. Covers public school integration programs (preferred), international
 schools, extracurriculars, pediatric healthcare, kid-friendliness. Ranks cities for this family.
 
-**Subagent delegation:** Single subagent writes directly to `education-and-family.md` and returns
-only the filename.
+**Subagent delegation:** Single subagent. Prompt must include the path to the
+`education-and-family-template.md` template. Subagent writes directly to `education-and-family.md`
+and returns only the filename.
 
 ### Phase 4 — Rental Property Investment
 
@@ -128,8 +130,9 @@ Read all prior files first. Cross-cutting analysis of rental property investment
 cities. Covers purchase prices, rental yields, legal restrictions on US buyers, tax on rental
 income, property management options. Identifies best cities for buy-to-rent.
 
-**Subagent delegation:** Single subagent writes directly to `rental-property-investment.md` and
-returns only the filename.
+**Subagent delegation:** Single subagent. Prompt must include the path to the
+`rental-property-investment-template.md` template. Subagent writes directly to
+`rental-property-investment.md` and returns only the filename.
 
 ### Phase 5 — Synthesis & Indexing
 
