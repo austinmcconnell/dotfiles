@@ -37,6 +37,11 @@ _research_/countries/<country>/
 
 Run phases in order. Each phase reads the output of prior phases to avoid duplication.
 
+**Before starting any phase**, check the country directory (`_research_/countries/<country>/`) for
+existing files. Read all files from prior phases — they contain data, city selections, and
+recommendations that the current phase must build on. If a prior phase is missing, stop and complete
+it first.
+
 | Phase | File(s)                           | Template                                  | Depends On |
 | ----- | --------------------------------- | ----------------------------------------- | ---------- |
 | 1     | `country-overview.md`             | `country-relocation-overview-template.md` | —          |
