@@ -22,7 +22,7 @@ All relocation research targets this family unless the user specifies otherwise:
 ## Per-Country Directory Structure
 
 ```text
-_research_/<country>/
+_research_/countries/<country>/
 ├── README.md                      ← topic index (phase 5)
 ├── country-overview.md            ← phase 1
 ├── <city-1>.md                    ← phase 2 (one file per city)
