@@ -40,7 +40,9 @@ Run phases in order. Each phase reads the output of prior phases to avoid duplic
 **Before starting any phase**, check the country directory (`_research_/countries/<country>/`) for
 existing files. Read all files from prior phases — they contain data, city selections, and
 recommendations that the current phase must build on. If a prior phase is missing, stop and complete
-it first.
+it first. If a phase is partially complete (e.g., 3 of 5 city files exist), complete only the
+missing parts. If orphaned `.tmp-*` files exist from a failed phase 1 assembly, clean them up and
+re-run phase 1.
 
 | Phase | File(s)                           | Template                                  | Depends On |
 | ----- | --------------------------------- | ----------------------------------------- | ---------- |
@@ -51,6 +53,9 @@ it first.
 | 5     | `recommendations.md`, `README.md` | *(no template — synthesis)*               | Phases 1–4 |
 
 Phases 3 and 4 are independent and can run in parallel.
+
+**Execution order:** Phase 1 → Phase 2 → Phases 3 + 4 (parallel) → Phase 5. Wait for each step to
+complete before starting the next.
 
 ### Phase 1 — Country Overview
 
@@ -155,6 +160,10 @@ Research <country> for relocation — phase 1 (country overview).
 
 ```text
 Continue <country> relocation — phase 2 (city profiles).
+```
+
+```text
+Research <country> for relocation — all phases.
 ```
 
 The agent reads this steering doc, loads the `create-research` skill, and uses the appropriate
