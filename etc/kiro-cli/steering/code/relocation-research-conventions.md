@@ -90,7 +90,8 @@ text. This keeps the orchestrator's context clean for assembly.
    - Read only the small `-sources.yaml` files to merge into a single YAML frontmatter block (with
      `created`, `last_updated`, `last_verified`, `update_summary`, and combined `sources`)
    - Write the frontmatter to `.tmp-frontmatter.md`
-   - Shell-concat in template order:
+   - Shell-concat in the section order defined by the `country-relocation-overview-template.md`
+     template (read the template's `##` headings to determine the correct sequence):
      `cat .tmp-frontmatter.md .tmp-geography.md .tmp-healthcare.md .tmp-visa.md > country-overview.md`
    - The orchestrator must not read, rewrite, re-summarize, or re-synthesize the body sections. If a
      section needs corrections after review (phase 5 or later), fix the specific issues in the final
