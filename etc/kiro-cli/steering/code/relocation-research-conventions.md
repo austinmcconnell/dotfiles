@@ -22,15 +22,20 @@ All relocation research targets this family unless the user specifies otherwise:
 ## Per-Country Directory Structure
 
 ```text
-_research_/countries/<country>/
-├── README.md                      ← topic index (phase 5)
-├── country-overview.md            ← phase 1
-├── <city-1>.md                    ← phase 2 (one file per city)
-├── <city-2>.md
-├── ...
-├── education-and-family.md        ← phase 3
-├── rental-property-investment.md  ← phase 4
-└── recommendations.md             ← phase 5
+_research_/countries/
+├── README.md                          ← countries index
+├── rankings.md                        ← cross-country comparison (see below)
+├── <country>/
+│   ├── README.md                      ← topic index (phase 5)
+│   ├── country-overview.md            ← phase 1
+│   ├── <city-1>.md                    ← phase 2 (one file per city)
+│   ├── <city-2>.md
+│   ├── ...
+│   ├── education-and-family.md        ← phase 3
+│   ├── rental-property-investment.md  ← phase 4
+│   └── recommendations.md            ← phase 5
+└── <country>/
+    └── ...
 ```
 
 ## Five-Phase Workflow
@@ -152,6 +157,29 @@ writes `recommendations.md`, and returns only the filename. The orchestrator the
 (topic index) and updates the root `_research_/README.md` master index — these are small
 cross-cutting files the orchestrator can handle directly.
 
+## Cross-Country Rankings
+
+`_research_/countries/rankings.md` compares all researched countries side-by-side. This is separate
+from the per-country five-phase workflow — it runs on demand, not automatically after a country
+completes.
+
+**Input:** The `recommendations.md` file from each country that has completed all 5 phases. The
+subagent reads only these files — not the full research corpus for each country.
+
+**Content:** Rank countries using the same weighted criteria as per-country recommendations (see
+Phase 5 scoring weights). Include a summary table, per-dimension winners, key tradeoffs, and a
+direct overall recommendation for this family. Use inline citations referencing each country's
+recommendations file.
+
+**Subagent delegation:** Single subagent. Prompt must include the path to the
+`cross-country-rankings-template.md` template. The subagent reads all `<country>/recommendations.md`
+files, writes `rankings.md`, and returns only the filename. The orchestrator updates
+`countries/README.md` to link to it. The subagent must **not** read any existing `rankings.md` —
+always generate fresh to avoid anchoring to previous rankings.
+
+**When to run:** Manually triggered when the user wants a comparison. Requires at least 2 countries
+with completed research.
+
 ## Citation and Verification Rules
 
 Inherited from `create-research` skill — no additions needed. Use inline `[source-key]` citations,
@@ -171,6 +199,10 @@ Continue <country> relocation — phase 2 (city profiles).
 
 ```text
 Research <country> for relocation — all phases.
+```
+
+```text
+Update country rankings.
 ```
 
 The agent reads this steering doc, loads the `create-research` skill, and uses the appropriate
