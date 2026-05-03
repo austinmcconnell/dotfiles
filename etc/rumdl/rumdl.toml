@@ -1,16 +1,19 @@
 [global]
-disable = ["MD057"]
+  disable = [ "MD057" ]
 
 [per-file-ignores]
-"docs/VimMappings.md" = ["MD033"]
+  "docs/VimMappings.md" = [ "MD033" ]
 
 [MD013]
-code-blocks = false
-line-length = 100
-tables = false
+  code-blocks = false
+  line-length = 100
+  tables = false
 
 [MD024]
-siblings-only = true
+  siblings-only = true
 
 [MD029]
-style = "one"
+  style = "one"
+
+[MD046]
+  style = "fenced"
