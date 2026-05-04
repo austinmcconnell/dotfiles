@@ -202,8 +202,9 @@ Each agent's `allowedTools` is scoped to its purpose:
 - **docs** — same read tools as default, no domain-specific MCP tools
 - **jira** — adds `@jira/*` read tools and `@time/*`, no mutating JIRA tools in allowedTools
 
-Write tools (`write`, `shell`, `@git/git_add`, `@git/git_commit`) are intentionally excluded from
-every agent's `allowedTools` — the user must approve each write operation.
+Write tools (`write`, `shell`) are intentionally excluded from every agent's `allowedTools` — the
+user must approve each write operation. Git write commands (`git add`, `git commit`) are not in
+`shell.allowedCommands`, so they also require explicit user approval before each use.
 
 ### Security Layers
 
