@@ -256,6 +256,10 @@
 #==========================================
 # Hooks
 #==========================================
+[hook "commit-msg-lint"]
+    event = commit-msg
+    command = ~/.config/git/hooks/commit-msg
+
 [hook "pre-push-tests"]
     event = pre-push
     command = ~/.config/git/hooks/pre-push

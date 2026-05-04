@@ -34,7 +34,7 @@ declare -a SECTION_ORDER=(
     "[advice]" "[help]"
     "[url \"git@github.com:\"]"
     "[includeIf \"hasconfig:remote.*.url:git@github.com:unite-us-engineering/**\"]" "[includeIf \"gitdir:/Users\"]" "[includeIf \"gitdir:/home\"]"
-    "[hook \"pre-push-tests\"]" "[hook \"post-checkout-setup\"]"
+    "[hook \"commit-msg-lint\"]" "[hook \"pre-push-tests\"]" "[hook \"post-checkout-setup\"]"
 )
 
 # Map each section to its group name
@@ -84,6 +84,7 @@ declare -A SECTION_TO_GROUP=(
     ["[includeIf \"hasconfig:remote.*.url:git@github.com:unite-us-engineering/**\"]"]="Environment-Specific Includes"
     ["[includeIf \"gitdir:/Users\"]"]="Environment-Specific Includes"
     ["[includeIf \"gitdir:/home\"]"]="Environment-Specific Includes"
+    ["[hook \"commit-msg-lint\"]"]="Hooks"
     ["[hook \"pre-push-tests\"]"]="Hooks"
     ["[hook \"post-checkout-setup\"]"]="Hooks"
 )

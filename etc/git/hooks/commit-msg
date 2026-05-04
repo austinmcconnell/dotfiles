@@ -1,0 +1,108 @@
+#!/bin/bash
+
+set -euo pipefail
+
+# Validates commit messages against conventional commits format.
+# Skips validation for merge, squash, fixup, and amend commits.
+# Bypassed with --no-verify (e.g., the wip alias uses this).
+
+COMMIT_MSG_FILE="$1"
+
+# Strip comments (lines starting with #) and verbose diff output.
+# With commit.verbose=true, git appends the diff below a scissor line
+# (# --- >8 ---) or below the comment block. Strip both.
+message=$(sed '/^#/d; /^diff --git /,$d' "$COMMIT_MSG_FILE")
+
+# Get the subject line (first non-empty line)
+subject=$(echo "$message" | sed '/^$/d' | head -1)
+
+# Skip empty messages (git will abort these anyway)
+if [[ -z "$subject" ]]; then
+    exit 0
+fi
+
+# Skip merge, fixup, squash, and amend commits
+skip_pattern="^(Merge |Squash |fixup!|squash!|amend!)"
+if [[ "$subject" =~ $skip_pattern ]]; then
+    exit 0
+fi
+
+# Valid conventional commit types
+types="feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert"
+
+# Pattern: type(scope)!: subject  or  type!: subject  or  type: subject
+conv_pattern="^($types)(\([a-zA-Z0-9._/ -]+\))?\!?: .+"
+
+if ! [[ "$subject" =~ $conv_pattern ]]; then
+    echo "ERROR: Invalid commit message format." >&2
+    echo "" >&2
+    echo "  $subject" >&2
+    echo "" >&2
+    echo "Expected: type(scope): description" >&2
+    echo "Types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert" >&2
+    echo "Example: feat(auth): add OAuth2 login support" >&2
+    exit 1
+fi
+
+# Extract the description (text after ": ")
+description="${subject#*: }"
+
+# Check: no period at end
+if [[ "$description" == *. ]]; then
+    echo "ERROR: Subject must not end with a period." >&2
+    echo "" >&2
+    echo "  $subject" >&2
+    exit 1
+fi
+
+# Check: lowercase after colon
+first_char="${description:0:1}"
+if [[ "$first_char" =~ [A-Z] ]]; then
+    echo "ERROR: Description must start with lowercase." >&2
+    echo "" >&2
+    echo "  $subject" >&2
+    exit 1
+fi
+
+# Check: subject length (50 chars max)
+if [[ ${#subject} -gt 50 ]]; then
+    echo "ERROR: Subject is ${#subject} chars (max 50)." >&2
+    echo "" >&2
+    echo "  $subject" >&2
+    exit 1
+fi
+
+# Check: blank line between subject and body
+second_line=$(echo "$message" | sed -n '2p')
+if [[ -n "$second_line" ]]; then
+    echo "ERROR: Must have a blank line between subject and body." >&2
+    exit 1
+fi
+
+# Check: body lines wrapped at 72 chars
+line_num=0
+while IFS= read -r line; do
+    line_num=$((line_num + 1))
+    # Skip subject and blank separator
+    if [[ $line_num -le 2 ]]; then
+        continue
+    fi
+    if [[ ${#line} -gt 72 ]]; then
+        echo "ERROR: Body line $line_num is ${#line} chars (max 72)." >&2
+        echo "" >&2
+        echo "  $line" >&2
+        exit 1
+    fi
+done <<<"$message"
+
+# Check: BREAKING CHANGE footer must be uppercase (conventional commits spec)
+bad_breaking_change="^[Bb][Rr][Ee][Aa][Kk][Ii][Nn][Gg][ -][Cc][Hh][Aa][Nn][Gg][Ee]:"
+good_breaking_change="^BREAKING[ -]CHANGE:"
+while IFS= read -r line; do
+    if [[ "$line" =~ $bad_breaking_change ]] && ! [[ "$line" =~ $good_breaking_change ]]; then
+        echo "ERROR: Use uppercase 'BREAKING CHANGE:' (conventional commits spec)." >&2
+        echo "" >&2
+        echo "  $line" >&2
+        exit 1
+    fi
+done <<<"$message"

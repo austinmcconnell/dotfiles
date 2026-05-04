@@ -31,6 +31,7 @@ mkdir -p "$GIT_CONFIG_DIR"/hooks
 ln -sfv "$DOTFILES_DIR/etc/git/config" "$GIT_CONFIG_DIR"
 ln -sfv "$DOTFILES_DIR/etc/git/ignore" "$GIT_CONFIG_DIR"
 ln -sfv "$DOTFILES_DIR/etc/git/attributes" "$GIT_CONFIG_DIR"
+ln -sfv "$DOTFILES_DIR/etc/git/hooks/commit-msg" "$GIT_CONFIG_DIR"/hooks/commit-msg
 ln -sfv "$DOTFILES_DIR/etc/git/hooks/pre-push" "$GIT_CONFIG_DIR"/hooks/pre-push
 ln -sfv "$DOTFILES_DIR/etc/git/hooks/post-checkout" "$GIT_CONFIG_DIR"/hooks/post-checkout
 ln -sfv "$DOTFILES_DIR/etc/git/config-uniteus" "$GIT_CONFIG_DIR"
