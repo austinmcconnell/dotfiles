@@ -33,7 +33,9 @@ if [[ "$subject" =~ $skip_pattern ]]; then
 fi
 
 # Pattern: type(scope)!: subject  or  type!: subject  or  type: subject
-conv_pattern="^($VALID_TYPES)(\([a-zA-Z0-9._/ -]+\))?\!?: .+"
+# Lowercase types only — spec rule 15 says case-insensitive, but that targets
+# parsers, not authoring tools. Matches commitlint and ecosystem conventions.
+conv_pattern="^($VALID_TYPES)(\([a-zA-Z0-9-]+\))?\!?: .+"
 
 if ! [[ "$subject" =~ $conv_pattern ]]; then
     echo "ERROR: Invalid commit message format." >&2
@@ -108,3 +110,72 @@ while IFS= read -r line; do
         exit 1
     fi
 done <<<"$message"
+
+# Check: footer structure (conventional commits spec rules 8-9)
+# Footers are the block of lines after the last blank line (excluding subject separator).
+# Valid footer: "Token: value", "Token #value", or "BREAKING CHANGE: value"
+# Token must be a word using - for spaces (exception: BREAKING CHANGE).
+# Lines that continue a multi-line footer value (no token/separator) are allowed.
+footer_token="^([A-Za-z-]+|BREAKING CHANGE)(: | #)"
+hash_separator=" #"
+last_blank=0
+total_lines=$(echo "$message" | wc -l | tr -d ' ')
+
+# Find the last blank line after the subject separator (line 2)
+line_num=0
+while IFS= read -r line; do
+    line_num=$((line_num + 1))
+    if [[ $line_num -le 2 ]]; then
+        continue
+    fi
+    if [[ -z "$line" ]]; then
+        last_blank=$line_num
+    fi
+done <<<"$message"
+
+# If there's a blank line after the body, validate the footer block.
+# Only enter footer mode if the first non-empty line after the blank
+# looks like a footer (contains ": " or " #"). Lines starting with
+# "- " are body bullets, not footers.
+if [[ $last_blank -gt 2 && $last_blank -lt $total_lines ]]; then
+    in_footer=false
+    line_num=0
+    while IFS= read -r line; do
+        line_num=$((line_num + 1))
+        if [[ $line_num -le $last_blank ]]; then
+            continue
+        fi
+        # Detect footer start on first non-empty line
+        if [[ "$in_footer" == false ]]; then
+            if [[ -z "$line" ]]; then
+                continue
+            fi
+            # Bullet points are body text, not footers
+            if [[ "$line" == "- "* ]]; then
+                break
+            fi
+            # Must contain a footer separator to be a footer block
+            if [[ "$line" =~ ": " ]] || [[ "$line" =~ $hash_separator ]]; then
+                in_footer=true
+            else
+                break
+            fi
+        fi
+        # Skip empty lines and continuation lines (indented)
+        if [[ -z "$line" ]] || [[ "$line" =~ ^[[:space:]] ]]; then
+            continue
+        fi
+        # If line contains a separator, it should be a valid footer
+        if [[ "$line" =~ ": " ]] || [[ "$line" =~ $hash_separator ]]; then
+            if ! [[ "$line" =~ $footer_token ]]; then
+                echo "ERROR: Invalid footer format." >&2
+                echo "" >&2
+                echo "  $line" >&2
+                echo "" >&2
+                echo "Expected: Token: value  or  Token${hash_separator}value" >&2
+                echo "Use hyphens in tokens (e.g., Jira-issue, Reviewed-by)" >&2
+                exit 1
+            fi
+        fi
+    done <<<"$message"
+fi
