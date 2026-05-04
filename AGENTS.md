@@ -169,6 +169,151 @@ works across fresh macOS installations.
 - `dotfiles macos` - Apply macOS system defaults
 - `dotfiles dock` - Configure Dock applications
 
+## Custom Agent Conventions
+
+This repo manages kiro-cli agents as dotfiles rather than using the standard `.kiro/agents/` or
+`~/.kiro/agents/` locations. The conventions below document repo-specific patterns that go beyond
+the
+[official configuration reference](https://kiro.dev/docs/cli/custom-agents/configuration-reference/).
+
+### File Layout
+
+- Agent configs live in `etc/kiro-cli/cli-agents/<name>.json` (symlinked to `~/.kiro/agents/` by
+  `install/kiro-cli.sh`)
+- Each agent has a co-located prompt file: `etc/kiro-cli/cli-agents/<name>-prompt.md`
+- Prompts use relative `file://` URIs: `"prompt": "file://./default-prompt.md"`
+- Hook scripts live in `etc/kiro-cli/hooks/` and are referenced by absolute path
+  (`~/.dotfiles/etc/kiro-cli/hooks/<script>.sh`)
+- Steering docs (principles) go in `etc/kiro-cli/steering/<domain>/**/*.md`
+- Skills (workflows, templates) go in `.kiro/skills/<category>/**/SKILL.md` — see
+  `skill-loading-triggers` steering for the mapping
+
+### Tool Access Model
+
+All agents use `"tools": ["*"]` to make every tool _available_, then restrict what runs unprompted
+via `allowedTools`. This is the inverse of the official examples, which list specific tools in
+`tools`. The effect: agents can use any tool if the user approves, but only `allowedTools` entries
+run without a prompt.
+
+Each agent's `allowedTools` is scoped to its purpose:
+
+- **default** — broad read access, git read tools, code search, knowledge, web, subagent
+- **github** — adds `@github/*` read tools and `@time/*`, no write GitHub tools
+- **docs** — same read tools as default, no domain-specific MCP tools
+- **jira** — adds `@jira/*` read tools and `@time/*`, no mutating JIRA tools in allowedTools
+
+Write tools (`write`, `shell`, `@git/git_add`, `@git/git_commit`) are intentionally excluded from
+every agent's `allowedTools` — the user must approve each write operation.
+
+### Security Layers
+
+Security is enforced at three levels, evaluated in order:
+
+1. **Hooks** — `preToolUse` with `matcher: "*"` runs `block-env-files.sh` on _every_ agent. This
+   hook inspects all tool inputs for `.env` file paths and exits `2` (block) if found. It is the
+   first line of defense and cannot be bypassed by `allowedTools` or `toolsSettings`.
+1. **toolsSettings** — per-tool path and command restrictions:
+   - `shell.deniedCommands` — regex patterns checked before `allowedCommands`. Every agent denies
+     `.env` access via patterns like `cat .*\\.env.*`. Deny lists are agent-specific (github denies
+     `aws .*`, jira denies `pip install .*`, etc.)
+   - `shell.allowedCommands` — regex patterns for permitted commands. Unmatched commands require
+     user approval. Note: patterns are full regex, not simple strings (e.g.,
+     `(GIT_PAGER=cat )?git log.*`, `ls( .*)?`)
+   - `write.allowedPaths` / `write.deniedPaths` — restrict file writes to project directories, block
+     system paths
+   - `grep.deniedPaths` / `glob.deniedPaths` — block `.env` file discovery via search tools
+1. **allowedTools** — the whitelist of tools that skip user approval (see Tool Access Model above)
+
+### Audit Logging
+
+The default agent logs sensitive operations to `~/.kiro/logs/`:
+
+- `use_aws` matcher → appends to `aws-audit.jsonl`
+- `@kubernetes` matcher → appends to `kubectl-audit.jsonl`
+- `execute_bash` matcher → `audit-shell-commands.sh` catches `aws` and `kubectl` invoked via shell
+
+Other agents do not have audit hooks — they deny these commands outright via `deniedCommands`.
+
+### Hook Patterns
+
+- `agentSpawn` — only default uses this (runs `git status --short --branch`). Other agents leave it
+  empty since they don't need git context at startup.
+- `preToolUse` — every agent has the `block-env-files.sh` hook on `matcher: "*"`. Default adds audit
+  hooks for `use_aws`, `@kubernetes`, and `execute_bash`.
+- `userPromptSubmit` — declared as empty arrays in github and jira configs for explicitness.
+
+### MCP Server Conventions
+
+- `includeMcpJson: true` on all agents — merges servers from `~/.kiro/settings/mcp.json` and
+  `<cwd>/.kiro/settings/mcp.json` into the agent's server list
+- Agent-specific servers are declared inline in the config (github has `github` + `time`, jira has
+  `jira` + `time`, default has `kubernetes`)
+- Use `"disabled": true` to define a server without starting it (default's `kubernetes` server). The
+  config stays version-controlled and ready to enable.
+- Use `"disabledTools"` to block specific MCP tools (jira blocks `jira_delete_worklog`)
+- Secrets use `${ENV_VAR}` interpolation in `env` blocks:
+  `"GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_PAT}"`
+- Agents that don't need a service deny it entirely via `toolsSettings` (github and jira set
+  `aws.allowedServices: []`, docs denies `docker .*` and `kubectl .*` in shell)
+
+### Resource Patterns
+
+Resources use three URI schemes with different loading behavior:
+
+- `file://` — loaded into context at startup. Used for AGENTS.md, README.md, and steering docs.
+  Paths can be relative to cwd (`file://AGENTS.md`) or absolute (`file://~/.dotfiles/etc/...`)
+- `skill://` — metadata loaded at startup, full content on demand. Used for SKILL.md files. Agents
+  load both project-local (`.kiro/skills/`) and global (`~/.kiro/skills/`) skills.
+- `knowledgeBase` objects — indexed for semantic search. Used for large doc sets and codebases.
+
+Resource scoping per agent:
+
+- **default** — all steering domains (`code/`, `security/`), all skill categories, multiple
+  knowledge bases (research, project code, analysis docs)
+- **github** — `github/` and `security/` steering only, development + shared skills
+- **docs** — `documentation/` steering, documentation + shared skills, many knowledge bases for
+  cross-project doc work
+- **jira** — `scrum/` steering and `env-file-protection.md` only, development + scrum + shared
+  skills
+
+### Knowledge Base Conventions
+
+- `indexType: "best"` for documentation and markdown-heavy repos (higher quality search)
+- `indexType: "fast"` for code-heavy repos with frequent changes (screenings-ingestion)
+- `autoUpdate: true` for actively changing content, `false` for stable cross-project indexes
+- Use `include`/`exclude` arrays to scope what gets indexed — exclude `.git/`, `__pycache__/`,
+  `.venv/`, `node_modules/`, build artifacts
+- Write specific `description` fields — the agent uses these to decide which KB to search
+- Knowledge bases referencing repos on other machines (work vs personal) will silently return no
+  results — this is expected
+
+### Subagent Trust Model
+
+All agents share the same subagent config:
+
+```json
+"subagent": {
+    "availableAgents": ["default", "docs", "github", "jira"],
+    "trustedAgents": ["default"]
+}
+```
+
+Only `default` is trusted — subagents spawned as default inherit full tool approval. Other agents
+spawned as subagents require user approval for each tool use. This prevents a jira or github
+subagent from performing write operations without oversight.
+
+### Adding a New Agent
+
+1. Create `etc/kiro-cli/cli-agents/<name>.json` and `<name>-prompt.md`
+1. Start from an existing agent config — copy the closest match
+1. Set `tools: ["*"]` and define a restrictive `allowedTools` list
+1. Add `block-env-files.sh` as a `preToolUse` hook with `matcher: "*"`
+1. Add `.env` deny patterns to `shell.deniedCommands`, `grep.deniedPaths`, and `glob.deniedPaths`
+1. Set `includeMcpJson: true`
+1. Scope `resources` to only the steering domains and skills the agent needs
+1. Set `aws.allowedServices: []` unless the agent needs AWS access
+1. Test with `kiro-cli chat --agent <name>`
+
 ## Security Considerations
 
 - Never commit API keys, tokens, or passwords
