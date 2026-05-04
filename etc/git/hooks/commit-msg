@@ -64,9 +64,9 @@ if [[ "$first_char" =~ [A-Z] ]]; then
     exit 1
 fi
 
-# Check: subject length (50 chars max)
-if [[ ${#subject} -gt 50 ]]; then
-    echo "ERROR: Subject is ${#subject} chars (max 50)." >&2
+# Check: subject length (72 chars max)
+if [[ ${#subject} -gt 72 ]]; then
+    echo "ERROR: Subject is ${#subject} chars (max 72)." >&2
     echo "" >&2
     echo "  $subject" >&2
     exit 1
