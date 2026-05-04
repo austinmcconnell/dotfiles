@@ -9,6 +9,7 @@ set -euo pipefail
 COMMIT_MSG_FILE="$1"
 
 # Configuration
+PREFIX="[commit-msg]"
 MAX_SUBJECT_LENGTH=72
 MAX_BODY_LINE_LENGTH=72
 VALID_TYPES="feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert"
@@ -38,7 +39,7 @@ fi
 conv_pattern="^($VALID_TYPES)(\([a-zA-Z0-9-]+\))?\!?: .+"
 
 if ! [[ "$subject" =~ $conv_pattern ]]; then
-    echo "ERROR: Invalid commit message format." >&2
+    echo "$PREFIX Invalid commit message format." >&2
     echo "" >&2
     echo "  $subject" >&2
     echo "" >&2
@@ -53,7 +54,7 @@ description="${subject#*: }"
 
 # Check: no period at end
 if [[ "$description" == *. ]]; then
-    echo "ERROR: Subject must not end with a period." >&2
+    echo "$PREFIX Subject must not end with a period." >&2
     echo "" >&2
     echo "  $subject" >&2
     exit 1
@@ -62,7 +63,7 @@ fi
 # Check: lowercase after colon
 first_char="${description:0:1}"
 if [[ "$first_char" =~ [A-Z] ]]; then
-    echo "ERROR: Description must start with lowercase." >&2
+    echo "$PREFIX Description must start with lowercase." >&2
     echo "" >&2
     echo "  $subject" >&2
     exit 1
@@ -70,7 +71,7 @@ fi
 
 # Check: subject length
 if [[ ${#subject} -gt $MAX_SUBJECT_LENGTH ]]; then
-    echo "ERROR: Subject is ${#subject} chars (max $MAX_SUBJECT_LENGTH)." >&2
+    echo "$PREFIX Subject is ${#subject} chars (max $MAX_SUBJECT_LENGTH)." >&2
     echo "" >&2
     echo "  $subject" >&2
     exit 1
@@ -79,7 +80,7 @@ fi
 # Check: blank line between subject and body
 second_line=$(echo "$message" | sed -n '2p')
 if [[ -n "$second_line" ]]; then
-    echo "ERROR: Must have a blank line between subject and body." >&2
+    echo "$PREFIX Must have a blank line between subject and body." >&2
     exit 1
 fi
 
@@ -92,7 +93,7 @@ while IFS= read -r line; do
         continue
     fi
     if [[ ${#line} -gt $MAX_BODY_LINE_LENGTH ]]; then
-        echo "ERROR: Body line $line_num is ${#line} chars (max $MAX_BODY_LINE_LENGTH)." >&2
+        echo "$PREFIX Body line $line_num is ${#line} chars (max $MAX_BODY_LINE_LENGTH)." >&2
         echo "" >&2
         echo "  $line" >&2
         exit 1
@@ -104,7 +105,7 @@ bad_breaking_change="^[Bb][Rr][Ee][Aa][Kk][Ii][Nn][Gg][ -][Cc][Hh][Aa][Nn][Gg][E
 good_breaking_change="^BREAKING[ -]CHANGE:"
 while IFS= read -r line; do
     if [[ "$line" =~ $bad_breaking_change ]] && ! [[ "$line" =~ $good_breaking_change ]]; then
-        echo "ERROR: Use uppercase 'BREAKING CHANGE:' (conventional commits spec)." >&2
+        echo "$PREFIX Use uppercase 'BREAKING CHANGE:' (conventional commits spec)." >&2
         echo "" >&2
         echo "  $line" >&2
         exit 1
@@ -168,7 +169,7 @@ if [[ $last_blank -gt 2 && $last_blank -lt $total_lines ]]; then
         # If line contains a separator, it should be a valid footer
         if [[ "$line" =~ ": " ]] || [[ "$line" =~ $hash_separator ]]; then
             if ! [[ "$line" =~ $footer_token ]]; then
-                echo "ERROR: Invalid footer format." >&2
+                echo "$PREFIX Invalid footer format." >&2
                 echo "" >&2
                 echo "  $line" >&2
                 echo "" >&2
