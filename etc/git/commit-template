@@ -1,5 +1,4 @@
 
-
 # <type>(<scope>): <subject>
 # |<----  Using a Maximum Of 50 Characters  ---->|
 
@@ -11,13 +10,17 @@
 
 # --- COMMIT END ---
 # Type can be
-#    feat     (new feature)
-#    fix      (bug fix)
-#    docs     (changes to documentation)
-#    style    (formatting, missing semi colons, etc; no code change)
-#    refactor (refactoring production code)
-#    test     (adding missing tests, refactoring tests; no production code change)
-#    chore    (updating grunt tasks etc; no production code change)
+#    feat     (new feature for users)
+#    fix      (bug fix for users)
+#    docs     (documentation changes)
+#    style    (formatting, whitespace; no code change)
+#    refactor (code restructuring; no behavior change)
+#    perf     (performance improvements)
+#    test     (adding or updating tests)
+#    build    (build system or external dependencies)
+#    ci       (CI configuration files and scripts)
+#    chore    (tooling, maintenance; no production code change)
+#    revert   (reverts a previous commit)
 # --------------------
 # Remember to
 #    Use the imperative mood in the subject line
