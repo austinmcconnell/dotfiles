@@ -198,7 +198,8 @@ run without a prompt.
 Each agent's `allowedTools` is scoped to its purpose:
 
 - **default** — broad read access, git read tools, code search, knowledge, web, subagent
-- **github** — adds `@github/*` read tools and `@time/*`, no write GitHub tools
+- **github** — adds `gh` CLI commands (`gh issue`, `gh pr`, `gh run`, `gh api`), no write GitHub
+  tools
 - **docs** — same read tools as default, no domain-specific MCP tools
 - **jira** — adds `@jira/*` read tools and `@time/*`, no mutating JIRA tools in allowedTools
 
