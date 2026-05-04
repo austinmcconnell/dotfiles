@@ -8,6 +8,11 @@ set -euo pipefail
 
 COMMIT_MSG_FILE="$1"
 
+# Configuration
+MAX_SUBJECT_LENGTH=72
+MAX_BODY_LINE_LENGTH=72
+VALID_TYPES="feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert"
+
 # Strip comments (lines starting with #) and verbose diff output.
 # With commit.verbose=true, git appends the diff below a scissor line
 # (# --- >8 ---) or below the comment block. Strip both.
@@ -27,11 +32,8 @@ if [[ "$subject" =~ $skip_pattern ]]; then
     exit 0
 fi
 
-# Valid conventional commit types
-types="feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert"
-
 # Pattern: type(scope)!: subject  or  type!: subject  or  type: subject
-conv_pattern="^($types)(\([a-zA-Z0-9._/ -]+\))?\!?: .+"
+conv_pattern="^($VALID_TYPES)(\([a-zA-Z0-9._/ -]+\))?\!?: .+"
 
 if ! [[ "$subject" =~ $conv_pattern ]]; then
     echo "ERROR: Invalid commit message format." >&2
@@ -39,7 +41,7 @@ if ! [[ "$subject" =~ $conv_pattern ]]; then
     echo "  $subject" >&2
     echo "" >&2
     echo "Expected: type(scope): description" >&2
-    echo "Types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert" >&2
+    echo "Types: ${VALID_TYPES//|/, }" >&2
     echo "Example: feat(auth): add OAuth2 login support" >&2
     exit 1
 fi
@@ -64,9 +66,9 @@ if [[ "$first_char" =~ [A-Z] ]]; then
     exit 1
 fi
 
-# Check: subject length (72 chars max)
-if [[ ${#subject} -gt 72 ]]; then
-    echo "ERROR: Subject is ${#subject} chars (max 72)." >&2
+# Check: subject length
+if [[ ${#subject} -gt $MAX_SUBJECT_LENGTH ]]; then
+    echo "ERROR: Subject is ${#subject} chars (max $MAX_SUBJECT_LENGTH)." >&2
     echo "" >&2
     echo "  $subject" >&2
     exit 1
@@ -87,8 +89,8 @@ while IFS= read -r line; do
     if [[ $line_num -le 2 ]]; then
         continue
     fi
-    if [[ ${#line} -gt 72 ]]; then
-        echo "ERROR: Body line $line_num is ${#line} chars (max 72)." >&2
+    if [[ ${#line} -gt $MAX_BODY_LINE_LENGTH ]]; then
+        echo "ERROR: Body line $line_num is ${#line} chars (max $MAX_BODY_LINE_LENGTH)." >&2
         echo "" >&2
         echo "  $line" >&2
         exit 1
