@@ -1,12 +1,14 @@
 
-# <type>(<scope>): <subject>
+# <type>(<scope>): <subject>          or  <type>!: <subject>
 # |<----  Using a Maximum Of 72 Characters For Subject  ------------>|
 
 # Explain why this change is being made
 # |<----   Try To Limit Each Line to a Maximum Of 72 Characters   ---->|
 
 # Provide links or keys to any relevant tickets, articles or other resources
+# Footer format: Token: value  or  Token #value
 # Example: Jira issue: ABC-123
+# Example: BREAKING CHANGE: removes /api/login endpoint
 
 # --- COMMIT END ---
 # Type can be
@@ -28,4 +30,6 @@
 #    Separate subject from body with a blank line
 #    Use the body to explain what and why vs. how
 #    Can use multiple lines with "-" for bullet points in body
+#    Use ! after type/scope for breaking changes: feat!: ...
+#    Or use BREAKING CHANGE: footer (must be uppercase)
 # --------------------
