@@ -1,5 +1,6 @@
 # Glow configuration file
 # Location: ~/.config/glow/glow.yml
+---
 
 # Style name or JSON path (default is "auto")
 # Available styles: auto, dark, light, notty, dracula, tokyo-night

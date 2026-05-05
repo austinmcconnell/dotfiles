@@ -1,6 +1,7 @@
 # Alloy DaemonSet — collects pod logs and ships to Loki
 # Chart: grafana/alloy
 # Docs: https://grafana.com/docs/alloy/latest/collect/logs-in-kubernetes/
+---
 
 alloy:
   clustering:

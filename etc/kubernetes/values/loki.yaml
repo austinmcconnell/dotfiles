@@ -1,6 +1,7 @@
 # Loki monolithic mode — filesystem storage, 7-day retention
 # Chart: grafana-community/loki (community-maintained since March 2026)
 # Docs: https://grafana.com/docs/loki/latest/setup/install/helm/install-monolithic/
+---
 
 deploymentMode: Monolithic
 

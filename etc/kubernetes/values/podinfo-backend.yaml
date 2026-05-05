@@ -1,5 +1,6 @@
 # Podinfo backend — serves /echo requests, caches via Redis
 # Chart: podinfo/podinfo
+---
 
 fullnameOverride: podinfo-backend
 

@@ -1,3 +1,4 @@
+---
 helmDefaults:
   kubeContext: k3d-dev
   historyMax: 5

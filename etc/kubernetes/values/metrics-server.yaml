@@ -1,3 +1,4 @@
+---
 defaultArgs:
   - --cert-dir=/tmp
   - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
