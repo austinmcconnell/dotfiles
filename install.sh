@@ -73,6 +73,7 @@ fi
 . "$DOTFILES_DIR/install/xdg-compliance.sh" # XDG compliance for CLI tools
 . "$DOTFILES_DIR/install/glow.sh"           # Glow markdown viewer
 . "$DOTFILES_DIR/install/terraform.sh"      # Terraform with rc file
+. "$DOTFILES_DIR/install/agent-skills.sh"   # Distribute skills to AI agents
 
 # Create .hushlogin to disable the login message
 touch ~/.hushlogin
