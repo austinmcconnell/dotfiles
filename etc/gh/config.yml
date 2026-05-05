@@ -1,3 +1,4 @@
+---
 git_protocol: ssh
 editor: vim
 prompt: enabled
@@ -7,6 +8,11 @@ aliases:
   pc: pr create
   pl: pr list
   pm: pr merge
+  prc: >-
+    !gh api repos/{owner}/{repo}/pulls/$1/comments
+    --jq '.[] | "---\n\(.user.login) on \(.path):\(.line)
+    (\(.created_at | split("T")[0]))\n\n\(.diff_hunk
+    | split("\n")[-3:] | join("\n"))\n\n> \(.body)\n"'
   ps: pr status
   pv: pr view
   pvw: pr view --web
