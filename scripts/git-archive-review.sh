@@ -6,6 +6,32 @@ set -euo pipefail
 #
 # Usage: git-archive-review.sh <PR-number>
 
+MAX_RETRIES=5
+
+# Retry a command with exponential backoff (1s, 2s, 4s, 8s, 16s).
+gh_retry() {
+    local attempt=0
+    local delay=1
+    local output
+
+    while true; do
+        if output=$("$@" 2>/dev/null); then
+            echo "$output"
+            return 0
+        fi
+
+        attempt=$((attempt + 1))
+        if [[ $attempt -ge $MAX_RETRIES ]]; then
+            echo "Error: command failed after $MAX_RETRIES attempts: $*" >&2
+            return 1
+        fi
+
+        echo "  Rate limited, retrying in ${delay}s (attempt $((attempt + 1))/$MAX_RETRIES)..." >&2
+        sleep "$delay"
+        delay=$((delay * 2))
+    done
+}
+
 if [[ $# -ne 1 ]]; then
     echo "Usage: git-archive-review.sh <PR-number>" >&2
     exit 1
@@ -14,7 +40,7 @@ fi
 PR="$1"
 
 # Get merge commit SHA and state
-pr_data=$(gh pr view "$PR" --json mergeCommit,state --jq '"\(.state)\t\(.mergeCommit.oid // "")"')
+pr_data=$(gh_retry gh pr view "$PR" --json mergeCommit,state --jq '"\(.state)\t\(.mergeCommit.oid // "")"')
 state=$(echo "$pr_data" | cut -f1)
 merge_sha=$(echo "$pr_data" | cut -f2)
 
@@ -35,8 +61,8 @@ if git notes --ref=review show "$merge_sha" &>/dev/null; then
 fi
 
 # Build the note: header (pra) + comments (prc)
-note_content=$(gh pra "$PR")
-comments=$(gh prc "$PR" || true)
+note_content=$(gh_retry gh pra "$PR")
+comments=$(gh_retry gh prc "$PR" || true)
 
 if [[ -n "$comments" ]]; then
     note_content="${note_content}
