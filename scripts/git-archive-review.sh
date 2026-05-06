@@ -71,5 +71,14 @@ ${comments}"
 fi
 
 # Attach the note
+# Apply username map substitutions if map file exists
+MAP_FILE=".git/info/username-map"
+if [[ -f "$MAP_FILE" ]]; then
+    while IFS='=' read -r login _id name; do
+        [[ -z "$login" || "$login" == \#* ]] && continue
+        note_content="${note_content//$login/$name}"
+    done <"$MAP_FILE"
+fi
+
 echo "$note_content" | git notes --ref=review add -F - "$merge_sha"
 echo "✓ Archived review for PR #$PR on $merge_sha"
