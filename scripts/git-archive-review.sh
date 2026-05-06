@@ -74,8 +74,8 @@ fi
 # Apply username map substitutions if map file exists
 MAP_FILE=".git/info/username-map"
 if [[ -f "$MAP_FILE" ]]; then
-    while IFS='=' read -r login _id name; do
-        [[ -z "$login" || "$login" == \#* ]] && continue
+    while IFS='=' read -r _id login name; do
+        [[ -z "$_id" || "$_id" == \#* ]] && continue
         note_content="${note_content//$login/$name}"
     done <"$MAP_FILE"
 fi

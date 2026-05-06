@@ -33,6 +33,10 @@ done
 mkdir -p .git/info
 touch "$MAP_FILE"
 
+sort_map() {
+    sort -t= -k1,1n -o "$MAP_FILE" "$MAP_FILE"
+}
+
 # Extract unique author email+name pairs from new commits
 declare -A seen_logins
 new_noreply=()
@@ -44,8 +48,8 @@ while IFS=$'\t' read -r email name; do
         login="${BASH_REMATCH[2]}"
         [[ -n "${seen_logins[$login]:-}" ]] && continue
         seen_logins[$login]=1
-        grep -q "^${login}=" "$MAP_FILE" && continue
-        new_noreply+=("${login}=${id}=${name}")
+        grep -q "=${login}=" "$MAP_FILE" && continue
+        new_noreply+=("${id}=${login}=${name}")
     else
         [[ -n "${seen_logins[$email]:-}" ]] && continue
         seen_logins[$email]=1
@@ -58,6 +62,7 @@ done < <(git log --format='%ae%x09%an' "${ranges[@]}" 2>/dev/null | sort -u)
 for entry in "${new_noreply[@]:-}"; do
     [[ -n "$entry" ]] && echo "$entry" >>"$MAP_FILE"
 done
+[[ ${#new_noreply[@]} -gt 0 ]] && sort_map
 
 # Background: resolve corporate emails via GitHub API
 if [[ ${#unknown_names[@]} -gt 0 ]] && command -v gh &>/dev/null; then
@@ -73,7 +78,7 @@ if [[ ${#unknown_names[@]} -gt 0 ]] && command -v gh &>/dev/null; then
         for name in "${unknown_names[@]}"; do
             login="${name_to_login[$name]:-}"
             [[ -n "$login" ]] || continue
-            grep -q "^${login}=" "$MAP_FILE" && continue
+            grep -q "=${login}=" "$MAP_FILE" && continue
             logins_to_fetch+=("$login")
         done
 
@@ -88,8 +93,10 @@ if [[ ${#unknown_names[@]} -gt 0 ]] && command -v gh &>/dev/null; then
         while IFS=$'\t' read -r login id name; do
             [[ -n "$login" && -n "$id" ]] || continue
             [[ "$name" == "null" ]] && name="$login"
-            echo "${login}=${id}=${name}" >>"$MAP_FILE"
+            echo "${id}=${login}=${name}" >>"$MAP_FILE"
         done < <(gh api graphql -f query="$query" 2>/dev/null |
             jq -r '.data | to_entries[] | select(.value != null) | "\(.value.login)\t\(.value.databaseId)\t\(.value.name)"' 2>/dev/null || true)
+
+        sort_map
     ) &
 fi
