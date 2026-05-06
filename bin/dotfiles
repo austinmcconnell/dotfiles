@@ -204,7 +204,9 @@ sub_clean() {
     while IFS= read -r -d '' gitdir; do
         local repo="${gitdir%/.git}"
         log_debug "Pruning notes in $repo"
-        git -C "$repo" notes prune
+        git -C "$repo" for-each-ref --format='%(refname:lstrip=2)' refs/notes/ | while read -r ref; do
+            git -C "$repo" notes --ref="$ref" prune
+        done
     done < <(find "$projects_dir" -maxdepth 3 -name .git -type d -print0)
 
     log_info "Cleanup completed"

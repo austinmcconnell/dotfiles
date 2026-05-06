@@ -162,7 +162,7 @@
 [alias]
     amend = commit --amend --reuse-message=HEAD
     contrib = shortlog --summary --numbered
-    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%n%-N' --show-notes=refs/notes/commits --show-notes=refs/notes/review
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%n%-N' --show-notes=refs/notes/review
     lgb = "!git lg $(git merge-base HEAD main)..HEAD"
     # Undo last commit and keep changes staged
     undo = "reset --soft HEAD^"
@@ -190,7 +190,6 @@
 # Notes
 #==========================================
 [notes]
-    displayRef = refs/notes/commits
     displayRef = refs/notes/review
     rewriteRef = refs/notes/*
     mergeStrategy = cat_sort_uniq

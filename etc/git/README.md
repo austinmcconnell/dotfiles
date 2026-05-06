@@ -93,11 +93,10 @@ cleanly.
 
 **Display:**
 
-- `notes.displayRef = refs/notes/commits` — shows human annotations in `git log`
 - `notes.displayRef = refs/notes/review` — shows review metadata in `git log`
 - `notes.rewriteRef = refs/notes/*` — preserves all notes across rebase/amend
-- The `lg` alias includes `--show-notes=refs/notes/commits --show-notes=refs/notes/review`
-- Other namespaces (`review-comments`, `ci`, `deploys`) are on-demand only
+- The `lg` alias includes `--show-notes=refs/notes/review`
+- Other namespaces (`commits`, `review-comments`, `ci`, `deploys`) are on-demand only
 
 **Namespace conventions:**
 
