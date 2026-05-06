@@ -93,18 +93,21 @@ cleanly.
 
 **Display:**
 
-- `notes.displayRef = refs/notes/*` — shows all namespaces in `git log`
-- `notes.rewriteRef = refs/notes/*` — preserves notes across rebase/amend
-- The `lg` alias includes `--show-notes=*`
+- `notes.displayRef = refs/notes/commits` — shows human annotations in `git log`
+- `notes.displayRef = refs/notes/review` — shows review metadata in `git log`
+- `notes.rewriteRef = refs/notes/*` — preserves all notes across rebase/amend
+- The `lg` alias includes `--show-notes=refs/notes/commits --show-notes=refs/notes/review`
+- Other namespaces (`review-comments`, `ci`, `deploys`) are on-demand only
 
 **Namespace conventions:**
 
-| Namespace | Purpose                             | Format                  | Written by         |
-| --------- | ----------------------------------- | ----------------------- | ------------------ |
-| `commits` | Default — general annotations       | Plain text              | Human              |
-| `review`  | Code review: approvals + discussion | Plain text (structured) | Archival script    |
-| `ci`      | CI/CD build and test results        | JSON                    | CI pipeline script |
-| `deploys` | Deployment records                  | JSON                    | Deploy script      |
+| Namespace         | Purpose                             | Format                  | Written by         | displayRef |
+| ----------------- | ----------------------------------- | ----------------------- | ------------------ | ---------- |
+| `commits`         | Default — general annotations       | Plain text              | Human              | ✅         |
+| `review`          | Code review metadata + approvals    | Plain text (structured) | Archival script    | ✅         |
+| `review-comments` | Inline code discussion from reviews | Plain text (structured) | Archival script    | ❌         |
+| `ci`              | CI/CD build and test results        | JSON                    | CI pipeline script | ❌         |
+| `deploys`         | Deployment records                  | JSON                    | Deploy script      | ❌         |
 
 #### `commits` (default)
 
@@ -125,10 +128,10 @@ Ad-hoc annotations for any purpose. Use when no specific namespace applies.
 
 #### `review`
 
-Archived code review data: who approved, when it merged, and the full discussion thread. Provides
+Archived code review metadata: who approved, when it merged, and a comment count. Provides
 forge-independent history of the review process. Attached to the merge commit.
 
-- **What:** Structured header (approvals, PR URL, merge timestamp) followed by inline code comments
+- **What:** Structured header (approvals, PR URL, merge timestamp, comment count)
 
 - **Format:** Plain text with grep-friendly headers
 
@@ -145,16 +148,35 @@ forge-independent history of the review process. Attached to the merge commit.
   Merged-at: 2026-05-04T14:33:39Z
   Approved-by: brian-brazil (2026-04-30)
   Approved-by: christopher-sansone (2026-05-01)
+  Comments: 6
+  ```
 
+#### `review-comments`
+
+Inline code discussion from pull request reviews. Verbose by design — contains diff context and
+threaded replies. Not shown in default log; access on demand with
+`git notes --ref=review-comments show <sha>`.
+
+- **What:** Full inline code comments with diff hunks and replies
+
+- **Format:** Plain text, `---`-delimited blocks per comment
+
+- **When:** On merge, via archival script (only if comments exist)
+
+- **Who:** Automated script (pulls from GitHub/platform API)
+
+- **Example:**
+
+  ```text
   ---
-  brian-brazil on app/fhir/models.py:null (2026-04-23)
+  brian-brazil on app/fhir/models.py (2026-04-23)
 
   +        from app.enum import PerformerLookupStatus
 
   > This feels like it should be moved to the header since it is used in multiple places.
 
   ---
-  austin-mcconnell on app/fhir/models.py:null (2026-04-27)
+  austin-mcconnell on app/fhir/models.py (2026-04-27)
 
   +        from app.enum import PerformerLookupStatus
 
