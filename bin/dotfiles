@@ -198,6 +198,15 @@ sub_clean() {
     log_debug "Running: vim -i NONE -c \"PlugClean\" -c \"qa\""
     vim -i NONE -c "PlugClean" -c "qa"
 
+    # Prune orphaned git notes across all project repos
+    print_section_header "Pruning git notes"
+    local projects_dir="${PROJECTS_DIR:-$HOME/projects}"
+    while IFS= read -r -d '' gitdir; do
+        local repo="${gitdir%/.git}"
+        log_debug "Pruning notes in $repo"
+        git -C "$repo" notes prune
+    done < <(find "$projects_dir" -maxdepth 3 -name .git -type d -print0)
+
     log_info "Cleanup completed"
 }
 

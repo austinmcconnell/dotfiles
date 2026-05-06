@@ -177,6 +177,7 @@
     # Git Notes operations
     note = notes add
     noted = "!git log --oneline --show-notes=* | awk '/Notes:/{getline; print prev} {prev=$0}'"
+    note-search = "!git log --all --show-notes=* --format='%h %s%n%N' | grep -B2 -i"
     # Enhanced reflog matching lg alias style
     reflog-pretty = reflog --format='%Cred%h%Creset -%C(yellow)%d%Creset %gs %Cgreen(%cr)%Creset %C(bold blue)<%an>%Creset'
     # Enhanced blame matching lg alias style
