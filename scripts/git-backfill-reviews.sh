@@ -28,7 +28,7 @@ if [[ ! -x "$ARCHIVE_SCRIPT" ]]; then
     exit 1
 fi
 
-echo "Fetching $LIMIT oldest merged PRs..."
+echo "Fetching $LIMIT most recent merged PRs..."
 
 archived=0
 skipped=0
@@ -41,7 +41,7 @@ while read -r pr; do
         skipped=$((skipped + 1))
     fi
 done < <(gh pr list --state merged --limit "$LIMIT" --json number \
-    --jq 'sort_by(.number) | .[].number')
+    --jq '.[].number')
 
 echo ""
 echo "Done: $archived archived, $skipped skipped"
