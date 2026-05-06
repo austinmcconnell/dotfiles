@@ -39,6 +39,10 @@
 #==========================================
 # Workflow: Fetching & Pulling
 #==========================================
+[remote "origin"]
+    fetch = +refs/notes/*:refs/notes/*
+    push = refs/notes/*
+
 [fetch]
     prune = true
     parallel = 0
@@ -187,6 +191,7 @@
 [notes]
     displayRef = refs/notes/*
     rewriteRef = refs/notes/*
+    mergeStrategy = cat_sort_uniq
 
 
 #==========================================
