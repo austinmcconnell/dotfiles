@@ -40,6 +40,7 @@ comments=$(gh prc "$PR" || true)
 
 if [[ -n "$comments" ]]; then
     note_content="${note_content}
+
 ${comments}"
 fi
 
