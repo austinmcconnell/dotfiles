@@ -19,6 +19,8 @@ repositories:
     url: https://grafana-community.github.io/helm-charts
   - name: grafana
     url: https://grafana.github.io/helm-charts
+  - name: kedacore
+    url: https://kedacore.github.io/charts
   - name: podinfo
     url: https://stefanprodan.github.io/podinfo
 
@@ -54,6 +56,15 @@ releases:
       - values/kube-prometheus-stack.yaml.gotmpl
     needs:
       - cert-manager/cert-manager
+
+  - name: keda
+    namespace: keda
+    chart: kedacore/keda
+    version: 2.19.0
+    values:
+      - values/keda.yaml
+    needs:
+      - monitoring/prometheus
 
   - name: loki
     namespace: loki

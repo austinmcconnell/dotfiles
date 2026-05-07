@@ -45,6 +45,13 @@ load '/opt/homebrew/lib/bats-assert/load.bash'
     assert_output "deployed"
 }
 
+@test "keda release is deployed" {
+    run helm status keda --namespace keda --output json
+    assert_success
+    run bash -c "helm status keda -n keda -o json | jq -r '.info.status'"
+    assert_output "deployed"
+}
+
 @test "podinfo-backend release is deployed" {
     run helm status podinfo-backend --namespace podinfo --output json
     assert_success
