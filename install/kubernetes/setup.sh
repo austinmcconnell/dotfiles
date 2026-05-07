@@ -63,6 +63,10 @@ helmfile --file "$CONFIG_DIR/helmfile.yaml" sync --concurrency 1 2>&1 |
     sed 's/Upgrading release=\([^,]*\),.*/Syncing \1.../; s/Release "\([^"]*\)".*/\1 ✓/'
 
 # Apply non-Helm resources
+print_section_header "Applying KEDA demo manifests"
+kubectl apply -f "$CONFIG_DIR/manifests/keda-demo-worker.yaml"
+kubectl apply -f "$CONFIG_DIR/manifests/keda-demo-scaledobject.yaml"
+
 if [ "${ENABLE_LIMIT_RANGE}" = "true" ]; then
     apply_limit_ranges
 fi

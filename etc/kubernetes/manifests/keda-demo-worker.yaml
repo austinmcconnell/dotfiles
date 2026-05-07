@@ -1,0 +1,39 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: keda-demo-worker
+  namespace: podinfo
+  labels:
+    app: keda-demo-worker
+spec:
+  replicas: 0
+  selector:
+    matchLabels:
+      app: keda-demo-worker
+  template:
+    metadata:
+      labels:
+        app: keda-demo-worker
+    spec:
+      containers:
+        - name: worker
+          image: redis:7.4.8-alpine
+          command:
+            - /bin/sh
+            - -c
+            - |
+              while true; do
+                task=$(redis-cli -h podinfo-backend-redis -p 6379 BRPOP keda-demo-queue 30)
+                if [ -n "$task" ]; then
+                  echo "Processing: $task"
+                  sleep 5
+                fi
+              done
+          resources:
+            requests:
+              cpu: 10m
+              memory: 16Mi
+            limits:
+              cpu: 50m
+              memory: 32Mi

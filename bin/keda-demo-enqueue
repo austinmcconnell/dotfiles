@@ -1,0 +1,24 @@
+#!/bin/bash
+
+set -euo pipefail
+
+# Enqueue demo tasks into Redis for the KEDA autoscaling demo.
+# Usage: keda-demo-enqueue [count]
+#   count: number of tasks to enqueue (default: 50)
+
+COUNT="${1:-50}"
+REDIS_POD="deploy/podinfo-backend-redis"
+NAMESPACE="podinfo"
+QUEUE="keda-demo-queue"
+
+echo "Enqueuing ${COUNT} tasks into ${QUEUE}..."
+
+for i in $(seq 1 "$COUNT"); do
+    kubectl exec -n "$NAMESPACE" "$REDIS_POD" -- \
+        redis-cli LPUSH "$QUEUE" "task-${i}-$(date +%s)" >/dev/null
+done
+
+echo "Done. Queue length:"
+kubectl exec -n "$NAMESPACE" "$REDIS_POD" -- redis-cli LLEN "$QUEUE"
+echo ""
+echo "Watch scaling: kubectl get pods -n podinfo -l app=keda-demo-worker -w"

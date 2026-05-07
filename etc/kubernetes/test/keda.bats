@@ -19,3 +19,17 @@ load '/opt/homebrew/lib/bats-assert/load.bash'
     run kubectl get crd scaledobjects.keda.sh
     assert_success
 }
+
+@test "keda-demo-worker ScaledObject is ready" {
+    run kubectl get scaledobject keda-demo-worker -n podinfo \
+        -o jsonpath='{.status.conditions[?(@.type=="Ready")].status}'
+    assert_success
+    assert_output "True"
+}
+
+@test "keda-demo-worker is scaled to zero when queue is empty" {
+    run kubectl get deployment keda-demo-worker -n podinfo \
+        -o jsonpath='{.spec.replicas}'
+    assert_success
+    assert_output "0"
+}
