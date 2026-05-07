@@ -19,6 +19,30 @@ VALID_TYPES="feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert"
 # (# --- >8 ---) or below the comment block. Strip both.
 message=$(sed '/^#/d; /^diff --git /,$d' "$COMMIT_MSG_FILE")
 
+# Dedent: remove common leading whitespace (handles pasted indented text).
+# Find the minimum indent across non-empty lines, then strip that many chars.
+min_indent=""
+while IFS= read -r line; do
+    [[ -z "$line" ]] && continue
+    indent="${line%%[! ]*}"
+    if [[ -z "$min_indent" ]] || [[ ${#indent} -lt ${#min_indent} ]]; then
+        min_indent="$indent"
+    fi
+done <<<"$message"
+if [[ -n "$min_indent" ]]; then
+    # ${var//} doesn't support anchored ^
+    # shellcheck disable=SC2001
+    message=$(echo "$message" | sed "s/^${min_indent}//")
+fi
+
+# Trim trailing whitespace from each line.
+# ${var//} doesn't support [[:space:]] or $
+# shellcheck disable=SC2001
+message=$(echo "$message" | sed 's/[[:space:]]*$//')
+
+# Write cleaned message back so git uses the dedented/trimmed version.
+echo "$message" >"$COMMIT_MSG_FILE"
+
 # Get the subject line (first non-empty line)
 subject=$(echo "$message" | sed '/^$/d' | head -1)
 
@@ -97,6 +121,38 @@ while IFS= read -r line; do
         echo "" >&2
         echo "  $line" >&2
         exit 1
+    fi
+done <<<"$message"
+
+# Check: bullet continuation lines must be indented 2 spaces.
+# A continuation is a non-blank line that follows a "- " bullet (or another
+# continuation) and doesn't start a new bullet or footer.
+in_bullet=false
+line_num=0
+while IFS= read -r line; do
+    line_num=$((line_num + 1))
+    if [[ $line_num -le 2 ]]; then
+        continue
+    fi
+    if [[ -z "$line" ]]; then
+        in_bullet=false
+        continue
+    fi
+    if [[ "$line" == "- "* ]]; then
+        in_bullet=true
+        continue
+    fi
+    if [[ "$in_bullet" == true ]]; then
+        if ! [[ "$line" == "  "* ]]; then
+            echo "$PREFIX Bullet continuation must be indented 2 spaces." >&2
+            echo "" >&2
+            echo "  $line" >&2
+            echo "" >&2
+            echo "Example:" >&2
+            echo "  - First line of bullet" >&2
+            echo "    continuation indented 2 spaces" >&2
+            exit 1
+        fi
     fi
 done <<<"$message"
 
