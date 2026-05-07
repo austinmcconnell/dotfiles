@@ -262,16 +262,16 @@
 #==========================================
 [hook "commit-msg-lint"]
     event = commit-msg
-    command = ~/.config/git/hooks/commit-msg
+    command = "! test -x ~/.config/git/hooks/commit-msg || ~/.config/git/hooks/commit-msg"
 
 [hook "pre-push-tests"]
     event = pre-push
-    command = ~/.config/git/hooks/pre-push
+    command = "! test -x ~/.config/git/hooks/pre-push || ~/.config/git/hooks/pre-push"
 
 [hook "post-checkout-setup"]
     event = post-checkout
-    command = ~/.config/git/hooks/post-checkout
+    command = "! test -x ~/.config/git/hooks/post-checkout || ~/.config/git/hooks/post-checkout"
 
 [hook "username-capture"]
     event = reference-transaction
-    command = ~/.dotfiles/scripts/git-username-capture.sh
+    command = "! test -x ~/.dotfiles/scripts/git-username-capture.sh || ~/.dotfiles/scripts/git-username-capture.sh"
