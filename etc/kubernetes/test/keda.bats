@@ -33,3 +33,25 @@ load '/opt/homebrew/lib/bats-assert/load.bash'
     assert_success
     assert_output "0"
 }
+
+@test "keda ServiceMonitors have release label for Prometheus discovery" {
+    run bash -c "kubectl get servicemonitor -n keda -o jsonpath='{.items[*].metadata.labels.release}'"
+    assert_success
+    assert_output --regexp "^(prometheus )*prometheus$"
+}
+
+@test "keda metrics are being scraped by Prometheus" {
+    run bash -c "kubectl exec -n monitoring -c grafana \
+        \$(kubectl get pod -n monitoring -l app.kubernetes.io/name=grafana -o name) \
+        -- wget -qO- 'http://prometheus-kube-prometheus-prometheus.monitoring:9090/api/v1/query?query=keda_scaler_active' \
+        | python3 -c \"import sys,json; print(json.load(sys.stdin)['status'])\""
+    assert_success
+    assert_output "success"
+}
+
+@test "keda Grafana dashboard is provisioned" {
+    run bash -c "kubectl exec -n monitoring -c grafana \
+        \$(kubectl get pod -n monitoring -l app.kubernetes.io/name=grafana -o name) \
+        -- ls /var/lib/grafana/dashboards/default/keda-scaledobject.json"
+    assert_success
+}
