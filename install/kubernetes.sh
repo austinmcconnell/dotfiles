@@ -7,7 +7,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # Detect cluster state before setup
 was_running=false
 if k3d cluster list --no-headers 2>/dev/null | grep --quiet "^dev "; then
-    if ! k3d cluster list --no-headers | grep --quiet "^dev.*0/1"; then
+    if k3d cluster list --no-headers | grep --quiet "^dev.*[1-9]/"; then
         was_running=true
     else
         k3d cluster start dev
