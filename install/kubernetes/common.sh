@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euo pipefail
+
 # Common variables
 DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
 CONFIG_DIR="$DOTFILES_DIR/etc/kubernetes"
@@ -66,6 +68,7 @@ configure_cert_manager() {
 
 add_hosts_entries() {
     print_section_header "Adding /etc/hosts entries"
+    # Maintain this list when adding ingress hosts to helmfile.yaml
     local hosts=(
         "${LOCAL_DOMAIN}"
         "prometheus.${LOCAL_DOMAIN}"
