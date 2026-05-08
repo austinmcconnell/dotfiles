@@ -159,6 +159,7 @@
     amend = commit --amend --reuse-message=HEAD
     contrib = shortlog --summary --numbered
     lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%n%-N' --show-notes=*
+    lgb = "!git lg $(git merge-base HEAD main)..HEAD"
     # Undo last commit and keep changes staged
     undo = "reset --soft HEAD^"
     # Quick history rewrites without interactive rebase (Git 2.54, experimental)
