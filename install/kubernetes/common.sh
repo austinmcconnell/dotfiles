@@ -94,20 +94,24 @@ add_hosts_entries() {
     fi
 }
 
+# Infrastructure namespaces excluded from LimitRange and ResourceQuota.
+# These run cluster operators with their own resource definitions.
+INFRA_NS_PATTERN="kube-\|monitoring\|keda"
+
+get_app_namespaces() {
+    kubectl get namespaces --no-headers | grep -v "$INFRA_NS_PATTERN" | awk '{print $1}'
+}
+
 apply_limit_ranges() {
     print_section_header "Applying LimitRange to namespaces"
-    local namespaces
-    namespaces=$(kubectl get namespaces --no-headers | grep -v "kube-\|monitoring\|keda" | awk '{print $1}')
-    for ns in $namespaces; do
+    for ns in $(get_app_namespaces); do
         kubectl -n "$ns" apply -f "$CONFIG_DIR/limit-range.yaml" 2>&1 | sed "s/^/$ns: /"
     done
 }
 
 apply_resource_quotas() {
     print_section_header "Applying ResourceQuota to namespaces"
-    local namespaces
-    namespaces=$(kubectl get namespaces --no-headers | grep -v "kube-\|monitoring\|keda" | awk '{print $1}')
-    for ns in $namespaces; do
+    for ns in $(get_app_namespaces); do
         kubectl -n "$ns" apply -f "$CONFIG_DIR/resource-quota.yaml" 2>&1 | sed "s/^/$ns: /"
     done
 }
