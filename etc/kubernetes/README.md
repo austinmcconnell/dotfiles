@@ -87,7 +87,7 @@ Chart values are in `etc/kubernetes/values/`:
 
 - **KEDA** — Event-driven autoscaling operator enabling scale-to-zero and scaling based on external
   metrics (queue depth, Prometheus queries, cron schedules). Includes a demo ScaledObject that
-  scales workers based on Redis list length.
+  scales workers based on Redis list length. A Grafana dashboard visualizes scaling decisions.
 
 ### Sample Workload
 
@@ -184,6 +184,13 @@ kubectl get pods -n podinfo -l app=keda-demo-worker -w
 | `pollingInterval` | 5s    | How often KEDA checks the queue          |
 | `cooldownPeriod`  | 30s   | Wait time before scaling down after idle |
 | `maxReplicaCount` | 5     | Maximum worker replicas                  |
+
+### Grafana dashboard
+
+The KEDA ScaledObject dashboard is provisioned automatically from
+[grafana.com/dashboards/23951](https://grafana.com/grafana/dashboards/23951) and shows scaling
+decisions, trigger metrics, and replica counts over time. Access it at `https://grafana.dev.test` →
+Dashboards → KEDA.
 
 ## Troubleshooting
 
