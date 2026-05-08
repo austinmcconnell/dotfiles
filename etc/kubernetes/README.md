@@ -9,7 +9,7 @@ declaratively by helmfile.
 
 **Runtime**: k3d — lightweight k3s nodes running as Docker containers **Chart management**: helmfile
 — declarative Helm release configuration **Charts deployed**: ingress-nginx, cert-manager,
-metrics-server, kube-prometheus-stack, loki, alloy, podinfo (frontend + backend)
+metrics-server, kube-prometheus-stack, loki, alloy, keda, podinfo (frontend + backend)
 
 ## Quick Start
 
@@ -65,6 +65,7 @@ Chart values are in `etc/kubernetes/values/`:
 - `kube-prometheus-stack.yaml.gotmpl` — ingress config using `LOCAL_DOMAIN`, Loki datasource
 - `loki.yaml` — monolithic mode, filesystem storage, 7-day retention
 - `alloy.yaml` — DaemonSet log collector, ships pod logs to Loki
+- `keda.yaml` — Prometheus ServiceMonitor integration for KEDA components
 - `podinfo-frontend.yaml.gotmpl` — ingress, TLS, ServiceMonitor, backend URL
 - `podinfo-backend.yaml` — Redis enabled, ServiceMonitor
 
@@ -81,6 +82,12 @@ Chart values are in `etc/kubernetes/values/`:
 - **metrics-server** — Node and pod resource metrics for `kubectl top` and HPA
 - **Loki** — Log aggregation with label-based indexing (monolithic mode, filesystem storage)
 - **Alloy** — DaemonSet log collector shipping pod logs to Loki via the Kubernetes API
+
+### Autoscaling
+
+- **KEDA** — Event-driven autoscaling operator enabling scale-to-zero and scaling based on external
+  metrics (queue depth, Prometheus queries, cron schedules). Includes a demo ScaledObject that
+  scales workers based on Redis list length.
 
 ### Sample Workload
 
@@ -102,18 +109,22 @@ etc/kubernetes/
 ├── values/
 │   ├── alloy.yaml
 │   ├── cert-manager.yaml
+│   ├── keda.yaml
 │   ├── kube-prometheus-stack.yaml.gotmpl
 │   ├── loki.yaml
 │   ├── metrics-server.yaml
 │   ├── podinfo-backend.yaml
 │   └── podinfo-frontend.yaml.gotmpl
 ├── manifests/
-│   └── cert-manager-cluster-issuer.yaml
+│   ├── cert-manager-cluster-issuer.yaml
+│   ├── keda-demo-scaledobject.yaml
+│   └── keda-demo-worker.yaml
 └── test/
     ├── alloy.bats
     ├── cert-manager.bats
     ├── helmfile-releases.bats
     ├── ingress-nginx.bats
+    ├── keda.bats
     ├── loki.bats
     ├── metrics-server.bats
     ├── podinfo.bats
@@ -141,6 +152,38 @@ Or run individual test files:
 bats ~/.dotfiles/etc/kubernetes/test/loki.bats
 bats ~/.dotfiles/etc/kubernetes/test/podinfo.bats
 ```
+
+## KEDA Demo
+
+The cluster includes a queue-based autoscaling demo using KEDA's Redis list trigger. At rest, zero
+worker pods are running. When tasks are enqueued, KEDA scales workers from 0 to 5 based on queue
+depth, then back to zero after the queue drains.
+
+### Running the demo
+
+```bash
+# Enqueue 50 tasks (default)
+keda-demo-enqueue
+
+# Watch workers scale up, process tasks, then scale to zero
+kubectl get pods -n podinfo -l app=keda-demo-worker -w
+```
+
+### How it works
+
+- **Worker** (`manifests/keda-demo-worker.yaml`) — pops tasks from a Redis list, sleeps 5s per task
+- **ScaledObject** (`manifests/keda-demo-scaledobject.yaml`) — KEDA watches the `keda-demo-queue`
+  list in Redis, scales workers when queue depth exceeds 3 items per replica
+- **Producer** (`bin/keda-demo-enqueue`) — pushes N tasks into the queue via `kubectl exec`
+
+### Parameters
+
+| Parameter         | Value | Effect                                   |
+| ----------------- | ----- | ---------------------------------------- |
+| `listLength`      | 3     | Items per replica before scaling up      |
+| `pollingInterval` | 5s    | How often KEDA checks the queue          |
+| `cooldownPeriod`  | 30s   | Wait time before scaling down after idle |
+| `maxReplicaCount` | 5     | Maximum worker replicas                  |
 
 ## Troubleshooting
 
@@ -179,3 +222,4 @@ helmfile --file etc/kubernetes/helmfile.yaml list
 - [Grafana Loki Documentation](https://grafana.com/docs/loki/latest/)
 - [Grafana Alloy Documentation](https://grafana.com/docs/alloy/latest/)
 - [Podinfo Documentation](https://github.com/stefanprodan/podinfo)
+- [KEDA Documentation](https://keda.sh/docs/)
