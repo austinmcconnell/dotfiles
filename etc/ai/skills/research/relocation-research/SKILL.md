@@ -1,9 +1,14 @@
-# Relocation Research Conventions
+---
+name: relocation-research
+description: Research countries as relocation destinations with per-country directory structure, five-phase workflow, and subagent delegation patterns. Use when researching countries for relocation, evaluating cities for a family move, or comparing relocation destinations.
+---
+
+# Relocation Research
 
 Conventions for researching countries as relocation destinations. Follows the `create-research`
-skill for general research workflow, frontmatter, citations, and subagent delegation. This doc adds
-the family profile, per-country directory structure, and section requirements specific to relocation
-research.
+skill for general research workflow, frontmatter, citations, and subagent delegation. This skill
+adds the family profile, per-country directory structure, and section requirements specific to
+relocation research.
 
 ## Family Profile
 
@@ -189,7 +194,7 @@ YAML `sources` frontmatter, and `[UNVERIFIED]` markers.
 
 ## Prompt Shorthand
 
-Once this steering doc and templates exist, prompts can be as short as:
+Once this skill and templates exist, prompts can be as short as:
 
 ```text
 Research <country> for relocation — phase 1 (country overview).
@@ -207,5 +212,5 @@ Research <country> for relocation — all phases.
 Update country rankings.
 ```
 
-The agent reads this steering doc, loads the `create-research` skill, and uses the appropriate
-template.
+The agent loads the `create-research` skill (for general conventions) and this skill (for relocation
+workflow), then uses the appropriate template.
