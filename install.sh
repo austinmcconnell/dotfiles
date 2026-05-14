@@ -77,6 +77,7 @@ fi
 . "$DOTFILES_DIR/install/ai-tools.sh"       # Distribute skills to AI agents
 . "$DOTFILES_DIR/install/codex.sh"          # Codex CLI configuration
 . "$DOTFILES_DIR/install/cursor.sh"         # Cursor CLI configuration
+. "$DOTFILES_DIR/install/claude-code.sh"    # Claude Code configuration
 
 # Create .hushlogin to disable the login message
 touch ~/.hushlogin
