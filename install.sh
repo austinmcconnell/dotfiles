@@ -75,6 +75,7 @@ fi
 . "$DOTFILES_DIR/install/terraform.sh"      # Terraform with rc file
 . "$DOTFILES_DIR/install/ai-tools.sh"       # Distribute skills to AI agents
 . "$DOTFILES_DIR/install/codex.sh"          # Codex CLI configuration
+. "$DOTFILES_DIR/install/cursor.sh"         # Cursor CLI configuration
 
 # Create .hushlogin to disable the login message
 touch ~/.hushlogin
