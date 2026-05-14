@@ -199,8 +199,8 @@ the
   `install/kiro-cli.sh`)
 - Each agent has a co-located prompt file: `etc/kiro-cli/cli-agents/<name>-prompt.md`
 - Prompts use relative `file://` URIs: `"prompt": "file://./default-prompt.md"`
-- Hook scripts live in `etc/kiro-cli/hooks/` and are referenced by absolute path
-  (`~/.dotfiles/etc/kiro-cli/hooks/<script>.sh`)
+- Hook scripts live in `etc/kiro-cli/hooks/` (kiro-specific) and `etc/ai/hooks/` (shared across
+  agents), referenced by absolute path (`~/.dotfiles/etc/<location>/hooks/<script>.sh`)
 - Steering docs (principles) go in `etc/ai/steering/<domain>/**/*.md`
 - Skills (workflows, templates) go in `.kiro/skills/<category>/**/SKILL.md` — see
   `skill-loading-triggers` steering for the mapping

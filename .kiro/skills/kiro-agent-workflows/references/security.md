@@ -254,7 +254,7 @@ tail -f ~/.kiro/logs/kubectl-audit.jsonl | jq
     "preToolUse": [
       {
         "matcher": "execute_bash",
-        "command": "~/.dotfiles/etc/kiro-cli/hooks/audit-shell-commands.sh"
+        "command": "AI_AGENT_NAME=kiro-cli ~/.dotfiles/etc/ai/hooks/audit-shell-commands.sh"
       }
     ]
   }
