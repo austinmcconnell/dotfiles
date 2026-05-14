@@ -158,7 +158,7 @@ works across fresh macOS installations.
 1. Edit agent JSON in `etc/kiro-cli/cli-agents/`
 1. Test with `kiro-cli chat --agent <agent-name>`
 1. Verify tools and permissions work correctly
-1. Update steering files if needed in `etc/kiro-cli/steering/`
+1. Update steering files if needed in `etc/ai/steering/`
 
 ### Running the Dotfiles Command
 
@@ -184,7 +184,7 @@ the
 - Prompts use relative `file://` URIs: `"prompt": "file://./default-prompt.md"`
 - Hook scripts live in `etc/kiro-cli/hooks/` and are referenced by absolute path
   (`~/.dotfiles/etc/kiro-cli/hooks/<script>.sh`)
-- Steering docs (principles) go in `etc/kiro-cli/steering/<domain>/**/*.md`
+- Steering docs (principles) go in `etc/ai/steering/<domain>/**/*.md`
 - Skills (workflows, templates) go in `.kiro/skills/<category>/**/SKILL.md` — see
   `skill-loading-triggers` steering for the mapping
 
