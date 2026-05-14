@@ -54,7 +54,7 @@ _ai_prompt_args() {
 
 # Get list of available prompts (without .md extension)
 _ai_prompt_names() {
-    local prompt_dir="$HOME/.dotfiles/etc/ai-prompts"
+    local prompt_dir="$HOME/.dotfiles/etc/ai/prompts"
 
     if [[ -d "$prompt_dir" ]]; then
         find "$prompt_dir" -name "*.md" -not -name "README.md" -type f 2>/dev/null | sed 's|.*/||; s|\.md$||' | sort
