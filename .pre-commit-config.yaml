@@ -91,6 +91,7 @@ repos:
     rev: 1.0.0
     hooks:
       - id: mdformat
+        exclude: "etc/ai/prompts/"
         additional_dependencies:
           - mdformat-gfm
           - mdformat-gfm-alerts
