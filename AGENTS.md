@@ -22,9 +22,8 @@ works across fresh macOS installations.
 
 - **Shell**: Zsh with antidote plugin manager, custom functions, completions
 - **Development Tools**: Git, Vim (with ALE linting), Python, Node, Ruby, Go, Terraform
-- **Kiro CLI**: Custom agents (default, github, jira) with security restrictions
+- **AI Tools**: Kiro CLI (custom agents), Codex, Cursor (see `etc/ai/` and tool-specific dirs)
 - **Kubernetes**: Kind cluster configurations and components
-- **AI Prompts**: Reusable prompts for code analysis and documentation
 
 ### Zsh Configuration Architecture
 
@@ -140,7 +139,7 @@ works across fresh macOS installations.
 - **Infrastructure**: Kubernetes (Kind), Terraform, AWS CLI
 - **Editors**: Vim (vim-plug, ALE, 20+ plugins), Sublime Text
 - **Version Control**: Git with custom aliases and hooks
-- **AI Tools**: Kiro CLI with custom agents and MCP servers
+- **AI Tools**: Kiro CLI with custom agents and MCP servers, Codex, Cursor
 
 ## Common Tasks
 
@@ -168,6 +167,22 @@ works across fresh macOS installations.
 - `dotfiles test` - Run test suite
 - `dotfiles macos` - Apply macOS system defaults
 - `dotfiles dock` - Configure Dock applications
+
+## Multi-Tool AI Configuration
+
+Shared AI assets live in `etc/ai/` and are distributed to each tool by `install/ai-tools.sh`:
+
+- `etc/ai/prompts/` — reusable clipboard-based prompts (tool-agnostic)
+- `etc/ai/skills/` — workflow definitions in SKILL.md format
+- `etc/ai/steering/` — always-on coding principles and conventions
+
+Tool-specific configs remain in their own directories:
+
+- `etc/kiro-cli/` — agent JSON configs, hooks, settings, MCP server list
+- `etc/codex/` — Codex config.toml
+- `etc/cursor/` — Cursor CLI permissions and MCP config
+
+See `etc/ai/README.md` for the full distribution matrix.
 
 ## Custom Agent Conventions
 
@@ -197,11 +212,10 @@ run without a prompt.
 
 Each agent's `allowedTools` is scoped to its purpose:
 
-- **default** — broad read access, git read tools, code search, knowledge, web, subagent
-- **github** — adds `gh` CLI commands (`gh issue`, `gh pr`, `gh run`, `gh api`), no write GitHub
-  tools
+- **default** — broad read access, git read tools, `gh` CLI commands, code search, knowledge, web,
+  subagent
 - **docs** — same read tools as default, no domain-specific MCP tools
-- **jira** — adds `@jira/*` read tools and `@time/*`, no mutating JIRA tools in allowedTools
+- **jira** — adds `@jira/*` read tools, no mutating JIRA tools in allowedTools
 
 Write tools (`write`, `shell`) are intentionally excluded from every agent's `allowedTools` — the
 user must approve each write operation. Git write commands (`git add`, `git commit`) are not in
@@ -216,8 +230,8 @@ Security is enforced at three levels, evaluated in order:
    first line of defense and cannot be bypassed by `allowedTools` or `toolsSettings`.
 1. **toolsSettings** — per-tool path and command restrictions:
    - `shell.deniedCommands` — regex patterns checked before `allowedCommands`. Every agent denies
-     `.env` access via patterns like `cat .*\\.env.*`. Deny lists are agent-specific (github denies
-     `aws .*`, jira denies `pip install .*`, etc.)
+     `.env` access via patterns like `cat .*\\.env.*`. Deny lists are agent-specific (jira denies
+     `pip install .*`, etc.)
    - `shell.allowedCommands` — regex patterns for permitted commands. Unmatched commands require
      user approval. Note: patterns are full regex, not simple strings (e.g.,
      `(GIT_PAGER=cat )?git log.*`, `ls( .*)?`)
@@ -238,24 +252,26 @@ Other agents do not have audit hooks — they deny these commands outright via `
 
 ### Hook Patterns
 
-- `agentSpawn` — only default uses this (runs `git status --short --branch`). Other agents leave it
-  empty since they don't need git context at startup.
+- `agentSpawn` — default and docs use this (runs `check-research-kb.sh` for KB staleness detection).
+  Other agents leave it empty.
 - `preToolUse` — every agent has the `block-env-files.sh` hook on `matcher: "*"`. Default adds audit
   hooks for `use_aws`, `@kubernetes`, and `execute_bash`.
-- `userPromptSubmit` — declared as empty arrays in github and jira configs for explicitness.
+- `postToolUse` — default and docs use this (runs `clear-research-kb-stale.sh` after knowledge
+  operations to clear staleness warnings).
+- `userPromptSubmit` — declared as empty arrays in jira config for explicitness.
 
 ### MCP Server Conventions
 
 - `includeMcpJson: true` on all agents — merges servers from `~/.kiro/settings/mcp.json` and
   `<cwd>/.kiro/settings/mcp.json` into the agent's server list
-- Agent-specific servers are declared inline in the config (github has `github` + `time`, jira has
-  `jira` + `time`, default has `kubernetes`)
+- Agent-specific servers are declared inline in the config (jira has `jira`, default has
+  `kubernetes`)
 - Use `"disabled": true` to define a server without starting it (default's `kubernetes` server). The
   config stays version-controlled and ready to enable.
-- Use `"disabledTools"` to block specific MCP tools (jira blocks `jira_delete_worklog`)
+- Use `"disabledTools"` to block specific MCP tools (jira blocks `jira_delete`)
 - Secrets use `${ENV_VAR}` interpolation in `env` blocks:
   `"GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_PAT}"`
-- Agents that don't need a service deny it entirely via `toolsSettings` (github and jira set
+- Agents that don't need a service deny it entirely via `toolsSettings` (docs and jira set
   `aws.allowedServices: []`, docs denies `docker .*` and `kubectl .*` in shell)
 
 ### Resource Patterns
@@ -270,9 +286,8 @@ Resources use three URI schemes with different loading behavior:
 
 Resource scoping per agent:
 
-- **default** — all steering domains (`code/`, `security/`), all skill categories, multiple
-  knowledge bases (research, project code, analysis docs)
-- **github** — `github/` and `security/` steering only, development + shared skills
+- **default** — all steering domains (`code/`, `github/`, `security/`), all skill categories,
+  multiple knowledge bases (research, project code, analysis docs)
 - **docs** — `documentation/` steering, documentation + shared skills, many knowledge bases for
   cross-project doc work
 - **jira** — `scrum/` steering and `env-file-protection.md` only, development + scrum + shared
@@ -295,14 +310,14 @@ All agents share the same subagent config:
 
 ```json
 "subagent": {
-    "availableAgents": ["default", "docs", "github", "jira"],
+    "availableAgents": ["default", "docs", "jira"],
     "trustedAgents": ["default"]
 }
 ```
 
 Only `default` is trusted — subagents spawned as default inherit full tool approval. Other agents
-spawned as subagents require user approval for each tool use. This prevents a jira or github
-subagent from performing write operations without oversight.
+spawned as subagents require user approval for each tool use. This prevents a jira or docs subagent
+from performing write operations without oversight.
 
 ### Adding a New Agent
 
