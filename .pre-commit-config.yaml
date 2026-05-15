@@ -14,7 +14,6 @@ repos:
       - id: debug-statements
       - id: double-quote-string-fixer
       - id: end-of-file-fixer
-        exclude: etc/kiro-cli/
 
       - id: mixed-line-ending
         exclude: \.plist$
@@ -59,7 +58,6 @@ repos:
         entry: dprint fmt
         args: ["--config", "etc/dprint/dprint.jsonc", "--allow-no-files"]
         files: \.(json|sublime-settings|yaml|yml)$
-        exclude: etc/kiro-cli/
   # - repo: https://github.com/btford/write-good
   #   rev: v1.0.4
   #   hooks:
