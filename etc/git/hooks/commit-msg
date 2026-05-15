@@ -22,11 +22,13 @@ message=$(sed '/^#/d; /^diff --git /,$d' "$COMMIT_MSG_FILE")
 # Dedent: remove common leading whitespace (handles pasted indented text).
 # Find the minimum indent across non-empty lines, then strip that many chars.
 min_indent=""
+min_indent_set=false
 while IFS= read -r line; do
     [[ -z "$line" ]] && continue
     indent="${line%%[! ]*}"
-    if [[ -z "$min_indent" ]] || [[ ${#indent} -lt ${#min_indent} ]]; then
+    if [[ "$min_indent_set" == false ]] || [[ ${#indent} -lt ${#min_indent} ]]; then
         min_indent="$indent"
+        min_indent_set=true
     fi
 done <<<"$message"
 if [[ -n "$min_indent" ]]; then
