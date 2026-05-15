@@ -16,3 +16,6 @@ etc/visual-studio-code/profiles/**/globalStorage
 
 # Practice Sessions
 etc/vim/practice-sessions.csv
+
+# Codex system skills (runtime-generated into symlinked skills dir)
+etc/ai/skills/.system
