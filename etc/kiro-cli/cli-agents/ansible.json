@@ -1,17 +1,16 @@
 {
-    "name": "docs",
-    "description": "Documentation project specialist with mdBook expertise and best practices",
-    "prompt": "file://./docs-prompt.md",
+    "name": "ansible",
+    "description": "Ansible automation specialist for Proxmox homelab infrastructure management",
+    "prompt": "file://./ansible-prompt.md",
     "resources": [
-        "file://~/.dotfiles/etc/ai/steering/documentation/**/*.md",
+        "file://~/.dotfiles/etc/ai/steering/ansible/**/*.md",
         "file://~/.dotfiles/etc/ai/steering/security/env-file-protection.md",
         "file://.kiro/steering/**/*.md",
         "file://AGENTS.md",
         "file://README.md",
-        "file://SUMMARY.md",
-        "file://book.toml",
+        "file://ansible.cfg",
         "skill://.kiro/skills/**/SKILL.md",
-        "skill://~/.kiro/skills/documentation/**/SKILL.md",
+        "skill://~/.kiro/skills/ansible/**/SKILL.md",
         "skill://~/.kiro/skills/shared/**/SKILL.md",
         {
             "type": "knowledgeBase",
@@ -29,129 +28,9 @@
         },
         {
             "type": "knowledgeBase",
-            "source": "file://~/projects/unite-us/sdohcc-screening-observations",
-            "name": "sdohcc-screening-observations",
-            "description": "SDOHCC screening observations mdBook documentation covering FHIR observation mappings, screening instruments, and clinical data standards",
-            "indexType": "best",
-            "include": [
-                "**/*.md"
-            ],
-            "exclude": [
-                ".git/**",
-                "book/**",
-                "scripts/**",
-                "reports/**",
-                ".kiro/**"
-            ],
-            "autoUpdate": true
-        },
-        {
-            "type": "knowledgeBase",
-            "source": "file://~/projects/austinmcconnell/_documentation_/automatic-ripping-machine",
-            "name": "automatic-ripping-machine-docs",
-            "description": "Multi-drive Automatic Ripping Machine build documentation covering drive selection, compute platform, NVMe storage, rack enclosure research, and component specifications. References ubiquiti-network-stack for IP address and VLAN assignments. References tiny-lab for rack slot, PDU port, and compute switch port assignments",
-            "indexType": "best",
-            "include": [
-                "**/*.md"
-            ],
-            "exclude": [
-                ".git/**",
-                "book/**",
-                "scripts/**",
-                "reports/**"
-            ],
-            "autoUpdate": true
-        },
-        {
-            "type": "knowledgeBase",
-            "source": "file://~/projects/austinmcconnell/_documentation_/email-provider-selection",
-            "name": "email-provider-selection-docs",
-            "description": "Privacy-conscious email provider evaluation documentation covering provider comparisons (Fastmail, Mailbox.org, Migadu, StartMail), evaluation criteria, migration procedures, and architecture decisions. Isolated project with no shared infrastructure dependencies",
-            "indexType": "best",
-            "include": [
-                "**/*.md"
-            ],
-            "exclude": [
-                ".git/**",
-                "book/**",
-                "scripts/**",
-                "reports/**"
-            ],
-            "autoUpdate": true
-        },
-        {
-            "type": "knowledgeBase",
-            "source": "file://~/projects/austinmcconnell/_documentation_/family-dashboard",
-            "name": "family-dashboard-docs",
-            "description": "Family wall calendar and chore management system documentation covering display hardware, software platform research (MagicMirror\u00b2, Home Assistant), kiosk software, mounting options, and component selection. References ubiquiti-network-stack for IP address and VLAN assignments",
-            "indexType": "best",
-            "include": [
-                "**/*.md"
-            ],
-            "exclude": [
-                ".git/**",
-                "book/**",
-                "scripts/**",
-                "reports/**"
-            ],
-            "autoUpdate": true
-        },
-        {
-            "type": "knowledgeBase",
-            "source": "file://~/projects/austinmcconnell/_documentation_/gaming-media-pc",
-            "name": "gaming-media-pc-docs",
-            "description": "Gaming and media PC build documentation covering component selection, BIOS/Windows configuration, game streaming setup, and architecture decisions. Isolated project with no shared infrastructure dependencies",
-            "indexType": "best",
-            "include": [
-                "**/*.md"
-            ],
-            "exclude": [
-                ".git/**",
-                "book/**",
-                "scripts/**",
-                "reports/**"
-            ],
-            "autoUpdate": true
-        },
-        {
-            "type": "knowledgeBase",
-            "source": "file://~/projects/austinmcconnell/_documentation_/home-assistant-server",
-            "name": "home-assistant-server-docs",
-            "description": "Dedicated Home Assistant server documentation covering HA Yellow (PoE) platform, Raspberry Pi CM5 compute module, HAOS installation, and component specifications. Operates independently from homelab. References ubiquiti-network-stack for IP address and VLAN assignments. References tiny-lab for rack slot, PDU port, and compute switch port assignments",
-            "indexType": "best",
-            "include": [
-                "**/*.md"
-            ],
-            "exclude": [
-                ".git/**",
-                "book/**",
-                "scripts/**",
-                "reports/**"
-            ],
-            "autoUpdate": true
-        },
-        {
-            "type": "knowledgeBase",
             "source": "file://~/projects/austinmcconnell/_documentation_/tiny-lab",
             "name": "tiny-lab-docs",
             "description": "Compact Proxmox homelab cluster documentation covering M920x Tiny hardware, ZFS storage, 2.5GbE networking, rack layout, PDU port assignments, compute rack switch port assignments, and cluster expansion decisions. Authoritative source for rack slot assignments, PDU ports, and compute switch ports. References ubiquiti-network-stack for IP addresses and VLANs",
-            "indexType": "best",
-            "include": [
-                "**/*.md"
-            ],
-            "exclude": [
-                ".git/**",
-                "book/**",
-                "scripts/**",
-                "reports/**"
-            ],
-            "autoUpdate": true
-        },
-        {
-            "type": "knowledgeBase",
-            "source": "file://~/projects/austinmcconnell/_documentation_/truenas-server",
-            "name": "truenas-server-docs",
-            "description": "TrueNAS backup server build documentation covering ODROID H4+ hardware, ZFS mirror storage, network configuration, rackmount case, and component selection decisions. References tiny-lab for rack slot, PDU port, and compute switch port assignments. References ubiquiti-network-stack for IP address and VLAN assignments",
             "indexType": "best",
             "include": [
                 "**/*.md"
@@ -200,7 +79,7 @@
     "hooks": {
         "agentSpawn": [
             {
-                "command": "~/.dotfiles/etc/kiro-cli/hooks/check-research-kb.sh docs",
+                "command": "~/.dotfiles/etc/kiro-cli/hooks/check-research-kb.sh ansible",
                 "timeout_ms": 5000
             }
         ],
@@ -214,7 +93,7 @@
         "postToolUse": [
             {
                 "matcher": "knowledge",
-                "command": "~/.dotfiles/etc/kiro-cli/hooks/clear-research-kb-stale.sh docs",
+                "command": "~/.dotfiles/etc/kiro-cli/hooks/clear-research-kb-stale.sh ansible",
                 "timeout_ms": 5000
             }
         ]
@@ -225,6 +104,13 @@
         },
         "shell": {
             "allowedCommands": [
+                "ansible --version",
+                "ansible-galaxy .*",
+                "ansible-lint.*",
+                "ansible-playbook .*--check.*",
+                "ansible-playbook .*--list-.*",
+                "ansible-playbook .*--syntax-check.*",
+                "ansible-vault view .*",
                 "awk .*",
                 "cat .*",
                 "chmod \\+x .*",
@@ -249,7 +135,6 @@
                 "jq( .*)?",
                 "ls( .*)?",
                 "man .*",
-                "mdbook .*",
                 "mkdir -p .*",
                 "pre-commit .*",
                 "pwd",
@@ -267,9 +152,15 @@
                 "wc .*",
                 "which .*",
                 "whoami",
-                "xargs .*"
+                "xargs .*",
+                "yamllint .*"
             ],
             "deniedCommands": [
+                "ansible-playbook (?!.*--check)(?!.*--list-)(?!.*--syntax-check).*",
+                "ansible-vault create .*",
+                "ansible-vault decrypt .*",
+                "ansible-vault edit .*",
+                "ansible-vault encrypt .*",
                 "awk .*\\.env.*",
                 "cat .*\\.env.*",
                 "grep .*\\.env.*",
@@ -284,11 +175,15 @@
                 "chmod u\\+s .*",
                 "chmod g\\+s .*",
                 "chown .*",
+                "docker .*",
+                "kubectl .*",
                 "git add \\.",
                 "git add -A.*",
                 "git add --all.*",
-                "docker .*",
-                "kubectl .*"
+                "ssh .*",
+                "pip install .*",
+                "npm install .*",
+                "brew install .*"
             ]
         },
         "write": {
@@ -353,11 +248,11 @@
         },
         "web_fetch": {
             "trusted": [
-                ".*rust-lang\\.io.*",
+                ".*docs\\.ansible\\.com.*",
+                ".*ansible\\.readthedocs\\.io.*",
+                ".*galaxy\\.ansible\\.com.*",
                 ".*github\\.com.*",
-                ".*mdbook.*",
-                ".*adr\\.github\\.io.*",
-                ".*readthedocs\\.io.*",
+                ".*pve\\.proxmox\\.com.*",
                 ".*docs\\..*"
             ],
             "blocked": [
@@ -370,7 +265,9 @@
                 "**/.env.*",
                 "**/*.key",
                 "**/*.pem",
-                "**/credentials*"
+                "**/credentials*",
+                "**/.vault_pass*",
+                "**/vault-password*"
             ]
         }
     },

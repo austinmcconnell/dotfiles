@@ -312,7 +312,7 @@ All agents share the same subagent config:
 
 ```json
 "subagent": {
-    "availableAgents": ["default", "docs", "jira"],
+    "availableAgents": ["default", "docs", "jira", "ansible"],
     "trustedAgents": ["default"]
 }
 ```
