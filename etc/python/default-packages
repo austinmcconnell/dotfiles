@@ -1,3 +1,4 @@
+ansible-lint
 autopep8
 bashate
 docformatter
