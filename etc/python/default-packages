@@ -1,6 +1,7 @@
 ansible-lint
 autopep8
 bashate
+cruft
 docformatter
 flake8
 isort
