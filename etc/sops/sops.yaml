@@ -1,0 +1,8 @@
+# SOPS configuration for dotfiles secrets
+# Docs: https://getsops.io/docs/#using-sopsyaml-conf-to-select-kms-pgp-and-age-for-new-files
+---
+creation_rules:
+  - path_regex: '\.enc\.(yaml|yml|json|env)$'
+    encrypted_regex: "^(password|token|secret|key|api_key|credential)$"
+    age: >-
+      age18pw66rj8rp5j57lmupe6hptc668hzsrxg7zmg4wzj40x7my57dqs2rradu

@@ -19,3 +19,9 @@ etc/vim/practice-sessions.csv
 
 # Codex system skills (runtime-generated into symlinked skills dir)
 etc/ai/skills/.system
+
+# SOPS — never commit plaintext secrets or age private keys
+etc/secrets/tokens.yaml
+etc/secrets/tokens.yml
+etc/secrets/secrets.yaml
+etc/secrets/secrets.yml
