@@ -52,7 +52,7 @@ init_brew_cache() {
     # Check if cache exists and is fresh
     if [[ -f "$CACHE_FILE" ]]; then
         local cache_mtime
-        cache_mtime=$(stat -c %Y "$CACHE_FILE" 2>/dev/null || echo 0)
+        cache_mtime=$(gstat -c %Y "$CACHE_FILE" 2>/dev/null || stat -f %m "$CACHE_FILE" 2>/dev/null || echo 0)
         local cache_age
         cache_age=$(($(date +%s) - cache_mtime))
         if [[ $cache_age -lt $CACHE_TTL ]]; then
