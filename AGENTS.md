@@ -252,20 +252,42 @@ The default agent logs sensitive operations to `~/.kiro/logs/`:
 
 Other agents do not have audit hooks — they deny these commands outright via `deniedCommands`.
 
+### Trace Logging
+
+The default agent logs all tool calls to session-scoped trace files at
+`~/.kiro/logs/traces/<session-id>.jsonl`:
+
+- `postToolUse` with `matcher: "*"` → `trace-tool-call.sh` records tool name, truncated
+  input/output, duration, and timestamp
+- Sensitive values are redacted via regex before writing (keys matching
+  password/secret/token/key/credential/authorization/private)
+- Trace directory is created with `700` permissions (owner-only access)
+- `rotate-traces.sh` runs on `agentSpawn` to delete files older than 7 days or trim when total size
+  exceeds 100MB
+- `bin/trace-search` provides CLI querying: filter by tool, grep patterns, session, or date
+
+Trace logging is intentionally scoped to the default agent only — other agents don't need the
+overhead, and restricting to one agent avoids write races on shared session files.
+
 ### Hook Patterns
 
-- `agentSpawn` — default and docs use this (runs `check-research-kb.sh` for KB staleness detection).
-  Other agents leave it empty.
+- `agentSpawn` — all agents run `recall-memory.sh` (surfaces engram memories for the current
+  project). Default and docs also run `check-research-kb.sh` for KB staleness detection. Default
+  additionally runs `rotate-traces.sh` for trace file cleanup.
 - `preToolUse` — every agent has the `block-env-files.sh` hook on `matcher: "*"`. Default adds audit
-  hooks for `use_aws`, `@kubernetes`, and `execute_bash`.
+  hooks for `use_aws`, `@kubernetes`, and `execute_bash`. All agents have `block-memory-secrets.sh`
+  on `matcher: "@engram"` to prevent storing credentials in persistent memory.
 - `postToolUse` — default and docs use this (runs `clear-research-kb-stale.sh` after knowledge
-  operations to clear staleness warnings).
+  operations to clear staleness warnings). Default also runs `trace-tool-call.sh` on `matcher: "*"`
+  for session-scoped trace logging.
 - `userPromptSubmit` — declared as empty arrays in jira config for explicitness.
 
 ### MCP Server Conventions
 
 - `includeMcpJson: true` on all agents — merges servers from `~/.kiro/settings/mcp.json` and
   `<cwd>/.kiro/settings/mcp.json` into the agent's server list
+- Shared servers in `~/.kiro/settings/mcp.json`: `engram` (cross-session memory, available to all
+  agents via `includeMcpJson`)
 - Agent-specific servers are declared inline in the config (jira has `jira`, default has
   `kubernetes`)
 - Use `"disabled": true` to define a server without starting it (default's `kubernetes` server). The
