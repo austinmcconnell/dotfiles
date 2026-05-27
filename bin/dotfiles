@@ -23,6 +23,7 @@ sub_help() {
     echo "Commands:"
     echo "   analysis-status      Show analysis report status for \$PROJECTS_DIR"
     echo "   clean                Clean up caches (brew, apt, gem, vim plugins)"
+    echo "   drift-check          Check steering docs for broken references"
     echo "   edit                 Open dotfiles in IDE ($DOTFILES_IDE)"
     echo "   help                 This help message"
     echo "   mac                  macOS specific commands (see below)"
@@ -307,6 +308,12 @@ sub_mac_dock_work() {
 
     log_debug "Sourcing: ${DOTFILES_DIR}/macos/dock-work.sh"
     . "${DOTFILES_DIR}/macos/dock-work.sh" && echo "Dock reloaded."
+}
+
+# Check steering docs for broken references (drift detection)
+sub_drift-check() {
+    log_info "Running drift detection on steering docs"
+    bash "${DOTFILES_DIR}/scripts/drift-check.sh"
 }
 
 # Fetch and fast-forward project repositories in $PROJECTS_DIR/<owner>/<repo>
@@ -776,7 +783,7 @@ sub_analysis-status() {
 # Shell completion for available commands
 # Make sure to keep this in sync with the available public commands
 sub_completion() {
-    echo "analysis-status clean edit help mac sync-projects sync-sources test update"
+    echo "analysis-status clean drift-check edit help mac sync-projects sync-sources test update"
 }
 
 # Process global options

@@ -1,0 +1,14 @@
+# Paths that are expected to not exist on every machine.
+# One path per line. Lines starting with # are comments.
+# These are typically work-machine repos or optional tool paths.
+~/.kiro/skills/
+.kiro/skills/
+~/.claude/
+~/.claude/CLAUDE.md
+~/.claude/skills/
+
+# Example links in documentation/link-conventions.md (illustrative patterns)
+../configuration/system-settings.md
+../procedures/initial-setup.md
+../decisions/adr-001-platform-selection.md
+../components/gateway.md
