@@ -75,6 +75,7 @@ fi
 . "$DOTFILES_DIR/install/glow.sh"           # Glow markdown viewer
 . "$DOTFILES_DIR/install/terraform.sh"      # Terraform with rc file
 . "$DOTFILES_DIR/install/kiro-cli.sh"       # Kiro CLI agents, settings, MCP servers
+. "$DOTFILES_DIR/install/engram.sh"         # Engram persistent memory for AI agents
 . "$DOTFILES_DIR/install/ai-tools.sh"       # Distribute skills to AI agents
 . "$DOTFILES_DIR/install/codex.sh"          # Codex CLI configuration
 . "$DOTFILES_DIR/install/cursor.sh"         # Cursor CLI configuration
