@@ -9,27 +9,27 @@ else
         echo "**************************************************"
         echo "Installing Zsh with brew"
         echo "**************************************************"
-        brew install zsh starship
+        brew install zsh
     elif is-debian; then
         echo "**************************************************"
-        echo "Installing Zsh with apt and starship with brew"
+        echo "Installing Zsh with apt"
         echo "**************************************************"
         sudo apt update
         sudo apt install -y software-properties-common curl
         sudo add-apt-repository -y universe
         sudo apt install -y zsh
-        # Install starship via brew (more reliable than manual install)
-        if is-executable brew; then
-            brew install starship
-        else
-            echo "Warning: brew not found, starship may not be available"
-        fi
     else
         echo "**************************************************"
         echo "Skipping Zsh installation: Unidentified OS"
         echo "**************************************************"
         return
     fi
+fi
+
+# Install starship prompt
+if ! is-executable starship; then
+    echo "Installing starship prompt..."
+    brew install starship
 fi
 
 ZDOTDIR="$XDG_CONFIG_HOME/zsh"
