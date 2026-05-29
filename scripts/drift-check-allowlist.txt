@@ -7,6 +7,10 @@
 ~/.claude/CLAUDE.md
 ~/.claude/skills/
 
+# Proxmox binaries (only exist on the remote PVE server)
+/usr/sbin/qm
+/usr/sbin/pvesr
+
 # Example links in documentation/link-conventions.md (illustrative patterns)
 ../configuration/system-settings.md
 ../procedures/initial-setup.md
