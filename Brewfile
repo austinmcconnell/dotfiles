@@ -6,7 +6,7 @@
 #   brew bundle cleanup --file=Brewfile --force  # remove orphaned packages
 
 def personal?
-  ENV["IS_WORK_COMPUTER"] != "1"
+  ENV["HOMEBREW_IS_WORK_COMPUTER"] != "1"
 end
 
 Dir.glob("#{__dir__}/install/**/*.Brewfile").sort.each do |f|

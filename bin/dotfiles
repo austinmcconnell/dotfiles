@@ -58,7 +58,7 @@ sub_audit() {
     if [ -f "$HOME/.extra/.env" ]; then
         source "$HOME/.extra/.env"
     fi
-    export IS_WORK_COMPUTER="${IS_WORK_COMPUTER:-0}"
+    export HOMEBREW_IS_WORK_COMPUTER="${IS_WORK_COMPUTER:-0}"
 
     echo "Checking for missing packages..."
     brew bundle check --file="$DOTFILES_DIR/Brewfile" --verbose || true

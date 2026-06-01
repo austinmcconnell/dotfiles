@@ -70,7 +70,7 @@ print_section_header "Running brew bundle"
 if [ -f "$HOME/.extra/.env" ]; then
     source "$HOME/.extra/.env"
 fi
-export IS_WORK_COMPUTER="${IS_WORK_COMPUTER:-0}"
+export HOMEBREW_IS_WORK_COMPUTER="${IS_WORK_COMPUTER:-0}"
 
 brew bundle --file="$DOTFILES_DIR/Brewfile" --no-lock --no-upgrade
 
