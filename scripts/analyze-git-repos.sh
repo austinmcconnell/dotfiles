@@ -125,21 +125,21 @@ find "$SCAN_DIR" -name ".git" -type d | while read -r git_dir; do
     cd "$repo_dir" || continue
 
     # Get repository statistics
-    if ! stats=$(git count-objects -vH 2>/dev/null); then
+    if ! stats=$(git count-objects -v 2>/dev/null); then
         echo "  ❌ Error reading repository stats"
         echo
         continue
     fi
 
     # Parse statistics with safe defaults
-    count=$(safe_int "$(echo "$stats" | grep "^count " | awk '{print $2}')")
-    size=$(safe_int "$(echo "$stats" | grep "^size " | awk '{print $2}')")
-    in_pack=$(safe_int "$(echo "$stats" | grep "^in-pack " | awk '{print $2}')")
-    packs=$(safe_int "$(echo "$stats" | grep "^packs " | awk '{print $2}')")
-    size_pack=$(safe_int "$(echo "$stats" | grep "^size-pack " | awk '{print $2}')")
-    prune_packable=$(safe_int "$(echo "$stats" | grep "^prune-packable " | awk '{print $2}')")
-    garbage=$(safe_int "$(echo "$stats" | grep "^garbage " | awk '{print $2}')")
-    size_garbage=$(safe_int "$(echo "$stats" | grep "^size-garbage " | awk '{print $2}')")
+    count=$(safe_int "$(echo "$stats" | grep "^count:" | awk -F': ' '{print $2}')")
+    size=$(safe_int "$(echo "$stats" | grep "^size:" | awk -F': ' '{print $2}')")
+    in_pack=$(safe_int "$(echo "$stats" | grep "^in-pack:" | awk -F': ' '{print $2}')")
+    packs=$(safe_int "$(echo "$stats" | grep "^packs:" | awk -F': ' '{print $2}')")
+    size_pack=$(safe_int "$(echo "$stats" | grep "^size-pack:" | awk -F': ' '{print $2}')")
+    prune_packable=$(safe_int "$(echo "$stats" | grep "^prune-packable:" | awk -F': ' '{print $2}')")
+    garbage=$(safe_int "$(echo "$stats" | grep "^garbage:" | awk -F': ' '{print $2}')")
+    size_garbage=$(safe_int "$(echo "$stats" | grep "^size-garbage:" | awk -F': ' '{print $2}')")
 
     # Calculate total size in MB
     total_size_kb=$((size + size_pack + size_garbage))
