@@ -1,1 +1,1 @@
-brew "yt-dlp" if OS.mac?
+brew "yt-dlp" if OS.mac? && personal?
