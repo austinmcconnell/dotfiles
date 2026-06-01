@@ -5,8 +5,9 @@ set -euo pipefail
 # Source the utilities script
 source "$DOTFILES_DIR/install/utils.sh"
 
+# --- Install Homebrew ---
 if is-executable brew; then
-    print_section_header "Installing brew formulas and casks"
+    print_section_header "Installing brew packages via Brewfile"
 else
     if is-macos; then
         print_section_header "Installing Homebrew"
@@ -22,6 +23,7 @@ else
     fi
 fi
 
+# --- Config directories and symlinks ---
 mkdir -p "$XDG_CONFIG_HOME/bat"
 mkdir -p "$XDG_CONFIG_HOME/dprint"
 mkdir -p "$XDG_CONFIG_HOME/fd"
@@ -62,136 +64,27 @@ if [ -n "$SUBLIME_USER_DIR" ]; then
     fi
 fi
 
-init_brew_cache
+# --- Install packages from distributed Brewfiles ---
+print_section_header "Running brew bundle"
 
-print_section_header "Adding taps"
-tap_if_needed "derailed/k9s"
-tap_if_needed "gentleman-programming/tap"
-tap_if_needed "heroku/brew"
-tap_if_needed "molovo/revolver"
-tap_if_needed "zunit-zsh/zunit"
-tap_if_needed "bats-core/bats-core"
-
-print_section_header "Installing formulas"
-install_if_needed "age" "formula"
-install_if_needed "autoenv" "formula"
-install_if_needed "bash" "formula"
-install_if_needed "bat" "formula"
-install_if_needed "bats-assert" "formula"
-install_if_needed "ccache" "formula"
-install_if_needed "coreutils" "formula"
-install_if_needed "direnv" "formula"
-install_if_needed "dive" "formula"
-install_if_needed "dprint" "formula"
-install_if_needed "engram" "formula"
-install_if_needed "fd" "formula"
-install_if_needed "findutils" "formula"
-install_if_needed "fzf" "formula"
-install_if_needed "gawk" "formula"
-install_if_needed "gh" "formula"
-install_if_needed "git" "formula"
-install_if_needed "git-delta" "formula"
-install_if_needed "glow" "formula"
-install_if_needed "gnu-sed" "formula"
-install_if_needed "gnu-tar" "formula"
-install_if_needed "gnu-time" "formula"
-install_if_needed "go" "formula"
-install_if_needed "grep" "formula"
-install_if_needed "hadolint" "formula"
-install_if_needed "helm" "formula"
-install_if_needed "httpie" "formula"
-install_if_needed "jq" "formula"
-install_if_needed "k9s" "formula"
-install_if_needed "kubernetes-cli" "formula"
-install_if_needed "nano" "formula"
-install_if_needed "openssl@3" "formula" # Used for compiling (e.g. pyenv building python versions from source)
-install_if_needed "rumdl" "formula"
-install_if_needed "shellcheck" "formula"
-install_if_needed "shfmt" "formula"
-install_if_needed "sops" "formula"
-install_if_needed "ssh-copy-id" "formula"
-install_if_needed "stern" "formula"
-install_if_needed "taplo" "formula"
-install_if_needed "tree" "formula"
-install_if_needed "trivy" "formula"
-install_if_needed "unar" "formula"
-install_if_needed "vale" "formula"
-install_if_needed "vals" "formula"
-install_if_needed "wget" "formula"
-install_if_needed "yamllint" "formula"
-install_if_needed "yq" "formula"
-install_if_needed "zlib" "formula" # Used for compiling (e.g. pyenv building python versions from source)
-install_if_needed "zunit" "formula"
-
-# Install cloud cli tools
-install_if_needed "awscli" "formula"
-
-if is-macos; then
-    print_section_header "Installing macOS-only formulas"
-    install_if_needed "blueutil" "formula"
-    install_if_needed "dockutil" "formula"
-    install_if_needed "mas" "formula" "personal"
-    install_if_needed "wifi-password" "formula"
+if [ -f "$HOME/.extra/.env" ]; then
+    source "$HOME/.extra/.env"
 fi
+export IS_WORK_COMPUTER="${IS_WORK_COMPUTER:-0}"
+
+brew bundle --file="$DOTFILES_DIR/Brewfile" --no-lock --no-upgrade
+
+# --- Post-install steps ---
+print_section_header "Running post-install configuration"
 
 if is-macos; then
-    print_section_header "Installing casks"
-    install_if_needed "alfred" "cask"
-    install_if_needed "backuploupe" "cask" "personal"
-    install_if_needed "bartender" "cask"
-    install_if_needed "bluesnooze" "cask"
-    install_if_needed "calibre" "cask" "personal"
-    install_if_needed "chatgpt" "cask"
-    install_if_needed "discord" "cask" "personal"
-    install_if_needed "docker" "cask" "personal"
-    install_if_needed "evernote" "cask"
-    install_if_needed "flux" "cask"
-    install_if_needed "firefox" "cask"
-    install_if_needed "gpg-suite" "cask"
-    install_if_needed "hazel" "cask" "personal"
-    install_if_needed "iterm2" "cask"
-    install_if_needed "keepingyouawake" "cask" "personal"
-    install_if_needed "monitorcontrol" "cask"
-    install_if_needed "multipass" "cask"
-    install_if_needed "obsidian" "cask"
-    install_if_needed "openlens" "cask"
-    install_if_needed "oversight" "cask"
-    install_if_needed "postico" "cask"
-    install_if_needed "postman" "cask"
-    install_if_needed "rectangle" "cask"
-    install_if_needed "silicon" "cask"
-    install_if_needed "slack" "cask" "personal"
-    install_if_needed "spotify" "cask"
-    install_if_needed "sublime-text" "cask"
-    install_if_needed "tableplus" "cask"
-    install_if_needed "the-unarchiver" "cask"
-    install_if_needed "typora" "cask"
-    install_if_needed "vagrant" "cask"
-    install_if_needed "via" "cask"
-    install_if_needed "viscosity" "cask" "personal"
-    install_if_needed "visual-studio-code" "cask"
-    install_if_needed "zoom" "cask"
-
-    print_section_header "Installing fonts"
-    install_if_needed "font-fira-code" "cask"
-    install_if_needed "font-meslo-lg-nerd-font" "cask"
-    install_if_needed "font-fira-code-nerd-font" "cask"
-    install_if_needed "font-hack-nerd-font" "cask"
-    install_if_needed "font-inconsolata-nerd-font" "cask"
-    install_if_needed "font-sauce-code-pro-nerd-font" "cask"
-
-    print_section_header "Adding local TLS Certificate Authority"
-    install_if_needed "mkcert" "formula"
-    install_if_needed "nss" "formula"
     mkcert -install
-
-    print_section_header "Running brew doctor"
     brew doctor || true
 fi
 
 # Add helm charts repository
 echo "Adding helm charts repositories"
-helm repo add stable https://charts.helm.sh/stable
+helm repo add stable https://charts.helm.sh/stable 2>/dev/null || true
 
 # Download vale style packages
 echo "Downloading vale style packages"
