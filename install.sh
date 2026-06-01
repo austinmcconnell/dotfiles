@@ -53,14 +53,14 @@ if [ ! -f "$HOME/.extra/.env" ] || ! grep -q "^export IS_WORK_COMPUTER=" "$HOME/
 fi
 
 # Install and configure components in a specific order:
-# 1. Core tools (git, zsh)
-# 2. Package managers (brew, apt)
+# 1. Package managers (brew installs all packages via Brewfile)
+# 2. Core tools configuration (git, zsh)
 # 3. Programming languages and environments
 # 4. Applications and utilities
 # 5. System configurations
+. "$DOTFILES_DIR/install/brew.sh"           # Homebrew + all packages (must be first)
 . "$DOTFILES_DIR/install/git.sh"            # Git configuration and aliases
 . "$DOTFILES_DIR/install/zsh.sh"            # Zsh shell with antidote plugin manager
-. "$DOTFILES_DIR/install/brew.sh"           # Homebrew packages (macOS)
 . "$DOTFILES_DIR/macos/apps.sh"             # macOS applications
 . "$DOTFILES_DIR/install/apt.sh"            # APT packages (Debian)
 . "$DOTFILES_DIR/install/python.sh"         # Python with pyenv
