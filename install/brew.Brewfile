@@ -83,6 +83,7 @@ if OS.mac?
   cask "postico"
   cask "postman"
   cask "rectangle"
+  cask "redis-insight"
   cask "slack" if personal?
   cask "spotify"
   cask "sublime-text"
