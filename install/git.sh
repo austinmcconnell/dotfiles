@@ -1,27 +1,15 @@
 #!/bin/bash
 
-if is-executable git; then
+if ! is-executable git; then
     echo "**************************************************"
-    echo "Configuring Git"
+    echo "Skipping Git configuration: git not found"
     echo "**************************************************"
-else
-    if is-macos; then
-        echo "**************************************************"
-        echo "Installing Git with brew"
-        echo "**************************************************"
-        brew install git
-    elif is-debian; then
-        echo "**************************************************"
-        echo "Installing Git with apt"
-        echo "**************************************************"
-        sudo apt install git
-    else
-        echo "**************************************************"
-        echo "Skipping Git installation: Unidentified OS"
-        echo "**************************************************"
-        return
-    fi
+    return
 fi
+
+echo "**************************************************"
+echo "Configuring Git"
+echo "**************************************************"
 
 GIT_CONFIG_DIR="$HOME/.config/git"
 

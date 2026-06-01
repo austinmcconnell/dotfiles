@@ -6,13 +6,9 @@ source "$DOTFILES_DIR/install/utils.sh"
 
 print_section_header "Configuring sops + age"
 
-# Install age and sops if not present
-if ! is-executable age; then
-    brew install age
-fi
-
-if ! is-executable sops; then
-    brew install sops
+if ! is-executable age || ! is-executable sops; then
+    echo "Warning: age or sops not found, skipping configuration"
+    return
 fi
 
 # XDG-compliant age key directory

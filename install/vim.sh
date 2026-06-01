@@ -1,35 +1,17 @@
 #!/bin/bash
 
-if is-executable vim; then
+if ! is-executable vim; then
     echo "**************************************************"
-    echo "Configuring Vim"
+    echo "Skipping Vim configuration: vim not found"
     echo "**************************************************"
-else
-    if is-macos; then
-        echo "**************************************************"
-        echo "Installing Vim"
-        echo "**************************************************"
-        brew install vim
-    elif is-debian; then
-        echo "**************************************************"
-        echo "Installing Vim"
-        echo "**************************************************"
-        sudo apt update
-        sudo apt install -y vim
-    else
-        echo "**************************************************"
-        echo "Skipping Vim installation: Unidentified OS"
-        echo "**************************************************"
-        return
-    fi
+    return
 fi
 
-if is-macos; then
-    brew install ctags the_silver_searcher
-elif is-debian; then
-    sudo apt update
-    sudo apt install -y ctags silversearcher-ag
-fi
+echo "**************************************************"
+echo "Configuring Vim"
+echo "**************************************************"
+
+# ctags and the_silver_searcher installed via vim.Brewfile
 
 VIM_DIR="$HOME/.vim"
 

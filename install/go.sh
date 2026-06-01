@@ -1,27 +1,15 @@
 #!/bin/bash
 
-if is-executable go; then
+if ! is-executable go; then
     echo "**************************************************"
-    echo "Configuring Go"
+    echo "Skipping Go configuration: go not found"
     echo "**************************************************"
-else
-    if is-macos; then
-        echo "**************************************************"
-        echo "Installing Go"
-        echo "**************************************************"
-        brew install go
-    elif is-debian; then
-        echo "**************************************************"
-        echo "Installing Go"
-        echo "**************************************************"
-        sudo apt install -y golang-go
-    else
-        echo "**************************************************"
-        echo "Skipping Go installation: Unidentified OS"
-        echo "**************************************************"
-        return
-    fi
+    return
 fi
+
+echo "**************************************************"
+echo "Configuring Go"
+echo "**************************************************"
 
 # Use standard Go directories
 GOPATH="$HOME/go"

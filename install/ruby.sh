@@ -1,29 +1,15 @@
 #!/bin/bash
 
-if is-executable rbenv; then
+if ! is-executable rbenv; then
     echo "**************************************************"
-    echo "Configuring Ruby"
+    echo "Skipping Ruby configuration: rbenv not found"
     echo "**************************************************"
-else
-    if is-macos; then
-        echo "**************************************************"
-        echo "Installing Ruby"
-        echo "**************************************************"
-        brew install rbenv ruby-build
-    elif is-debian; then
-        echo "**************************************************"
-        echo "Installing Ruby"
-        echo "**************************************************"
-        sudo apt install -y autoconf bison build-essential libssl-dev libyaml-dev \
-            libreadline-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm-dev
-        brew install rbenv ruby-build
-    else
-        echo "**************************************************"
-        echo "Skipping Ruby installation: Unidentified OS"
-        echo "**************************************************"
-        return
-    fi
+    return
 fi
+
+echo "**************************************************"
+echo "Configuring Ruby"
+echo "**************************************************"
 
 DEFAULT_RUBY_VERSION=3.2.2
 

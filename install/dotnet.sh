@@ -1,34 +1,15 @@
 #!/bin/bash
 
-if is-executable dotnet; then
+if ! is-executable dotnet; then
     echo "**************************************************"
-    echo "Configuring .NET"
+    echo "Skipping .NET configuration: dotnet not found"
     echo "**************************************************"
-else
-    if is-macos; then
-        echo "**************************************************"
-        echo "Installing .NET"
-        echo "**************************************************"
-        brew install dotnet
-    elif is-debian; then
-        echo "**************************************************"
-        echo "Installing .NET"
-        echo "**************************************************"
-        # Add Microsoft package repository
-        wget "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb" -O packages-microsoft-prod.deb
-        sudo dpkg -i packages-microsoft-prod.deb
-        rm packages-microsoft-prod.deb
-
-        # Install .NET SDK
-        sudo apt-get update
-        sudo apt-get install -y dotnet-sdk-8.0
-    else
-        echo "**************************************************"
-        echo "Skipping .NET installation: Unidentified OS"
-        echo "**************************************************"
-        return
-    fi
+    return
 fi
+
+echo "**************************************************"
+echo "Configuring .NET"
+echo "**************************************************"
 
 # Create XDG directories for .NET and NuGet
 mkdir -p "$XDG_CONFIG_HOME/nuget"

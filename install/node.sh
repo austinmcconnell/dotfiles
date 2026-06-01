@@ -10,7 +10,7 @@ else
     echo "**************************************************"
 fi
 
-brew install --formula fnm
+# fnm installed via node.Brewfile
 
 FNM_PATH="${XDG_DATA_HOME:-$HOME/.local/share}/fnm"
 NPM_PATH="${XDG_DATA_HOME:-$HOME/.local/share}/npm"

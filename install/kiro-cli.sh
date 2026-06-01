@@ -32,13 +32,9 @@ install_integration_if_needed() {
     fi
 }
 
-print_section_header "Installing Kiro CLI"
+print_section_header "Configuring Kiro CLI"
 
-# Initialize Homebrew cache
-init_brew_cache
-
-# Install Kiro CLI using Homebrew
-install_if_needed "kiro-cli" "cask"
+# kiro-cli cask installed via kiro-cli.Brewfile
 
 # Define Kiro CLI configuration directories
 KIRO_SETTINGS_DIR="$HOME/.kiro/settings"

@@ -1,35 +1,19 @@
 #!/bin/bash
 
-if is-executable zsh; then
+if ! is-executable zsh; then
     echo "**************************************************"
-    echo "Configuring Zsh"
+    echo "Skipping Zsh configuration: zsh not found"
     echo "**************************************************"
-else
-    if is-macos; then
-        echo "**************************************************"
-        echo "Installing Zsh with brew"
-        echo "**************************************************"
-        brew install zsh
-    elif is-debian; then
-        echo "**************************************************"
-        echo "Installing Zsh with apt"
-        echo "**************************************************"
-        sudo apt update
-        sudo apt install -y software-properties-common curl
-        sudo add-apt-repository -y universe
-        sudo apt install -y zsh
-    else
-        echo "**************************************************"
-        echo "Skipping Zsh installation: Unidentified OS"
-        echo "**************************************************"
-        return
-    fi
+    return
 fi
 
-# Install starship prompt
+echo "**************************************************"
+echo "Configuring Zsh"
+echo "**************************************************"
+
+# Install starship prompt (handled by Brewfile, guard for standalone runs)
 if ! is-executable starship; then
-    echo "Installing starship prompt..."
-    brew install starship
+    echo "Warning: starship not found, skipping prompt setup"
 fi
 
 ZDOTDIR="$XDG_CONFIG_HOME/zsh"

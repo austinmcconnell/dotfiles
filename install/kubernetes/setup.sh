@@ -14,16 +14,8 @@ fi
 
 # Install Kubernetes tools if not already installed
 if ! is-executable k3d; then
-    if is-macos; then
-        print_section_header "Installing Kubernetes"
-        brew install k3d kubectl kubectx helm mkcert helmfile
-    elif is-debian; then
-        print_section_header "Installing Kubernetes"
-        sudo apt install -y k3d kubectl
-    else
-        print_section_header "Skipping Kubernetes installation: Unidentified OS"
-        exit 1
-    fi
+    log_error "k3d not found. Run install/brew.sh first."
+    exit 1
 fi
 
 # Create k3d cluster
