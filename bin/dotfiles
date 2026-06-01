@@ -22,6 +22,7 @@ sub_help() {
     echo
     echo "Commands:"
     echo "   analysis-status      Show analysis report status for \$PROJECTS_DIR"
+    echo "   audit                Check brew package drift and orphans"
     echo "   clean                Clean up caches (brew, apt, gem, vim plugins)"
     echo "   drift-check          Check steering docs for broken references"
     echo "   edit                 Open dotfiles in IDE ($DOTFILES_IDE)"
@@ -48,6 +49,26 @@ sub_help() {
     echo "   $BIN_NAME clean      Clean up package caches"
     echo "   $BIN_NAME mac dock personal  Configure personal dock layout"
     echo "   $BIN_NAME --debug update  Run update with debug logging"
+}
+
+# Check brew package drift and orphaned packages
+sub_audit() {
+    print_section_header "Brew package audit"
+
+    if [ -f "$HOME/.extra/.env" ]; then
+        source "$HOME/.extra/.env"
+    fi
+    export IS_WORK_COMPUTER="${IS_WORK_COMPUTER:-0}"
+
+    echo "Checking for missing packages..."
+    brew bundle check --file="$DOTFILES_DIR/Brewfile" --verbose || true
+
+    echo ""
+    echo "Checking for orphaned packages (not in any Brewfile)..."
+    brew bundle cleanup --file="$DOTFILES_DIR/Brewfile"
+
+    echo ""
+    echo "Run 'brew bundle cleanup --file=$DOTFILES_DIR/Brewfile --force' to remove orphans."
 }
 
 # Open the dotfiles directory in the configured IDE
@@ -783,7 +804,7 @@ sub_analysis-status() {
 # Shell completion for available commands
 # Make sure to keep this in sync with the available public commands
 sub_completion() {
-    echo "analysis-status clean drift-check edit help mac sync-projects sync-sources test update"
+    echo "analysis-status audit clean drift-check edit help mac sync-projects sync-sources test update"
 }
 
 # Process global options
