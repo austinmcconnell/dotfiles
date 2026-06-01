@@ -12,6 +12,13 @@ if [ "$1" = "0000000000000000000000000000000000000000" ]; then
         echo "Setting up origin/HEAD reference..."
         git remote set-head origin -a
     fi
+
+    # Register for scheduled maintenance
+    MAINTENANCE_CONFIG="$HOME/.config/git/config-maintenance"
+    if [ -f "$MAINTENANCE_CONFIG" ]; then
+        git maintenance register --config-file "$MAINTENANCE_CONFIG"
+        echo "Registered repository for scheduled maintenance."
+    fi
 fi
 
 exit 0

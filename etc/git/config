@@ -203,11 +203,10 @@
 # Maintenance & Integrity
 #==========================================
 [maintenance]
-    auto = true
-    repo = /Users/austin.mcconnell/projects/unite-us/web-app
-    repo = /Users/austin.mcconnell/projects/unite-us/core
-    repo = /Users/austin.mcconnell/projects/unite-us/screenings-ingestion
-    repo = /Users/austin.mcconnell/.dotfiles
+    strategy = geometric
+
+[include]
+    path = ./config-maintenance
 
 [gc]
     autoDetach = false

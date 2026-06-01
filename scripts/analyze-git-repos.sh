@@ -176,7 +176,7 @@ find "$SCAN_DIR" -name ".git" -type d | while read -r git_dir; do
 
     # Check if maintenance is already enabled for this repository
     maintenance_enabled=false
-    if git config --global --get-regexp "maintenance\.repo" | grep -q "^maintenance\.repo $repo_dir$"; then
+    if git config --global --includes --get-regexp "maintenance\.repo" | grep -q "^maintenance\.repo $repo_dir$"; then
         maintenance_enabled=true
         echo "  ✅ Maintenance: Already enabled"
     else
@@ -219,7 +219,7 @@ find "$SCAN_DIR" -name ".git" -type d | while read -r git_dir; do
             echo "  🔄 RECOMMENDATION: Consider disabling maintenance (inactive for $days_ago days)"
             echo "    Last activity: $activity_date ($activity_type)"
             echo "    Maintenance is running but repository appears unused"
-            echo "    Command: cd '$repo_dir' && git maintenance stop"
+            echo "    Command: cd '$repo_dir' && git maintenance unregister --config-file ~/.config/git/config-maintenance"
 
             # Store for disable summary (format: days_ago|activity_date|org_repo_path|full_path|reason)
             org_repo_path=$(get_org_repo_path "$repo_dir" "$SCAN_DIR")
@@ -246,7 +246,7 @@ find "$SCAN_DIR" -name ".git" -type d | while read -r git_dir; do
                     echo "      - $reason"
                 done
                 echo "    Last activity: $activity_date ($days_ago days ago)"
-                echo "    Command: cd '$repo_dir' && git maintenance start"
+                echo "    Command: cd '$repo_dir' && git maintenance register --config-file ~/.config/git/config-maintenance"
 
                 # Store for summary (format: commits|branches|size_mb|days_ago|activity_date|org_repo_path|full_path)
                 org_repo_path=$(get_org_repo_path "$repo_dir" "$SCAN_DIR")
@@ -258,7 +258,7 @@ find "$SCAN_DIR" -name ".git" -type d | while read -r git_dir; do
                 echo "  🔄 RECOMMENDATION: Consider disabling maintenance"
                 echo "    Repository doesn't meet size/complexity thresholds for maintenance"
                 echo "    Last activity: $activity_date ($days_ago days ago)"
-                echo "    Command: cd '$repo_dir' && git maintenance stop"
+                echo "    Command: cd '$repo_dir' && git maintenance unregister --config-file ~/.config/git/config-maintenance"
 
                 # Store for disable summary (format: days_ago|activity_date|org_repo_path|full_path|reason)
                 org_repo_path=$(get_org_repo_path "$repo_dir" "$SCAN_DIR")
@@ -304,7 +304,7 @@ else
     echo "Quick enable commands (sorted by commit count):"
     echo
     sort -t'|' -k1,1nr "$TEMP_SUMMARY" | while IFS='|' read -r commits branches size_mb days_ago activity_date org_repo_path full_path; do
-        echo "cd '$full_path' && git maintenance start"
+        echo "cd '$full_path' && git maintenance register --config-file ~/.config/git/config-maintenance"
     done
 fi
 
@@ -337,7 +337,7 @@ else
     echo "Quick disable commands (sorted by inactivity):"
     echo
     sort -t'|' -k1,1nr "$TEMP_DISABLE_SUMMARY" | while IFS='|' read -r days_ago activity_date org_repo_path full_path reason; do
-        echo "cd '$full_path' && git maintenance stop"
+        echo "cd '$full_path' && git maintenance unregister --config-file ~/.config/git/config-maintenance"
     done
 fi
 
@@ -346,6 +346,6 @@ echo "Analysis complete!"
 echo
 echo "To enable maintenance on recommended repositories:"
 echo "1. Navigate to the repository directory"
-echo "2. Run: git maintenance start"
+echo "2. Run: git maintenance register --config-file ~/.config/git/config-maintenance"
 echo
-echo "To check maintenance status: git maintenance run --dry-run"
+echo "To check maintenance status: git maintenance is-needed"

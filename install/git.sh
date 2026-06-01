@@ -42,3 +42,36 @@ if is-macos; then
 elif is-debian; then
     ln -sfv "$DOTFILES_DIR/etc/git/config-linux" "$GIT_CONFIG_DIR"
 fi
+
+# --- Git Maintenance ---
+# Create config-maintenance for machine-specific repo registrations (not version-controlled).
+# The main config includes this file via [include] path = ./config-maintenance.
+MAINTENANCE_CONFIG="$GIT_CONFIG_DIR/config-maintenance"
+
+if [ ! -f "$MAINTENANCE_CONFIG" ]; then
+    touch "$MAINTENANCE_CONFIG"
+fi
+
+# Ensure LaunchAgents/systemd timers exist for scheduled maintenance.
+# Running 'start' in any repo sets up the scheduler; we use dotfiles as the seed repo.
+if is-macos && [ ! -f "$HOME/Library/LaunchAgents/org.git-scm.git.hourly.plist" ]; then
+    git -C "$DOTFILES_DIR" maintenance start
+    # start writes maintenance.repo to global config; move it to config-maintenance
+    git config --global --unset-all maintenance.repo 2>/dev/null
+fi
+
+# Auto-register discovered repos
+for repo in "$DOTFILES_DIR" "$HOME/projects"/*/*; do
+    if [ -d "$repo/.git" ]; then
+        git -C "$repo" maintenance register --config-file "$MAINTENANCE_CONFIG" 2>/dev/null
+    fi
+done
+
+# Normalize config-maintenance: consistent indentation and sorted repos
+if [ -f "$MAINTENANCE_CONFIG" ]; then
+    printf '[maintenance]\n' >"$MAINTENANCE_CONFIG.tmp"
+    sed -n 's/.*repo = //p' "$MAINTENANCE_CONFIG" | sort -u | while read -r repo; do
+        printf '    repo = %s\n' "$repo"
+    done >>"$MAINTENANCE_CONFIG.tmp"
+    mv "$MAINTENANCE_CONFIG.tmp" "$MAINTENANCE_CONFIG"
+fi
