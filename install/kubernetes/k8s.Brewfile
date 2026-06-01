@@ -1,0 +1,5 @@
+brew "k3d"
+brew "kubernetes-cli"
+brew "kubectx"
+brew "helm"
+brew "helmfile"
