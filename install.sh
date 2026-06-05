@@ -80,6 +80,7 @@ fi
 . "$DOTFILES_DIR/install/codex.sh"          # Codex CLI configuration
 . "$DOTFILES_DIR/install/cursor.sh"         # Cursor CLI configuration
 . "$DOTFILES_DIR/install/claude-code.sh"    # Claude Code configuration
+. "$DOTFILES_DIR/install/ai-personal.sh"    # Personal AI config overlay
 
 # Create .hushlogin to disable the login message
 touch ~/.hushlogin
