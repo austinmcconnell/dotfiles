@@ -17,7 +17,3 @@ Host *
     TCPKeepAlive no
     ServerAliveInterval 60
     ServerAliveCountMax 30
-
-# Kiro CLI SSH Integration. Keep at the bottom of this file.
-Match all
-  Include "~/Library/Application Support/kiro-cli/ssh"
