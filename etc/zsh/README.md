@@ -64,6 +64,47 @@ Topic-based configuration files loaded automatically:
 - **Conditional loading**: Platform and context-aware configuration
 - **Abbreviation system**: Short aliases that expand for common commands
 
+## Performance Profiling
+
+Three tools are available for measuring and diagnosing shell startup performance:
+
+### `zbench` — Wall-clock startup time
+
+Simple alias that times 10 login shell starts. Best for quick A/B comparisons.
+
+```bash
+zbench
+# Output: real/user/sys time for each of 10 runs
+```
+
+### `zprofile` — Per-function breakdown
+
+Alias for `ZSH_PROFILE_RC=1 zsh`. Loads `zsh/zprof` at the top of `.zshrc` and prints a function
+call table at the end. Best for identifying *which* functions are slow.
+
+```bash
+zprofile
+# Then at the prompt, examine the output or run: zprof
+```
+
+### `zsh-bench` — Comprehensive benchmark
+
+Installed via antidote (`kind:path`). Measures multiple phases: first prompt lag, first command lag,
+ongoing command lag, and input lag. Detects deferred loading tricks. Best for validating that
+improvements are real and not just deferred work.
+
+```bash
+zsh-bench
+```
+
+### When to use which
+
+| Goal                                         | Tool        |
+| -------------------------------------------- | ----------- |
+| Quick before/after comparison                | `zbench`    |
+| Find what's slow                             | `zprofile`  |
+| Validate optimization is real (not deferred) | `zsh-bench` |
+
 ## Finding Specific Information
 
 - **Plugin configuration**: Check `.zstyles` for framework and plugin settings
