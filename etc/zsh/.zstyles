@@ -13,7 +13,8 @@ zstyle ':antidote:static' file $ZDOTDIR/.zsh_plugins.zsh # Generated file contai
 zstyle ':zephyr:plugin:color' use-cache true # Cache color settings for faster startup
 
 # Completion - Intelligent tab completion and suggestion system
-zstyle ':zephyr:plugin:completion' use-cache yes # Cache completion for faster startup
+zstyle ':zephyr:plugin:completion' use-cache yes          # Cache completion for faster startup
+zstyle ':zephyr:plugin:completion' use-xdg-basedirs yes   # Store zcompdump in $XDG_CACHE_HOME/zsh/
 
 # Compstyle - Completion styling system
 zstyle ':zephyr:plugin:compstyle:*' case-sensitive false # Case-insensitive completion
@@ -23,12 +24,14 @@ zstyle ':zephyr:plugin:confd' directory $ZDOTDIR/conf.d # Directory containing a
 zstyle ':zephyr:plugin:confd' immediate true             # Load during .zshrc (deferred breaks key bindings and PATH)
 
 # Editor - Text editing, input handling, and keyboard interaction
-zstyle ':zephyr:plugin:editor' key-bindings 'emacs' # Use emacs-style keybindings (ctrl+a for start of line, etc.)
+zstyle ':zephyr:plugin:editor' key-bindings 'emacs'   # Use emacs-style keybindings (ctrl+a for start of line, etc.)
+zstyle ':zephyr:plugin:editor' dot-expansion yes      # Type ... to expand to ../.. , .... to ../../.. etc.
 
 # History - Command history management and search functionality
 zstyle ':zephyr:plugin:history' histfile $ZDOTDIR/.zsh_history # File to store command history
 zstyle ':zephyr:plugin:history' histsize 1000000               # Number of commands loaded into memory
 zstyle ':zephyr:plugin:history' savehist 1000000               # Number of commands saved to history file
+zstyle ':zephyr:plugin:history:aux:sqlite' enable yes          # Structured history with cwd, exit status, duration
 
 # Homebrew - Package manager integration
 zstyle ':zephyr:plugin:homebrew' use-cache true # Cache Homebrew environment for faster startup

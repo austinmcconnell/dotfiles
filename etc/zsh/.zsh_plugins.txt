@@ -2,18 +2,19 @@
 
 ### Zephyr Framework Components
 # These should be loaded first as they provide core functionality
-https://github.com/mattmc3/zephyr/ path:plugins/environment
-https://github.com/mattmc3/zephyr/ path:plugins/color
-https://github.com/mattmc3/zephyr/ path:plugins/directory
-https://github.com/mattmc3/zephyr/ path:plugins/history
-https://github.com/mattmc3/zephyr/ path:plugins/homebrew
-https://github.com/mattmc3/zephyr/ path:plugins/utility
-https://github.com/mattmc3/zephyr/ path:plugins/zfunctions
-https://github.com/mattmc3/zephyr/ path:plugins/editor
-https://github.com/mattmc3/zephyr/ path:plugins/prompt
-https://github.com/mattmc3/zephyr/ path:plugins/confd
-https://github.com/mattmc3/zephyr path:plugins/completion
-https://github.com/mattmc3/zephyr/ path:plugins/compstyle
+using:mattmc3/zephyr path:plugins
+environment
+color
+directory
+history
+homebrew
+utility
+zfunctions
+editor
+prompt
+confd
+completion
+compstyle
 
 ### Completions
 $ZDOTDIR/completions kind:fpath

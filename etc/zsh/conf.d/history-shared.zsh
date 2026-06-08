@@ -1,5 +1,6 @@
 # Override zephyr history defaults to enable shared history
 setopt share_history
+setopt hist_fcntl_lock
 unsetopt inc_append_history
 
 # Keep full command timeline for troubleshooting/auditing.
