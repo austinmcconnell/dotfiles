@@ -12,9 +12,16 @@ if [[ -d "$RBENV_ROOT/bin" ]]; then
     export PATH="$RBENV_ROOT/bin:$PATH"
 fi
 
-# Initialize rbenv if available
+# Initialize rbenv from a cached static file instead of spawning a subprocess
+# Cache auto-invalidates when the rbenv binary changes (e.g., after brew upgrade)
 if command -v rbenv >/dev/null; then
-    eval "$(rbenv init - --no-rehash zsh)"
+    local cache="$XDG_CACHE_HOME/zsh/rbenv-init.zsh"
+    if [[ ! -s "$cache" || "${commands[rbenv]}" -nt "$cache" ]]; then
+        mkdir -p "${cache:h}"
+        rbenv init - --no-rehash zsh | sed '/^export PATH=/d' >| "$cache"
+    fi
+    path=("$RBENV_ROOT/shims" ${path:#$RBENV_ROOT/shims})
+    source "$cache"
 fi
 
 # Ruby

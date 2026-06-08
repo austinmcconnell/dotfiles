@@ -12,9 +12,17 @@ if [[ -d "$PYENV_ROOT/bin" ]]; then
   export PATH="$PYENV_ROOT/bin:$PATH"
 fi
 
-# Initialize pyenv with no rehashing for better performance
+# Initialize pyenv from a cached static file instead of spawning a subprocess
+# Cache auto-invalidates when the pyenv binary changes (e.g., after brew upgrade)
 if command -v pyenv >/dev/null; then
-  eval "$(pyenv init - --no-rehash zsh)"
+  local cache="$XDG_CACHE_HOME/zsh/pyenv-init.zsh"
+  if [[ ! -s "$cache" || "${commands[pyenv]}" -nt "$cache" ]]; then
+    mkdir -p "${cache:h}"
+    # Strip the bash PATH dedup block — we handle PATH ourselves with zsh arrays
+    pyenv init - --no-rehash zsh | sed '/^PATH="\$(bash/,/^export PATH=/d' >| "$cache"
+  fi
+  path=("$PYENV_ROOT/shims" ${path:#$PYENV_ROOT/shims})
+  source "$cache"
 fi
 
 # PIPENV
