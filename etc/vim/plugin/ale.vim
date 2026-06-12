@@ -25,7 +25,7 @@ let g:ale_linters = {
 \   'go': ['gopls', 'gofmt'],
 \   'json': ['jq'],
 \   'markdown': ['rumdl'],
-\   'python': ['ruff'],
+\   'python': ['ruff', 'pylsp'],
 \   'ruby': ['rubocop', 'ruby_lsp'],
 \   'sh': ['bashate', 'shellcheck'],
 \   'terraform': ['terraform'],
@@ -64,21 +64,19 @@ let g:ale_fixers = {
 \   'zsh': ['shfmt'],
 \}
 
-" pylsp config — kept for rollback if ruff migration is reverted.
-" pylsp is not in the Python linters list while ruff is active.
-" let g:ale_python_pylsp_config = {
-" \   'pylsp': {
-" \     'plugins': {
-" \       'pycodestyle': {
-" \         'enabled': v:true,
-" \         'maxLineLength': 100
-" \       },
-" \       'mccabe': {'enabled': v:false},
-" \       'pyflakes': {'enabled': v:true},
-" \       'pylint': {'enabled': v:false},
-" \     }
-" \   }
-" \}
+" pylsp config — completions and navigation only; all linting disabled (handled by ruff).
+let g:ale_python_pylsp_config = {
+\   'pylsp': {
+\     'plugins': {
+\       'pycodestyle': {'enabled': v:false},
+\       'mccabe': {'enabled': v:false},
+\       'pyflakes': {'enabled': v:false},
+\       'pylint': {'enabled': v:false},
+\       'autopep8': {'enabled': v:false},
+\       'yapf': {'enabled': v:false},
+\     }
+\   }
+\}
 
 
 function! FixMdformat(buffer) abort
