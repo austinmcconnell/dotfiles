@@ -120,7 +120,7 @@ let g:ale_yaml_yamllint_options = '-c ~/.config/yamllint/config'
 " Vale options (vale lints temp files, so it can't walk up to find config)
 let g:ale_markdown_vale_options = '--config ~/.config/vale/vale.ini'
 
-nnoremap <leader>gd :ALEGoToDefinition<CR>
+nnoremap gd :ALEGoToDefinition<CR>
 nnoremap gr :ALEFindReferences<CR>
 nnoremap gR :ALERename<CR>
 nnoremap <silent> <leader>K :call <SID>show_documentation()<CR>
