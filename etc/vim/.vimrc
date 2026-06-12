@@ -47,6 +47,7 @@ let g:polyglot_disabled = ['sensible']
 
 Plug 'pedrohdz/vim-yaml-folds'
 Plug 'dense-analysis/ale'
+Plug 'embear/vim-localvimrc'
 Plug 'tpope/vim-surround'
 Plug 'Valloric/ListToggle'
 

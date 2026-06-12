@@ -9,6 +9,7 @@
 *~
 ._*
 *.swp
+.lvimrc
 Session.vim
 
 ## OS files
