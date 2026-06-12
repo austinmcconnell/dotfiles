@@ -220,7 +220,9 @@ set foldlevelstart=99   " open all folds by default
 " nnoremap <space> za|  " fold via spacebar
 
 " Buffers
-" nnoremap <Leader>b :buffers<CR>:buffer<Space>
+nnoremap <Leader>b :buffers<CR>:buffer<Space>
+nnoremap ]b :bnext<CR>
+nnoremap [b :bprev<CR>
 
 " Terminal
 tnoremap <Esc> <C-\><C-n>|      " get to terminal normal mode
