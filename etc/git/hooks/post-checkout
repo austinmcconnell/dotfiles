@@ -7,6 +7,14 @@
 
 # If this is a clone operation, $1 will be all zeros
 if [ "$1" = "0000000000000000000000000000000000000000" ]; then
+    # Skip repos in cache, plugin, or temp directories
+    REPO_DIR="$(git rev-parse --show-toplevel)"
+    case "$REPO_DIR" in
+    "$HOME/.cache/"* | "$HOME/.vim/"* | "$HOME/sources/"* | /tmp/*)
+        exit 0
+        ;;
+    esac
+
     # Check if we have a remote named origin
     if git remote | grep -q "^origin$"; then
         echo "Setting up origin/HEAD reference..."

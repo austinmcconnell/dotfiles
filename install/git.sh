@@ -67,10 +67,13 @@ for repo in "$DOTFILES_DIR" "$HOME/projects"/*/*; do
     fi
 done
 
-# Normalize config-maintenance: consistent indentation and sorted repos
+# Normalize config-maintenance: consistent indentation, sorted repos, exclude unwanted paths
 if [ -f "$MAINTENANCE_CONFIG" ]; then
     printf '[maintenance]\n' >"$MAINTENANCE_CONFIG.tmp"
     sed -n 's/.*repo = //p' "$MAINTENANCE_CONFIG" | sort -u | while read -r repo; do
+        case "$repo" in
+        "$HOME/.cache/"* | "$HOME/.vim/"* | "$HOME/sources/"* | /tmp/*) continue ;;
+        esac
         printf '    repo = %s\n' "$repo"
     done >>"$MAINTENANCE_CONFIG.tmp"
     mv "$MAINTENANCE_CONFIG.tmp" "$MAINTENANCE_CONFIG"
