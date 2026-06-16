@@ -108,6 +108,14 @@ set background=dark         " set dark mode
 colorscheme nord
 set termguicolors
 
+" Clipboard
+set clipboard=unnamed                                        " yank/delete/put use system clipboard
+nnoremap x "_x|                                              " don't clobber clipboard on single-char delete
+nnoremap X "_X|                                              " don't clobber clipboard on back-delete
+nnoremap c "_c|                                              " don't clobber clipboard on change
+nnoremap C "_C|                                              " don't clobber clipboard on change-to-eol
+xnoremap c "_c|                                              " don't clobber clipboard on visual change
+
 " Editing
 set backspace=indent,eol,start                               " make backspace behave like normal in insert mode
 " nnoremap j gj|                                             " move cursor visually down one line even when text is wrapped
