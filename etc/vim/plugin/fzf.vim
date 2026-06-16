@@ -9,3 +9,6 @@ let g:fzf_layout = { 'down': '40%' }
 
 nmap <silent> <C-p> :Files<CR>
 " nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>/ :BLines<CR>
+nnoremap <leader>? :Lines<CR>
+nnoremap <leader>h :History<CR>
