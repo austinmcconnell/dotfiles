@@ -121,7 +121,7 @@ set backspace=indent,eol,start                               " make backspace be
 " nnoremap j gj|                                             " move cursor visually down one line even when text is wrapped
 " nnoremap k gk|                                             " move cursor visually up one line even when text is wrapped
 vnoremap . :norm.<CR>|                                       " use period to execute a stored action in visual mode
-set scrolloff=1                                              " show at least one line below cursor
+set scrolloff=5                                              " keep 5 lines visible above/below cursor
 set list                                                     " display whitespace
 set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+    " set whitespace characters to highlight
 set autoread                                                 " auto load external changes to file
@@ -167,9 +167,12 @@ set smartindent     " indent after if and for statements
 
 " UI Config
 set number              " show line numbers
+set relativenumber      " show relative line numbers (absolute on current line)
+set cursorline          " highlight the current line
 set ruler               " show cursor line and column number
 set showmatch           " highlight matching [{()}]
 set signcolumn=yes      " always show sign column (prevents text jumping)
+set smoothscroll        " scroll by screen line for wrapped lines
 set mouse=a             " enable mouse support
 syntax enable           " enable syntax highlighting
 set laststatus=2        " always show statusline
