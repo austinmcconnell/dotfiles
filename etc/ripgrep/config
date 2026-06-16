@@ -1,0 +1,9 @@
+# Smart case: case-insensitive unless pattern has uppercase
+--smart-case
+
+# Truncate long lines (e.g., minified JS) with a preview
+--max-columns=150
+--max-columns-preview
+
+# Exclude .git directory contents when using --hidden
+--glob=!.git/*

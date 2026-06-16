@@ -8,7 +8,6 @@
 ##############################
 alias zshrc='$EDITOR $ZDOTDIR/.zshrc'
 alias hosts="sudo $EDITOR /etc/hosts"
-alias ag='ag --hidden'
 alias cat='cat_sleep $1'
 
 ##############################

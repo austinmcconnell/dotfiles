@@ -1,0 +1,3 @@
+echo "Use rg instead of ag"
+sleep 1
+rg "$@"

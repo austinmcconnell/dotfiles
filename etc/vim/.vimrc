@@ -188,6 +188,8 @@ let &t_EI = "\e[2 q"                " steady block in other modes
 
 " Searching
 " nnoremap <leader>f :find<Space>
+set grepprg=rg\ --vimgrep\ --follow
+set grepformat=%f:%l:%c:%m
 set incsearch                        " search as characters are entered
 set ignorecase                       " perform case-insensitive searches
 set hlsearch                         " highlight matches
