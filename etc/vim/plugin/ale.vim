@@ -123,20 +123,13 @@ let g:ale_markdown_vale_options = '--config ~/.config/vale/vale.ini'
 nnoremap gd :ALEGoToDefinition<CR>
 nnoremap gr :ALEFindReferences<CR>
 nnoremap gR :ALERename<CR>
-nnoremap <silent> <leader>K :call <SID>show_documentation()<CR>
+nnoremap K :ALEHover<CR>
 
 nmap [w <Plug>(ale_previous)
 nmap ]w <Plug>(ale_next)
 nmap [W <Plug>(ale_first)
 nmap ]W <Plug>(ale_last)
 
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call ale#hover#ShowAtCursor()
-  endif
-endfunction
 
 " function! RemapAleCompletion()
 "   iunmap <Plug>(ale_show_completion_menu)
