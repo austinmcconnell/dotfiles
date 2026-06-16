@@ -25,7 +25,7 @@ function! FernInit() abort
         \   "\<Plug>(fern-action-collapse)",
         \ )
   nmap <buffer> <CR> <Plug>(fern-my-open-expand-collapse)
-  nmap <buffer> <2-LeftMouse> <Plug>(fern-my-open-expand-collapse)
+  nmap <buffer> <LeftMouse> <LeftMouse><Plug>(fern-my-open-expand-collapse)
   nmap <buffer> n <Plug>(fern-action-new-path)
   nmap <buffer> d <Plug>(fern-action-remove)
   nmap <buffer> m <Plug>(fern-action-move)
