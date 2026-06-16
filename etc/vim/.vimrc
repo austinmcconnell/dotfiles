@@ -37,8 +37,9 @@ Plug 'itchyny/lightline.vim'
 Plug 'maximbaz/lightline-ale'
 
 " editing/ui
-Plug 'jiangmiao/auto-pairs'
-Plug 'preservim/nerdcommenter'
+Plug 'LunarWatcher/auto-pairs'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-repeat'
 Plug 'mbbill/undotree'
 " Plug 'ap/vim-buftabline'
 Plug 'mengelbrecht/lightline-bufferline'
