@@ -7,7 +7,7 @@ let g:AutoPairsShortcutToggleMultilineClose = ''
 " Custom pairs for specific file types
 augroup autopairs_custom
     autocmd!
-    autocmd FileType ruby let b:AutoPairs = AutoPairsDefine({'|':'|'})
-    autocmd FileType markdown let b:AutoPairs = AutoPairsDefine({'*':'*', '`':'`'})
-    autocmd FileType html,eruby let b:AutoPairs = AutoPairsDefine({'<':'>'})
+    autocmd FileType ruby let b:AutoPairs = autopairs#AutoPairsDefine({'|':'|'})
+    autocmd FileType markdown let b:AutoPairs = autopairs#AutoPairsDefine({'*':'*', '`':'`'})
+    autocmd FileType html,eruby let b:AutoPairs = autopairs#AutoPairsDefine({'<':'>'})
 augroup END
