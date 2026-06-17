@@ -1,35 +1,13 @@
 
-# <type>(<scope>): <subject>          or  <type>!: <subject>
-# |<----  Using a Maximum Of 72 Characters For Subject  ------------>|
+# Subject:
+# <type>(<scope>): <subject>
 
-# Explain why this change is being made
-# |<----   Try To Limit Each Line to a Maximum Of 72 Characters   ---->|
+# Why:
+# 1-2 sentences explaining motivation for this change.
 
-# Provide links or keys to any relevant tickets, articles or other resources
-# Footer format: Token: value  or  Token #value
-# Example: Jira issue: ABC-123
-# Example: BREAKING CHANGE: removes /api/login endpoint
+# What (optional, for multi-area changes):
+# - Bullet point describing specific change
+# - Another bullet point
 
 # --- COMMIT END ---
-# Type can be
-#    feat     (new feature for users)
-#    fix      (bug fix for users)
-#    docs     (documentation changes)
-#    style    (formatting, whitespace; no code change)
-#    refactor (code restructuring; no behavior change)
-#    perf     (performance improvements)
-#    test     (adding or updating tests)
-#    build    (build system or external dependencies)
-#    ci       (CI configuration files and scripts)
-#    chore    (tooling, maintenance; no production code change)
-#    revert   (reverts a previous commit)
-# --------------------
-# Remember to
-#    Use the imperative mood in the subject line
-#    Do not end the subject line with a period
-#    Separate subject from body with a blank line
-#    Use the body to explain what and why vs. how
-#    Can use multiple lines with "-" for bullet points in body
-#    Use ! after type/scope for breaking changes: feat!: ...
-#    Or use BREAKING CHANGE: footer (must be uppercase)
-# --------------------
+# Type: feat fix docs style refactor perf test build ci chore revert
