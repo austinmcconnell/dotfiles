@@ -58,10 +58,3 @@ fi
 if [[ -d "/opt/homebrew/opt/openssl@1.1/bin" ]]; then
     export PATH="/opt/homebrew/opt/openssl@1.1/bin:$PATH"
 fi
-
-##############################
-# iTerm2 Integration
-##############################
-if [[ -f "$HOME/.iterm2_shell_integration.zsh" ]]; then
-    source "$HOME/.iterm2_shell_integration.zsh"
-fi

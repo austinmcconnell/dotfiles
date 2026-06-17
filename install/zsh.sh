@@ -34,7 +34,6 @@ fi
 
 ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 ZSH_COMPLETIONS_DIR="$ZDOTDIR/completions"
-ITERM_COLORSCHEME_DIR="$DOTFILES_DIR/etc/iterm/colorschemes"
 
 mkdir -p "$ZDOTDIR"
 mkdir -p "$ZDOTDIR/conf.d"
@@ -42,7 +41,6 @@ mkdir -p "$ZDOTDIR/custom/plugins/extra"
 mkdir -p "$ZSH_COMPLETIONS_DIR"
 mkdir -p "$XDG_CONFIG_HOME"/spaceship
 mkdir -p "$XDG_CONFIG_HOME"/direnv
-mkdir -p "$ITERM_COLORSCHEME_DIR"
 
 echo "ZDOTDIR=${ZDOTDIR:-$XDG_CONFIG_HOME/zsh}" >"$HOME"/.zshenv
 echo "source \$ZDOTDIR/.zshenv" >>"$HOME"/.zshenv
@@ -116,11 +114,6 @@ grep "$(which zsh)" /etc/shells &>/dev/null || sudo zsh -c "echo $(which zsh) >>
 
 if [ "$SHELL" != "$(which zsh)" ]; then
     sudo chsh -s "$(which zsh)" "$USER"
-fi
-
-# Install iTerm2 shell integration
-if [ ! -f "$HOME/.iterm2_shell_integration.zsh" ]; then
-    curl -L https://iterm2.com/shell_integration/zsh -o "$HOME/.iterm2_shell_integration.zsh"
 fi
 
 # Install antidote plugin manager

@@ -140,13 +140,14 @@ Configuration options include:
 
 iTerm2 is an enhanced terminal emulator for macOS with features beyond the default Terminal app.
 
-Configuration options include:
+Configuration uses dynamic profiles (JSON) instead of the full plist to avoid noisy diffs from
+ephemeral state. The install script (`install/iterm.sh`) handles:
 
-- **Color schemes**: Define and customize terminal color palettes
-- **Profiles**: Configure different terminal profiles for various use cases
-- **Key mappings**: Customize keyboard shortcuts
-- **Window arrangements**: Save and restore window layouts
-- **Shell integration**: Configure advanced shell features
+- **Dynamic profiles**: `etc/iterm/profiles.json` symlinked to
+  `~/Library/Application Support/iTerm2/DynamicProfiles/`
+- **Global settings**: Applied via `defaults write` commands (dimming, key behavior, server mode)
+- **Global key map**: Option+arrow word jump, Cmd+backspace line delete, Ctrl+/ for vim comments
+- **Shell integration**: Downloaded on first install
 
 ## Kubernetes (k3d)
 

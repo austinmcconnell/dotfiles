@@ -65,6 +65,7 @@ fi
 . "$DOTFILES_DIR/install/zsh.sh"            # Zsh shell with antidote plugin manager
 . "$DOTFILES_DIR/install/brew.sh"           # Homebrew packages (macOS)
 . "$DOTFILES_DIR/macos/apps.sh"             # macOS applications
+. "$DOTFILES_DIR/install/iterm.sh"          # iTerm2 dynamic profiles and settings
 . "$DOTFILES_DIR/install/apt.sh"            # APT packages (Debian)
 . "$DOTFILES_DIR/install/python.sh"         # Python with pyenv
 . "$DOTFILES_DIR/install/node.sh"           # Node.js with nvm
