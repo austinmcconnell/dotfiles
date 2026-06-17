@@ -41,7 +41,6 @@ Plug 'LunarWatcher/auto-pairs'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'mbbill/undotree'
-" Plug 'ap/vim-buftabline'
 Plug 'mengelbrecht/lightline-bufferline'
 Plug 'sheerun/vim-polyglot'
 let g:polyglot_disabled = ['sensible']
@@ -123,6 +122,7 @@ set backspace=indent,eol,start                               " make backspace be
 " nnoremap k gk|                                             " move cursor visually up one line even when text is wrapped
 vnoremap . :norm.<CR>|                                       " use period to execute a stored action in visual mode
 set scrolloff=5                                              " keep 5 lines visible above/below cursor
+set jumpoptions=stack                                        " jumplist behaves like a stack (browser back/forward)
 set list                                                     " display whitespace
 set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+    " set whitespace characters to highlight
 set autoread                                                 " auto load external changes to file
@@ -192,6 +192,7 @@ set grepprg=rg\ --vimgrep\ --follow
 set grepformat=%f:%l:%c:%m
 set incsearch                        " search as characters are entered
 set ignorecase                       " perform case-insensitive searches
+set smartcase                        " case-sensitive when search contains uppercase
 set hlsearch                         " highlight matches
 set path+=**                         " search down into subfolders
 set wildmenu                         " display all matching files when I tab complete

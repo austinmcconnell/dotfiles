@@ -6,6 +6,7 @@ let g:ale_lint_delay=200                      " wait time in ms after stopping t
 let g:ale_lint_on_enter = 1                   " lint when entering buffer
 let g:ale_set_balloons = 1                    " show help documentation in popups
 let g:ale_floating_preview = 1                " show hover/detail in floating popup
+let g:ale_virtualtext_cursor = 'all'          " show inline diagnostics on all problem lines
 let g:ale_sign_error = '✘'                    " error sign in gutter
 let g:ale_sign_warning = '⚠'                  " warning sign in gutter
 
