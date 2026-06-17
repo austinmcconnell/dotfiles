@@ -99,6 +99,8 @@ call ale#linter#Define('toml', {
 let g:ale_json_jq_options = '--indent 4'
 
 let g:ale_python_auto_pipenv=1
+let g:ale_python_pylsp_auto_pipenv = 0
+let g:ale_python_pylsp_use_global = 1
 
 " Go-specific settings
 let g:ale_go_gofmt_options = '-s'  " Simplify code
