@@ -1,0 +1,91 @@
+#!/bin/bash
+set -euo pipefail
+
+# Export iTerm2 profile settings from the live app back to dotfiles.
+# Use this after changing profile settings in iTerm2's UI to persist
+# changes to etc/iterm/profiles.json.
+#
+# How it works:
+#   Dynamic profiles live in etc/iterm/profiles.json (symlinked to
+#   ~/Library/Application Support/iTerm2/DynamicProfiles/).
+#   When you change a dynamic profile via the UI, iTerm2 stores the
+#   override in its preferences plist (New Bookmarks). This script
+#   extracts those overrides and merges them back into profiles.json.
+#
+#   If a profile has no overrides (not in New Bookmarks), it's unchanged
+#   and the dotfiles version is already current.
+
+DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
+PROFILES_JSON="$DOTFILES_DIR/etc/iterm/profiles.json"
+PLIST_DOMAIN="com.googlecode.iterm2"
+TMP_PLIST="/tmp/iterm2_export_$$.plist"
+
+trap 'rm -f "$TMP_PLIST"' EXIT
+
+if ! defaults export "$PLIST_DOMAIN" "$TMP_PLIST" 2>/dev/null; then
+    echo "Error: Could not read iTerm2 preferences. Is iTerm2 installed?" >&2
+    exit 1
+fi
+
+python3 - "$TMP_PLIST" "$PROFILES_JSON" <<'EOF'
+import json
+import plistlib
+import sys
+
+tmp_plist = sys.argv[1]
+profiles_json = sys.argv[2]
+
+with open(tmp_plist, "rb") as f:
+    plist_data = plistlib.load(f)
+
+live_profiles = {p["Guid"]: p for p in plist_data.get("New Bookmarks", [])}
+
+with open(profiles_json) as f:
+    dotfiles_data = json.load(f)
+
+# Keys iTerm2 adds at runtime that should never be persisted
+RUNTIME_KEYS = {"Dynamic Profile Filename", "Rewritable",
+                "Use Separate Colors for Light and Dark Mode"}
+
+changed_names = []
+updated = []
+
+for dot_profile in dotfiles_data["Profiles"]:
+    guid = dot_profile["Guid"]
+    live = live_profiles.get(guid)
+
+    if not live:
+        # No UI overrides exist — dotfiles version is current
+        updated.append(dot_profile)
+        continue
+
+    # Merge live values into dotfiles profile
+    exported = dict(dot_profile)
+    modified = False
+    for key in dot_profile:
+        if key in RUNTIME_KEYS or key not in live:
+            continue
+        value = live[key]
+        if key == "Tags" and isinstance(value, list):
+            value = [t for t in value if t != "Dynamic"]
+        if isinstance(value, bytes):
+            continue
+        if value != dot_profile[key]:
+            modified = True
+        exported[key] = value
+
+    if modified:
+        changed_names.append(dot_profile["Name"])
+    updated.append(exported)
+
+output = {"Profiles": updated}
+
+with open(profiles_json, "w") as f:
+    json.dump(output, f, indent=4, ensure_ascii=False)
+    f.write("\n")
+
+if changed_names:
+    print(f"Updated {len(changed_names)} profile(s): {', '.join(changed_names)}")
+else:
+    print("No profile changes detected.")
+EOF
