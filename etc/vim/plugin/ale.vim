@@ -21,13 +21,17 @@ let g:ale_history_log_output = 0              " disable logging for performance
 let g:ale_maximum_file_size = 500000          " don't lint huge files
 let g:ale_cache_executable_check_failures = 1 " cache missing executables
 
+" ruby: solargraph is used because ALE lacks ruby-lsp support. ruby-lsp
+" requires incremental sync which ALE doesn't implement yet. Switch when fixed.
+"   ruby-lsp support: https://github.com/dense-analysis/ale/issues/4497
+"   incremental sync: https://github.com/dense-analysis/ale/issues/4456
 let g:ale_linters = {
 \   'dockerfile': ['hadolint'],
 \   'go': ['gopls', 'gofmt'],
 \   'json': ['jq'],
 \   'markdown': ['rumdl'],
 \   'python': ['ruff', 'pylsp'],
-\   'ruby': ['rubocop', 'ruby_lsp'],
+\   'ruby': ['rubocop', 'solargraph'],
 \   'sh': ['bashate', 'shellcheck'],
 \   'terraform': ['terraform'],
 \   'toml': ['taplo'],

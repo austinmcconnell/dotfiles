@@ -25,7 +25,7 @@ else
     fi
 fi
 
-DEFAULT_RUBY_VERSION=3.2.2
+DEFAULT_RUBY_VERSION=3.4.9
 
 export RBENV_ROOT="$XDG_DATA_HOME/rbenv"
 PATH="$RBENV_ROOT/bin:$RBENV_ROOT/shims:$PATH"
@@ -120,5 +120,6 @@ rbenv global "${DEFAULT_RUBY_VERSION}"
 # Ensure default gems are installed (rbenv-default-gems only runs
 # during rbenv install, so gems added later would be missed)
 xargs gem install <"$DOTFILES_DIR/etc/ruby/default-gems"
+rbenv rehash
 
 curl -fsSL https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-doctor | bash
