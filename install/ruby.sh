@@ -36,9 +36,7 @@ mkdir -p "$RBENV_ROOT/plugins"
 mkdir -p "$XDG_CONFIG_HOME/rubocop"
 mkdir -p "$XDG_CONFIG_HOME/irb"
 mkdir -p "$XDG_DATA_HOME/irb"
-mkdir -p "$XDG_DATA_HOME/gem"
 mkdir -p "$XDG_CONFIG_HOME/gem"
-mkdir -p "$XDG_CACHE_HOME/gem/specs"
 mkdir -p "$XDG_CONFIG_HOME/bundle"
 mkdir -p "$XDG_CACHE_HOME/bundle"
 mkdir -p "$XDG_DATA_HOME/bundle/plugin"
@@ -53,20 +51,6 @@ fi
 if [[ -f "$HOME/.irb-history" ]]; then
     echo "Moving existing .irb-history file to XDG_DATA_HOME/irb/history"
     mv "$HOME/.irb-history" "$XDG_DATA_HOME/irb/history"
-fi
-
-# Migrate RubyGems files
-if [[ -d "$HOME/.gem" ]]; then
-    echo "Moving existing .gem directory contents to XDG_DATA_HOME/gem"
-    if [[ -d "$HOME/.gem/specs" ]]; then
-        cp -r "$HOME/.gem/specs/"* "$XDG_CACHE_HOME/gem/specs/"
-    fi
-    # Copy any other important gem files/directories
-    if [[ -d "$HOME/.gem/ruby" ]]; then
-        mkdir -p "$XDG_DATA_HOME/gem/ruby"
-        cp -r "$HOME/.gem/ruby/"* "$XDG_DATA_HOME/gem/ruby/"
-    fi
-    rm -rf "$HOME/.gem"
 fi
 
 # Migrate Bundler files
