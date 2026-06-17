@@ -118,8 +118,8 @@ let g:ale_python_mypy_ignore_invalid_syntax = 1
 let g:ale_ruby_rubocop_executable = 'bundle'
 let g:ale_ruby_rubocop_options = '--config ~/.config/rubocop/config.yml'
 " Full path bypasses rbenv shim (fails when project .ruby-version isn't installed).
-" Update path when DEFAULT_RUBY_VERSION changes in install/ruby.sh.
-let g:ale_ruby_solargraph_executable = $HOME . '/.local/share/rbenv/versions/3.4.9/bin/solargraph'
+let g:ale_ruby_solargraph_executable =
+  \ trim(system('RBENV_VERSION=$(rbenv global) rbenv which solargraph'))
 
 let g:ale_sh_bashate_options = '--max-line-length 100 --ignore E006,E040'
 let g:ale_sh_shfmt_options = '--indent 4'
