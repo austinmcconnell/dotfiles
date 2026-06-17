@@ -8,6 +8,11 @@ set -euo pipefail
 
 COMMIT_MSG_FILE="$1"
 
+# Save message on failure so prepare-commit-msg can restore it next time.
+SAVED_MSG="$(git rev-parse --git-dir)/COMMIT_MSG_SAVED"
+ec=0
+trap 'ec=$?; if [[ $ec -ne 0 ]]; then cp "$COMMIT_MSG_FILE" "$SAVED_MSG"; else rm -f "$SAVED_MSG"; fi' EXIT
+
 # Configuration
 PREFIX="[commit-msg]"
 MAX_SUBJECT_LENGTH=72

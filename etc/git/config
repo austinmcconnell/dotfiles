@@ -265,3 +265,11 @@
 [hook "post-checkout-setup"]
     event = post-checkout
     command = ~/.config/git/hooks/post-checkout
+
+
+#==========================================
+# Other
+#==========================================
+[hook "prepare-commit-msg-restore"]
+    event = prepare-commit-msg
+    command = ~/.config/git/hooks/prepare-commit-msg

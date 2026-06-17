@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -euo pipefail
+
+# Restores a previously saved commit message after a commit-msg hook failure.
+# Only activates for plain editor-based commits (no -m, merge, amend, etc.).
+
+COMMIT_MSG_FILE="$1"
+COMMIT_SOURCE="${2:-}"
+SAVED_MSG="$(git rev-parse --git-dir)/COMMIT_MSG_SAVED"
+
+if [[ -z "$COMMIT_SOURCE" || "$COMMIT_SOURCE" == "template" ]] && [[ -f "$SAVED_MSG" ]]; then
+    TEMPLATE=$(git config --path --get commit.template 2>/dev/null || true)
+    {
+        cat "$SAVED_MSG"
+        if [[ -n "$TEMPLATE" ]] && [[ -f "$TEMPLATE" ]]; then
+            cat "$TEMPLATE"
+        fi
+    } >"$COMMIT_MSG_FILE"
+    rm -f "$SAVED_MSG"
+fi
