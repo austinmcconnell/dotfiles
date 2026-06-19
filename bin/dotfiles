@@ -27,6 +27,7 @@ sub_help() {
     echo "   edit                 Open dotfiles in IDE ($DOTFILES_IDE)"
     echo "   help                 This help message"
     echo "   mac                  macOS specific commands (see below)"
+    echo "   orphans              Find packages installed but not tracked in dotfiles"
     echo "   sync-projects        Fetch and fast-forward \$PROJECTS_DIR repositories"
     echo "   sync-sources         Fetch and reset \$SOURCES_DIR repositories"
     echo "   test                 Run tests"
@@ -834,10 +835,169 @@ sub_analysis-status() {
     echo " Drift: commits since last project-analysis (— = no analysis)"
 }
 
+# Check for orphaned packages not tracked in dotfiles
+sub_orphans() {
+    log_info "Checking for orphaned packages"
+
+    local GREEN="\033[32m"
+    local YELLOW="\033[0;33m"
+    local RESET="\033[0m"
+    local found_orphans=0
+
+    # --- npm global packages ---
+    if is-executable npm; then
+        print_section_header "npm global packages"
+        local -a npm_tracked=()
+        # From default-packages
+        if [[ -f "$DOTFILES_DIR/etc/node/default-packages" ]]; then
+            while IFS= read -r line; do
+                [[ -n "$line" && "$line" != \#* ]] && npm_tracked+=("$line")
+            done <"$DOTFILES_DIR/etc/node/default-packages"
+        fi
+        # From mcp-servers.conf
+        if [[ -f "$DOTFILES_DIR/etc/kiro-cli/mcp-servers.conf" ]]; then
+            # shellcheck source=SCRIPTDIR/../etc/kiro-cli/mcp-servers.conf
+            source "$DOTFILES_DIR/etc/kiro-cli/mcp-servers.conf"
+            npm_tracked+=("${NODE_MCP_SERVERS[@]}")
+        fi
+
+        local -a npm_installed=()
+        while IFS= read -r pkg; do
+            [[ -n "$pkg" ]] && npm_installed+=("$pkg")
+        done < <(npm list -g --depth=0 --json 2>/dev/null | jq -r '.dependencies | keys[]' 2>/dev/null)
+
+        local -a npm_orphans=()
+        for pkg in "${npm_installed[@]}"; do
+            local tracked=false
+            for t in "${npm_tracked[@]}"; do
+                [[ "$pkg" == "$t" ]] && tracked=true && break
+            done
+            $tracked || npm_orphans+=("$pkg")
+        done
+
+        if [[ ${#npm_orphans[@]} -eq 0 ]]; then
+            echo -e "${GREEN}✓ No orphaned npm packages${RESET}"
+        else
+            found_orphans=1
+            echo -e "${YELLOW}Orphaned npm packages (not in default-packages or mcp-servers.conf):${RESET}"
+            for pkg in "${npm_orphans[@]}"; do
+                echo "  - $pkg"
+            done
+            echo "  Run: npm uninstall -g ${npm_orphans[*]}"
+        fi
+    fi
+
+    # --- pip packages (per pyenv version) ---
+    if is-executable pyenv; then
+        print_section_header "pip packages"
+
+        for python_version in $(pyenv versions --bare); do
+            # Use Python to resolve full dependency tree including extras
+            local -a pip_orphans=()
+            while IFS= read -r pkg; do
+                [[ -n "$pkg" ]] && pip_orphans+=("$pkg")
+            done < <(PYENV_VERSION="$python_version" python "$DOTFILES_DIR/scripts/pip_orphans.py" \
+                "$DOTFILES_DIR/etc/python/default-packages" 2>/dev/null)
+
+            if [[ ${#pip_orphans[@]} -eq 0 ]]; then
+                echo -e "${GREEN}✓ Python $python_version: no orphaned packages${RESET}"
+            else
+                found_orphans=1
+                echo -e "${YELLOW}Python $python_version: orphaned packages (not in default-packages):${RESET}"
+                for pkg in "${pip_orphans[@]}"; do
+                    echo "  - $pkg"
+                done
+            fi
+        done
+    fi
+
+    # --- Ruby gems ---
+    if is-executable gem; then
+        print_section_header "Ruby gems"
+        local -a gem_orphans=()
+        while IFS= read -r pkg; do
+            [[ -n "$pkg" ]] && gem_orphans+=("$pkg")
+        done < <(ruby "$DOTFILES_DIR/scripts/gem_orphans.rb" \
+            "$DOTFILES_DIR/etc/ruby/default-gems" 2>/dev/null)
+
+        if [[ ${#gem_orphans[@]} -eq 0 ]]; then
+            echo -e "${GREEN}✓ No orphaned gems${RESET}"
+        else
+            found_orphans=1
+            echo -e "${YELLOW}Orphaned gems (not in default-gems or their dependencies):${RESET}"
+            for pkg in "${gem_orphans[@]}"; do
+                echo "  - $pkg"
+            done
+        fi
+    fi
+
+    # --- Homebrew ---
+    if is-executable brew; then
+        print_section_header "Homebrew packages"
+        # Build tracked list from all install scripts
+        local -a brew_tracked=()
+        while IFS= read -r pkg; do
+            [[ -n "$pkg" ]] && brew_tracked+=("$pkg")
+        done < <(grep -h 'install_if_needed' "$DOTFILES_DIR"/install/brew.sh 2>/dev/null |
+            sed -E 's/.*install_if_needed "([^"]+)".*/\1/')
+        # Also grab direct brew install calls from other scripts
+        while IFS= read -r pkg; do
+            [[ -n "$pkg" ]] && brew_tracked+=("$pkg")
+        done < <(grep -rh 'brew install' "$DOTFILES_DIR"/install/*.sh 2>/dev/null |
+            grep -v 'install_if_needed\|NONINTERACTIVE\|^#\|^ *#' |
+            sed -E 's/.*brew install (--formula |--cask )?//' | tr -d '"' |
+            tr ' ' '\n' | grep -v '^-\|^\$\|^$')
+
+        # Formulae leaves (user-intentional, not pulled in as deps)
+        local -a brew_orphans=()
+        while IFS= read -r pkg; do
+            local tracked=false
+            local short_pkg="${pkg##*/}" # strip tap prefix (e.g. tap/name -> name)
+            for t in "${brew_tracked[@]}"; do
+                [[ "$pkg" == "$t" || "$short_pkg" == "$t" ]] && tracked=true && break
+            done
+            $tracked || brew_orphans+=("$pkg")
+        done < <(brew leaves 2>/dev/null)
+
+        # Casks
+        local -a cask_orphans=()
+        while IFS= read -r pkg; do
+            local tracked=false
+            for t in "${brew_tracked[@]}"; do
+                [[ "$pkg" == "$t" ]] && tracked=true && break
+            done
+            $tracked || cask_orphans+=("$pkg")
+        done < <(brew list --cask 2>/dev/null)
+
+        if [[ ${#brew_orphans[@]} -eq 0 && ${#cask_orphans[@]} -eq 0 ]]; then
+            echo -e "${GREEN}✓ No orphaned Homebrew packages${RESET}"
+        else
+            found_orphans=1
+            if [[ ${#brew_orphans[@]} -gt 0 ]]; then
+                echo -e "${YELLOW}Orphaned formulae (not in install scripts):${RESET}"
+                for pkg in "${brew_orphans[@]}"; do
+                    echo "  - $pkg"
+                done
+            fi
+            if [[ ${#cask_orphans[@]} -gt 0 ]]; then
+                echo -e "${YELLOW}Orphaned casks (not in install scripts):${RESET}"
+                for pkg in "${cask_orphans[@]}"; do
+                    echo "  - $pkg"
+                done
+            fi
+        fi
+    fi
+
+    if [[ $found_orphans -eq 0 ]]; then
+        echo ""
+        log_info "All packages are tracked — no orphans found"
+    fi
+}
+
 # Shell completion for available commands
 # Make sure to keep this in sync with the available public commands
 sub_completion() {
-    echo "analysis-status clean drift-check edit help mac sync-projects sync-sources test update"
+    echo "analysis-status clean drift-check edit help mac orphans sync-projects sync-sources test update"
 }
 
 # Process global options
