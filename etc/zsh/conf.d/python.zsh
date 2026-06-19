@@ -26,7 +26,6 @@ if command -v pyenv >/dev/null; then
 fi
 
 # PIPENV
-export WORKON_HOME=~/.venvs
 export PIPENV_VENV_IN_PROJECT=1
 export PIPENV_VERBOSITY=-1
 

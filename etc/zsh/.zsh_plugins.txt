@@ -36,4 +36,3 @@ $ZDOTDIR/custom/plugins/extra
 https://github.com/romkatv/zsh-bench kind:path
 
 ### Deferred Plugins
-https://github.com/MichaelAquilina/zsh-autoswitch-virtualenv kind:defer
