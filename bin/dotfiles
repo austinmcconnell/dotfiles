@@ -107,8 +107,16 @@ sub_update() {
 
     print_section_header "Upgrading global Python packages"
     for python_version in $(pyenv versions --bare); do
-        log_debug "Upgrading packages for Python $python_version"
-        PYENV_VERSION="$python_version" pip install --upgrade -r "$DOTFILES_DIR/etc/python/default-packages"
+        before=$(PYENV_VERSION="$python_version" pip list --format=json 2>/dev/null)
+        PYENV_VERSION="$python_version" pip install --upgrade --quiet -r "$DOTFILES_DIR/etc/python/default-packages" 2>/dev/null
+        after=$(PYENV_VERSION="$python_version" pip list --format=json 2>/dev/null)
+        upgraded=$(PYENV_VERSION="$python_version" python -c "import sys,json;b={p['name']:p['version'] for p in json.loads(sys.argv[1])};a={p['name']:p['version'] for p in json.loads(sys.argv[2])};[print(f'  ✓ {n} {b[n]} → {a[n]}') for n in sorted(a) if n in b and b[n]!=a[n]]" "$before" "$after")
+        if [[ -z "$upgraded" ]]; then
+            echo -e "\033[32m✓ Python $python_version: all packages up to date\033[0m"
+        else
+            echo "Python $python_version: upgraded packages:"
+            echo "$upgraded"
+        fi
     done
 
     print_section_header "Updating rbenv"
