@@ -157,6 +157,41 @@ install_if_needed() {
     fi
 }
 
+# Run a command, capture output, log it at debug level
+# Usage: run_and_capture output_var command [args...]
+run_and_capture() {
+    local -n _output_ref=$1
+    shift
+    log_debug "Running: $*"
+    _output_ref=$("$@" 2>&1) || true
+    log_debug "$_output_ref"
+}
+
+# Strip ANSI escape codes from stdin
+strip_ansi() {
+    sed 's/\x1b\[[0-9;]*m//g'
+}
+
+# Print a consistent update summary
+# Usage: print_update_summary "Tool" "things" "${items[@]}"
+# If items array is empty, prints "✓ Tool: all things up to date"
+# Otherwise prints "Tool: updated N things" followed by itemized list
+print_update_summary() {
+    local tool="$1"
+    local thing_noun="$2"
+    shift 2
+    local items=("$@")
+
+    if [[ ${#items[@]} -eq 0 ]]; then
+        echo -e "\033[32m✓ ${tool}: all ${thing_noun} up to date\033[0m"
+    else
+        echo "${tool}: updated ${#items[@]} ${thing_noun}"
+        for item in "${items[@]}"; do
+            echo -e "  \033[32m✓\033[0m ${item}"
+        done
+    fi
+}
+
 tap_if_needed() {
     local tap=$1
 

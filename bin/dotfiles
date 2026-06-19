@@ -65,6 +65,7 @@ sub_test() {
 # Update all packages and package managers
 sub_update() {
     log_info "Starting update process"
+    export HOMEBREW_NO_ENV_HINTS=1
 
     # macOS-specific updates
     if is-macos; then
@@ -78,8 +79,16 @@ sub_update() {
         fi
 
         print_section_header "Upgrading Homebrew packages"
-        log_debug "Running: brew upgrade"
-        brew upgrade
+        local brew_outdated
+        brew_outdated=$(brew outdated --verbose 2>/dev/null) || true
+        # shellcheck disable=SC2034
+        local brew_output
+        run_and_capture brew_output brew upgrade
+        local -a brew_upgraded=()
+        while IFS= read -r line; do
+            [[ -n "$line" ]] && brew_upgraded+=("$line")
+        done <<<"$brew_outdated"
+        print_update_summary "Homebrew" "packages" "${brew_upgraded[@]}"
     fi
 
     # Debian-specific updates
@@ -97,13 +106,35 @@ sub_update() {
 
     # Update language-specific package managers and tools
     print_section_header "Updating antidote"
-    log_debug "Running: antidote update"
     PATH="$ZDOTDIR/.antidote/":$PATH
-    antidote update
+    local antidote_output
+    run_and_capture antidote_output antidote update
+    local -a antidote_updated=()
+    while IFS= read -r line; do
+        local clean
+        clean=$(echo "$line" | strip_ansi)
+        if [[ "$clean" =~ ^antidote:\ updated:\ ([^ ]+) ]]; then
+            antidote_updated+=("${BASH_REMATCH[1]}")
+        fi
+    done <<<"$antidote_output"
+    print_update_summary "antidote" "plugins" "${antidote_updated[@]}"
 
     print_section_header "Updating pyenv"
-    log_debug "Running: pyenv update"
-    pyenv update
+    local pyenv_output
+    run_and_capture pyenv_output pyenv update
+    local -a pyenv_updated=()
+    local current_component=""
+    while IFS= read -r line; do
+        local clean
+        clean=$(echo "$line" | strip_ansi)
+        if [[ "$clean" =~ ^Updating.*/([^/]+)\.\.\.$ ]]; then
+            current_component="${BASH_REMATCH[1]}"
+        elif [[ -n "$current_component" && "$clean" != "Already up to date." && "$clean" =~ ^[0-9a-f]+\.\.[0-9a-f]+ ]]; then
+            pyenv_updated+=("$current_component")
+            current_component=""
+        fi
+    done <<<"$pyenv_output"
+    print_update_summary "pyenv" "components" "${pyenv_updated[@]}"
 
     print_section_header "Upgrading global Python packages"
     for python_version in $(pyenv versions --bare); do
@@ -120,27 +151,64 @@ sub_update() {
     done
 
     print_section_header "Updating rbenv"
-    log_debug "Running: rbenv update"
-    rbenv update
+    local rbenv_output
+    run_and_capture rbenv_output rbenv update --verbose
+    local -a rbenv_updated=()
+    local current_component=""
+    while IFS= read -r line; do
+        if [[ "$line" =~ ^Updating\ (.+)$ ]]; then
+            current_component="${BASH_REMATCH[1]}"
+        elif [[ -n "$current_component" && "$line" == *"Already up to date."* ]]; then
+            current_component=""
+        elif [[ -n "$current_component" && "$line" =~ ^\  ]]; then
+            rbenv_updated+=("$current_component")
+            current_component=""
+        fi
+    done <<<"$rbenv_output"
+    print_update_summary "rbenv" "components" "${rbenv_updated[@]}"
 
     if is-executable gem; then
         print_section_header "Updating Ruby gems"
-        log_debug "Running: gem update --system --no-document"
-        gem update --system --no-document
-        log_debug "Running: gem update --no-document"
-        gem update --no-document
+        # shellcheck disable=SC2034
+        local gem_system_output
+        run_and_capture gem_system_output gem update --system --no-document
+
+        local gem_output
+        run_and_capture gem_output gem update --no-document
+        local -a gem_updated=()
+        while IFS= read -r line; do
+            if [[ "$line" =~ ^Successfully\ installed\ (.+)$ ]]; then
+                gem_updated+=("${BASH_REMATCH[1]}")
+            fi
+        done <<<"$gem_output"
+        print_update_summary "Ruby gems" "gems" "${gem_updated[@]}"
     fi
 
     print_section_header "Updating vim-plug"
     log_debug "Running: vim -i NONE -c \"PlugUpdate\" -c \"qa\""
-    vim -i NONE -c "PlugUpdate" -c "qa"
+    if [[ "$LOG_LEVEL" == "debug" ]]; then
+        vim -i NONE -c "PlugUpdate" -c "qa"
+    else
+        vim -es -i NONE -c "PlugUpdate" -c "qa" >/dev/null 2>&1 || true
+    fi
     log_debug "Running: vim -es -i NONE -c \"PlugUpgrade\" -c \"qa\""
     vim -es -i NONE -c "PlugUpgrade" -c "qa"
 
     if is-executable npm; then
         print_section_header "Updating global npm packages"
-        log_debug "Running: npm update -g"
-        npm update -g
+        local npm_outdated
+        npm_outdated=$(npm outdated -g --parseable 2>/dev/null) || true
+        # shellcheck disable=SC2034
+        local npm_output
+        run_and_capture npm_output npm update -g
+        local -a npm_updated=()
+        while IFS= read -r line; do
+            # parseable format: /path/node_modules/pkg:pkg@current:pkg@wanted:pkg@latest
+            if [[ "$line" =~ :([^@]+)@([^:]+):([^@]+)@([^:]+): ]]; then
+                npm_updated+=("${BASH_REMATCH[1]} ${BASH_REMATCH[2]} → ${BASH_REMATCH[4]}")
+            fi
+        done <<<"$npm_outdated"
+        print_update_summary "npm" "global packages" "${npm_updated[@]}"
     fi
 
     log_info "Cleaning up"
