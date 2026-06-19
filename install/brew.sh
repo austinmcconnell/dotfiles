@@ -103,6 +103,7 @@ install_if_needed "httpie" "formula"
 install_if_needed "jq" "formula"
 install_if_needed "k9s" "formula"
 install_if_needed "kubernetes-cli" "formula"
+install_if_needed "kubectx" "formula"
 install_if_needed "nano" "formula"
 install_if_needed "openssl@3" "formula" # Used for compiling (e.g. pyenv building python versions from source)
 install_if_needed "rumdl" "formula"

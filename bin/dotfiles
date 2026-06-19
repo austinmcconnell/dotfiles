@@ -938,7 +938,7 @@ sub_orphans() {
         local -a brew_tracked=()
         while IFS= read -r pkg; do
             [[ -n "$pkg" ]] && brew_tracked+=("$pkg")
-        done < <(grep -h 'install_if_needed' "$DOTFILES_DIR"/install/brew.sh 2>/dev/null |
+        done < <(grep -rh 'install_if_needed' "$DOTFILES_DIR"/install/*.sh 2>/dev/null |
             sed -E 's/.*install_if_needed "([^"]+)".*/\1/')
         # Also grab direct brew install calls from other scripts
         while IFS= read -r pkg; do
@@ -959,12 +959,17 @@ sub_orphans() {
             $tracked || brew_orphans+=("$pkg")
         done < <(brew leaves 2>/dev/null)
 
-        # Casks
+        # Casks (handle renames like docker→docker-desktop, flux→flux-app)
         local -a cask_orphans=()
         while IFS= read -r pkg; do
             local tracked=false
+            local base_pkg="${pkg%-app}"    # strip -app suffix
+            base_pkg="${base_pkg%-desktop}" # strip -desktop suffix
             for t in "${brew_tracked[@]}"; do
-                [[ "$pkg" == "$t" ]] && tracked=true && break
+                if [[ "$pkg" == "$t" || "$base_pkg" == "$t" ]]; then
+                    tracked=true
+                    break
+                fi
             done
             $tracked || cask_orphans+=("$pkg")
         done < <(brew list --cask 2>/dev/null)
