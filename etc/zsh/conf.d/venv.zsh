@@ -47,11 +47,26 @@ function _venv_chpwd() {
 function mkvenv() {
     if [[ -f Pipfile ]]; then
         pipenv install
+    elif (( $+commands[uv] )); then
+        if [[ -f uv.lock ]]; then
+            uv sync
+            source .venv/bin/activate
+        else
+            uv venv
+            source .venv/bin/activate
+            if [[ -f requirements.txt ]]; then
+                uv pip install -r requirements.txt
+            elif [[ -f pyproject.toml ]]; then
+                uv pip install -e .
+            fi
+        fi
     else
         python -m venv .venv
         source .venv/bin/activate
         if [[ -f requirements.txt ]]; then
             pip install -r requirements.txt
+        elif [[ -f pyproject.toml ]]; then
+            pip install -e .
         fi
     fi
 }
