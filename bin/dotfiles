@@ -135,34 +135,6 @@ sub_update() {
         npm update -g
     fi
 
-    source "$DOTFILES_DIR/etc/kiro-cli/mcp-servers.conf"
-
-    if is-executable uv; then
-        print_section_header "Refreshing uvx-cached Python packages"
-        for server in "${PYTHON_MCP_SERVERS[@]}"; do
-            echo "Updating $server..."
-            log_debug "Running: uv tool upgrade $server"
-            if uv tool upgrade "$server" 2>&1; then
-                echo "✓ $server updated"
-            elif uv tool install "$server" 2>&1; then
-                echo "✓ $server installed"
-            else
-                log_warning "Failed to update $server"
-            fi
-        done
-    fi
-
-    # Update github-mcp-server
-    if is-executable go; then
-        print_section_header "Updating github-mcp-server"
-        log_debug "Running: go install $GITHUB_MCP_SERVER_PKG"
-        if go install "$GITHUB_MCP_SERVER_PKG"; then
-            echo "✅ github-mcp-server updated"
-        else
-            log_warning "Failed to update github-mcp-server"
-        fi
-    fi
-
     log_info "Cleaning up"
     sub_clean
 
