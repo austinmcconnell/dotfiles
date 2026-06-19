@@ -869,6 +869,11 @@ while ! process_options "$COMMAND_NAME"; do
     COMMAND_NAME=$1
 done
 
+# Process trailing options (supports both "dotfiles --debug update" and "dotfiles update --debug")
+for arg in "$@"; do
+    process_options "$arg"
+done
+
 # Command dispatcher
 case $COMMAND_NAME in
 "" | "-h" | "--help")
