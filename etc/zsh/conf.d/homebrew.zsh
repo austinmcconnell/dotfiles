@@ -11,6 +11,9 @@
 # Limit how often Homebrew checks for updates
 export HOMEBREW_API_AUTO_UPDATE_SECS=86400
 
+# Don't upgrade casks that manage their own updates (VS Code, Docker, etc.)
+export HOMEBREW_NO_UPGRADE_AUTO_UPDATES_CASKS=1
+
 ##############################
 # Homebrew Aliases
 ##############################
