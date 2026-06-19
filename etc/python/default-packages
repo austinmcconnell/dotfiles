@@ -6,6 +6,7 @@ docformatter
 flake8
 isort
 mypy
+pip-audit
 pipenv
 pre-commit
 proselint

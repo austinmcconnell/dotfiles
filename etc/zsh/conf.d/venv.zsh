@@ -32,6 +32,7 @@ function _venv_chpwd() {
                 deactivate
             fi
             source "$venv_path/bin/activate"
+            _check_pip_audit
         fi
     else
         if [[ -n "${VIRTUAL_ENV:-}" ]] && type deactivate >/dev/null 2>&1; then
@@ -69,6 +70,40 @@ function mkvenv() {
             pip install -e .
         fi
     fi
+
+    # Remind user to audit
+    if (( $+commands[uv] )) && [[ -f uv.lock ]] || (( $+commands[pip-audit] )); then
+        echo "💡 Run \033[95mauditvenv\033[0m to check for vulnerabilities."
+    fi
+}
+
+function _check_pip_audit() {
+    [[ -d .venv ]] || return
+    (( $+commands[pip-audit] )) || { (( $+commands[uv] )) && [[ -f uv.lock ]] } || return
+    local audit_file=".venv/.pip-audit"
+    if [[ ! -f "$audit_file" ]]; then
+        echo "🔍 pip-audit has never been run. Run \033[95mauditvenv\033[0m to check for vulnerabilities."
+    elif [[ $(find "$audit_file" -mtime +30 2>/dev/null) ]]; then
+        echo "🔍 pip-audit last run >30 days ago. Run \033[95mauditvenv\033[0m to re-check."
+    fi
+}
+
+function auditvenv() {
+    local rc
+    if (( $+commands[uv] )) && [[ -f uv.lock ]]; then
+        uv audit; rc=$?
+    elif [[ -f Pipfile ]] && (( $+commands[pipenv] )) && (( $+commands[pip-audit] )); then
+        pip-audit -r <(pipenv requirements) --no-deps --disable-pip; rc=$?
+    elif (( $+commands[pip-audit] )); then
+        pip-audit -r <(uv pip freeze --python .venv/bin/python 2>/dev/null || .venv/bin/pip freeze) --no-deps --disable-pip; rc=$?
+    else
+        echo "No audit tool found. Install uv or pip-audit." >&2
+        return 2
+    fi
+    if (( rc <= 1 )); then
+        touch .venv/.pip-audit
+    fi
+    return $rc
 }
 
 autoload -Uz add-zsh-hook
