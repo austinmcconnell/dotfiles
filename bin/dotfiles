@@ -105,6 +105,12 @@ sub_update() {
     log_debug "Running: pyenv update"
     pyenv update
 
+    print_section_header "Upgrading global Python packages"
+    for python_version in $(pyenv versions --bare); do
+        log_debug "Upgrading packages for Python $python_version"
+        PYENV_VERSION="$python_version" pip install --upgrade -r "$DOTFILES_DIR/etc/python/default-packages"
+    done
+
     print_section_header "Updating rbenv"
     log_debug "Running: rbenv update"
     rbenv update
