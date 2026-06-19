@@ -395,7 +395,7 @@ sub_sync-projects() {
 
     local total=0
     for repo_dir in "$projects_dir"/*/*; do
-        [[ -d "$repo_dir/.git" ]] && ((total++))
+        [[ -d "$repo_dir/.git" ]] && total=$((total + 1))
     done
 
     local count=0
@@ -404,7 +404,7 @@ sub_sync-projects() {
 
         local display_path="${repo_dir#"$projects_dir/"}"
         repos+=("$display_path")
-        ((count++))
+        count=$((count + 1))
 
         printf "\r\033[K  Fetching [%d/%d] %s..." "$count" "$total" "$display_path" >&2
 
@@ -481,8 +481,8 @@ sub_sync-projects() {
     printf "\r\033[K" >&2
     local max_repo=10 max_detail=7
     for i in "${!repos[@]}"; do
-        ((${#repos[$i]} > max_repo)) && max_repo=${#repos[$i]}
-        ((${#details[$i]} > max_detail)) && max_detail=${#details[$i]}
+        [[ ${#repos[$i]} -gt $max_repo ]] && max_repo=${#repos[$i]}
+        [[ ${#details[$i]} -gt $max_detail ]] && max_detail=${#details[$i]}
     done
 
     # Print table
@@ -530,10 +530,10 @@ sub_sync-projects() {
     local updated=0 current=0 skipped=0 problems=0
     for s in "${statuses[@]}"; do
         case "$s" in
-        updated) ((updated++)) ;;
-        current) ((current++)) ;;
-        skipped) ((skipped++)) ;;
-        diverged | warning | error) ((problems++)) ;;
+        updated) updated=$((updated + 1)) ;;
+        current) current=$((current + 1)) ;;
+        skipped) skipped=$((skipped + 1)) ;;
+        diverged | warning | error) problems=$((problems + 1)) ;;
         esac
     done
     echo ""
@@ -563,7 +563,7 @@ sub_sync-sources() {
 
     local total=0
     for repo_dir in "$sources_dir"/*/*; do
-        [[ -d "$repo_dir/.git" ]] && ((total++))
+        [[ -d "$repo_dir/.git" ]] && total=$((total + 1))
     done
 
     local count=0
@@ -572,7 +572,7 @@ sub_sync-sources() {
 
         local display_path="${repo_dir#"$sources_dir/"}"
         repos+=("$display_path")
-        ((count++))
+        count=$((count + 1))
 
         printf "\r\033[K  Fetching [%d/%d] %s..." "$count" "$total" "$display_path" >&2
 
@@ -640,8 +640,8 @@ sub_sync-sources() {
     printf "\r\033[K" >&2
     local max_repo=10 max_detail=7
     for i in "${!repos[@]}"; do
-        ((${#repos[$i]} > max_repo)) && max_repo=${#repos[$i]}
-        ((${#details[$i]} > max_detail)) && max_detail=${#details[$i]}
+        [[ ${#repos[$i]} -gt $max_repo ]] && max_repo=${#repos[$i]}
+        [[ ${#details[$i]} -gt $max_detail ]] && max_detail=${#details[$i]}
     done
 
     # Print table
@@ -679,9 +679,9 @@ sub_sync-sources() {
     local updated=0 current=0 problems=0
     for s in "${statuses[@]}"; do
         case "$s" in
-        updated) ((updated++)) ;;
-        current) ((current++)) ;;
-        warning | error) ((problems++)) ;;
+        updated) updated=$((updated + 1)) ;;
+        current) current=$((current + 1)) ;;
+        warning | error) problems=$((problems + 1)) ;;
         esac
     done
     echo ""
@@ -755,7 +755,7 @@ sub_analysis-status() {
     # Calculate repo column width
     local max_repo=10
     for r in "${repos[@]}"; do
-        ((${#r} > max_repo)) && max_repo=${#r}
+        [[ ${#r} -gt $max_repo ]] && max_repo=${#r}
     done
 
     # Print table
@@ -811,14 +811,14 @@ sub_analysis-status() {
         read -ra flags_arr <<<"${all_flags[$i]}"
         local count=0
         for f in "${flags_arr[@]}"; do
-            [[ "$f" == "current" || "$f" == "stale" ]] && ((count++))
+            [[ "$f" == "current" || "$f" == "stale" ]] && count=$((count + 1))
         done
         if [[ $count -eq 9 ]]; then
-            ((complete++))
+            complete=$((complete + 1))
         elif [[ $count -gt 0 ]]; then
-            ((with_any++))
+            with_any=$((with_any + 1))
         else
-            ((none++))
+            none=$((none + 1))
         fi
     done
     echo ""
