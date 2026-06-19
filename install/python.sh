@@ -10,7 +10,7 @@ else
         echo "**************************************************"
         echo "Installing Python"
         echo "**************************************************"
-        brew install ncurses openssl readline xz
+        brew install libb2 ncurses openssl readline xz
         LDFLAGS="-L$(brew --prefix openssl)/lib"
         CPPFLAGS="-I$(brew --prefix openssl)/include"
         CONFIGURE_OPTS="--with-openssl=$(brew --prefix openssl)"
