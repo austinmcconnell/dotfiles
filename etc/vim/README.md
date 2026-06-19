@@ -65,7 +65,7 @@ Language-specific configurations in `after/ftplugin/` override defaults for:
 
 - **Punctuation-based undo**: Undo at sentence/clause boundaries for better prose editing
 - **Quick spell correction**: `<C-l>` auto-corrects previous misspelled word
-- **Opt-in prose linters**: Three ways to enable proselint/writegood:
+- **Opt-in prose linters**: Three ways to enable proselint/vale:
   - Modeline: `<!-- vim: set ft=markdown.prose: -->`
   - Commands: `:ProseOn` / `:ProseOff`
   - Auto-enable: Files in `writing/`, `blog/`, `essays/`, `articles/`, `drafts/`, `posts/`
@@ -83,7 +83,7 @@ Language-specific configurations in `after/ftplugin/` override defaults for:
 - **Key mappings**: Check individual plugin files in `plugin/`
 - **Language settings**: Look in `after/ftplugin/{language}.vim`
 - **Linting configuration**: See `plugin/ale.vim` for comprehensive language support
-- **Prose writing**: Use `:ProseOn` to enable proselint/writegood, or add modeline
+- **Prose writing**: Use `:ProseOn` to enable proselint/vale, or add modeline
   `<!-- vim: set ft=markdown.prose: -->`
 - **Custom syntax**: Check `syntax/` and `filetype.vim` for special file types
 - **Spell checking**: Custom dictionary in `spell/en.utf-8.add`, `<C-l>` for quick correction
