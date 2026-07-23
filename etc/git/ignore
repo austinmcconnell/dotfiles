@@ -30,3 +30,6 @@ worktrees/
 
 analysis/
 reports/
+
+## Jira ticket info
+jira/
