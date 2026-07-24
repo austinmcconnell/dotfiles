@@ -38,11 +38,15 @@
         return
     fi
     installed_packages=$(npm ls --global --parseable | awk '{gsub(/\/.*\//,"",$1); print}' | sort)
+    local missing=()
     for package in $(cat "$packages_file"); do
         trimmed_package=$(echo $package | cut -d '/' -f 2 )
-        assert $trimmed_package in $installed_packages
-        echo "$package is installed"
+        if [[ ${installed_packages[(I)$trimmed_package]} -eq 0 ]]; then
+            missing+=($package)
+        fi
     done
+    [[ ${#missing} -eq 0 ]] || fail "missing: ${(j:, :)missing}"
+    assert ${#missing} equals 0
 }
 
 @test 'pre-commit installed' {
@@ -64,13 +68,17 @@
     installed_packages=$(pip freeze | cut -d '=' -f 1)
     # Normalize package name by replacing hyphens with underscores
     normalized_packages=$(echo $installed_packages | tr '-' '_')
+    local missing=()
     for package in $(cat $DOTFILES_DIR/etc/python/default-packages); do
         # Trim package name to remove any [extras]
         trimmed_package=$(echo $package | cut -d '[' -f 1)
         normalized_package=$(echo $trimmed_package | tr '-' '_')
-        assert $normalized_package in $normalized_packages
-        echo "$package is installed"
+        if [[ ${normalized_packages[(I)$normalized_package]} -eq 0 ]]; then
+            missing+=($package)
+        fi
     done
+    [[ ${#missing} -eq 0 ]] || fail "missing: ${(j:, :)missing}"
+    assert ${#missing} equals 0
 }
 
 @test 'ruby installed' {
@@ -85,10 +93,14 @@
 
 @test 'ruby default gems installed' {
     installed_gems=$(gem list --no-versions)
+    local missing=()
     for gem_name in $(cat $DOTFILES_DIR/etc/ruby/default-gems); do
-        assert $gem_name in $installed_gems
-        echo "$gem_name is installed"
+        if [[ ${installed_gems[(I)$gem_name]} -eq 0 ]]; then
+            missing+=($gem_name)
+        fi
     done
+    [[ ${#missing} -eq 0 ]] || fail "missing: ${(j:, :)missing}"
+    assert ${#missing} equals 0
 }
 
 @test 'go installed' {
