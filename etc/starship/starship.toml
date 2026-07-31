@@ -18,7 +18,9 @@ $character"""
 
 
 [aws]
-  disabled = true
+  disabled = false
+  format = 'on [$symbol$profile]($style) '
+  style = 'bold yellow'
 
 [battery]
   charging_symbol = '⚡️ '
