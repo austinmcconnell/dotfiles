@@ -229,17 +229,17 @@ Security is enforced at three levels, evaluated in order:
 
 1. **Hooks** — `preToolUse` with `matcher: "*"` runs `block-env-files.sh` on _every_ agent. This
    hook inspects all tool inputs for `.env` file paths and exits `2` (block) if found. It is the
-   first line of defense and cannot be bypassed by `allowedTools` or `toolsSettings`.
-1. **toolsSettings** — per-tool path and command restrictions:
-   - `shell.deniedCommands` — regex patterns checked before `allowedCommands`. Every agent denies
-     `.env` access via patterns like `cat .*\\.env.*`. Deny lists are agent-specific (jira denies
-     `pip install .*`, etc.)
-   - `shell.allowedCommands` — regex patterns for permitted commands. Unmatched commands require
-     user approval. Note: patterns are full regex, not simple strings (e.g.,
-     `(GIT_PAGER=cat )?git log.*`, `ls( .*)?`)
-   - `write.allowedPaths` / `write.deniedPaths` — restrict file writes to project directories, block
-     system paths
-   - `grep.deniedPaths` / `glob.deniedPaths` — block `.env` file discovery via search tools
+   first line of defense and cannot be bypassed by `allowedTools` or `permissions`.
+1. **Permissions / toolsSettings** — per-tool path and command restrictions. The configs contain
+   both formats for V2/V3 compatibility:
+   - **V2 (`toolsSettings`)** — regex-based `shell.deniedCommands` / `shell.allowedCommands`, path
+     restrictions on `write`, `grep`, `glob`, and `read` tools
+   - **V3 (`permissions.rules`)** — capability-based rules with `match` (glob patterns), `exclude`,
+     and `effect` (deny/ask/allow). Effects resolve by restrictiveness: deny > ask > allow
+   - Both express the same intent: deny secrets access, allow read-only commands, block destructive
+     operations
+   - The shell deny rule includes `"exclude": ["chmod +x *"]` to prevent the broadened glob
+     `"chmod * *"` from blocking executable permission grants under V3's deny-takes-precedence model
 1. **allowedTools** — the whitelist of tools that skip user approval (see Tool Access Model above)
 
 ### Audit Logging
@@ -271,16 +271,23 @@ overhead, and restricting to one agent avoids write races on shared session file
 
 ### Hook Patterns
 
+Hooks use the V3 array format: each hook is an object with `name`, `trigger`, `matcher` (optional),
+`action` (`type` + `command`), and `timeout` (seconds). The V2 engine also reads this format.
+
 - `agentSpawn` — all agents run `recall-memory.sh` (surfaces engram memories for the current
   project). Default and docs also run `check-research-kb.sh` for KB staleness detection. Default
   additionally runs `rotate-traces.sh` for trace file cleanup.
-- `preToolUse` — every agent has the `block-env-files.sh` hook on `matcher: "*"`. Default adds audit
-  hooks for `use_aws`, `@kubernetes`, and `execute_bash`. All agents have `block-memory-secrets.sh`
-  on `matcher: "@engram"` to prevent storing credentials in persistent memory.
+- `preToolUse` — every agent has the `block-env-files.sh`, `block-sops-age-files.sh`, and
+  `block-ssh-private-keys.sh` hooks on `matcher: "*"`. Default adds audit hooks for `use_aws`,
+  `@kubernetes`, and `execute_bash`. All agents have `block-memory-secrets.sh` on
+  `matcher: "@engram"` to prevent storing credentials in persistent memory.
 - `postToolUse` — default and docs use this (runs `clear-research-kb-stale.sh` after knowledge
   operations to clear staleness warnings). Default also runs `trace-tool-call.sh` on `matcher: "*"`
   for session-scoped trace logging.
-- `userPromptSubmit` — declared as empty arrays in jira config for explicitness.
+
+**Important:** Do not re-run `/upgrade-agent` on agents that have manual edits to the `permissions`
+block (e.g., the `exclude` fix on the chmod deny rule). The command regenerates permissions from
+`toolsSettings` and will overwrite manual additions.
 
 ### MCP Server Conventions
 
@@ -353,6 +360,8 @@ from performing write operations without oversight.
 1. Set `includeMcpJson: true`
 1. Scope `resources` to only the steering domains and skills the agent needs
 1. Set `aws.allowedServices: []` unless the agent needs AWS access
+1. Run `/upgrade-agent` (in a `kiro-cli --v3` session) on the new agent only to generate its
+   `permissions.rules` block, then add the `"exclude": ["chmod +x *"]` to its shell deny rule
 1. Test with `kiro-cli chat --agent <name>`
 
 ## Claude Code Conventions
