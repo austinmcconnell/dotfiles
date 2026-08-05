@@ -218,6 +218,8 @@ Each agent's `allowedTools` is scoped to its purpose:
   subagent
 - **docs** — same read tools as default, no domain-specific MCP tools
 - **jira** — adds `@jira/*` read tools, no mutating JIRA tools in allowedTools
+- **datadog** — read tools + Pup CLI read-only commands for querying Datadog (monitors, logs,
+  metrics, dashboards, synthetics)
 
 Write tools (`write`, `shell`) are intentionally excluded from every agent's `allowedTools` — the
 user must approve each write operation. Git write commands (`git add`, `git commit`) are not in
@@ -323,6 +325,10 @@ Resource scoping per agent:
   cross-project doc work
 - **jira** — `scrum/` steering and `env-file-protection.md` only, development + scrum + shared
   skills
+- **ansible** — `ansible/` steering, ansible + shared skills, multiple knowledge bases (geerlingguy
+  reference repos, research, homelab docs)
+- **datadog** — `datadog/` steering and `env-file-protection.md`, operations + shared skills, no
+  knowledge bases
 
 ### Knowledge Base Conventions
 
@@ -341,7 +347,7 @@ All agents share the same subagent config:
 
 ```json
 "subagent": {
-    "availableAgents": ["default", "docs", "jira", "ansible"],
+    "availableAgents": ["default", "docs", "jira", "ansible", "datadog"],
     "trustedAgents": ["default"]
 }
 ```

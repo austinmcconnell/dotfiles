@@ -1,142 +1,16 @@
 {
-    "name": "ansible",
-    "description": "Ansible automation specialist for Proxmox homelab infrastructure management",
-    "prompt": "file://./ansible-prompt.md",
+    "name": "datadog",
+    "description": "Datadog observability specialist for auditing APM, monitors, dashboards, and UST compliance",
+    "prompt": "file://./datadog-prompt.md",
     "resources": [
-        "file://~/.dotfiles/etc/ai/steering/ansible/**/*.md",
+        "file://~/.dotfiles/etc/ai/steering/datadog/**/*.md",
         "file://~/.dotfiles/etc/ai/steering/security/env-file-protection.md",
         "file://.kiro/steering/**/*.md",
         "file://AGENTS.md",
         "file://README.md",
-        "file://ansible.cfg",
         "skill://.kiro/skills/**/SKILL.md",
-        "skill://~/.kiro/skills/ansible/**/SKILL.md",
-        "skill://~/.kiro/skills/shared/**/SKILL.md",
-        {
-            "type": "knowledgeBase",
-            "source": "file://~/sources/geerlingguy/mac-dev-playbook",
-            "name": "geerlingguy-mac-dev-playbook",
-            "description": "Geerling's macOS development playbook \u2014 real-world project structure, role organization, and requirements management for personal machine setup",
-            "indexType": "best",
-            "exclude": [
-                ".git/**"
-            ],
-            "autoUpdate": false
-        },
-        {
-            "type": "knowledgeBase",
-            "source": "file://~/sources/geerlingguy/pi-cluster",
-            "name": "geerlingguy-pi-cluster",
-            "description": "Geerling's Raspberry Pi cluster playbook \u2014 multi-node infrastructure automation, inventory patterns, and service deployment for a homelab cluster",
-            "indexType": "best",
-            "exclude": [
-                ".git/**"
-            ],
-            "autoUpdate": false
-        },
-        {
-            "type": "knowledgeBase",
-            "source": "file://~/sources/geerlingguy/ansible-for-devops",
-            "name": "geerlingguy-ansible-for-devops",
-            "description": "Companion examples for Ansible for DevOps book \u2014 role structure, testing patterns, and multi-server setups organized by chapter",
-            "indexType": "best",
-            "exclude": [
-                ".git/**"
-            ],
-            "autoUpdate": false
-        },
-        {
-            "type": "knowledgeBase",
-            "source": "file://~/sources/geerlingguy/ansible-role-docker",
-            "name": "geerlingguy-role-docker",
-            "description": "Complex multi-platform Ansible role reference \u2014 Docker installation with platform-specific vars, molecule tests, and CI",
-            "indexType": "best",
-            "exclude": [
-                ".git/**"
-            ],
-            "autoUpdate": false
-        },
-        {
-            "type": "knowledgeBase",
-            "source": "file://~/sources/geerlingguy/ansible-role-security",
-            "name": "geerlingguy-role-security",
-            "description": "Security hardening Ansible role \u2014 SSH config, fail2ban, automatic updates with clean defaults/vars separation",
-            "indexType": "best",
-            "exclude": [
-                ".git/**"
-            ],
-            "autoUpdate": false
-        },
-        {
-            "type": "knowledgeBase",
-            "source": "file://~/sources/geerlingguy/ansible-role-pip",
-            "name": "geerlingguy-role-pip",
-            "description": "Simple utility Ansible role reference \u2014 pip installation with minimal task structure",
-            "indexType": "best",
-            "exclude": [
-                ".git/**"
-            ],
-            "autoUpdate": false
-        },
-        {
-            "type": "knowledgeBase",
-            "source": "file://~/sources/geerlingguy/ansible-role-ntp",
-            "name": "geerlingguy-role-ntp",
-            "description": "Minimal single-purpose Ansible role reference \u2014 NTP configuration with platform variables and molecule tests",
-            "indexType": "best",
-            "exclude": [
-                ".git/**"
-            ],
-            "autoUpdate": false
-        },
-        {
-            "type": "knowledgeBase",
-            "source": "file://~/projects/austinmcconnell/_research_",
-            "name": "research",
-            "description": "Structured research files covering product evaluations, technology comparisons, and technical investigations with cited sources and verification dates",
-            "indexType": "best",
-            "include": [
-                "**/*.md"
-            ],
-            "exclude": [
-                ".git/**"
-            ],
-            "autoUpdate": false
-        },
-        {
-            "type": "knowledgeBase",
-            "source": "file://~/projects/austinmcconnell/_documentation_/tiny-lab",
-            "name": "tiny-lab-docs",
-            "description": "Compact Proxmox homelab cluster documentation covering M920x Tiny hardware, ZFS storage, 2.5GbE networking, rack layout, PDU port assignments, compute rack switch port assignments, and cluster expansion decisions. Authoritative source for rack slot assignments, PDU ports, and compute switch ports. References ubiquiti-network-stack for IP addresses and VLANs",
-            "indexType": "best",
-            "include": [
-                "**/*.md"
-            ],
-            "exclude": [
-                ".git/**",
-                "book/**",
-                "scripts/**",
-                "reports/**"
-            ],
-            "autoUpdate": true
-        },
-        {
-            "type": "knowledgeBase",
-            "source": "file://~/projects/austinmcconnell/_documentation_/ubiquiti-network-stack",
-            "name": "ubiquiti-network-docs",
-            "description": "Ubiquiti UniFi home network documentation covering gateway, switches, access points, VLANs, firewall rules, VPN, WiFi, DNS ad blocking, and Pi-hole local DNS records. Authoritative source for all IP address assignments, VLAN definitions, DNS records, main switch port assignments, and gateway port assignments across all documentation repos",
-            "indexType": "best",
-            "include": [
-                "**/*.md"
-            ],
-            "exclude": [
-                ".git/**",
-                "book/**",
-                "scripts/**",
-                "reports/**"
-            ],
-            "autoUpdate": true
-        }
+        "skill://~/.kiro/skills/operations/**/SKILL.md",
+        "skill://~/.kiro/skills/shared/**/SKILL.md"
     ],
     "allowedTools": [
         "@engram/mem_capture_passive",
@@ -177,26 +51,7 @@
             "trigger": "agentSpawn",
             "action": {
                 "type": "command",
-                "command": "~/.dotfiles/etc/kiro-cli/hooks/check-research-kb.sh ansible"
-            },
-            "timeout": 5
-        },
-        {
-            "name": "agentSpawn-1",
-            "trigger": "agentSpawn",
-            "action": {
-                "type": "command",
                 "command": "~/.dotfiles/etc/kiro-cli/hooks/recall-memory.sh"
-            },
-            "timeout": 5
-        },
-        {
-            "name": "postToolUse-0",
-            "trigger": "postToolUse",
-            "matcher": "knowledge",
-            "action": {
-                "type": "command",
-                "command": "~/.dotfiles/etc/kiro-cli/hooks/clear-research-kb-stale.sh ansible"
             },
             "timeout": 5
         },
@@ -247,39 +102,28 @@
         },
         "shell": {
             "allowedCommands": [
-                "ansible --version",
-                "ansible-config (list|dump|view|validate).*",
-                "ansible-doc .*",
-                "ansible-galaxy .*",
-                "ansible-inventory .*",
-                "ansible-lint.*",
-                "ansible-playbook .* --check( .*|$)",
-                "ansible-playbook .* --list-[a-z]+( .*|$)",
-                "ansible-playbook .* --syntax-check( .*|$)",
-                "ansible-vault view .*",
-                "molecule cleanup.*",
-                "molecule converge.*",
-                "molecule create.*",
-                "molecule destroy.*",
-                "molecule exec.*",
-                "molecule idempotence.*",
-                "molecule init.*",
-                "molecule list.*",
-                "molecule login.*",
-                "molecule matrix.*",
-                "molecule reset.*",
-                "molecule test.*",
-                "molecule verify.*",
+                "pup monitors (list|get|search|diff).*",
+                "pup logs (search|aggregate).*",
+                "pup metrics (query|list|search).*",
+                "pup dashboards (list|get).*",
+                "pup synthetics (tests|locations|suites) (list|get).*",
+                "pup slos (list|get|status).*",
+                "pup infrastructure hosts list.*",
+                "pup service-catalog (list|get).*",
+                "pup apm services (list|stats).*",
+                "pup tags list.*",
+                "pup events list.*",
+                "pup downtime list.*",
+                "pup incidents list.*",
+                "pup agent schema.*",
+                "pup auth status.*",
+                "pup --help.*",
+                "pup .* --help.*",
                 "awk .*",
                 "cat .*",
                 "chmod \\+x .*",
                 "command -v .*",
-                "cruft .*",
                 "dirname .*",
-                "docker images.*",
-                "docker inspect.*",
-                "docker logs.*",
-                "docker ps.*",
                 "echo( .*)?",
                 "find .*",
                 "git branch.*",
@@ -298,10 +142,8 @@
                 "hostname",
                 "jq( .*)?",
                 "ls( .*)?",
-                "make lint",
                 "man .*",
                 "mkdir -p .*",
-                "pre-commit .*",
                 "pwd",
                 "read( .*)?",
                 "readlink( .*)?",
@@ -317,18 +159,13 @@
                 "wc .*",
                 "which .*",
                 "whoami",
-                "xargs .*",
-                "yamllint .*"
+                "xargs .*"
             ],
             "deniedCommands": [
-                "ansible [^-].*",
-                "ansible-console .*",
-                "ansible-pull .*",
-                "ansible-vault create .*",
-                "ansible-vault decrypt .*",
-                "ansible-vault edit .*",
-                "ansible-vault encrypt .*",
-                "ansible-vault rekey .*",
+                "pup .* (create|update|delete|edit|mute|unmute).*",
+                "pup auth login.*",
+                "pup auth logout.*",
+                "pup auth refresh.*",
                 "awk .*\\.env.*",
                 "cat .*\\.env.*",
                 "grep .*\\.env.*",
@@ -344,6 +181,7 @@
                 "cat .*\\.ssh/id_ecdsa.*",
                 "cat .*\\.ssh/id_dsa.*",
                 "cat .*\\.ssh/.*_key[^.].*",
+                "aws .*",
                 "brew install .*",
                 "chmod [0-7]{3,4} .*",
                 "chmod -R .*",
@@ -352,15 +190,7 @@
                 "chown .*",
                 "crontab .*",
                 "dd .*",
-                "docker exec .*",
-                "docker kill .*",
-                "docker network rm .*",
-                "docker rm .*",
-                "docker rmi .*",
-                "docker run .*",
-                "docker stop .*",
-                "docker system prune.*",
-                "docker volume rm .*",
+                "docker .*",
                 "git add \\.",
                 "git add -A.*",
                 "git add --all.*",
@@ -458,12 +288,9 @@
         },
         "web_fetch": {
             "trusted": [
-                ".*docs\\.ansible\\.com.*",
-                ".*ansible\\.readthedocs\\.io.*",
-                ".*galaxy\\.ansible\\.com.*",
+                ".*docs\\.datadoghq\\.com.*",
                 ".*github\\.com.*",
-                ".*pve\\.proxmox\\.com.*",
-                ".*docs\\..*"
+                ".*github\\.com/DataDog/.*"
             ],
             "blocked": [
                 ".*pastebin\\.com.*"
@@ -476,8 +303,6 @@
                 "**/*.key",
                 "**/*.pem",
                 "**/credentials*",
-                "**/.vault_pass*",
-                "**/vault-password*",
                 "**/sops/age/keys.txt",
                 "**/*.agekey",
                 "**/.ssh/id_rsa",
@@ -494,45 +319,42 @@
             {
                 "capability": "shell",
                 "match": [
-                    "ansible --version",
-                    "ansible-config list*",
-                    "ansible-config dump*",
-                    "ansible-config view*",
-                    "ansible-config validate*",
-                    "ansible-doc *",
-                    "ansible-galaxy *",
-                    "ansible-inventory *",
-                    "ansible-lint*",
-                    "ansible-playbook * --check *",
-                    "ansible-playbook * --check",
-                    "ansible-playbook * --list-* *",
-                    "ansible-playbook * --list-*",
-                    "ansible-playbook * --syntax-check *",
-                    "ansible-playbook * --syntax-check",
-                    "ansible-vault view *",
-                    "molecule cleanup*",
-                    "molecule converge*",
-                    "molecule create*",
-                    "molecule destroy*",
-                    "molecule exec*",
-                    "molecule idempotence*",
-                    "molecule init*",
-                    "molecule list*",
-                    "molecule login*",
-                    "molecule matrix*",
-                    "molecule reset*",
-                    "molecule test*",
-                    "molecule verify*",
+                    "pup monitors list*",
+                    "pup monitors get*",
+                    "pup monitors search*",
+                    "pup monitors diff*",
+                    "pup logs search*",
+                    "pup logs aggregate*",
+                    "pup metrics query*",
+                    "pup metrics list*",
+                    "pup metrics search*",
+                    "pup dashboards list*",
+                    "pup dashboards get*",
+                    "pup synthetics tests list*",
+                    "pup synthetics tests get*",
+                    "pup synthetics locations list*",
+                    "pup synthetics suites list*",
+                    "pup slos list*",
+                    "pup slos get*",
+                    "pup slos status*",
+                    "pup infrastructure hosts list*",
+                    "pup service-catalog list*",
+                    "pup service-catalog get*",
+                    "pup apm services list*",
+                    "pup apm services stats*",
+                    "pup tags list*",
+                    "pup events list*",
+                    "pup downtime list*",
+                    "pup incidents list*",
+                    "pup agent schema*",
+                    "pup auth status*",
+                    "pup --help*",
+                    "pup * --help*",
                     "awk *",
                     "cat *",
                     "chmod +x *",
                     "command -v *",
-                    "cruft *",
                     "dirname *",
-                    "docker images*",
-                    "docker inspect*",
-                    "docker logs*",
-                    "docker ps*",
                     "echo *",
                     "echo",
                     "find *",
@@ -555,10 +377,8 @@
                     "jq",
                     "ls *",
                     "ls",
-                    "make lint",
                     "man *",
                     "mkdir -p *",
-                    "pre-commit *",
                     "pwd",
                     "read *",
                     "read",
@@ -578,22 +398,22 @@
                     "wc *",
                     "which *",
                     "whoami",
-                    "xargs *",
-                    "yamllint *"
+                    "xargs *"
                 ],
                 "effect": "allow"
             },
             {
                 "capability": "shell",
                 "match": [
-                    "ansible *",
-                    "ansible-console *",
-                    "ansible-pull *",
-                    "ansible-vault create *",
-                    "ansible-vault decrypt *",
-                    "ansible-vault edit *",
-                    "ansible-vault encrypt *",
-                    "ansible-vault rekey *",
+                    "pup * create*",
+                    "pup * update*",
+                    "pup * delete*",
+                    "pup * edit*",
+                    "pup * mute*",
+                    "pup * unmute*",
+                    "pup auth login*",
+                    "pup auth logout*",
+                    "pup auth refresh*",
                     "awk *.env*",
                     "cat *.env*",
                     "grep *.env*",
@@ -611,6 +431,7 @@
                     "cat *.ssh/id_ecdsa*",
                     "cat *.ssh/id_dsa*",
                     "cat *.ssh/*_key*",
+                    "aws *",
                     "brew install *",
                     "chmod * *",
                     "chmod -R *",
@@ -619,15 +440,7 @@
                     "chown *",
                     "crontab *",
                     "dd *",
-                    "docker exec *",
-                    "docker kill *",
-                    "docker network rm *",
-                    "docker rm *",
-                    "docker rmi *",
-                    "docker run *",
-                    "docker stop *",
-                    "docker system prune*",
-                    "docker volume rm *",
+                    "docker *",
                     "git add .",
                     "git add -A*",
                     "git add --all*",
@@ -658,8 +471,6 @@
                     "**/*.key",
                     "**/*.pem",
                     "**/credentials*",
-                    "**/.vault_pass*",
-                    "**/vault-password*",
                     "**/sops/age/keys.txt",
                     "**/*.agekey",
                     "**/.ssh/id_rsa",
@@ -694,12 +505,9 @@
             {
                 "capability": "web_fetch",
                 "match": [
-                    "*docs.ansible.com*",
-                    "*ansible.readthedocs.io*",
-                    "*galaxy.ansible.com*",
+                    "*docs.datadoghq.com*",
                     "*github.com*",
-                    "*pve.proxmox.com*",
-                    "*docs.*"
+                    "*github.com/DataDog/*"
                 ],
                 "effect": "allow"
             },

@@ -71,6 +71,7 @@ tap_if_needed "heroku/brew"
 tap_if_needed "molovo/revolver"
 tap_if_needed "zunit-zsh/zunit"
 tap_if_needed "bats-core/bats-core"
+tap_if_needed "datadog-labs/pack"
 
 print_section_header "Installing formulas"
 install_if_needed "age" "formula"
@@ -108,7 +109,8 @@ install_if_needed "kubectx" "formula"
 install_if_needed "mdbook" "formula"
 install_if_needed "nano" "formula"
 install_if_needed "openssl@3" "formula" # Used for compiling (e.g. pyenv building python versions from source)
-install_if_needed "rsync" "formula"     # Used for compiling (e.g. pyenv building python versions from source)
+install_if_needed "datadog-labs/pack/pup" "formula"
+install_if_needed "rsync" "formula" # Used for compiling (e.g. pyenv building python versions from source)
 install_if_needed "rumdl" "formula"
 install_if_needed "shellcheck" "formula"
 install_if_needed "shfmt" "formula"
