@@ -9,8 +9,11 @@
 # ---------------------------------------------------------------
 
 # Get current dir (so run this script from anywhere)
-export DOTFILES_DIR DOTFILES_CACHE DOTFILES_EXTRA_DIR
+export DOTFILES_DIR DOTFILES_CACHE DOTFILES_EXTRA_DIR AI_DOTFILES_DIR
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# Root of the AI tooling config. Defaults to DOTFILES_DIR while colocated; a
+# standalone extraction sets this to its own root before sourcing the AI scripts.
+AI_DOTFILES_DIR="${AI_DOTFILES_DIR:-$DOTFILES_DIR}"
 DOTFILES_EXTRA_DIR="$HOME/.extra" # Directory for machine-specific configurations
 XDG_CONFIG_HOME="$HOME/.config"   # XDG standard configuration directory
 
