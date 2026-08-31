@@ -282,9 +282,17 @@ Hooks use the V3 array format: each hook is an object with `name`, `trigger`, `m
 `action` (`type` + `command`), and `timeout` (seconds). The V2 engine also reads this format.
 
 - `agentSpawn` — all agents run `recall-memory.sh` (surfaces engram memories for the current
-  project). Default, docs, and ansible also run `check-research-kb.sh` for KB staleness detection
-  (their agent name must appear in the `kb-staleness.sh` sentinel for the warning to fire). Default
-  additionally runs `rotate-traces.sh` for trace file cleanup.
+  project) and `check-engram-hygiene.sh`, which delegates to `bin/engram-hygiene check`: a
+  time-throttled (6-week default, `ENGRAM_HYGIENE_CADENCE_DAYS`) nudge that fires only when the
+  current project has pending engram conflict relations awaiting review. Hygiene is wired to every
+  agent (not just the KB-using three) because conflict debt accrues in the shared local DB
+  regardless of which agent created the memories — it tracks the `recall-memory.sh` footprint, not
+  the `check-research-kb.sh` one. It is deliberately current-project scoped to stay low-noise; the
+  all-projects view is the on-demand `dotfiles memory-check` command (`bin/engram-hygiene status`).
+  Both are read-only — conflict resolution stays user-approved via `mem_judge`/`mem_compare`, never
+  auto-applied. Default, docs, and ansible additionally run `check-research-kb.sh` for KB staleness
+  detection (their agent name must appear in the `kb-staleness.sh` sentinel for the warning to
+  fire). Default additionally runs `rotate-traces.sh` for trace file cleanup.
 - `preToolUse` — every agent has the `block-env-files.sh`, `block-sops-age-files.sh`, and
   `block-ssh-private-keys.sh` hooks on `matcher: "*"`. Default adds audit hooks for `use_aws`,
   `@kubernetes`, and `execute_bash`. All agents have `block-memory-secrets.sh` on

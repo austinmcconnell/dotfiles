@@ -27,6 +27,7 @@ sub_help() {
     echo "   edit                 Open dotfiles in IDE ($DOTFILES_IDE)"
     echo "   help                 This help message"
     echo "   mac                  macOS specific commands (see below)"
+    echo "   memory-check         Show engram memory-conflict debt (all projects)"
     echo "   orphans              Find packages installed but not tracked in dotfiles"
     echo "   sync-projects        Fetch and fast-forward \$PROJECTS_DIR repositories"
     echo "   sync-sources         Fetch and reset \$SOURCES_DIR repositories"
@@ -369,6 +370,16 @@ sub_mac_dock_work() {
 sub_drift-check() {
     log_info "Running drift detection on steering docs"
     bash "${DOTFILES_DIR}/scripts/drift-check.sh"
+}
+
+# Show engram memory-conflict debt across all projects (on-demand hygiene view).
+# The agentSpawn hook nudges per-project on a 6-week cadence; this command gives
+# the full cross-project picture whenever you ask for it. No log_info banner here:
+# it would emit an ungated color-coded [INFO] line to stdout, defeating the
+# TTY-gated clean-pipe behavior of `engram-hygiene status` (the table is
+# self-describing).
+sub_memory-check() {
+    "${DOTFILES_DIR}/bin/engram-hygiene" status
 }
 
 # Fetch and fast-forward project repositories in $PROJECTS_DIR/<owner>/<repo>
@@ -1002,7 +1013,7 @@ sub_orphans() {
 # Shell completion for available commands
 # Make sure to keep this in sync with the available public commands
 sub_completion() {
-    echo "analysis-status clean drift-check edit help mac orphans sync-projects sync-sources test update"
+    echo "analysis-status clean drift-check edit help mac memory-check orphans sync-projects sync-sources test update"
 }
 
 # Process global options
