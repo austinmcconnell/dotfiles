@@ -296,6 +296,26 @@ Hooks use the V3 array format: each hook is an object with `name`, `trigger`, `m
 - `postToolUse` — default and docs use this (runs `clear-research-kb-stale.sh` after knowledge
   operations to clear staleness warnings). Default also runs `trace-tool-call.sh` on `matcher: "*"`
   for session-scoped trace logging.
+- `userPromptSubmit` — every agent runs `correction-capture.sh`. This is the capture half of the
+  capture-and-promote learning system (see the `capturing-corrections` steering and the
+  `distill-learnings` skill). On each prompt it does two things via stdout (the one hook channel
+  documented to reach the model on both kiro-cli and Claude Code): (1) if the prompt looks like a
+  correction/preference, it nudges the agent to `mem_save` it immediately with `type: preference`
+  and a `topic_key: correction/<area>-<slug>`; (2) if a correction was captured on a prior turn (a
+  session-scoped sentinel under `$TMPDIR/ai-corrections/<session>.pending`), it reminds the user to
+  run the `distill-learnings` skill, then clears the sentinel. The promotion prompt rides
+  `userPromptSubmit` rather than a `stop` hook on purpose: the `stop` event's exit-0 stdout is not
+  added to the model's context on either tool, so a stop-based reminder would silently vanish. The
+  session key is read from the payload's `session_id` first (Claude Code provides it), then
+  `KIRO_SESSION_ID`, then a `date+PID` fallback — matching `trace-tool-call.sh` so parallel sessions
+  don't collide on a shared sentinel. These are per-tool paths, not degradation: the kiro-cli
+  `userPromptSubmit` payload has only `hook_event_name`, `cwd`, and `prompt` (no `session_id`,
+  verified by capturing a real payload), so on kiro the key always comes from the exported
+  `KIRO_SESSION_ID`; Claude Code supplies `session_id` in the payload. The `date+PID` branch only
+  fires if both are missing. The hook never writes to memory itself (the agent's `mem_save` still
+  passes through `block-memory-secrets.sh`) and never promotes anything (promotion is the
+  user-approved `distill-learnings` skill). On the Claude Code side the same hook is wired via the
+  `UserPromptSubmit` event in `settings.json`.
 
 **Important:** Do not re-run `/upgrade-agent` on agents that have manual edits to the `permissions`
 block (e.g., the `exclude` fix on the chmod deny rule). The command regenerates permissions from
