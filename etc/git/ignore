@@ -33,3 +33,5 @@ reports/
 
 ## Jira ticket info
 jira/
+
+.claude/settings.local.json
