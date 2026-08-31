@@ -11,6 +11,8 @@ information about the structure, installation, and customization of the dotfiles
    systems
 1. [Customization Guide](CustomizationGuide.md) - How to customize the dotfiles for your needs
 1. [Amazon Q Integration](AmazonQIntegration.md) - How Amazon Q is integrated and configured
+1. [AI Tooling Extraction](AiToolingExtraction.md) - Contract for extracting the AI tooling into a
+   standalone repo via `AI_DOTFILES_DIR`
 
 ## Overview
 
