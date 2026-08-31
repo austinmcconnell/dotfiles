@@ -277,16 +277,17 @@ Hooks use the V3 array format: each hook is an object with `name`, `trigger`, `m
 `action` (`type` + `command`), and `timeout` (seconds). The V2 engine also reads this format.
 
 - `agentSpawn` — all agents run `recall-memory.sh` (surfaces engram memories for the current
-  project). Default and docs also run `check-research-kb.sh` for KB staleness detection. Default
+  project). Default, docs, and ansible also run `check-research-kb.sh` for KB staleness detection
+  (their agent name must appear in the `kb-staleness.sh` sentinel for the warning to fire). Default
   additionally runs `rotate-traces.sh` for trace file cleanup.
 - `preToolUse` — every agent has the `block-env-files.sh`, `block-sops-age-files.sh`, and
   `block-ssh-private-keys.sh` hooks on `matcher: "*"`. Default adds audit hooks for `use_aws`,
   `@kubernetes`, and `execute_bash`. All agents have `block-memory-secrets.sh` on
   `matcher: "@engram/*"` to prevent storing credentials in persistent memory. The glob (`/*`) is
   required because kiro-cli reports MCP tools with the `@server/` prefix (e.g. `@engram/mem_save`);
-  a bare `@engram` matcher does not fire and the hook is silently skipped. The hook itself strips
-  the prefix (`${TOOL_NAME##*/}`) so it stays compatible with Claude Code, which passes unprefixed
-  tool names.
+  a bare `@engram` matcher does not fire and the hook is silently skipped. The hook normalizes both
+  MCP naming conventions before comparing (`${TOOL_NAME##*/}` strips kiro's `@server/` prefix,
+  `${TOOL_NAME##mcp__*__}` strips Claude Code's `mcp__server__` prefix), so it works for both tools.
 - `postToolUse` — default and docs use this (runs `clear-research-kb-stale.sh` after knowledge
   operations to clear staleness warnings). Default also runs `trace-tool-call.sh` on `matcher: "*"`
   for session-scoped trace logging.
@@ -308,8 +309,9 @@ block (e.g., the `exclude` fix on the chmod deny rule). The command regenerates 
 - Use `"disabledTools"` to block specific MCP tools (jira blocks `jira_delete`)
 - Secrets use `${ENV_VAR}` interpolation in `env` blocks:
   `"GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_PAT}"`
-- Agents that don't need a service deny it entirely via `toolsSettings` (docs and jira set
-  `aws.allowedServices: []`, docs denies `docker .*` and `kubectl .*` in shell)
+- Agents that don't need a service deny it entirely via `toolsSettings` (docs, jira, datadog, and
+  ansible set `aws.allowedServices: []`; docs denies `docker .*` and `kubectl .*` in shell). Only
+  `default` keeps a populated `allowedServices` list.
 
 ### Resource Patterns
 
@@ -323,8 +325,9 @@ Resources use three URI schemes with different loading behavior:
 
 Resource scoping per agent:
 
-- **default** — all steering domains (`code/`, `github/`, `security/`), all skill categories,
-  multiple knowledge bases (research, project code, analysis docs)
+- **default** — all steering domains (`code/`, `github/`, `security/`),
+  development/operations/research/shared skill categories, multiple knowledge bases (research,
+  project code, analysis docs)
 - **docs** — `documentation/` steering, documentation + shared skills, many knowledge bases for
   cross-project doc work
 - **jira** — `scrum/` steering and `env-file-protection.md` only, development + scrum + shared
@@ -376,8 +379,9 @@ from performing write operations without oversight.
 
 ## Claude Code Conventions
 
-Claude Code uses a simpler configuration model than kiro-cli — no agent JSON, no hooks framework.
-Configuration lives in `~/.claude/` (user scope) and is managed by `install/claude-code.sh`.
+Claude Code uses a simpler configuration model than kiro-cli — no agent JSON, and a flatter hooks
+model (event arrays in `settings.json` rather than per-agent hook blocks). Configuration lives in
+`~/.claude/` (user scope) and is managed by `install/claude-code.sh`.
 
 ### File Layout
 
@@ -429,6 +433,12 @@ kiro-cli or Cursor:
 The `type` field (`stdio`, `http`, `sse`) is required — this is the main difference from kiro-cli's
 format. Environment variable interpolation uses `${VAR}` syntax (same as kiro-cli).
 
+`install/claude-code.sh` bootstraps `engram` and `jira` into `~/.claude.json` with a `jq` merge:
+missing servers are added while existing servers and session state are preserved (existing values
+win on key collision). The merge is idempotent, so running the installer against an existing
+`~/.claude.json` now lands `engram` rather than skipping the file. `engram` is guarded on the Claude
+side by the shared `block-memory-secrets.sh` PreToolUse hook.
+
 ### Steering and Skills
 
 Both are handled by `install/ai-tools.sh` — no Claude Code-specific configuration needed:
@@ -439,7 +449,8 @@ Both are handled by `install/ai-tools.sh` — no Claude Code-specific configurat
 ### What Claude Code Does NOT Have (vs kiro-cli)
 
 - No agent/persona system (single mode, no equivalent to default/docs/jira agents)
-- No hook scripts (security enforced purely via permission rules)
+- No per-agent hook blocks (hooks live in one `settings.json` event array, not scoped per agent),
+  though Claude does run the same shared `etc/ai/hooks/` scripts kiro-cli uses
 - No knowledge base integration (no semantic search over indexed repos)
 - No audit logging (no equivalent to aws-audit.jsonl)
 - No `allowedTools` concept (everything is allow/deny/prompt)
