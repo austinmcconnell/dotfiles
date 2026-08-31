@@ -4,6 +4,6 @@
 #
 
 # Source AI prompt management functions (works with any AI service)
-if [[ -f "$DOTFILES_DIR/scripts/ai-prompt.sh" ]]; then
-    source "$DOTFILES_DIR/scripts/ai-prompt.sh"
+if [[ -f "$AI_DOTFILES_DIR/scripts/ai-prompt.sh" ]]; then
+    source "$AI_DOTFILES_DIR/scripts/ai-prompt.sh"
 fi
