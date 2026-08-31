@@ -242,6 +242,11 @@ Security is enforced at three levels, evaluated in order:
      operations
    - The shell deny rule includes `"exclude": ["chmod +x *"]` to prevent the broadened glob
      `"chmod * *"` from blocking executable permission grants under V3's deny-takes-precedence model
+   - The two engines spell the chmod deny differently on purpose: V2 uses the precise regex
+     `chmod [0-7]{3,4} .*` (octal modes only, no exclude needed), while V3 uses the broad glob
+     `chmod * *` plus `"exclude": ["chmod +x *"]` because globs can't express the octal-only match.
+     Both deny octal-mode chmod while allowing `chmod +x` — do NOT "reconcile" them into one
+     spelling
 1. **allowedTools** — the whitelist of tools that skip user approval (see Tool Access Model above)
 
 ### Audit Logging
