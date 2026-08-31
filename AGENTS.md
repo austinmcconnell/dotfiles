@@ -282,7 +282,11 @@ Hooks use the V3 array format: each hook is an object with `name`, `trigger`, `m
 - `preToolUse` — every agent has the `block-env-files.sh`, `block-sops-age-files.sh`, and
   `block-ssh-private-keys.sh` hooks on `matcher: "*"`. Default adds audit hooks for `use_aws`,
   `@kubernetes`, and `execute_bash`. All agents have `block-memory-secrets.sh` on
-  `matcher: "@engram"` to prevent storing credentials in persistent memory.
+  `matcher: "@engram/*"` to prevent storing credentials in persistent memory. The glob (`/*`) is
+  required because kiro-cli reports MCP tools with the `@server/` prefix (e.g. `@engram/mem_save`);
+  a bare `@engram` matcher does not fire and the hook is silently skipped. The hook itself strips
+  the prefix (`${TOOL_NAME##*/}`) so it stays compatible with Claude Code, which passes unprefixed
+  tool names.
 - `postToolUse` — default and docs use this (runs `clear-research-kb-stale.sh` after knowledge
   operations to clear staleness warnings). Default also runs `trace-tool-call.sh` on `matcher: "*"`
   for session-scoped trace logging.
