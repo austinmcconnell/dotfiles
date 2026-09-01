@@ -415,11 +415,12 @@ from performing write operations without oversight.
 
 ## Claude Code Conventions
 
-Claude Code uses a simpler configuration model than kiro-cli — no agent JSON, and a flatter hooks
-model (event arrays in `settings.json` rather than per-agent hook blocks). Configuration lives in
+Claude Code uses a simpler configuration model than kiro-cli — no agent JSON, and global hooks live
+in one `settings.json` event array rather than kiro's per-agent hook blocks. Configuration lives in
 `~/.claude/` (user scope) and is managed by `install/claude-code.sh`. Claude Code does support
 custom subagents (personas) via markdown files with YAML frontmatter — a different mechanism from
-kiro-cli's JSON agent configs, but the same underlying idea; see Personas below.
+kiro-cli's JSON agent configs, but the same underlying idea, including their own scoped `hooks:`
+field for persona-specific hooks; see Personas below.
 
 ### File Layout
 
@@ -507,15 +508,16 @@ Code session fills that role directly.
   semantically (docs, ansible), the Claude persona instead documents the same local paths in a
   "Reference Repositories" table so Grep/Glob can be pointed at them manually — functional, not
   semantic, coverage
+- Personas support their own scoped `hooks:` frontmatter field (`PreToolUse`/`PostToolUse`, same
+  shape as the global `settings.json` arrays), confirmed against current Claude Code docs. All four
+  personas use it: `block-persona-shell-commands.sh` runs as a persona-scoped `PreToolUse(Bash)`
+  hook, mirroring kiro's per-agent `toolsSettings.shell.deniedCommands`
+  (aws/docker/kubectl/ssh/package-manager installs and persona-specific destructive commands)
 
 ### What Claude Code Does NOT Have (vs kiro-cli)
 
 - No equivalent to kiro's `default` agent as a *persona* — the main Claude Code session fills that
   role directly (the `docs`/`jira`/`datadog`/`ansible` personas do exist; see Personas above)
-- No per-agent hook blocks (hooks live in one `settings.json` event array, not scoped per agent),
-  though Claude does run the same shared `etc/ai/hooks/` scripts kiro-cli uses. Claude's hook
-  payload does include an `agent_type` field for subagent tool calls, so a shared hook script could
-  self-scope by branching on it — this repo doesn't do that today
 - No knowledge base integration (no semantic search over indexed repos). The `docs`/`ansible`
   personas document the same local KB paths in a Reference Repositories table for manual Grep/Glob
   instead (see Personas above). Kiro's `check-research-kb.sh`/`clear-research-kb-stale.sh`
