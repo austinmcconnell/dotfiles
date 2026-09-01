@@ -207,7 +207,7 @@ the
 
 ### Tool Access Model
 
-All agents use `"tools": ["*"]` to make every tool _available_, then restrict what runs unprompted
+All agents use `"tools": ["*"]` to make every tool *available*, then restrict what runs unprompted
 via `allowedTools`. This is the inverse of the official examples, which list specific tools in
 `tools`. The effect: agents can use any tool if the user approves, but only `allowedTools` entries
 run without a prompt.
@@ -229,7 +229,7 @@ user must approve each write operation. Git write commands (`git add`, `git comm
 
 Security is enforced at three levels, evaluated in order:
 
-1. **Hooks** — `preToolUse` with `matcher: "*"` runs `block-env-files.sh` on _every_ agent. This
+1. **Hooks** — `preToolUse` with `matcher: "*"` runs `block-env-files.sh` on *every* agent. This
    hook inspects all tool inputs for `.env` file paths and exits `2` (block) if found. It is the
    first line of defense and cannot be bypassed by `allowedTools` or `permissions`.
 1. **Permissions / toolsSettings** — per-tool path and command restrictions. The configs contain
@@ -292,7 +292,10 @@ Hooks use the V3 array format: each hook is an object with `name`, `trigger`, `m
   Both are read-only — conflict resolution stays user-approved via `mem_judge`/`mem_compare`, never
   auto-applied. Default, docs, and ansible additionally run `check-research-kb.sh` for KB staleness
   detection (their agent name must appear in the `kb-staleness.sh` sentinel for the warning to
-  fire). Default additionally runs `rotate-traces.sh` for trace file cleanup.
+  fire). Default additionally runs `rotate-traces.sh` for trace file cleanup. Claude Code runs the
+  same `recall-memory.sh`/`check-engram-hygiene.sh` pair via `SessionStart` (see Claude Code
+  Conventions below) — that pair has parity across both tools. The KB-staleness and trace hooks
+  remain kiro-only; see "What Claude Code Does NOT Have" for why.
 - `preToolUse` — every agent has the `block-env-files.sh`, `block-sops-age-files.sh`, and
   `block-ssh-private-keys.sh` hooks on `matcher: "*"`. Default adds audit hooks for `use_aws`,
   `@kubernetes`, and `execute_bash`. All agents have `block-memory-secrets.sh` on
@@ -414,7 +417,9 @@ from performing write operations without oversight.
 
 Claude Code uses a simpler configuration model than kiro-cli — no agent JSON, and a flatter hooks
 model (event arrays in `settings.json` rather than per-agent hook blocks). Configuration lives in
-`~/.claude/` (user scope) and is managed by `install/claude-code.sh`.
+`~/.claude/` (user scope) and is managed by `install/claude-code.sh`. Claude Code does support
+custom subagents (personas) via markdown files with YAML frontmatter — a different mechanism from
+kiro-cli's JSON agent configs, but the same underlying idea; see Personas below.
 
 ### File Layout
 
@@ -479,14 +484,52 @@ Both are handled by `install/ai-tools.sh` — no Claude Code-specific configurat
 - **Steering**: `etc/ai/steering/code/` and `security/` concatenated into `~/.claude/CLAUDE.md`
 - **Skills**: `etc/ai/skills/` symlinked to `~/.claude/skills/`
 
+### Personas (Subagents)
+
+Claude Code supports custom subagents defined as markdown files with YAML frontmatter in
+`etc/claude-code/agents/` (symlinked to `~/.claude/agents/` by `install/claude-code.sh`, invoked via
+`claude --agent <name>`). Four personas mirror their kiro-cli counterparts: `docs`, `jira`,
+`datadog`, `ansible`. There is no persona equivalent of kiro's `default` agent — the main Claude
+Code session fills that role directly.
+
+- `tools:` frontmatter is the closest Claude analog to kiro's `allowedTools` — it gates which tools
+  are *available* to the persona at all, not just whether they auto-run without a prompt
+- `disallowedTools:` blocks specific tools within an otherwise-available category (e.g. jira's
+  `mcp__jira__jira_delete`), mirroring kiro's MCP `disabledTools`
+- `mcpServers:` scopes which MCP servers a persona can see (jira restricts to `jira`)
+- Domain steering loads via `@`-imports in the persona body (e.g.
+  `@~/.dotfiles/etc/ai/steering/ansible/*.md`), not a `resources` array — each persona should import
+  the same steering domain its kiro counterpart loads via
+  `file://~/.kiro/steering/<domain>/**/*.md`. Keep these in sync when adding steering files: a new
+  file in an imported domain directory needs an explicit new `@`-import line added to the persona
+  (unlike kiro's glob-based `resources` entries, Claude's `@`-imports are not wildcarded)
+- Personas have no kiro-style `knowledgeBase` equivalent. Where the kiro agent indexes local repos
+  semantically (docs, ansible), the Claude persona instead documents the same local paths in a
+  "Reference Repositories" table so Grep/Glob can be pointed at them manually — functional, not
+  semantic, coverage
+
 ### What Claude Code Does NOT Have (vs kiro-cli)
 
-- No agent/persona system (single mode, no equivalent to default/docs/jira agents)
+- No equivalent to kiro's `default` agent as a *persona* — the main Claude Code session fills that
+  role directly (the `docs`/`jira`/`datadog`/`ansible` personas do exist; see Personas above)
 - No per-agent hook blocks (hooks live in one `settings.json` event array, not scoped per agent),
-  though Claude does run the same shared `etc/ai/hooks/` scripts kiro-cli uses
-- No knowledge base integration (no semantic search over indexed repos)
-- No audit logging (no equivalent to aws-audit.jsonl)
-- No `allowedTools` concept (everything is allow/deny/prompt)
+  though Claude does run the same shared `etc/ai/hooks/` scripts kiro-cli uses. Claude's hook
+  payload does include an `agent_type` field for subagent tool calls, so a shared hook script could
+  self-scope by branching on it — this repo doesn't do that today
+- No knowledge base integration (no semantic search over indexed repos). The `docs`/`ansible`
+  personas document the same local KB paths in a Reference Repositories table for manual Grep/Glob
+  instead (see Personas above). Kiro's `check-research-kb.sh`/`clear-research-kb-stale.sh`
+  staleness-nudge hooks were deliberately NOT ported: the nudge tells the user to "ask me to
+  re-index," but re-indexing requires kiro's `knowledge` tool, which Claude doesn't have — porting
+  the nudge without a way to resolve it would just mislead the user
+- No per-tool MCP audit hooks — Claude has no MCP `aws`/`kubernetes` tools to audit, so there's no
+  equivalent to the `use_aws`/`@kubernetes` matchers or their
+  `aws-audit.jsonl`/`kubectl-audit.jsonl` outputs. Shell-invoked `aws`/`kubectl` commands are still
+  audited: `audit-shell-commands.sh` runs globally on `PostToolUse` for `Bash` and writes to
+  `~/.local/share/ai-audit/command-audit.jsonl` (a single shared log, not split per-tool like
+  kiro's)
+- No `allowedTools` concept in the global permission model (everything is allow/deny/prompt) —
+  though a persona's `tools:` frontmatter is a coarser analog (see Personas above)
 
 ## Security Considerations
 
