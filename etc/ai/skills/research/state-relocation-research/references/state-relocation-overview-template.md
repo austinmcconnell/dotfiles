@@ -21,11 +21,11 @@ for a US family with a remote software developer relocating from Texas.
 State the verdict up front against the three must-haves. This determines whether metro-level
 research is warranted.
 
-| Must-Have         | Pass/Fail          | Notes                                                         |
-| ----------------- | ------------------ | ------------------------------------------------------------- |
-| Education quality | Pass/Fail          | State ranking, funding level                                  |
-| Climate (IECC)    | Pass/Marginal/Fail | Predominant IECC zone: 5+ passes, 4 marginal, 3- disqualifies |
-| Healthcare access | Pass/Fail          | Physician supply trend — growing or declining                 |
+| Must-Have         | Pass/Fail          | Notes                                                                 |
+| ----------------- | ------------------ | --------------------------------------------------------------------- |
+| Education (NAEP)  | Pass/Marginal/Weak | G8 math & G4 reading vs 275/216 pass line; penalize, not fail         |
+| Climate (IECC)    | Pass/Marginal/Fail | Predominant IECC zone: 5+ passes, 4 marginal, 3- disqualifies         |
+| Healthcare (AAMC) | Pass/Marginal/Fail | Direct-patient-care MDs per 100k: ≥220 pass, 190–219 marg, \<190 fail |
 
 For the climate row, state the state's predominant IECC/ASHRAE 169 zone and the verdict:
 
@@ -35,10 +35,29 @@ For the climate row, state the state's predominant IECC/ASHRAE 169 zone and the 
 - **Zone 3 or warmer** (Warm / Hot / Very Hot) → Fail, unless a high-elevation metro reaches zone 5+
   (Colorado/Steamboat carve-out)
 
-If the state fails a must-have, say so plainly. Note any exception (e.g., a single high-elevation or
-northern metro in zone 5+ that qualifies despite a state-wide fail). Flag thin-margin qualifiers
-(borderline zone 4/5) as a warming risk — the 2021 IECC remap shifted ~10% of counties to warmer
-zones.
+For the education row, state the state's 2024 NAEP grade-4 reading and grade-8 math averages and the
+verdict:
+
+- **Grade-8 math ≥ 275 AND grade-4 reading ≥ 216** → Pass (no penalty)
+- **At national average (~272 / ~214) but below the pass line** → Marginal — penalize the education
+  dimension; a strong specific district can redeem the metro
+- **Grade-8 math < 268 AND grade-4 reading < 212** → Weak — heavy-penalize, pursue only if a
+  specific district bucks the trend. Education never hard-disqualifies (district variance).
+
+For the healthcare row, state the state's AAMC direct-patient-care physicians per 100k and the
+verdict:
+
+- **≥ 220** → Pass (national average 255)
+- **190–219** → Marginal — the chosen metro must have a real hospital network / academic medical
+  center
+- **< 190** → Fail (hard floor) — statewide scarcity a metro cannot escape; no metro exception
+
+If the state fails or is marginal on a must-have, say so plainly. Note any exception — a single
+high-elevation or northern metro in zone 5+ that qualifies despite a state-wide climate fail, or a
+standout district in a below-pass education state. A healthcare-floor failure (< 190) has **no**
+metro exception. Flag thin-margin climate qualifiers (borderline zone 4/5) as a warming risk — the
+2021 IECC remap shifted ~10% of counties to warmer zones — and flag declining NAEP or
+physician-supply trends even where the level still passes.
 
 ## Geography and Climate
 
@@ -70,7 +89,10 @@ State-level education landscape only — metro files cover local district qualit
 - State ranking(s) for K-12 (cite the ranking source and year)
 - Per-pupil funding and how it compares nationally
 - School-district structure — how districts are organized, how quality varies within the state
-- Standardized test performance (NAEP or state assessments)
+- **NAEP performance (the education screen):** state 2024 grade-4 reading and grade-8 math scale
+  scores, with the verdict against the 275 (g8 math) / 216 (g4 reading) pass line and national
+  averages (~272 / ~214). See `_research_/states/education-healthcare-thresholds.md` for the rubric.
+  Note the year-over-year trend.
 - School-choice landscape: charter/magnet availability, open enrollment rules
 - **Homeschooling and online school law:** Is homeschooling legal and how is it regulated
   (notice/registration, testing or portfolio review, curriculum requirements)? Availability of
@@ -82,9 +104,11 @@ State-level education landscape only — metro files cover local district qualit
 
 This is a must-have — be specific.
 
-- Physicians per capita (cite source and year) and how it ranks nationally
+- **AAMC direct-patient-care physicians per 100k (the healthcare screen):** state figure vs the 220
+  pass line, 190 hard floor, and national average of 255 (cite year). Use direct-patient-care, not
+  "active." See `_research_/states/education-healthcare-thresholds.md` for the rubric.
 - **Physician migration trend:** Are doctors moving into or out of this state? Cite recent data on
-  physician supply direction — this is a key differentiator the family cares about
+  physician supply direction — a declining ratio is a flag even above the floor
 - Major hospital systems and academic medical centers
 - Rural vs urban access gaps
 - Any policy factors affecting physician retention (licensing, malpractice climate, reimbursement)

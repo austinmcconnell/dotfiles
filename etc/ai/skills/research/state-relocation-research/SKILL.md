@@ -25,7 +25,17 @@ composition and constant priorities. This skill covers the domestic-move priorit
 
 **Must-haves** (a state failing these is likely disqualified):
 
-- Highly rated public education — strong elementary, middle, and high schools
+- Highly rated public education, measured by **state NAEP scale scores** (2024, grade-4 reading and
+  grade-8 math):
+  - **Pass** — grade-8 math ≥ 275 AND grade-4 reading ≥ 216 (at or above national). No penalty.
+  - **Marginal / penalize** — meets national average (grade-4 reading ~214, grade-8 math ~272) but
+    misses the pass line. Score education lower; a strong specific district can redeem the metro.
+  - **Weak / heavy-penalize** — below national on both (grade-8 math < 268 AND grade-4 reading \<
+    212). Flag prominently; pursue only if a specific district demonstrably bucks the state trend.
+  - This is a **penalize**, not disqualify, filter — district quality varies within a state, so
+    metro/district detail (Phases 2–3) can still redeem a mediocre state. Flag pass-tier states
+    whose NAEP scores declined year over year. See
+    `_research_/states/education-healthcare-thresholds.md` for the rubric and state distribution.
 - Cold-to-temperate climate, measured by **IECC/ASHRAE 169 climate zone** (county-resolved, based on
   heating/cooling degree days):
   - **Pass** — predominantly IECC zone 5, 6, or 7 (Cool / Cold / Very Cold; e.g. MN, WI, MI, MT, VT,
@@ -41,8 +51,17 @@ composition and constant priorities. This skill covers the domestic-move priorit
     hotter. Prefer states with margin.
   - Heat severity is reported (not filtered) at the metro level via IECC zone, 1% summer design
     temperature, average July high, and days/year ≥90 °F — see the metro profile template.
-- Strong healthcare ecosystem — physician supply and availability, not declining. Track
-  physician-per-capita and migration trends (doctors leaving certain states for others)
+- Strong healthcare ecosystem, measured by **AAMC direct-patient-care physicians per 100k** (2024;
+  national average 255):
+  - **Pass** — ≥ 220 direct-patient-care physicians per 100k. Adequate-to-comfortable supply.
+  - **Marginal (flag)** — 190–219. The chosen metro must have a real hospital network or academic
+    medical center to compensate.
+  - **Disqualify (hard floor)** — < 190. Statewide scarcity a metro cannot escape (e.g. Mississippi
+    178.6, Idaho 183.8; Nevada 190.2 sits at the marginal line).
+  - This is a **hard-floor disqualify** filter — unlike education, a specific metro cannot redeem a
+    state below the floor. Use direct-patient-care (not "active") per 100k — it measures access to a
+    treating doctor. Flag any state whose ratio is declining year over year. See
+    `_research_/states/education-healthcare-thresholds.md` for the rubric and state distribution.
 
 **Nice-to-haves** (differentiators among qualifying states/metros):
 
@@ -107,11 +126,19 @@ infrastructure, and airport access to DFW/AUS. This file is the single source fo
 — metro files must not duplicate it.
 
 **Disqualification check:** State the verdict up front — does this state pass the must-haves
-(education, climate, healthcare access)? For climate, classify the state by its predominant IECC
+(education, climate, healthcare access)? For **climate**, classify the state by its predominant IECC
 zone: zone 5+ passes, zone 4 is marginal (a specific metro must reach zone 5+), zone 3 or warmer is
-disqualified. If it fails a must-have, say so plainly and note whether metro-level research is still
-warranted — e.g., a mostly-warm state with one high-elevation metro in zone 5+ (the
-Colorado/Steamboat carve-out). Flag thin-margin (borderline zone 4/5) qualifiers as a warming risk.
+disqualified. For **education** (NAEP 2024), pass = grade-8 math ≥ 275 AND grade-4 reading ≥ 216;
+below national on both (grade-8 math < 268 AND grade-4 reading < 212) is weak — penalize, do not
+disqualify, since a strong district can redeem a state. For **healthcare** (AAMC direct-patient-care
+physicians per 100k), pass ≥ 220, 190–219 is marginal, and < 190 is a **hard-floor disqualify** a
+metro cannot escape. If it fails a must-have, say so plainly and note whether metro-level research
+is still warranted — e.g., a mostly-warm state with one high-elevation metro in zone 5+ (the
+Colorado/Steamboat carve-out), or a below-pass education state where a specific district excels (no
+climate/healthcare exception rescues a healthcare-floor failure, though). Flag thin-margin
+(borderline zone 4/5) climate qualifiers as a warming risk, and flag declining NAEP or physician
+trends. See `_research_/states/education-healthcare-thresholds.md` for the education and healthcare
+rubric.
 
 **Subagent delegation:** Although this is a single file, it covers many independent research domains
 that require heavy web fetching. Delegate to parallel subagents by topic area (e.g.,
