@@ -42,6 +42,12 @@ repos:
         entry: scripts/validate-agent-denies.sh
         files: ^etc/kiro-cli/cli-agents/.*\.json$
         pass_filenames: false
+      - id: validate-persona-steering-imports
+        name: Validate persona steering imports
+        language: script
+        entry: scripts/validate-persona-steering-imports.sh
+        files: ^etc/ai/steering/.*\.md$|^etc/claude-code/agents/.*\.md$
+        pass_filenames: false
       - id: shfmt
         name: shfmt
         minimum_pre_commit_version: 2.4.0
