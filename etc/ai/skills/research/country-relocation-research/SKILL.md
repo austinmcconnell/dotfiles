@@ -1,9 +1,9 @@
 ---
-name: relocation-research
-description: Research countries as relocation destinations with per-country directory structure, five-phase workflow, and subagent delegation patterns. Use when researching countries for relocation, evaluating cities for a family move, or comparing relocation destinations.
+name: country-relocation-research
+description: Research countries as relocation destinations with per-country directory structure, five-phase workflow, and subagent delegation patterns. Use when researching countries for relocation, evaluating cities for an international family move, or comparing countries as relocation destinations.
 ---
 
-# Relocation Research
+# Country Relocation Research
 
 Conventions for researching countries as relocation destinations. Follows the `create-research`
 skill for general research workflow, frontmatter, citations, and subagent delegation. This skill

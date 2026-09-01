@@ -24,7 +24,7 @@ defines the decision.
 | 2    | —       | X.XX    | X.XX      | X.XX       | X.XX                    | X.XX              | X.XX           |
 
 Scores are 1–10. Overall = weighted sum using the scoring weights defined in Phase 5 of the
-`relocation-research` skill. Read that section to get the current percentages.
+`country-relocation-research` skill. Read that section to get the current percentages.
 
 ## Per-Dimension Winners
 
