@@ -512,10 +512,16 @@ Code session fills that role directly.
   "Reference Repositories" table so Grep/Glob can be pointed at them manually — functional, not
   semantic, coverage
 - Personas support their own scoped `hooks:` frontmatter field (`PreToolUse`/`PostToolUse`, same
-  shape as the global `settings.json` arrays), confirmed against current Claude Code docs. All four
-  personas use it: `block-persona-shell-commands.sh` runs as a persona-scoped `PreToolUse(Bash)`
-  hook, mirroring kiro's per-agent `toolsSettings.shell.deniedCommands`
-  (aws/docker/kubectl/ssh/package-manager installs and persona-specific destructive commands)
+  shape as the global `settings.json` arrays), confirmed against current Claude Code docs — but this
+  repo doesn't use it. `block-persona-shell-commands.sh` (mirroring kiro's per-agent
+  `toolsSettings.shell.deniedCommands` for aws/docker/kubectl/ssh/package-manager installs and
+  persona-specific destructive commands) is wired ONCE as a global `PreToolUse(Bash)` hook in
+  `settings.json` instead of duplicated into all four persona files. It self-scopes by reading the
+  `agent_type` field Claude Code includes in the hook payload for any session run with
+  `--agent <name>` — confirmed against current `hooks.md`, and empirically verified: a real
+  `claude --agent docs` invocation produced a payload with `"agent_type":"docs"`, matching the
+  persona's frontmatter `name:`. Main Claude Code sessions have no `agent_type` and the script
+  no-ops for them
 
 ### What Claude Code Does NOT Have (vs kiro-cli)
 
