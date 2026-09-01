@@ -26,16 +26,21 @@ composition and constant priorities. This skill covers the domestic-move priorit
 **Must-haves** (a state failing these is likely disqualified):
 
 - Highly rated public education, measured by **state NAEP scale scores** (2024, grade-4 reading and
-  grade-8 math):
-  - **Pass** — grade-8 math ≥ 275 AND grade-4 reading ≥ 216 (at or above national). No penalty.
-  - **Marginal / penalize** — meets national average (grade-4 reading ~214, grade-8 math ~272) but
-    misses the pass line. Score education lower; a strong specific district can redeem the metro.
-  - **Weak / heavy-penalize** — below national on both (grade-8 math < 268 AND grade-4 reading \<
-    212). Flag prominently; pursue only if a specific district demonstrably bucks the state trend.
-  - This is a **penalize**, not disqualify, filter — district quality varies within a state, so
-    metro/district detail (Phases 2–3) can still redeem a mediocre state. Flag pass-tier states
-    whose NAEP scores declined year over year. See `_research_/states/education-classification.md`
-    for the rubric and state distribution.
+  grade-8 math), classified against the national public average at the edge of statistical
+  significance (national: reading ~214, math ~272; p\<.05 critical difference ~2.8 reading / ~2.7
+  math):
+  - **Weak / penalize** — statistically significantly below national on **both** axes: grade-8 math
+    ≤ 269 AND grade-4 reading ≤ 211. Flag prominently; pursue only if a specific district
+    demonstrably bucks the state trend (e.g. New Mexico, West Virginia, Oklahoma, Alaska).
+  - **Acceptable** — everything else (at, above, or statistically indistinguishable from national on
+    at least one axis). No state-level education penalty; a state well above national on both is a
+    positive signal worth noting.
+  - This is a **penalize**, not disqualify, filter, and deliberately two-tier — state-average NAEP
+    gaps under ~2.7–2.8 points are within statistical noise, so the only defensible state-level line
+    is "clearly below national." District quality varies within a state, so metro/district detail
+    (Phases 2–3) is where education is really judged. Flag acceptable-tier states whose NAEP scores
+    declined year over year. See `_research_/states/education-classification.md` for the
+    significance method, standard errors, and state distribution.
 - Cold-to-temperate climate, measured by **IECC/ASHRAE 169 climate zone** (county-resolved, based on
   heating/cooling degree days):
   - **Pass** — predominantly IECC zone 5, 6, or 7 (Cool / Cold / Very Cold; e.g. MN, WI, MI, MT, VT,
@@ -139,8 +144,9 @@ more small, flat data files live in the corpus.
 **Screen:** Apply all three must-have thresholds (climate, education, healthcare) to each state.
 Sort the result into two lists:
 
-- **Primary candidates** — pass **all three** must-haves (climate zone ≥ 5 AND grade-8 math ≥ 275
-  AND grade-4 reading ≥ 216 AND direct-patient-care ≥ 220). Research these first.
+- **Primary candidates** — pass **all three** must-haves: climate zone ≥ 5 AND direct-patient-care ≥
+  220 AND education not in the weak tier (i.e. NOT significantly below national on both axes —
+  grade-8 math ≤ 269 AND grade-4 reading ≤ 211). Research these first.
 - **Secondary candidates** — pass **exactly two of three**, with the failing dimension named per
   state. Worth considering when a primary list is short or when the failing dimension has a known
   escape hatch (education is *penalize*, not disqualify, so an education-only miss is a softer fail
@@ -177,26 +183,27 @@ infrastructure, and airport access to DFW/AUS. This file is the single source fo
 **Disqualification check:** State the verdict up front — does this state pass the must-haves
 (education, climate, healthcare access)? For **climate**, classify the state by its predominant IECC
 zone: zone 5+ passes, zone 4 is marginal (a specific metro must reach zone 5+), zone 3 or warmer is
-disqualified. For **education** (NAEP 2024), pass = grade-8 math ≥ 275 AND grade-4 reading ≥ 216;
-below national on both (grade-8 math < 268 AND grade-4 reading < 212) is weak — penalize, do not
-disqualify, since a strong district can redeem a state. For **healthcare** (AAMC direct-patient-care
-physicians per 100k), pass ≥ 220, 190–219 is marginal, and < 190 is a **hard-floor disqualify** a
-metro cannot escape. If it fails a must-have, say so plainly and note whether metro-level research
-is still warranted — e.g., a mostly-warm state with one high-elevation metro in zone 5+ (the
-Colorado/Steamboat carve-out), or a below-pass education state where a specific district excels (no
-climate/healthcare exception rescues a healthcare-floor failure, though). Flag thin-margin
-(borderline zone 4/5) climate qualifiers as a warming risk, and flag declining NAEP or physician
-trends. See `_research_/states/education-classification.md` and
-`_research_/states/healthcare-classification.md` for the education and healthcare rubrics
-(`climate-classification.md` covers climate).
+disqualified. For **education** (NAEP 2024), the state prior is two-tier against the national public
+average: weak = statistically significantly below national on **both** axes (grade-8 math ≤ 269 AND
+grade-4 reading ≤ 211, i.e. past the ~2.7–2.8-point p\<.05 critical difference) — penalize, do not
+disqualify, since a strong district can redeem a state; everything else is acceptable at the state
+level. For **healthcare** (AAMC direct-patient-care physicians per 100k), pass ≥ 220, 190–219 is
+marginal, and < 190 is a **hard-floor disqualify** a metro cannot escape. If it fails a must-have,
+say so plainly and note whether metro-level research is still warranted — e.g., a mostly-warm state
+with one high-elevation metro in zone 5+ (the Colorado/Steamboat carve-out), or a weak-tier
+education state where a specific district excels (no climate/healthcare exception rescues a
+healthcare-floor failure, though). Flag thin-margin (borderline zone 4/5) climate qualifiers as a
+warming risk, and flag declining NAEP or physician trends. See
+`_research_/states/education-classification.md` and `_research_/states/healthcare-classification.md`
+for the education and healthcare rubrics (`climate-classification.md` covers climate).
 
 The must-haves interact — report the tensions honestly rather than glossing them. Worked example:
-**Idaho** passes climate (cold) and education (grade-4 reading 216 / grade-8 math 278) but **fails
-the healthcare hard floor** (188 direct-patient-care physicians per 100k, below 190). Because
-healthcare has no metro exception, a qualifying-metro pursuit would require a metro with an
-unusually strong hospital network, and even then the state-level scarcity remains a standing
-concern. This is the kind of repeatable, defensible verdict the thresholds exist to produce — as
-opposed to a vibes-based "Idaho seems nice."
+**Idaho** passes climate (cold) and clears education (grade-4 reading 216 / grade-8 math 278 —
+acceptable tier, not below national) but **fails the healthcare hard floor** (188
+direct-patient-care physicians per 100k, below 190). Because healthcare has no metro exception, a
+qualifying-metro pursuit would require a metro with an unusually strong hospital network, and even
+then the state-level scarcity remains a standing concern. This is the kind of repeatable, defensible
+verdict the thresholds exist to produce — as opposed to a vibes-based "Idaho seems nice."
 
 **Subagent delegation:** Although this is a single file, it covers many independent research domains
 that require heavy web fetching. Delegate to parallel subagents by topic area (e.g.,
