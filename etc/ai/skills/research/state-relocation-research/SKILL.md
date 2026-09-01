@@ -93,7 +93,9 @@ _research_/states/
 
 ## Five-Phase Workflow
 
-Run phases in order. Each phase reads the output of prior phases to avoid duplication.
+Run phases in order. Each phase reads the output of prior phases to avoid duplication. Phase 0 is a
+skippable pre-screen that nominates candidate states before the five per-state research phases (1–5)
+begin; skip it when the user names a state to research directly.
 
 **Before starting any phase**, check the state directory (`_research_/states/<state>/`) for existing
 files. Read all files from prior phases — they contain data, metro selections, and recommendations
@@ -103,7 +105,8 @@ orphaned `.tmp-*` files exist from a failed phase 1 assembly, clean them up and 
 
 | Phase | File(s)                           | Template                                | Depends On |
 | ----- | --------------------------------- | --------------------------------------- | ---------- |
-| 1     | `state-overview.md`               | `state-relocation-overview-template.md` | —          |
+| 0     | *(none — in-conversation screen)* | `_research_/states/state-metrics.json`  | —          |
+| 1     | `state-overview.md`               | `state-relocation-overview-template.md` | Phase 0    |
 | 2     | `<metro>.md` (one per metro)      | `metro-profile-template.md`             | Phase 1    |
 | 3     | `education-and-family.md`         | `education-and-family-template.md`      | Phases 1–2 |
 | 4     | `adu-and-investment.md`           | `adu-and-investment-template.md`        | Phases 1–2 |
@@ -111,8 +114,51 @@ orphaned `.tmp-*` files exist from a failed phase 1 assembly, clean them up and 
 
 Phases 3 and 4 are independent and can run in parallel.
 
-**Execution order:** Phase 1 → Phase 2 → Phases 3 + 4 (parallel) → Phase 5. Wait for each step (the
-parallel 3 + 4 pair counts as one step) to complete before starting the next.
+**Execution order:** Phase 0 (pre-screen, skip if a state is named) → Phase 1 → Phase 2 → Phases 3 +
+4 (parallel) → Phase 5. Wait for each step (the parallel 3 + 4 pair counts as one step) to complete
+before starting the next.
+
+### Phase 0 — Candidate Pre-Screening
+
+Runs *before* any per-state research to decide **which** states are worth a Phase 1 deep-dive. Where
+Phase 1 evaluates a single named state in depth, Phase 0 filters all 50 states at once on the three
+must-haves so effort goes to states that can actually clear the bar. Skip Phase 0 only when the user
+names a specific state to research directly.
+
+**Data source:** `_research_/states/state-metrics.json` — all 50 states (DC excluded) with verified
+raw metrics (IECC populated-zone integer, NAEP 2024 grade-4 reading and grade-8 math, AAMC
+direct-patient-care physicians per 100k) plus a `thresholds` block. The file stores raw metrics
+only; apply the thresholds at query time so a verdict never goes stale. The three
+`*-classification.md` files remain the authoritative method and rationale; this JSON is the data
+they are applied to. Check the file's `metadata.last_verified` — if the metric sources have since
+updated (NAEP is biennial, AAMC annual), refresh the values before relying on the screen.
+
+**Screen:** Apply all three must-have thresholds (climate, education, healthcare) to each state.
+Sort the result into two lists:
+
+- **Primary candidates** — pass **all three** must-haves (climate zone ≥ 5 AND grade-8 math ≥ 275
+  AND grade-4 reading ≥ 216 AND direct-patient-care ≥ 220). Research these first.
+- **Secondary candidates** — pass **exactly two of three**, with the failing dimension named per
+  state. Worth considering when a primary list is short or when the failing dimension has a known
+  escape hatch (education is *penalize*, not disqualify, so an education-only miss is a softer fail
+  than a healthcare-floor or climate miss).
+
+A `jq` filter over the JSON produces both lists directly; the two thresholds that behave specially
+still apply — education never hard-disqualifies (a strong district can redeem it later), and the
+healthcare floor (< 190) has no metro exception. Name the failing dimension(s) for every secondary
+state so the reader sees *why* it missed. States below the healthcare hard floor should be called
+out explicitly even if they clear the other two — Idaho is the standing example (passes climate and
+education, fails the healthcare floor).
+
+The pre-screen is deliberately limited to the three must-haves. Nice-to-haves (transit, bike/walk,
+nature/trails, ADU adoption, DFW/AUS flights) are tie-breakers applied later, when Phase 5 compares
+a short list of already-qualifying metros — they do not belong in a 50-state filter.
+
+**Output:** A ranked candidate list (primary, then secondary with failing dimensions) that seeds
+Phase 1. This is a lightweight, in-conversation step; it does not produce a research file of its
+own. When the user wants a durable comparison of *researched* states, that is the separate on-demand
+`rankings.md` (see Cross-State Rankings) — do not conflate the two: Phase 0 nominates candidates
+from metric data *before* research, `rankings.md` compares states *after* full research.
 
 ### Phase 1 — State Overview
 
@@ -269,6 +315,10 @@ YAML `sources` frontmatter, and `[UNVERIFIED]` markers.
 ## Prompt Shorthand
 
 Once this skill and templates exist, prompts can be as short as:
+
+```text
+Pre-screen states for relocation — which states pass the must-haves?
+```
 
 ```text
 Research <state> for relocation — phase 1 (state overview).
