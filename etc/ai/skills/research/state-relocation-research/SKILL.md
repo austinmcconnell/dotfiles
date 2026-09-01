@@ -57,7 +57,7 @@ composition and constant priorities. This skill covers the domestic-move priorit
   - **Marginal (flag)** — 190–219. The chosen metro must have a real hospital network or academic
     medical center to compensate.
   - **Disqualify (hard floor)** — < 190. Statewide scarcity a metro cannot escape (e.g. Mississippi
-    178.6, Idaho 183.8; Nevada 190.2 sits at the marginal line).
+    184, Idaho 188, Oklahoma 189; Nevada 195 sits in the marginal band).
   - This is a **hard-floor disqualify** filter — unlike education, a specific metro cannot redeem a
     state below the floor. Use direct-patient-care (not "active") per 100k — it measures access to a
     treating doctor. Flag any state whose ratio is declining year over year. See
@@ -189,7 +189,7 @@ trends. See `_research_/states/education-classification.md` and
 
 The must-haves interact — report the tensions honestly rather than glossing them. Worked example:
 **Idaho** passes climate (cold) and education (grade-4 reading 216 / grade-8 math 278) but **fails
-the healthcare hard floor** (183.8 direct-patient-care physicians per 100k, below 190). Because
+the healthcare hard floor** (188 direct-patient-care physicians per 100k, below 190). Because
 healthcare has no metro exception, a qualifying-metro pursuit would require a metro with an
 unusually strong hospital network, and even then the state-level scarcity remains a standing
 concern. This is the kind of repeatable, defensible verdict the thresholds exist to produce — as
