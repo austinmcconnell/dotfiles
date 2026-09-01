@@ -66,8 +66,8 @@ re-run phase 1.
 
 Phases 3 and 4 are independent and can run in parallel.
 
-**Execution order:** Phase 1 → Phase 2 → Phases 3 + 4 (parallel) → Phase 5. Wait for each step to
-complete before starting the next.
+**Execution order:** Phase 1 → Phase 2 → Phases 3 + 4 (parallel) → Phase 5. Wait for each step (the
+parallel 3 + 4 pair counts as one step) to complete before starting the next.
 
 ### Phase 1 — Country Overview
 
