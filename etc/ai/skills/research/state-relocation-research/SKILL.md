@@ -131,7 +131,10 @@ direct-patient-care physicians per 100k) plus a `thresholds` block. The file sto
 only; apply the thresholds at query time so a verdict never goes stale. The three
 `*-classification.md` files remain the authoritative method and rationale; this JSON is the data
 they are applied to. Check the file's `metadata.last_verified` — if the metric sources have since
-updated (NAEP is biennial, AAMC annual), refresh the values before relying on the screen.
+updated (NAEP is biennial, AAMC annual), refresh the values before relying on the screen. This file
+is queried by path with `jq`, not semantic search, so it is intentionally left out of the research
+knowledge base (indexed as `**/*.md` only). Rule of three: revisit indexing JSON only once three or
+more small, flat data files live in the corpus.
 
 **Screen:** Apply all three must-have thresholds (climate, education, healthcare) to each state.
 Sort the result into two lists:
