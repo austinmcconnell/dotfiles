@@ -54,6 +54,12 @@ repos:
         entry: scripts/validate-mcp-server-parity.sh
         files: ^etc/kiro-cli/settings/mcp\.json$|^etc/kiro-cli/cli-agents/jira\.json$|^install/claude-code\.sh$
         pass_filenames: false
+      - id: validate-hook-wiring
+        name: Validate hook wiring parity
+        language: script
+        entry: scripts/validate-hook-wiring.sh
+        files: ^etc/ai/hooks/.*\.sh$|^etc/kiro-cli/hooks/.*\.sh$|^etc/kiro-cli/cli-agents/.*\.json$|^etc/claude-code/settings\.json$|^etc/claude-code/agents/.*\.md$
+        pass_filenames: false
       - id: shfmt
         name: shfmt
         minimum_pre_commit_version: 2.4.0
