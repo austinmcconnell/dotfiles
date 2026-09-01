@@ -21,11 +21,11 @@ for a US family with a remote software developer relocating from Texas.
 State the verdict up front against the three must-haves. This determines whether metro-level
 research is warranted.
 
-| Must-Have         | Pass/Fail          | Notes                                                                                |
-| ----------------- | ------------------ | ------------------------------------------------------------------------------------ |
-| Education (NAEP)  | Weak/Acceptable    | Weak only if sig. below national on both (g8m ≤269 AND g4r ≤211); penalize, not fail |
-| Climate (IECC)    | Pass/Marginal/Fail | Predominant IECC zone: 5+ passes, 4 marginal, 3- disqualifies                        |
-| Healthcare (AAMC) | Pass/Marginal/Fail | Direct-patient-care MDs per 100k: ≥220 pass, 190–219 marg, \<190 fail                |
+| Must-Have         | Pass/Fail              | Notes                                                                                                |
+| ----------------- | ---------------------- | ---------------------------------------------------------------------------------------------------- |
+| Education (NAEP)  | Strong/Acceptable/Weak | Sig. vs national per axis: strong=above (primary bar), acceptable=indistinguishable, weak=below both |
+| Climate (IECC)    | Pass/Marginal/Fail     | Predominant IECC zone: 5+ passes, 4 marginal, 3- disqualifies                                        |
+| Healthcare (AAMC) | Pass/Marginal/Fail     | Direct-patient-care MDs per 100k: ≥220 pass, 190–219 marg, \<190 fail                                |
 
 For the climate row, state the state's predominant IECC/ASHRAE 169 zone and the verdict:
 
@@ -38,12 +38,13 @@ For the climate row, state the state's predominant IECC/ASHRAE 169 zone and the 
 For the education row, state the state's 2024 NAEP grade-4 reading and grade-8 math averages and the
 verdict:
 
-- **Grade-8 math ≤ 269 AND grade-4 reading ≤ 211** (statistically significantly below the national
-  public average on both axes, past the ~2.7–2.8-point p\<.05 critical difference) → Weak —
-  penalize, pursue only if a specific district bucks the trend.
-- **Otherwise** → Acceptable — at, above, or statistically indistinguishable from national on at
-  least one axis; no state-level education penalty. A state well above national on both is a
-  positive signal worth noting. Education never hard-disqualifies (district variance).
+- **Significantly above national on ≥1 axis and not below on the other** (test
+  `|state − national| > 1.96 × √(state_se² + national_se²)`) → Strong — demonstrably above-average
+  schools; the primary-candidate bar for education.
+- **Statistically indistinguishable from national on both axes** → Acceptable — not a liability, not
+  a draw; a secondary candidate on education (may still be primary-worthy on other must-haves).
+- **Significantly below national on both axes** → Weak — penalize, pursue only if a specific
+  district bucks the trend. Education never hard-disqualifies (district variance).
 
 For the healthcare row, state the state's AAMC direct-patient-care physicians per 100k and the
 verdict:
@@ -91,10 +92,11 @@ State-level education landscape only — metro files cover local district qualit
 - Per-pupil funding and how it compares nationally
 - School-district structure — how districts are organized, how quality varies within the state
 - **NAEP performance (the education screen):** state 2024 grade-4 reading and grade-8 math scale
-  scores, with the two-tier verdict against the national public average (~214 reading / ~272 math):
-  weak if significantly below national on both axes (g8 math ≤ 269 AND g4 reading ≤ 211), otherwise
-  acceptable. See `_research_/states/education-classification.md` for the significance method and
-  standard errors. Note the year-over-year trend.
+  scores, with the three-tier verdict against the national public average (~214 reading / ~272
+  math): strong if significantly above national on at least one axis and not below on the other,
+  weak if significantly below on both, otherwise acceptable. Strong is the primary-candidate bar.
+  See `_research_/states/education-classification.md` for the significance method and standard
+  errors. Note the year-over-year trend.
 - School-choice landscape: charter/magnet availability, open enrollment rules
 - **Homeschooling and online school law:** Is homeschooling legal and how is it regulated
   (notice/registration, testing or portfolio review, curriculum requirements)? Availability of
