@@ -48,6 +48,12 @@ repos:
         entry: scripts/validate-persona-steering-imports.sh
         files: ^etc/ai/steering/.*\.md$|^etc/claude-code/agents/.*\.md$
         pass_filenames: false
+      - id: validate-mcp-server-parity
+        name: Validate MCP server parity
+        language: script
+        entry: scripts/validate-mcp-server-parity.sh
+        files: ^etc/kiro-cli/settings/mcp\.json$|^etc/kiro-cli/cli-agents/jira\.json$|^install/claude-code\.sh$
+        pass_filenames: false
       - id: shfmt
         name: shfmt
         minimum_pre_commit_version: 2.4.0
