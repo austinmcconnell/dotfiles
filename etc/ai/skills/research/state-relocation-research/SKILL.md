@@ -34,8 +34,8 @@ composition and constant priorities. This skill covers the domestic-move priorit
     212). Flag prominently; pursue only if a specific district demonstrably bucks the state trend.
   - This is a **penalize**, not disqualify, filter — district quality varies within a state, so
     metro/district detail (Phases 2–3) can still redeem a mediocre state. Flag pass-tier states
-    whose NAEP scores declined year over year. See
-    `_research_/states/education-healthcare-thresholds.md` for the rubric and state distribution.
+    whose NAEP scores declined year over year. See `_research_/states/education-classification.md`
+    for the rubric and state distribution.
 - Cold-to-temperate climate, measured by **IECC/ASHRAE 169 climate zone** (county-resolved, based on
   heating/cooling degree days):
   - **Pass** — predominantly IECC zone 5, 6, or 7 (Cool / Cold / Very Cold; e.g. MN, WI, MI, MT, VT,
@@ -61,7 +61,7 @@ composition and constant priorities. This skill covers the domestic-move priorit
   - This is a **hard-floor disqualify** filter — unlike education, a specific metro cannot redeem a
     state below the floor. Use direct-patient-care (not "active") per 100k — it measures access to a
     treating doctor. Flag any state whose ratio is declining year over year. See
-    `_research_/states/education-healthcare-thresholds.md` for the rubric and state distribution.
+    `_research_/states/healthcare-classification.md` for the rubric and state distribution.
 
 **Nice-to-haves** (differentiators among qualifying states/metros):
 
@@ -137,8 +137,17 @@ is still warranted — e.g., a mostly-warm state with one high-elevation metro i
 Colorado/Steamboat carve-out), or a below-pass education state where a specific district excels (no
 climate/healthcare exception rescues a healthcare-floor failure, though). Flag thin-margin
 (borderline zone 4/5) climate qualifiers as a warming risk, and flag declining NAEP or physician
-trends. See `_research_/states/education-healthcare-thresholds.md` for the education and healthcare
-rubric.
+trends. See `_research_/states/education-classification.md` and
+`_research_/states/healthcare-classification.md` for the education and healthcare rubrics
+(`climate-classification.md` covers climate).
+
+The must-haves interact — report the tensions honestly rather than glossing them. Worked example:
+**Idaho** passes climate (cold) and education (grade-4 reading 216 / grade-8 math 278) but **fails
+the healthcare hard floor** (183.8 direct-patient-care physicians per 100k, below 190). Because
+healthcare has no metro exception, a qualifying-metro pursuit would require a metro with an
+unusually strong hospital network, and even then the state-level scarcity remains a standing
+concern. This is the kind of repeatable, defensible verdict the thresholds exist to produce — as
+opposed to a vibes-based "Idaho seems nice."
 
 **Subagent delegation:** Although this is a single file, it covers many independent research domains
 that require heavy web fetching. Delegate to parallel subagents by topic area (e.g.,

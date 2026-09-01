@@ -91,8 +91,8 @@ State-level education landscape only — metro files cover local district qualit
 - School-district structure — how districts are organized, how quality varies within the state
 - **NAEP performance (the education screen):** state 2024 grade-4 reading and grade-8 math scale
   scores, with the verdict against the 275 (g8 math) / 216 (g4 reading) pass line and national
-  averages (~272 / ~214). See `_research_/states/education-healthcare-thresholds.md` for the rubric.
-  Note the year-over-year trend.
+  averages (~272 / ~214). See `_research_/states/education-classification.md` for the rubric. Note
+  the year-over-year trend.
 - School-choice landscape: charter/magnet availability, open enrollment rules
 - **Homeschooling and online school law:** Is homeschooling legal and how is it regulated
   (notice/registration, testing or portfolio review, curriculum requirements)? Availability of
@@ -106,7 +106,7 @@ This is a must-have — be specific.
 
 - **AAMC direct-patient-care physicians per 100k (the healthcare screen):** state figure vs the 220
   pass line, 190 hard floor, and national average of 255 (cite year). Use direct-patient-care, not
-  "active." See `_research_/states/education-healthcare-thresholds.md` for the rubric.
+  "active." See `_research_/states/healthcare-classification.md` for the rubric.
 - **Physician migration trend:** Are doctors moving into or out of this state? Cite recent data on
   physician supply direction — a declining ratio is a flag even above the floor
 - Major hospital systems and academic medical centers
