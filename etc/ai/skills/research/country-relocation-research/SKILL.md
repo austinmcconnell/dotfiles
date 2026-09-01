@@ -12,17 +12,19 @@ relocation research.
 
 ## Family Profile
 
-All relocation research targets this family unless the user specifies otherwise:
+The target family is defined in the shared profile:
+[relocation-shared/family-profile.md](../relocation-shared/family-profile.md). Read it for household
+composition and constant priorities. This skill covers the international-move priorities below.
 
-- US family of 5 (two adults, three children — oldest age 9)
-- Primary earner works remotely as a software developer
-- All English-speaking; no local language proficiency assumed
-- Interested in rental property investment as secondary goal
+### Priorities for International Moves
+
 - EU citizenship is a possibility but not guaranteed; research should cover the digital nomad visa
   pathway as primary and note where EU citizenship would simplify or change the picture
-- Priorities: quality education with strong language integration for non-native speakers (public
-  schools with integration programs preferred over international schools), reliable internet for
-  remote work, family safety, walkable/transit-friendly environment, reasonable cost of living
+- Quality education with strong language integration for non-native speakers — public schools with
+  integration programs preferred over international schools
+- Reliable internet for remote work on US business hours (mind the timezone overlap)
+- Family safety, walkable/transit-friendly environment, reasonable cost of living
+- Rental property investment as a secondary goal
 
 ## Per-Country Directory Structure
 
