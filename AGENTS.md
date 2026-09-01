@@ -527,7 +527,11 @@ Code session fills that role directly.
   `aws-audit.jsonl`/`kubectl-audit.jsonl` outputs. Shell-invoked `aws`/`kubectl` commands are still
   audited: `audit-shell-commands.sh` runs globally on `PostToolUse` for `Bash` and writes to
   `~/.local/share/ai-audit/command-audit.jsonl` (a single shared log, not split per-tool like
-  kiro's)
+  kiro's). The trigger timing also differs: kiro's `default` agent wires the same script on
+  `preToolUse` for `execute_bash` (audited before the command runs), Claude wires it on
+  `PostToolUse` (audited after). Harmless in practice — the script only reads `.tool_input.command`,
+  it doesn't need to act before execution — but worth knowing if this script ever grows a blocking
+  responsibility
 - No `allowedTools` concept in the global permission model (everything is allow/deny/prompt) —
   though a persona's `tools:` frontmatter is a coarser analog (see Personas above)
 
