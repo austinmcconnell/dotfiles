@@ -26,8 +26,21 @@ composition and constant priorities. This skill covers the domestic-move priorit
 **Must-haves** (a state failing these is likely disqualified):
 
 - Highly rated public education — strong elementary, middle, and high schools
-- Cold-to-temperate climate — Northern states preferred, Middle states acceptable; hot Southern
-  states are disqualified (heat trend under climate change is a dealbreaker)
+- Cold-to-temperate climate, measured by **IECC/ASHRAE 169 climate zone** (county-resolved, based on
+  heating/cooling degree days):
+  - **Pass** — predominantly IECC zone 5, 6, or 7 (Cool / Cold / Very Cold; e.g. MN, WI, MI, MT, VT,
+    CO's higher elevations, northern New England)
+  - **Marginal** — predominantly zone 4 (Mixed; e.g. VA, KY, MO). Not disqualified, but a specific
+    metro must independently reach zone 5+ to qualify (usually via elevation or latitude). Marine
+    zone 4C (Puget Sound, Willamette Valley) is marginal-favorable given mild summers.
+  - **Disqualified** — predominantly zone 3 or warmer (Warm / Hot / Very Hot; e.g. TX, FL, AZ, GA,
+    the Carolinas), unless a specific high-elevation metro independently reaches zone 5+ (the
+    Colorado/Steamboat carve-out). The family's Texas baseline is zone 2A–3B — disqualified.
+  - **Warming-margin flag** — flag thin-margin qualifiers (borderline zone 4/5) as a climate-change
+    risk; the 2021 IECC remap moved ~10% of counties to *warmer* zones, so borderline states trend
+    hotter. Prefer states with margin.
+  - Heat severity is reported (not filtered) at the metro level via IECC zone, 1% summer design
+    temperature, average July high, and days/year ≥90 °F — see the metro profile template.
 - Strong healthcare ecosystem — physician supply and availability, not declining. Track
   physician-per-capita and migration trends (doctors leaving certain states for others)
 
@@ -94,9 +107,11 @@ infrastructure, and airport access to DFW/AUS. This file is the single source fo
 — metro files must not duplicate it.
 
 **Disqualification check:** State the verdict up front — does this state pass the must-haves
-(education, cold-to-temperate climate, healthcare access)? If it fails a must-have, say so plainly
-and note whether metro-level research is still warranted (e.g., a state that's mostly too hot but
-has one high-elevation metro that qualifies).
+(education, climate, healthcare access)? For climate, classify the state by its predominant IECC
+zone: zone 5+ passes, zone 4 is marginal (a specific metro must reach zone 5+), zone 3 or warmer is
+disqualified. If it fails a must-have, say so plainly and note whether metro-level research is still
+warranted — e.g., a mostly-warm state with one high-elevation metro in zone 5+ (the
+Colorado/Steamboat carve-out). Flag thin-margin (borderline zone 4/5) qualifiers as a warming risk.
 
 **Subagent delegation:** Although this is a single file, it covers many independent research domains
 that require heavy web fetching. Delegate to parallel subagents by topic area (e.g.,

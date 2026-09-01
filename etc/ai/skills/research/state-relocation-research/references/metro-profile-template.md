@@ -26,9 +26,21 @@ Demographic character relevant to a relocating family.
 
 ## Climate
 
-Metro-specific climate. Confirm the cold-to-temperate fit. Seasonal temperature ranges,
-precipitation, snowfall, heating/cooling needs. A monthly table is ideal if data is available. Flag
-any summer-heat concern.
+Confirm the metro's climate fit against the must-have. Because IECC zones are county-resolved, the
+metro has its own zone — state it explicitly (this is what qualifies a marginal or carve-out metro).
+
+Report these heat metrics (descriptive, not a second filter — the IECC zone is the filter):
+
+| Metric                   | Value     | Notes                                            |
+| ------------------------ | --------- | ------------------------------------------------ |
+| IECC zone (metro county) | 5A/6A/... | Must be 5+ to qualify a marginal/carve-out metro |
+| 1% summer design temp    | XX °F     | ~p99 daily high — the "hot end"                  |
+| Average July high        | XX °F     | Typical summer afternoon                         |
+| Days/year ≥ 90 °F        | XX        | The heat-frequency metric the family cares about |
+| Days/year ≥ 100 °F       | XX        | Include where non-trivial                        |
+
+Then cover seasonal ranges, precipitation, snowfall, and heating/cooling needs. A monthly table is
+ideal if data is available. Note any warming trend for the metro's county.
 
 ## Cost of Living & Housing
 

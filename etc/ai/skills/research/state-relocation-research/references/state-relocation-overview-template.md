@@ -21,24 +21,41 @@ for a US family with a remote software developer relocating from Texas.
 State the verdict up front against the three must-haves. This determines whether metro-level
 research is warranted.
 
-| Must-Have         | Pass/Fail | Notes                                                |
-| ----------------- | --------- | ---------------------------------------------------- |
-| Education quality | Pass/Fail | State ranking, funding level                         |
-| Cold-to-temperate | Pass/Fail | Northern/Middle preferred; hot Southern disqualifies |
-| Healthcare access | Pass/Fail | Physician supply trend — growing or declining        |
+| Must-Have         | Pass/Fail          | Notes                                                         |
+| ----------------- | ------------------ | ------------------------------------------------------------- |
+| Education quality | Pass/Fail          | State ranking, funding level                                  |
+| Climate (IECC)    | Pass/Marginal/Fail | Predominant IECC zone: 5+ passes, 4 marginal, 3- disqualifies |
+| Healthcare access | Pass/Fail          | Physician supply trend — growing or declining                 |
+
+For the climate row, state the state's predominant IECC/ASHRAE 169 zone and the verdict:
+
+- **Zone 5, 6, or 7** (Cool / Cold / Very Cold) → Pass
+- **Zone 4** (Mixed) → Marginal — a specific metro must independently reach zone 5+ (elevation or
+  latitude); marine 4C is marginal-favorable
+- **Zone 3 or warmer** (Warm / Hot / Very Hot) → Fail, unless a high-elevation metro reaches zone 5+
+  (Colorado/Steamboat carve-out)
 
 If the state fails a must-have, say so plainly. Note any exception (e.g., a single high-elevation or
-northern metro that qualifies despite a state-wide fail).
+northern metro in zone 5+ that qualifies despite a state-wide fail). Flag thin-margin qualifiers
+(borderline zone 4/5) as a warming risk — the 2021 IECC remap shifted ~10% of counties to warmer
+zones.
 
 ## Geography and Climate
 
-Physical geography, regions, elevation. Climate table by region with the cold-bias filter front and
-center — flag regions that run too hot, especially summer trends under climate change.
+Physical geography, regions, elevation. Classify climate by IECC/ASHRAE 169 zone (county-resolved),
+which is the filter for the climate must-have. Note within-state zone variation — elevation and
+latitude can span two or more zones (Colorado runs 4B to 7). Flag regions that run too warm and any
+warming trend.
 
-| Region   | Climate Type | Summer Highs | Winter Lows | Climate Fit           | Notes      |
-| -------- | ------------ | ------------ | ----------- | --------------------- | ---------- |
-| Region A | Type         | XX °F        | XX °F       | Good/Marginal/Too hot | Trend note |
-| Region B | Type         | XX °F        | XX °F       | Good/Marginal/Too hot | Trend note |
+| Region   | IECC Zone | Climate Type | Avg July High | Winter Lows | Climate Fit              | Notes      |
+| -------- | --------- | ------------ | ------------- | ----------- | ------------------------ | ---------- |
+| Region A | 5A/6A/... | Type         | XX °F         | XX °F       | Pass/Marginal/Disqualify | Trend note |
+| Region B | 4A/...    | Type         | XX °F         | XX °F       | Pass/Marginal/Disqualify | Trend note |
+
+State the predominant zone for the whole state and where the population concentrates. See
+`_research_/states/climate-classification.md` for the zone rubric, HDD/CDD thresholds, and the
+warming trend. Cite the IECC/ASHRAE 169 zone map and NOAA state temperature data as the standard
+sources.
 
 ## Population
 
