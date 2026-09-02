@@ -198,7 +198,7 @@ the
 - Agent configs live in `etc/kiro-cli/cli-agents/<name>.json` (symlinked to `~/.kiro/agents/` by
   `install/kiro-cli.sh`)
 - Each agent has a co-located prompt file: `etc/kiro-cli/cli-agents/<name>-prompt.md`
-- Prompts use relative `file://` URIs: `"prompt": "file://./default-prompt.md"`
+- Prompts use relative `file://` URIs: `"prompt": "file://./code-prompt.md"`
 - Hook scripts live in `etc/kiro-cli/hooks/` (genuinely kiro-only: KB staleness, trace logging) and
   `etc/ai/hooks/` (cross-tool: security denies, correction-capture, audit-shell-commands, and
   `recall-memory.sh`/`check-engram-hygiene.sh` — moved here from `etc/kiro-cli/hooks/` once Claude
@@ -393,8 +393,8 @@ All agents share the same subagent config:
 
 ```json
 "subagent": {
-    "availableAgents": ["default", "docs", "jira", "ansible", "datadog"],
-    "trustedAgents": ["default"]
+    "availableAgents": ["code", "docs", "jira", "ansible", "datadog"],
+    "trustedAgents": ["code"]
 }
 ```
 

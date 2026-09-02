@@ -298,14 +298,14 @@
         },
         "subagent": {
             "availableAgents": [
-                "default",
+                "code",
                 "docs",
                 "jira",
                 "ansible",
                 "datadog"
             ],
             "trustedAgents": [
-                "default"
+                "code"
             ]
         },
         "web_fetch": {
@@ -509,7 +509,7 @@
             {
                 "capability": "subagent",
                 "match": [
-                    "default"
+                    "code"
                 ],
                 "effect": "allow"
             },
