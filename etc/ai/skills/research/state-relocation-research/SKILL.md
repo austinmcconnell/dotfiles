@@ -172,7 +172,9 @@ they are applied to. Check the file's `metadata.last_verified` — if the metric
 updated (NAEP is biennial, AAMC annual), refresh the values before relying on the screen. This file
 is queried by path with `jq`, not semantic search, so it is intentionally left out of the research
 knowledge base (indexed as `**/*.md` only). Rule of three: revisit indexing JSON only once three or
-more small, flat data files live in the corpus.
+more small, flat data files live in the corpus. Beyond the raw metrics and `thresholds`, each record
+also carries a `fips` join key and four derived verdict fields — see
+[The `state-metrics.json` Record](#the-state-metricsjson-record) for their conventions.
 
 **Screen:** Apply all three must-have thresholds (climate, education, healthcare) to each state.
 Sort the result into two lists:
@@ -205,6 +207,146 @@ Phase 1. This is a lightweight, in-conversation step; it does not produce a rese
 own. When the user wants a durable comparison of *researched* states, that is the separate on-demand
 `rankings.md` (see Cross-State Rankings) — do not conflate the two: Phase 0 nominates candidates
 from metric data *before* research, `rankings.md` compares states *after* full research.
+
+## The `state-metrics.json` Record
+
+Each state record in `_research_/states/state-metrics.json` carries three kinds of field: the **raw
+metrics** (the verified facts described under Phase 0), a **FIPS join key**, and the **derived
+verdict fields**. The metrics are the source of truth; the FIPS key and the verdicts are supporting
+fields documented below. The field names below are copied from the live file — mirror them exactly
+(run `jq '.states[0]' _research_/states/state-metrics.json` to confirm before editing). A real
+record (Minnesota), showing the existing fields plus the `fips` and verdict fields to be added:
+
+```jsonc
+{
+  "state": "Minnesota",
+  "abbr": "MN",
+  "fips": "27",                  // ADD: 2-digit zero-padded Census state code (string)
+  // ---- raw metrics (source of truth — already in the file) ----
+  "climate_zone": 6,             // IECC/ASHRAE zone integer (NOT "iecc_zone")
+  "climate_zone_note": "Twin Cities 6A; northern Minnesota 7; predominantly 6A",
+  "naep_g4_reading": 214.4,
+  "naep_g4_reading_se": 1.49,    // standard error — REQUIRED for the education significance test
+  "naep_g8_math": 282.1,
+  "naep_g8_math_se": 1.59,       // standard error — REQUIRED for the education significance test
+  "aamc_dpc_per_100k": 287,      // direct-patient-care physicians/100k (NOT "physicians_per_100k")
+  // ---- derived verdict fields (ADD: regenerated, never hand-authored) ----
+  "education_verdict": "strong",
+  "climate_verdict": "pass",
+  "healthcare_verdict": "pass",
+  "candidate_tier": "primary"
+}
+```
+
+The `naep_*_se` standard-error fields are **not** cosmetic: the education verdict is a significance
+test (`|state − national| > 1.96 × √(state_se² + national_se²)`), so it cannot be computed from the
+scale scores alone. Any verdict regeneration must read the `_se` fields and the `national_reference`
+block in `thresholds`. The record also already carries `abbr` (postal code) — a name-independent
+handle, but `abbr` is **not** the geometry join key; FIPS is (see below).
+
+### FIPS Code (the map join key)
+
+A **FIPS code** (Federal Information Processing Standard) is the Census Bureau's stable numeric
+identifier for a geographic area. The **state FIPS** is the **2-digit, zero-padded** code — e.g.
+`27` = Minnesota, `06` = California, `01` = Alabama. Counties extend it to a 5-digit code (state +
+3-digit county); metros use the separate CBSA code (see the analysis doc). Only the 2-digit state
+code belongs in `state-metrics.json`.
+
+- **What it is:** the stable identifier that never changes when a state is renamed, reordered, or
+  displayed differently. Unlike the state *name* (`"Minnesota"` vs `"MN"` vs `"Minn."`), the FIPS
+  code is unambiguous.
+- **Format:** store it as a **string**, not an integer — the leading zero matters (`"06"`, not `6`).
+  An integer `6` silently drops the zero and breaks the join for the low-numbered states. This is
+  the single most common choropleth bug, and the reason Census/Mapbox tooling standardizes on string
+  GEOIDs.
+- **Where to source it:** the Census Bureau's
+  [ANSI/FIPS state codes](https://www.census.gov/library/reference/code-lists/ansi.html), or read
+  the `id` field of each state feature in
+  [`topojson/us-atlas`](https://github.com/topojson/us-atlas) — the geometry the future map joins
+  against. Its README documents that in `states-10m.json`, `us.objects.states`, each state's `id`
+  **is** the two-digit FIPS code as a string (e.g. `"06"`) and `properties.name` is the state name.
+  Sourcing from the same place the geometry uses guarantees the keys match.
+- **When to add it:** to **every** state record in `state-metrics.json` — all 50 states, no
+  exceptions. A record without a FIPS key cannot be joined to geometry.
+- **How it is read:** it is the **join key** between the research data (this JSON) and the map
+  geometry (TopoJSON), which live in separate repos and are joined at render time. The data domain
+  produces FIPS-keyed JSON; the future viz domain consumes it. Keying on FIPS (never on names) is
+  the one non-negotiable principle of the data architecture — see
+  `relocation-map-viz/analysis/data-architecture.md`.
+
+### Verdict Fields (derived, never hand-authored)
+
+Four **verdict** fields materialize the pre-screen judgment onto each record so the map and rankings
+can read a ready answer without re-deriving it:
+
+| Field                | Values                               | Derived from (raw metric)                   |
+| -------------------- | ------------------------------------ | ------------------------------------------- |
+| `education_verdict`  | `strong` / `acceptable` / `weak`     | `naep_g4_reading` + `naep_g8_math` (+`_se`) |
+| `climate_verdict`    | `pass` / `marginal` / `disqualified` | `climate_zone`                              |
+| `healthcare_verdict` | `pass` / `marginal` / `disqualify`   | `aamc_dpc_per_100k`                         |
+| `candidate_tier`     | `primary` / `secondary`              | combined screen (all three)                 |
+
+The three per-dimension verdicts apply that dimension's `thresholds` block to the raw metric; the
+combined `candidate_tier` is `primary` only when all three pass at the primary bar (`climate_zone` ≥
+5 AND `aamc_dpc_per_100k` ≥ 220 AND education `strong`), otherwise `secondary`. Storing the tier is
+more map-ready than deriving it at query time, and it is still recomputable from the three dimension
+verdicts.
+
+**The `education_verdict` = `strong` rule has two clauses — do not drop the second.** Strong means
+significantly **above** national on **at least one** axis **AND not significantly below** on the
+other. An implementation that checks only "above on ≥1 axis" will misclassify a state that is above
+in math but significantly below in reading. `education-classification.md` is the authority for the
+exact tier boundaries and the significance method; `thresholds.education` in the JSON mirrors it.
+When regenerating, treat those two as the source of truth, not this table.
+
+**The verdict value strings intentionally differ per dimension — do not "reconcile" them.**
+`climate_verdict` uses `disqualified` while `healthcare_verdict` uses `disqualify`. This is not a
+typo: each string mirrors the key used in that dimension's `thresholds` block, so the stored value
+matches the block it is derived from. A naive equality check across dimensions will not catch a
+`disqualify`/`disqualified` mix-up, so leave the strings as the thresholds block spells them — the
+same class of intentional-spelling-difference trap the repo's `AGENTS.md` documents for the V2/V3
+chmod deny rules.
+
+**The stored verdict is derived, not authored — this is the core discipline.** Every verdict field
+must be reproducible by applying the `thresholds` block to that record's raw metrics. It is stored
+for convenience and stability (the map reads it directly; nobody reimplements the NAEP significance
+test in the client), **not** because it is an independent fact. Two rules follow:
+
+- **Never hand-edit a verdict field.** Change the raw metric or the threshold, then regenerate.
+- **The stored verdict must always equal the regenerated verdict.** Any divergence between the two
+  is a **bug**, not a judgment call — it means either the metric changed without a regenerate, or a
+  verdict was hand-touched. Treat it as drift to fix, never as a signal to trust the stored value.
+
+This preserves the raw-metric / query-time-verdict purity the data model was designed around (you
+can always recompute from metrics) while giving the map and rankings a materialized value to read.
+
+#### Recompute / Confirm / Validate Workflow
+
+Run this whenever verdicts may have drifted — after editing any raw metric, after a threshold
+change, when `metadata.last_verified` predates a NAEP (biennial) or AAMC (annual) release, or
+whenever you spot a verdict that looks wrong:
+
+1. **Recompute** — apply each dimension's `thresholds` block to every state's raw metrics and derive
+   all four verdict fields from scratch. Prefer the committed regeneration script (deterministic,
+   runnable by a human or an agent) over an ad-hoc `jq` one-liner so the result is repeatable and
+   testable. *(The script does not exist yet — it is a separate, tracked work item; its home
+   \[`dotfiles bin/` vs. alongside the data in `_research_`\] is decided when it is written. Until
+   then, recompute with a `jq` expression and commit that expression next to the data
+   \[`_research_/states/`, e.g. a short `regenerate-verdicts.md` note or a `Makefile` target\] so
+   the next agent reuses the same one rather than inventing a divergent one. Do not leave the
+   expression only in chat history.)*
+1. **Confirm** — diff the freshly recomputed verdicts against the values currently stored in
+   `state-metrics.json`. Zero diff is the expected, healthy state.
+1. **Validate** — if the diff is non-empty, do **not** silently overwrite. Investigate each
+   difference: a raw metric was updated without regenerating (expected drift — write the recomputed
+   value), or a stored verdict was hand-edited (a bug — the recomputed value wins), or the
+   thresholds themselves changed (confirm the change was intended, then regenerate). Only after
+   understanding each diff, write the recomputed verdicts back. The end state is always stored ==
+   recomputed.
+
+Because the stored value is derived, regeneration is idempotent: running it on an already-correct
+file produces a zero diff. That zero diff *is* the validation — it proves the stored verdicts still
+follow from the raw metrics and thresholds.
 
 ### Phase 1 — State Overview
 
