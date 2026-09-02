@@ -33,7 +33,7 @@
     "hooks": [
         {
             "name": "agentSpawn-0",
-            "trigger": "agentSpawn",
+            "trigger": "SessionStart",
             "action": {
                 "type": "command",
                 "command": "$AI_DOTFILES_DIR/etc/kiro-cli/hooks/check-research-kb.sh default"
@@ -42,7 +42,7 @@
         },
         {
             "name": "agentSpawn-1",
-            "trigger": "agentSpawn",
+            "trigger": "SessionStart",
             "action": {
                 "type": "command",
                 "command": "$AI_DOTFILES_DIR/etc/ai/hooks/recall-memory.sh"
@@ -51,7 +51,7 @@
         },
         {
             "name": "agentSpawn-hygiene",
-            "trigger": "agentSpawn",
+            "trigger": "SessionStart",
             "action": {
                 "type": "command",
                 "command": "$AI_DOTFILES_DIR/etc/ai/hooks/check-engram-hygiene.sh"
@@ -60,7 +60,7 @@
         },
         {
             "name": "agentSpawn-2",
-            "trigger": "agentSpawn",
+            "trigger": "SessionStart",
             "action": {
                 "type": "command",
                 "command": "$AI_DOTFILES_DIR/etc/kiro-cli/hooks/rotate-traces.sh"
@@ -69,7 +69,7 @@
         },
         {
             "name": "postToolUse-0",
-            "trigger": "postToolUse",
+            "trigger": "PostToolUse",
             "matcher": "knowledge",
             "action": {
                 "type": "command",
@@ -79,7 +79,7 @@
         },
         {
             "name": "postToolUse-1",
-            "trigger": "postToolUse",
+            "trigger": "PostToolUse",
             "matcher": "*",
             "action": {
                 "type": "command",
@@ -89,7 +89,7 @@
         },
         {
             "name": "preToolUse-0",
-            "trigger": "preToolUse",
+            "trigger": "PreToolUse",
             "matcher": "*",
             "action": {
                 "type": "command",
@@ -99,7 +99,7 @@
         },
         {
             "name": "preToolUse-1",
-            "trigger": "preToolUse",
+            "trigger": "PreToolUse",
             "matcher": "*",
             "action": {
                 "type": "command",
@@ -109,7 +109,7 @@
         },
         {
             "name": "preToolUse-2",
-            "trigger": "preToolUse",
+            "trigger": "PreToolUse",
             "matcher": "*",
             "action": {
                 "type": "command",
@@ -119,7 +119,7 @@
         },
         {
             "name": "preToolUse-3",
-            "trigger": "preToolUse",
+            "trigger": "PreToolUse",
             "matcher": "use_aws",
             "action": {
                 "type": "command",
@@ -129,7 +129,7 @@
         },
         {
             "name": "preToolUse-4",
-            "trigger": "preToolUse",
+            "trigger": "PreToolUse",
             "matcher": "@kubernetes",
             "action": {
                 "type": "command",
@@ -139,7 +139,7 @@
         },
         {
             "name": "preToolUse-5",
-            "trigger": "preToolUse",
+            "trigger": "PreToolUse",
             "matcher": "execute_bash",
             "action": {
                 "type": "command",
@@ -149,7 +149,7 @@
         },
         {
             "name": "preToolUse-6",
-            "trigger": "preToolUse",
+            "trigger": "PreToolUse",
             "matcher": "@engram/*",
             "action": {
                 "type": "command",
@@ -159,7 +159,7 @@
         },
         {
             "name": "userPromptSubmit-0",
-            "trigger": "userPromptSubmit",
+            "trigger": "UserPromptSubmit",
             "action": {
                 "type": "command",
                 "command": "$AI_DOTFILES_DIR/etc/ai/hooks/correction-capture.sh"
