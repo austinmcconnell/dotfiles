@@ -217,9 +217,9 @@ run without a prompt.
 
 Each agent's `allowedTools` is scoped to its purpose:
 
-- **default** — broad read access, git read tools, `gh` CLI commands, code search, knowledge, web,
+- **code** — broad read access, git read tools, `gh` CLI commands, code search, knowledge, web,
   subagent
-- **docs** — same read tools as default, no domain-specific MCP tools
+- **docs** — same read tools as code, no domain-specific MCP tools
 - **jira** — adds `@jira/*` read tools, no mutating JIRA tools in allowedTools
 - **datadog** — read tools + Pup CLI read-only commands for querying Datadog (monitors, logs,
   metrics, dashboards, synthetics)
@@ -254,7 +254,7 @@ Security is enforced at three levels, evaluated in order:
 
 ### Audit Logging
 
-The default agent logs sensitive operations to `~/.kiro/logs/`:
+The code agent logs sensitive operations to `~/.kiro/logs/`:
 
 - `use_aws` matcher → appends to `aws-audit.jsonl`
 - `@kubernetes` matcher → appends to `kubectl-audit.jsonl`
@@ -264,7 +264,7 @@ Other agents do not have audit hooks — they deny these commands outright via `
 
 ### Trace Logging
 
-The default agent logs all tool calls to session-scoped trace files at
+The code agent logs all tool calls to session-scoped trace files at
 `~/.kiro/logs/traces/<session-id>.jsonl`:
 
 - `postToolUse` with `matcher: "*"` → `trace-tool-call.sh` records tool name, truncated
@@ -276,8 +276,8 @@ The default agent logs all tool calls to session-scoped trace files at
   exceeds 100MB
 - `bin/trace-search` provides CLI querying: filter by tool, grep patterns, session, or date
 
-Trace logging is intentionally scoped to the default agent only — other agents don't need the
-overhead, and restricting to one agent avoids write races on shared session files.
+Trace logging is intentionally scoped to the code agent only — other agents don't need the overhead,
+and restricting to one agent avoids write races on shared session files.
 
 ### Hook Patterns
 
@@ -293,23 +293,23 @@ Hooks use the V3 array format: each hook is an object with `name`, `trigger`, `m
   the `check-research-kb.sh` one. It is deliberately current-project scoped to stay low-noise; the
   all-projects view is the on-demand `dotfiles memory-check` command (`bin/engram-hygiene status`).
   Both are read-only — conflict resolution stays user-approved via `mem_judge`/`mem_compare`, never
-  auto-applied. Default, docs, and ansible additionally run `check-research-kb.sh` for KB staleness
-  detection (their agent name must appear in the `kb-staleness.sh` sentinel for the warning to
-  fire). Default additionally runs `rotate-traces.sh` for trace file cleanup. Claude Code runs the
-  same `recall-memory.sh`/`check-engram-hygiene.sh` pair via `SessionStart` (see Claude Code
-  Conventions below) — that pair has parity across both tools. The KB-staleness and trace hooks
-  remain kiro-only; see "What Claude Code Does NOT Have" for why.
+  auto-applied. The code, docs, and ansible agents additionally run `check-research-kb.sh` for KB
+  staleness detection (their agent name must appear in the `kb-staleness.sh` sentinel for the
+  warning to fire). The code agent additionally runs `rotate-traces.sh` for trace file cleanup.
+  Claude Code runs the same `recall-memory.sh`/`check-engram-hygiene.sh` pair via `SessionStart`
+  (see Claude Code Conventions below) — that pair has parity across both tools. The KB-staleness and
+  trace hooks remain kiro-only; see "What Claude Code Does NOT Have" for why.
 - `preToolUse` — every agent has the `block-env-files.sh`, `block-sops-age-files.sh`, and
-  `block-ssh-private-keys.sh` hooks on `matcher: "*"`. Default adds audit hooks for `use_aws`,
-  `@kubernetes`, and `execute_bash`. All agents have `block-memory-secrets.sh` on
+  `block-ssh-private-keys.sh` hooks on `matcher: "*"`. The code agent adds audit hooks for
+  `use_aws`, `@kubernetes`, and `execute_bash`. All agents have `block-memory-secrets.sh` on
   `matcher: "@engram/*"` to prevent storing credentials in persistent memory. The glob (`/*`) is
   required because kiro-cli reports MCP tools with the `@server/` prefix (e.g. `@engram/mem_save`);
   a bare `@engram` matcher does not fire and the hook is silently skipped. The hook normalizes both
   MCP naming conventions before comparing (`${TOOL_NAME##*/}` strips kiro's `@server/` prefix,
   `${TOOL_NAME##mcp__*__}` strips Claude Code's `mcp__server__` prefix), so it works for both tools.
-- `postToolUse` — default and docs use this (runs `clear-research-kb-stale.sh` after knowledge
-  operations to clear staleness warnings). Default also runs `trace-tool-call.sh` on `matcher: "*"`
-  for session-scoped trace logging.
+- `postToolUse` — the code and docs agents use this (runs `clear-research-kb-stale.sh` after
+  knowledge operations to clear staleness warnings). The code agent also runs `trace-tool-call.sh`
+  on `matcher: "*"` for session-scoped trace logging.
 - `userPromptSubmit` — every agent runs `correction-capture.sh`. This is the capture half of the
   capture-and-promote learning system (see the `capturing-corrections` steering and the
   `distill-learnings` skill). On each prompt it does two things via stdout (the one hook channel
@@ -341,16 +341,15 @@ block (e.g., the `exclude` fix on the chmod deny rule). The command regenerates 
   `<cwd>/.kiro/settings/mcp.json` into the agent's server list
 - Shared servers in `~/.kiro/settings/mcp.json`: `engram` (cross-session memory, available to all
   agents via `includeMcpJson`)
-- Agent-specific servers are declared inline in the config (jira has `jira`, default has
-  `kubernetes`)
-- Use `"disabled": true` to define a server without starting it (default's `kubernetes` server). The
+- Agent-specific servers are declared inline in the config (jira has `jira`, code has `kubernetes`)
+- Use `"disabled": true` to define a server without starting it (code's `kubernetes` server). The
   config stays version-controlled and ready to enable.
 - Use `"disabledTools"` to block specific MCP tools (jira blocks `jira_delete`)
 - Secrets use `${ENV_VAR}` interpolation in `env` blocks:
   `"GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_PAT}"`
 - Agents that don't need a service deny it entirely via `toolsSettings` (docs, jira, datadog, and
   ansible set `aws.allowedServices: []`; docs denies `docker .*` and `kubectl .*` in shell). Only
-  `default` keeps a populated `allowedServices` list.
+  `code` keeps a populated `allowedServices` list.
 
 ### Resource Patterns
 
@@ -364,7 +363,7 @@ Resources use three URI schemes with different loading behavior:
 
 Resource scoping per agent:
 
-- **default** — all steering domains (`code/`, `github/`, `security/`),
+- **code** — all steering domains (`code/`, `github/`, `security/`),
   development/operations/research/shared skill categories, multiple knowledge bases (research,
   project code, analysis docs)
 - **docs** — `documentation/` steering, documentation + shared skills, many knowledge bases for
@@ -398,9 +397,9 @@ All agents share the same subagent config:
 }
 ```
 
-Only `default` is trusted — subagents spawned as default inherit full tool approval. Other agents
-spawned as subagents require user approval for each tool use. This prevents a jira or docs subagent
-from performing write operations without oversight.
+Only `code` is trusted — subagents spawned as code inherit full tool approval. Other agents spawned
+as subagents require user approval for each tool use. This prevents a jira or docs subagent from
+performing write operations without oversight.
 
 ### Adding a New Agent
 
@@ -493,8 +492,8 @@ Both are handled by `install/ai-tools.sh` — no Claude Code-specific configurat
 Claude Code supports custom subagents defined as markdown files with YAML frontmatter in
 `etc/claude-code/agents/` (symlinked to `~/.claude/agents/` by `install/claude-code.sh`, invoked via
 `claude --agent <name>`). Four personas mirror their kiro-cli counterparts: `docs`, `jira`,
-`datadog`, `ansible`. There is no persona equivalent of kiro's `default` agent — the main Claude
-Code session fills that role directly.
+`datadog`, `ansible`. There is no persona equivalent of kiro's `code` agent — the main Claude Code
+session fills that role directly.
 
 - `tools:` frontmatter is the closest Claude analog to kiro's `allowedTools` — it gates which tools
   are *available* to the persona at all, not just whether they auto-run without a prompt
@@ -525,8 +524,8 @@ Code session fills that role directly.
 
 ### What Claude Code Does NOT Have (vs kiro-cli)
 
-- No equivalent to kiro's `default` agent as a *persona* — the main Claude Code session fills that
-  role directly (the `docs`/`jira`/`datadog`/`ansible` personas do exist; see Personas above)
+- No equivalent to kiro's `code` agent as a *persona* — the main Claude Code session fills that role
+  directly (the `docs`/`jira`/`datadog`/`ansible` personas do exist; see Personas above)
 - No knowledge base integration (no semantic search over indexed repos). The `docs`/`ansible`
   personas document the same local KB paths in a Reference Repositories table for manual Grep/Glob
   instead (see Personas above). Kiro's `check-research-kb.sh`/`clear-research-kb-stale.sh`
@@ -538,7 +537,7 @@ Code session fills that role directly.
   `aws-audit.jsonl`/`kubectl-audit.jsonl` outputs. Shell-invoked `aws`/`kubectl` commands are still
   audited: `audit-shell-commands.sh` runs globally on `PostToolUse` for `Bash` and writes to
   `~/.local/share/ai-audit/command-audit.jsonl` (a single shared log, not split per-tool like
-  kiro's). The trigger timing also differs: kiro's `default` agent wires the same script on
+  kiro's). The trigger timing also differs: kiro's `code` agent wires the same script on
   `preToolUse` for `execute_bash` (audited before the command runs), Claude wires it on
   `PostToolUse` (audited after). Harmless in practice — the script only reads `.tool_input.command`,
   it doesn't need to act before execution — but worth knowing if this script ever grows a blocking
