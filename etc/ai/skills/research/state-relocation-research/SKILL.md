@@ -322,31 +322,51 @@ can always recompute from metrics) while giving the map and rankings a materiali
 
 #### Recompute / Confirm / Validate Workflow
 
-Run this whenever verdicts may have drifted — after editing any raw metric, after a threshold
-change, when `metadata.last_verified` predates a NAEP (biennial) or AAMC (annual) release, or
-whenever you spot a verdict that looks wrong:
+The verdict fields (and the `fips` key) are written by a committed regeneration script — the single
+writer of those fields. It lives next to the data it operates on:
 
-1. **Recompute** — apply each dimension's `thresholds` block to every state's raw metrics and derive
-   all four verdict fields from scratch. Prefer the committed regeneration script (deterministic,
-   runnable by a human or an agent) over an ad-hoc `jq` one-liner so the result is repeatable and
-   testable. *(The script does not exist yet — it is a separate, tracked work item; its home
-   \[`dotfiles bin/` vs. alongside the data in `_research_`\] is decided when it is written. Until
-   then, recompute with a `jq` expression and commit that expression next to the data
-   \[`_research_/states/`, e.g. a short `regenerate-verdicts.md` note or a `Makefile` target\] so
-   the next agent reuses the same one rather than inventing a divergent one. Do not leave the
-   expression only in chat history.)*
-1. **Confirm** — diff the freshly recomputed verdicts against the values currently stored in
-   `state-metrics.json`. Zero diff is the expected, healthy state.
-1. **Validate** — if the diff is non-empty, do **not** silently overwrite. Investigate each
-   difference: a raw metric was updated without regenerating (expected drift — write the recomputed
-   value), or a stored verdict was hand-edited (a bug — the recomputed value wins), or the
-   thresholds themselves changed (confirm the change was intended, then regenerate). Only after
-   understanding each diff, write the recomputed verdicts back. The end state is always stored ==
-   recomputed.
+```text
+_research_/states/regenerate-verdicts.py
+```
 
-Because the stored value is derived, regeneration is idempotent: running it on an already-correct
-file produces a zero diff. That zero diff *is* the validation — it proves the stored verdicts still
-follow from the raw metrics and thresholds.
+It is Python (stdlib only, no dependencies) because the education verdict is a statistical
+significance test and that math is clearest and most testable in Python, not a dense `jq`
+expression. It reads the `thresholds` block, derives all four verdict fields plus `fips` for every
+state, and writes them back **without reformatting the raw-metric fields**. Run it whenever verdicts
+may have drifted — after editing any raw metric, after a threshold change, when
+`metadata.last_verified` predates a NAEP (biennial) or AAMC (annual) release, or whenever you spot a
+verdict that looks wrong:
+
+1. **Recompute** — run the script from anywhere (it locates its sibling data file; no arguments):
+
+   ```bash
+   python3 _research_/states/regenerate-verdicts.py
+   ```
+
+   It rewrites `state-metrics.json` in place, deriving every verdict from the raw metrics and
+   `thresholds`. Never hand-write a verdict — change the raw metric or the threshold and re-run.
+
+1. **Confirm** — check the result against what was stored. The script's `--check` mode does this
+   without writing (exit 0 = up to date, exit 1 = the file would change):
+
+   ```bash
+   python3 _research_/states/regenerate-verdicts.py --check
+   ```
+
+   Pair it with `git diff state-metrics.json` to see exactly which verdicts moved. Zero diff is the
+   expected, healthy state.
+
+1. **Validate** — if the diff is non-empty, understand *why* before trusting it: a raw metric was
+   updated without regenerating (expected drift — the recomputed value is correct), a stored verdict
+   had been hand-edited (a bug the regenerate corrects), or the `thresholds` themselves changed
+   (confirm the change was intended). The recomputed value always wins — the end state is stored ==
+   script output.
+
+Because the stored value is derived, regeneration is idempotent: a second run on an already-correct
+file produces a zero diff (and `--check` exits 0). That zero diff *is* the validation — it proves
+the stored verdicts still follow from the raw metrics and thresholds. This is also the acceptance
+test for this documentation: a fresh agent should be able to read this section, run the script, and
+confirm a zero diff with no other guidance.
 
 ### Phase 1 — State Overview
 
