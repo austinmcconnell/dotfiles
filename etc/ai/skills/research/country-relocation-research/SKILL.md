@@ -10,6 +10,32 @@ skill for general research workflow, frontmatter, citations, and subagent delega
 adds the family profile, per-country directory structure, and section requirements specific to
 relocation research.
 
+## Templates
+
+All templates live in this skill's `references/` directory. When a phase or subagent prompt names a
+template by bare filename, resolve it to
+`~/.dotfiles/etc/ai/skills/research/country-relocation-research/references/<name>.md` (equivalently,
+`references/<name>.md` relative to this skill):
+
+- **[country-relocation-overview-template.md](references/country-relocation-overview-template.md)**
+  — Phase 1 country overview
+- **[city-profile-template.md](references/city-profile-template.md)** — Phase 2 per-city profile
+- **[education-and-family-template.md](references/education-and-family-template.md)** — Phase 3
+- **[rental-property-investment-template.md](references/rental-property-investment-template.md)** —
+  Phase 4
+- **[cross-country-rankings-template.md](references/cross-country-rankings-template.md)** —
+  on-demand cross-country rankings
+
+Note the distinction from the research corpus: templates live beside this skill under `references/`,
+while `_research_/countries/…` paths (generated output) live in the research repo. Do not look for
+templates under `_research_/`.
+
+**Passing templates to subagents:** Subagents run with no skill context — they cannot resolve
+`references/<name>.md` on their own. Whenever a phase delegates to a subagent, the orchestrator must
+pass the **absolute** template path
+(`~/.dotfiles/etc/ai/skills/research/country-relocation-research/references/<name>.md`), not a bare
+filename or a skill-relative path.
+
 ## Family Profile
 
 The target family is defined in the shared profile:
@@ -56,15 +82,18 @@ it first. If a phase is partially complete (e.g., 3 of 5 city files exist), comp
 missing parts. If orphaned `.tmp-*` files exist from a failed phase 1 assembly, clean them up and
 re-run phase 1.
 
-| Phase | File(s)                           | Template                                  | Depends On |
-| ----- | --------------------------------- | ----------------------------------------- | ---------- |
-| 1     | `country-overview.md`             | `country-relocation-overview-template.md` | —          |
-| 2     | `<city>.md` (one per city)        | `city-profile-template.md`                | Phase 1    |
-| 3     | `education-and-family.md`         | `education-and-family-template.md`        | Phases 1–2 |
-| 4     | `rental-property-investment.md`   | `rental-property-investment-template.md`  | Phases 1–2 |
-| 5     | `recommendations.md`, `README.md` | *(no template — synthesis)*               | Phases 1–4 |
+| Phase | File(s)                           | Template                                                                                      | Depends On |
+| ----- | --------------------------------- | --------------------------------------------------------------------------------------------- | ---------- |
+| 1     | `country-overview.md`             | [country-relocation-overview-template.md](references/country-relocation-overview-template.md) | —          |
+| 2     | `<city>.md` (one per city)        | [city-profile-template.md](references/city-profile-template.md)                               | Phase 1    |
+| 3     | `education-and-family.md`         | [education-and-family-template.md](references/education-and-family-template.md)               | Phases 1–2 |
+| 4     | `rental-property-investment.md`   | [rental-property-investment-template.md](references/rental-property-investment-template.md)   | Phases 1–2 |
+| 5     | `recommendations.md`, `README.md` | *(no template — synthesis)*                                                                   | Phases 1–4 |
 
 Phases 3 and 4 are independent and can run in parallel.
+
+Template links in the table above point to this skill's `references/` directory (see
+[Templates](#templates)).
 
 **Execution order:** Phase 1 → Phase 2 → Phases 3 + 4 (parallel) → Phase 5. Wait for each step (the
 parallel 3 + 4 pair counts as one step) to complete before starting the next.
@@ -80,10 +109,10 @@ source for country-level facts — city files must not duplicate it.
 **Subagent delegation:** Although this is a single file, it covers many independent research domains
 that require heavy web fetching. Delegate to parallel subagents by topic area (e.g.,
 geography/COL/QoL, healthcare/safety/education/internet, visa/tax/recommendations). Each subagent
-prompt must specify which template sections it owns, include the path to the
-`country-relocation-overview-template.md` template, and instruct the subagent to read it and use the
-exact `##` headings from the template. Subagents must write output to a temp file — not return it as
-text. This keeps the orchestrator's context clean for assembly.
+prompt must specify which template sections it owns, include the absolute path to the
+`country-relocation-overview-template.md` template (see [Templates](#templates)), and instruct the
+subagent to read it and use the exact `##` headings from the template. Subagents must write output
+to a temp file — not return it as text. This keeps the orchestrator's context clean for assembly.
 
 **Temp-file assembly pattern:**
 
@@ -122,14 +151,14 @@ criteria (see Phase 1 Recommendations). Recommendations is always the last `##` 
 tax, national healthcare, national internet stats, national education framework). Do not repeat it.
 
 **Subagent delegation:** Each city is independent — delegate all cities to parallel subagents. Each
-subagent prompt must include the path to the `city-profile-template.md` template and instruct the
-subagent to read it and follow its structure. Include per-city research hints extracted from the
-Recommendations section — the one-line rationale for each city identifies its key differentiators
-(e.g., expat community, specific schools, transit system, climate concern) and should be passed to
-the subagent so it focuses on what matters rather than producing generic coverage. Each subagent
-writes directly to its output file (e.g., `oslo.md`, `bergen.md`) and returns only the filename to
-the orchestrator — not the content. This keeps the orchestrator's context clean for index updates
-and follow-up phases.
+subagent prompt must include the absolute path to the `city-profile-template.md` template (see
+[Templates](#templates)) and instruct the subagent to read it and follow its structure. Include
+per-city research hints extracted from the Recommendations section — the one-line rationale for each
+city identifies its key differentiators (e.g., expat community, specific schools, transit system,
+climate concern) and should be passed to the subagent so it focuses on what matters rather than
+producing generic coverage. Each subagent writes directly to its output file (e.g., `oslo.md`,
+`bergen.md`) and returns only the filename to the orchestrator — not the content. This keeps the
+orchestrator's context clean for index updates and follow-up phases.
 
 ### Phase 3 — Education & Family
 
@@ -137,9 +166,9 @@ Read the country overview and all city files first. Cross-cutting analysis of ed
 across all profiled cities. Covers public school integration programs (preferred), international
 schools, extracurriculars, pediatric healthcare, kid-friendliness. Ranks cities for this family.
 
-**Subagent delegation:** Single subagent. Prompt must include the path to the
-`education-and-family-template.md` template. Subagent writes directly to `education-and-family.md`
-and returns only the filename.
+**Subagent delegation:** Single subagent. Prompt must include the absolute path to the
+`education-and-family-template.md` template (see [Templates](#templates)). Subagent writes directly
+to `education-and-family.md` and returns only the filename.
 
 ### Phase 4 — Rental Property Investment
 
@@ -147,9 +176,9 @@ Read all prior files first. Cross-cutting analysis of rental property investment
 cities. Covers purchase prices, rental yields, legal restrictions on US buyers, tax on rental
 income, property management options. Identifies best cities for buy-to-rent.
 
-**Subagent delegation:** Single subagent. Prompt must include the path to the
-`rental-property-investment-template.md` template. Subagent writes directly to
-`rental-property-investment.md` and returns only the filename.
+**Subagent delegation:** Single subagent. Prompt must include the absolute path to the
+`rental-property-investment-template.md` template (see [Templates](#templates)). Subagent writes
+directly to `rental-property-investment.md` and returns only the filename.
 
 ### Phase 5 — Synthesis & Indexing
 
@@ -180,11 +209,11 @@ Phase 5 scoring weights). Include a summary table, per-dimension winners, key tr
 direct overall recommendation for this family. Use inline citations referencing each country's
 recommendations file.
 
-**Subagent delegation:** Single subagent. Prompt must include the path to the
-`cross-country-rankings-template.md` template. The subagent reads all `<country>/recommendations.md`
-files, writes `rankings.md`, and returns only the filename. The orchestrator updates
-`countries/README.md` to link to it. The subagent must **not** read any existing `rankings.md` —
-always generate fresh to avoid anchoring to previous rankings.
+**Subagent delegation:** Single subagent. Prompt must include the absolute path to the
+`cross-country-rankings-template.md` template (see [Templates](#templates)). The subagent reads all
+`<country>/recommendations.md` files, writes `rankings.md`, and returns only the filename. The
+orchestrator updates `countries/README.md` to link to it. The subagent must **not** read any
+existing `rankings.md` — always generate fresh to avoid anchoring to previous rankings.
 
 **When to run:** Manually triggered when the user wants a comparison. Requires at least 2 countries
 with completed research.

@@ -15,6 +15,31 @@ unit because the family's highest-priority filters (cold climate, education qual
 access, nature) eliminate or qualify whole states before metro-level detail matters. Metros are
 researched within qualifying states.
 
+## Templates
+
+All templates live in this skill's `references/` directory. When a phase or subagent prompt names a
+template by bare filename, resolve it to
+`~/.dotfiles/etc/ai/skills/research/state-relocation-research/references/<name>.md` (equivalently,
+`references/<name>.md` relative to this skill):
+
+- **[state-relocation-overview-template.md](references/state-relocation-overview-template.md)** —
+  Phase 1 state overview
+- **[metro-profile-template.md](references/metro-profile-template.md)** — Phase 2 per-metro profile
+- **[education-and-family-template.md](references/education-and-family-template.md)** — Phase 3
+- **[adu-and-investment-template.md](references/adu-and-investment-template.md)** — Phase 4
+- **[cross-state-rankings-template.md](references/cross-state-rankings-template.md)** — on-demand
+  cross-state rankings
+
+Note the distinction from the research corpus: templates live beside this skill under `references/`,
+while `_research_/states/…` paths (the metrics JSON, `*-classification.md` files, and generated
+output) live in the research repo. Do not look for templates under `_research_/`.
+
+**Passing templates to subagents:** Subagents run with no skill context — they cannot resolve
+`references/<name>.md` on their own. Whenever a phase delegates to a subagent, the orchestrator must
+pass the **absolute** template path
+(`~/.dotfiles/etc/ai/skills/research/state-relocation-research/references/<name>.md`), not a bare
+filename or a skill-relative path.
+
 ## Family Profile
 
 The target family is defined in the shared profile:
@@ -112,16 +137,20 @@ that the current phase must build on. If a prior phase is missing, stop and comp
 phase is partially complete (e.g., 3 of 5 metro files exist), complete only the missing parts. If
 orphaned `.tmp-*` files exist from a failed phase 1 assembly, clean them up and re-run phase 1.
 
-| Phase | File(s)                           | Template                                | Depends On |
-| ----- | --------------------------------- | --------------------------------------- | ---------- |
-| 0     | *(none — in-conversation screen)* | `_research_/states/state-metrics.json`  | —          |
-| 1     | `state-overview.md`               | `state-relocation-overview-template.md` | Phase 0    |
-| 2     | `<metro>.md` (one per metro)      | `metro-profile-template.md`             | Phase 1    |
-| 3     | `education-and-family.md`         | `education-and-family-template.md`      | Phases 1–2 |
-| 4     | `adu-and-investment.md`           | `adu-and-investment-template.md`        | Phases 1–2 |
-| 5     | `recommendations.md`, `README.md` | *(no template — synthesis)*             | Phases 1–4 |
+| Phase | File(s)                           | Template                                                                                  | Depends On |
+| ----- | --------------------------------- | ----------------------------------------------------------------------------------------- | ---------- |
+| 0     | *(none — in-conversation screen)* | `_research_/states/state-metrics.json` (research corpus, not `references/`)               | —          |
+| 1     | `state-overview.md`               | [state-relocation-overview-template.md](references/state-relocation-overview-template.md) | Phase 0    |
+| 2     | `<metro>.md` (one per metro)      | [metro-profile-template.md](references/metro-profile-template.md)                         | Phase 1    |
+| 3     | `education-and-family.md`         | [education-and-family-template.md](references/education-and-family-template.md)           | Phases 1–2 |
+| 4     | `adu-and-investment.md`           | [adu-and-investment-template.md](references/adu-and-investment-template.md)               | Phases 1–2 |
+| 5     | `recommendations.md`, `README.md` | *(no template — synthesis)*                                                               | Phases 1–4 |
 
 Phases 3 and 4 are independent and can run in parallel.
+
+Template links in the table above point to this skill's `references/` directory (see
+[Templates](#templates)). Phase 0's `state-metrics.json` is the one exception — it lives in the
+research corpus, not `references/`.
 
 **Execution order:** Phase 0 (pre-screen, skip if a state is named) → Phase 1 → Phase 2 → Phases 3 +
 4 (parallel) → Phase 5. Wait for each step (the parallel 3 + 4 pair counts as one step) to complete
@@ -220,10 +249,10 @@ seems nice."
 **Subagent delegation:** Although this is a single file, it covers many independent research domains
 that require heavy web fetching. Delegate to parallel subagents by topic area (e.g.,
 geography/climate/nature, education/healthcare, tax/COL/housing, ADU-law/internet/airports). Each
-subagent prompt must specify which template sections it owns, include the path to the
-`state-relocation-overview-template.md` template, and instruct the subagent to read it and use the
-exact `##` headings from the template. Subagents must write output to a temp file — not return it as
-text. This keeps the orchestrator's context clean for assembly.
+subagent prompt must specify which template sections it owns, include the absolute path to the
+`state-relocation-overview-template.md` template (see [Templates](#templates)), and instruct the
+subagent to read it and use the exact `##` headings from the template. Subagents must write output
+to a temp file — not return it as text. This keeps the orchestrator's context clean for assembly.
 
 **Temp-file assembly pattern:** Use the pattern defined in the `create-research` skill (Step 0,
 "Temp files for assembly," and the assembly steps under "After subagents complete"). In brief:
@@ -259,13 +288,13 @@ then delegates one subagent per metro. The phase 1 author applies the selection 
 state education landscape, state ADU law, state parks system). Do not repeat it.
 
 **Subagent delegation:** Each metro is independent — delegate all metros to parallel subagents. Each
-subagent prompt must include the path to the `metro-profile-template.md` template and instruct the
-subagent to read it and follow its structure. Include per-metro research hints extracted from the
-Recommendations section — the one-line rationale for each metro identifies its key differentiators
-(e.g., strong transit, notable trail network, high ADU adoption, specific school districts) and
-should be passed to the subagent so it focuses on what matters. Each subagent writes directly to its
-output file (e.g., `minneapolis.md`, `madison.md`) and returns only the filename to the orchestrator
-— not the content.
+subagent prompt must include the absolute path to the `metro-profile-template.md` template (see
+[Templates](#templates)) and instruct the subagent to read it and follow its structure. Include
+per-metro research hints extracted from the Recommendations section — the one-line rationale for
+each metro identifies its key differentiators (e.g., strong transit, notable trail network, high ADU
+adoption, specific school districts) and should be passed to the subagent so it focuses on what
+matters. Each subagent writes directly to its output file (e.g., `minneapolis.md`, `madison.md`) and
+returns only the filename to the orchestrator — not the content.
 
 ### Phase 3 — Education & Family
 
@@ -274,9 +303,9 @@ profiled metros. Covers public school-district ratings (elementary/middle/high),
 options, extracurriculars, pediatric healthcare access, and general kid-friendliness. Ranks metros
 for this family.
 
-**Subagent delegation:** Single subagent. Prompt must include the path to the
-`education-and-family-template.md` template. Subagent writes directly to `education-and-family.md`
-and returns only the filename.
+**Subagent delegation:** Single subagent. Prompt must include the absolute path to the
+`education-and-family-template.md` template (see [Templates](#templates)). Subagent writes directly
+to `education-and-family.md` and returns only the filename.
 
 ### Phase 4 — ADU & Investment
 
@@ -288,9 +317,9 @@ children, or guests — the profile defines no current extended-family member, s
 optionality, not a fixed requirement). Also covers general buy-to-rent viability. Identifies best
 metros for a property with ADU potential.
 
-**Subagent delegation:** Single subagent. Prompt must include the path to the
-`adu-and-investment-template.md` template. Subagent writes directly to `adu-and-investment.md` and
-returns only the filename.
+**Subagent delegation:** Single subagent. Prompt must include the absolute path to the
+`adu-and-investment-template.md` template (see [Templates](#templates)). Subagent writes directly to
+`adu-and-investment.md` and returns only the filename.
 
 ### Phase 5 — Synthesis & Indexing
 
@@ -320,11 +349,11 @@ scoring weights). Include a summary table, per-dimension winners, key tradeoffs,
 overall recommendation for this family. Use inline citations referencing each state's
 recommendations file.
 
-**Subagent delegation:** Single subagent. Prompt must include the path to the
-`cross-state-rankings-template.md` template. The subagent reads all `<state>/recommendations.md`
-files, writes `rankings.md`, and returns only the filename. The orchestrator updates
-`states/README.md` to link to it. The subagent must **not** read any existing `rankings.md` — always
-generate fresh to avoid anchoring to previous rankings.
+**Subagent delegation:** Single subagent. Prompt must include the absolute path to the
+`cross-state-rankings-template.md` template (see [Templates](#templates)). The subagent reads all
+`<state>/recommendations.md` files, writes `rankings.md`, and returns only the filename. The
+orchestrator updates `states/README.md` to link to it. The subagent must **not** read any existing
+`rankings.md` — always generate fresh to avoid anchoring to previous rankings.
 
 **When to run:** Manually triggered when the user wants a comparison. Requires at least 2 states
 with completed research.
