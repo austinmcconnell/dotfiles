@@ -3,15 +3,18 @@
 Usage: python pip_orphans.py /path/to/default-packages
 Prints orphaned package names, one per line.
 """
-import sys
+
 from importlib.metadata import distributions, metadata, PackageNotFoundError
+import sys
+
 from packaging.requirements import Requirement
 
 tracked = set()
-for line in open(sys.argv[1]):
-    line = line.strip()
-    if line and not line.startswith('#'):
-        tracked.add(line)
+with open(sys.argv[1]) as f:
+    for raw_line in f:
+        line = raw_line.strip()
+        if line and not line.startswith('#'):
+            tracked.add(line)
 
 
 def norm(n):
@@ -31,7 +34,7 @@ for spec in tracked:
         m = metadata(pkg_name)
     except PackageNotFoundError:
         continue
-    for req_str in (m.get_all('Requires-Dist') or []):
+    for req_str in m.get_all('Requires-Dist') or []:
         req = Requirement(req_str)
         include = False
         if not req.marker:
@@ -57,7 +60,7 @@ for dist in distributions():
 # Build full reverse-dep set (all packages required by any installed package)
 all_reqs = set()
 for dist in distributions():
-    for req_str in (dist.metadata.get_all('Requires-Dist') or []):
+    for req_str in dist.metadata.get_all('Requires-Dist') or []:
         req = Requirement(req_str)
         if not req.marker or req.marker.evaluate():
             all_reqs.add(norm(req.name))
