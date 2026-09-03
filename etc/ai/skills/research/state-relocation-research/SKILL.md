@@ -387,80 +387,113 @@ the stored verdicts still follow from the raw metrics and thresholds. This is al
 test for this documentation: a fresh agent should be able to read this section, run the script, and
 confirm a zero diff with no other guidance.
 
-## The `<metro>-metrics.json` Record
+## The Sub-State Metric Records
 
 Where `state-metrics.json` screens **must-haves** (education, climate, healthcare) at the state
-grain, each researched metro emits a `<metro>-metrics.json` capturing the **nice-to-haves** that
-differentiate qualifying metros. Phase 2 produces one per metro at
-`_research_/states/<state>/<metro>-metrics.json`, co-located with its `<metro>.md` profile (use a
-matching slug so they sort together). The future relocation map joins these on the **CBSA code**;
-the viz build step merges all metro files into one `all-metro-metrics.json` via `jq -s` (that merge
-belongs to the viz repo, not here). See `relocation-map-viz/analysis/data-architecture.md` and
-`metro-metrics-implementation-plan.md` for the full rationale.
+grain, the researched sub-state units emit companion metric files capturing the **nice-to-haves**
+that differentiate qualifying places. There are **two grains** (see
+`relocation-map-viz/analysis/data-architecture.md` Decisions Recorded #4 for the full rationale):
+
+- **Metro record** — `<metro>-metro-metrics.json`, one per **CBSA**, emitted by Phase 2. Metro-wide
+  facts only; joins to metro geometry on the **CBSA code**.
+- **Place record** — `<place>-place-metrics.json`, one per **evaluated city/suburb**, emitted by
+  Phase 3. City-specific facts (this is where walkability lives); joins to Census Place geometry on
+  the **7-digit Place GEOID**.
+
+Each record is co-located with its prose profile (matching slug + `-metro` / `-place` suffix). The
+viz build merges each grain into its own layer file (`all-metro-metrics.json`,
+`all-place-metrics.json`) via `jq -s` — the grain infix in the filename lets it route by glob (that
+merge belongs to the viz repo, not here).
 
 The same discipline as the state record applies: **store raw metrics, derive verdicts
 deterministically, never hand-author a verdict** — and only add a verdict where a *sourced* bright
 line exists. Qualitative nice-to-haves (nature/trails) stay prose; no rubric is invented for them.
 
-### Three levels of metro data
+### Grain separation (the A1 rule)
 
-- **Level 1 — raw metrics + join keys.** Always stored: `cbsa` (string join key), `state_fips`,
-  `counties[]` (5-digit county FIPS the map dissolves into the metro shape), plus the structured
-  facts the metro profile collects (climate numbers, prices, Walk/Bike/Transit Scores, direct-flight
-  booleans, ADU inputs).
-- **Level 2 — derived nice-to-have verdicts, only where a sourced band exists.** The four below.
-- **Level 3 — a composite metro tier/score. DEFERRED.** That is Phase 5's weighted ranking
-  materialized; not built yet. A metro-level `adu_verdict` is also deferred (its bands are not
-  sourced yet — ADU inputs are stored raw meanwhile).
+A metric never lives at two grains. **A central city is a Place record, not a Metro record** —
+Minneapolis is `minneapolis-place-metrics.json` (keyed by its Place GEOID); the CBSA it anchors is a
+*separate* `twin-cities-metro-metrics.json` named for the metro, never the central city. This is why
+there is no `minneapolis-metro` / `minneapolis-place` name collision. Consequently:
 
-### The record
+- **Walk / Bike / Transit scores live only on place records** — there is no single "Twin Cities Walk
+  Score"; walkability varies by city (Edina 37 vs. St. Paul 80s). Their three verdicts are
+  place-grain.
+- **Airport access lives only on the metro record** — DFW/AUS direct flights are a metro-wide fact.
+  Its verdict is metro-grain.
+
+### Deferred (Level 3)
+
+A composite `metro_tier` / place score (Phase 6's weighted ranking materialized) and a place
+`adu_verdict` (its bands are not sourced yet — ADU inputs are stored raw meanwhile) are
+**deferred**. The neighborhood grain below the place level (intra-central-city) is also deferred,
+sourced to the EPA National Walkability Index — see the analysis doc.
+
+### The metro record
 
 ```jsonc
 {
-  // ---- identity + join keys (Level 1 — required) ----
+  // ---- identity + join keys (required) ----
   "metro": "Minneapolis–St. Paul",
   "cbsa": "33460",              // CBSA code, STRING — the metro map join key
   "state": "Minnesota",
   "state_fips": "27",           // parent state (links to the state layer)
   "counties": ["27003", "27019", "27037", "27053", "27123"],  // 5-digit county FIPS; geometry dissolves from these
 
-  // ---- raw metro metrics (Level 1; null when unresearched) ----
+  // ---- raw metro-wide metrics (null when unresearched) ----
   "climate_zone": 6,            // metro county IECC zone (may differ from the state's predominant)
   "summer_design_temp_f": 91,
   "avg_july_high_f": 83,
   "days_ge_90f": 13,
-  "median_home_price": 389000,
-  "walk_score": 71,             // raw 0–100, metro-representative (see caveat)
-  "bike_score": 84,
-  "transit_score": 60,
-  "direct_to_dfw": true,        // raw boolean
+  "direct_to_dfw": true,        // raw boolean (airport access is metro-wide)
   "direct_to_aus": false,
-  "adu_by_right": true,         // raw inputs for a FUTURE adu_verdict (Level 3) — not derived now
-  "adu_prevalence": "medium",   // high | medium | low
 
-  // ---- derived nice-to-have verdicts (Level 2 — regenerated, never hand-authored) ----
-  "walkability_verdict": "very_walkable",   // from walk_score band
-  "bikeability_verdict": "very_bikeable",   // from bike_score band
-  "transit_verdict": "good_transit",        // from transit_score band
+  // ---- derived verdict (regenerated, never hand-authored) ----
   "airport_access_verdict": "one"           // both | one | neither
+}
+```
+
+### The place record
+
+```jsonc
+{
+  // ---- identity + join keys (required) ----
+  "place": "Edina",
+  "place_geoid": "2718964",     // 7-digit Census Place GEOID, STRING — the place map join key
+  "cbsa": "33460",              // back-reference to the parent metro record
+  "state": "Minnesota",
+  "state_fips": "27",
+
+  // ---- raw place metrics (null when unresearched) ----
+  "median_home_price": 545000,
+  "walk_score": 37,             // raw 0–100, city-representative (see caveat)
+  "bike_score": 52,
+  "transit_score": 40,
+  "adu_by_right": true,         // raw inputs for a FUTURE adu_verdict (deferred) — not derived now
+  "adu_prevalence": "low",      // high | medium | low
+
+  // ---- derived verdicts (regenerated, never hand-authored) ----
+  "walkability_verdict": "car_dependent",   // from walk_score band
+  "bikeability_verdict": "bikeable",        // from bike_score band
+  "transit_verdict": "some_transit"         // from transit_score band
 }
 ```
 
 ### Verdict fields and their bands
 
-The four Level-2 verdicts derive from **standardized** bands that do not vary by metro, so — unlike
-`state-metrics.json`, which embeds its own `thresholds` block because it is one file — the metro
-bands live in a **single shared** `_research_/states/metro-thresholds.json` rather than duplicated
-into every metro file. The regeneration script and the future viz both read that one file. Verdict
-strings mirror Walk Score's official band names (snake_cased) so each stored value traces to a cited
-source (<https://www.walkscore.com/how-it-works/>).
+The verdicts derive from **standardized** bands that do not vary by place, so — unlike
+`state-metrics.json`, which embeds its own `thresholds` block because it is one file — the bands
+live in a **single shared** `_research_/states/metro-thresholds.json` rather than duplicated into
+every file. The regeneration script and the future viz both read that one file. Verdict strings
+mirror Walk Score's official band names (snake_cased) so each stored value traces to a cited source
+(<https://www.walkscore.com/how-it-works/>).
 
-| Verdict field            | Derived from                      | Band values (score floor)                                                                                   |
-| ------------------------ | --------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| `walkability_verdict`    | `walk_score`                      | `walker_paradise` 90 / `very_walkable` 70 / `somewhat_walkable` 50 / `car_dependent` 0                      |
-| `bikeability_verdict`    | `bike_score`                      | `bikers_paradise` 90 / `very_bikeable` 70 / `bikeable` 50 / `somewhat_bikeable` 0                           |
-| `transit_verdict`        | `transit_score`                   | `riders_paradise` 90 / `excellent_transit` 70 / `good_transit` 50 / `some_transit` 25 / `minimal_transit` 0 |
-| `airport_access_verdict` | `direct_to_dfw` + `direct_to_aus` | `both` / `one` / `neither` (a boolean pair, not a score band)                                               |
+| Verdict field            | Grain | Derived from                      | Band values (score floor)                                                                                   |
+| ------------------------ | ----- | --------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `walkability_verdict`    | place | `walk_score`                      | `walker_paradise` 90 / `very_walkable` 70 / `somewhat_walkable` 50 / `car_dependent` 0                      |
+| `bikeability_verdict`    | place | `bike_score`                      | `bikers_paradise` 90 / `very_bikeable` 70 / `bikeable` 50 / `somewhat_bikeable` 0                           |
+| `transit_verdict`        | place | `transit_score`                   | `riders_paradise` 90 / `excellent_transit` 70 / `good_transit` 50 / `some_transit` 25 / `minimal_transit` 0 |
+| `airport_access_verdict` | metro | `direct_to_dfw` + `direct_to_aus` | `both` / `one` / `neither` (a boolean pair, not a score band)                                               |
 
 `metro-thresholds.json` is the authority for the exact floors — Walk Score and Transit Score have
 five bands, Bike Score four (its lowest two collapse into `somewhat_bikeable`); that asymmetry is
@@ -469,34 +502,37 @@ floor gets that verdict.
 
 Two caveats worth stating in the profile:
 
-- **Scores are address/neighborhood-specific, not one metro number.** Store the metro-representative
-  score the research selects; the verdict describes that value, not every address in the metro.
+- **Store the city-representative Walk/Bike/Transit score.** Use the primary walkscore.com score for
+  the place (walkscore.com/`<state>`/`<city>`); note notable intra-city neighborhood variation in
+  the prose, not as extra JSON fields. Per-neighborhood structured scores are a **deferred** tract/
+  block-group layer (EPA index), not a place field — do not hand-average address scores.
 - **Flight routes are volatile.** Store the two booleans as the raw fact; the file's `last_verified`
   date carries freshness. The verdict derives from the booleans.
 
 #### Recompute / Confirm / Validate Workflow
 
-The four verdict fields are written by `_research_/states/regenerate-metro-verdicts.py` — the single
-writer of those fields, sibling to `regenerate-state-verdicts.py`. It is Python (stdlib only), globs
-every `_research_/states/*/*-metrics.json` (the `*/` path segment excludes the state-grain
-`state-metrics.json`), reads `metro-thresholds.json` for the bands, derives each verdict from the
-raw fields, and writes them back **without reformatting the raw fields**. A verdict whose raw input
-is `null` or absent is skipped, so a partial metro file yields a partial verdict set — never a
-guessed value.
+Both grains' verdicts are written by `_research_/states/regenerate-place-verdicts.py` — the single
+writer, sibling to `regenerate-state-verdicts.py`. It is Python (stdlib only), globs every
+`_research_/states/*/*-metrics.json` (the `*/` path segment excludes the state-grain
+`state-metrics.json`; the glob catches both `-metro-` and `-place-` files), reads
+`metro-thresholds.json` for the bands, derives each verdict from the raw fields, and writes them
+back **without reformatting the raw fields**. Skip-null routing makes grain automatic: a metro
+record (flight booleans, no scores) gets only `airport_access_verdict`; a place record (scores, no
+booleans) gets the three score verdicts. A verdict whose raw input is `null` or absent is skipped.
 
 1. **Recompute** — run it from anywhere (no arguments; it locates its sibling files):
 
    ```bash
-   python3 _research_/states/regenerate-metro-verdicts.py
+   python3 _research_/states/regenerate-place-verdicts.py
    ```
 
-   Never hand-write a metro verdict — change the raw metric (or `metro-thresholds.json`) and re-run.
+   Never hand-write a verdict — change the raw metric (or `metro-thresholds.json`) and re-run.
 
 1. **Confirm** — `--check` reports without writing (exit 0 = all up to date, exit 1 = some file
    would change):
 
    ```bash
-   python3 _research_/states/regenerate-metro-verdicts.py --check
+   python3 _research_/states/regenerate-place-verdicts.py --check
    ```
 
    Pair with `git diff` to see which verdicts moved. Zero diff is the healthy state.
@@ -506,7 +542,7 @@ guessed value.
    shared bands changed. The recomputed value always wins — stored == script output.
 
 Because verdicts are derived, regeneration is idempotent: a second run on a correct file is a zero
-diff. When no metro files exist yet, the script exits 0 with "nothing to regenerate."
+diff. When no metro/place files exist yet, the script exits 0 with "nothing to regenerate."
 
 ### Phase 1 — State Overview
 
