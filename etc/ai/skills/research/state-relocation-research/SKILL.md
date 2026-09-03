@@ -115,8 +115,10 @@ _research_/states/
 ├── <state>/
 │   ├── README.md                      ← topic index (phase 5)
 │   ├── state-overview.md              ← phase 1
-│   ├── <metro-1>.md                   ← phase 2 (one file per metro)
+│   ├── <metro-1>.md                   ← phase 2 (one prose profile per metro)
+│   ├── <metro-1>-metrics.json         ← phase 2 (companion structured data, same slug)
 │   ├── <metro-2>.md
+│   ├── <metro-2>-metrics.json
 │   ├── ...
 │   ├── education-and-family.md        ← phase 3
 │   ├── adu-and-investment.md          ← phase 4
@@ -576,8 +578,43 @@ subagent prompt must include the absolute path to the `metro-profile-template.md
 per-metro research hints extracted from the Recommendations section — the one-line rationale for
 each metro identifies its key differentiators (e.g., strong transit, notable trail network, high ADU
 adoption, specific school districts) and should be passed to the subagent so it focuses on what
-matters. Each subagent writes directly to its output file (e.g., `minneapolis.md`, `madison.md`) and
-returns only the filename to the orchestrator — not the content.
+matters.
+
+Each subagent produces **two files** (same slug) and returns only the two filenames — not the
+content:
+
+1. **`<metro>.md`** — the prose profile (e.g. `minneapolis.md`), following the template structure.
+1. **`<metro>-metrics.json`** — the companion structured record holding the **raw Level-1 metrics**
+   the prose collected: the join keys (`metro`, `cbsa`, `state`, `state_fips`, `counties[]`) plus
+   the raw facts (`climate_zone`, `summer_design_temp_f`, `avg_july_high_f`, `days_ge_90f`,
+   `median_home_price`, `walk_score`, `bike_score`, `transit_score`, `direct_to_dfw`,
+   `direct_to_aus`, `adu_by_right`, `adu_prevalence`). Write `null` for any field not researched.
+   **Do not write the verdict fields** — those are derived by the regeneration script below, never
+   hand-authored. See [The `<metro>-metrics.json` Record](#the-metro-metricsjson-record) for the
+   full schema.
+
+**Sourcing the metro join keys (`cbsa` + `counties[]`):** unlike the raw metrics, these are not
+prose research — they are looked up, the same way the state `fips` is (see
+[FIPS Code](#fips-code-the-map-join-key)). The **`cbsa`** is the metro's 5-digit Census CBSA code
+(string, preserve any leading zero); **`counties[]`** is the list of 5-digit county FIPS the CBSA is
+composed of (the map dissolves these into the metro shape via `topomerge`). Source both from the
+Census Bureau's CBSA-to-county
+[delineation files](https://www.census.gov/geographies/reference-files/time-series/demo/metro-micro/delineation-files.html);
+`state_fips` is the parent state's 2-digit code. Every metro record needs these — a record without
+`cbsa` cannot join to geometry.
+
+**After all subagents complete**, the orchestrator derives the verdicts and confirms them (verdicts
+are derived, never hand-written):
+
+```bash
+python3 _research_/states/regenerate-metro-verdicts.py          # write the four verdict fields
+python3 _research_/states/regenerate-metro-verdicts.py --check   # confirm zero diff (exit 0)
+```
+
+This fills `walkability_verdict`, `bikeability_verdict`, `transit_verdict`, and
+`airport_access_verdict` from the raw scores and flight booleans via the shared
+`metro-thresholds.json` bands. A verdict whose raw input is `null` is skipped. See the record
+section's Recompute/Confirm/Validate workflow for details.
 
 ### Phase 3 — Education & Family
 
