@@ -422,6 +422,12 @@ there is no `minneapolis-metro` / `minneapolis-place` name collision. Consequent
 - **Airport access lives only on the metro record** — DFW/AUS direct flights are a metro-wide fact.
   Its verdict is metro-grain.
 
+**When a fact could go either way** (common when a central city and its CBSA share narrative — e.g.
+Rochester's Mayo Clinic is both the metro anchor and an in-city employer), place it by *scope*: a
+metro-wide fact (major hospital *systems*, airport, climate, the regional economy) is metro-grain; a
+fact specific to one city (its local school districts, walkability, city parks, local ADU ordinance)
+is place-grain. When in doubt, the metro/place template scope lists are the tie-breaker.
+
 ### Deferred (Level 3)
 
 A composite `metro_tier` / place score (Phase 6's weighted ranking materialized) and a place
@@ -441,8 +447,11 @@ sourced to the EPA National Walkability Index — see the analysis doc.
   "counties": ["27003", "27019", "27037", "27053", "27123"],  // 5-digit county FIPS; geometry dissolves from these
 
   // ---- raw metro-wide metrics (null when unresearched) ----
-  "climate_zone": 6,            // metro county IECC zone (may differ from the state's predominant)
-  "summer_design_temp_f": 91,
+  // Climate fields use the CBSA's PRINCIPAL CITY's county (a CBSA spans counties
+  // with differing values; the principal city is where the place records anchor).
+  "climate_zone": 6,            // principal-city county IECC zone, INTEGER (the A/B/C
+                                // moisture suffix, e.g. "6A", stays in prose only)
+  "summer_design_temp_f": 91,   // principal-city county
   "avg_july_high_f": 83,
   "days_ge_90f": 13,
   "direct_to_dfw": true,        // raw boolean (airport access is metro-wide)
@@ -469,7 +478,10 @@ sourced to the EPA National Walkability Index — see the analysis doc.
   "walk_score": 37,             // raw 0–100, city-representative (see caveat)
   "bike_score": 52,
   "transit_score": 40,
-  "adu_by_right": true,         // raw inputs for a FUTURE adu_verdict (deferred) — not derived now
+  "adu_by_right": true,         // ADUs permitted BY RIGHT? raw input for a FUTURE adu_verdict
+                                // (deferred). false = NOT by-right — covers both an outright
+                                // ban AND a discretionary-only path (variance/CUP); note which
+                                // in prose. (A future enum may split these when adu_verdict lands.)
   "adu_prevalence": "low",      // high | medium | low
 
   // ---- derived verdicts (regenerated, never hand-authored) ----
