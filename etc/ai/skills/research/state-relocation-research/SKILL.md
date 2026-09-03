@@ -651,13 +651,22 @@ filenames — not the content:
    [The sub-state metric records](#the-sub-state-metric-records) for the schema.
 
 **Sourcing the metro join keys (`cbsa` + `counties[]`):** unlike the raw metrics, these are not
-prose research — they are looked up, the same way the state `fips` is (see
-[FIPS Code](#fips-code-the-map-join-key)). The **`cbsa`** is the metro's 5-digit Census CBSA code
-(string, preserve any leading zero); **`counties[]`** is the list of 5-digit county FIPS the CBSA is
-composed of (the map dissolves these into the metro shape via `topomerge`). Source both from the
-Census Bureau's CBSA-to-county
-[delineation files](https://www.census.gov/geographies/reference-files/time-series/demo/metro-micro/delineation-files.html).
-Every metro record needs these — a record without `cbsa` cannot join to geometry.
+prose research — they are **mechanical lookups** of stable Census identifiers. The **`cbsa`** is the
+metro's 5-digit Census CBSA code (string, preserve any leading zero); **`counties[]`** is the list
+of 5-digit county FIPS the CBSA is composed of (the map dissolves these into the metro shape via
+`topomerge`). Source them in this order:
+
+1. **Check `_research_/states/geo-crosswalk.json` first** — an append-only table of
+   already-looked-up join keys. If the metro is present, read `cbsa` + `counties` from it (zero
+   network):
+   `jq '.[] | select(.grain=="metro" and .slug=="<slug>")' _research_/states/geo-crosswalk.json`.
+1. **If absent, run the lookup tool** and append its output row to the crosswalk so the next lookup
+   is free: `python3 _research_/states/census-geo-lookup.py metro <cbsa>`. It fetches only the
+   matched rows from the Census delineation file — it does **not** dump the source into context.
+
+**Never `web_fetch` Wikipedia or a rendered Census HTML page for these IDs** — that costs tens of
+thousands of tokens for a handful of facts. The crosswalk + tool exist precisely to avoid it. Every
+metro record needs `cbsa` + `counties[]` — a record without `cbsa` cannot join to geometry.
 
 **Recommended cities (the seam into Phase 3):** the metro profile must end with a
 `## Recommended Cities` section naming 3–5 incorporated cities/suburbs within the metro worth a
@@ -710,9 +719,19 @@ filenames:
    `walkability_verdict`, `bikeability_verdict`, and `transit_verdict`.
 
 **Sourcing the place join key (`place_geoid`):** the 7-digit Census **Place GEOID** (string;
-preserve leading zeros), looked up from the Census Place code lists (or the `id` of the place
-feature in the Census Place cartographic geometry). `cbsa` back-references the parent metro's
-record. A place record without a `place_geoid` cannot join to geometry.
+preserve leading zeros) is a **mechanical lookup**, sourced in the same order as the metro keys:
+
+1. **Check `_research_/states/geo-crosswalk.json` first** — if the place is present, read
+   `place_geoid` from it:
+   `jq '.[] | select(.grain=="place" and .slug=="<slug>")' _research_/states/geo-crosswalk.json`.
+1. **If absent, run the lookup tool** and append its row to the crosswalk:
+   `python3 _research_/states/census-geo-lookup.py place <state_fips> "<City Name>" --cbsa <cbsa>`
+   (use the Census spelling — e.g. `"St. Paul"`, not `"Saint Paul"`; the tool warns on a miss). It
+   fetches only the matched gazetteer rows, never dumping the file into context.
+
+**Never `web_fetch` a rendered HTML page for the GEOID** — use the crosswalk/tool. `cbsa`
+back-references the parent metro's record. A place record without a `place_geoid` cannot join to
+geometry.
 
 **After all subagents complete**, derive the place-grain verdicts and confirm:
 

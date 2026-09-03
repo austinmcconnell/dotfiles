@@ -25,9 +25,11 @@ market, nature/trails at metro scale), see this place's parent `<metro>-metro.md
 > the script. See the `## The Sub-State Metric Records` section of the `state-relocation-research`
 > skill for the schema, bands, and workflow.
 >
-> **Sourcing the `place_geoid`:** the 7-digit Census Place GEOID (string; preserve leading zeros),
-> from the Census Place code lists or the `id` of the place feature in the Census Place cartographic
-> geometry. A place record without it cannot join to map geometry.
+> **Sourcing the `place_geoid`:** the 7-digit Census Place GEOID (string; preserve leading zeros).
+> Check `_research_/states/geo-crosswalk.json` first; if absent, run
+> `census-geo-lookup.py place <state_fips> "<City Name>"` (never web_fetch an HTML page for it). See
+> the skill's Phase 3 join-key sourcing for the full order. A place record without it cannot join to
+> map geometry.
 
 ## Overview
 
