@@ -502,10 +502,13 @@ floor gets that verdict.
 
 Two caveats worth stating in the profile:
 
-- **Store the city-representative Walk/Bike/Transit score.** Use the primary walkscore.com score for
-  the place (walkscore.com/`<state>`/`<city>`); note notable intra-city neighborhood variation in
-  the prose, not as extra JSON fields. Per-neighborhood structured scores are a **deferred** tract/
-  block-group layer (EPA index), not a place field — do not hand-average address scores.
+- **Store the city-representative Walk/Bike/Transit score** — the single citywide number from the
+  place's own walkscore.com page (`walkscore.com/<state>/<city>`). Note notable intra-city
+  neighborhood variation in the prose, not as extra JSON fields. If only neighborhood or partial
+  scores are available and no city-level number, store `null` for that score (its verdict is simply
+  skipped) — **never** synthesize a city number by averaging neighborhood or address scores.
+  Per-neighborhood structured scores are a **deferred** tract/block-group layer (EPA index), not a
+  place field.
 - **Flight routes are volatile.** Store the two booleans as the raw fact; the file's `last_verified`
   date carries freshness. The verdict derives from the booleans.
 

@@ -72,7 +72,9 @@ The Walk/Bike/Transit scores here drive this place's three derived verdicts.
 
 - **Walk Score / Bike Score / Transit Score** for the city (the city-representative walkscore.com
   score — walkscore.com/`<state>`/`<city>`). Note notable intra-city neighborhood variation in
-  prose, but store one city-representative number per score in the JSON.
+  prose, but store one city-representative number per score in the JSON. If no city-level number is
+  available (only neighborhood or partial scores), store `null` — never average neighborhood scores
+  into a synthetic city number.
 - Transit system access (mode — light rail/bus/commuter rail, coverage, reliability, monthly pass)
 - Car-dependency assessment for a family
 - Bike infrastructure — protected lanes, network connectivity
