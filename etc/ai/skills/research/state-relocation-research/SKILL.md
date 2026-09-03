@@ -468,7 +468,7 @@ sourced to the EPA National Walkability Index — see the analysis doc.
 {
   // ---- identity + join keys (required) ----
   "place": "Edina",
-  "place_geoid": "2718964",     // 7-digit Census Place GEOID, STRING — the place map join key
+  "place_geoid": "2718188",     // 7-digit Census Place GEOID, STRING — the place map join key
   "cbsa": "33460",              // back-reference to the parent metro record
   "state": "Minnesota",
   "state_fips": "27",
