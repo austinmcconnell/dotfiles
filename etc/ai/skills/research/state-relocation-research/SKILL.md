@@ -1,6 +1,6 @@
 ---
 name: state-relocation-research
-description: Research US states and their metros as domestic relocation destinations with per-state directory structure, five-phase workflow, and subagent delegation patterns. Use when researching US states for relocation, evaluating metros for a domestic family move, or comparing states as relocation destinations.
+description: Research US states and their metros as domestic relocation destinations with per-state directory structure, six-phase workflow, and subagent delegation patterns. Use when researching US states for relocation, evaluating metros for a domestic family move, or comparing states as relocation destinations.
 ---
 
 # State Relocation Research
@@ -24,9 +24,12 @@ template by bare filename, resolve it to
 
 - **[state-relocation-overview-template.md](references/state-relocation-overview-template.md)** —
   Phase 1 state overview
-- **[metro-profile-template.md](references/metro-profile-template.md)** — Phase 2 per-metro profile
-- **[education-and-family-template.md](references/education-and-family-template.md)** — Phase 3
-- **[adu-and-investment-template.md](references/adu-and-investment-template.md)** — Phase 4
+- **[metro-profile-template.md](references/metro-profile-template.md)** — Phase 2 per-metro (CBSA)
+  profile
+- **[place-profile-template.md](references/place-profile-template.md)** — Phase 3 per-place
+  (city/suburb) profile
+- **[education-and-family-template.md](references/education-and-family-template.md)** — Phase 4
+- **[adu-and-investment-template.md](references/adu-and-investment-template.md)** — Phase 5
 - **[cross-state-rankings-template.md](references/cross-state-rankings-template.md)** — on-demand
   cross-state rankings
 
@@ -65,7 +68,7 @@ composition and constant priorities. This skill covers the domestic-move priorit
   - **Weak / penalize** — significantly **below** national on **both** axes (e.g. New Mexico, West
     Virginia, Oklahoma, Alaska). Flag prominently; pursue only if a specific district demonstrably
     bucks the state trend.
-  - This is a **penalize**, not disqualify, filter at the metro/district level (Phases 2–3 are where
+  - This is a **penalize**, not disqualify, filter at the metro/district level (Phases 3–4 are where
     education is really judged), but the *state prior* uses "strong" as the primary bar because
     education is the priority dimension. Flag strong-tier states whose NAEP scores declined year
     over year. See `_research_/states/education-classification.md` for the significance method,
@@ -113,50 +116,64 @@ _research_/states/
 ├── README.md                          ← states index
 ├── rankings.md                        ← cross-state comparison (see below)
 ├── <state>/
-│   ├── README.md                      ← topic index (phase 5)
-│   ├── state-overview.md              ← phase 1
-│   ├── <metro-1>.md                   ← phase 2 (one prose profile per metro)
-│   ├── <metro-1>-metrics.json         ← phase 2 (companion structured data, same slug)
-│   ├── <metro-2>.md
-│   ├── <metro-2>-metrics.json
+│   ├── README.md                          ← topic index (phase 6)
+│   ├── state-overview.md                  ← phase 1
+│   ├── <metro-1>-metro.md                 ← phase 2 (one prose profile per metro/CBSA)
+│   ├── <metro-1>-metro-metrics.json       ← phase 2 (companion metro data, same slug)
+│   ├── <metro-2>-metro.md
+│   ├── <metro-2>-metro-metrics.json
 │   ├── ...
-│   ├── education-and-family.md        ← phase 3
-│   ├── adu-and-investment.md          ← phase 4
-│   └── recommendations.md            ← phase 5
+│   ├── <place-1>-place.md                 ← phase 3 (one prose profile per evaluated city/suburb)
+│   ├── <place-1>-place-metrics.json       ← phase 3 (companion place data, same slug)
+│   ├── <place-2>-place.md
+│   ├── <place-2>-place-metrics.json
+│   ├── ...
+│   ├── education-and-family.md            ← phase 4
+│   ├── adu-and-investment.md              ← phase 5
+│   └── recommendations.md                ← phase 6
 └── <state>/
     └── ...
 ```
 
-## Five-Phase Workflow
+## Six-Phase Workflow
 
 Run phases in order. Each phase reads the output of prior phases to avoid duplication. Phase 0 is a
-skippable pre-screen that nominates candidate states before the five per-state research phases (1–5)
+skippable pre-screen that nominates candidate states before the six per-state research phases (1–6)
 begin; skip it when the user names a state to research directly.
 
 **Before starting any phase**, check the state directory (`_research_/states/<state>/`) for existing
-files. Read all files from prior phases — they contain data, metro selections, and recommendations
-that the current phase must build on. If a prior phase is missing, stop and complete it first. If a
-phase is partially complete (e.g., 3 of 5 metro files exist), complete only the missing parts. If
-orphaned `.tmp-*` files exist from a failed phase 1 assembly, clean them up and re-run phase 1.
+files. Read all files from prior phases — they contain data, metro/place selections, and
+recommendations that the current phase must build on. If a prior phase is missing, stop and complete
+it first. If a phase is partially complete (e.g., 3 of 5 metro files exist), complete only the
+missing parts. If orphaned `.tmp-*` files exist from a failed phase 1 assembly, clean them up and
+re-run phase 1.
 
 | Phase | File(s)                           | Template                                                                                  | Depends On |
 | ----- | --------------------------------- | ----------------------------------------------------------------------------------------- | ---------- |
 | 0     | *(none — in-conversation screen)* | `_research_/states/state-metrics.json` (research corpus, not `references/`)               | —          |
 | 1     | `state-overview.md`               | [state-relocation-overview-template.md](references/state-relocation-overview-template.md) | Phase 0    |
-| 2     | `<metro>.md` (one per metro)      | [metro-profile-template.md](references/metro-profile-template.md)                         | Phase 1    |
-| 3     | `education-and-family.md`         | [education-and-family-template.md](references/education-and-family-template.md)           | Phases 1–2 |
-| 4     | `adu-and-investment.md`           | [adu-and-investment-template.md](references/adu-and-investment-template.md)               | Phases 1–2 |
-| 5     | `recommendations.md`, `README.md` | *(no template — synthesis)*                                                               | Phases 1–4 |
+| 2     | `<metro>-metro.md` (one per CBSA) | [metro-profile-template.md](references/metro-profile-template.md)                         | Phase 1    |
+| 3     | `<place>-place.md` (one per city) | [place-profile-template.md](references/place-profile-template.md)                         | Phase 2    |
+| 4     | `education-and-family.md`         | [education-and-family-template.md](references/education-and-family-template.md)           | Phases 1–3 |
+| 5     | `adu-and-investment.md`           | [adu-and-investment-template.md](references/adu-and-investment-template.md)               | Phases 1–3 |
+| 6     | `recommendations.md`, `README.md` | *(no template — synthesis)*                                                               | Phases 1–5 |
 
-Phases 3 and 4 are independent and can run in parallel.
+Each tier recommends the next down: Phase 1 (state) recommends **metros**; Phase 2 (metro)
+recommends **places** (cities/suburbs within it); Phase 3 profiles those places. Phases 4 and 5 are
+independent and can run in parallel.
+
+**Subagent batching:** when a phase delegates N parallel subagents (N metros in Phase 2, N places in
+Phase 3), launch them in tranches of at most **4 concurrent** (adjust down for token-heavy units);
+wait for a tranche to finish before launching the next. The phases are already sequential, so metros
+and places never compete for the same slots — a per-phase tranche cap is sufficient.
 
 Template links in the table above point to this skill's `references/` directory (see
 [Templates](#templates)). Phase 0's `state-metrics.json` is the one exception — it lives in the
 research corpus, not `references/`.
 
-**Execution order:** Phase 0 (pre-screen, skip if a state is named) → Phase 1 → Phase 2 → Phases 3 +
-4 (parallel) → Phase 5. Wait for each step (the parallel 3 + 4 pair counts as one step) to complete
-before starting the next.
+**Execution order:** Phase 0 (pre-screen, skip if a state is named) → Phase 1 → Phase 2 → Phase 3 →
+Phases 4 + 5 (parallel) → Phase 6. Wait for each step (the parallel 4 + 5 pair counts as one step)
+to complete before starting the next.
 
 ### Phase 0 — Candidate Pre-Screening
 
@@ -201,8 +218,8 @@ out explicitly even if they clear the other two — Idaho is the standing exampl
 education, fails the healthcare floor).
 
 The pre-screen is deliberately limited to the three must-haves. Nice-to-haves (transit, bike/walk,
-nature/trails, ADU adoption, DFW/AUS flights) are tie-breakers applied later, when Phase 5 compares
-a short list of already-qualifying metros — they do not belong in a 50-state filter.
+nature/trails, ADU adoption, DFW/AUS flights) are tie-breakers applied later, when Phase 6 compares
+a short list of already-qualifying metros and places — they do not belong in a 50-state filter.
 
 **Output:** A ranked candidate list (primary, then secondary with failing dimensions) that seeds
 Phase 1. This is a lightweight, in-conversation step; it does not produce a research file of its
@@ -554,9 +571,11 @@ to a temp file — not return it as text. This keeps the orchestrator's context 
 1. Verify the assembled file (`wc -l` of output vs sum of temp line counts) before deleting temps.
 1. Delete all `.tmp-*` files after successful assembly.
 
-### Phase 2 — Metro Profiles
+### Phase 2 — Metro Profiles (CBSA grain)
 
-One file per metro.
+One file per metro (CBSA). The metro tier covers **metro-wide** facts and **recommends the
+cities/suburbs** worth evaluating at Phase 3 — it does not carry per-city walkability (that is place
+grain).
 
 **Disqualification gate:** Before selecting metros, check Phase 1's disqualification verdict. If the
 state failed a must-have with **no** qualifying-metro exception, stop — do not run Phase 2. If it
@@ -565,33 +584,32 @@ Only a passing state runs Phase 2 for its full recommended list.
 
 **Metro selection:** Use the metros listed in the state overview's Recommendations section (3–6
 metros). The orchestrator reads only that section (not the full file) to extract the metro list,
-then delegates one subagent per metro. The phase 1 author applies the selection criteria (see Phase
-1 Recommendations). Recommendations is always the last `##` section in the file — grep for
-`^## Recommendations` and read from that line to EOF.
+then delegates one subagent per metro (in tranches of ≤4; see Subagent batching). Recommendations is
+always the last `##` section in the file — grep for `^## Recommendations` and read from that line to
+EOF.
 
-**Scope:** Metro-specific data only. Reference the state overview for state-level context (tax,
-state education landscape, state ADU law, state parks system). Do not repeat it.
+**Scope:** Metro-wide data only — climate (metro county IECC zone + heat metrics), airport access to
+DFW/AUS, metro-level cost band, nature/trails at metro scale, and the state-level context pointer.
+Do NOT collect per-city Walk/Bike/Transit scores or per-city school districts here — those belong to
+the Place tier (Phase 3). Reference the state overview for state-level context (tax, state ADU law,
+state parks system); do not repeat it.
 
-**Subagent delegation:** Each metro is independent — delegate all metros to parallel subagents. Each
-subagent prompt must include the absolute path to the `metro-profile-template.md` template (see
-[Templates](#templates)) and instruct the subagent to read it and follow its structure. Include
-per-metro research hints extracted from the Recommendations section — the one-line rationale for
-each metro identifies its key differentiators (e.g., strong transit, notable trail network, high ADU
-adoption, specific school districts) and should be passed to the subagent so it focuses on what
-matters.
+**Subagent delegation:** Each metro is independent — delegate all metros to parallel subagents (in
+tranches of ≤4). Each subagent prompt must include the absolute path to the
+`metro-profile-template.md` template (see [Templates](#templates)) and instruct the subagent to read
+it and follow its structure.
 
-Each subagent produces **two files** (same slug) and returns only the two filenames — not the
-content:
+Each subagent produces **two files** (matching slug, `-metro` suffix) and returns only the two
+filenames — not the content:
 
-1. **`<metro>.md`** — the prose profile (e.g. `minneapolis.md`), following the template structure.
-1. **`<metro>-metrics.json`** — the companion structured record holding the **raw Level-1 metrics**
-   the prose collected: the join keys (`metro`, `cbsa`, `state`, `state_fips`, `counties[]`) plus
-   the raw facts (`climate_zone`, `summer_design_temp_f`, `avg_july_high_f`, `days_ge_90f`,
-   `median_home_price`, `walk_score`, `bike_score`, `transit_score`, `direct_to_dfw`,
-   `direct_to_aus`, `adu_by_right`, `adu_prevalence`). Write `null` for any field not researched.
-   **Do not write the verdict fields** — those are derived by the regeneration script below, never
-   hand-authored. See [The `<metro>-metrics.json` Record](#the-metro-metricsjson-record) for the
-   full schema.
+1. **`<metro>-metro.md`** — the prose profile (e.g. `twin-cities-metro.md`), named for the metro,
+   never for a central city.
+1. **`<metro>-metro-metrics.json`** — the companion **metro-grain** record: join keys (`metro`,
+   `cbsa`, `state`, `state_fips`, `counties[]`) plus metro-wide raw facts (`climate_zone`,
+   `summer_design_temp_f`, `avg_july_high_f`, `days_ge_90f`, `direct_to_dfw`, `direct_to_aus`).
+   Write `null` for anything unresearched. **No walk/bike/transit** (place grain) and **no verdict
+   fields** except that the regeneration script fills `airport_access_verdict`. See
+   [The sub-state metric records](#the-sub-state-metric-records) for the schema.
 
 **Sourcing the metro join keys (`cbsa` + `counties[]`):** unlike the raw metrics, these are not
 prose research — they are looked up, the same way the state `fips` is (see
@@ -599,35 +617,87 @@ prose research — they are looked up, the same way the state `fips` is (see
 (string, preserve any leading zero); **`counties[]`** is the list of 5-digit county FIPS the CBSA is
 composed of (the map dissolves these into the metro shape via `topomerge`). Source both from the
 Census Bureau's CBSA-to-county
-[delineation files](https://www.census.gov/geographies/reference-files/time-series/demo/metro-micro/delineation-files.html);
-`state_fips` is the parent state's 2-digit code. Every metro record needs these — a record without
-`cbsa` cannot join to geometry.
+[delineation files](https://www.census.gov/geographies/reference-files/time-series/demo/metro-micro/delineation-files.html).
+Every metro record needs these — a record without `cbsa` cannot join to geometry.
 
-**After all subagents complete**, the orchestrator derives the verdicts and confirms them (verdicts
-are derived, never hand-written):
+**Recommended cities (the seam into Phase 3):** the metro profile must end with a
+`## Recommended Cities` section naming 3–5 incorporated cities/suburbs within the metro worth a
+Place deep-dive, each with a one-line rationale (its key differentiators — strong transit, elite
+school district, high ADU adoption). This mirrors the state→metro seam one grain down: Phase 3 reads
+only this section to get its place list. You cannot profile all of a metro's suburbs — the metro
+tier is where the knowledge of *which* cities matter lives.
+
+**After all subagents complete**, derive the metro-grain verdict and confirm:
 
 ```bash
-python3 _research_/states/regenerate-metro-verdicts.py          # write the four verdict fields
-python3 _research_/states/regenerate-metro-verdicts.py --check   # confirm zero diff (exit 0)
+python3 _research_/states/regenerate-place-verdicts.py          # fills airport_access_verdict (metro) + score verdicts (place)
+python3 _research_/states/regenerate-place-verdicts.py --check   # confirm zero diff (exit 0)
 ```
 
-This fills `walkability_verdict`, `bikeability_verdict`, `transit_verdict`, and
-`airport_access_verdict` from the raw scores and flight booleans via the shared
-`metro-thresholds.json` bands. A verdict whose raw input is `null` is skipped. See the record
-section's Recompute/Confirm/Validate workflow for details.
+The script is the single verdict writer for both grains; on metro records it derives only
+`airport_access_verdict` from the two flight booleans. A verdict whose raw input is `null` is
+skipped.
 
-### Phase 3 — Education & Family
+### Phase 3 — Place Profiles (city/suburb grain)
 
-Read the state overview and all metro files first. Cross-cutting analysis of education across all
-profiled metros. Covers public school-district ratings (elementary/middle/high), magnet and charter
-options, extracurriculars, pediatric healthcare access, and general kid-friendliness. Ranks metros
-for this family.
+One file per **evaluated city/suburb** — the grain at which the family actually chooses (you buy in
+Edina, not "in the Twin Cities"). This is where per-city Walk/Bike/Transit scores, local prices,
+school districts, and local ADU ordinances live. A central city (Minneapolis, St. Paul) is a
+**place** record, keyed by its Place GEOID — never a metro record (see
+[The sub-state metric records](#the-sub-state-metric-records)).
+
+**Place selection:** Use the cities listed in each metro profile's `## Recommended Cities` section
+(3–5 per metro). The orchestrator reads only that section from each `<metro>-metro.md`, then
+delegates one subagent per place (in tranches of ≤4). Do not invent places not recommended by a
+metro profile.
+
+**Scope:** City-specific data only — Walk/Bike/Transit scores (free per-place walkscore.com), local
+median home price, the local school district(s), the local ADU ordinance, and city-level livability.
+Reference the metro profile for metro-wide context (climate, airport); do not repeat it.
+
+**Subagent delegation:** Each place is independent — delegate all places to parallel subagents (in
+tranches of ≤4). Each subagent prompt must include the absolute path to the
+`place-profile-template.md` template (see [Templates](#templates)) and the one-line rationale from
+the metro's Recommended Cities entry so it focuses on the right differentiators.
+
+Each subagent produces **two files** (matching slug, `-place` suffix) and returns only the two
+filenames:
+
+1. **`<place>-place.md`** — the prose profile (e.g. `edina-place.md`).
+1. **`<place>-place-metrics.json`** — the companion **place-grain** record: join keys (`place`,
+   `place_geoid`, `cbsa` back-reference, `state`, `state_fips`) plus raw facts (`median_home_price`,
+   `walk_score`, `bike_score`, `transit_score`, `adu_by_right`, `adu_prevalence`). Write `null` for
+   anything unresearched. **Do not write the verdict fields** — the script derives
+   `walkability_verdict`, `bikeability_verdict`, and `transit_verdict`.
+
+**Sourcing the place join key (`place_geoid`):** the 7-digit Census **Place GEOID** (string;
+preserve leading zeros), looked up from the Census Place code lists (or the `id` of the place
+feature in the Census Place cartographic geometry). `cbsa` back-references the parent metro's
+record. A place record without a `place_geoid` cannot join to geometry.
+
+**After all subagents complete**, derive the place-grain verdicts and confirm:
+
+```bash
+python3 _research_/states/regenerate-place-verdicts.py          # fills walk/bike/transit verdicts
+python3 _research_/states/regenerate-place-verdicts.py --check   # confirm zero diff (exit 0)
+```
+
+This fills `walkability_verdict`, `bikeability_verdict`, and `transit_verdict` from the raw scores
+via the shared `metro-thresholds.json` bands (a verdict whose input is `null` is skipped). See the
+record section's Recompute/Confirm/Validate workflow.
+
+### Phase 4 — Education & Family
+
+Read the state overview and all metro and place files first. Cross-cutting analysis of education
+across all profiled places. Covers public school-district ratings (elementary/middle/high), magnet
+and charter options, extracurriculars, pediatric healthcare access, and general kid-friendliness.
+Ranks places for this family.
 
 **Subagent delegation:** Single subagent. Prompt must include the absolute path to the
 `education-and-family-template.md` template (see [Templates](#templates)). Subagent writes directly
 to `education-and-family.md` and returns only the filename.
 
-### Phase 4 — ADU & Investment
+### Phase 5 — ADU & Investment
 
 Read all prior files first. Cross-cutting analysis of Accessory Dwelling Unit adoption and property
 investment across all profiled metros. Covers local ADU ordinances (are ADUs permitted by right?
@@ -635,15 +705,15 @@ size/permit constraints), ADU adoption rates and prevalence in the housing stock
 rental yields, and the multigenerational-use angle (future flexibility to host aging parents, adult
 children, or guests — the profile defines no current extended-family member, so treat this as
 optionality, not a fixed requirement). Also covers general buy-to-rent viability. Identifies best
-metros for a property with ADU potential.
+places for a property with ADU potential.
 
 **Subagent delegation:** Single subagent. Prompt must include the absolute path to the
 `adu-and-investment-template.md` template (see [Templates](#templates)). Subagent writes directly to
 `adu-and-investment.md` and returns only the filename.
 
-### Phase 5 — Synthesis & Indexing
+### Phase 6 — Synthesis & Indexing
 
-1. `recommendations.md` — Cross-cutting analysis ranking metros for this family. Scoring weights:
+1. `recommendations.md` — Cross-cutting analysis ranking places for this family. Scoring weights:
    education (35%), climate fit (20%), healthcare access (15%), livability (15%: transit, bike,
    walk, nature/trails), ADU & investment (10%), cost of living (5%). Be direct and opinionated. Use
    inline citations referencing data from other files.
@@ -651,20 +721,20 @@ metros for a property with ADU potential.
 1. Update root `_research_/README.md` master index.
 
 **Subagent delegation:** Delegate `recommendations.md` to a single subagent. The subagent reads all
-prior phase files (state overview + metro profiles + education & family + ADU & investment), writes
-`recommendations.md`, and returns only the filename. The orchestrator then writes `README.md` (topic
-index) and updates the root `_research_/README.md` master index — these are small cross-cutting
-files the orchestrator can handle directly.
+prior phase files (state overview + metro profiles + place profiles + education & family + ADU &
+investment), writes `recommendations.md`, and returns only the filename. The orchestrator then
+writes `README.md` (topic index) and updates the root `_research_/README.md` master index — these
+are small cross-cutting files the orchestrator can handle directly.
 
 ## Cross-State Rankings
 
 `_research_/states/rankings.md` compares all researched states side-by-side. This is separate from
-the per-state five-phase workflow — it runs on demand, not automatically after a state completes.
+the per-state six-phase workflow — it runs on demand, not automatically after a state completes.
 
-**Input:** The `recommendations.md` file from each state that has completed all 5 phases. The
+**Input:** The `recommendations.md` file from each state that has completed all 6 phases. The
 subagent reads only these files — not the full research corpus for each state.
 
-**Content:** Rank states using the same weighted criteria as per-state recommendations (see Phase 5
+**Content:** Rank states using the same weighted criteria as per-state recommendations (see Phase 6
 scoring weights). Include a summary table, per-dimension winners, key tradeoffs, and a direct
 overall recommendation for this family. Use inline citations referencing each state's
 recommendations file.
@@ -697,6 +767,10 @@ Research <state> for relocation — phase 1 (state overview).
 
 ```text
 Continue <state> relocation — phase 2 (metro profiles).
+```
+
+```text
+Continue <state> relocation — phase 3 (place/city profiles).
 ```
 
 ```text
