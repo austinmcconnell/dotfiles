@@ -14,6 +14,14 @@ sources:
 Metro-specific data only. For state-level context (tax, state education landscape, state ADU law,
 state parks system), see [state-overview.md](state-overview.md).
 
+> **Companion data file:** alongside this prose profile, emit a structured `<metro>-metrics.json`
+> (same slug) capturing the machine-readable values described below — the CBSA code and composing
+> county FIPS, the climate numbers, Walk/Bike/Transit Scores, direct-flight booleans, and ADU
+> inputs. Its four nice-to-have **verdict** fields (walkability, bikeability, transit, airport
+> access) are *derived* by `regenerate-metro-verdicts.py`, never hand-authored — write the raw
+> metrics and run the script. See the `## The <metro>-metrics.json Record` section of the
+> `state-relocation-research` skill for the schema, bands, and workflow.
+
 ## Overview
 
 Brief metro description: character, vibe, role in the state (capital, largest metro, college town,
