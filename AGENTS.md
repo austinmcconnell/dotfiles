@@ -367,6 +367,24 @@ are in context without the agent stumbling onto them. `backlog.md` is deliberate
 it can grow large, so it is read on demand instead. `jira` and `datadog` omit all three (no
 planning/ideation work). See the `idea-refinement` and `todo` skills for the funnel itself.
 
+Documentation follows a **README-as-pointer** scheme rather than eager-loading a `docs/` tree. The
+top-level `file://README.md` (already loaded on all five agents) is the always-on entry point and
+should be maintained as a thin *map*: one line per important doc naming the file and when to read
+it. Detailed docs live in the retrieval channel — the agent pulls them on demand with `read`/`grep`
+(or the KB, where the repo is indexed) by following the map's pointers. Two hard constraints keep
+this from re-creating context pressure: pointers are **one-hop** (a README names the actual target
+doc, never another README) and the indexing is **flat** (one level, no nested index trees) — both
+are accuracy findings from the context-rot literature, not style preferences. A blunt
+`file://docs/*.md` glob is deliberately **NOT added** to any agent: eager-loading whole docs trees
+degrades answer accuracy (predominantly Claude agents *abstain* under over-stuffed context), so it
+is a rejected default, not a missing feature. The one narrow exception is opt-in per-repo: a single
+small, stable, high-signal doc that benefits from whole-document reasoning every session may be
+added as an explicit `file://<path>` entry — a named exception within the pointer model, never a
+glob. The pointer scheme is agent-agnostic (all five benefit — e.g. datadog reading a service
+runbook); the KB scoping is unchanged. See the `readme-pointer` skill for the convention and the
+"Which Channel" boundary in `knowledge-base-usage` / `cross-session-memory` steering for how agents
+route between the eager map, the KB, and engram.
+
 Resource scoping per agent:
 
 - **code** — all steering domains (`code/`, `github/`, `security/`),
@@ -557,6 +575,15 @@ session fills that role directly.
   the `idea-refinement`/`todo` skills instead: they name the files and when to engage, so a Claude
   session reads them on demand rather than having them pre-loaded. Functional (skill-driven), not
   automatic (context-preloaded) coverage
+- No auto-loaded README pointer map. Kiro loads the top-level `file://README.md` eagerly on all five
+  agents as the always-on entry point, meant to be maintained as a thin doc *map* (the
+  README-as-pointer scheme; see Resource Patterns above), and pulls the docs it points at on demand.
+  Claude Code's only always-on context is the global `~/.claude/CLAUDE.md` — it cannot auto-load a
+  per-project README. The parity is carried by the `readme-pointer` skill: it names the convention
+  (read the nearest `README.md` as a map, follow its one-hop pointers) so a Claude session does the
+  same navigation on demand. Same functional (skill- driven) vs automatic (context-preloaded) split
+  as the working-file gap above; the one-hop and flat constraints and the rejected `docs/*.md` glob
+  apply identically
 
 ## Security Considerations
 
