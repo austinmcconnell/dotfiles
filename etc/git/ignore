@@ -22,6 +22,11 @@ Thumbs.db
 todo*.md
 plan*.md
 
+## Idea-refinement funnel working files
+
+ideas.md
+backlog.md
+
 ## Git worktrees
 
 worktrees/
