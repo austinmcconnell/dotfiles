@@ -407,6 +407,19 @@ Resource scoping per agent:
 - Use `include`/`exclude` arrays to scope what gets indexed — exclude `.git/`, `__pycache__/`,
   `.venv/`, `node_modules/`, build artifacts
 - Write specific `description` fields — the agent uses these to decide which KB to search
+- Keep `description` claims honest to the actual `include`/`exclude` scope. The description is the
+  routing signal, so advertising coverage the globs don't provide causes wrong routing (an agent
+  searches a KB that cannot return the content). When narrowing a description because content is
+  deliberately unindexed, say so and name the fallback (e.g. "the YAML assets are not indexed — grep
+  them") so a future reader doesn't "helpfully" widen the `include` back. Don't oversell a
+  separation between two KBs whose `include` arrays overlap (e.g. two KBs both indexing
+  `docs/**/*.md`) — describe the retrieval preference, not an exclusive split.
+- Don't index bulk domain *data* into a code-comprehension (`fast`) KB. Large, repetitive structured
+  data (e.g. template/asset YAML, fixtures, generated files) crowds out the sparse code/prose signal
+  and surfaces as noise in results — the same retrieval-pollution failure the `.pytest_cache`
+  exclusion fixed, at larger scale. A `fast` KB should index the code that *consumes or produces*
+  such data, not the data itself. If the data genuinely needs searching, use `grep`/`glob` over its
+  directory, or a separate purpose-built KB scoped to just those assets.
 - Knowledge bases referencing repos on other machines (work vs personal) will silently return no
   results — this is expected
 
