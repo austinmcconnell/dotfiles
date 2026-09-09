@@ -361,6 +361,12 @@ Resources use three URI schemes with different loading behavior:
   load both project-local (`.kiro/skills/`) and global (`~/.kiro/skills/`) skills.
 - `knowledgeBase` objects — indexed for semantic search. Used for large doc sets and codebases.
 
+The `code`, `docs`, and `ansible` agents additionally load `file://ideas.md` and `file://todo.md`
+(relative → per-project, silently skipped when absent) so the idea-refinement funnel's working files
+are in context without the agent stumbling onto them. `backlog.md` is deliberately NOT auto-loaded —
+it can grow large, so it is read on demand instead. `jira` and `datadog` omit all three (no
+planning/ideation work). See the `idea-refinement` and `todo` skills for the funnel itself.
+
 Resource scoping per agent:
 
 - **code** — all steering domains (`code/`, `github/`, `security/`),
@@ -544,6 +550,13 @@ session fills that role directly.
   responsibility
 - No `allowedTools` concept in the global permission model (everything is allow/deny/prompt) —
   though a persona's `tools:` frontmatter is a coarser analog (see Personas above)
+- No per-project working-file auto-load. Kiro's `code`/`docs`/`ansible` agents load
+  `file://ideas.md` and `file://todo.md` relative to cwd, so the idea-refinement funnel's files land
+  in context per-project. Claude Code has no equivalent glob/relative `resources` mechanism — its
+  steering is global (`~/.claude/CLAUDE.md` + `rules/`), not per-project. The parity is carried by
+  the `idea-refinement`/`todo` skills instead: they name the files and when to engage, so a Claude
+  session reads them on demand rather than having them pre-loaded. Functional (skill-driven), not
+  automatic (context-preloaded) coverage
 
 ## Security Considerations
 
