@@ -14,7 +14,7 @@ that have explicit skills.
 | Reviewing documentation              | `docs-review`            |
 | Running pre-commit hooks             | `pre-commit-validation`  |
 | Promoting corrections to steering    | `distill-learnings`      |
-| Navigating project docs / find a doc | `readme-pointer`         |
+| Navigating project docs / find a doc | `doc-map`                |
 
 When citing existing research from a knowledge base, check `last_verified` in the file's YAML
 frontmatter. If older than 90 days, warn the user before presenting the data as current.

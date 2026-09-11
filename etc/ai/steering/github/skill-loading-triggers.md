@@ -8,7 +8,7 @@ that have explicit skills.
 | Writing commit messages              | `commit-message-writing` |
 | Reviewing a PR / code review         | `pr-review`              |
 | Promoting corrections to steering    | `distill-learnings`      |
-| Navigating project docs / find a doc | `readme-pointer`         |
+| Navigating project docs / find a doc | `doc-map`                |
 
 When citing existing research from a knowledge base, check `last_verified` in the file's YAML
 frontmatter. If older than 90 days, warn the user before presenting the data as current.
