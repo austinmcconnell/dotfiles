@@ -3,8 +3,8 @@
 ## Which Channel: Memory vs Knowledge Base vs Eager Context
 
 An agent has three information channels; reach for the right one rather than defaulting to whichever
-is nearest. This boundary is the seam the README-as-pointer scheme routes against (see the
-`readme-pointer` skill and `knowledge-base-usage.md`):
+is nearest. This boundary is the seam the doc-map scheme routes against (see the `doc-map` skill and
+`knowledge-base-usage.md`):
 
 - **Persistent memory (engram)** — cross-session *narrative*: decisions and their rationale, failed
   approaches, corrections, handoffs, user preferences. Use engram for "why we did it this way" and
@@ -13,8 +13,8 @@ is nearest. This boundary is the seam the README-as-pointer scheme routes agains
   code works, what a doc says, cited research. Query the KB for these instead of storing a copy in
   memory.
 - **Eager context** — small, stable, high-signal always-loaded files (AGENTS.md, steering) plus a
-  thin *map* of what else exists (a README pointing at detailed docs). Not a place to preload a
-  whole docs tree.
+  thin *map* of what else exists (an optional AGENTS.md doc-map section pointing at detailed docs).
+  Not a place to preload a whole docs tree.
 
 The failure mode this prevents: duplicating repo/doc facts into engram (they belong in the KB and go
 stale in memory), or dumping cross-session narrative into a doc (it belongs in engram). When unsure,
