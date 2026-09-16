@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -euo pipefail
 
 # Requires bash 4+ for associative arrays (macOS ships bash 3.2; use Homebrew bash)
@@ -78,6 +78,11 @@ check_file_paths() {
                 continue
             fi
             [[ "$in_code_block" == true ]] && continue
+
+            # Fast path: only lines with an inline-code span can contain a
+            # backtick-quoted path. Skipping the pipeline for the rest avoids
+            # spawning a grep/sed pipeline per line across every doc.
+            [[ "$line" == *'`'* ]] || continue
 
             # Extract paths from inline code backticks
             # shellcheck disable=SC2016
@@ -184,6 +189,51 @@ check_skill_references() {
     done < <(find "$STEERING_DIR" -name 'skill-loading-triggers.md' -type f | sort)
 }
 
+# Skills that are cross-cutting enough to belong in EVERY domain's
+# skill-loading-triggers table. These rows are hand-copied into each table, so
+# they drift silently when a new table is added or an old one is missed (exactly
+# the drift this check exists to catch). Assert each appears in every table.
+#
+# Only genuinely-universal skills go here — skills that every agent performs
+# regardless of domain. Relevance-scoped skills (e.g. memory-management, which
+# is intentionally in five of six tables — github is omitted because it is a
+# sub-table of the code agent, which already carries the row) are NOT enforced:
+# their per-table presence is a judgment call, not a uniformity requirement.
+# Adding a skill here is a claim that it belongs in all six tables.
+UNIVERSAL_SKILLS=(
+    commit-message-writing
+    distill-learnings
+    readme-pointer
+)
+
+check_universal_skills() {
+    echo -e "\n${BOLD}Universal Skill Coverage${RESET}"
+    echo "──────────────────────────────────────────────────────────────────────────"
+
+    while IFS= read -r triggers_file; do
+        local relative_file="${triggers_file#"${DOTFILES_DIR}/"}"
+
+        # Collect the set of skill names referenced in this table
+        local table_skills=""
+        while IFS= read -r line; do
+            if [[ "$line" =~ \|.*\`([a-z0-9-]+)\`.* ]]; then
+                table_skills+=" ${BASH_REMATCH[1]} "
+            fi
+        done <"$triggers_file"
+
+        # Assert every universal skill appears in this table
+        local skill
+        for skill in "${UNIVERSAL_SKILLS[@]}"; do
+            if [[ "$table_skills" == *" ${skill} "* ]]; then
+                report_ok
+            else
+                report_broken "$relative_file" "0" "Universal skill" \
+                    "'${skill}' is declared universal but missing from this table"
+            fi
+        done
+    done < <(find "$STEERING_DIR" -name 'skill-loading-triggers.md' -type f | sort)
+}
+
 check_commands() {
     echo -e "\n${BOLD}Command References${RESET}"
     echo "──────────────────────────────────────────────────────────────────────────"
@@ -277,6 +327,10 @@ check_cross_references() {
             fi
             [[ "$in_code_block" == true ]] && continue
 
+            # Fast path: only lines containing a markdown link "](" can yield a
+            # link target. Skip the pipeline for the rest.
+            [[ "$line" == *']('* ]] || continue
+
             # Match markdown links: [text](path)
             while read -r link_target; do
                 [[ -z "$link_target" ]] && continue
@@ -319,6 +373,7 @@ main() {
 
     check_file_paths
     check_skill_references
+    check_universal_skills
     check_commands
     check_cross_references
 
