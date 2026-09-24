@@ -35,6 +35,7 @@ worktrees/
 
 analysis/
 reports/
+releases/
 
 ## Jira ticket info
 jira/
