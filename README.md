@@ -5,6 +5,7 @@
 - [Install](#install)
 - [Post-install](#post-install)
 - [The `dotfiles` command](#the-dotfiles-command)
+- [Documentation](#documentation)
 
 <!-- tocstop -->
 
@@ -58,3 +59,13 @@ Run setup script `install.sh`:
        test            |Run tests
        update          |Update packages and pkg managers (OS, brew, npm, gem)
 ```
+
+## Documentation
+
+- For repo-wide conventions shared across AI coding tools, see [AGENTS.md](./AGENTS.md)
+- For how skills/steering/prompts are distributed to each tool, see
+  [etc/ai/README.md](./etc/ai/README.md)
+- For Kiro CLI's custom agent configuration, see [etc/kiro-cli/README.md](./etc/kiro-cli/README.md)
+- For Claude Code's permissions, hooks, and personas, see
+  [etc/claude-code/README.md](./etc/claude-code/README.md)
+- For Cursor's CLI permissions and MCP config, see [etc/cursor/README.md](./etc/cursor/README.md)
