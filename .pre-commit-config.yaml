@@ -36,6 +36,12 @@ repos:
         entry: scripts/sort-git-config.sh
         files: ^etc/git/config$
         pass_filenames: false
+      - id: sort-claude-settings-json
+        name: Sort claude-code settings.json top-level keys
+        language: script
+        entry: scripts/sort-claude-settings-json.sh
+        files: ^etc/claude-code/settings\.json$
+        pass_filenames: false
       - id: validate-agent-denies
         name: Validate agent deny lists
         language: script
