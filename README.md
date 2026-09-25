@@ -69,3 +69,5 @@ Run setup script `install.sh`:
 - For Claude Code's permissions, hooks, and personas, see
   [etc/claude-code/README.md](./etc/claude-code/README.md)
 - For Cursor's CLI permissions and MCP config, see [etc/cursor/README.md](./etc/cursor/README.md)
+- For local AI usage/cost tracking (SQLite store, Claude Code integration), see
+  [etc/ai/usage/README.md](./etc/ai/usage/README.md)
