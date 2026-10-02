@@ -13,6 +13,7 @@ tool in the `etc/` directory of the dotfiles repository.
 - [direnv](#direnv)
 - [fd](#fd)
 - [Git](#git)
+- [Ghostty](#ghostty)
 - [Glow](#glow)
 - [HTTPie](#httpie)
 - [iTerm2](#iterm2)
@@ -109,6 +110,21 @@ Configuration options include:
 - **Ignore patterns**: Global patterns for files to exclude from Git repositories
 - **Branch management**: Default branch names and remote tracking behavior
 - **Commit message templates**: Standardized formats for commit messages
+
+## Ghostty
+
+Ghostty is a fast, GPU-accelerated terminal emulator with native macOS UI. It is configured here as
+an iTerm2-replacement trial; `etc/ghostty/config` is a faithful translation of the iTerm2 "personal"
+profile.
+
+Configuration options include:
+
+- **Theme**: Vendored as a named theme file under `etc/ghostty/themes/` and referenced by name
+  (mirroring the dircolors convention), rather than inlining colors
+- **Font**: Family and size (e.g. Fira Code)
+- **Cursor**: Style and blink behavior
+- **Keybindings**: Splits, tabs, and split/tab navigation
+- **Shell integration**: Native cwd inheritance, prompt marks, and jump-to-prompt
 
 ## Glow
 

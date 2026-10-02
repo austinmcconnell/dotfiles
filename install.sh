@@ -76,6 +76,7 @@ fi
 . "$DOTFILES_DIR/install/xdg-compliance.sh" # XDG compliance for CLI tools
 . "$DOTFILES_DIR/install/sops.sh"           # SOPS + age secrets management
 . "$DOTFILES_DIR/install/glow.sh"           # Glow markdown viewer
+. "$DOTFILES_DIR/install/ghostty.sh"        # Ghostty terminal emulator (iTerm2 trial)
 . "$DOTFILES_DIR/install/terraform.sh"      # Terraform with rc file
 . "$DOTFILES_DIR/install/kiro-cli.sh"       # Kiro CLI agents, settings, MCP servers
 . "$DOTFILES_DIR/install/engram.sh"         # Engram persistent memory for AI agents

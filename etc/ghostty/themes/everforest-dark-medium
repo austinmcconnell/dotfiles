@@ -1,0 +1,34 @@
+# Everforest Dark Medium — Ghostty theme
+#
+# Vendored named theme (referred to by name from etc/ghostty/config via
+# `theme = everforest-dark-medium`), mirroring the dircolors convention of
+# shipping named colorscheme files rather than inlining colors. Values were
+# extracted verbatim from the iTerm2 "personal" profile
+# (etc/iterm/com.googlecode.iterm2.plist) so the colors match that setup 1:1.
+#
+# A Ghostty theme file is itself a config file: the main config's own settings
+# (and any per-machine overrides) compose on top of these.
+
+background = 232a2e
+foreground = d3c6aa
+cursor-color = e69875
+cursor-text = 543a48
+selection-background = 543a48
+selection-foreground = d3c6aa
+
+palette = 0=#7a8478
+palette = 1=#e67e80
+palette = 2=#a7c080
+palette = 3=#dbbc7f
+palette = 4=#7fbbb3
+palette = 5=#d699b6
+palette = 6=#83c092
+palette = 7=#f2efdf
+palette = 8=#a6b0a0
+palette = 9=#f85552
+palette = 10=#8da101
+palette = 11=#dfa000
+palette = 12=#3a94c5
+palette = 13=#df69ba
+palette = 14=#35a77c
+palette = 15=#fffbef

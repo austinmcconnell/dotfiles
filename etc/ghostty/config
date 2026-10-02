@@ -1,0 +1,31 @@
+# Ghostty configuration
+# Symlinked to ~/.config/ghostty/config by install/ghostty.sh.
+
+# --- Font -------------------------------------------------------------------
+# Family name, not the PostScript name, or Ghostty silently falls back.
+font-family = "Fira Code"
+
+# --- Theme / colors ---------------------------------------------------------
+# Everforest Dark Medium, vendored as a named theme (dircolors convention);
+# per-machine color overrides may be set below and compose on top.
+theme = everforest-dark-medium
+
+# --- Cursor -----------------------------------------------------------------
+cursor-style = block
+cursor-style-blink = false
+
+# --- Window / appearance ----------------------------------------------------
+window-width = 100
+window-height = 25
+
+# --- Keyboard ---------------------------------------------------------------
+# Left Option as Alt for shell word-motion (alt+b/f, alt+bksp); left-only so
+# the right Option still composes special characters.
+macos-option-as-alt = left
+
+# --- Shell integration ------------------------------------------------------
+shell-integration = zsh
+# no-cursor: keep the block cursor (the feature otherwise forces a bar at the
+# prompt). no-title: let the OSC 0 hook in etc/zsh/conf.d/iterm2.zsh own the
+# title instead of racing it each prompt.
+shell-integration-features = no-cursor,sudo,no-title
