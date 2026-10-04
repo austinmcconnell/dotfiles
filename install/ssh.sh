@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euo pipefail
+
 mkdir -p ~/.ssh/hosts.d
 mkdir -p ~/.ssh/controlmasters
 chmod 700 ~/.ssh ~/.ssh/hosts.d ~/.ssh/controlmasters

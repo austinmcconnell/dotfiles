@@ -6,6 +6,7 @@ Include ~/.ssh/hosts.d/*.conf
 
 # Global settings
 Host *
+    IgnoreUnknown UseKeychain
     UseKeychain yes
     AddKeysToAgent yes
     IdentitiesOnly yes

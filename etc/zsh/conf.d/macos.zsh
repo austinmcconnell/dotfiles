@@ -65,3 +65,14 @@ fi
 if [[ -f "$HOME/.iterm2_shell_integration.zsh" ]]; then
     source "$HOME/.iterm2_shell_integration.zsh"
 fi
+
+##############################
+# SSH Agent (Keychain preload)
+##############################
+# macOS does not re-add keys to ssh-agent after a reboot. Load any SSH keys
+# whose passphrases are stored in the login Keychain into the agent when a
+# shell opens, so passphrase-protected keys are usable without a prompt.
+# No-op (quiet) if ssh-add is unavailable or no keychain-stored keys exist.
+if command -v ssh-add >/dev/null 2>&1; then
+    ssh-add -q --apple-load-keychain 2>/dev/null
+fi
