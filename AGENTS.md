@@ -22,8 +22,8 @@ works across fresh macOS installations.
 
 - **Shell**: Zsh with antidote plugin manager, custom functions, completions
 - **Development Tools**: Git, Vim (with ALE linting), Python, Node, Ruby, Go, Terraform
-- **AI Tools**: Kiro CLI (custom agents), Codex, Cursor, Claude Code (see `etc/ai/` and
-  tool-specific dirs)
+- **AI Tools**: Kiro CLI (custom agents), Codex, Cursor, Claude Code (see `~/.ai-dotfiles/etc/ai/`
+  and tool-specific dirs)
 - **Kubernetes**: Kind cluster configurations and components
 
 ### Zsh Configuration Architecture
@@ -88,13 +88,13 @@ works across fresh macOS installations.
 
 Print clear status messages (`print_header` and success/error indicators). For the general shell/
 install-script conventions (idempotency, `install/utils.sh` helpers, macOS/Linux handling), see
-`etc/ai/steering/code/shell-conventions.md` — auto-loaded for Claude Code, Cursor, and Kiro's `code`
-agent; read directly for Codex.
+`~/.ai-dotfiles/etc/ai/steering/code/shell-conventions.md` — auto-loaded for Claude Code, Cursor,
+and Kiro's `code` agent; read directly for Codex.
 
 ### When Modifying Kiro CLI Configs
 
-See `etc/kiro-cli/README.md` for agent JSON conventions, security layers, and the "Adding a New
-Agent" checklist.
+See `~/.ai-dotfiles/etc/kiro-cli/README.md` for agent JSON conventions, security layers, and the
+"Adding a New Agent" checklist.
 
 ### When Modifying Vim Configuration
 
@@ -111,9 +111,9 @@ Agent" checklist.
 
 ### Shell Scripts
 
-See `etc/ai/steering/code/shell-conventions.md` for shebang, `set -euo pipefail`, quoting, and
-naming conventions — auto-loaded for Claude Code, Cursor, and Kiro's `code` agent; read directly for
-Codex.
+See `~/.ai-dotfiles/etc/ai/steering/code/shell-conventions.md` for shebang, `set -euo pipefail`,
+quoting, and naming conventions — auto-loaded for Claude Code, Cursor, and Kiro's `code` agent; read
+directly for Codex.
 
 ### Configuration Files
 
@@ -123,9 +123,9 @@ Codex.
 
 ### Git Workflow
 
-See `etc/ai/steering/code/git-conventions.md` for branch naming, commit discipline, and push
-workflow — auto-loaded for Claude Code, Cursor, and Kiro's `code` agent; read directly for Codex.
-Always: use `.pre-commit-config.yaml` hooks and test changes before committing.
+See `~/.ai-dotfiles/etc/ai/steering/code/git-conventions.md` for branch naming, commit discipline,
+and push workflow — auto-loaded for Claude Code, Cursor, and Kiro's `code` agent; read directly for
+Codex. Always: use `.pre-commit-config.yaml` hooks and test changes before committing.
 
 ## Tools and Technologies
 
@@ -149,7 +149,7 @@ Always: use `.pre-commit-config.yaml` hooks and test changes before committing.
 
 ### Updating Kiro CLI Agents
 
-See `etc/kiro-cli/README.md`.
+See `~/.ai-dotfiles/etc/kiro-cli/README.md`.
 
 ### Running the Dotfiles Command
 
@@ -166,13 +166,13 @@ The AI tooling — shared skills, steering, prompts, and cross-tool hooks plus t
 for Kiro CLI, Claude Code, Cursor, and Codex — lives in the standalone **ai-dotfiles** repo at
 `~/.ai-dotfiles`, resolved through `$AI_DOTFILES_DIR` (defaulted in `etc/zsh/.zshenv`). See
 `~/.ai-dotfiles/AGENTS.md` for the multi-tool configuration layout, custom-agent conventions, and
-Claude Code specifics. `~/.dotfiles` keeps a copy of the AI trees as an install fallback for when
-`~/.ai-dotfiles` is absent.
+Claude Code specifics. `install.sh` clones `~/.ai-dotfiles` on a fresh setup; it is a required
+dependency for the AI tooling.
 
 ## Security Considerations
 
 Security principles (credential handling, environment variables, deny lists) are documented once in
-`etc/ai/steering/security/*.md` — auto-loaded for Claude Code, Cursor, and Kiro-cli; read directly
-for Codex. Repo-specific reminder: review tool permissions in Kiro CLI agents
-(`etc/kiro-cli/README.md`) and Claude Code personas (`etc/claude-code/README.md`) when changing
-either.
+`~/.ai-dotfiles/etc/ai/steering/security/*.md` — auto-loaded for Claude Code, Cursor, and Kiro-cli;
+read directly for Codex. Repo-specific reminder: review tool permissions in Kiro CLI agents
+(`~/.ai-dotfiles/etc/kiro-cli/README.md`) and Claude Code personas
+(`~/.ai-dotfiles/etc/claude-code/README.md`) when changing either.

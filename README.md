@@ -65,13 +65,15 @@ Run setup script `install.sh`:
 - For repo-wide conventions shared across AI coding tools, see [AGENTS.md](./AGENTS.md)
 - The AI tooling (skills, steering, prompts, hooks, and per-tool configs) lives in the standalone
   [ai-dotfiles](https://github.com/austinmcconnell/ai-dotfiles) repo at `~/.ai-dotfiles`, resolved
-  via `$AI_DOTFILES_DIR`; `~/.dotfiles` keeps a copy as an install fallback. The references below
-  resolve against that fallback copy.
+  via `$AI_DOTFILES_DIR`. `install.sh` clones it on a fresh setup; it is a required dependency for
+  the AI tooling. The references below resolve against that repo:
 - For how skills/steering/prompts are distributed to each tool, see
-  [etc/ai/README.md](./etc/ai/README.md)
-- For Kiro CLI's custom agent configuration, see [etc/kiro-cli/README.md](./etc/kiro-cli/README.md)
+  [etc/ai/README.md](https://github.com/austinmcconnell/ai-dotfiles/blob/main/etc/ai/README.md)
+- For Kiro CLI's custom agent configuration, see
+  [etc/kiro-cli/README.md](https://github.com/austinmcconnell/ai-dotfiles/blob/main/etc/kiro-cli/README.md)
 - For Claude Code's permissions, hooks, and personas, see
-  [etc/claude-code/README.md](./etc/claude-code/README.md)
-- For Cursor's CLI permissions and MCP config, see [etc/cursor/README.md](./etc/cursor/README.md)
+  [etc/claude-code/README.md](https://github.com/austinmcconnell/ai-dotfiles/blob/main/etc/claude-code/README.md)
+- For Cursor's CLI permissions and MCP config, see
+  [etc/cursor/README.md](https://github.com/austinmcconnell/ai-dotfiles/blob/main/etc/cursor/README.md)
 - For local AI usage/cost tracking (SQLite store, Claude Code integration), see
-  [etc/ai/usage/README.md](./etc/ai/usage/README.md)
+  [etc/ai/usage/README.md](https://github.com/austinmcconnell/ai-dotfiles/blob/main/etc/ai/usage/README.md)

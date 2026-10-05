@@ -79,28 +79,21 @@ fi
 . "$DOTFILES_DIR/install/ghostty.sh"        # Ghostty terminal emulator (iTerm2 trial)
 . "$DOTFILES_DIR/install/terraform.sh"      # Terraform with rc file
 # AI tooling (agents, skills, steering, hooks + per-tool configs) lives in the
-# standalone ai-dotfiles repo. Prefer it: clone if absent (non-fatal), then source
-# its orchestrator with AI_DOTFILES_DIR pointed at it. Fall back to the in-repo
-# install/<ai>.sh scripts when the repo can't be obtained, so dotfiles still
-# installs the AI surface on its own.
+# standalone ai-dotfiles repo, a required dependency. Clone it if absent, then
+# source its orchestrator with AI_DOTFILES_DIR pointed at it.
 AI_DOTFILES_REPO="$HOME/.ai-dotfiles"
 if [ ! -d "$AI_DOTFILES_REPO/.git" ] && is-executable git; then
     echo "Cloning ai-dotfiles..."
     git clone git@personal:austinmcconnell/ai-dotfiles.git "$AI_DOTFILES_REPO" ||
-        echo "⚠️  Failed to clone ai-dotfiles (will fall back to in-repo AI scripts)"
+        echo "⚠️  Failed to clone ai-dotfiles"
 fi
 
 if [ -f "$AI_DOTFILES_REPO/install.sh" ]; then
     AI_DOTFILES_DIR="$AI_DOTFILES_REPO"
     . "$AI_DOTFILES_REPO/install.sh" # AI tooling via standalone ai-dotfiles repo
 else
-    echo "ai-dotfiles repo unavailable; using in-repo AI install scripts (fallback)"
-    . "$DOTFILES_DIR/install/kiro-cli.sh"    # Kiro CLI agents, settings, MCP servers
-    . "$DOTFILES_DIR/install/engram.sh"      # Engram persistent memory for AI agents
-    . "$DOTFILES_DIR/install/ai-tools.sh"    # Distribute skills to AI agents
-    . "$DOTFILES_DIR/install/codex.sh"       # Codex CLI configuration
-    . "$DOTFILES_DIR/install/cursor.sh"      # Cursor CLI configuration
-    . "$DOTFILES_DIR/install/claude-code.sh" # Claude Code configuration
+    echo "⚠️  ai-dotfiles repo unavailable at $AI_DOTFILES_REPO; skipping AI tooling" >&2
+    echo "    Clone git@personal:austinmcconnell/ai-dotfiles.git and re-run install.sh" >&2
 fi
 
 # Create .hushlogin to disable the login message

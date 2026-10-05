@@ -3,12 +3,11 @@
 The AI tooling (agents, skills, steering, prompts, hooks, and their install scripts) has been
 **extracted** into the standalone [ai-dotfiles](https://github.com/austinmcconnell/ai-dotfiles) repo
 at `~/.ai-dotfiles`, resolved through `AI_DOTFILES_DIR` (defaulted in `etc/zsh/.zshenv`).
-`~/.dotfiles` keeps a copy of the AI trees as an install fallback for when `~/.ai-dotfiles` is
-absent.
+`install.sh` clones `~/.ai-dotfiles` on a fresh setup; it is a required dependency — the duplicated
+in-repo trees and fallback install scripts have been removed from `~/.dotfiles`.
 
 This document records the contract the extraction relied on — what relocates cleanly and what had to
-travel with or be replaced. It stays useful as the spec for that fallback copy and for anyone
-reading how the decoupling works.
+travel with or be replaced. It stays useful as the record of how the decoupling works.
 
 ## The `AI_DOTFILES_DIR` mechanism
 

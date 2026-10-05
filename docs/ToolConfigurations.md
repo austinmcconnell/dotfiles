@@ -58,7 +58,9 @@ Configuration options include:
 - **Application settings**: General settings for the Kiro CLI application
 - **Global rules**: Markdown guidance documents in `global_rules/**/*.md`
 
-For more detailed information, see the [Amazon Q Integration](AmazonQIntegration.md) guide.
+For more detailed information, see the
+[Kiro CLI README](https://github.com/austinmcconnell/ai-dotfiles/blob/main/etc/kiro-cli/README.md)
+in the `~/.ai-dotfiles` repo.
 
 ## bat
 
