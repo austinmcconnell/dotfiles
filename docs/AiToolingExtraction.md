@@ -1,12 +1,14 @@
 # AI Tooling Extraction Contract
 
-The AI tooling in this repo (agents, skills, steering, prompts, hooks, and their install scripts) is
-**decoupled in place**: it lives inside `~/.dotfiles` today but is written so it *could* be
-extracted into a standalone repo later without a rewrite. This document records the contract that
-extraction would rely on — what already relocates cleanly, and what still needs to travel with or be
-replaced.
+The AI tooling (agents, skills, steering, prompts, hooks, and their install scripts) has been
+**extracted** into the standalone [ai-dotfiles](https://github.com/austinmcconnell/ai-dotfiles) repo
+at `~/.ai-dotfiles`, resolved through `AI_DOTFILES_DIR` (defaulted in `etc/zsh/.zshenv`).
+`~/.dotfiles` keeps a copy of the AI trees as an install fallback for when `~/.ai-dotfiles` is
+absent.
 
-Nothing here is a required action while colocated. It is a checklist for a future extraction.
+This document records the contract the extraction relied on — what relocates cleanly and what had to
+travel with or be replaced. It stays useful as the spec for that fallback copy and for anyone
+reading how the decoupling works.
 
 ## The `AI_DOTFILES_DIR` mechanism
 

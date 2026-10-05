@@ -63,6 +63,10 @@ Run setup script `install.sh`:
 ## Documentation
 
 - For repo-wide conventions shared across AI coding tools, see [AGENTS.md](./AGENTS.md)
+- The AI tooling (skills, steering, prompts, hooks, and per-tool configs) lives in the standalone
+  [ai-dotfiles](https://github.com/austinmcconnell/ai-dotfiles) repo at `~/.ai-dotfiles`, resolved
+  via `$AI_DOTFILES_DIR`; `~/.dotfiles` keeps a copy as an install fallback. The references below
+  resolve against that fallback copy.
 - For how skills/steering/prompts are distributed to each tool, see
   [etc/ai/README.md](./etc/ai/README.md)
 - For Kiro CLI's custom agent configuration, see [etc/kiro-cli/README.md](./etc/kiro-cli/README.md)

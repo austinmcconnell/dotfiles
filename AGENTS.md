@@ -160,48 +160,14 @@ See `etc/kiro-cli/README.md`.
 - `dotfiles macos` - Apply macOS system defaults
 - `dotfiles dock` - Configure Dock applications
 
-## Multi-Tool AI Configuration
+## AI Tooling
 
-Shared AI assets live in `etc/ai/` and are distributed to each tool by `install/ai-tools.sh`:
-
-- `etc/ai/prompts/` — reusable clipboard-based prompts (tool-agnostic)
-- `etc/ai/skills/` — workflow definitions in SKILL.md format
-- `etc/ai/steering/` — always-on coding principles and conventions
-
-Tool-specific configs remain in their own directories:
-
-- `etc/kiro-cli/` — agent JSON configs, hooks, settings, MCP server list
-- `etc/codex/` — Codex config.toml
-- `etc/cursor/` — Cursor CLI permissions and MCP config
-- `etc/claude-code/` — Claude Code permissions (settings.json)
-
-See `etc/ai/README.md` for the full distribution matrix.
-
-## Custom Agent Conventions
-
-Kiro-cli agent JSON mechanics (file layout, tool access model, security layers, audit/trace logging,
-hook patterns, MCP server conventions, resource patterns, knowledge base conventions, subagent trust
-model, and the "Adding a New Agent" checklist) are Kiro-cli-specific and don't apply to Claude Code,
-Cursor, or Codex — see **`etc/kiro-cli/README.md`** for the full documentation.
-
-The cross-tool convention that *does* apply everywhere: this repo manages agent/persona configs as
-dotfiles rather than using each tool's default discovery location (`.kiro/agents/`,
-`~/.claude/agents/`), and shared cross-tool hooks live in `etc/ai/hooks/` while steering docs live
-in `etc/ai/steering/<domain>/**/*.md` (see `skill-loading-triggers` steering for the skill mapping).
-
-## Claude Code Conventions
-
-Claude Code-specific configuration mechanics (permission model, hooks, MCP schema, persona
-frontmatter, and the full "What Claude Code Does NOT Have vs kiro-cli" comparison) live in
-**`etc/claude-code/README.md`** rather than here — Cursor, Codex, and Kiro-cli never act on this
-mechanism directly, and (as of Claude Code v2.1.277+) that file is *also* the more appropriate home
-because Claude Code now auto-loads this very file (`AGENTS.md`) as project context whenever no
-`CLAUDE.md` exists above the working directory, and a user-scope `~/.claude/CLAUDE.md` (what this
-repo generates) doesn't count against that check. Keeping Claude-only plumbing documentation here
-would mean Claude re-reading meta-documentation about its own configuration every session for no
-coding-task benefit — see `etc/claude-code/README.md`'s "What Claude Code Does NOT Have" section for
-the full exception writeup, and `analysis/claude-code-changes.md` for the research behind the
-original decision to keep the default `claude-md-or-agents-md` setting rather than opt out.
+The AI tooling — shared skills, steering, prompts, and cross-tool hooks plus the per-tool configs
+for Kiro CLI, Claude Code, Cursor, and Codex — lives in the standalone **ai-dotfiles** repo at
+`~/.ai-dotfiles`, resolved through `$AI_DOTFILES_DIR` (defaulted in `etc/zsh/.zshenv`). See
+`~/.ai-dotfiles/AGENTS.md` for the multi-tool configuration layout, custom-agent conventions, and
+Claude Code specifics. `~/.dotfiles` keeps a copy of the AI trees as an install fallback for when
+`~/.ai-dotfiles` is absent.
 
 ## Security Considerations
 
