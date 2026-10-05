@@ -379,7 +379,7 @@ sub_drift-check() {
 # TTY-gated clean-pipe behavior of `engram-hygiene status` (the table is
 # self-describing).
 sub_memory-check() {
-    "${DOTFILES_DIR}/bin/engram-hygiene" status
+    "${AI_DOTFILES_DIR:-$DOTFILES_DIR}/bin/engram-hygiene" status
 }
 
 # Fetch and fast-forward project repositories in $PROJECTS_DIR/<owner>/<repo>
@@ -866,9 +866,10 @@ sub_orphans() {
             done <"$DOTFILES_DIR/etc/node/default-packages"
         fi
         # From mcp-servers.conf
-        if [[ -f "$DOTFILES_DIR/etc/kiro-cli/mcp-servers.conf" ]]; then
+        local mcp_conf="${AI_DOTFILES_DIR:-$DOTFILES_DIR}/etc/kiro-cli/mcp-servers.conf"
+        if [[ -f "$mcp_conf" ]]; then
             # shellcheck source=SCRIPTDIR/../etc/kiro-cli/mcp-servers.conf
-            source "$DOTFILES_DIR/etc/kiro-cli/mcp-servers.conf"
+            source "$mcp_conf"
             npm_tracked+=("${NODE_MCP_SERVERS[@]}")
         fi
 
