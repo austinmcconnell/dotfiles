@@ -11,9 +11,12 @@ Host *
     AddKeysToAgent yes
     IdentitiesOnly yes
     ControlMaster auto
-    # Using %r@%h:%p-%n instead of %C to create separate sockets for different host aliases
-    # This prevents key conflicts when using both personal and github.com SSH aliases
-    ControlPath ~/.ssh/controlmasters/%r@%h:%p-%n
+    # Hashed ControlPath (%C = hash of local host + remote host + port +
+    # user + jump host). macOS caps Unix-domain socket paths at ~104 bytes;
+    # a literal user@fqdn:port path overflows for long FQDNs mid-master-setup.
+    # The hash is fixed-length and still yields a distinct socket per
+    # host+user+port, so sessions to different hosts never share a master.
+    ControlPath ~/.ssh/controlmasters/%C
     ControlPersist 4h
     TCPKeepAlive no
     ServerAliveInterval 60
