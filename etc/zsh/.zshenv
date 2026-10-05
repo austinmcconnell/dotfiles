@@ -14,9 +14,9 @@ export XDG_STATE_HOME=${XDG_STATE_HOME:-$HOME/.local/state}
 # Zsh directories
 export ZDOTDIR=${ZDOTDIR:-$XDG_CONFIG_HOME/zsh}
 export DOTFILES_DIR="$HOME/.dotfiles"
-# Root of the AI tooling config (agents, skills, steering, hooks). Defaults to
-# DOTFILES_DIR while colocated; a standalone extraction sets this to its own root.
-export AI_DOTFILES_DIR="${AI_DOTFILES_DIR:-$DOTFILES_DIR}"
+# Root of the AI tooling config (agents, skills, steering, hooks). Points at the
+# standalone ai-dotfiles repo by default; an explicit export overrides it.
+export AI_DOTFILES_DIR="${AI_DOTFILES_DIR:-$HOME/.ai-dotfiles}"
 export PROJECTS_DIR="$HOME/projects"
 export SOURCES_DIR="$HOME/sources"
 
