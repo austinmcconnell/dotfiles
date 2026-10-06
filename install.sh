@@ -78,6 +78,7 @@ fi
 . "$DOTFILES_DIR/install/glow.sh"           # Glow markdown viewer
 . "$DOTFILES_DIR/install/ghostty.sh"        # Ghostty terminal emulator (iTerm2 trial)
 . "$DOTFILES_DIR/install/terraform.sh"      # Terraform with rc file
+. "$DOTFILES_DIR/install/extra.sh"          # Scaffold ~/.extra AI source templates
 # AI tooling (agents, skills, steering, hooks + per-tool configs) lives in the
 # standalone ai-dotfiles repo, a required dependency. Clone it if absent, then
 # source its orchestrator with AI_DOTFILES_DIR pointed at it.

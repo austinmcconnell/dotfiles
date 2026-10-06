@@ -66,6 +66,24 @@ export PATH="$HOME/custom-scripts:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 ```
 
+### Host-Local AI Source Files
+
+The [ai-dotfiles](https://github.com/austinmcconnell/ai-dotfiles) tooling reads two optional,
+git-ignored files under `~/.extra` to mount machine-specific skills and steering that must stay out
+of the public dotfiles. `install.sh` scaffolds a `.example` sibling for each (via
+`install/extra.sh`); copy it to the live filename to activate:
+
+- `~/.extra/skill-sources`: one `name=path` per line — mounts host-local skill directories under
+  each agent's `extra/` skills umbrella. Env equivalent: `$EXTRA_SKILL_SOURCES` (colon-separated
+  `name=path` pairs).
+- `~/.extra/steering-sources`: one `domain=path` per line — inlines host-local steering docs into
+  the matching Claude persona. Env equivalent: `$EXTRA_STEERING_SOURCES`.
+
+Both consumers degrade cleanly when the live file is absent (in-repo content only, no error). Keep
+example lines commented until their paths exist: an uncommented path that is missing emits a
+non-fatal warning at persona-generation time, whereas an absent file is silent — which is why these
+ship as `.example` templates you copy to activate rather than live files.
+
 ## Work vs. Personal Configuration
 
 The dotfiles repository distinguishes between work and personal environments through the
