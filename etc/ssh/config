@@ -11,11 +11,19 @@ Host *
     AddKeysToAgent yes
     IdentitiesOnly yes
     ControlMaster auto
-    # Hashed ControlPath (%C = hash of local host + remote host + port +
-    # user + jump host). macOS caps Unix-domain socket paths at ~104 bytes;
+    # Hashed ControlPath (%C = hash of local host (FQDN) + remote host +
+    # port + user + jump host). macOS caps Unix-domain socket paths at ~104 bytes;
     # a literal user@fqdn:port path overflows for long FQDNs mid-master-setup.
-    # The hash is fixed-length and still yields a distinct socket per
-    # host+user+port, so sessions to different hosts never share a master.
+    # The hash is fixed-length and keeps every long-FQDN host under the limit.
+    #
+    # DO NOT change this global %C to separate same-host aliases (e.g. two
+    # GitHub accounts). %C hashes host+port+user and OMITS the command-line
+    # alias (%n), so aliases that resolve to the same host SHARE one socket
+    # and the first connection's key wins for all of them — a silent
+    # wrong-identity bug. This exact "fix" has been swung in and back out
+    # repeatedly. The correct split: keep %C GLOBAL here (overflow-safe for
+    # long FQDNs), and override ControlPath with %n PER-ALIAS in hosts.d for
+    # same-host multi-account cases. See hosts.d/README.md for the full why.
     ControlPath ~/.ssh/controlmasters/%C
     ControlPersist 4h
     TCPKeepAlive no

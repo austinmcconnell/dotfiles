@@ -5,3 +5,26 @@ Host example-host
     HostName example.com
     User username
     IdentityFile ~/.ssh/id_ed25519
+
+# Multiple accounts on the same host (e.g. two GitHub accounts).
+#
+# Each alias needs its own key AND its own ControlPath. The global default is
+# %C, which hashes host+port+user and OMITS the alias — so same-host aliases
+# would share one multiplexed socket and the first connection's identity would
+# win for both (a silent wrong-account bug). Override ControlPath with %n (the
+# command-line alias) so each alias gets its own short, distinct socket while
+# multiplexing stays on. See README.md in this directory for the full why.
+#
+# Host personal
+#     Hostname github.com
+#     User git
+#     IdentityFile ~/.ssh/id_personal
+#     IdentitiesOnly yes
+#     ControlPath ~/.ssh/controlmasters/%n
+#
+# Host github.com
+#     Hostname github.com
+#     User git
+#     IdentityFile ~/.ssh/id_work
+#     IdentitiesOnly yes
+#     ControlPath ~/.ssh/controlmasters/%n
