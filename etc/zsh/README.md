@@ -115,7 +115,9 @@ zsh-bench
 - **Completions**: Find custom completions in `completions/` directory
 - **Local customizations**: See `custom/` directory for additional plugins
 - **Environment setup**: Reference `.zshenv` for core environment variables
-- **Framework documentation**: Check `zephyr.md` and related docs for framework details
+- **Zephyr framework**: Read `zephyr.md` for its architecture and `zephyr_plugins.md` for the zsh
+  options and zstyles each Zephyr plugin accepts
+- **Antidote plugin manager**: Read `antidote.md` for how plugins are bundled and loaded
 
 ## Key Features
 
