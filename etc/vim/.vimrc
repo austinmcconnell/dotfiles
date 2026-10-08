@@ -38,7 +38,6 @@ Plug 'maximbaz/lightline-ale'
 
 " editing/ui
 Plug 'LunarWatcher/auto-pairs'
-Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'mbbill/undotree'
 Plug 'mengelbrecht/lightline-bufferline'
