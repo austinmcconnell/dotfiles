@@ -42,9 +42,6 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'mbbill/undotree'
 Plug 'mengelbrecht/lightline-bufferline'
-Plug 'sheerun/vim-polyglot'
-let g:polyglot_disabled = ['sensible']
-" https://github.com/junegunn/vim-plug/issues/1141#issuecomment-2024328900
 
 Plug 'pedrohdz/vim-yaml-folds'
 Plug 'dense-analysis/ale'
