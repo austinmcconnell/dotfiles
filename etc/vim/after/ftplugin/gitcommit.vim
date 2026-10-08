@@ -25,9 +25,12 @@ setlocal autoindent                 " sustain the 2-space bullet hang across wra
 highlight default link GitcommitLintError Error
 
 " Subject (line 1) and body (line 3+) chars past column 72. Column-regex
-" matches auto-track as the buffer changes, so they need no refresh.
+" matches auto-track as the buffer changes, so they need no refresh. The body
+" rule excludes comment lines (^#...\@! ... \zs anchors the highlight to the
+" overflow): the hook strips comment lines before its length check, so git's
+" own trailing "# Your branch is up to date..." comments must not be flagged.
 call matchadd('GitcommitLintError', '\%1l\%>72v.\+', 20)
-call matchadd('GitcommitLintError', '\%>2l\%>72v.\+', 20)
+call matchadd('GitcommitLintError', '\%>2l^#\@!.\{-}\zs\%>72v.\+', 20)
 
 function! s:BadBulletLines() abort
   " Line numbers whose bullet continuation is not indented exactly 2 spaces,
