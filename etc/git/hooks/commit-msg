@@ -134,6 +134,9 @@ done <<<"$message"
 # Check: bullet continuation lines must be indented 2 spaces.
 # A continuation is a non-blank line that follows a "- " bullet (or another
 # continuation) and doesn't start a new bullet or footer.
+# NOTE: the gitcommit ftplugin (etc/vim/after/ftplugin/gitcommit.vim) mirrors
+# this in_bullet state machine to highlight violations live. Change one, change
+# both.
 in_bullet=false
 line_num=0
 while IFS= read -r line; do
@@ -150,8 +153,11 @@ while IFS= read -r line; do
         continue
     fi
     if [[ "$in_bullet" == true ]]; then
-        if ! [[ "$line" == "  "* ]]; then
-            echo "$PREFIX Bullet continuation must be indented 2 spaces." >&2
+        # Require exactly 2 spaces: flag under-indented (<2) and over-indented
+        # (3+) continuations alike. A valid continuation starts with "  " and
+        # the third character is not a space.
+        if ! [[ "$line" == "  "* ]] || [[ "$line" == "   "* ]]; then
+            echo "$PREFIX Bullet continuation must be indented exactly 2 spaces." >&2
             echo "" >&2
             echo "  $line" >&2
             echo "" >&2
