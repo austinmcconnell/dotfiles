@@ -19,9 +19,12 @@ etc/git/
 ├── config-macos          # macOS-specific settings (credential helper)
 ├── config-linux          # Linux-specific settings
 ├── config-uniteus        # Work-specific configuration (email, signing key, repos)
+├── attributes            # Language-specific diff drivers (global gitattributes)
 ├── commit-template       # Conventional commit message template
 ├── ignore                # Global gitignore patterns
 └── hooks/                # Git hooks (referenced from config, Git 2.54+)
+    ├── commit-msg        # Validates conventional-commits format; saves rejected message
+    ├── prepare-commit-msg # Restores a saved message after a commit-msg failure
     ├── post-checkout     # Repository setup after clone/checkout
     └── pre-push          # Quality checks before push (tests, linting)
 ```
@@ -34,7 +37,7 @@ The `scripts/sort-git-config.sh` script organizes the main config file into logi
 
 ```bash
 # Sort the config file
-~/dotfiles/scripts/sort-git-config.sh
+~/.dotfiles/scripts/sort-git-config.sh
 
 # Or specify a different config
 ~/dotfiles/scripts/sort-git-config.sh path/to/config
@@ -69,8 +72,9 @@ The main `config` file includes context-specific configurations using `includeIf
 - **Security configuration**: SSH signing, credential helpers, credential-in-URL warnings, and fsck
   validation
 - **Performance optimization**: Commit graphs, pruning, and maintenance settings
-- **Config-based hooks**: Pre-push testing and post-checkout setup defined in config (Git 2.54+),
-  applying globally without template directories
+- **Config-based hooks**: Commit-message linting, message restore, pre-push testing and
+  post-checkout setup defined as `[hook]` entries in config (Git 2.54+), applying globally without
+  template directories
 
 ### Key Conventions
 
@@ -86,7 +90,9 @@ The main `config` file includes context-specific configurations using `includeIf
 - **Work configuration**: See `config-uniteus` for work-specific email, signing, and repositories
 - **Commit guidelines**: Reference `commit-template` for conventional commit format
 - **Global ignores**: Check `ignore` file for universal gitignore patterns
-- **Automation**: Examine `hooks/` directory for pre-push testing and post-checkout setup
+- **Diff drivers**: See `attributes` for per-language diff patterns
+- **Automation**: Examine `hooks/` for commit-message linting, pre-push testing and post-checkout
+  setup
 - **Delta styling**: Find diff visualization settings in the delta section of main `config`
 
 This configuration provides a complete Git workflow system optimized for multiple contexts while
