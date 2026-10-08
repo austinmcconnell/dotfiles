@@ -41,23 +41,34 @@ Run setup script `install.sh`:
 
 ## Post-install
 
-- `dotfiles dock` (set [Dock items](./macos/dock.sh))
-- `dotfiles macos` (set [macOS defaults](./macos/defaults.sh))
+- `dotfiles mac dock personal` or `dotfiles mac dock work` (set Dock items from
+  [dock-personal.sh](./macos/dock-personal.sh) or [dock-work.sh](./macos/dock-work.sh))
+- `dotfiles mac defaults` (set [macOS defaults](./macos/defaults.sh))
 
 ## The `dotfiles` command
 
 ```shell
     $ dotfiles help
-    Usage: dotfiles <command>
+    Usage: dotfiles <command> [subcommand] [options]
 
     Commands:
-       clean           |Clean up caches (brew, npm, gem, rvm)
-       dock            |Apply macOS Dock settings
-       edit            | Open dotfiles in IDE (code) and Git GUI (stree)
-       help            |This help message
-       macos           |Apply macOS system defaults
-       test            |Run tests
-       update          |Update packages and pkg managers (OS, brew, npm, gem)
+       analysis-status      Show analysis report status for $PROJECTS_DIR
+       clean                Clean up caches (brew, apt, gem, vim plugins)
+       edit                 Open dotfiles in IDE (vim)
+       help                 This help message
+       mac                  macOS specific commands (see below)
+       memory-check         Show engram memory-conflict debt (all projects)
+       orphans              Find packages installed but not tracked in dotfiles
+       sync-projects        Fetch and fast-forward $PROJECTS_DIR repositories
+       sync-sources         Fetch and reset $SOURCES_DIR repositories
+       test                 Run tests
+       update               Update packages and pkg managers (OS, brew, apt)
+
+    Mac Commands:
+       mac apps             Install macOS applications
+       mac defaults         Apply macOS system defaults
+       mac dock personal    Apply personal macOS Dock settings
+       mac dock work        Apply work macOS Dock settings
 ```
 
 ## Documentation
