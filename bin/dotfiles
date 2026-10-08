@@ -60,7 +60,7 @@ sub_edit() {
 # Run the test suite to verify dotfiles functionality
 sub_test() {
     log_info "Running tests in $DOTFILES_DIR/tests/"
-    cd "$DOTFILES_DIR" && zunit "$DOTFILES_DIR"/tests/
+    cd "$DOTFILES_DIR" && zunit "$DOTFILES_DIR"/tests/*.zunit
 }
 
 # Update all packages and package managers

@@ -10,7 +10,8 @@ fi
 
 # Run zunit if there are zunit test files in the tests directory
 if [ -e "tests" ] && find tests -name "*.zunit" | grep -q .; then
-    zunit
+    # Pass files explicitly: zunit rejects any non-test file in the directory (e.g. a README)
+    find tests -name "*.zunit" -print0 | xargs -0 zunit
 fi
 
 # Run behave if there is a features directory

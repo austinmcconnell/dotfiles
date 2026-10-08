@@ -101,4 +101,4 @@ fi
 touch ~/.hushlogin
 
 # Run tests to verify the installation
-if is-executable zunit; then zunit; else echo "Skipped: tests (missing: zunit)"; fi
+if is-executable zunit; then zunit "$DOTFILES_DIR"/tests/*.zunit; else echo "Skipped: tests (missing: zunit)"; fi

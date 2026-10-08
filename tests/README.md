@@ -7,12 +7,15 @@ They test the machine after `install.sh`, not the scripts in isolation.
 ## Running
 
 ```shell
-dotfiles test        # runs `zunit tests/` from the repo root
+dotfiles test        # runs `zunit tests/*.zunit` from the repo root
 ```
 
-`.zunit.yml` at the repo root sets `tests/` as the test directory. `install.sh` runs `zunit` as its
-last step when it is available. In the Docker harness, `make docker-test` runs `dotfiles test`
-inside the `Dockerfile` image (see the `Makefile`).
+zunit treats every file in a directory it is given as a test and rejects any without a
+`#!/usr/bin/env zunit` first line, so callers pass the `*.zunit` files explicitly rather than the
+directory. That is what lets this README live here. `install.sh` runs the same command as its last
+step when `zunit` is available, and the `pre-push` hook runs the `*.zunit` files it finds. In the
+Docker harness, `make docker-test` runs `dotfiles test` inside the `Dockerfile` image (see the
+`Makefile`).
 
 ## Files
 
