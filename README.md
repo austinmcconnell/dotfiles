@@ -22,7 +22,7 @@ The Xcode Command Line Tools includes `git` and `make` (not available on stock m
 this repo with `curl` available:
 
 ```shell
-    bash -c "`curl -fsSL https://raw.githubusercontent.com/austinmcconnell/dotfiles/master/remote-install.sh`"
+    bash -c "`curl -fsSL https://raw.githubusercontent.com/austinmcconnell/dotfiles/main/remote-install.sh`"
 ```
 
 This will clone (using `git`), or download (using `curl` or `wget`), this repo to `~/.dotfiles`. If
