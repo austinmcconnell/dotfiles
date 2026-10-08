@@ -48,9 +48,11 @@ categories include:
 
 Language-specific configurations in `after/ftplugin/` override defaults for:
 
-- **Programming**: Python, Ruby, Shell (sh/zsh), JSON, Terraform
+- **Programming**: Python, Ruby, Go, Shell (sh/zsh), JSON, Terraform
 - **Markup**: Markdown (with prose variant), YAML
-- **Git**: Commit messages, custom file types (slides, sshknownhosts)
+- **Git**: Commit messages (`gitcommit.vim`: `gq` reflow plus live highlighting of the rules the
+  `commit-msg` hook enforces), custom file types (slides, sshknownhosts)
+- **Other**: Quickfix window (`qf.vim`)
 
 ### Key Conventions
 
@@ -80,7 +82,8 @@ Language-specific configurations in `after/ftplugin/` override defaults for:
 
 ## Finding Specific Information
 
-- **Key mappings**: Check individual plugin files in `plugin/`
+- **Key mappings**: Check individual plugin files in `plugin/`; `docs/VimMappings.md` is a generated
+  reference, rebuilt by `scripts/generate-vim-mappings-doc.sh`
 - **Language settings**: Look in `after/ftplugin/{language}.vim`
 - **Linting configuration**: See `plugin/ale.vim` for comprehensive language support
 - **Prose writing**: Use `:ProseOn` to enable proselint/vale, or add modeline
