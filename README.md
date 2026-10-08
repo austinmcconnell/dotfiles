@@ -5,6 +5,7 @@
 - [Install](#install)
 - [Post-install](#post-install)
 - [The `dotfiles` command](#the-dotfiles-command)
+- [Directory map](#directory-map)
 - [Documentation](#documentation)
 
 <!-- tocstop -->
@@ -70,6 +71,24 @@ Run setup script `install.sh`:
        mac dock personal    Apply personal macOS Dock settings
        mac dock work        Apply work macOS Dock settings
 ```
+
+## Directory map
+
+Each directory has a README for the work it contains:
+
+- For what each `install/` script sets up and in what order, see
+  [install/README.md](./install/README.md)
+- For the `dotfiles` command and the `is-*` helpers, see [bin/README.md](./bin/README.md)
+- For helper and one-off scripts, and which are wired into the repo, see
+  [scripts/README.md](./scripts/README.md)
+- For the zunit environment tests, see [tests/README.md](./tests/README.md)
+- For macOS apps, defaults, and Dock setup, see [macos/README.md](./macos/README.md)
+- For which tool configs live under `etc/` and which script links each, see
+  [etc/README.md](./etc/README.md)
+- For the large configurations, see [etc/zsh/README.md](./etc/zsh/README.md),
+  [etc/vim/README.md](./etc/vim/README.md), [etc/git/README.md](./etc/git/README.md),
+  [etc/kubernetes/README.md](./etc/kubernetes/README.md), and
+  [etc/python/README.md](./etc/python/README.md)
 
 ## Documentation
 
