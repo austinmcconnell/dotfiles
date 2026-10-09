@@ -177,7 +177,6 @@ if is-macos; then
     install_if_needed "the-unarchiver" "cask"
     install_if_needed "typora" "cask"
     install_if_needed "vagrant" "cask"
-    install_if_needed "via" "cask"
     install_if_needed "viscosity" "cask" "personal"
     install_if_needed "visual-studio-code" "cask"
     install_if_needed "zoom" "cask"
