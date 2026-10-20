@@ -31,7 +31,6 @@ Each exits `0` when true and `1` when false, so they work in `if` and `&&`.
 | `trace-search`      | Search agent trace logs by tool, text, session, or date (`--list` to see files)      |
 | `engram-hygiene`    | Report accumulated engram memory-conflict debt; also run via `dotfiles memory-check` |
 | `keda-demo-enqueue` | Enqueue demo tasks into Redis for the KEDA demo (`keda-demo-enqueue [count]`)        |
-| `k8s-config`        | Wrapper for `install/kubernetes/cli.sh`, which no longer exists, so it fails         |
 
 For the KEDA demo, see `etc/kubernetes/README.md`. For the usage store behind `ai-usage`, see
 `etc/ai/usage/README.md` in the ai-dotfiles repo.
