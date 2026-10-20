@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [[ "$IS_WORK_COMPUTER" ]]; then
+if [[ "$IS_WORK_COMPUTER" == 1 ]]; then
     exit 0
 else
     exit 1

@@ -18,7 +18,7 @@ Each exits `0` when true and `1` when false, so they work in `if` and `&&`.
 | `is-macos`      | `$OSTYPE` starts with `darwin`                                             |
 | `is-debian`     | `$OSTYPE` is `linux-gnu` (any Linux, not only Debian)                      |
 | `is-executable` | the named command is available on `PATH`                                   |
-| `is-work`       | `$IS_WORK_COMPUTER` is non-empty (note: also true when it is set to `0`)   |
+| `is-work`       | `$IS_WORK_COMPUTER` is `1` (`0` on a personal machine is not work)         |
 | `is-supported`  | a command succeeds: `is-supported <cmd>` sets the exit code; with two more |
 |                 | arguments (`<cmd> <yes> <no>`) it prints one of them instead               |
 
