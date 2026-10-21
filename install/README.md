@@ -32,6 +32,22 @@ source the shared helpers in `install/utils.sh`.
 **Not invoked by install.sh:** dotnet.sh (installs .NET SDK), typora.sh (macOS-only Typora themes),
 yt-dlp.sh (video downloader with config).
 
+## Package Managers
+
+| Platform / Language | Manager     | Where packages are declared                                    |
+| ------------------- | ----------- | -------------------------------------------------------------- |
+| macOS               | Homebrew    | `install/brew.sh` (taps, formulas, casks; work/personal gated) |
+| macOS App Store     | mas         | `macos/apps.sh`                                                |
+| Debian              | APT         | `install/apt.sh`                                               |
+| Linux (Homebrew)    | Homebrew    | `install/brew.sh` (installs Linuxbrew when it's missing)       |
+| Python              | pyenv + pip | `etc/python/default-packages`                                  |
+| Node.js             | fnm + npm   | `etc/node/default-packages` (`install/node.sh`)                |
+| Ruby                | rbenv       | `install/ruby.sh`                                              |
+
+`dotfiles update` upgrades mas, Homebrew, APT, Snap, antidote, pyenv, and vim-plug, and it also
+updates the Python, Ruby, and npm packages. `dotfiles clean` removes Homebrew and APT caches and
+unused packages, and it runs `PlugClean` for Vim. See `bin/dotfiles` for the full list of steps.
+
 ## How install.sh Invokes Scripts
 
 Running `/install.sh` from the repository root:
