@@ -37,8 +37,11 @@ Run setup script `install.sh`:
 
 ```shell
     cd ~/.dotfiles
-    install.sh
+    ./install.sh
 ```
+
+`install.sh` asks whether this is a work computer. The answer selects the work or personal package
+set and Dock layout, and it is stored in `~/.extra/.env`.
 
 ## Post-install
 

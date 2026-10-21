@@ -5,10 +5,7 @@ information about the structure, installation, and customization of the dotfiles
 
 ## Table of Contents
 
-1. [Getting Started](GettingStarted.md) - Philosophy, repository structure, and core components
 1. [Installation Guide](InstallationGuide.md) - Detailed installation instructions
-1. [Package Management](PackageManagement.md) - How package management works across different
-   systems
 1. [Customization Guide](CustomizationGuide.md) - How to customize the dotfiles for your needs
 1. [AI Tooling Extraction](AiToolingExtraction.md) - Contract for the AI tooling extracted into the
    standalone `~/.ai-dotfiles` repo via `AI_DOTFILES_DIR`
@@ -32,9 +29,6 @@ This dotfiles repository is a comprehensive system configuration management tool
 - **Tested**: Includes tests to ensure everything works correctly
 
 ## Quick Start
-
-For a quick start, see the [Getting Started](GettingStarted.md) guide, which provides an overview of
-the repository structure and core components.
 
 For installation instructions, see the [Installation Guide](InstallationGuide.md).
 
