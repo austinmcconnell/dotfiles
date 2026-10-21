@@ -3,11 +3,6 @@
 Welcome to the documentation for the dotfiles repository. This documentation provides detailed
 information about the structure, installation, and customization of the dotfiles system.
 
-## Table of Contents
-
-1. [AI Tooling Extraction](AiToolingExtraction.md) - Contract for the AI tooling extracted into the
-   standalone `~/.ai-dotfiles` repo via `AI_DOTFILES_DIR`
-
 ## Overview
 
 This dotfiles repository is a comprehensive system configuration management tool that:
