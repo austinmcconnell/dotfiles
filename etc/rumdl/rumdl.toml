@@ -2,7 +2,7 @@
   disable = [ "MD057" ]
 
 [per-file-ignores]
-  "docs/VimMappings.md" = [ "MD033" ]
+  "etc/vim/vim-mappings.md" = [ "MD033" ]
 
 [MD013]
   code-blocks = false

@@ -6,7 +6,7 @@ set -euo pipefail
 
 DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
 VIM_DIR="$DOTFILES_DIR/etc/vim"
-OUTPUT_FILE="$DOTFILES_DIR/docs/VimMappings.md"
+OUTPUT_FILE="$DOTFILES_DIR/etc/vim/vim-mappings.md"
 
 # Extract mappings from a file
 extract_mappings() {

@@ -26,7 +26,7 @@ caller was found for any script in this table.
 | `convert-github-remotes-to-ssh.py` | Convert GitHub HTTPS remotes to SSH                                              |
 | `sort_git_repos_by_owner.py`       | Move repos into an `owner/repo` directory layout                                 |
 | `configure_env_and_leave_files.py` | Add venv activate/deactivate env files to repos (assumes the owner layout)       |
-| `generate-vim-mappings-doc.sh`     | Extract mappings from `etc/vim/plugin/` into `docs/VimMappings.md`               |
+| `generate-vim-mappings-doc.sh`     | Extract mappings from `etc/vim/plugin/` into `etc/vim/vim-mappings.md`           |
 | `scan-docs.sh`                     | Report status of documentation repos (default `$PROJECTS_DIR/_documentation_`)   |
 | `convert-pylint-to-ruff.sh`        | Rewrite pylint disable comments as ruff `noqa` (`[--yes]`, current directory)    |
 | `sort_docker_compose.py`           | Reorder Docker Compose YAML keys into a canonical order                          |
