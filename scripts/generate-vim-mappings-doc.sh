@@ -203,6 +203,16 @@ To see all mappings:
 EOF
 }
 
+# Count mapping rows in the generated doc. Every table carries a header row and a
+# separator row (cell text starts with dashes, which no mode cell does), so both are
+# subtracted from the table lines.
+count_mapping_rows() {
+    local table_lines separator_lines
+    table_lines=$(grep -c '^|' "$1" || true)
+    separator_lines=$(grep -c '^| -' "$1" || true)
+    echo $((table_lines - 2 * separator_lines))
+}
+
 main() {
     echo "Generating Vim mappings documentation..."
     echo "Scanning: $VIM_DIR"
@@ -216,7 +226,7 @@ main() {
     generate_doc
 
     # Count mappings
-    total_mappings=$(grep -c "^\|" "$OUTPUT_FILE" 2>/dev/null || echo 0)
+    total_mappings=$(count_mapping_rows "$OUTPUT_FILE")
     echo "✓ Extracted $total_mappings mappings"
     echo "✓ Documentation written to: $OUTPUT_FILE"
 }
