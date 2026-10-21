@@ -9,6 +9,17 @@ small predicates used by install scripts and shell config; the rest are standalo
 repositories, applying macOS settings, and running tests. Run `dotfiles help` for the current
 subcommand list; the root `README.md` shows the same output.
 
+### Adding a subcommand
+
+`dotfiles` dispatches to a function named `sub_<command>` in `bin/dotfiles`. Add the function, then
+add a line to `sub_help` so the command appears in `dotfiles help`:
+
+```bash
+sub_hello() {
+    echo "Hello from dotfiles"
+}
+```
+
 ## Platform predicates
 
 Each exits `0` when true and `1` when false, so they work in `if` and `&&`.

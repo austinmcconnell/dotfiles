@@ -64,6 +64,59 @@ Topic-based configuration files loaded automatically:
 - **Conditional loading**: Platform and context-aware configuration
 - **Abbreviation system**: Short aliases that expand for common commands
 
+## Local Customization (`~/.extra`)
+
+`install.sh` creates `~/.extra` for machine-specific settings that stay out of git. The `extra`
+plugin sources these files, when they exist, in this order:
+
+- `~/.extra/.env`: environment variables (`install.sh` writes `IS_WORK_COMPUTER` here)
+- `~/.extra/.alias`: aliases
+- `~/.extra/.function`: shell functions
+- `~/.extra/.path`: PATH additions
+
+The names are dot-prefixed with no `.sh` suffix. A file named `aliases.sh` or `path.sh` is never
+loaded.
+
+```bash
+# ~/.extra/.alias
+alias projects="cd ~/Projects"
+```
+
+```bash
+# ~/.extra/.path
+export PATH="$HOME/.local/bin:$PATH"
+```
+
+### Work vs. Personal
+
+`install.sh` asks whether the machine is a work computer and stores the answer in
+`IS_WORK_COMPUTER`. Scripts can branch on it with `is-work`, an executable in `bin/` that exits `0`
+on work machines:
+
+```bash
+if is-work; then
+    # Work-specific configuration
+fi
+```
+
+### Host-Local AI Source Files
+
+The [ai-dotfiles](https://github.com/austinmcconnell/ai-dotfiles) tooling reads two optional,
+git-ignored files under `~/.extra` to mount machine-specific skills and steering that must stay out
+of the public dotfiles. `install.sh` scaffolds a `.example` sibling for each (via
+`install/extra.sh`); copy it to the live filename to activate:
+
+- `~/.extra/skill-sources`: one `name=path` per line — mounts host-local skill directories under
+  each agent's `extra/` skills umbrella. Env equivalent: `$EXTRA_SKILL_SOURCES` (colon-separated
+  `name=path` pairs).
+- `~/.extra/steering-sources`: one `domain=path` per line — inlines host-local steering docs into
+  the matching Claude persona. Env equivalent: `$EXTRA_STEERING_SOURCES`.
+
+Both consumers degrade cleanly when the live file is absent (in-repo content only, no error). Keep
+example lines commented until their paths exist: an uncommented path that is missing emits a
+non-fatal warning at persona-generation time, whereas an absent file is silent — which is why these
+ship as `.example` templates you copy to activate rather than live files.
+
 ## Performance Profiling
 
 Three tools are available for measuring and diagnosing shell startup performance:
