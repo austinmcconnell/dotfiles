@@ -5,7 +5,6 @@ information about the structure, installation, and customization of the dotfiles
 
 ## Table of Contents
 
-1. [Installation Guide](InstallationGuide.md) - Detailed installation instructions
 1. [Customization Guide](CustomizationGuide.md) - How to customize the dotfiles for your needs
 1. [AI Tooling Extraction](AiToolingExtraction.md) - Contract for the AI tooling extracted into the
    standalone `~/.ai-dotfiles` repo via `AI_DOTFILES_DIR`
@@ -30,7 +29,7 @@ This dotfiles repository is a comprehensive system configuration management tool
 
 ## Quick Start
 
-For installation instructions, see the [Installation Guide](InstallationGuide.md).
+For installation instructions, see the [root README](../README.md#install).
 
 ## Contributing
 

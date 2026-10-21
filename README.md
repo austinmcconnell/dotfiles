@@ -12,6 +12,9 @@
 
 ## Install
 
+This requires macOS or a Debian-based Linux distribution, administrative access, and an internet
+connection.
+
 On a sparkling fresh installation of macOS:
 
 ```shell
