@@ -19,7 +19,7 @@ extract_mappings() {
         grep -v '^\s*"' |
         while IFS= read -r line; do
             # Clean up the line
-            line=$(echo "$line" | sed 's/|.*$//' | xargs)
+            line=$(echo "$line" | sed -e 's/|.*$//' -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
 
             # Extract mode from command (nnoremap -> n, map -> all, etc.)
             if [[ "$line" =~ ^([nviclxsto])nore?map ]]; then
@@ -55,6 +55,63 @@ extract_mappings() {
         done || true # Don't fail if grep finds nothing
 }
 
+# Print the length of the longest argument
+widest() {
+    local longest=0 cell
+    for cell in "$@"; do
+        if ((${#cell} > longest)); then
+            longest=${#cell}
+        fi
+    done
+    echo "$longest"
+}
+
+# Print a run of n dashes
+dashes() {
+    printf '%*s' "$1" '' | tr ' ' '-'
+}
+
+# Wrap text in a Markdown code span. A command containing a backtick needs a
+# double-backtick fence, or the span closes early and the row renders wrong.
+code_span() {
+    local tick='`'
+    if [[ "$1" == *"$tick"* ]]; then
+        printf '%s %s %s' "$tick$tick" "$1" "$tick$tick"
+    else
+        printf '%s%s%s' "$tick" "$1" "$tick"
+    fi
+}
+
+# Print a Markdown table from stdin rows of "mode|key|command|plugin|override".
+# Columns are padded to their widest cell, the layout mdformat enforces, so the
+# generated file passes the formatter unchanged. The plugin field is dropped
+# because each table already sits under its plugin heading.
+print_mapping_table() {
+    local -a modes=(Mode) keys=(Key) commands=(Command) notes=(Notes)
+    local mode key command plugin override i
+    while IFS='|' read -r mode key command plugin override; do
+        modes+=("$mode")
+        keys+=("\`$key\`")
+        commands+=("$(code_span "$command")")
+        notes+=("$override")
+    done
+
+    local w1 w2 w3 w4
+    w1=$(widest "${modes[@]}")
+    w2=$(widest "${keys[@]}")
+    w3=$(widest "${commands[@]}")
+    w4=$(widest "${notes[@]}")
+
+    for i in "${!modes[@]}"; do
+        printf '| %-*s | %-*s | %-*s | %-*s |\n' \
+            "$w1" "${modes[i]}" "$w2" "${keys[i]}" "$w3" "${commands[i]}" "$w4" "${notes[i]}"
+        if ((i == 0)); then
+            printf '| %s | %s | %s | %s |\n' \
+                "$(dashes "$w1")" "$(dashes "$w2")" "$(dashes "$w3")" "$(dashes "$w4")"
+        fi
+    done
+}
+
 # Generate markdown
 generate_doc() {
     cat >"$OUTPUT_FILE" <<'EOF'
@@ -63,6 +120,7 @@ generate_doc() {
 Auto-generated documentation of custom Vim mappings.
 
 **Legend**:
+
 - ⚠️ OVERRIDE: Mapping overrides standard Vim behavior
 
 ## Mappings by Plugin
@@ -74,14 +132,9 @@ EOF
         {
             echo "### Core (.vimrc)"
             echo ""
-            echo "| Mode | Key | Command | Notes |"
-            echo "|------|-----|---------|-------|"
+            extract_mappings "$VIM_DIR/.vimrc" | sort -t'|' -k2 | print_mapping_table
+            echo ""
         } >>"$OUTPUT_FILE"
-
-        extract_mappings "$VIM_DIR/.vimrc" | sort -t'|' -k2 | while IFS='|' read -r mode key command plugin override; do
-            echo "| $mode | \`$key\` | \`$command\` | $override |" >>"$OUTPUT_FILE"
-        done
-        echo "" >>"$OUTPUT_FILE"
     fi
 
     # Process each plugin file
@@ -95,14 +148,9 @@ EOF
             {
                 echo "### $plugin_name"
                 echo ""
-                echo "| Mode | Key | Command | Notes |"
-                echo "|------|-----|---------|-------|"
+                echo "$mappings" | sort -t'|' -k2 | print_mapping_table
+                echo ""
             } >>"$OUTPUT_FILE"
-
-            echo "$mappings" | sort -t'|' -k2 | while IFS='|' read -r mode key command plugin override; do
-                echo "| $mode | \`$key\` | \`$command\` | $override |" >>"$OUTPUT_FILE"
-            done
-            echo "" >>"$OUTPUT_FILE"
         fi
     done
 
@@ -110,7 +158,8 @@ EOF
     cat >>"$OUTPUT_FILE" <<'EOF'
 ## Standard Vim Overrides
 
-These mappings override standard Vim behavior. Consider remapping to preserve standard functionality:
+These mappings override standard Vim behavior. Consider remapping to preserve standard
+functionality:
 
 EOF
 
@@ -121,7 +170,7 @@ EOF
             [[ -f "$file" ]] && extract_mappings "$file"
         done
     } | grep "OVERRIDE" | sort -t'|' -k2 | while IFS='|' read -r mode key command plugin override; do
-        echo "- \`$key\` ($mode mode): $command - from $plugin" >>"$OUTPUT_FILE"
+        echo "- $(code_span "$key") ($mode mode): $(code_span "$command") - from $plugin" >>"$OUTPUT_FILE"
     done
 
     cat >>"$OUTPUT_FILE" <<'EOF'
@@ -138,11 +187,13 @@ EOF
 ## Usage
 
 To check where a mapping was defined at runtime:
+
 ```vim
 :verbose map <key>
 ```
 
 To see all mappings:
+
 ```vim
 :map           " All mappings
 :nmap          " Normal mode only

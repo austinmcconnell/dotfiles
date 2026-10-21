@@ -10,47 +10,63 @@ Auto-generated documentation of custom Vim mappings.
 
 ### Core (.vimrc)
 
-| Mode | Key         | Command                                          | Notes |
-| ---- | ----------- | ------------------------------------------------ | ----- |
-| i    | `,`         | `,\<C-g\>u`                                      |       |
-| i    | `;`         | `;\<C-g\>u`                                      |       |
-| i    | `:`         | `:\<C-g\>u`                                      |       |
-| i    | `!`         | `!\<C-g\>u`                                      |       |
-| i    | `?`         | `?\<C-g\>u`                                      |       |
-| v    | `.`         | `:norm.\<CR\>`                                   |       |
-| i    | `.`         | `.\<C-g\>u`                                      |       |
-| i    | `(`         | `\<C-g\>u(`                                      |       |
-| i    | `)`         | `)\<C-g\>u`                                      |       |
-| n    | `<C-H>`     | `\<C-W\>\<C-H\>`                                 |       |
-| n    | `<C-J>`     | `\<C-W\>\<C-J\>`                                 |       |
-| n    | `<C-K>`     | `\<C-W\>\<C-K\>`                                 |       |
-| i    | `<C-l>`     | `\<c-g\>u\<Esc\>[s1z=`\]a\<c-g>u\`               |       |
-| n    | `<C-L>`     | `\<C-W\>\<C-L\>`                                 |       |
-| t    | `<Esc>`     | `\<C-\>\<C-n\>`                                  |       |
-| i    | `<expr>`    | `\<cr\> pumvisible() ? \\<C-y\> : \\<cr\>`       |       |
-| i    | `<expr>`    | `\<S-Tab\> pumvisible() ? \\<C-p\> : \\<S-Tab\>` |       |
-| i    | `<expr>`    | `\<Tab\> pumvisible() ? \\<C-n\> : \\<Tab\>`     |       |
-| n    | `<leader>s` | `:set spell!\<CR\>`                              |       |
-| all  | `<leader>T` | `:term \<cr\>`                                   |       |
+| Mode | Key         | Command                                              | Notes |
+| ---- | ----------- | ---------------------------------------------------- | ----- |
+| i    | `,`         | `,\<C-g\>u`                                          |       |
+| i    | `;`         | `;\<C-g\>u`                                          |       |
+| i    | `:`         | `:\<C-g\>u`                                          |       |
+| i    | `!`         | `!\<C-g\>u`                                          |       |
+| i    | `?`         | `?\<C-g\>u`                                          |       |
+| v    | `.`         | `:norm.\<CR\>`                                       |       |
+| i    | `.`         | `.\<C-g\>u`                                          |       |
+| i    | `(`         | `\<C-g\>u(`                                          |       |
+| i    | `)`         | `)\<C-g\>u`                                          |       |
+| n    | `[b`        | `:bprev\<CR\>`                                       |       |
+| n    | `]b`        | `:bnext\<CR\>`                                       |       |
+| n    | `<C-H>`     | `\<C-W\>\<C-H\>`                                     |       |
+| n    | `<C-J>`     | `\<C-W\>\<C-J\>`                                     |       |
+| n    | `<C-K>`     | `\<C-W\>\<C-K\>`                                     |       |
+| i    | `<C-l>`     | `` \<c-g\>u\<Esc\>[s1z=`]a\<c-g\>u ``                |       |
+| n    | `<C-L>`     | `\<C-W\>\<C-L\>`                                     |       |
+| t    | `<Esc>`     | `\<C-\\>\<C-n\>`                                     |       |
+| i    | `<expr>`    | `\<cr\>    pumvisible() ? "\\<C-y\>" : "\\<cr\>"`    |       |
+| i    | `<expr>`    | `\<S-Tab\> pumvisible() ? "\\<C-p\>" : "\\<S-Tab\>"` |       |
+| i    | `<expr>`    | `\<Tab\>   pumvisible() ? "\\<C-n\>" : "\\<Tab\>"`   |       |
+| n    | `<leader>s` | `:set spell!\<CR\>`                                  |       |
+| all  | `<leader>T` | `:term \<cr\>`                                       |       |
+| n    | `c`         | `"_c`                                                |       |
+| x    | `c`         | `"_c`                                                |       |
+| n    | `C`         | `"_C`                                                |       |
+| n    | `x`         | `"_x`                                                |       |
+| n    | `X`         | `"_X`                                                |       |
 
 ### ale
 
-| Mode | Key          | Command                                               | Notes |
-| ---- | ------------ | ----------------------------------------------------- | ----- |
-| n    | `[W`         | `\<Plug\>(ale_first)`                                 |       |
-| n    | `[w`         | `\<Plug\>(ale_previous)`                              |       |
-| n    | `]W`         | `\<Plug\>(ale_last)`                                  |       |
-| n    | `]w`         | `\<Plug\>(ale_next)`                                  |       |
-| n    | `<leader>gd` | `:ALEGoToDefinition\<CR\>`                            |       |
-| n    | `<silent>`   | `\<leader\>K :call \<SID\>show_documentation()\<CR\>` |       |
-| n    | `gr`         | `:ALEFindReferences\<CR\>`                            |       |
-| n    | `gR`         | `:ALERename\<CR\>`                                    |       |
+| Mode | Key  | Command                    | Notes       |
+| ---- | ---- | -------------------------- | ----------- |
+| n    | `[W` | `\<Plug\>(ale_first)`      |             |
+| n    | `[w` | `\<Plug\>(ale_previous)`   |             |
+| n    | `]W` | `\<Plug\>(ale_last)`       |             |
+| n    | `]w` | `\<Plug\>(ale_next)`       |             |
+| n    | `gd` | `:ALEGoToDefinition\<CR\>` | ⚠️ OVERRIDE |
+| n    | `gr` | `:ALEFindReferences\<CR\>` |             |
+| n    | `gR` | `:ALERename\<CR\>`         |             |
+| n    | `K`  | `:ALEHover\<CR\>`          | ⚠️ OVERRIDE |
 
 ### auto-pairs
 
 | Mode | Key          | Command                         | Notes |
 | ---- | ------------ | ------------------------------- | ----- |
 | n    | `<leader>ap` | `:call AutoPairsToggle()\<CR\>` |       |
+
+### comment
+
+| Mode | Key     | Command | Notes |
+| ---- | ------- | ------- | ----- |
+| v    | `<C-_>` | `gc`    |       |
+| n    | `<C-_>` | `gcc`   |       |
+| v    | `<C-/>` | `gc`    |       |
+| n    | `<C-/>` | `gcc`   |       |
 
 ### fern
 
@@ -60,8 +76,8 @@ Auto-generated documentation of custom Vim mappings.
 | n    | `<buffer><nowait>` | `\> \<Plug\>(fern-action-enter)`                                              |       |
 | n    | `<buffer>`         | `_ \<Plug\>(fern-action-mark-children:leaf)`                                  |       |
 | n    | `<buffer>`         | `- \<Plug\>(fern-action-mark)`                                                |       |
-| n    | `<buffer>`         | `\<2-LeftMouse\> \<Plug\>(fern-my-open-expand-collapse)`                      |       |
 | n    | `<buffer>`         | `\<CR\> \<Plug\>(fern-my-open-expand-collapse)`                               |       |
+| n    | `<buffer>`         | `\<LeftMouse\> \<LeftMouse\>\<Plug\>(fern-my-open-expand-collapse)`           |       |
 | n    | `<buffer>`         | `d \<Plug\>(fern-action-remove)`                                              |       |
 | n    | `<buffer>`         | `h \<Plug\>(fern-action-hidden-toggle)`                                       |       |
 | n    | `<buffer>`         | `m \<Plug\>(fern-action-move)`                                                |       |
@@ -78,23 +94,26 @@ Auto-generated documentation of custom Vim mappings.
 
 | Mode | Key         | Command                | Notes |
 | ---- | ----------- | ---------------------- | ----- |
+| n    | `<leader>?` | `:Lines\<CR\>`         |       |
+| n    | `<leader>/` | `:BLines\<CR\>`        |       |
 | n    | `<leader>b` | `:Buffers\<CR\>`       |       |
+| n    | `<leader>h` | `:History\<CR\>`       |       |
 | n    | `<silent>`  | `\<C-p\> :Files\<CR\>` |       |
 
 ### gitgutter
 
-| Mode | Key           | Command                                                                | Notes |
-| ---- | ------------- | ---------------------------------------------------------------------- | ----- |
-| n    | `<leader>gqf` | `:w\<CR\>:GitGutterQuickFix`                                           |       |
-| n    | `<silent>`    | `\<expr\> \<leader\>gd &diff ? :+clo\<CR\> : :GitGutterDiffOrig\<CR\>` |       |
+| Mode | Key           | Command                                                                    | Notes |
+| ---- | ------------- | -------------------------------------------------------------------------- | ----- |
+| n    | `<leader>gqf` | `:w\<CR\>:GitGutterQuickFix\`                                              |       |
+| n    | `<silent>`    | `\<expr\> \<leader\>gd &diff ? ':+clo\<CR\>' : ':GitGutterDiffOrig\<CR\>'` |       |
 
 ### grepper
 
 | Mode | Key         | Command                                    | Notes |
 | ---- | ----------- | ------------------------------------------ | ----- |
-| n    | `<leader>*` | `:Grepper -tool ag -cword -noprompt\<cr\>` |       |
-| n    | `<leader>F` | `:Grepper -tool ag\<cr\>`                  |       |
+| n    | `<leader>*` | `:Grepper -tool rg -cword -noprompt\<cr\>` |       |
 | n    | `<leader>f` | `:Grepper -tool git\<cr\>`                 |       |
+| n    | `<leader>F` | `:Grepper -tool rg\<cr\>`                  |       |
 
 ### limelight_goyo
 
@@ -102,12 +121,6 @@ Auto-generated documentation of custom Vim mappings.
 | ---- | ------------ | -------------------- | ----- |
 | n    | `<leader>gy` | `:Goyo\<CR\>`        |       |
 | n    | `<leader>L`  | `:Limelight!!\<CR\>` |       |
-
-### nerdcommenter
-
-| Mode | Key     | Command                       | Notes |
-| ---- | ------- | ----------------------------- | ----- |
-| all  | `<C-_>` | `\<plug\>NERDCommenterToggle` |       |
 
 ### obsession
 
@@ -119,9 +132,9 @@ Auto-generated documentation of custom Vim mappings.
 
 ### prosession
 
-| Mode | Key         | Command                                                                                 | Notes |
-| ---- | ----------- | --------------------------------------------------------------------------------------- | ----- |
-| n    | `<leader>S` | `:call fzf#run({source: prosession#ListSessions(), sink: Prosession, down: 40%})\<CR\>` |       |
+| Mode | Key         | Command                                                                                           | Notes |
+| ---- | ----------- | ------------------------------------------------------------------------------------------------- | ----- |
+| n    | `<leader>S` | `:call fzf#run({'source': prosession#ListSessions(), 'sink': 'Prosession', 'down': '40%'})\<CR\>` |       |
 
 ### tagbar
 
@@ -139,3 +152,32 @@ Auto-generated documentation of custom Vim mappings.
 
 These mappings override standard Vim behavior. Consider remapping to preserve standard
 functionality:
+
+- `gd` (n mode): `:ALEGoToDefinition\<CR\>` - from ale
+- `K` (n mode): `:ALEHover\<CR\>` - from ale
+
+## Mode Reference
+
+- `n`: Normal mode
+- `v`: Visual mode
+- `i`: Insert mode
+- `c`: Command-line mode
+- `t`: Terminal mode
+- `all`: All modes
+
+## Usage
+
+To check where a mapping was defined at runtime:
+
+```vim
+:verbose map <key>
+```
+
+To see all mappings:
+
+```vim
+:map           " All mappings
+:nmap          " Normal mode only
+:vmap          " Visual mode only
+:imap          " Insert mode only
+```

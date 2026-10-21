@@ -58,6 +58,12 @@ repos:
         entry: dprint fmt
         args: ["--config", "etc/dprint/dprint.jsonc", "--allow-no-files"]
         files: \.(json|sublime-settings|yaml|yml)$
+      - id: generate-vim-mappings-doc
+        name: Regenerate Vim mappings reference
+        language: script
+        entry: scripts/generate-vim-mappings-doc.sh
+        files: ^etc/vim/(\.vimrc|plugin/[^/]+\.vim)$
+        pass_filenames: false
   # - repo: https://github.com/btford/write-good
   #   rev: v1.0.4
   #   hooks:
