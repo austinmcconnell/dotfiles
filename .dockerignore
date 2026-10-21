@@ -6,7 +6,6 @@
 # Documentation (not needed for installation)
 *.md
 !install/*.md
-docs/
 
 # CI/CD
 .github/

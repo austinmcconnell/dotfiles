@@ -15,7 +15,6 @@ works across fresh macOS installations.
 - `install/` - Modular installation scripts for setting up tools and environments
 - `scripts/` - Helper scripts for automation and analysis
 - `macos/` - macOS-specific settings (Dock, system defaults)
-- `docs/` - Documentation for setup and customization
 - `tests/` - Zunit tests for shell functions
 
 ### Key Configuration Areas
