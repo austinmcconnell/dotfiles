@@ -145,7 +145,7 @@ Codex. Always: use `.pre-commit-config.yaml` hooks and test changes before commi
 1. Create install script: `install/<tool>.sh`
 1. Add symlink logic to install script
 1. Source install script in `install.sh`
-1. Document in `docs/ToolConfigurations.md`
+1. Document in `etc/README.md`
 
 ### Updating Kiro CLI Agents
 

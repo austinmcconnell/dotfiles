@@ -50,8 +50,8 @@ tool.
 
 ## Not linked by an install script
 
-| Directory | Contents                            | How it is used                                                          |
-| :-------- | :---------------------------------- | :---------------------------------------------------------------------- |
-| `taplo/`  | taplo TOML formatter config         | Passed as `--config` by hooks in `.pre-commit-config.yaml`              |
-| `nuphy/`  | NuPhy Air75 V2 keyboard layout JSON | Not referenced by any script                                            |
-| `typora/` | Typora export settings notes        | Not linked; `install/typora.sh` exists but `install.sh` does not run it |
+| Directory | Contents                            | How it is used                                                                                  |
+| :-------- | :---------------------------------- | :---------------------------------------------------------------------------------------------- |
+| `taplo/`  | taplo TOML formatter config         | Passed as `--config` by hooks in `.pre-commit-config.yaml`                                      |
+| `nuphy/`  | NuPhy Air75 V2 keyboard layout JSON | Not referenced by any script                                                                    |
+| `typora/` | Typora export settings notes        | Not linked; `install/typora.sh` (downloads four themes) exists but `install.sh` does not run it |
