@@ -6,6 +6,20 @@ installation via `install/python.sh`. The Python environment uses pyenv for vers
 global default packages automatically installed to each Python version via the
 `pyenv-default-packages` plugin.
 
+## Project Dependency Management
+
+For new projects, [uv](https://docs.astral.sh/uv/) is the default installer and lockfile manager:
+declare dependencies in `pyproject.toml` (with `[dependency-groups]` for dev tooling), commit the
+resulting `uv.lock`, and run `uv sync` to create and populate the project `.venv`. The `mkvenv`
+shell helper (`etc/zsh/conf.d/venv.zsh`) follows this convention.
+
+pip and pipenv remain supported fallbacks — `mkvenv` creates a plain `python -m venv` + `pip`
+environment from `requirements.txt`, and a `pipenv` environment from a `Pipfile` — but new projects
+should prefer uv.
+
+This is a project-level convention only; it does not change how Python interpreters themselves are
+installed or managed (still pyenv — see Environment Variables below).
+
 ## Installation and Symlink Targets
 
 | File             | Tool         | Symlink Target                           | Status   |
