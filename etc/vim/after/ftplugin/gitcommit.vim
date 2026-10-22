@@ -81,3 +81,35 @@ augroup gitcommit_lint_highlight
 augroup END
 
 call s:RefreshBulletMatches()
+
+" --- Paragraph text object that also stops at comment lines ------------------
+" The template puts '#' lines directly under the body with no blank line, and
+" pasted bodies are often unwrapped. Vim's default `ip` would pull those comments
+" into the paragraph, so `gqip`, `dip`, and `vip` would all act on the template.
+" Here blank, comment, and text lines are separate runs, and `ip` selects the run
+" under the cursor, as the default does for blank lines.
+
+function! s:LineClass(lnum) abort
+  if getline(a:lnum) =~# '^\s*$'
+    return 'blank'
+  elseif getline(a:lnum) =~# '^#'
+    return 'comment'
+  endif
+  return 'text'
+endfunction
+
+function! s:InnerParagraph() abort
+  let class = s:LineClass(line('.'))
+  let first = line('.')
+  let last = line('.')
+  while first > 1 && s:LineClass(first - 1) ==# class
+    let first -= 1
+  endwhile
+  while last < line('$') && s:LineClass(last + 1) ==# class
+    let last += 1
+  endwhile
+  execute 'normal! ' . first . 'GV' . last . 'G'
+endfunction
+
+xnoremap <buffer> <silent> ip :<C-u>call <SID>InnerParagraph()<CR>
+onoremap <buffer> <silent> ip :<C-u>call <SID>InnerParagraph()<CR>
