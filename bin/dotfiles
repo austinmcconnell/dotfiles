@@ -234,6 +234,12 @@ sub_clean() {
         gem cleanup
     fi
 
+    if is-executable uv; then
+        print_section_header "Pruning uv cache"
+        log_debug "Running: uv cache prune"
+        uv cache prune
+    fi
+
     # Clean up Vim plugins
     print_section_header "Running PlugClean"
     log_debug "Running: vim -i NONE -c \"PlugClean\" -c \"qa\""
