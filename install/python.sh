@@ -1,6 +1,17 @@
 #!/bin/bash
 # shellcheck disable=SC2034
 
+if is-executable uv; then
+    echo "**************************************************"
+    echo "Configuring Python"
+    echo "**************************************************"
+else
+    echo "**************************************************"
+    echo "Installing Python"
+    echo "**************************************************"
+    brew install uv
+fi
+
 mkdir -p "$XDG_CONFIG_HOME/pip"
 mkdir -p "$XDG_CONFIG_HOME/proselint"
 mkdir -p "$XDG_CONFIG_HOME/mypy"
