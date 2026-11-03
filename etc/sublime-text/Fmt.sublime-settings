@@ -17,7 +17,7 @@
             "cmd": [
                 "zsh",
                 "-lc",
-                "cd \"$HOME\" && \"$PYENV_ROOT/versions/$(cat \"$PYENV_ROOT/version\")/bin/mdformat\" - | rumdl fmt --silent -"
+                "cd \"$HOME\" && \"$HOME/.local/bin/mdformat\" - | rumdl fmt --silent -"
             ],
             "format_on_save": true,
             "merge_type": "diff"
