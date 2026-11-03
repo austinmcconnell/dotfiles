@@ -126,7 +126,6 @@ install_if_needed "vale" "formula"
 install_if_needed "vals" "formula"
 install_if_needed "watch" "formula"
 install_if_needed "wget" "formula"
-install_if_needed "yamllint" "formula"
 install_if_needed "yq" "formula"
 install_if_needed "zlib" "formula" # Used for compiling (e.g. pyenv building python versions from source)
 install_if_needed "zunit" "formula"
