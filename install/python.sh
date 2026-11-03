@@ -99,6 +99,28 @@ else
     uv python install --system-certs -U "${UV_PYTHON_VERSIONS[@]}"
 fi
 
+# Bare python and python3 use the second-newest uv minor: a new release gets a few months of
+# ecosystem catch-up before it becomes the default. conf.d/python.zsh puts this dir on PATH.
+PYTHON_DEFAULT_BIN="$XDG_DATA_HOME/python/default/bin"
+if ! is-executable uv || ! is-executable jq; then
+    echo "Skipping default python: uv and jq are required" >&2
+else
+    second_newest_minor='
+        [.[].version_parts | "\(.major).\(.minor)"] | unique
+        | sort_by(split(".") | map(tonumber)) | .[-2] // empty
+    '
+    default_minor=$(uv python list --only-installed --managed-python --output-format json |
+        jq -r "$second_newest_minor")
+    if [[ -z "$default_minor" ]]; then
+        echo "Skipping default python: fewer than two uv-managed minors installed" >&2
+    else
+        default_interpreter=$(uv python find --managed-python "$default_minor")
+        mkdir -p "$PYTHON_DEFAULT_BIN"
+        ln -sfn "$default_interpreter" "$PYTHON_DEFAULT_BIN/python"
+        ln -sfn "$default_interpreter" "$PYTHON_DEFAULT_BIN/python3"
+    fi
+fi
+
 # Global tools live in isolated uv tool environments, not in each pyenv version
 if ! is-executable uv; then
     echo "Skipping global Python tools: uv is not installed" >&2

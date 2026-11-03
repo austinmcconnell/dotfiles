@@ -25,6 +25,9 @@ if command -v pyenv >/dev/null; then
   source "$cache"
 fi
 
+# Default python and python3 from install/python.sh; placed after the pyenv shims so it wins
+path=("$XDG_DATA_HOME/python/default/bin" ${path:#$XDG_DATA_HOME/python/default/bin})
+
 # Resolve bare python/python3 to the directory's .python-version via uv. Runs after the pyenv
 # block above so its shim dir lands ahead of pyenv shims, and only prepends in pinned directories.
 _python_implicit_shims="$XDG_CACHE_HOME/zsh/python-implicit"
