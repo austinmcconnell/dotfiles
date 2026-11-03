@@ -15,7 +15,6 @@ pylint
 pyupgrade
 python-lsp-server[all]
 ruff
-uv
 yamllint
 mdformat
 mdformat-gfm
