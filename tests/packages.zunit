@@ -54,11 +54,6 @@
     assert $state equals 0
 }
 
-@test 'pyenv installed' {
-    run is-executable pyenv
-    assert $state equals 0
-}
-
 @test 'python installed' {
     run is-executable python
     assert $state equals 0

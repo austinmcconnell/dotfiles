@@ -120,23 +120,6 @@ sub_update() {
     done <<<"$antidote_output"
     print_update_summary "antidote" "plugins" "${antidote_updated[@]}"
 
-    print_section_header "Updating pyenv"
-    local pyenv_output
-    run_and_capture pyenv_output pyenv update
-    local -a pyenv_updated=()
-    local current_component=""
-    while IFS= read -r line; do
-        local clean
-        clean=$(echo "$line" | strip_ansi)
-        if [[ "$clean" =~ ^Updating.*/([^/]+)\.\.\.$ ]]; then
-            current_component="${BASH_REMATCH[1]}"
-        elif [[ -n "$current_component" && "$clean" != "Already up to date." && "$clean" =~ ^[0-9a-f]+\.\.[0-9a-f]+ ]]; then
-            pyenv_updated+=("$current_component")
-            current_component=""
-        fi
-    done <<<"$pyenv_output"
-    print_update_summary "pyenv" "components" "${pyenv_updated[@]}"
-
     print_section_header "Upgrading global Python tools"
     if ! is-executable uv; then
         echo -e "\033[33m! uv tools: skipped, uv is not installed\033[0m"

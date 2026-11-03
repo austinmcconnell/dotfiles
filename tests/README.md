@@ -22,10 +22,10 @@ Docker harness, `make docker-test` runs `dotfiles test` inside the `Dockerfile` 
 | File              | Checks                                                                                 |
 | :---------------- | :------------------------------------------------------------------------------------- |
 | `packages.zunit`  | Tools and default packages are installed (antidote, fd, fzf, git, fnm, npm,            |
-|                   | pre-commit, pyenv, python, rbenv, ruby, go, vim, and default packages)                 |
+|                   | pre-commit, python, rbenv, ruby, go, vim, and default packages)                        |
 | `symlinks.zunit`  | Config symlinks resolve (git config, vimrc, zsh plugins, starship, zsh functions)      |
-| `versions.zunit`  | Vim, Python, Ruby and Go versions, including that python and ruby match the            |
-|                   | installer's default versions; `.python-version` pins resolve via uv                    |
+| `versions.zunit`  | Vim, Ruby and Go versions, including that ruby matches the installer's default;        |
+|                   | the python default links to a uv-managed interpreter; `.python-version` pins resolve   |
 | `functions.zunit` | Autoloaded zsh functions from `etc/zsh/functions/` (`calc`, `get_trunk_branch`, `git`) |
 | `bin.zunit`       | `bin/` commands: `dotfiles` usage output, `is-executable`, `is-supported`              |
 

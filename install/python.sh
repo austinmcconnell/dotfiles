@@ -1,34 +1,6 @@
 #!/bin/bash
 # shellcheck disable=SC2034
 
-if is-executable pyenv; then
-    echo "**************************************************"
-    echo "Configuring Python"
-    echo "**************************************************"
-else
-    if is-macos; then
-        echo "**************************************************"
-        echo "Installing Python"
-        echo "**************************************************"
-        brew install libb2 ncurses openssl readline xz
-        LDFLAGS="-L$(brew --prefix openssl)/lib"
-        CPPFLAGS="-I$(brew --prefix openssl)/include"
-        CONFIGURE_OPTS="--with-openssl=$(brew --prefix openssl)"
-    elif is-debian; then
-        echo "**************************************************"
-        echo "Installing Python"
-        echo "**************************************************"
-        sudo apt-get install -y build-essential libssl-dev zlib1g-dev libbz2-dev \
-            libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
-            xz-utils tk-dev libffi-dev liblzma-dev python3-openssl git
-    else
-        echo "**************************************************"
-        echo "Skipping Python installation: Unidentified OS"
-        echo "**************************************************"
-        return
-    fi
-fi
-
 mkdir -p "$XDG_CONFIG_HOME/pip"
 mkdir -p "$XDG_CONFIG_HOME/proselint"
 mkdir -p "$XDG_CONFIG_HOME/mypy"
@@ -56,37 +28,6 @@ if [[ -f "$HOME/.python_history" ]]; then
     echo "Moving existing .python_history file to XDG_DATA_HOME/python"
     mv "$HOME/.python_history" "$XDG_DATA_HOME/python/python_history"
 fi
-
-DEFAULT_PYTHON_VERSION=3.13.12
-
-if is-executable pyenv; then
-    pyenv update
-fi
-
-export PYENV_ROOT="$XDG_DATA_HOME/pyenv"
-PYENV_PLUGINS_DIR="$PYENV_ROOT/plugins"
-
-if [ ! -f "$PYENV_ROOT/bin/pyenv" ]; then
-    git clone https://github.com/pyenv/pyenv.git "$PYENV_ROOT"
-fi
-
-pyenv_plugins=(pyenv/pyenv-ccache jawshooah/pyenv-default-packages pyenv/pyenv-doctor pyenv/pyenv-implicit pyenv/pyenv-update)
-
-for plugin in "${pyenv_plugins[@]}"; do
-    plugin_owner=$(echo "$plugin" | cut -d '/' -f 1)
-    plugin_name=$(echo "$plugin" | cut -d '/' -f 2)
-    if [ ! -d "$PYENV_PLUGINS_DIR/$plugin_name" ]; then
-        git clone "https://github.com/$plugin_owner/$plugin_name.git" "$PYENV_PLUGINS_DIR/$plugin_name"
-    fi
-done
-
-"$PYENV_ROOT"/bin/pyenv install --skip-existing $DEFAULT_PYTHON_VERSION
-"$PYENV_ROOT"/bin/pyenv global $DEFAULT_PYTHON_VERSION
-
-# Add pyenv shims to PATH for the rest of this script
-eval "$("$PYENV_ROOT"/bin/pyenv init --path)"
-
-pip install --upgrade pip setuptools wheel
 
 # Per-directory pins resolve to these uv-managed interpreters (see conf.d). -U moves an
 # existing install to the latest patch, since a minor spec alone never upgrades it.
@@ -121,7 +62,7 @@ else
     fi
 fi
 
-# Global tools live in isolated uv tool environments, not in each pyenv version
+# Global tools live in isolated uv tool environments
 if ! is-executable uv; then
     echo "Skipping global Python tools: uv is not installed" >&2
 else

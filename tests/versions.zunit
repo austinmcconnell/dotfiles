@@ -5,10 +5,9 @@
     assert $output is_greater_than 7
 }
 
-@test 'verify python version matches default' {
-    DEFAULT_PYTHON_VERSION=$(grep '^DEFAULT_PYTHON_VERSION=' install/python.sh | cut -d '=' -f 2 | tr -d '"' | cut -d '.' -f 1,2)
-    run bash -c "python --version | cut -d ' ' -f 2 | cut -d '.' -f 1,2"
-    assert "$output" same_as "$DEFAULT_PYTHON_VERSION"
+@test 'verify python default links to a uv-managed interpreter' {
+    run readlink "${XDG_DATA_HOME:-$HOME/.local/share}/python/default/bin/python3"
+    assert $output contains /uv/python/cpython-
 }
 
 @test 'verify ruby version matches default' {
