@@ -93,5 +93,3 @@ pip install --upgrade pip setuptools wheel
 # Ensure default packages are installed (pyenv-default-packages only
 # runs during pyenv install, so packages added later would be missed)
 pip install -r "$DOTFILES_DIR/etc/python/default-packages"
-
-pre-commit init-templatedir "$HOME"/.config/git/templates
