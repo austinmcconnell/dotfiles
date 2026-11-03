@@ -895,28 +895,35 @@ sub_orphans() {
         fi
     fi
 
-    # --- pip packages (per pyenv version) ---
-    if is-executable pyenv; then
-        print_section_header "pip packages"
+    # --- uv tools ---
+    if is-executable uv; then
+        print_section_header "uv tools"
+        local -a uv_tracked=()
+        while IFS= read -r line; do
+            [[ -n "$line" && "$line" != \#* ]] || continue
+            local tool_name=${line%% *}
+            uv_tracked+=("${tool_name%%\[*}")
+        done <"$DOTFILES_DIR/etc/python/uv-tools"
 
-        for python_version in $(pyenv versions --bare); do
-            # Use Python to resolve full dependency tree including extras
-            local -a pip_orphans=()
-            while IFS= read -r pkg; do
-                [[ -n "$pkg" ]] && pip_orphans+=("$pkg")
-            done < <(PYENV_VERSION="$python_version" python "$DOTFILES_DIR/scripts/pip_orphans.py" \
-                "$DOTFILES_DIR/etc/python/default-packages" 2>/dev/null)
+        local -a uv_orphans=()
+        while IFS= read -r tool; do
+            local tracked=false
+            for t in "${uv_tracked[@]}"; do
+                [[ "$tool" == "$t" ]] && tracked=true && break
+            done
+            $tracked || uv_orphans+=("$tool")
+        done < <(uv tool list 2>/dev/null | grep -v '^-' | awk '{print $1}')
 
-            if [[ ${#pip_orphans[@]} -eq 0 ]]; then
-                echo -e "${GREEN}✓ Python $python_version: no orphaned packages${RESET}"
-            else
-                found_orphans=1
-                echo -e "${YELLOW}Python $python_version: orphaned packages (not in default-packages):${RESET}"
-                for pkg in "${pip_orphans[@]}"; do
-                    echo "  - $pkg"
-                done
-            fi
-        done
+        if [[ ${#uv_orphans[@]} -eq 0 ]]; then
+            echo -e "${GREEN}✓ No orphaned uv tools${RESET}"
+        else
+            found_orphans=1
+            echo -e "${YELLOW}Orphaned uv tools (not in uv-tools):${RESET}"
+            for tool in "${uv_orphans[@]}"; do
+                echo "  - $tool"
+            done
+            echo "  Run: uv tool uninstall ${uv_orphans[*]}"
+        fi
     fi
 
     # --- Ruby gems ---

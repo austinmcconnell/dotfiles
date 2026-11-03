@@ -34,15 +34,15 @@ yt-dlp.sh (video downloader with config).
 
 ## Package Managers
 
-| Platform / Language | Manager     | Where packages are declared                                    |
-| ------------------- | ----------- | -------------------------------------------------------------- |
-| macOS               | Homebrew    | `install/brew.sh` (taps, formulas, casks; work/personal gated) |
-| macOS App Store     | mas         | `macos/apps.sh`                                                |
-| Debian              | APT         | `install/apt.sh`                                               |
-| Linux (Homebrew)    | Homebrew    | `install/brew.sh` (installs Linuxbrew when it's missing)       |
-| Python              | pyenv + pip | `etc/python/default-packages`                                  |
-| Node.js             | fnm + npm   | `etc/node/default-packages` (`install/node.sh`)                |
-| Ruby                | rbenv       | `install/ruby.sh`                                              |
+| Platform / Language | Manager    | Where packages are declared                                    |
+| ------------------- | ---------- | -------------------------------------------------------------- |
+| macOS               | Homebrew   | `install/brew.sh` (taps, formulas, casks; work/personal gated) |
+| macOS App Store     | mas        | `macos/apps.sh`                                                |
+| Debian              | APT        | `install/apt.sh`                                               |
+| Linux (Homebrew)    | Homebrew   | `install/brew.sh` (installs Linuxbrew when it's missing)       |
+| Python              | pyenv + uv | `etc/python/uv-tools` (`install/python.sh`)                    |
+| Node.js             | fnm + npm  | `etc/node/default-packages` (`install/node.sh`)                |
+| Ruby                | rbenv      | `install/ruby.sh`                                              |
 
 `dotfiles update` upgrades mas, Homebrew, APT, Snap, antidote, pyenv, and vim-plug, and it also
 updates the Python, Ruby, and npm packages. `dotfiles clean` removes Homebrew and APT caches and

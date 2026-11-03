@@ -1,15 +1,14 @@
 # Scripts
 
 Helper scripts for maintenance, analysis, and one-off automation. Unlike `bin/`, nothing here is on
-`PATH`; scripts are run by path. Most are manual utilities. Only the four scripts in "Wired into the
-repo" are called by other parts of the repo.
+`PATH`; scripts are run by path. Most are manual utilities. Only the three scripts in "Wired into
+the repo" are called by other parts of the repo.
 
 ## Wired into the repo
 
 | Script               | Called by                                                                        |
 | :------------------- | :------------------------------------------------------------------------------- |
 | `sort-git-config.sh` | The "Sort git config" hook in `.pre-commit-config.yaml`; see `etc/git/README.md` |
-| `pip_orphans.py`     | `dotfiles orphans` (`sub_orphans` in `bin/dotfiles`)                             |
 | `gem_orphans.rb`     | `dotfiles orphans` (`sub_orphans` in `bin/dotfiles`)                             |
 | `ai-prompt.sh`       | Sourced by `etc/zsh/conf.d/ai-prompts.zsh`                                       |
 
