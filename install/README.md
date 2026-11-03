@@ -9,44 +9,44 @@ source the shared helpers in `install/utils.sh`.
 
 ## Installation Scripts
 
-| Script            | Installs / Configures                                      | Notable Details                                            |
-| ----------------- | ---------------------------------------------------------- | ---------------------------------------------------------- |
-| git.sh            | Git, config files, hooks, maintenance                      | Sets up global git maintenance tasks                       |
-| zsh.sh            | Zsh shell, antidote plugin manager, starship, iTerm2       | Installs completions, iterm2_shell_integration             |
-| brew.sh           | Homebrew on macOS/Linux, Sublime Text, misc CLI tools      | Large script; also symlinks misc configs (bat, fd)         |
-| apt.sh            | APT packages (Debian-only)                                 | bc, fonts-firacode, less                                   |
-| python.sh         | Python with pyenv, pip, linters (flake8, ruff, mypy, etc.) | Symlinks pip, yapf, ruff, mypy, proselint configs          |
-| node.sh           | Node.js with fnm, npm default packages, completions        | Uses fnm (Fast Node Manager) instead of nvm                |
-| go.sh             | Go with GOPATH setup, gopls, goimports, dlv, staticcheck   | Installs Go language server and dev tools                  |
-| vim.sh            | Vim with vim-plug, ctags, linters (ALE)                    | Symlinks after, plugin, syntax dirs                        |
-| ruby.sh           | Ruby with rbenv, ruby-build, bundler, rubocop              | Uses rbenv; installs default version 3.4.9                 |
-| ssh.sh            | SSH config, host detection, control masters setup          | Creates ~/.ssh/hosts.d/ for host-specific configs          |
-| dircolors.sh      | Dircolors themes (nord, bliss)                             | Links vendored theme files to ~/.dircolors/                |
-| xdg-compliance.sh | XDG-compliant directories for less, wget, PostgreSQL       | Migrates legacy dot files to XDG locations                 |
-| sops.sh           | SOPS + age secret encryption, age key generation           | XDG-compliant sops directory setup                         |
-| glow.sh           | Glow markdown viewer                                       | Installs via brew or snap; symlinks config                 |
-| ghostty.sh        | Ghostty terminal emulator (macOS trial setup)              | Also symlinks Everforest theme                             |
-| terraform.sh      | Terraform with tfenv, terraform-docs, tfsec, checkov       | Installs latest Terraform version via tfenv                |
-| extra.sh          | ~/.extra scaffolds for AI source templates                 | Creates skill-sources.example and steering-sources.example |
+| Script            | Installs / Configures                                           | Notable Details                                            |
+| ----------------- | --------------------------------------------------------------- | ---------------------------------------------------------- |
+| git.sh            | Git, config files, hooks, maintenance                           | Sets up global git maintenance tasks                       |
+| zsh.sh            | Zsh shell, antidote plugin manager, starship, iTerm2            | Installs completions, iterm2_shell_integration             |
+| brew.sh           | Homebrew on macOS/Linux, Sublime Text, misc CLI tools           | Large script; also symlinks misc configs (bat, fd)         |
+| apt.sh            | APT packages (Debian-only)                                      | bc, fonts-firacode, less                                   |
+| python.sh         | Python with uv, default python, global tools (ruff, mypy, etc.) | Symlinks pip, yapf, ruff, mypy, proselint configs          |
+| node.sh           | Node.js with fnm, npm default packages, completions             | Uses fnm (Fast Node Manager) instead of nvm                |
+| go.sh             | Go with GOPATH setup, gopls, goimports, dlv, staticcheck        | Installs Go language server and dev tools                  |
+| vim.sh            | Vim with vim-plug, ctags, linters (ALE)                         | Symlinks after, plugin, syntax dirs                        |
+| ruby.sh           | Ruby with rbenv, ruby-build, bundler, rubocop                   | Uses rbenv; installs default version 3.4.9                 |
+| ssh.sh            | SSH config, host detection, control masters setup               | Creates ~/.ssh/hosts.d/ for host-specific configs          |
+| dircolors.sh      | Dircolors themes (nord, bliss)                                  | Links vendored theme files to ~/.dircolors/                |
+| xdg-compliance.sh | XDG-compliant directories for less, wget, PostgreSQL            | Migrates legacy dot files to XDG locations                 |
+| sops.sh           | SOPS + age secret encryption, age key generation                | XDG-compliant sops directory setup                         |
+| glow.sh           | Glow markdown viewer                                            | Installs via brew or snap; symlinks config                 |
+| ghostty.sh        | Ghostty terminal emulator (macOS trial setup)                   | Also symlinks Everforest theme                             |
+| terraform.sh      | Terraform with tfenv, terraform-docs, tfsec, checkov            | Installs latest Terraform version via tfenv                |
+| extra.sh          | ~/.extra scaffolds for AI source templates                      | Creates skill-sources.example and steering-sources.example |
 
 **Not invoked by install.sh:** dotnet.sh (installs .NET SDK), typora.sh (macOS-only Typora themes),
 yt-dlp.sh (video downloader with config).
 
 ## Package Managers
 
-| Platform / Language | Manager    | Where packages are declared                                    |
-| ------------------- | ---------- | -------------------------------------------------------------- |
-| macOS               | Homebrew   | `install/brew.sh` (taps, formulas, casks; work/personal gated) |
-| macOS App Store     | mas        | `macos/apps.sh`                                                |
-| Debian              | APT        | `install/apt.sh`                                               |
-| Linux (Homebrew)    | Homebrew   | `install/brew.sh` (installs Linuxbrew when it's missing)       |
-| Python              | pyenv + uv | `etc/python/uv-tools` (`install/python.sh`)                    |
-| Node.js             | fnm + npm  | `etc/node/default-packages` (`install/node.sh`)                |
-| Ruby                | rbenv      | `install/ruby.sh`                                              |
+| Platform / Language | Manager   | Where packages are declared                                    |
+| ------------------- | --------- | -------------------------------------------------------------- |
+| macOS               | Homebrew  | `install/brew.sh` (taps, formulas, casks; work/personal gated) |
+| macOS App Store     | mas       | `macos/apps.sh`                                                |
+| Debian              | APT       | `install/apt.sh`                                               |
+| Linux (Homebrew)    | Homebrew  | `install/brew.sh` (installs Linuxbrew when it's missing)       |
+| Python              | uv        | `etc/python/uv-tools` (`install/python.sh`)                    |
+| Node.js             | fnm + npm | `etc/node/default-packages` (`install/node.sh`)                |
+| Ruby                | rbenv     | `install/ruby.sh`                                              |
 
-`dotfiles update` upgrades mas, Homebrew, APT, Snap, antidote, pyenv, and vim-plug, and it also
-updates the Python, Ruby, and npm packages. `dotfiles clean` removes Homebrew and APT caches and
-unused packages, and it runs `PlugClean` for Vim. See `bin/dotfiles` for the full list of steps.
+`dotfiles update` upgrades mas, Homebrew, APT, Snap, antidote, and vim-plug, and it also updates the
+Python, Ruby, and npm packages. `dotfiles clean` removes Homebrew and APT caches and unused
+packages, and it runs `PlugClean` for Vim. See `bin/dotfiles` for the full list of steps.
 
 ## How install.sh Invokes Scripts
 

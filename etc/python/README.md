@@ -2,8 +2,8 @@
 
 This directory contains configuration files for Python development tools. Files are symlinked to
 XDG-compliant locations (primarily `$XDG_CONFIG_HOME` which defaults to `~/.config`) during
-installation via `install/python.sh`. The Python environment uses pyenv for version management with
-global developer tools installed as isolated `uv tool` environments from `uv-tools`.
+installation via `install/python.sh`. Python interpreters are managed by uv, and global developer
+tools are installed as isolated `uv tool` environments from `uv-tools`.
 
 ## Project Dependency Management
 
@@ -23,6 +23,9 @@ Interpreters below).
 
 `install/python.sh` installs one uv-managed interpreter per supported minor version (3.11 through
 3.15) with `uv python install -U`. The `-U` flag moves an existing install to its latest patch.
+
+Bare `python` and `python3` link to the second-newest of these minors (3.14 today), so a new release
+becomes the default only after a few months of ecosystem catch-up.
 
 A directory with a `.python-version` file resolves bare `python` and `python3` to that version. The
 hook in `etc/zsh/conf.d/python.zsh` runs on every `cd`, links the uv interpreter into
@@ -139,7 +142,6 @@ the legacy section above.
 The following environment variables are set in `etc/zsh/conf.d/python.zsh` and related files:
 
 - `PYTHONSTARTUP`: Points to `pythonrc` for REPL startup configuration
-- `PYENV_ROOT`: Version manager root at `$XDG_DATA_HOME/pyenv`
 - `PIPENV_VENV_IN_PROJECT`: Enabled (pipenv creates `.venv` in project root)
 - `PIPENV_VERBOSITY`: Set to -1 (silent mode)
 - `AUTOENV_ASSUME_YES`: Enabled (autoenv assumes yes for activation)

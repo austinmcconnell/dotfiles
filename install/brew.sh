@@ -108,9 +108,8 @@ install_if_needed "kubernetes-cli" "formula"
 install_if_needed "kubectx" "formula"
 install_if_needed "mdbook" "formula"
 install_if_needed "nano" "formula"
-install_if_needed "openssl@3" "formula" # Used for compiling (e.g. pyenv building python versions from source)
+install_if_needed "openssl@3" "formula" # Used for compiling Ruby from source (rbenv)
 install_if_needed "datadog-labs/pack/pup" "formula"
-install_if_needed "rsync" "formula" # Used for compiling (e.g. pyenv building python versions from source)
 install_if_needed "rumdl" "formula"
 install_if_needed "shellcheck" "formula"
 install_if_needed "shfmt" "formula"
@@ -127,7 +126,7 @@ install_if_needed "vals" "formula"
 install_if_needed "watch" "formula"
 install_if_needed "wget" "formula"
 install_if_needed "yq" "formula"
-install_if_needed "zlib" "formula" # Used for compiling (e.g. pyenv building python versions from source)
+install_if_needed "zlib" "formula" # Used for compiling Ruby from source (rbenv)
 install_if_needed "zunit" "formula"
 
 # Install cloud cli tools

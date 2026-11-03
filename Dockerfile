@@ -76,13 +76,10 @@ ENV XDG_CONFIG_HOME=/home/testuser/.config
 ENV XDG_DATA_HOME=/home/testuser/.local/share
 ENV XDG_CACHE_HOME=/home/testuser/.cache
 ENV PATH="${DOTFILES_DIR}/bin:${PATH}"
-# Fix SSL certificate issues in Docker for downloads (brew, pyenv, etc.)
+# Fix SSL certificate issues in Docker for downloads (brew, uv, etc.)
 ENV HOMEBREW_CURLRC=1
 ENV HOMEBREW_NO_VERIFY_ATTESTATIONS=1
 ENV CURL_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
-# Skip SSL verification for pyenv downloads (Docker network issue)
-ENV PYTHON_BUILD_CURL_OPTS="--insecure"
-ENV PYTHON_BUILD_WGET_OPTS="--no-check-certificate"
 
 # Create required directories
 RUN mkdir -p ${XDG_CONFIG_HOME} ${XDG_DATA_HOME} ${XDG_CACHE_HOME} ${DOTFILES_EXTRA_DIR}
