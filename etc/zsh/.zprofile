@@ -22,8 +22,6 @@ path=(
     /opt/homebrew/opt/{coreutils,findutils,gawk,gnu-sed,gnu-tar,gnu-time,grep}/libexec/gnubin(N)
     /opt/homebrew/opt/ccache/libexec(N)
     /usr/local/{,s}bin(N)
-    $PYENV_ROOT/shims
-    $PYENV_ROOT/bin
     $RBENV_ROOT/shims
     $RBENV_ROOT/bin
     $DOTFILES_DIR/bin(N)
@@ -32,7 +30,3 @@ path=(
     $HOME/.rvm/bin
     $path
 )
-
-export LDFLAGS="-L$(brew --prefix openssl)/lib"  # pyenv python builds
-export CPPFLAGS="-I$(brew --prefix openssl)/include"  # pyenv python builds
-export CONFIGURE_OPTS="--with-openssl=$(brew --prefix openssl)"  # pyenv python builds

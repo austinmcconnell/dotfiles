@@ -24,7 +24,6 @@ export SOURCES_DIR="$HOME/sources"
 export XDG_RUNTIME_DIR="${TMPDIR}user-${UID}"
 
 # Version managers (needed early for PATH setup)
-export PYENV_ROOT="$XDG_DATA_HOME/pyenv"
 export RBENV_ROOT="$XDG_DATA_HOME/rbenv"
 export FNM_PATH="$XDG_DATA_HOME/fnm"
 

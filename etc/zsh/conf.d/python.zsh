@@ -7,29 +7,11 @@
 # Environment Variables
 ##############################
 
-# Add pyenv to PATH early to ensure it's available
-if [[ -d "$PYENV_ROOT/bin" ]]; then
-  export PATH="$PYENV_ROOT/bin:$PATH"
-fi
-
-# Initialize pyenv from a cached static file instead of spawning a subprocess
-# Cache auto-invalidates when the pyenv binary changes (e.g., after brew upgrade)
-if command -v pyenv >/dev/null; then
-  local cache="$XDG_CACHE_HOME/zsh/pyenv-init.zsh"
-  if [[ ! -s "$cache" || "${commands[pyenv]}" -nt "$cache" ]]; then
-    mkdir -p "${cache:h}"
-    # Strip the bash PATH dedup block — we handle PATH ourselves with zsh arrays
-    pyenv init - --no-rehash zsh | sed '/^PATH="\$(bash/,/^export PATH=/d' >| "$cache"
-  fi
-  path=("$PYENV_ROOT/shims" ${path:#$PYENV_ROOT/shims})
-  source "$cache"
-fi
-
-# Default python and python3 from install/python.sh; placed after the pyenv shims so it wins
+# Default python and python3 from install/python.sh
 path=("$XDG_DATA_HOME/python/default/bin" ${path:#$XDG_DATA_HOME/python/default/bin})
 
-# Resolve bare python/python3 to the directory's .python-version via uv. Runs after the pyenv
-# block above so its shim dir lands ahead of pyenv shims, and only prepends in pinned directories.
+# Resolve bare python/python3 to the directory's .python-version via uv. Only prepends in pinned
+# directories.
 _python_implicit_shims="$XDG_CACHE_HOME/zsh/python-implicit"
 
 function _python_implicit_chpwd() {
@@ -63,9 +45,6 @@ export PIPENV_VERBOSITY=-1
 
 # Autoenv
 export AUTOENV_ASSUME_YES=1
-
-# Google Cloud SDK
-export CLOUDSDK_PYTHON="$PYENV_ROOT/shims/python3.7"
 
 # Python startup file
 export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pythonrc"
