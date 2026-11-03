@@ -64,19 +64,18 @@
     assert $state equals 0
 }
 
-@test 'python default packages installed' {
-    installed_packages=$(pip freeze | cut -d '=' -f 1)
-    # Normalize package name by replacing hyphens with underscores
-    normalized_packages=$(echo $installed_packages | tr '-' '_')
+@test 'python global tools installed' {
+    installed_tools=$(uv tool list 2>/dev/null | awk '{print $1}')
     local missing=()
-    for package in $(cat $DOTFILES_DIR/etc/python/default-packages); do
-        # Trim package name to remove any [extras]
-        trimmed_package=$(echo $package | cut -d '[' -f 1)
-        normalized_package=$(echo $trimmed_package | tr '-' '_')
-        if [[ ${normalized_packages[(I)$normalized_package]} -eq 0 ]]; then
-            missing+=($package)
+    while IFS= read -r tool_line; do
+        [[ -z "$tool_line" || "$tool_line" == \#* ]] && continue
+        # Keep only the tool name: drop --with flags and [extras]
+        tool=${tool_line%% *}
+        tool=${tool%%\[*}
+        if ! grep -qx "$tool" <<<"$installed_tools"; then
+            missing+=($tool)
         fi
-    done
+    done <"$DOTFILES_DIR/etc/python/uv-tools"
     [[ ${#missing} -eq 0 ]] || fail "missing: ${(j:, :)missing}"
     assert ${#missing} equals 0
 }

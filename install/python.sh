@@ -80,8 +80,6 @@ for plugin in "${pyenv_plugins[@]}"; do
     fi
 done
 
-ln -sfv "$DOTFILES_DIR/etc/python/default-packages" "$PYENV_ROOT" # <-- At end because PYENV_ROOT doesn't exist before pyenv install
-
 "$PYENV_ROOT"/bin/pyenv install --skip-existing $DEFAULT_PYTHON_VERSION
 "$PYENV_ROOT"/bin/pyenv global $DEFAULT_PYTHON_VERSION
 
@@ -90,6 +88,13 @@ eval "$("$PYENV_ROOT"/bin/pyenv init --path)"
 
 pip install --upgrade pip setuptools wheel
 
-# Ensure default packages are installed (pyenv-default-packages only
-# runs during pyenv install, so packages added later would be missed)
-pip install -r "$DOTFILES_DIR/etc/python/default-packages"
+# Global tools live in isolated uv tool environments, not in each pyenv version
+if ! is-executable uv; then
+    echo "Skipping global Python tools: uv is not installed" >&2
+else
+    while IFS= read -r tool_line; do
+        [[ -z "$tool_line" || "$tool_line" == \#* ]] && continue
+        read -r -a tool_args <<<"$tool_line"
+        uv tool install "${tool_args[@]}"
+    done <"$DOTFILES_DIR/etc/python/uv-tools"
+fi

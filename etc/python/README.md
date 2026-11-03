@@ -3,8 +3,7 @@
 This directory contains configuration files for Python development tools. Files are symlinked to
 XDG-compliant locations (primarily `$XDG_CONFIG_HOME` which defaults to `~/.config`) during
 installation via `install/python.sh`. The Python environment uses pyenv for version management with
-global default packages automatically installed to each Python version via the
-`pyenv-default-packages` plugin.
+global developer tools installed as isolated `uv tool` environments from `uv-tools`.
 
 ## Project Dependency Management
 
@@ -92,11 +91,12 @@ migrate pylint disable comments in codebases to ruff noqa equivalents.
 rules are integrated into Ruff's docstring linting (D rules) via the `pydocstyle` convention setting
 in `ruff.toml`.
 
-## Default Packages
+## Global Tools
 
-`default-packages` is a plain-text file (not a config) that defines packages automatically installed
-to each Python version managed by pyenv via the `pyenv-default-packages` plugin. It includes
-linting, formatting, and LSP tools:
+`uv-tools` is a plain-text file (not a config) that lists the global developer tools installed by
+`install/python.sh` with `uv tool install`. Each line is one tool and its `uv tool install`
+arguments, including any `--with` plugins. Each tool gets its own isolated environment, and its
+executable is linked into `~/.local/bin`. The tools include linting, formatting, and LSP:
 
 ```text
 ansible-lint
@@ -117,11 +117,7 @@ pyupgrade
 python-lsp-server[all]
 ruff
 yamllint
-mdformat
-mdformat-gfm
-mdformat-gfm-alerts
-mdformat-frontmatter
-mdformat-simple-breaks
+mdformat --with mdformat-gfm --with mdformat-gfm-alerts --with mdformat-frontmatter --with mdformat-simple-breaks
 ```
 
 Several of these (flake8, pylint, isort, autopep8, pydocstyle, docformatter) overlap with Ruff; see

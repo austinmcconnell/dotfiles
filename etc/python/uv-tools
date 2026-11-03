@@ -16,8 +16,4 @@ pyupgrade
 python-lsp-server[all]
 ruff
 yamllint
-mdformat
-mdformat-gfm
-mdformat-gfm-alerts
-mdformat-frontmatter
-mdformat-simple-breaks
+mdformat --with mdformat-gfm --with mdformat-gfm-alerts --with mdformat-frontmatter --with mdformat-simple-breaks
