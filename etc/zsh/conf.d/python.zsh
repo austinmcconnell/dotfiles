@@ -25,6 +25,35 @@ if command -v pyenv >/dev/null; then
   source "$cache"
 fi
 
+# Resolve bare python/python3 to the directory's .python-version via uv. Runs after the pyenv
+# block above so its shim dir lands ahead of pyenv shims, and only prepends in pinned directories.
+_python_implicit_shims="$XDG_CACHE_HOME/zsh/python-implicit"
+
+function _python_implicit_chpwd() {
+  path=(${path:#$_python_implicit_shims})
+
+  local dir="$PWD"
+  while [[ "$dir" != "/" && ! -f "$dir/.python-version" ]]; do
+    dir="${dir:h}"
+  done
+  [[ -f "$dir/.python-version" ]] || return 0
+
+  local interpreter
+  if ! interpreter=$(uv python find 2>/dev/null); then
+    print -u2 "python-implicit: pinned version not installed (run: uv python install $(<"$dir/.python-version"))"
+    return 0
+  fi
+
+  mkdir -p "$_python_implicit_shims"
+  ln -sfn "$interpreter" "$_python_implicit_shims/python"
+  ln -sfn "$interpreter" "$_python_implicit_shims/python3"
+  path=("$_python_implicit_shims" $path)
+}
+
+autoload -Uz add-zsh-hook
+add-zsh-hook chpwd _python_implicit_chpwd
+_python_implicit_chpwd
+
 # PIPENV
 export PIPENV_VENV_IN_PROJECT=1
 export PIPENV_VERBOSITY=-1

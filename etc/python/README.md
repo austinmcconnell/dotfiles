@@ -16,8 +16,19 @@ pip and pipenv remain supported fallbacks — `mkvenv` creates a plain `python -
 environment from `requirements.txt`, and a `pipenv` environment from a `Pipfile` — but new projects
 should prefer uv.
 
-This is a project-level convention only; it does not change how Python interpreters themselves are
-installed or managed (still pyenv — see Environment Variables below).
+This is a project-level convention only. Interpreters are installed with `uv python install` (see
+Interpreters below).
+
+## Interpreters
+
+`install/python.sh` installs one uv-managed interpreter per supported minor version (3.11 through
+3.15) with `uv python install -U`. The `-U` flag moves an existing install to its latest patch.
+
+A directory with a `.python-version` file resolves bare `python` and `python3` to that version. The
+hook in `etc/zsh/conf.d/python.zsh` runs on every `cd`, links the uv interpreter into
+`$XDG_CACHE_HOME/zsh/python-implicit`, and prepends that directory to `PATH` only while the cwd is
+pinned (or inside a pinned directory). If the pinned version is not installed, the hook prints the
+`uv python install` command to run.
 
 ## Installation and Symlink Targets
 
