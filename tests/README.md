@@ -25,7 +25,7 @@ Docker harness, `make docker-test` runs `dotfiles test` inside the `Dockerfile` 
 |                   | pre-commit, pyenv, python, rbenv, ruby, go, vim, and default packages)                 |
 | `symlinks.zunit`  | Config symlinks resolve (git config, vimrc, zsh plugins, starship, zsh functions)      |
 | `versions.zunit`  | Vim, Python, Ruby and Go versions, including that python and ruby match the            |
-|                   | installer's default versions                                                           |
+|                   | installer's default versions; `.python-version` pins resolve via uv                    |
 | `functions.zunit` | Autoloaded zsh functions from `etc/zsh/functions/` (`calc`, `get_trunk_branch`, `git`) |
 | `bin.zunit`       | `bin/` commands: `dotfiles` usage output, `is-executable`, `is-supported`              |
 
