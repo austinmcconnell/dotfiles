@@ -110,7 +110,9 @@ in `ruff.toml`.
 `uv-tools` is a plain-text file (not a config) that lists the global developer tools installed by
 `install/python.sh` with `uv tool install`. Each line is one tool and its `uv tool install`
 arguments, including any `--with` plugins. Each tool gets its own isolated environment, and its
-executable is linked into `~/.local/bin`. The tools include linting, formatting, and LSP:
+executable is linked into `~/.local/bin`. Tools are pinned to the default minor (`--python`), not
+uv's newest Python, because some dependencies lack wheels for the newest release. The tools include
+linting, formatting, and LSP:
 
 ```text
 ansible-lint

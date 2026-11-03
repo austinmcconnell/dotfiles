@@ -73,13 +73,11 @@ else
     fi
 fi
 
-# Global tools live in isolated uv tool environments
-if ! is-executable uv; then
-    echo "Skipping global Python tools: uv is not installed" >&2
+# Global tools live in isolated uv tool environments, pinned to the default minor so a new
+# release cannot break their installs before it becomes the default.
+if ! is-executable uv || [[ -z "${default_minor:-}" ]]; then
+    echo "Skipping global Python tools: uv and a default minor are required" >&2
 else
-    while IFS= read -r tool_line; do
-        [[ -z "$tool_line" || "$tool_line" == \#* ]] && continue
-        read -r -a tool_args <<<"$tool_line"
-        uv tool install "${tool_args[@]}"
-    done <"$DOTFILES_DIR/etc/python/uv-tools"
+    grep -v -E '^(#|$)' "$DOTFILES_DIR/etc/python/uv-tools" |
+        xargs -L 1 uv tool install --python "$default_minor"
 fi
