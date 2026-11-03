@@ -88,6 +88,17 @@ eval "$("$PYENV_ROOT"/bin/pyenv init --path)"
 
 pip install --upgrade pip setuptools wheel
 
+# Per-directory pins resolve to these uv-managed interpreters (see conf.d). -U moves an
+# existing install to the latest patch, since a minor spec alone never upgrades it.
+# --system-certs because the bundled CA roots reject the TLS issuer on networks that
+# intercept HTTPS.
+UV_PYTHON_VERSIONS=(3.11 3.12 3.13 3.14 3.15)
+if ! is-executable uv; then
+    echo "Skipping uv-managed Python interpreters: uv is not installed" >&2
+else
+    uv python install --system-certs -U "${UV_PYTHON_VERSIONS[@]}"
+fi
+
 # Global tools live in isolated uv tool environments, not in each pyenv version
 if ! is-executable uv; then
     echo "Skipping global Python tools: uv is not installed" >&2
