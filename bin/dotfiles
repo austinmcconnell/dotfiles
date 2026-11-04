@@ -124,11 +124,12 @@ sub_update() {
     if ! is-executable uv; then
         echo -e "\033[33m! uv tools: skipped, uv is not installed\033[0m"
     else
-        local tools_before tools_after
+        local tools_before tools_after upgrade_output
         local -a uv_updated=()
         tools_before=$(uv tool list 2>/dev/null | grep -v '^-')
-        if ! uv tool upgrade --all >/dev/null 2>&1; then
+        if ! upgrade_output=$(uv tool upgrade --all 2>&1); then
             echo -e "\033[33m! uv tools: upgrade failed\033[0m"
+            echo "$upgrade_output" | tail -n 5 | sed 's/^/  /'
         fi
         tools_after=$(uv tool list 2>/dev/null | grep -v '^-')
         while IFS= read -r line; do

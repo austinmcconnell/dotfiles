@@ -78,6 +78,14 @@ fi
 if ! is-executable uv || [[ -z "${default_minor:-}" ]]; then
     echo "Skipping global Python tools: uv and a default minor are required" >&2
 else
-    grep -v -E '^(#|$)' "$DOTFILES_DIR/etc/python/uv-tools" |
-        xargs -L 1 uv tool install --python "$default_minor"
+    failed_tools=()
+    while IFS= read -r line; do
+        [[ -n "$line" && "$line" != \#* ]] || continue
+        read -ra tool_args <<<"$line"
+        uv tool install --python "$default_minor" "${tool_args[@]}" ||
+            failed_tools+=("${tool_args[0]}")
+    done <"$DOTFILES_DIR/etc/python/uv-tools"
+    if [[ ${#failed_tools[@]} -gt 0 ]]; then
+        echo "uv tools failed to install: ${failed_tools[*]}" >&2
+    fi
 fi
