@@ -10,12 +10,12 @@
 # Default python and python3 from install/python.sh
 path=("$XDG_DATA_HOME/python/default/bin" ${path:#$XDG_DATA_HOME/python/default/bin})
 
-# Resolve bare python/python3 to the directory's .python-version via uv. Only prepends in pinned
-# directories.
-_python_implicit_shims="$XDG_CACHE_HOME/zsh/python-implicit"
+# Resolve bare python/python3 to the directory's .python-version via uv. Each pin gets its own link
+# dir, so shells in different pinned directories never overwrite each other's links.
+_python_implicit_root="$XDG_CACHE_HOME/zsh/python-implicit"
 
 function _python_implicit_chpwd() {
-  path=(${path:#$_python_implicit_shims})
+  path=(${path:#$_python_implicit_root/*})
   (( $+commands[uv] )) || return 0
 
   local dir="$PWD"
@@ -24,16 +24,18 @@ function _python_implicit_chpwd() {
   done
   [[ -f "$dir/.python-version" ]] || return 0
 
-  local interpreter
+  local pin shims interpreter
+  pin=$(<"$dir/.python-version")
+  shims="$_python_implicit_root/$pin"
   if ! interpreter=$(uv python find 2>/dev/null); then
-    print -u2 "python-implicit: pinned version not installed (run: uv python install $(<"$dir/.python-version"))"
+    print -u2 "python-implicit: pinned version not installed (run: uv python install $pin)"
     return 0
   fi
 
-  mkdir -p "$_python_implicit_shims"
-  ln -sfn "$interpreter" "$_python_implicit_shims/python"
-  ln -sfn "$interpreter" "$_python_implicit_shims/python3"
-  path=("$_python_implicit_shims" $path)
+  mkdir -p "$shims"
+  ln -sfn "$interpreter" "$shims/python"
+  ln -sfn "$interpreter" "$shims/python3"
+  path=("$shims" $path)
 }
 
 autoload -Uz add-zsh-hook

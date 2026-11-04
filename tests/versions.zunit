@@ -37,17 +37,23 @@
     assert ${#missing} equals 0
 }
 
-@test 'python-implicit resolves a .python-version pin via uv' {
+@test 'python-implicit links each pin to its own interpreter' {
     python_implicit_tmp=$(mktemp -d)
     local cache_dir="$python_implicit_tmp/cache"
-    local pin_dir="$python_implicit_tmp/pinned"
+    local pin_313="$python_implicit_tmp/pin-313"
+    local pin_311="$python_implicit_tmp/pin-311"
     local unpinned_dir="$python_implicit_tmp/unpinned"
-    mkdir -p "$pin_dir" "$unpinned_dir"
-    print -r -- 3.13 >"$pin_dir/.python-version"
+    mkdir -p "$pin_313" "$pin_311" "$unpinned_dir"
+    print -r -- 3.13 >"$pin_313/.python-version"
+    print -r -- 3.11 >"$pin_311/.python-version"
 
-    run env XDG_CACHE_HOME="$cache_dir" zsh -c 'source "$1"; cd "$2"; command -v python3' zsh "$DOTFILES_DIR/etc/zsh/conf.d/python.zsh" "$pin_dir"
-    assert $output contains python-implicit
+    run env XDG_CACHE_HOME="$cache_dir" zsh -f -c 'source "$1"; cd "$2"; cd "$3"; readlink "$4/3.13/python3"; readlink "$4/3.11/python3"' zsh "$DOTFILES_DIR/etc/zsh/conf.d/python.zsh" "$pin_313" "$pin_311" "$cache_dir/zsh/python-implicit"
+    assert $output contains cpython-3.13-
+    assert $output contains cpython-3.11-
 
-    run env XDG_CACHE_HOME="$cache_dir" zsh -c 'source "$1"; cd "$2"; command -v python3' zsh "$DOTFILES_DIR/etc/zsh/conf.d/python.zsh" "$unpinned_dir"
+    run env XDG_CACHE_HOME="$cache_dir" zsh -f -c 'source "$1"; cd "$2"; command -v python3' zsh "$DOTFILES_DIR/etc/zsh/conf.d/python.zsh" "$pin_311"
+    assert $output contains python-implicit/3.11/python3
+
+    run env XDG_CACHE_HOME="$cache_dir" zsh -f -c 'source "$1"; cd "$2"; command -v python3' zsh "$DOTFILES_DIR/etc/zsh/conf.d/python.zsh" "$unpinned_dir"
     assert $output does_not_contain python-implicit
 }
