@@ -136,6 +136,12 @@ sub_update() {
             uv_updated+=("$line")
         done < <(comm -13 <(echo "$tools_before" | sort) <(echo "$tools_after" | sort))
         print_update_summary "uv" "tools" "${uv_updated[@]}"
+
+        local python_output
+        if ! python_output=$(uv python upgrade 2>&1); then
+            echo -e "\033[33m! uv python: upgrade failed\033[0m"
+            echo "$python_output" | tail -n 5 | sed 's/^/  /'
+        fi
     fi
 
     print_section_header "Updating rbenv"

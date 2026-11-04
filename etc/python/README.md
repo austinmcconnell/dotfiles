@@ -23,15 +23,17 @@ Interpreters below).
 
 `install/python.sh` installs one uv-managed interpreter per supported minor version (3.11 through
 3.15) with `uv python install -U`. The `-U` flag moves an existing install to its latest patch.
+`dotfiles update` runs `uv python upgrade` to pick up later patch releases between installs. A new
+minor needs adding to `UV_PYTHON_VERSIONS` in `install/python.sh` before it is installed.
 
 Bare `python` and `python3` link to the second-newest of these minors (3.14 today), so a new release
 becomes the default only after a few months of ecosystem catch-up.
 
 A directory with a `.python-version` file resolves bare `python` and `python3` to that version. The
 hook in `etc/zsh/conf.d/python.zsh` runs on every `cd`, links the uv interpreter into
-`$XDG_CACHE_HOME/zsh/python-implicit`, and prepends that directory to `PATH` only while the cwd is
-pinned (or inside a pinned directory). If the pinned version is not installed, the hook prints the
-`uv python install` command to run.
+`$XDG_CACHE_HOME/zsh/python-implicit/<pin>`, and prepends that directory to `PATH` only while the
+cwd is pinned (or inside a pinned directory). If the pinned version is not installed, the hook
+prints the `uv python install` command to run.
 
 ## Installation and Symlink Targets
 
