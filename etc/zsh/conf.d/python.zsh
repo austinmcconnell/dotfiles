@@ -16,6 +16,7 @@ _python_implicit_shims="$XDG_CACHE_HOME/zsh/python-implicit"
 
 function _python_implicit_chpwd() {
   path=(${path:#$_python_implicit_shims})
+  (( $+commands[uv] )) || return 0
 
   local dir="$PWD"
   while [[ "$dir" != "/" && ! -f "$dir/.python-version" ]]; do
