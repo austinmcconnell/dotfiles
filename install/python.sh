@@ -57,12 +57,14 @@ PYTHON_DEFAULT_BIN="$XDG_DATA_HOME/python/default/bin"
 if ! is-executable uv || ! is-executable jq; then
     echo "Skipping default python: uv and jq are required" >&2
 else
+    # shellcheck disable=SC2016 # $ARGS is a jq variable, not a shell expansion
     second_newest_minor='
         [.[].version_parts | "\(.major).\(.minor)"] | unique
+        | map(select(. as $minor | $ARGS.positional | index($minor)))
         | sort_by(split(".") | map(tonumber)) | .[-2] // empty
     '
     default_minor=$(uv python list --only-installed --managed-python --output-format json |
-        jq -r "$second_newest_minor")
+        jq -r --args "$second_newest_minor" "${UV_PYTHON_VERSIONS[@]}")
     if [[ -z "$default_minor" ]]; then
         echo "Skipping default python: fewer than two uv-managed minors installed" >&2
     else
