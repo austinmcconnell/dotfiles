@@ -21,11 +21,28 @@
     assert $output is_greater_than 0
 }
 
+@teardown {
+    if [[ -n "${python_implicit_tmp:-}" ]]; then
+        rm -rf "$python_implicit_tmp"
+    fi
+}
+
+@test 'uv has every interpreter the installer lists' {
+    local -a missing=()
+    local version
+    for version in ${=$(sed -n 's/^UV_PYTHON_VERSIONS=(\(.*\))$/\1/p' "$DOTFILES_DIR/install/python.sh")}; do
+        uv python find "$version" >/dev/null 2>&1 || missing+=("$version")
+    done
+    [[ ${#missing} -eq 0 ]] || fail "missing: ${(j:, :)missing}"
+    assert ${#missing} equals 0
+}
+
 @test 'python-implicit resolves a .python-version pin via uv' {
-    local cache_dir pin_dir unpinned_dir
-    cache_dir=$(mktemp -d)
-    pin_dir=$(mktemp -d)
-    unpinned_dir=$(mktemp -d)
+    python_implicit_tmp=$(mktemp -d)
+    local cache_dir="$python_implicit_tmp/cache"
+    local pin_dir="$python_implicit_tmp/pinned"
+    local unpinned_dir="$python_implicit_tmp/unpinned"
+    mkdir -p "$pin_dir" "$unpinned_dir"
     print -r -- 3.13 >"$pin_dir/.python-version"
 
     run env XDG_CACHE_HOME="$cache_dir" zsh -c 'source "$1"; cd "$2"; command -v python3' zsh "$DOTFILES_DIR/etc/zsh/conf.d/python.zsh" "$pin_dir"
@@ -33,6 +50,4 @@
 
     run env XDG_CACHE_HOME="$cache_dir" zsh -c 'source "$1"; cd "$2"; command -v python3' zsh "$DOTFILES_DIR/etc/zsh/conf.d/python.zsh" "$unpinned_dir"
     assert $output does_not_contain python-implicit
-
-    rm -rf "$cache_dir" "$pin_dir" "$unpinned_dir"
 }
