@@ -48,7 +48,13 @@ UV_PYTHON_VERSIONS=(3.11 3.12 3.13 3.14 3.15)
 if ! is-executable uv; then
     echo "Skipping uv-managed Python interpreters: uv is not installed" >&2
 else
-    uv python install --system-certs -U "${UV_PYTHON_VERSIONS[@]}"
+    failed_interpreters=()
+    for version in "${UV_PYTHON_VERSIONS[@]}"; do
+        uv python install --system-certs -U "$version" || failed_interpreters+=("$version")
+    done
+    if [[ ${#failed_interpreters[@]} -gt 0 ]]; then
+        echo "uv python install failed: ${failed_interpreters[*]}" >&2
+    fi
 fi
 
 # Bare python and python3 use the second-newest uv minor: a new release gets a few months of
