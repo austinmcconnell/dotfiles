@@ -63,6 +63,29 @@ sub_test() {
     cd "$DOTFILES_DIR" && zunit "$DOTFILES_DIR"/tests/*.zunit
 }
 
+# Lists the venvs and .python-version files that reference a patch. Returns 2 when the scan
+# cannot finish, so the caller keeps the patch instead of reading an unreadable tree as unpinned.
+pinning_venvs() {
+    local key=$1 version=$2 scan_root=$3
+    local listing path status
+    listing=$(find "$scan_root" \( -path "$scan_root/Library" -o -path "$scan_root/.cache" -o -path "$scan_root/.Trash" -o -name node_modules \) -prune \
+        -o \( -name pyvenv.cfg -o -name .python-version \) -print) || return 2
+    while IFS= read -r path; do
+        [[ -n "$path" ]] || continue
+        if [[ "$path" == */pyvenv.cfg ]]; then
+            grep -q -F -- "/$key/" "$path"
+        else
+            grep -q -x -F -- "$version" "$path"
+        fi
+        status=$?
+        case $status in
+        0) echo "$path" ;;
+        1) ;;
+        *) return 2 ;;
+        esac
+    done <<<"$listing"
+}
+
 # Remove superseded uv Python patches, keeping the newest per minor. uv keeps a patch
 # for any venv pinned to its full path, so skip a patch that a pyvenv.cfg still points into.
 prune_python_patches() {
@@ -72,9 +95,10 @@ prune_python_patches() {
     listing=$(uv python list --only-installed --managed-python --output-format json 2>/dev/null) || return 0
     while IFS=$'\t' read -r key version; do
         local pinned
-        pinned=$(find "$scan_root" \
-            \( -path "$scan_root/Library" -o -path "$scan_root/.cache" -o -path "$scan_root/.Trash" -o -name node_modules \) -prune \
-            -o -name pyvenv.cfg -exec grep -F -l -- "/$key/" {} + 2>/dev/null)
+        if ! pinned=$(pinning_venvs "$key" "$version" "$scan_root"); then
+            echo -e "\033[33m! uv python: could not scan $scan_root, keeping $version\033[0m"
+            continue
+        fi
         if [[ -n "$pinned" ]]; then
             echo -e "\033[33m! uv python: keeping $version, still used by:\033[0m"
             while IFS= read -r venv_cfg; do
