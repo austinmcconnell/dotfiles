@@ -23,8 +23,10 @@ Interpreters below).
 
 `install/python.sh` installs one uv-managed interpreter per supported minor version (3.11 through
 3.15) with `uv python install -U`. The `-U` flag moves an existing install to its latest patch.
-`dotfiles update` runs `uv python upgrade` to pick up later patch releases between installs. A new
-minor needs adding to `UV_PYTHON_VERSIONS` in `install/python.sh` before it is installed.
+`dotfiles update` runs `uv python upgrade` to pick up later patch releases between installs, then
+uninstalls the older patches of each minor. A patch that a `pyvenv.cfg` under `$HOME` still points
+into is kept, so venvs pinned to a full patch path keep working. A new minor needs adding to
+`UV_PYTHON_VERSIONS` in `install/python.sh` before it is installed.
 
 Bare `python` and `python3` link to the second-newest of these minors (3.14 today), so a new release
 becomes the default only after a few months of ecosystem catch-up.

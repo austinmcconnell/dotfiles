@@ -63,6 +63,36 @@ sub_test() {
     cd "$DOTFILES_DIR" && zunit "$DOTFILES_DIR"/tests/*.zunit
 }
 
+# Remove superseded uv Python patches, keeping the newest per minor. uv keeps a patch
+# for any venv pinned to its full path, so skip a patch that a pyvenv.cfg still points into.
+prune_python_patches() {
+    is-executable jq || return 0
+    local scan_root="${PYTHON_VENV_SCAN_ROOT:-$HOME}"
+    local listing key version
+    listing=$(uv python list --only-installed --managed-python --output-format json 2>/dev/null) || return 0
+    while IFS=$'\t' read -r key version; do
+        local pinned
+        pinned=$(find "$scan_root" \
+            \( -path "$scan_root/Library" -o -path "$scan_root/.cache" -o -path "$scan_root/.Trash" -o -name node_modules \) -prune \
+            -o -name pyvenv.cfg -exec grep -F -l -- "/$key/" {} + 2>/dev/null)
+        if [[ -n "$pinned" ]]; then
+            echo -e "\033[33m! uv python: keeping $version, still used by:\033[0m"
+            while IFS= read -r venv_cfg; do
+                echo "  $venv_cfg"
+            done <<<"$pinned"
+            continue
+        fi
+        local uninstall_output
+        if uninstall_output=$(uv python uninstall "$version" 2>&1); then
+            echo "uv python: removed $version"
+        else
+            echo -e "\033[33m! uv python: could not remove $version\033[0m"
+            echo "$uninstall_output" | tail -n 5 | sed 's/^/  /'
+        fi
+    done < <(jq -r 'unique_by(.key) | group_by([.version_parts.major, .version_parts.minor])[]
+        | sort_by(.version_parts.patch) | .[:-1][] | [.key, .version] | @tsv' <<<"$listing")
+}
+
 # Update all packages and package managers
 sub_update() {
     log_info "Starting update process"
@@ -142,6 +172,7 @@ sub_update() {
             echo -e "\033[33m! uv python: upgrade failed\033[0m"
             echo "$python_output" | tail -n 5 | sed 's/^/  /'
         fi
+        prune_python_patches
     fi
 
     print_section_header "Updating rbenv"
