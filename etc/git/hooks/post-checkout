@@ -7,13 +7,21 @@
 
 # If this is a clone operation, $1 will be all zeros
 if [ "$1" = "0000000000000000000000000000000000000000" ]; then
-    # Skip repos in cache, plugin, or temp directories
+    # Skip repos in cache, plugin, or temp directories (macOS resolves /tmp to /private/tmp)
     REPO_DIR="$(git rev-parse --show-toplevel)"
     case "$REPO_DIR" in
-    "$HOME/.cache/"* | "$HOME/.vim/"* | "$HOME/sources/"* | /tmp/*)
+    "$HOME/.cache/"* | "$HOME/.vim/"* | "$HOME/sources/"* | /tmp/* | /private/tmp/* | \
+        /private/var/folders/*)
         exit 0
         ;;
     esac
+
+    # Linked worktrees share the main repo's refs and maintenance registration
+    git_dir="$(git rev-parse --path-format=absolute --git-dir)"
+    common_dir="$(git rev-parse --path-format=absolute --git-common-dir)"
+    if [[ "${git_dir}" != "${common_dir}" ]]; then
+        exit 0
+    fi
 
     # Check if we have a remote named origin
     if git remote | grep -q "^origin$"; then
