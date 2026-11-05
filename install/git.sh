@@ -73,7 +73,8 @@ if [ -f "$MAINTENANCE_CONFIG" ]; then
     printf '[maintenance]\n' >"$MAINTENANCE_CONFIG.tmp"
     sed -n 's/.*repo = //p' "$MAINTENANCE_CONFIG" | sort -u | while read -r repo; do
         case "$repo" in
-        "$HOME/.cache/"* | "$HOME/.vim/"* | "$HOME/sources/"* | /tmp/*) continue ;;
+        "$HOME/.cache/"* | "$HOME/.vim/"* | "$HOME/sources/"* | /tmp/* | /private/tmp/* | \
+            /private/var/folders/*) continue ;;
         esac
         printf '    repo = %s\n' "$repo"
     done >>"$MAINTENANCE_CONFIG.tmp"
