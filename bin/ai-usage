@@ -29,15 +29,16 @@ BIN_NAME="$(basename "$0")"
 
 usage() {
     cat <<EOF
-Usage: $BIN_NAME [--summary|--by-model|--by-effort]
+Usage: $BIN_NAME [--summary|--by-model|--by-effort|--rate-limits]
 
 Canned reports over the local AI usage/cost store ($USAGE_DB).
 
 Options:
-   --summary     Totals by tool (sessions, cost, tokens)
-   --by-model    Totals grouped by model
-   --by-effort   Totals grouped by model, then effort
-   --help        This help message
+   --summary      Totals by tool (sessions, cost, tokens)
+   --by-model     Totals grouped by model
+   --by-effort    Totals grouped by model, then effort
+   --rate-limits  Current 5h/7d rate-limit usage (most recent snapshot)
+   --help         This help message
 EOF
 }
 
@@ -146,6 +147,26 @@ mode_by_effort() {
     print_cost_caveat
 }
 
+mode_rate_limits() {
+    require_db
+    echo -e "${bold}Current rate-limit usage${reset}"
+    # Account-wide, not per-session -- the most recent row across every
+    # session is the whole account's current state (see etc/ai/usage/
+    # README.md's rate_limit_snapshots section for why there's no
+    # session_id to group by).
+    run_report "
+        SELECT
+            printf('%.0f%%', five_hour_used_percentage) AS five_hour_used,
+            datetime(five_hour_resets_at, 'unixepoch') AS five_hour_resets_at,
+            printf('%.0f%%', seven_day_used_percentage) AS seven_day_used,
+            datetime(seven_day_resets_at, 'unixepoch') AS seven_day_resets_at,
+            occurred_at AS as_of
+        FROM rate_limit_snapshots
+        ORDER BY id DESC
+        LIMIT 1;
+    " "No rate-limit data recorded yet (only present for claude.ai Pro/Max/Ultra subscribers)."
+}
+
 case "${1:---help}" in
 --summary)
     mode_summary
@@ -155,6 +176,9 @@ case "${1:---help}" in
     ;;
 --by-effort)
     mode_by_effort
+    ;;
+--rate-limits)
+    mode_rate_limits
     ;;
 --help | -h)
     usage
