@@ -15,7 +15,7 @@ works across fresh macOS installations.
 - `install/` - Modular installation scripts for setting up tools and environments
 - `scripts/` - Helper scripts for automation and analysis
 - `macos/` - macOS-specific settings (Dock, system defaults)
-- `tests/` - Zunit tests for shell functions
+- `tests/` - Zunit tests that check the installed environment (see `tests/README.md`)
 
 ### Key Configuration Areas
 
@@ -152,12 +152,8 @@ See `~/.ai-dotfiles/etc/kiro-cli/README.md`.
 
 ### Running the Dotfiles Command
 
-- `dotfiles help` - Show available commands
-- `dotfiles update` - Update all package managers and packages
-- `dotfiles clean` - Clean caches (brew, npm, gem)
-- `dotfiles test` - Run test suite
-- `dotfiles macos` - Apply macOS system defaults
-- `dotfiles dock` - Configure Dock applications
+Run `dotfiles help` for the current subcommand list. For what the command does and how to add a
+subcommand, read `bin/README.md`.
 
 ## AI Tooling
 
