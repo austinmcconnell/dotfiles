@@ -73,7 +73,7 @@ specific files.
 
     Commands:
        analysis-status      Show analysis report status for $PROJECTS_DIR
-       clean                Clean up caches (brew, apt, gem, vim plugins)
+       clean                Clean up caches (brew, apt, gem, uv, vim plugins)
        edit                 Open dotfiles in IDE (vim)
        help                 This help message
        mac                  macOS specific commands (see below)

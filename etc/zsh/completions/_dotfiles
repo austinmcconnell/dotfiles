@@ -19,7 +19,7 @@ _dotfiles() {
 _dotfiles_commands() {
     local commands=(
         'analysis-status:Show analysis report status for $PROJECTS_DIR'
-        'clean:Clean up caches (brew, apt, gem, vim plugins)'
+        'clean:Clean up caches (brew, apt, gem, uv, vim plugins)'
         'edit:Open dotfiles in IDE'
         'help:Show help message'
         'mac:macOS specific commands'
