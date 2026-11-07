@@ -45,7 +45,8 @@ Run setup script `install.sh`:
 ```
 
 `install.sh` asks whether this is a work computer. The answer selects the work or personal package
-set and Dock layout, and it is stored in `~/.extra/.env`.
+set and Dock layout, and it is stored in `~/.extra/.env`. To branch on it in your own scripts, see
+"Work vs. Personal" in [etc/zsh/README.md](./etc/zsh/README.md).
 
 ## Post-install
 
