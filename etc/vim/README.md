@@ -80,6 +80,20 @@ Language-specific configurations in `after/ftplugin/` override defaults for:
 - **Git integration**: GitGutter diff indicators, branch info in status line
 - **Tag-based navigation**: Auto-generated ctags with gutentags
 
+## Adding a Plugin
+
+1. Add a `Plug 'owner/repo'` line to `.vimrc` between `plug#begin` and `plug#end`, under the
+   matching category comment. vim-plug options go after the name, such as
+   `{ 'for': ['sh', 'zsh', 'vim'] }` to load it only for those filetypes.
+1. Put the plugin's settings and mappings in `plugin/<name>.vim`, named after the plugin
+   (`undotree.vim`, `tagbar.vim`), not in `.vimrc`. `install/vim.sh` symlinks the whole `plugin/`
+   directory into `~/.vim`, so a new file needs no install step.
+1. Restart Vim. When a declared plugin is missing, `.vimrc` runs `PlugInstall --sync` at startup.
+   `:PlugInstall` does the same by hand.
+
+To remove a plugin, delete its `Plug` line and its `plugin/` file, then run `dotfiles clean`, which
+runs `PlugClean` to delete the checkout. `dotfiles update` runs `PlugUpdate` and `PlugUpgrade`.
+
 ## Finding Specific Information
 
 - **Key mappings**: Check individual plugin files in `plugin/`; `vim-mappings.md` (this directory)
