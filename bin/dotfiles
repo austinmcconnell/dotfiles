@@ -1121,27 +1121,3 @@ case $COMMAND_NAME in
     fi
     ;;
 esac
-
-# For backward compatibility
-# These functions are kept for backward compatibility with existing scripts
-# They will be removed in a future version
-
-sub_mac-defaults() {
-    log_warning "The command 'mac-defaults' is deprecated. Please use 'mac defaults' instead."
-    sub_mac_defaults "$@"
-}
-
-sub_mac-apps() {
-    log_warning "The command 'mac-apps' is deprecated. Please use 'mac apps' instead."
-    sub_mac_apps "$@"
-}
-
-sub_mac-dock-personal() {
-    log_warning "The command 'mac-dock-personal' is deprecated. Please use 'mac dock personal' instead."
-    sub_mac_dock_personal "$@"
-}
-
-sub_mac-dock-work() {
-    log_warning "The command 'mac-dock-work' is deprecated. Please use 'mac dock work' instead."
-    sub_mac_dock_work "$@"
-}
