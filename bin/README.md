@@ -20,6 +20,10 @@ sub_hello() {
 }
 ```
 
+Two other lists name the public commands and are not generated from `sub_help`. Add the command to
+the word list echoed by `sub_completion` in `bin/dotfiles`, and to the `commands` array in
+`etc/zsh/completions/_dotfiles`, so it tab-completes.
+
 ## Platform predicates
 
 Each exits `0` when true and `1` when false, so they work in `if` and `&&`.
