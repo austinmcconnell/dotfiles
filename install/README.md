@@ -50,7 +50,7 @@ packages, and it runs `PlugClean` for Vim. See `bin/dotfiles` for the full list 
 
 ## How install.sh Invokes Scripts
 
-Running `/install.sh` from the repository root:
+Running `install.sh` from the repository root:
 
 1. Prompts for "Is this a work computer?" and writes result to `~/.extra/.env`
 1. Sources scripts in this order (for correct dependency sequencing):

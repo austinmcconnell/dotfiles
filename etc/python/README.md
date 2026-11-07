@@ -72,7 +72,7 @@ ruff runs as both linter (`--fix`) and formatter.
 ### Python REPL Startup
 
 `pythonrc` is invoked via the `PYTHONSTARTUP` environment variable (set in
-`etc/zsh/conf.d/ python.zsh`). It configures readline history to persist in
+`etc/zsh/conf.d/python.zsh`). It configures readline history to persist in
 `$XDG_DATA_HOME/python/python_history` rather than in the home directory root.
 
 ### Markdown Formatting

@@ -40,7 +40,7 @@ The `scripts/sort-git-config.sh` script organizes the main config file into logi
 ~/.dotfiles/scripts/sort-git-config.sh
 
 # Or specify a different config
-~/dotfiles/scripts/sort-git-config.sh path/to/config
+~/.dotfiles/scripts/sort-git-config.sh path/to/config
 ```
 
 **What it does:**
