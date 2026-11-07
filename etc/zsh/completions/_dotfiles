@@ -23,6 +23,8 @@ _dotfiles_commands() {
         'edit:Open dotfiles in IDE'
         'help:Show help message'
         'mac:macOS specific commands'
+        'memory-check:Show engram memory-conflict debt (all projects)'
+        'orphans:Find packages installed but not tracked in dotfiles'
         'sync-projects:Fetch and fast-forward $PROJECTS_DIR repositories'
         'sync-sources:Fetch and reset $SOURCES_DIR repositories'
         'test:Run tests'
@@ -36,7 +38,7 @@ _dotfiles_args() {
         mac)
             _dotfiles_mac_commands
             ;;
-        analysis-status|clean|edit|help|test|update|sync-projects|sync-sources)
+        analysis-status|clean|edit|help|memory-check|orphans|test|update|sync-projects|sync-sources)
             # These commands don't take additional arguments
             ;;
     esac
