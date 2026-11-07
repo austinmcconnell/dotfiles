@@ -10,17 +10,17 @@ tool.
 
 ## Large configurations
 
-| Directory       | Contents                                                         | Installed by                  |
-| :-------------- | :--------------------------------------------------------------- | :---------------------------- |
-| `zsh/`          | Zsh startup files, `conf.d/`, functions, completions (README)    | `install/zsh.sh`              |
-| `vim/`          | `.vimrc`, per-plugin config, ftplugins, syntax (README)          | `install/vim.sh`              |
-| `git/`          | Git config, hooks, attributes, commit template (README)          | `install/git.sh`              |
-| `kubernetes/`   | k3d cluster, helmfile, chart values, bats tests (README)         | `install/kubernetes/setup.sh` |
-| `python/`       | Ruff and other Python tool configs (README)                      | `install/python.sh`           |
-| `ssh/`          | SSH config and the `hosts.d/` machine-specific includes (README) | `install/ssh.sh`              |
-| `ruby/`         | gemrc, irbrc, rubocop, default gems                              | `install/ruby.sh`             |
-| `sublime-text/` | Sublime Text settings, keymap and LSP config                     | `install/brew.sh`             |
-| `terminfo/`     | tmux and xterm terminfo definitions                              | `install/zsh.sh`              |
+| Directory       | Contents                                                                      | Installed by                  |
+| :-------------- | :---------------------------------------------------------------------------- | :---------------------------- |
+| `zsh/`          | Zsh startup files, `conf.d/`, functions, completions (README)                 | `install/zsh.sh`              |
+| `vim/`          | `.vimrc`, per-plugin config, ftplugins, syntax (README)                       | `install/vim.sh`              |
+| `git/`          | Git config, hooks, attributes, commit template (README)                       | `install/git.sh`              |
+| `kubernetes/`   | k3d cluster, helmfile, chart values, bats tests (README)                      | `install/kubernetes/setup.sh` |
+| `python/`       | Ruff and other Python tool configs (README)                                   | `install/python.sh`           |
+| `ssh/`          | SSH config and the `hosts.d/` machine-specific includes (`hosts.d/README.md`) | `install/ssh.sh`              |
+| `ruby/`         | gemrc, irbrc, rubocop, default gems                                           | `install/ruby.sh`             |
+| `sublime-text/` | Sublime Text settings, keymap and LSP config                                  | `install/brew.sh`             |
+| `terminfo/`     | tmux and xterm terminfo definitions                                           | `install/zsh.sh`              |
 
 ## Single-tool configurations
 
