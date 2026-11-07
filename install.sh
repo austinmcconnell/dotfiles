@@ -67,7 +67,7 @@ fi
 . "$DOTFILES_DIR/macos/apps.sh"             # macOS applications
 . "$DOTFILES_DIR/install/apt.sh"            # APT packages (Debian)
 . "$DOTFILES_DIR/install/python.sh"         # Python with uv
-. "$DOTFILES_DIR/install/node.sh"           # Node.js with nvm
+. "$DOTFILES_DIR/install/node.sh"           # Node.js with fnm
 . "$DOTFILES_DIR/install/go.sh"             # Go with development tools
 . "$DOTFILES_DIR/install/vim.sh"            # Vim with vim-plug
 . "$DOTFILES_DIR/install/ruby.sh"           # Ruby with rbenv
