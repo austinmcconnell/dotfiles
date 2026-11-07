@@ -7,7 +7,8 @@ intelligent completions, and productivity-focused tooling.
 
 - **Modular architecture**: Organized configuration files for maintainability and performance
 - **Framework-based**: Built on Zephyr framework for consistent, well-tested functionality
-- **Performance-first**: Lazy loading, caching, and parallel plugin loading for fast startup
+- **Performance-first**: Static plugin loading, compiled plugins, and a cached completion dump for
+  fast startup
 - **Developer-focused**: Git integration, fuzzy finding, and AI-assisted workflows
 - **Extensible**: Plugin system with custom functions and abbreviations
 
@@ -46,7 +47,8 @@ Uses Antidote plugin manager with Zephyr framework components:
 - **Framework plugins**: Core Zephyr components for history, completion, utilities
 - **External plugins**: Community plugins for enhanced functionality
 - **Custom plugins**: Local customizations and work-specific configurations
-- **Deferred loading**: Performance optimization for non-essential plugins
+- **Deferred loading**: Available with `kind:defer` in `.zsh_plugins.txt`; no plugin is deferred
+  today
 
 ### Modular Configuration (conf.d/)
 
@@ -60,7 +62,7 @@ Topic-based configuration files loaded automatically:
 ### Key Conventions
 
 - **XDG compliance**: Follows XDG Base Directory specification
-- **Performance optimization**: Caching, parallel loading, and lazy initialization
+- **Performance optimization**: Static plugin loading, `zcompile`, and a cached completion dump
 - **Conditional loading**: Platform and context-aware configuration
 - **Abbreviation system**: Short aliases that expand for common commands
 
