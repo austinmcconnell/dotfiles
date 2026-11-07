@@ -11,7 +11,7 @@ works across fresh macOS installations.
 ### Core Directories
 
 - `bin/` - Custom executable scripts and utilities
-- `etc/` - Configuration files organized by tool (git, zsh, vim, python, kiro-cli, etc.)
+- `etc/` - Configuration files organized by tool (git, zsh, vim, python, kubernetes, etc.)
 - `install/` - Modular installation scripts for setting up tools and environments
 - `scripts/` - Helper scripts for automation and analysis
 - `macos/` - macOS-specific settings (Dock, system defaults)
@@ -23,7 +23,7 @@ works across fresh macOS installations.
 - **Development Tools**: Git, Vim (with ALE linting), Python, Node, Ruby, Go, Terraform
 - **AI Tools**: Kiro CLI (custom agents), Codex, Cursor, Claude Code (see `~/.ai-dotfiles/etc/ai/`
   and tool-specific dirs)
-- **Kubernetes**: Kind cluster configurations and components
+- **Kubernetes**: k3d cluster configuration and helmfile-managed components
 
 ### Zsh Configuration Architecture
 
@@ -130,7 +130,7 @@ Codex. Always: use `.pre-commit-config.yaml` hooks and test changes before commi
 
 - **Shell**: Zsh, Bash
 - **Languages**: Python, Node.js, Ruby, Go
-- **Infrastructure**: Kubernetes (Kind), Terraform, AWS CLI
+- **Infrastructure**: Kubernetes (k3d), Terraform, AWS CLI
 - **Editors**: Vim (vim-plug, ALE, 20+ plugins), Sublime Text
 - **Version Control**: Git with custom aliases and hooks
 - **AI Tools**: Kiro CLI with custom agents and MCP servers, Codex, Cursor, Claude Code
