@@ -1,15 +1,16 @@
 # Scripts
 
 Helper scripts for maintenance, analysis, and one-off automation. Unlike `bin/`, nothing here is on
-`PATH`; scripts are run by path. Most are manual utilities. Only the two scripts in "Wired into the
-repo" are called by other parts of the repo.
+`PATH`; scripts are run by path. Most are manual utilities. Only the three scripts in "Wired into
+the repo" are called by other parts of the repo.
 
 ## Wired into the repo
 
-| Script               | Called by                                                                        |
-| :------------------- | :------------------------------------------------------------------------------- |
-| `sort-git-config.sh` | The "Sort git config" hook in `.pre-commit-config.yaml`; see `etc/git/README.md` |
-| `gem_orphans.rb`     | `dotfiles orphans` (`sub_orphans` in `bin/dotfiles`)                             |
+| Script                         | Called by                                                                                                                                |
+| :----------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------- |
+| `sort-git-config.sh`           | The "Sort git config" hook in `.pre-commit-config.yaml`; see `etc/git/README.md`                                                         |
+| `generate-vim-mappings-doc.sh` | The "Regenerate Vim mappings reference" hook, on changes to `etc/vim/.vimrc` or `etc/vim/plugin/*.vim`; writes `etc/vim/vim-mappings.md` |
+| `gem_orphans.rb`               | `dotfiles orphans` (`sub_orphans` in `bin/dotfiles`)                                                                                     |
 
 `ai-prompt.sh` is not wired in: `etc/zsh/conf.d/ai-prompts.zsh` sources the copy in
 `$AI_DOTFILES_DIR/scripts/` instead, and no caller of this copy was found in this repo.
@@ -27,7 +28,6 @@ caller was found for any script in this table.
 | `convert-github-remotes-to-ssh.py` | Convert GitHub HTTPS remotes to SSH                                              |
 | `sort_git_repos_by_owner.py`       | Move repos into an `owner/repo` directory layout                                 |
 | `configure_env_and_leave_files.py` | Add venv activate/deactivate env files to repos (assumes the owner layout)       |
-| `generate-vim-mappings-doc.sh`     | Extract mappings from `etc/vim/plugin/` into `etc/vim/vim-mappings.md`           |
 | `scan-docs.sh`                     | Report status of documentation repos (default `$PROJECTS_DIR/_documentation_`)   |
 | `convert-pylint-to-ruff.sh`        | Rewrite pylint disable comments as ruff `noqa` (`[--yes]`, current directory)    |
 | `sort_docker_compose.py`           | Reorder Docker Compose YAML keys into a canonical order                          |
