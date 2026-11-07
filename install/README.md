@@ -46,7 +46,8 @@ yt-dlp.sh (video downloader with config).
 
 `dotfiles update` upgrades mas, Homebrew, APT, Snap, antidote, and vim-plug, and it also updates the
 Python, Ruby, and npm packages. `dotfiles clean` removes Homebrew and APT caches and unused
-packages, and it runs `PlugClean` for Vim. See `bin/dotfiles` for the full list of steps.
+packages, and it also runs `gem cleanup`, `uv cache prune`, and `PlugClean` for Vim. See
+`bin/dotfiles` for the full list of steps.
 
 ## How install.sh Invokes Scripts
 
@@ -68,10 +69,10 @@ configurations without re-running the full install.
 The `kubernetes.sh` wrapper manages k3d cluster state (start/stop) before invoking
 `install/kubernetes/setup.sh`, which sources `install/kubernetes/common.sh` for shared functions.
 `common.sh` loads environment variables from `etc/kubernetes/.env` and sources `install/utils.sh`.
-The `setup.sh` script installs k3d, kubectl, kubectx, helm, mkcert, creates a k3d cluster from
-`etc/kubernetes/k3d-config.yaml`, and runs hooks in `install/kubernetes/hooks/` (e.g.
-`configure-cert-manager.sh`). See `etc/kubernetes/README.md` for env template and cluster
-configuration details.
+The `setup.sh` script installs k3d, kubectl, kubectx, helm, mkcert, and helmfile on macOS (Debian
+gets only k3d and kubectl), creates a k3d cluster from `etc/kubernetes/k3d-config.yaml`, and runs
+hooks in `install/kubernetes/hooks/` (e.g. `configure-cert-manager.sh`). See
+`etc/kubernetes/README.md` for env template and cluster configuration details.
 
 ## Adding a New Install Script
 
