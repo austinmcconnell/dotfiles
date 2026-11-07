@@ -117,6 +117,36 @@ example lines commented until their paths exist: an uncommented path that is mis
 non-fatal warning at persona-generation time, whereas an absent file is silent — which is why these
 ship as `.example` templates you copy to activate rather than live files.
 
+## Adding an Abbreviation
+
+[zsh-abbr](https://github.com/olets/zsh-abbr) reads user abbreviations from
+`zsh-abbr/user-abbreviations`. `.zshenv` points `ABBR_USER_ABBREVIATIONS_FILE` at that tracked file,
+so a new abbreviation shows up in the repo diff.
+
+```bash
+abbr add gco="git checkout"
+```
+
+`abbr add` (or `abbr a`) writes to the file unless you pass `--session`, and refuses to overwrite an
+existing abbreviation. Add `-g` for an abbreviation that expands anywhere on the line, not just as
+the first word. To edit the file by hand, keep the existing format, one per line
+(`abbr "gb"="git branch"`), then run `abbr load` to reload it. `abbr erase <abbreviation>` removes
+one.
+
+## Adding a Completion
+
+1. Create `completions/_<command>`, starting with `#compdef <command>` (see
+   `completions/_dotfiles`).
+1. Link it into `$ZDOTDIR/completions`, which `.zsh_plugins.txt` adds to `fpath`. `install/zsh.sh`
+   links every `completions/_*` file there, or link one by hand:
+   `ln -sfv "$DOTFILES_DIR/etc/zsh/completions/_<command>" "$ZDOTDIR/completions/"`.
+1. Open a new shell.
+
+`.zstyles` turns on Zephyr's completion cache, which keeps the dump in
+`$XDG_CACHE_HOME/zsh/zcompdump` for up to 20 hours. Adding a file to `$ZDOTDIR/completions` makes
+that directory newer than the dump, so the next shell rebuilds it. If a completion still does not
+show up, run `run_compinit -f` to delete the dump and rebuild it.
+
 ## Performance Profiling
 
 Three tools are available for measuring and diagnosing shell startup performance:
