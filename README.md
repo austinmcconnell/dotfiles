@@ -4,6 +4,7 @@
 
 - [Install](#install)
 - [Post-install](#post-install)
+- [Pre-commit hooks](#pre-commit-hooks)
 - [The `dotfiles` command](#the-dotfiles-command)
 - [Directory map](#directory-map)
 - [Documentation](#documentation)
@@ -52,6 +53,18 @@ set and Dock layout, and it is stored in `~/.extra/.env`.
   [dock-personal.sh](./macos/dock-personal.sh) or [dock-work.sh](./macos/dock-work.sh))
 - `dotfiles mac defaults` (set [macOS defaults](./macos/defaults.sh))
 
+## Pre-commit hooks
+
+The hooks in [.pre-commit-config.yaml](./.pre-commit-config.yaml) lint and format the repo. No
+install script sets them up as a git hook, so run this once in each clone:
+
+```shell
+    pre-commit install
+```
+
+To run them by hand, use `pre-commit run --all-files`, or `pre-commit run --files <file>...` for
+specific files.
+
 ## The `dotfiles` command
 
 ```shell
@@ -95,6 +108,8 @@ Each directory has a README for the work it contains:
   [etc/vim/README.md](./etc/vim/README.md), [etc/git/README.md](./etc/git/README.md),
   [etc/kubernetes/README.md](./etc/kubernetes/README.md), and
   [etc/python/README.md](./etc/python/README.md)
+- For machine-specific SSH host config and the `ControlPath` multiplexing trap, see
+  [etc/ssh/hosts.d/README.md](./etc/ssh/hosts.d/README.md)
 
 ## Documentation
 
