@@ -47,7 +47,7 @@ works across fresh macOS installations.
 - **Custom Syntax**: Language-specific syntax files in `etc/vim/syntax/`
 - **Filetype Detection**: Custom rules in `etc/vim/filetype.vim`
 - **Leader Key**: Semicolon (`;`) for custom mappings
-- **Dependencies**: ctags (tag generation), the_silver_searcher (ag for searching)
+- **Dependencies**: ctags (tag generation), ripgrep (`rg` for searching)
 - **Philosophy**: Git-centric, auto-saving, comprehensive tooling, cross-platform
 - **Detailed Documentation**: See `etc/vim/README.md` for complete architecture overview
 
@@ -77,8 +77,8 @@ works across fresh macOS installations.
 1. **Update plugin manifest** - Edit `.zsh_plugins.txt` and regenerate static file with
    `antidote bundle`
 1. **Test startup performance** - Use `ZSH_PROFILE_RC=1 zsh` to profile startup time
-1. **Defer non-essential plugins** - Add `kind:defer` to plugins in `.zsh_plugins.txt` for faster
-   startup
+1. **Defer non-essential plugins** - Add `kind:defer` to a plugin in `.zsh_plugins.txt` for faster
+   startup; the "Deferred Plugins" section there is empty today
 1. **Platform-specific configs** - Use `.zsh-darwin` or `.zsh-linux` suffixes for OS-specific files
 1. **Regenerate static file** - After changing `.zsh_plugins.txt`, run:
    `antidote bundle <~/.config/zsh/.zsh_plugins.txt >~/.config/zsh/.zsh_plugins.zsh`
