@@ -21,8 +21,11 @@ Access via: File → Preferences → Export → PDF
 
 1. **GitHub** - Clean, familiar formatting
 1. **Academic** - Professional, paper-like appearance
-1. **Lapis** - Clean academic style
-1. **Dotfiles Clean** - Custom theme optimized for PDFs
+1. **Lapis** - Clean academic style (installed by `install/typora.sh`)
+1. **Notion** - Notion-like page styling (installed by `install/typora.sh`)
+
+`install/typora.sh` also installs the Everforest and Nord themes. Both use darker palettes, so
+preview the export before relying on either for PDF.
 
 ## HTML Export Settings
 
