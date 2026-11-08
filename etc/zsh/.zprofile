@@ -26,6 +26,7 @@ path=(
     $RBENV_ROOT/bin
     $DOTFILES_DIR/bin(N)
     $DOTFILES_DIR/scripts(N)
+    $AI_DOTFILES_DIR/bin(N)
     $HOME/go/bin
     $HOME/.rvm/bin
     $path
