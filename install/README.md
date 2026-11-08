@@ -4,33 +4,31 @@ Modular installation framework for macOS and Debian dotfiles. Each script in thi
 one tool or environment, checking for existing installations, installing if needed, and symlinking
 configuration files from `etc/` into XDG-compliant home directory locations. All scripts are meant
 to be idempotent—safe to run repeatedly. Platform checks use the helpers in `bin/` (`is-macos`,
-`is-debian`, `is-executable`). Only `brew.sh`, `ghostty.sh`, `extra.sh`, `sops.sh`, and `typora.sh`
-source the shared helpers in `install/utils.sh`.
+`is-debian`, `is-executable`). Only `brew.sh`, `ghostty.sh`, `sops.sh`, and `typora.sh` source the
+shared helpers in `install/utils.sh`.
 
 ## Installation Scripts
 
-| Script            | Installs / Configures                                           | Notable Details                                            |
-| ----------------- | --------------------------------------------------------------- | ---------------------------------------------------------- |
-| git.sh            | Git, config files, hooks, maintenance                           | Sets up global git maintenance tasks                       |
-| zsh.sh            | Zsh shell, antidote plugin manager, starship, iTerm2            | Installs completions, iterm2_shell_integration             |
-| brew.sh           | Homebrew on macOS/Linux, Sublime Text, misc CLI tools           | Large script; also symlinks misc configs (bat, fd)         |
-| apt.sh            | APT packages (Debian-only)                                      | bc, fonts-firacode, less                                   |
-| python.sh         | Python with uv, default python, global tools (ruff, mypy, etc.) | Symlinks pip, yapf, ruff, mypy, proselint configs          |
-| node.sh           | Node.js with fnm, npm default packages, completions             | Uses fnm (Fast Node Manager) instead of nvm                |
-| go.sh             | Go with GOPATH setup, gopls, goimports, dlv, staticcheck        | Installs Go language server and dev tools                  |
-| vim.sh            | Vim with vim-plug, ctags, linters (ALE)                         | Symlinks after, plugin, syntax dirs                        |
-| ruby.sh           | Ruby with rbenv, ruby-build, bundler, rubocop                   | Uses rbenv; installs default version 3.4.9                 |
-| ssh.sh            | SSH config, host detection, control masters setup               | Creates ~/.ssh/hosts.d/ for host-specific configs          |
-| dircolors.sh      | Dircolors themes (nord, bliss)                                  | Links vendored theme files to ~/.dircolors/                |
-| xdg-compliance.sh | XDG-compliant directories for less, wget, PostgreSQL            | Migrates legacy dot files to XDG locations                 |
-| sops.sh           | SOPS + age secret encryption, age key generation                | XDG-compliant sops directory setup                         |
-| glow.sh           | Glow markdown viewer                                            | Installs via brew or snap; symlinks config                 |
-| ghostty.sh        | Ghostty terminal emulator (macOS trial setup)                   | Also symlinks Everforest theme                             |
-| terraform.sh      | Terraform with tfenv, terraform-docs, tfsec, checkov            | Installs latest Terraform version via tfenv                |
-| extra.sh          | ~/.extra scaffolds for AI source templates                      | Creates skill-sources.example and steering-sources.example |
-
-**Not invoked by install.sh:** dotnet.sh (installs .NET SDK), typora.sh (macOS-only Typora themes),
-yt-dlp.sh (video downloader with config).
+| Script                                                                                              | Installs / Configures                                           | Notable Details                                    |
+| --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- | -------------------------------------------------- |
+| git.sh                                                                                              | Git, config files, hooks, maintenance                           | Sets up global git maintenance tasks               |
+| zsh.sh                                                                                              | Zsh shell, antidote plugin manager, starship, iTerm2            | Installs completions, iterm2_shell_integration     |
+| brew.sh                                                                                             | Homebrew on macOS/Linux, Sublime Text, misc CLI tools           | Large script; also symlinks misc configs (bat, fd) |
+| apt.sh                                                                                              | APT packages (Debian-only)                                      | bc, fonts-firacode, less                           |
+| python.sh                                                                                           | Python with uv, default python, global tools (ruff, mypy, etc.) | Symlinks pip, yapf, ruff, mypy, proselint configs  |
+| node.sh                                                                                             | Node.js with fnm, npm default packages, completions             | Uses fnm (Fast Node Manager) instead of nvm        |
+| go.sh                                                                                               | Go with GOPATH setup, gopls, goimports, dlv, staticcheck        | Installs Go language server and dev tools          |
+| vim.sh                                                                                              | Vim with vim-plug, ctags, linters (ALE)                         | Symlinks after, plugin, syntax dirs                |
+| ruby.sh                                                                                             | Ruby with rbenv, ruby-build, bundler, rubocop                   | Uses rbenv; installs default version 3.4.9         |
+| ssh.sh                                                                                              | SSH config, host detection, control masters setup               | Creates ~/.ssh/hosts.d/ for host-specific configs  |
+| dircolors.sh                                                                                        | Dircolors themes (nord, bliss)                                  | Links vendored theme files to ~/.dircolors/        |
+| xdg-compliance.sh                                                                                   | XDG-compliant directories for less, wget, PostgreSQL            | Migrates legacy dot files to XDG locations         |
+| sops.sh                                                                                             | SOPS + age secret encryption, age key generation                | XDG-compliant sops directory setup                 |
+| glow.sh                                                                                             | Glow markdown viewer                                            | Installs via brew or snap; symlinks config         |
+| ghostty.sh                                                                                          | Ghostty terminal emulator (macOS trial setup)                   | Also symlinks Everforest theme                     |
+| terraform.sh                                                                                        | Terraform with tfenv, terraform-docs, tfsec, checkov            | Installs latest Terraform version via tfenv        |
+| **Not invoked by install.sh:** dotnet.sh (installs .NET SDK), typora.sh (macOS-only Typora themes), |                                                                 |                                                    |
+| yt-dlp.sh (video downloader with config).                                                           |                                                                 |                                                    |
 
 ## Package Managers
 
@@ -56,7 +54,7 @@ Running `install.sh` from the repository root:
 1. Prompts for "Is this a work computer?" and writes result to `~/.extra/.env`
 1. Sources scripts in this order (for correct dependency sequencing):
    - git.sh, zsh.sh, brew.sh, macos/apps.sh, apt.sh, python.sh, node.sh, go.sh, vim.sh, ruby.sh,
-     ssh.sh, dircolors.sh, xdg-compliance.sh, sops.sh, glow.sh, ghostty.sh, terraform.sh, extra.sh
+     ssh.sh, dircolors.sh, xdg-compliance.sh, sops.sh, glow.sh, ghostty.sh, terraform.sh
 1. Sources `ai-dotfiles/install.sh` (from the standalone `~/.ai-dotfiles` repo, which is cloned if
    absent)
 1. Runs `zunit` tests if available
