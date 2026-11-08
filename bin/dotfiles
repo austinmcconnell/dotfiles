@@ -426,7 +426,7 @@ sub_mac_dock_work() {
 # TTY-gated clean-pipe behavior of `engram-hygiene status` (the table is
 # self-describing).
 sub_memory-check() {
-    "${AI_DOTFILES_DIR:-$DOTFILES_DIR}/bin/engram-hygiene" status
+    "${AI_DOTFILES_DIR:-$HOME/.ai-dotfiles}/bin/engram-hygiene" status
 }
 
 # Fetch and fast-forward project repositories in $PROJECTS_DIR/<owner>/<repo>
@@ -913,7 +913,7 @@ sub_orphans() {
             done <"$DOTFILES_DIR/etc/node/default-packages"
         fi
         # From mcp-servers.conf
-        local mcp_conf="${AI_DOTFILES_DIR:-$DOTFILES_DIR}/etc/kiro-cli/mcp-servers.conf"
+        local mcp_conf="${AI_DOTFILES_DIR:-$HOME/.ai-dotfiles}/etc/kiro-cli/mcp-servers.conf"
         if [[ -f "$mcp_conf" ]]; then
             # shellcheck source=SCRIPTDIR/../etc/kiro-cli/mcp-servers.conf
             source "$mcp_conf"
