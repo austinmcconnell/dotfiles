@@ -42,9 +42,7 @@ Each exits `0` when true and `1` when false, so they work in `if` and `&&`.
 | Command             | Purpose                                                                       |
 | :------------------ | :---------------------------------------------------------------------------- |
 | `json`              | Pretty-print JSON through `jq` from stdin, a file, or a URL (`-c` for color)  |
-| `ai-usage`          | Read-only canned reports over the local AI usage and cost SQLite store        |
 | `keda-demo-enqueue` | Enqueue demo tasks into Redis for the KEDA demo (`keda-demo-enqueue [count]`) |
 
-For the KEDA demo, see `etc/kubernetes/README.md`. For the usage store behind `ai-usage`, see
-`etc/ai/usage/README.md` in the ai-dotfiles repo. The AI commands `trace-search` and
-`engram-hygiene` live in that repo's `bin/`, which `.zprofile` puts on `PATH`.
+For the KEDA demo, see `etc/kubernetes/README.md`. The AI commands `ai-usage`, `trace-search`, and
+`engram-hygiene` live in the ai-dotfiles repo's `bin/`, which `.zprofile` puts on `PATH`.
