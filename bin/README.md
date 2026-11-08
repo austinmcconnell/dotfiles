@@ -39,13 +39,12 @@ Each exits `0` when true and `1` when false, so they work in `if` and `&&`.
 
 ## Tools
 
-| Command             | Purpose                                                                              |
-| :------------------ | :----------------------------------------------------------------------------------- |
-| `json`              | Pretty-print JSON through `jq` from stdin, a file, or a URL (`-c` for color)         |
-| `ai-usage`          | Read-only canned reports over the local AI usage and cost SQLite store               |
-| `trace-search`      | Search agent trace logs by tool, text, session, or date (`--list` to see files)      |
-| `engram-hygiene`    | Report accumulated engram memory-conflict debt; also run via `dotfiles memory-check` |
-| `keda-demo-enqueue` | Enqueue demo tasks into Redis for the KEDA demo (`keda-demo-enqueue [count]`)        |
+| Command             | Purpose                                                                       |
+| :------------------ | :---------------------------------------------------------------------------- |
+| `json`              | Pretty-print JSON through `jq` from stdin, a file, or a URL (`-c` for color)  |
+| `ai-usage`          | Read-only canned reports over the local AI usage and cost SQLite store        |
+| `keda-demo-enqueue` | Enqueue demo tasks into Redis for the KEDA demo (`keda-demo-enqueue [count]`) |
 
 For the KEDA demo, see `etc/kubernetes/README.md`. For the usage store behind `ai-usage`, see
-`etc/ai/usage/README.md` in the ai-dotfiles repo.
+`etc/ai/usage/README.md` in the ai-dotfiles repo. The AI commands `trace-search` and
+`engram-hygiene` live in that repo's `bin/`, which `.zprofile` puts on `PATH`.

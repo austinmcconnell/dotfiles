@@ -42,7 +42,7 @@ Options:
 EOF
 }
 
-# Gate ANSI styling on an interactive stdout, mirroring bin/engram-hygiene.
+# Gate ANSI styling on an interactive stdout, mirroring engram-hygiene.
 if [[ -t 1 ]]; then
     bold="\033[1m"
     dim="\033[2m"
