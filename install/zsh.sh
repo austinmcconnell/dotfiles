@@ -59,8 +59,20 @@ ln -sfv "$DOTFILES_DIR/etc/zsh/.zstyles" "$ZDOTDIR"
 # Link custom plugins
 ln -sfv "$DOTFILES_DIR/etc/zsh/custom/plugins/extra/extra.plugin.zsh" "$ZDOTDIR/custom/plugins/extra/extra.plugin.zsh"
 
+# Remove links left behind when a source file is renamed or deleted; compinit
+# errors on a dangling completion link and lets it shadow the real one.
+prune_dangling_links() {
+    local link
+    for link in "$1"/*; do
+        if [[ -L "$link" && ! -e "$link" ]]; then
+            rm -v "$link"
+        fi
+    done
+}
+
 # Link conf.d configuration files
 echo "Linking conf.d configuration files..."
+prune_dangling_links "$ZDOTDIR/conf.d"
 for config_file in "$DOTFILES_DIR/etc/zsh/conf.d"/*.zsh*; do
     # Skip if no files match the pattern
     [ -e "$config_file" ] || continue
@@ -88,6 +100,7 @@ done
 
 # Link completion files
 echo "Linking completion files..."
+prune_dangling_links "$ZSH_COMPLETIONS_DIR"
 for completion_file in "$DOTFILES_DIR/etc/zsh/completions"/_*; do
     # Skip if no files match the pattern
     [ -e "$completion_file" ] || continue
