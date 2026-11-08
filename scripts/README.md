@@ -12,9 +12,6 @@ the repo" are called by other parts of the repo.
 | `generate-vim-mappings-doc.sh` | The "Regenerate Vim mappings reference" hook, on changes to `etc/vim/.vimrc` or `etc/vim/plugin/*.vim`; writes `etc/vim/vim-mappings.md` |
 | `gem_orphans.rb`               | `dotfiles orphans` (`sub_orphans` in `bin/dotfiles`)                                                                                     |
 
-`ai-prompt.sh` is not wired in: `etc/zsh/conf.d/ai-prompts.zsh` sources the copy in
-`$AI_DOTFILES_DIR/scripts/` instead, and no caller of this copy was found in this repo.
-
 ## Manual utilities
 
 Run by path, e.g. `scripts/analyze-git-repos.sh [directory]` or `python3 scripts/<name>.py`. No
