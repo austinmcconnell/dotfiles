@@ -20,6 +20,9 @@
 
 FROM ubuntu:22.04
 
+# pipefail so the `| tee` log pipes below fail the build when an install script fails
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
 # Prevent interactive prompts during installation
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=America/Chicago
