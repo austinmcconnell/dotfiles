@@ -1,5 +1,3 @@
-#!/usr/bin/env ruby
-
 require 'irb'
 require 'irb/completion'
 
@@ -12,9 +10,3 @@ IRB.conf[:AUTO_INDENT] = true
 
 # Configure prompt
 IRB.conf[:PROMPT_MODE] = :SIMPLE
-
-# Load rubygems
-begin
-  require 'rubygems'
-rescue LoadError
-end
