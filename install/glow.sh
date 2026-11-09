@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source "$DOTFILES_DIR/install/utils.sh"
+
 echo "**************************************************"
 echo "Configuring Glow markdown viewer"
 echo "**************************************************"
@@ -28,6 +30,6 @@ fi
 mkdir -p "$HOME/.config/glow"
 
 # Link configuration file
-ln -sfv "$DOTFILES_DIR/etc/glow/glow.yml" "$HOME/.config/glow/glow.yml"
+link_and_verify "$DOTFILES_DIR/etc/glow/glow.yml" "$HOME/.config/glow/glow.yml" || return 1
 
 echo "Glow configuration complete"

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source "$DOTFILES_DIR/install/utils.sh"
+
 if is-executable git; then
     echo "**************************************************"
     echo "Configuring Git"
@@ -28,20 +30,20 @@ GIT_CONFIG_DIR="$HOME/.config/git"
 mkdir -p "$GIT_CONFIG_DIR"
 mkdir -p "$GIT_CONFIG_DIR"/hooks
 
-ln -sfv "$DOTFILES_DIR/etc/git/config" "$GIT_CONFIG_DIR/config"
-ln -sfv "$DOTFILES_DIR/etc/git/ignore" "$GIT_CONFIG_DIR/ignore"
-ln -sfv "$DOTFILES_DIR/etc/git/attributes" "$GIT_CONFIG_DIR/attributes"
-ln -sfv "$DOTFILES_DIR/etc/git/hooks/commit-msg" "$GIT_CONFIG_DIR"/hooks/commit-msg
-ln -sfv "$DOTFILES_DIR/etc/git/hooks/prepare-commit-msg" "$GIT_CONFIG_DIR"/hooks/prepare-commit-msg
-ln -sfv "$DOTFILES_DIR/etc/git/hooks/pre-push" "$GIT_CONFIG_DIR"/hooks/pre-push
-ln -sfv "$DOTFILES_DIR/etc/git/hooks/post-checkout" "$GIT_CONFIG_DIR"/hooks/post-checkout
-ln -sfv "$DOTFILES_DIR/etc/git/config-uniteus" "$GIT_CONFIG_DIR/config-uniteus"
-ln -sfv "$DOTFILES_DIR/etc/git/commit-template" "$GIT_CONFIG_DIR"/commit-template
+link_and_verify "$DOTFILES_DIR/etc/git/config" "$GIT_CONFIG_DIR/config" || return 1
+link_and_verify "$DOTFILES_DIR/etc/git/ignore" "$GIT_CONFIG_DIR/ignore" || return 1
+link_and_verify "$DOTFILES_DIR/etc/git/attributes" "$GIT_CONFIG_DIR/attributes" || return 1
+link_and_verify "$DOTFILES_DIR/etc/git/hooks/commit-msg" "$GIT_CONFIG_DIR"/hooks/commit-msg || return 1
+link_and_verify "$DOTFILES_DIR/etc/git/hooks/prepare-commit-msg" "$GIT_CONFIG_DIR"/hooks/prepare-commit-msg || return 1
+link_and_verify "$DOTFILES_DIR/etc/git/hooks/pre-push" "$GIT_CONFIG_DIR"/hooks/pre-push || return 1
+link_and_verify "$DOTFILES_DIR/etc/git/hooks/post-checkout" "$GIT_CONFIG_DIR"/hooks/post-checkout || return 1
+link_and_verify "$DOTFILES_DIR/etc/git/config-uniteus" "$GIT_CONFIG_DIR/config-uniteus" || return 1
+link_and_verify "$DOTFILES_DIR/etc/git/commit-template" "$GIT_CONFIG_DIR"/commit-template || return 1
 
 if is-macos; then
-    ln -sfv "$DOTFILES_DIR/etc/git/config-macos" "$GIT_CONFIG_DIR/config-macos"
+    link_and_verify "$DOTFILES_DIR/etc/git/config-macos" "$GIT_CONFIG_DIR/config-macos" || return 1
 elif is-debian; then
-    ln -sfv "$DOTFILES_DIR/etc/git/config-linux" "$GIT_CONFIG_DIR/config-linux"
+    link_and_verify "$DOTFILES_DIR/etc/git/config-linux" "$GIT_CONFIG_DIR/config-linux" || return 1
 fi
 
 # --- Git Maintenance ---

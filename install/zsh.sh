@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source "$DOTFILES_DIR/install/utils.sh"
+
 if is-executable zsh; then
     echo "**************************************************"
     echo "Configuring Zsh"
@@ -48,16 +50,16 @@ echo "ZDOTDIR=${ZDOTDIR:-$XDG_CONFIG_HOME/zsh}" >"$HOME"/.zshenv
 echo "source \$ZDOTDIR/.zshenv" >>"$HOME"/.zshenv
 
 # Link main configuration files
-ln -sfv "$DOTFILES_DIR/etc/zsh/functions" "$ZDOTDIR/functions"
-ln -sfv "$DOTFILES_DIR/etc/zsh/.zlogin" "$ZDOTDIR/.zlogin"
-ln -sfv "$DOTFILES_DIR/etc/zsh/.zprofile" "$ZDOTDIR/.zprofile"
-ln -sfv "$DOTFILES_DIR/etc/zsh/.zsh_plugins.txt" "$ZDOTDIR/.zsh_plugins.txt"
-ln -sfv "$DOTFILES_DIR/etc/zsh/.zshenv" "$ZDOTDIR/.zshenv"
-ln -sfv "$DOTFILES_DIR/etc/zsh/.zshrc" "$ZDOTDIR/.zshrc"
-ln -sfv "$DOTFILES_DIR/etc/zsh/.zstyles" "$ZDOTDIR/.zstyles"
+link_and_verify "$DOTFILES_DIR/etc/zsh/functions" "$ZDOTDIR/functions" || return 1
+link_and_verify "$DOTFILES_DIR/etc/zsh/.zlogin" "$ZDOTDIR/.zlogin" || return 1
+link_and_verify "$DOTFILES_DIR/etc/zsh/.zprofile" "$ZDOTDIR/.zprofile" || return 1
+link_and_verify "$DOTFILES_DIR/etc/zsh/.zsh_plugins.txt" "$ZDOTDIR/.zsh_plugins.txt" || return 1
+link_and_verify "$DOTFILES_DIR/etc/zsh/.zshenv" "$ZDOTDIR/.zshenv" || return 1
+link_and_verify "$DOTFILES_DIR/etc/zsh/.zshrc" "$ZDOTDIR/.zshrc" || return 1
+link_and_verify "$DOTFILES_DIR/etc/zsh/.zstyles" "$ZDOTDIR/.zstyles" || return 1
 
 # Link custom plugins
-ln -sfv "$DOTFILES_DIR/etc/zsh/custom/plugins/extra/extra.plugin.zsh" "$ZDOTDIR/custom/plugins/extra/extra.plugin.zsh"
+link_and_verify "$DOTFILES_DIR/etc/zsh/custom/plugins/extra/extra.plugin.zsh" "$ZDOTDIR/custom/plugins/extra/extra.plugin.zsh" || return 1
 
 # Remove links left behind when a source file is renamed or deleted; compinit
 # errors on a dangling completion link and lets it shadow the real one.
@@ -93,7 +95,7 @@ for config_file in "$DOTFILES_DIR/etc/zsh/conf.d"/*.zsh*; do
     [[ "$config_basename" != _* ]] || continue
 
     if [ -f "$config_file" ]; then
-        ln -sfv "$config_file" "$ZDOTDIR/conf.d/$config_basename"
+        link_and_verify "$config_file" "$ZDOTDIR/conf.d/$config_basename" || return 1
         echo "✓ Linked: $config_basename"
     fi
 done
@@ -108,16 +110,16 @@ for completion_file in "$DOTFILES_DIR/etc/zsh/completions"/_*; do
     completion_basename="$(basename "$completion_file")"
 
     if [ -f "$completion_file" ]; then
-        ln -sfv "$completion_file" "$ZSH_COMPLETIONS_DIR/$completion_basename"
+        link_and_verify "$completion_file" "$ZSH_COMPLETIONS_DIR/$completion_basename" || return 1
         echo "✓ Linked completion: $completion_basename"
     fi
 done
 
 # Link other configuration files
-ln -sfv "$DOTFILES_DIR/etc/spaceship/spaceship.zsh" "$XDG_CONFIG_HOME"/spaceship/spaceship.zsh
-ln -sfv "$DOTFILES_DIR/etc/starship/starship.toml" "$XDG_CONFIG_HOME/starship.toml"
+link_and_verify "$DOTFILES_DIR/etc/spaceship/spaceship.zsh" "$XDG_CONFIG_HOME"/spaceship/spaceship.zsh || return 1
+link_and_verify "$DOTFILES_DIR/etc/starship/starship.toml" "$XDG_CONFIG_HOME/starship.toml" || return 1
 mkdir -p "$XDG_CONFIG_HOME/direnv"
-ln -sfv "$DOTFILES_DIR/etc/direnv/direnv.toml" "$XDG_CONFIG_HOME/direnv/direnv.toml"
+link_and_verify "$DOTFILES_DIR/etc/direnv/direnv.toml" "$XDG_CONFIG_HOME/direnv/direnv.toml" || return 1
 
 # Setup terminfo
 mkdir -p "$HOME"/.terminfo

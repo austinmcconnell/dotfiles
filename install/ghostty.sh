@@ -30,11 +30,11 @@ fi
 
 # Symlink config into the location Ghostty reads natively.
 mkdir -p "${XDG_CONFIG_HOME}/ghostty/themes"
-ln -sfv "${DOTFILES_DIR}/etc/ghostty/config" "${XDG_CONFIG_HOME}/ghostty/config"
+link_and_verify "${DOTFILES_DIR}/etc/ghostty/config" "${XDG_CONFIG_HOME}/ghostty/config" || return 1
 
 # Vendored named themes (referred to by name from the config), mirroring the
 # dircolors convention of shipping named colorscheme files.
-ln -sfv "${DOTFILES_DIR}/etc/ghostty/themes/everforest-dark-medium" \
-    "${XDG_CONFIG_HOME}/ghostty/themes/everforest-dark-medium"
+link_and_verify "${DOTFILES_DIR}/etc/ghostty/themes/everforest-dark-medium" \
+    "${XDG_CONFIG_HOME}/ghostty/themes/everforest-dark-medium" || return 1
 
 echo "Ghostty configuration complete"

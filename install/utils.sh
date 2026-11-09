@@ -206,7 +206,7 @@ tap_if_needed() {
     fi
 }
 
-# Symlink a file, replacing only an existing symlink, then confirm it resolves to the source
+# Symlink a file or directory, replacing only an existing symlink, then confirm it resolves to the source
 # Usage: link_and_verify source dest
 link_and_verify() {
     local source=$1
@@ -217,11 +217,17 @@ link_and_verify() {
         return 1
     fi
 
-    ln -sfn "$source" "$dest"
+    mkdir -p "$(dirname "$dest")"
+    if ! ln -sfn "$source" "$dest"; then
+        log_error "Failed to link $dest to $source"
+        return 1
+    fi
 
-    if [[ ! -f "$dest" || "$(readlink "$dest")" != "$source" ]]; then
+    if [[ ! -e "$dest" || "$(readlink "$dest")" != "$source" ]]; then
         log_error "Link $dest does not resolve to $source"
         [[ -L "$dest" ]] && rm "$dest"
         return 1
     fi
+
+    echo "'$dest' -> '$source'"
 }

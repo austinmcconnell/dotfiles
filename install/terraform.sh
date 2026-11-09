@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source "$DOTFILES_DIR/install/utils.sh"
+
 if is-executable tfenv; then
     echo "**************************************************"
     echo "Configuring Terraform"
@@ -16,7 +18,7 @@ mkdir -p "$XDG_CONFIG_HOME/terraform"
 mkdir -p "$XDG_DATA_HOME/terraform/plugin-cache"
 
 # Link terraform configuration file to XDG location
-ln -sfv "$DOTFILES_DIR/etc/terraform/terraform.rc" "$XDG_CONFIG_HOME/terraform/terraform.rc"
+link_and_verify "$DOTFILES_DIR/etc/terraform/terraform.rc" "$XDG_CONFIG_HOME/terraform/terraform.rc" || return 1
 
 # Install latest Terraform version if not already installed
 if is-executable tfenv && ! is-executable terraform; then

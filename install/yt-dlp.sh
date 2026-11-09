@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source "$DOTFILES_DIR/install/utils.sh"
+
 echo "**************************************************"
 echo "Configuring yt-dlp"
 echo "**************************************************"
@@ -27,6 +29,6 @@ fi
 mkdir -p "$HOME/.config/yt-dlp"
 
 # Link configuration file
-ln -sfv "$DOTFILES_DIR/etc/yt-dlp/yt-dlp.conf" "$HOME/.config/yt-dlp/config"
+link_and_verify "$DOTFILES_DIR/etc/yt-dlp/yt-dlp.conf" "$HOME/.config/yt-dlp/config" || return 1
 
 echo "yt-dlp configuration complete"

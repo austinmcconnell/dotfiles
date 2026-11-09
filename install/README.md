@@ -84,8 +84,10 @@ hooks in `install/kubernetes/hooks/` (e.g. `configure-cert-manager.sh`). See
    package-manager-specific commands; wrap with `is-macos` / `is-debian` guards
 1. **Create XDG directories** — mkdir -p `$XDG_CONFIG_HOME/<tool>` and `$XDG_DATA_HOME/<tool>` as
    needed
-1. **Symlink configs** — use `ln -sfv` to link from `$DOTFILES_DIR/etc/<tool>/` to home/XDG
-   locations
+1. **Symlink configs** — use `link_and_verify <source> <dest> || return 1` (from `utils.sh`) to link
+   from `$DOTFILES_DIR/etc/<tool>/` to home/XDG locations. It replaces only an existing symlink,
+   refuses real files, creates parent directories, and fails if the link does not resolve. Name the
+   target file in `<dest>`, not a directory.
 1. **Handle work/personal gating** — pass `work` or `personal` as the third argument to
    `install_if_needed <package> [type] [install_type]` to skip packages on mismatched computers
    (reads `$IS_WORK_COMPUTER` from `~/.extra/.env`)

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source "$DOTFILES_DIR/install/utils.sh"
+
 if is-executable vim; then
     echo "**************************************************"
     echo "Configuring Vim"
@@ -39,11 +41,11 @@ mkdir -p "$XDG_CONFIG_HOME/yamllint/"
 mkdir -p "$XDG_CONFIG_HOME/ripgrep"
 
 mkdir -p "$VIM_DIR"
-ln -sfv "$DOTFILES_DIR/etc/vim/after" "$VIM_DIR/after"
-ln -sfv "$DOTFILES_DIR/etc/vim/plugin" "$VIM_DIR/plugin"
-ln -sfv "$DOTFILES_DIR/etc/vim/syntax" "$VIM_DIR/syntax"
-ln -sfv "$DOTFILES_DIR/etc/vim/filetype.vim" "$VIM_DIR/filetype.vim"
-ln -sfv "$DOTFILES_DIR/etc/vim/.vimrc" "$VIM_DIR/vimrc"
-ln -sfv "$DOTFILES_DIR/etc/vim/.ctags" "$HOME/.ctags"
-ln -sfv "$DOTFILES_DIR/etc/yaml/yamllint" "$XDG_CONFIG_HOME/yamllint/config"
-ln -sfv "$DOTFILES_DIR/etc/ripgrep/config" "$XDG_CONFIG_HOME/ripgrep/config"
+link_and_verify "$DOTFILES_DIR/etc/vim/after" "$VIM_DIR/after" || return 1
+link_and_verify "$DOTFILES_DIR/etc/vim/plugin" "$VIM_DIR/plugin" || return 1
+link_and_verify "$DOTFILES_DIR/etc/vim/syntax" "$VIM_DIR/syntax" || return 1
+link_and_verify "$DOTFILES_DIR/etc/vim/filetype.vim" "$VIM_DIR/filetype.vim" || return 1
+link_and_verify "$DOTFILES_DIR/etc/vim/.vimrc" "$VIM_DIR/vimrc" || return 1
+link_and_verify "$DOTFILES_DIR/etc/vim/.ctags" "$HOME/.ctags" || return 1
+link_and_verify "$DOTFILES_DIR/etc/yaml/yamllint" "$XDG_CONFIG_HOME/yamllint/config" || return 1
+link_and_verify "$DOTFILES_DIR/etc/ripgrep/config" "$XDG_CONFIG_HOME/ripgrep/config" || return 1

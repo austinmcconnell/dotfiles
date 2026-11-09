@@ -1,5 +1,6 @@
 #!/bin/bash
 # shellcheck disable=SC2034
+source "$DOTFILES_DIR/install/utils.sh"
 
 if is-executable uv; then
     echo "**************************************************"
@@ -23,17 +24,17 @@ mkdir -p "$XDG_DATA_HOME/python"
 mkdir -p ~/.git-templates
 
 mkdir -p "$XDG_CONFIG_HOME/pip"
-ln -sfv "$DOTFILES_DIR/etc/python/pip.conf" "$XDG_CONFIG_HOME/pip/pip.conf"
-ln -sfv "$DOTFILES_DIR/etc/python/autopep8" "$XDG_CONFIG_HOME/pycodestyle"
-ln -sfv "$DOTFILES_DIR/etc/python/flake8" "$XDG_CONFIG_HOME/flake8"
-ln -sfv "$DOTFILES_DIR/etc/python/yapf" "$XDG_CONFIG_HOME/yapf/style"
-ln -sfv "$DOTFILES_DIR/etc/python/pylintrc" "$XDG_CONFIG_HOME/pylintrc"
-ln -sfv "$DOTFILES_DIR/etc/python/ruff.toml" "$XDG_CONFIG_HOME/ruff/ruff.toml"
-ln -sfv "$DOTFILES_DIR/etc/python/proselint.json" "$XDG_CONFIG_HOME/proselint/config.json"
-ln -sfv "$DOTFILES_DIR/etc/python/mdformat.toml" "$HOME/.mdformat.toml"
-ln -sfv "$DOTFILES_DIR/etc/python/mypy" "$XDG_CONFIG_HOME/mypy/config"
-ln -sfv "$DOTFILES_DIR/etc/python/.isort.cfg" "$XDG_CONFIG_HOME/isort/config"
-ln -sfv "$DOTFILES_DIR/etc/python/pythonrc" "$XDG_CONFIG_HOME/python/pythonrc"
+link_and_verify "$DOTFILES_DIR/etc/python/pip.conf" "$XDG_CONFIG_HOME/pip/pip.conf" || return 1
+link_and_verify "$DOTFILES_DIR/etc/python/autopep8" "$XDG_CONFIG_HOME/pycodestyle" || return 1
+link_and_verify "$DOTFILES_DIR/etc/python/flake8" "$XDG_CONFIG_HOME/flake8" || return 1
+link_and_verify "$DOTFILES_DIR/etc/python/yapf" "$XDG_CONFIG_HOME/yapf/style" || return 1
+link_and_verify "$DOTFILES_DIR/etc/python/pylintrc" "$XDG_CONFIG_HOME/pylintrc" || return 1
+link_and_verify "$DOTFILES_DIR/etc/python/ruff.toml" "$XDG_CONFIG_HOME/ruff/ruff.toml" || return 1
+link_and_verify "$DOTFILES_DIR/etc/python/proselint.json" "$XDG_CONFIG_HOME/proselint/config.json" || return 1
+link_and_verify "$DOTFILES_DIR/etc/python/mdformat.toml" "$HOME/.mdformat.toml" || return 1
+link_and_verify "$DOTFILES_DIR/etc/python/mypy" "$XDG_CONFIG_HOME/mypy/config" || return 1
+link_and_verify "$DOTFILES_DIR/etc/python/.isort.cfg" "$XDG_CONFIG_HOME/isort/config" || return 1
+link_and_verify "$DOTFILES_DIR/etc/python/pythonrc" "$XDG_CONFIG_HOME/python/pythonrc" || return 1
 
 # If there's an existing .python_history file, move it to XDG location
 if [[ -f "$HOME/.python_history" ]]; then
@@ -77,8 +78,8 @@ else
     else
         default_interpreter=$(uv python find --managed-python "$default_minor")
         mkdir -p "$PYTHON_DEFAULT_BIN"
-        ln -sfn "$default_interpreter" "$PYTHON_DEFAULT_BIN/python"
-        ln -sfn "$default_interpreter" "$PYTHON_DEFAULT_BIN/python3"
+        link_and_verify "$default_interpreter" "$PYTHON_DEFAULT_BIN/python" || return 1
+        link_and_verify "$default_interpreter" "$PYTHON_DEFAULT_BIN/python3" || return 1
     fi
 fi
 

@@ -19,7 +19,7 @@ fi
 mkdir -p "$XDG_CONFIG_HOME/sops/age"
 
 # Symlink .sops.yaml to dotfiles root for auto-discovery
-ln -sfv "$DOTFILES_DIR/etc/sops/sops.yaml" "$DOTFILES_DIR/.sops.yaml"
+link_and_verify "$DOTFILES_DIR/etc/sops/sops.yaml" "$DOTFILES_DIR/.sops.yaml" || return 1
 
 # Generate age key if not present
 if [ ! -f "$XDG_CONFIG_HOME/sops/age/keys.txt" ]; then

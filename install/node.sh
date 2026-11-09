@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source "$DOTFILES_DIR/install/utils.sh"
+
 if is-executable fnm; then
     echo "**************************************************"
     echo "Configuring Node"
@@ -21,7 +23,7 @@ mkdir -p "$NPM_PATH"
 # FNM doesn't support installing default packages
 # https://github.com/Schniz/fnm/issues/139
 mkdir -p "$FNM_PATH"
-ln -sfv "$DOTFILES_DIR/etc/node/default-packages" "$FNM_PATH/default-packages"
+link_and_verify "$DOTFILES_DIR/etc/node/default-packages" "$FNM_PATH/default-packages" || return 1
 
 fnm install --lts
 fnm default lts-latest

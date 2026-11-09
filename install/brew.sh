@@ -30,15 +30,15 @@ mkdir -p "$XDG_CONFIG_HOME/httpie"
 mkdir -p "$XDG_CONFIG_HOME/rumdl"
 mkdir -p "$XDG_CONFIG_HOME/vale"
 
-ln -sfv "$DOTFILES_DIR/etc/misc/hadolint.yaml" "$XDG_CONFIG_HOME/hadolint.yaml"
-ln -sfv "$DOTFILES_DIR/etc/misc/shellcheckrc" "$XDG_CONFIG_HOME/shellcheckrc"
-ln -sfv "$DOTFILES_DIR/etc/dprint/dprint.jsonc" "$XDG_CONFIG_HOME/dprint/dprint.jsonc"
-ln -sfv "$DOTFILES_DIR/etc/vale/vale.ini" "$XDG_CONFIG_HOME/vale/vale.ini"
-ln -sfv "$DOTFILES_DIR/etc/fd/ignore" "$XDG_CONFIG_HOME/fd/ignore"
-ln -sfv "$DOTFILES_DIR/etc/gh/config.yml" "$XDG_CONFIG_HOME/gh/config.yml"
-ln -sfv "$DOTFILES_DIR/etc/httpie/config.json" "$XDG_CONFIG_HOME/httpie/config.json"
-ln -sfv "$DOTFILES_DIR/etc/rumdl/rumdl.toml" "$XDG_CONFIG_HOME/rumdl/rumdl.toml"
-ln -sfv "$DOTFILES_DIR/etc/bat/config" "$XDG_CONFIG_HOME/bat/config"
+link_and_verify "$DOTFILES_DIR/etc/misc/hadolint.yaml" "$XDG_CONFIG_HOME/hadolint.yaml" || return 1
+link_and_verify "$DOTFILES_DIR/etc/misc/shellcheckrc" "$XDG_CONFIG_HOME/shellcheckrc" || return 1
+link_and_verify "$DOTFILES_DIR/etc/dprint/dprint.jsonc" "$XDG_CONFIG_HOME/dprint/dprint.jsonc" || return 1
+link_and_verify "$DOTFILES_DIR/etc/vale/vale.ini" "$XDG_CONFIG_HOME/vale/vale.ini" || return 1
+link_and_verify "$DOTFILES_DIR/etc/fd/ignore" "$XDG_CONFIG_HOME/fd/ignore" || return 1
+link_and_verify "$DOTFILES_DIR/etc/gh/config.yml" "$XDG_CONFIG_HOME/gh/config.yml" || return 1
+link_and_verify "$DOTFILES_DIR/etc/httpie/config.json" "$XDG_CONFIG_HOME/httpie/config.json" || return 1
+link_and_verify "$DOTFILES_DIR/etc/rumdl/rumdl.toml" "$XDG_CONFIG_HOME/rumdl/rumdl.toml" || return 1
+link_and_verify "$DOTFILES_DIR/etc/bat/config" "$XDG_CONFIG_HOME/bat/config" || return 1
 
 # Sublime Text configuration
 if is-macos; then
@@ -49,16 +49,16 @@ fi
 
 if [ -n "$SUBLIME_USER_DIR" ]; then
     mkdir -p "$SUBLIME_USER_DIR"
-    ln -sfv "$DOTFILES_DIR/etc/sublime-text/Fmt.sublime-settings" "$SUBLIME_USER_DIR/Fmt.sublime-settings"
-    ln -sfv "$DOTFILES_DIR/etc/sublime-text/LanguageServers.sublime-settings" "$SUBLIME_USER_DIR/LanguageServers.sublime-settings"
-    ln -sfv "$DOTFILES_DIR/etc/sublime-text/Package Control.sublime-settings" "$SUBLIME_USER_DIR/Package Control.sublime-settings"
-    ln -sfv "$DOTFILES_DIR/etc/sublime-text/Preferences.sublime-settings" "$SUBLIME_USER_DIR/Preferences.sublime-settings"
-    ln -sfv "$DOTFILES_DIR/etc/sublime-text/Python.sublime-settings" "$SUBLIME_USER_DIR/Python.sublime-settings"
-    ln -sfv "$DOTFILES_DIR/etc/sublime-text/SublimeLinter.sublime-settings" "$SUBLIME_USER_DIR/SublimeLinter.sublime-settings"
-    ln -sfv "$DOTFILES_DIR/etc/sublime-text/lsp_library_installer.py" "$SUBLIME_USER_DIR/lsp_library_installer.py"
+    link_and_verify "$DOTFILES_DIR/etc/sublime-text/Fmt.sublime-settings" "$SUBLIME_USER_DIR/Fmt.sublime-settings" || return 1
+    link_and_verify "$DOTFILES_DIR/etc/sublime-text/LanguageServers.sublime-settings" "$SUBLIME_USER_DIR/LanguageServers.sublime-settings" || return 1
+    link_and_verify "$DOTFILES_DIR/etc/sublime-text/Package Control.sublime-settings" "$SUBLIME_USER_DIR/Package Control.sublime-settings" || return 1
+    link_and_verify "$DOTFILES_DIR/etc/sublime-text/Preferences.sublime-settings" "$SUBLIME_USER_DIR/Preferences.sublime-settings" || return 1
+    link_and_verify "$DOTFILES_DIR/etc/sublime-text/Python.sublime-settings" "$SUBLIME_USER_DIR/Python.sublime-settings" || return 1
+    link_and_verify "$DOTFILES_DIR/etc/sublime-text/SublimeLinter.sublime-settings" "$SUBLIME_USER_DIR/SublimeLinter.sublime-settings" || return 1
+    link_and_verify "$DOTFILES_DIR/etc/sublime-text/lsp_library_installer.py" "$SUBLIME_USER_DIR/lsp_library_installer.py" || return 1
 
     if is-macos; then
-        ln -sfv "$DOTFILES_DIR/etc/sublime-text/Default (OSX).sublime-keymap" "$SUBLIME_USER_DIR/Default (OSX).sublime-keymap"
+        link_and_verify "$DOTFILES_DIR/etc/sublime-text/Default (OSX).sublime-keymap" "$SUBLIME_USER_DIR/Default (OSX).sublime-keymap" || return 1
     fi
 fi
 
