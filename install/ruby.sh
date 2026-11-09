@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source "$DOTFILES_DIR/install/utils.sh"
+
 if is-executable rbenv; then
     echo "**************************************************"
     echo "Configuring Ruby"
@@ -45,11 +47,11 @@ mkdir -p "$XDG_DATA_HOME/bundle/plugin"
 mkdir -p "$XDG_CONFIG_HOME/ruby-lsp"
 
 # Link configuration files
-ln -sfv "$DOTFILES_DIR/etc/ruby/default-gems" "$RBENV_ROOT/default-gems"
-ln -sfv "$DOTFILES_DIR/etc/ruby/rubocop.yml" "$XDG_CONFIG_HOME/rubocop/config.yml"
-ln -sfv "$DOTFILES_DIR/etc/ruby/irbrc" "$XDG_CONFIG_HOME/irb/irbrc"
-ln -sfv "$DOTFILES_DIR/etc/ruby/gemrc" "$XDG_CONFIG_HOME/gem/gemrc"
-ln -sfv "$DOTFILES_DIR/etc/ruby/bundle-config" "$XDG_CONFIG_HOME/bundle/config"
+link_and_verify "$DOTFILES_DIR/etc/ruby/default-gems" "$RBENV_ROOT/default-gems" || return 1
+link_and_verify "$DOTFILES_DIR/etc/ruby/rubocop.yml" "$XDG_CONFIG_HOME/rubocop/config.yml" || return 1
+link_and_verify "$DOTFILES_DIR/etc/ruby/irbrc" "$XDG_CONFIG_HOME/irb/irbrc" || return 1
+link_and_verify "$DOTFILES_DIR/etc/ruby/gemrc" "$XDG_CONFIG_HOME/gem/gemrc" || return 1
+link_and_verify "$DOTFILES_DIR/etc/ruby/bundle-config" "$XDG_CONFIG_HOME/bundle/config" || return 1
 
 # Install rbenv plugins
 REPO_DIR="$RBENV_ROOT/plugins/rbenv-default-gems"

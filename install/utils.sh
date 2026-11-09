@@ -205,3 +205,23 @@ tap_if_needed() {
         echo "Tap $tap already exists"
     fi
 }
+
+# Symlink a file, replacing only an existing symlink, then confirm it resolves to the source
+# Usage: link_and_verify source dest
+link_and_verify() {
+    local source=$1
+    local dest=$2
+
+    if [[ -e "$dest" && ! -L "$dest" ]]; then
+        log_error "Refusing to replace non-symlink $dest"
+        return 1
+    fi
+
+    ln -sfn "$source" "$dest"
+
+    if [[ ! -f "$dest" || "$(readlink "$dest")" != "$source" ]]; then
+        log_error "Link $dest does not resolve to $source"
+        [[ -L "$dest" ]] && rm "$dest"
+        return 1
+    fi
+}
