@@ -92,7 +92,8 @@ hooks in `install/kubernetes/hooks/` (e.g. `configure-cert-manager.sh`). See
    `install_if_needed <package> [type] [install_type]` to skip packages on mismatched computers
    (reads `$IS_WORK_COMPUTER` from `~/.extra/.env`)
 1. **Add to install.sh** — insert the sourcing line in the correct order (usually after related
-   tools)
+   tools). `install.sh` runs with `set -e`, so a script that returns non-zero (for example, a failed
+   `link_and_verify … || return 1`) halts the whole install.
 
 ## Helper Functions
 

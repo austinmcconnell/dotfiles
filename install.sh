@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -euo pipefail
+
 # ---------------------------------------------------------------
 # Main installation script for dotfiles
 # This script coordinates the entire installation process by:
@@ -19,7 +21,8 @@ PATH="$DOTFILES_DIR/bin:$PATH"
 
 # Update dotfiles repository itself first if it's a git repository
 if is-executable git -a -d "$DOTFILES_DIR/.git"; then
-    git --work-tree="$DOTFILES_DIR" --git-dir="$DOTFILES_DIR/.git" pull origin main
+    git --work-tree="$DOTFILES_DIR" --git-dir="$DOTFILES_DIR/.git" pull origin main ||
+        echo "⚠️  Failed to update dotfiles; continuing with the local checkout"
 fi
 
 # Create necessary directories:
