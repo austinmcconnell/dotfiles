@@ -6,6 +6,10 @@ if is-executable rbenv; then
     echo "**************************************************"
     echo "Configuring Ruby"
     echo "**************************************************"
+    # Older ruby-build releases do not know newer Ruby versions
+    if brew list --formula ruby-build >/dev/null 2>&1; then
+        brew upgrade ruby-build
+    fi
 else
     if is-macos; then
         echo "**************************************************"
