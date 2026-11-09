@@ -20,7 +20,8 @@ mkdir -p "$NPM_PATH"
 
 # FNM doesn't support installing default packages
 # https://github.com/Schniz/fnm/issues/139
-ln -sfv "$DOTFILES_DIR/etc/node/default-packages" "$FNM_PATH"
+mkdir -p "$FNM_PATH"
+ln -sfv "$DOTFILES_DIR/etc/node/default-packages" "$FNM_PATH/default-packages"
 
 fnm install --lts
 fnm default lts-latest

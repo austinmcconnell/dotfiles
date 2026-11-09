@@ -48,13 +48,13 @@ echo "ZDOTDIR=${ZDOTDIR:-$XDG_CONFIG_HOME/zsh}" >"$HOME"/.zshenv
 echo "source \$ZDOTDIR/.zshenv" >>"$HOME"/.zshenv
 
 # Link main configuration files
-ln -sfv "$DOTFILES_DIR/etc/zsh/functions" "$ZDOTDIR"
-ln -sfv "$DOTFILES_DIR/etc/zsh/.zlogin" "$ZDOTDIR"
-ln -sfv "$DOTFILES_DIR/etc/zsh/.zprofile" "$ZDOTDIR"
-ln -sfv "$DOTFILES_DIR/etc/zsh/.zsh_plugins.txt" "$ZDOTDIR"
-ln -sfv "$DOTFILES_DIR/etc/zsh/.zshenv" "$ZDOTDIR"
-ln -sfv "$DOTFILES_DIR/etc/zsh/.zshrc" "$ZDOTDIR"
-ln -sfv "$DOTFILES_DIR/etc/zsh/.zstyles" "$ZDOTDIR"
+ln -sfv "$DOTFILES_DIR/etc/zsh/functions" "$ZDOTDIR/functions"
+ln -sfv "$DOTFILES_DIR/etc/zsh/.zlogin" "$ZDOTDIR/.zlogin"
+ln -sfv "$DOTFILES_DIR/etc/zsh/.zprofile" "$ZDOTDIR/.zprofile"
+ln -sfv "$DOTFILES_DIR/etc/zsh/.zsh_plugins.txt" "$ZDOTDIR/.zsh_plugins.txt"
+ln -sfv "$DOTFILES_DIR/etc/zsh/.zshenv" "$ZDOTDIR/.zshenv"
+ln -sfv "$DOTFILES_DIR/etc/zsh/.zshrc" "$ZDOTDIR/.zshrc"
+ln -sfv "$DOTFILES_DIR/etc/zsh/.zstyles" "$ZDOTDIR/.zstyles"
 
 # Link custom plugins
 ln -sfv "$DOTFILES_DIR/etc/zsh/custom/plugins/extra/extra.plugin.zsh" "$ZDOTDIR/custom/plugins/extra/extra.plugin.zsh"
@@ -115,8 +115,9 @@ done
 
 # Link other configuration files
 ln -sfv "$DOTFILES_DIR/etc/spaceship/spaceship.zsh" "$XDG_CONFIG_HOME"/spaceship/spaceship.zsh
-ln -sfv "$DOTFILES_DIR/etc/starship/starship.toml" "$XDG_CONFIG_HOME"
-ln -sfv "$DOTFILES_DIR/etc/direnv/direnv.toml" "$XDG_CONFIG_HOME"/direnv
+ln -sfv "$DOTFILES_DIR/etc/starship/starship.toml" "$XDG_CONFIG_HOME/starship.toml"
+mkdir -p "$XDG_CONFIG_HOME/direnv"
+ln -sfv "$DOTFILES_DIR/etc/direnv/direnv.toml" "$XDG_CONFIG_HOME/direnv/direnv.toml"
 
 # Setup terminfo
 mkdir -p "$HOME"/.terminfo

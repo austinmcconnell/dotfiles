@@ -28,20 +28,20 @@ GIT_CONFIG_DIR="$HOME/.config/git"
 mkdir -p "$GIT_CONFIG_DIR"
 mkdir -p "$GIT_CONFIG_DIR"/hooks
 
-ln -sfv "$DOTFILES_DIR/etc/git/config" "$GIT_CONFIG_DIR"
-ln -sfv "$DOTFILES_DIR/etc/git/ignore" "$GIT_CONFIG_DIR"
-ln -sfv "$DOTFILES_DIR/etc/git/attributes" "$GIT_CONFIG_DIR"
+ln -sfv "$DOTFILES_DIR/etc/git/config" "$GIT_CONFIG_DIR/config"
+ln -sfv "$DOTFILES_DIR/etc/git/ignore" "$GIT_CONFIG_DIR/ignore"
+ln -sfv "$DOTFILES_DIR/etc/git/attributes" "$GIT_CONFIG_DIR/attributes"
 ln -sfv "$DOTFILES_DIR/etc/git/hooks/commit-msg" "$GIT_CONFIG_DIR"/hooks/commit-msg
 ln -sfv "$DOTFILES_DIR/etc/git/hooks/prepare-commit-msg" "$GIT_CONFIG_DIR"/hooks/prepare-commit-msg
 ln -sfv "$DOTFILES_DIR/etc/git/hooks/pre-push" "$GIT_CONFIG_DIR"/hooks/pre-push
 ln -sfv "$DOTFILES_DIR/etc/git/hooks/post-checkout" "$GIT_CONFIG_DIR"/hooks/post-checkout
-ln -sfv "$DOTFILES_DIR/etc/git/config-uniteus" "$GIT_CONFIG_DIR"
+ln -sfv "$DOTFILES_DIR/etc/git/config-uniteus" "$GIT_CONFIG_DIR/config-uniteus"
 ln -sfv "$DOTFILES_DIR/etc/git/commit-template" "$GIT_CONFIG_DIR"/commit-template
 
 if is-macos; then
-    ln -sfv "$DOTFILES_DIR/etc/git/config-macos" "$GIT_CONFIG_DIR"
+    ln -sfv "$DOTFILES_DIR/etc/git/config-macos" "$GIT_CONFIG_DIR/config-macos"
 elif is-debian; then
-    ln -sfv "$DOTFILES_DIR/etc/git/config-linux" "$GIT_CONFIG_DIR"
+    ln -sfv "$DOTFILES_DIR/etc/git/config-linux" "$GIT_CONFIG_DIR/config-linux"
 fi
 
 # --- Git Maintenance ---

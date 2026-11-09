@@ -30,7 +30,7 @@ mkdir -p "$XDG_CONFIG_HOME/httpie"
 mkdir -p "$XDG_CONFIG_HOME/rumdl"
 mkdir -p "$XDG_CONFIG_HOME/vale"
 
-ln -sfv "$DOTFILES_DIR/etc/misc/hadolint.yaml" "$XDG_CONFIG_HOME"
+ln -sfv "$DOTFILES_DIR/etc/misc/hadolint.yaml" "$XDG_CONFIG_HOME/hadolint.yaml"
 ln -sfv "$DOTFILES_DIR/etc/misc/shellcheckrc" "$XDG_CONFIG_HOME/shellcheckrc"
 ln -sfv "$DOTFILES_DIR/etc/dprint/dprint.jsonc" "$XDG_CONFIG_HOME/dprint/dprint.jsonc"
 ln -sfv "$DOTFILES_DIR/etc/vale/vale.ini" "$XDG_CONFIG_HOME/vale/vale.ini"
@@ -49,16 +49,16 @@ fi
 
 if [ -n "$SUBLIME_USER_DIR" ]; then
     mkdir -p "$SUBLIME_USER_DIR"
-    ln -sfv "$DOTFILES_DIR/etc/sublime-text/Fmt.sublime-settings" "$SUBLIME_USER_DIR"
-    ln -sfv "$DOTFILES_DIR/etc/sublime-text/LanguageServers.sublime-settings" "$SUBLIME_USER_DIR"
-    ln -sfv "$DOTFILES_DIR/etc/sublime-text/Package Control.sublime-settings" "$SUBLIME_USER_DIR"
-    ln -sfv "$DOTFILES_DIR/etc/sublime-text/Preferences.sublime-settings" "$SUBLIME_USER_DIR"
-    ln -sfv "$DOTFILES_DIR/etc/sublime-text/Python.sublime-settings" "$SUBLIME_USER_DIR"
-    ln -sfv "$DOTFILES_DIR/etc/sublime-text/SublimeLinter.sublime-settings" "$SUBLIME_USER_DIR"
-    ln -sfv "$DOTFILES_DIR/etc/sublime-text/lsp_library_installer.py" "$SUBLIME_USER_DIR"
+    ln -sfv "$DOTFILES_DIR/etc/sublime-text/Fmt.sublime-settings" "$SUBLIME_USER_DIR/Fmt.sublime-settings"
+    ln -sfv "$DOTFILES_DIR/etc/sublime-text/LanguageServers.sublime-settings" "$SUBLIME_USER_DIR/LanguageServers.sublime-settings"
+    ln -sfv "$DOTFILES_DIR/etc/sublime-text/Package Control.sublime-settings" "$SUBLIME_USER_DIR/Package Control.sublime-settings"
+    ln -sfv "$DOTFILES_DIR/etc/sublime-text/Preferences.sublime-settings" "$SUBLIME_USER_DIR/Preferences.sublime-settings"
+    ln -sfv "$DOTFILES_DIR/etc/sublime-text/Python.sublime-settings" "$SUBLIME_USER_DIR/Python.sublime-settings"
+    ln -sfv "$DOTFILES_DIR/etc/sublime-text/SublimeLinter.sublime-settings" "$SUBLIME_USER_DIR/SublimeLinter.sublime-settings"
+    ln -sfv "$DOTFILES_DIR/etc/sublime-text/lsp_library_installer.py" "$SUBLIME_USER_DIR/lsp_library_installer.py"
 
     if is-macos; then
-        ln -sfv "$DOTFILES_DIR/etc/sublime-text/Default (OSX).sublime-keymap" "$SUBLIME_USER_DIR"
+        ln -sfv "$DOTFILES_DIR/etc/sublime-text/Default (OSX).sublime-keymap" "$SUBLIME_USER_DIR/Default (OSX).sublime-keymap"
     fi
 fi
 
