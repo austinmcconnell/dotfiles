@@ -8,6 +8,7 @@ source "$DOTFILES_DIR/install/utils.sh"
 if is-executable brew; then
     print_section_header "Installing brew formulas and casks"
 else
+    # Homebrew's documented bootstrap; it runs the installer from HEAD, which has no pinned release
     if is-macos; then
         print_section_header "Installing Homebrew"
         NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
