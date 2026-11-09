@@ -3,5 +3,4 @@ rubocop
 rubocop-rails
 rubocop-rspec
 ruby-lsp
-ruby-lsp-rails
 solargraph
