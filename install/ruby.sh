@@ -105,5 +105,3 @@ rbenv global "${DEFAULT_RUBY_VERSION}"
 # during rbenv install, so gems added later would be missed)
 xargs gem install <"$DOTFILES_DIR/etc/ruby/default-gems"
 rbenv rehash
-
-curl -fsSL https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-doctor | bash
