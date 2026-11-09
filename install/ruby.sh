@@ -27,6 +27,8 @@ fi
 
 DEFAULT_RUBY_VERSION=3.4.9
 
+export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
+export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
 export RBENV_ROOT="$XDG_DATA_HOME/rbenv"
 PATH="$RBENV_ROOT/bin:$RBENV_ROOT/shims:$PATH"
 
