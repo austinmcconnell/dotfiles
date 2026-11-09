@@ -44,39 +44,6 @@ mkdir -p "$XDG_CACHE_HOME/bundle"
 mkdir -p "$XDG_DATA_HOME/bundle/plugin"
 mkdir -p "$XDG_CONFIG_HOME/ruby-lsp"
 
-# Migrate IRB history files
-if [[ -f "$HOME/.irb_history" ]]; then
-    echo "Moving existing .irb_history file to XDG_DATA_HOME/irb/history"
-    mv "$HOME/.irb_history" "$XDG_DATA_HOME/irb/history"
-fi
-
-if [[ -f "$HOME/.irb-history" ]]; then
-    echo "Moving existing .irb-history file to XDG_DATA_HOME/irb/history"
-    mv "$HOME/.irb-history" "$XDG_DATA_HOME/irb/history"
-fi
-
-# Migrate Bundler files
-if [[ -d "$HOME/.bundle" ]]; then
-    echo "Moving existing .bundle directory contents to XDG locations"
-    if [[ -f "$HOME/.bundle/config" ]]; then
-        cp "$HOME/.bundle/config" "$XDG_CONFIG_HOME/bundle/config"
-    fi
-    if [[ -d "$HOME/.bundle/cache" ]]; then
-        cp -r "$HOME/.bundle/cache/"* "$XDG_CACHE_HOME/bundle/"
-    fi
-    if [[ -d "$HOME/.bundle/plugin" ]]; then
-        cp -r "$HOME/.bundle/plugin/"* "$XDG_DATA_HOME/bundle/plugin/"
-    fi
-    rm -rf "$HOME/.bundle"
-fi
-
-# Migrate Ruby-LSP files
-if [[ -d "$HOME/.ruby-lsp" ]]; then
-    echo "Moving existing .ruby-lsp directory to XDG_CONFIG_HOME/ruby-lsp"
-    cp -r "$HOME/.ruby-lsp/"* "$XDG_CONFIG_HOME/ruby-lsp/"
-    rm -rf "$HOME/.ruby-lsp"
-fi
-
 # Link configuration files
 ln -sfv "$DOTFILES_DIR/etc/ruby/default-gems" "$RBENV_ROOT/default-gems"
 ln -sfv "$DOTFILES_DIR/etc/ruby/rubocop.yml" "$XDG_CONFIG_HOME/rubocop/config.yml"
