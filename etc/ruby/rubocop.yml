@@ -1,11 +1,7 @@
 ---
 require:
-  - standard
   - rubocop-rails
   - rubocop-rspec
-
-inherit_gem:
-  standard: config/base.yml
 
 AllCops:
   NewCops: enable
@@ -19,4 +15,4 @@ Rails:
 RSpec:
   Enabled: true # enable rubocop-rspec cops
 RSpec/DescribeClass:
-  Enabled: false # ignore missing comments on classes
+  Enabled: false # describe blocks need not name a class
