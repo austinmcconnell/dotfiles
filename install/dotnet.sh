@@ -1,32 +1,45 @@
 #!/bin/bash
 
-if is-executable dotnet; then
+# Major .NET SDK version to install and check for.
+DOTNET_SDK_MAJOR=10
+
+has_dotnet_sdk() {
+    is-executable dotnet && dotnet --list-sdks 2>/dev/null | grep -q "^${DOTNET_SDK_MAJOR}\."
+}
+
+if has_dotnet_sdk; then
     echo "**************************************************"
     echo "Configuring .NET"
     echo "**************************************************"
 else
     if is-macos; then
         echo "**************************************************"
-        echo "Installing .NET"
+        echo "Installing .NET ${DOTNET_SDK_MAJOR} SDK"
         echo "**************************************************"
         brew install dotnet
     elif is-debian; then
         echo "**************************************************"
-        echo "Installing .NET"
+        echo "Installing .NET ${DOTNET_SDK_MAJOR} SDK"
         echo "**************************************************"
-        # Add Microsoft package repository
-        wget "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb" -O packages-microsoft-prod.deb
-        sudo dpkg -i packages-microsoft-prod.deb
-        rm packages-microsoft-prod.deb
+        # 22.04 needs the backports PPA for .NET 10; newer Ubuntu releases ship it natively.
+        if [[ "$(lsb_release -rs)" == "22.04" ]]; then
+            sudo add-apt-repository -y ppa:dotnet/backports
+        fi
 
-        # Install .NET SDK
         sudo apt-get update
-        sudo apt-get install -y dotnet-sdk-8.0
+        sudo apt-get install -y "dotnet-sdk-${DOTNET_SDK_MAJOR}.0"
     else
         echo "**************************************************"
         echo "Skipping .NET installation: Unidentified OS"
         echo "**************************************************"
         return
+    fi
+
+    # An older dotnet earlier on PATH can hide the new SDK, so fail here, not at build time.
+    if ! has_dotnet_sdk; then
+        echo ".NET ${DOTNET_SDK_MAJOR} SDK is not the dotnet on PATH. Candidates:" >&2
+        which -a dotnet >&2 || true
+        return 1
     fi
 fi
 
