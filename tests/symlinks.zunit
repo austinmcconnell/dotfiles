@@ -24,3 +24,14 @@
     assert "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/functions" is_link
     assert "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/functions" is_readable
 }
+
+@test 'zsh conf.d and completions have no dangling links' {
+    local -a dangling=()
+    local dir
+    for dir in "${XDG_CONFIG_HOME:-$HOME/.config}"/zsh/{conf.d,completions}; do
+        assert "$dir" is_dir
+        dangling+=(${(f)"$(find -L "$dir" -maxdepth 1 -type l)"})
+    done
+    [[ ${#dangling} -eq 0 ]] || fail "dangling: ${(j:, :)dangling}"
+    assert ${#dangling} equals 0
+}

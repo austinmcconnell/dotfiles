@@ -23,7 +23,9 @@ Docker harness, `make docker-test` runs `dotfiles test` inside the `Dockerfile` 
 | :---------------- | :------------------------------------------------------------------------------------- |
 | `packages.zunit`  | Tools and default packages are installed (antidote, fd, fzf, git, fnm, npm,            |
 |                   | pre-commit, python, rbenv, ruby, go, vim, and default packages)                        |
-| `symlinks.zunit`  | Config symlinks resolve (git config, vimrc, zsh plugins, starship, zsh functions)      |
+| `symlinks.zunit`  | Config symlinks resolve (git config, vimrc, zsh plugins, starship, zsh functions);     |
+|                   | the zsh `conf.d` and `completions` folders hold no dangling links                      |
+| `syntax.zunit`    | Every zsh config file under `etc/zsh/` parses (`zsh -n`); pre-commit skips zsh files   |
 | `versions.zunit`  | Vim, Ruby and Go versions, including that ruby matches the installer's default;        |
 |                   | the python default links to a uv-managed interpreter; `.python-version` pins resolve   |
 | `functions.zunit` | Autoloaded zsh functions from `etc/zsh/functions/` (`calc`, `get_trunk_branch`, `git`) |

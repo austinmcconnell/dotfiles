@@ -1,0 +1,19 @@
+#!/usr/bin/env zunit
+
+@test 'zsh config files parse' {
+    local -a files=(
+        "$DOTFILES_DIR"/etc/zsh/conf.d/*.zsh*(N)
+        "$DOTFILES_DIR"/etc/zsh/functions/*(N.)
+        "$DOTFILES_DIR"/etc/zsh/completions/_*(N)
+        "$DOTFILES_DIR"/etc/zsh/.z{shenv,shrc,profile,login,styles}(N)
+        "$DOTFILES_DIR"/etc/zsh/custom/plugins/*/*.zsh(N)
+    )
+    assert ${#files} is_greater_than 0
+    local -a broken=()
+    local file
+    for file in $files; do
+        zsh -n "$file" 2>/dev/null || broken+=(${file:t})
+    done
+    [[ ${#broken} -eq 0 ]] || fail "syntax errors: ${(j:, :)broken}"
+    assert ${#broken} equals 0
+}
