@@ -148,6 +148,7 @@ if is-macos; then
     install_if_needed "calibre" "cask" "personal"
     install_if_needed "camo-studio" "cask" "personal"
     install_if_needed "chatgpt" "cask"
+    install_if_needed "claude" "cask"
     install_if_needed "discord" "cask" "personal"
     install_if_needed "docker" "cask" "personal"
     install_if_needed "evernote" "cask"
