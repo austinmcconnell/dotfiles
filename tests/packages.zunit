@@ -37,11 +37,11 @@
         assert 0 equals 0  # no packages to check
         return
     fi
-    installed_packages=$(npm ls --global --parseable | awk '{gsub(/\/.*\//,"",$1); print}' | sort)
+    installed_packages=(${(f)"$(npm ls --global --parseable | awk '{gsub(/\/.*\//,"",$1); print}' | sort)"})
     local missing=()
     for package in $(cat "$packages_file"); do
         trimmed_package=$(echo $package | cut -d '/' -f 2 )
-        if [[ ${installed_packages[(I)$trimmed_package]} -eq 0 ]]; then
+        if [[ ${installed_packages[(Ie)$trimmed_package]} -eq 0 ]]; then
             missing+=($package)
         fi
     done
@@ -86,10 +86,10 @@
 }
 
 @test 'ruby default gems installed' {
-    installed_gems=$(gem list --no-versions)
+    installed_gems=(${(f)"$(gem list --no-versions)"})
     local missing=()
     for gem_name in $(cat $DOTFILES_DIR/etc/ruby/default-gems); do
-        if [[ ${installed_gems[(I)$gem_name]} -eq 0 ]]; then
+        if [[ ${installed_gems[(Ie)$gem_name]} -eq 0 ]]; then
             missing+=($gem_name)
         fi
     done
