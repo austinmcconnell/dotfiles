@@ -11,7 +11,8 @@
 }
 
 @test 'verify ruby version matches default' {
-    DEFAULT_RUBY_VERSION=$(grep '^DEFAULT_RUBY_VERSION=' install/ruby.sh | cut -d '=' -f 2 | tr -d '"')
+    DEFAULT_RUBY_VERSION=$(grep '^DEFAULT_RUBY_VERSION=' "$DOTFILES_DIR/install/ruby.sh" | cut -d '=' -f 2 | tr -d '"')
+    assert "$DEFAULT_RUBY_VERSION" is_not_empty
     run ruby --version
     assert $output contains "$DEFAULT_RUBY_VERSION"
 }
