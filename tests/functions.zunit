@@ -12,7 +12,7 @@
 
 @test 'get_trunk_branch' {
     run get_trunk_branch
-    assert $output equals main
+    assert $output same_as main
 }
 
 @test 'git checkout blocked' {
