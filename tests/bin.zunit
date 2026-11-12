@@ -18,8 +18,18 @@
 }
 
 @test 'is-supported' {
-    run is-supported ls -a
+    run is-supported "ls -a"
     assert $state equals 0
+}
+
+@test 'is-supported prints the yes argument' {
+    run is-supported "ls -a" yes no
+    assert $output same_as yes
+}
+
+@test 'is-supported prints the no argument' {
+    run is-supported "ls --nonexistent" yes no
+    assert $output same_as no
 }
 
 @test 'is-supported (false)' {
