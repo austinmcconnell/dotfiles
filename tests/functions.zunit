@@ -5,6 +5,12 @@
     autoload -Uz calc get_trunk_branch git
 }
 
+@teardown {
+    if [[ -n "${stub_dir:-}" ]]; then
+        rm -rf "$stub_dir"
+    fi
+}
+
 @test 'calc' {
     run calc 1 + 2
     assert $output equals 3
@@ -16,7 +22,13 @@
 }
 
 @test 'git checkout blocked' {
+    stub_dir=$(mktemp -d)
+    printf '#!/bin/sh\ntouch "%s/called"\n' "$stub_dir" >"$stub_dir/git"
+    chmod +x "$stub_dir/git"
+    path=($stub_dir $path)
+
     run git checkout main
     assert $state equals 1
     assert $output contains "Don't use checkout"
+    [[ ! -e "$stub_dir/called" ]] || fail "git checkout reached the real git"
 }
