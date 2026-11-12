@@ -26,7 +26,7 @@ etc/git/
     ├── commit-msg        # Validates conventional-commits format; saves rejected message
     ├── prepare-commit-msg # Restores a saved message after a commit-msg failure
     ├── post-checkout     # Repository setup after clone/checkout
-    └── pre-push          # Quality checks before push (tests, linting)
+    └── pre-push          # Runs pytest, zunit, and behave tests the repo has before a push
 ```
 
 ## Maintenance
@@ -83,6 +83,8 @@ The main `config` file includes context-specific configurations using `includeIf
 - **Fast-forward only**: Merge and pull strategies that maintain linear history
 - **Auto-stash rebasing**: Seamless rebase operations with automatic stash management
 - **SSH over HTTPS**: Automatic URL rewriting for GitHub operations
+- **Skipping the pre-push tests**: `git push --no-verify` bypasses the pre-push hook completely,
+  including its pytest, zunit, and behave runs
 
 ## Finding Specific Information
 
