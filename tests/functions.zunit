@@ -9,6 +9,9 @@
     if [[ -n "${stub_dir:-}" ]]; then
         rm -rf "$stub_dir"
     fi
+    if [[ -n "${trunk_repo:-}" ]]; then
+        rm -rf "$trunk_repo"
+    fi
 }
 
 @test 'calc' {
@@ -17,8 +20,17 @@
 }
 
 @test 'get_trunk_branch' {
+    local tree commit
+    trunk_repo=$(mktemp -d)
+    git -C "$trunk_repo" init --quiet
+    tree=$(git -C "$trunk_repo" mktree </dev/null)
+    commit=$(git -C "$trunk_repo" -c user.name=zunit -c user.email=zunit@example.com commit-tree "$tree" -m init)
+    git -C "$trunk_repo" update-ref refs/remotes/origin/trunk "$commit"
+    git -C "$trunk_repo" symbolic-ref refs/remotes/origin/HEAD refs/remotes/origin/trunk
+
+    cd "$trunk_repo"
     run get_trunk_branch
-    assert $output same_as main
+    assert $output same_as trunk
 }
 
 @test 'git checkout blocked' {
