@@ -1,5 +1,9 @@
 #!/usr/bin/env zunit
 
+@setup {
+    repo_root=${testdir:A:h}
+}
+
 @test 'antidote installed' {
     path=($ZDOTDIR/.antidote/ $path)
     run is-executable antidote
@@ -32,7 +36,7 @@
 }
 
 @test 'npm default packages installed' {
-    local packages_file="$DOTFILES_DIR/etc/node/default-packages"
+    local packages_file="$repo_root/etc/node/default-packages"
     if [[ ! -s "$packages_file" ]]; then
         assert 0 equals 0  # no packages to check
         return
@@ -70,7 +74,7 @@
         if ! grep -qx "$tool" <<<"$installed_tools"; then
             missing+=($tool)
         fi
-    done <"$DOTFILES_DIR/etc/python/uv-tools"
+    done <"$repo_root/etc/python/uv-tools"
     [[ ${#missing} -eq 0 ]] || fail "missing: ${(j:, :)missing}"
     assert ${#missing} equals 0
 }
@@ -88,7 +92,7 @@
 @test 'ruby default gems installed' {
     installed_gems=(${(f)"$(gem list --no-versions)"})
     local missing=()
-    for gem_name in $(cat $DOTFILES_DIR/etc/ruby/default-gems); do
+    for gem_name in $(cat $repo_root/etc/ruby/default-gems); do
         if [[ ${installed_gems[(Ie)$gem_name]} -eq 0 ]]; then
             missing+=($gem_name)
         fi

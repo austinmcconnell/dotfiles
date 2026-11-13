@@ -1,5 +1,9 @@
 #!/usr/bin/env zunit
 
+@setup {
+    repo_root=${testdir:A:h}
+}
+
 @test 'verify vim version' {
     run bash -c "vim --version | head -1 | cut -d ' ' -f 5 | cut -d '.' -f 1"
     assert $output is_greater_than 7
@@ -11,7 +15,7 @@
 }
 
 @test 'verify ruby version matches default' {
-    DEFAULT_RUBY_VERSION=$(grep '^DEFAULT_RUBY_VERSION=' "$DOTFILES_DIR/install/ruby.sh" | cut -d '=' -f 2 | tr -d '"')
+    DEFAULT_RUBY_VERSION=$(grep '^DEFAULT_RUBY_VERSION=' "$repo_root/install/ruby.sh" | cut -d '=' -f 2 | tr -d '"')
     assert "$DEFAULT_RUBY_VERSION" is_not_empty
     run ruby --version
     assert $output contains "$DEFAULT_RUBY_VERSION"
@@ -31,7 +35,7 @@
 @test 'uv has every interpreter the installer lists' {
     local -a missing=()
     local version
-    for version in ${=$(sed -n 's/^UV_PYTHON_VERSIONS=(\(.*\))$/\1/p' "$DOTFILES_DIR/install/python.sh")}; do
+    for version in ${=$(sed -n 's/^UV_PYTHON_VERSIONS=(\(.*\))$/\1/p' "$repo_root/install/python.sh")}; do
         uv python find "$version" >/dev/null 2>&1 || missing+=("$version")
     done
     [[ ${#missing} -eq 0 ]] || fail "missing: ${(j:, :)missing}"
@@ -48,13 +52,13 @@
     print -r -- 3.13 >"$pin_313/.python-version"
     print -r -- 3.11 >"$pin_311/.python-version"
 
-    run env XDG_CACHE_HOME="$cache_dir" zsh -f -c 'source "$1"; cd "$2"; cd "$3"; readlink "$4/3.13/python3"; readlink "$4/3.11/python3"' zsh "$DOTFILES_DIR/etc/zsh/conf.d/python.zsh" "$pin_313" "$pin_311" "$cache_dir/zsh/python-implicit"
+    run env XDG_CACHE_HOME="$cache_dir" zsh -f -c 'source "$1"; cd "$2"; cd "$3"; readlink "$4/3.13/python3"; readlink "$4/3.11/python3"' zsh "$repo_root/etc/zsh/conf.d/python.zsh" "$pin_313" "$pin_311" "$cache_dir/zsh/python-implicit"
     assert $output contains cpython-3.13-
     assert $output contains cpython-3.11-
 
-    run env XDG_CACHE_HOME="$cache_dir" zsh -f -c 'source "$1"; cd "$2"; command -v python3' zsh "$DOTFILES_DIR/etc/zsh/conf.d/python.zsh" "$pin_311"
+    run env XDG_CACHE_HOME="$cache_dir" zsh -f -c 'source "$1"; cd "$2"; command -v python3' zsh "$repo_root/etc/zsh/conf.d/python.zsh" "$pin_311"
     assert $output contains python-implicit/3.11/python3
 
-    run env XDG_CACHE_HOME="$cache_dir" zsh -f -c 'source "$1"; cd "$2"; command -v python3' zsh "$DOTFILES_DIR/etc/zsh/conf.d/python.zsh" "$unpinned_dir"
+    run env XDG_CACHE_HOME="$cache_dir" zsh -f -c 'source "$1"; cd "$2"; command -v python3' zsh "$repo_root/etc/zsh/conf.d/python.zsh" "$unpinned_dir"
     assert $output does_not_contain python-implicit
 }
