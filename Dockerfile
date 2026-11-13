@@ -143,7 +143,7 @@ RUN --mount=type=cache,target=/home/testuser/.cache,uid=1000,gid=1000 \
 COPY --chown=testuser:testuser install/ruby.sh ${DOTFILES_DIR}/install/ruby.sh
 COPY --chown=testuser:testuser etc/ruby/ ${DOTFILES_DIR}/etc/ruby/
 RUN --mount=type=cache,target=/home/testuser/.cache,uid=1000,gid=1000 \
-    bash -c "export RUBY_CONFIGURE_OPTS='--with-openssl-dir=/usr' && \
+    bash -c "export PATH=/usr/bin:\$PATH RUBY_CONFIGURE_OPTS='--with-openssl-dir=/usr' && \
     cd ${DOTFILES_DIR} && source ./install/ruby.sh" 2>&1 | tee /tmp/ruby-install.log
 
 # go (~1 min — installs tools from source)
