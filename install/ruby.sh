@@ -73,10 +73,10 @@ else
 fi
 
 # Install Ruby
-rbenv install --skip-existing "${DEFAULT_RUBY_VERSION}"
+rbenv install --skip-existing "${DEFAULT_RUBY_VERSION}" || return 1
 rbenv global "${DEFAULT_RUBY_VERSION}"
 
 # Ensure default gems are installed (rbenv-default-gems only runs
 # during rbenv install, so gems added later would be missed)
-xargs gem install <"$DOTFILES_DIR/etc/ruby/default-gems"
+xargs gem install <"$DOTFILES_DIR/etc/ruby/default-gems" || return 1
 rbenv rehash
