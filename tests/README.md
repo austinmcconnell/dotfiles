@@ -14,8 +14,9 @@ zunit treats every file in a directory it is given as a test and rejects any wit
 `#!/usr/bin/env zunit` first line, so callers pass the `*.zunit` files explicitly rather than the
 directory. That is what lets this README live here. `install.sh` runs the same command as its last
 step when `zunit` is available, and the `pre-push` hook runs the `*.zunit` files it finds. In the
-Docker harness, `make docker-test` runs `dotfiles test` inside the `Dockerfile` image (see the
-`Makefile`).
+Docker harness, `make docker-test` rebuilds the `Dockerfile` image, so it tests the current tree,
+and runs `dotfiles test` inside it (see the `Makefile`). Layer caching keeps a rebuild cheap when
+little has changed.
 
 `.zunit.yml` sets a 5 second limit per test. zunit kills a test that runs longer and reports an
 Error, which fails the run like any other failure. The kill reaches only the test's own shell: a

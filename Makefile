@@ -10,7 +10,7 @@ docker-build-with-ca:
 	@CA_CERT=$$(echo | openssl s_client -connect ghcr.io:443 -showcerts 2>/dev/null | awk '/BEGIN CERTIFICATE/,/END CERTIFICATE/' | tail -n 28); \
 	docker build --build-arg CUSTOM_CA_CERT="$$CA_CERT" -t dotfiles-test .
 
-docker-test:
+docker-test: docker-build
 	docker run --rm -e TERM=xterm dotfiles-test zsh -lc 'eval "$$(fnm env --shell zsh)" && dotfiles test'
 
 docker-shell:
