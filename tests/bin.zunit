@@ -14,7 +14,7 @@
     run is-executable stormblessed
     echo "State is $state"
     echo "$output"
-    assert $state not_equal_to 0
+    assert $state equals 1
 }
 
 @test 'is-supported' {
@@ -36,5 +36,5 @@
     run is-supported "ls --nonexistent"
     echo "State is $state"
     echo "$output"
-    assert $state not_equal_to 0
+    assert $state equals 1
 }
