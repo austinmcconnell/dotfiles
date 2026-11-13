@@ -33,9 +33,13 @@
 }
 
 @test 'uv has every interpreter the installer lists' {
+    local line=$(grep '^UV_PYTHON_VERSIONS=(.*)$' "$repo_root/install/python.sh")
+    assert "$line" is_not_empty
+    local -a versions=(${=${${line#*\(}%\)}})
+    [[ ${#versions} -gt 0 ]] || skip "UV_PYTHON_VERSIONS in install/python.sh is empty"
     local -a missing=()
     local version
-    for version in ${=$(sed -n 's/^UV_PYTHON_VERSIONS=(\(.*\))$/\1/p' "$repo_root/install/python.sh")}; do
+    for version in $versions; do
         uv python find "$version" >/dev/null 2>&1 || missing+=("$version")
     done
     [[ ${#missing} -eq 0 ]] || fail "missing: ${(j:, :)missing}"

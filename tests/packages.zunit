@@ -37,13 +37,12 @@
 
 @test 'npm default packages installed' {
     local packages_file="$repo_root/etc/node/default-packages"
-    if [[ ! -s "$packages_file" ]]; then
-        assert 0 equals 0  # no packages to check
-        return
-    fi
+    assert "$packages_file" is_file
+    local -a packages=($(cat "$packages_file"))
+    [[ ${#packages} -gt 0 ]] || skip "etc/node/default-packages is empty"
     installed_packages=(${(f)"$(npm ls --global --parseable | awk '{gsub(/\/.*\//,"",$1); print}' | sort)"})
     local missing=()
-    for package in $(cat "$packages_file"); do
+    for package in $packages; do
         trimmed_package=$(echo $package | cut -d '/' -f 2 )
         if [[ ${installed_packages[(Ie)$trimmed_package]} -eq 0 ]]; then
             missing+=($package)
@@ -66,8 +65,10 @@
 @test 'python global tools installed' {
     installed_tools=$(uv tool list 2>/dev/null | awk '{print $1}')
     local missing=()
+    local checked=0
     while IFS= read -r tool_line; do
         [[ -z "$tool_line" || "$tool_line" == \#* ]] && continue
+        checked=$(( checked + 1 ))
         # Keep only the tool name: drop --with flags and [extras]
         tool=${tool_line%% *}
         tool=${tool%%\[*}
@@ -75,6 +76,7 @@
             missing+=($tool)
         fi
     done <"$repo_root/etc/python/uv-tools"
+    [[ $checked -gt 0 ]] || skip "etc/python/uv-tools lists no tools"
     [[ ${#missing} -eq 0 ]] || fail "missing: ${(j:, :)missing}"
     assert ${#missing} equals 0
 }
@@ -90,9 +92,13 @@
 }
 
 @test 'ruby default gems installed' {
+    local gems_file="$repo_root/etc/ruby/default-gems"
+    assert "$gems_file" is_file
+    local -a gems=($(cat "$gems_file"))
+    [[ ${#gems} -gt 0 ]] || skip "etc/ruby/default-gems is empty"
     installed_gems=(${(f)"$(gem list --no-versions)"})
     local missing=()
-    for gem_name in $(cat $repo_root/etc/ruby/default-gems); do
+    for gem_name in $gems; do
         if [[ ${installed_gems[(Ie)$gem_name]} -eq 0 ]]; then
             missing+=($gem_name)
         fi
