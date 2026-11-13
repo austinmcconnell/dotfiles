@@ -17,6 +17,11 @@ step when `zunit` is available, and the `pre-push` hook runs the `*.zunit` files
 Docker harness, `make docker-test` runs `dotfiles test` inside the `Dockerfile` image (see the
 `Makefile`).
 
+`.zunit.yml` sets a 5 second limit per test. zunit kills a test that runs longer and reports an
+Error, which fails the run like any other failure. The kill reaches only the test's own shell: a
+child process the test started (a network call, say) keeps zunit waiting until it exits. The slowest
+test takes about a second; raise `time_limit` if a slower machine trips it.
+
 ## Files
 
 | File              | Checks                                                                                 |

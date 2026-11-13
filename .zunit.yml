@@ -2,6 +2,6 @@
 tap: false
 directories:
   tests: tests
-time_limit: 0
+time_limit: 5
 fail_fast: false
 allow_risky: false
