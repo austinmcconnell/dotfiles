@@ -103,7 +103,7 @@
 }
 
 @test 'go default tools installed' {
-    for tool in gopls goimports godoc dlv staticcheck; do
+    for tool in gopls goimports dlv staticcheck; do
         assert "$HOME/go/bin/$tool" is_file
         echo "$tool is installed"
     done

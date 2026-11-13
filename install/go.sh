@@ -49,7 +49,6 @@ echo "Installing Go development tools..."
 # Language server and linting tools
 go install golang.org/x/tools/gopls@latest         # Go language server
 go install golang.org/x/tools/cmd/goimports@latest # Import formatter (for ALE)
-go install golang.org/x/tools/cmd/godoc@latest     # Documentation tool
 
 # Additional useful development tools
 go install github.com/go-delve/delve/cmd/dlv@latest  # Debugger
