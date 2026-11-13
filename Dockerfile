@@ -120,6 +120,10 @@ COPY --chown=testuser:testuser etc/fd/ ${DOTFILES_DIR}/etc/fd/
 COPY --chown=testuser:testuser etc/httpie/ ${DOTFILES_DIR}/etc/httpie/
 COPY --chown=testuser:testuser etc/bat/ ${DOTFILES_DIR}/etc/bat/
 COPY --chown=testuser:testuser etc/sublime-text/ ${DOTFILES_DIR}/etc/sublime-text/
+COPY --chown=testuser:testuser etc/dprint/ ${DOTFILES_DIR}/etc/dprint/
+COPY --chown=testuser:testuser etc/vale/ ${DOTFILES_DIR}/etc/vale/
+COPY --chown=testuser:testuser etc/gh/ ${DOTFILES_DIR}/etc/gh/
+COPY --chown=testuser:testuser etc/rumdl/ ${DOTFILES_DIR}/etc/rumdl/
 RUN --mount=type=cache,target=/home/testuser/.cache/Homebrew,uid=1000,gid=1000 \
     bash -c "cd ${DOTFILES_DIR} && source ./install/brew.sh"
 
@@ -157,8 +161,8 @@ RUN --mount=type=cache,target=/home/testuser/.cache,uid=1000,gid=1000 \
 # --- Remaining installations (fast, minimal dependencies) ---
 COPY --chown=testuser:testuser install/vim.sh ${DOTFILES_DIR}/install/vim.sh
 COPY --chown=testuser:testuser etc/vim/ ${DOTFILES_DIR}/etc/vim/
-COPY --chown=testuser:testuser etc/ag/ ${DOTFILES_DIR}/etc/ag/
 COPY --chown=testuser:testuser etc/yaml/ ${DOTFILES_DIR}/etc/yaml/
+COPY --chown=testuser:testuser etc/ripgrep/ ${DOTFILES_DIR}/etc/ripgrep/
 RUN bash -c "cd ${DOTFILES_DIR} && source ./install/vim.sh"
 
 COPY --chown=testuser:testuser install/ssh.sh ${DOTFILES_DIR}/install/ssh.sh
@@ -166,6 +170,7 @@ COPY --chown=testuser:testuser install/dircolors.sh ${DOTFILES_DIR}/install/dirc
 COPY --chown=testuser:testuser install/xdg-compliance.sh ${DOTFILES_DIR}/install/xdg-compliance.sh
 COPY --chown=testuser:testuser install/glow.sh ${DOTFILES_DIR}/install/glow.sh
 COPY --chown=testuser:testuser etc/dircolors/ ${DOTFILES_DIR}/etc/dircolors/
+COPY --chown=testuser:testuser etc/ssh/ ${DOTFILES_DIR}/etc/ssh/
 COPY --chown=testuser:testuser etc/glow/ ${DOTFILES_DIR}/etc/glow/
 RUN bash -c "cd ${DOTFILES_DIR} && \
     source ./install/ssh.sh && \
@@ -180,10 +185,13 @@ COPY --chown=testuser:testuser . ${DOTFILES_DIR}
 # Initialize a git repo so tests that need git context (e.g. get_trunk_branch) work.
 # We exclude .git/ from the build context to avoid cache-busting on every commit.
 RUN cd ${DOTFILES_DIR} && git init && git checkout -b main && \
-    git add -A && git commit --no-gpg-sign -m "init" --quiet && \
+    git add -A && git commit --no-gpg-sign -m "chore: init" --quiet && \
     git remote add origin https://github.com/placeholder/dotfiles.git && \
     git symbolic-ref refs/remotes/origin/HEAD refs/remotes/origin/main && \
     git update-ref refs/remotes/origin/main HEAD
+
+# Directories the interactive zsh config adds to PATH; non-interactive `docker run ... zsh -lc` skips that config
+ENV PATH="/home/testuser/.local/bin:${XDG_DATA_HOME}/python/default/bin:${PATH}"
 
 # Default to zsh shell
 CMD ["/usr/bin/zsh"]
