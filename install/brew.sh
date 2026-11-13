@@ -73,6 +73,16 @@ tap_if_needed "zunit-zsh/zunit"
 tap_if_needed "bats-core/bats-core"
 tap_if_needed "datadog-labs/pack"
 
+# Homebrew ignores formulae from third-party taps until trusted; revolver is a zunit dependency
+if brew trust --help >/dev/null 2>&1; then
+    print_section_header "Trusting tap formulas"
+    brew trust --formula \
+        "bats-core/bats-core/bats-assert" \
+        "datadog-labs/pack/pup" \
+        "molovo/revolver/revolver" \
+        "zunit-zsh/zunit/zunit"
+fi
+
 print_section_header "Installing formulas"
 install_if_needed "age" "formula"
 install_if_needed "autoenv" "formula"
