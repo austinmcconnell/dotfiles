@@ -13,7 +13,7 @@
 
 @test 'calc' {
     run calc 1 + 2
-    assert $output equals 3
+    assert $output same_as 3
 }
 
 @test 'get_trunk_branch' {
