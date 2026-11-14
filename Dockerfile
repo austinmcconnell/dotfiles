@@ -184,7 +184,11 @@ COPY --chown=testuser:testuser . ${DOTFILES_DIR}
 
 # Initialize a git repo so tests that need git context (e.g. get_trunk_branch) work.
 # We exclude .git/ from the build context to avoid cache-busting on every commit.
-RUN cd ${DOTFILES_DIR} && git init && git checkout -b main && \
+# The COPY above restored the SSH rewrite in etc/git/config; disable it again before committing.
+RUN cd ${DOTFILES_DIR} && \
+    sed -i '/\[url "git@github.com:"\]/,/pushInsteadOf/s/^/#/' etc/git/config && \
+    grep -q '^#\[url "git@github.com:"\]' etc/git/config && \
+    git init && git checkout -b main && \
     git add -A && git commit --no-gpg-sign -m "chore: init" --quiet && \
     git remote add origin https://github.com/placeholder/dotfiles.git && \
     git symbolic-ref refs/remotes/origin/HEAD refs/remotes/origin/main && \
