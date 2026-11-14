@@ -140,9 +140,14 @@ if [ ! -d "$REPO_DIR/.git" ]; then
     git clone --depth=1 https://github.com/mattmc3/antidote.git "$REPO_DIR"
     chmod +x "$REPO_DIR/antidote"
     mkdir -p "$ZDOTDIR/completions"
-else
-    zsh -c "source \"$REPO_DIR/antidote.zsh\" && antidote update"
 fi
+
+# Clone missing plugins now rather than on the first interactive shell; `dotfiles update` updates
+# them. Skip the global git config: on Debian this runs before Homebrew's git exists, and the
+# system git rejects its `zdiff3` conflict style while parsing.
+GIT_CONFIG_GLOBAL=/dev/null zsh -c "source \"$ZDOTDIR/.zstyles\" && \
+    source \"$REPO_DIR/antidote.zsh\" && \
+    antidote bundle <\"$ZDOTDIR/.zsh_plugins.txt\" >\"$ZDOTDIR/.zsh_plugins.zsh\""
 
 # iTerm2 is macOS-only, and importing a color scheme needs macOS `open`
 if is-macos; then
