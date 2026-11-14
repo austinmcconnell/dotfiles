@@ -1,4 +1,7 @@
-.PHONY: docker-build docker-test docker-shell docker-clean
+.PHONY: docker-build docker-test docker-shell docker-clean docker-prune
+
+# Cap on BuildKit's cache, which every project on this Docker host shares
+BUILD_CACHE_MAX = 4GB
 
 docker-build:
 	docker build -t dotfiles-test .
@@ -16,7 +19,14 @@ docker-build-with-ca:
 docker-test:
 	@CA_CERT=$$($(CA_CERT_EXTRACT)); \
 	docker build $${CA_CERT:+--build-arg CUSTOM_CA_CERT="$$CA_CERT"} -t dotfiles-test . && \
+	$(MAKE) --no-print-directory docker-prune && \
 	docker run --rm -e TERM=xterm dotfiles-test zsh -lc 'eval "$$(fnm env --shell zsh)" && dotfiles test'
+
+# Removes earlier builds of this image (untagged once a rebuild takes the tag), leaving other
+# projects' images alone, then trims the shared build cache to BUILD_CACHE_MAX
+docker-prune:
+	docker image prune -f --filter label=dotfiles-test=true
+	docker builder prune -f --max-used-space $(BUILD_CACHE_MAX)
 
 docker-shell:
 	docker run --rm -it dotfiles-test

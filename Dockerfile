@@ -199,3 +199,6 @@ ENV PATH="/home/testuser/.local/bin:${XDG_DATA_HOME}/python/default/bin:${PATH}"
 
 # Default to zsh shell
 CMD ["/usr/bin/zsh"]
+
+# Lets `make docker-prune` find superseded builds of this image; last so it never busts the cache
+LABEL dotfiles-test=true
