@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if ! is-executable brew; then
+if ! is-macos || ! is-executable brew; then
     echo "**************************************************"
     echo "Skipping macOS app installs"
     echo "**************************************************"
