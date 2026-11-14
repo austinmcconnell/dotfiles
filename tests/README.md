@@ -28,7 +28,7 @@ test takes about a second; raise `time_limit` if a slower machine trips it.
 | File              | Checks                                                                                 |
 | :---------------- | :------------------------------------------------------------------------------------- |
 | `packages.zunit`  | Tools and default packages are installed (antidote, fd, fzf, git, fnm, npm,            |
-|                   | pre-commit, python, rbenv, ruby, go, vim, and default packages)                        |
+|                   | pre-commit, python, rbenv, ruby, go, vim, ctags, and default packages)                 |
 | `symlinks.zunit`  | Config symlinks resolve (git config, vimrc, zsh plugins, starship, zsh functions);     |
 |                   | the zsh `conf.d` and `completions` folders hold no dangling links                      |
 | `syntax.zunit`    | Every zsh config file under `etc/zsh/` parses (`zsh -n`); pre-commit skips zsh files   |

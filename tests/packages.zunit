@@ -123,3 +123,8 @@
     run is-executable vim
     assert $state equals 0
 }
+
+@test 'ctags installed' {
+    run is-executable ctags
+    assert $state equals 0
+}

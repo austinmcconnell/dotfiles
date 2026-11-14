@@ -30,7 +30,7 @@ if is-macos; then
     brew install ctags
 elif is-debian; then
     sudo apt update
-    sudo apt install -y ctags
+    sudo apt install -y universal-ctags
 fi
 
 VIM_DIR="$HOME/.vim"
