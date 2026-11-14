@@ -131,7 +131,7 @@ tic -o "$HOME"/.terminfo "$DOTFILES_DIR"/etc/terminfo/xterm-256color.terminfo
 grep "$(which zsh)" /etc/shells &>/dev/null || sudo zsh -c "echo $(which zsh) >> /etc/shells"
 
 if [ "$SHELL" != "$(which zsh)" ]; then
-    sudo chsh -s "$(which zsh)" "$USER"
+    sudo chsh -s "$(which zsh)" "$(id -un)"
 fi
 
 # Install antidote plugin manager
