@@ -102,7 +102,7 @@ RUN echo "export IS_WORK_COMPUTER=0" > ${DOTFILES_EXTRA_DIR}/.env
 COPY --chown=testuser:testuser install/git.sh ${DOTFILES_DIR}/install/git.sh
 COPY --chown=testuser:testuser etc/git/ ${DOTFILES_DIR}/etc/git/
 RUN sed -i '/\[url "git@github.com:"\]/,/pushInsteadOf/s/^/#/' ${DOTFILES_DIR}/etc/git/config
-RUN bash -c "cd ${DOTFILES_DIR} && source ./install/git.sh"
+RUN bash -euo pipefail -c "cd ${DOTFILES_DIR} && source ./install/git.sh"
 
 # --- zsh (sets up ZDOTDIR, functions, completions) ---
 COPY --chown=testuser:testuser install/zsh.sh ${DOTFILES_DIR}/install/zsh.sh
@@ -111,7 +111,7 @@ COPY --chown=testuser:testuser etc/starship/ ${DOTFILES_DIR}/etc/starship/
 COPY --chown=testuser:testuser etc/spaceship/ ${DOTFILES_DIR}/etc/spaceship/
 COPY --chown=testuser:testuser etc/direnv/ ${DOTFILES_DIR}/etc/direnv/
 COPY --chown=testuser:testuser etc/terminfo/ ${DOTFILES_DIR}/etc/terminfo/
-RUN bash -c "cd ${DOTFILES_DIR} && source ./install/zsh.sh"
+RUN bash -euo pipefail -c "cd ${DOTFILES_DIR} && source ./install/zsh.sh"
 
 # --- brew (installs CLI tools needed by later scripts) ---
 COPY --chown=testuser:testuser install/brew.sh ${DOTFILES_DIR}/install/brew.sh
@@ -125,11 +125,11 @@ COPY --chown=testuser:testuser etc/vale/ ${DOTFILES_DIR}/etc/vale/
 COPY --chown=testuser:testuser etc/gh/ ${DOTFILES_DIR}/etc/gh/
 COPY --chown=testuser:testuser etc/rumdl/ ${DOTFILES_DIR}/etc/rumdl/
 RUN --mount=type=cache,target=/home/testuser/.cache/Homebrew,uid=1000,gid=1000 \
-    bash -c "cd ${DOTFILES_DIR} && source ./install/brew.sh"
+    bash -euo pipefail -c "cd ${DOTFILES_DIR} && source ./install/brew.sh"
 
 # --- apt (Linux build dependencies for compiling languages) ---
 COPY --chown=testuser:testuser install/apt.sh ${DOTFILES_DIR}/install/apt.sh
-RUN bash -c "cd ${DOTFILES_DIR} && source ./install/apt.sh"
+RUN bash -euo pipefail -c "cd ${DOTFILES_DIR} && source ./install/apt.sh"
 
 # --- Language installations (ordered by build time, slowest first) ---
 
@@ -137,33 +137,33 @@ RUN bash -c "cd ${DOTFILES_DIR} && source ./install/apt.sh"
 COPY --chown=testuser:testuser install/python.sh ${DOTFILES_DIR}/install/python.sh
 COPY --chown=testuser:testuser etc/python/ ${DOTFILES_DIR}/etc/python/
 RUN --mount=type=cache,target=/home/testuser/.cache,uid=1000,gid=1000 \
-    bash -c "cd ${DOTFILES_DIR} && source ./install/python.sh" 2>&1 | tee /tmp/python-install.log
+    bash -euo pipefail -c "cd ${DOTFILES_DIR} && source ./install/python.sh" 2>&1 | tee /tmp/python-install.log
 
 # ruby (~2 min — compiles from source)
 COPY --chown=testuser:testuser install/ruby.sh ${DOTFILES_DIR}/install/ruby.sh
 COPY --chown=testuser:testuser etc/ruby/ ${DOTFILES_DIR}/etc/ruby/
 RUN --mount=type=cache,target=/home/testuser/.cache,uid=1000,gid=1000 \
-    bash -c "export PATH=/usr/bin:\$PATH RUBY_CONFIGURE_OPTS='--with-openssl-dir=/usr' && \
+    bash -euo pipefail -c "export PATH=/usr/bin:\$PATH RUBY_CONFIGURE_OPTS='--with-openssl-dir=/usr' && \
     cd ${DOTFILES_DIR} && source ./install/ruby.sh" 2>&1 | tee /tmp/ruby-install.log
 
 # go (~1 min — installs tools from source)
 COPY --chown=testuser:testuser install/go.sh ${DOTFILES_DIR}/install/go.sh
 RUN --mount=type=cache,target=/home/testuser/.cache,uid=1000,gid=1000 \
-    bash -c "cd ${DOTFILES_DIR} && source ./install/go.sh" 2>&1 | tee /tmp/go-install.log
+    bash -euo pipefail -c "cd ${DOTFILES_DIR} && source ./install/go.sh" 2>&1 | tee /tmp/go-install.log
 
 # node (~24s — fnm + npm packages)
 COPY --chown=testuser:testuser install/node.sh ${DOTFILES_DIR}/install/node.sh
 COPY --chown=testuser:testuser etc/node/ ${DOTFILES_DIR}/etc/node/
 RUN --mount=type=cache,target=/home/testuser/.cache,uid=1000,gid=1000 \
     rm -f ${XDG_CACHE_HOME}/node_packages_timestamp && \
-    bash -c "cd ${DOTFILES_DIR} && source ./install/node.sh" 2>&1 | tee /tmp/node-install.log
+    bash -euo pipefail -c "cd ${DOTFILES_DIR} && source ./install/node.sh" 2>&1 | tee /tmp/node-install.log
 
 # --- Remaining installations (fast, minimal dependencies) ---
 COPY --chown=testuser:testuser install/vim.sh ${DOTFILES_DIR}/install/vim.sh
 COPY --chown=testuser:testuser etc/vim/ ${DOTFILES_DIR}/etc/vim/
 COPY --chown=testuser:testuser etc/yaml/ ${DOTFILES_DIR}/etc/yaml/
 COPY --chown=testuser:testuser etc/ripgrep/ ${DOTFILES_DIR}/etc/ripgrep/
-RUN bash -c "cd ${DOTFILES_DIR} && source ./install/vim.sh"
+RUN bash -euo pipefail -c "cd ${DOTFILES_DIR} && source ./install/vim.sh"
 
 COPY --chown=testuser:testuser install/ssh.sh ${DOTFILES_DIR}/install/ssh.sh
 COPY --chown=testuser:testuser install/dircolors.sh ${DOTFILES_DIR}/install/dircolors.sh
@@ -172,7 +172,7 @@ COPY --chown=testuser:testuser install/glow.sh ${DOTFILES_DIR}/install/glow.sh
 COPY --chown=testuser:testuser etc/dircolors/ ${DOTFILES_DIR}/etc/dircolors/
 COPY --chown=testuser:testuser etc/ssh/ ${DOTFILES_DIR}/etc/ssh/
 COPY --chown=testuser:testuser etc/glow/ ${DOTFILES_DIR}/etc/glow/
-RUN bash -c "cd ${DOTFILES_DIR} && \
+RUN bash -euo pipefail -c "cd ${DOTFILES_DIR} && \
     source ./install/ssh.sh && \
     source ./install/dircolors.sh && \
     source ./install/xdg-compliance.sh && \
