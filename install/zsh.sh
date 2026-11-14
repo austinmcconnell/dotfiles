@@ -134,11 +134,6 @@ if [ "$SHELL" != "$(which zsh)" ]; then
     sudo chsh -s "$(which zsh)" "$USER"
 fi
 
-# Install iTerm2 shell integration
-if [ ! -f "$HOME/.iterm2_shell_integration.zsh" ]; then
-    curl -L https://iterm2.com/shell_integration/zsh -o "$HOME/.iterm2_shell_integration.zsh"
-fi
-
 # Install antidote plugin manager
 REPO_DIR="$ZDOTDIR/.antidote"
 if [ ! -d "$REPO_DIR/.git" ]; then
@@ -149,22 +144,30 @@ else
     zsh -c "source \"$REPO_DIR/antidote.zsh\" && antidote update"
 fi
 
-# Install iTerm2 color schemes
-iterm_colorschemes=(
-    https://raw.githubusercontent.com/nordtheme/iterm2/233a2462e04e07a9676386a52dad0c2ff6666d72/src/xml/Nord.itermcolors
-    https://raw.githubusercontent.com/rose-pine/iterm/main/rose-pine.itermcolors
-    https://raw.githubusercontent.com/rose-pine/iterm/main/rose-pine-moon.itermcolors
-    https://raw.githubusercontent.com/icewind/everforest.iterm2/main/themes/everforest_dark_medium.itermcolors
-    https://raw.githubusercontent.com/icewind/everforest.iterm2/main/themes/everforest_light_low.itermcolors
-)
-
-for repo in "${iterm_colorschemes[@]}"; do
-    colorscheme=$(echo "$repo" | rev | cut -d '/' -f 1 | rev)
-    if [ ! -f "$ITERM_COLORSCHEME_DIR/$colorscheme" ]; then
-        curl --location --silent "$repo" >"$ITERM_COLORSCHEME_DIR/$colorscheme"
-        open "$ITERM_COLORSCHEME_DIR/$colorscheme"
+# iTerm2 is macOS-only, and importing a color scheme needs macOS `open`
+if is-macos; then
+    # Install iTerm2 shell integration
+    if [ ! -f "$HOME/.iterm2_shell_integration.zsh" ]; then
+        curl -L https://iterm2.com/shell_integration/zsh -o "$HOME/.iterm2_shell_integration.zsh"
     fi
-done
+
+    # Install iTerm2 color schemes
+    iterm_colorschemes=(
+        https://raw.githubusercontent.com/nordtheme/iterm2/233a2462e04e07a9676386a52dad0c2ff6666d72/src/xml/Nord.itermcolors
+        https://raw.githubusercontent.com/rose-pine/iterm/main/rose-pine.itermcolors
+        https://raw.githubusercontent.com/rose-pine/iterm/main/rose-pine-moon.itermcolors
+        https://raw.githubusercontent.com/icewind/everforest.iterm2/main/themes/everforest_dark_medium.itermcolors
+        https://raw.githubusercontent.com/icewind/everforest.iterm2/main/themes/everforest_light_low.itermcolors
+    )
+
+    for repo in "${iterm_colorschemes[@]}"; do
+        colorscheme=$(echo "$repo" | rev | cut -d '/' -f 1 | rev)
+        if [ ! -f "$ITERM_COLORSCHEME_DIR/$colorscheme" ]; then
+            curl --location --silent "$repo" >"$ITERM_COLORSCHEME_DIR/$colorscheme"
+            open "$ITERM_COLORSCHEME_DIR/$colorscheme"
+        fi
+    done
+fi
 
 # Docker completions
 if is-executable docker; then
