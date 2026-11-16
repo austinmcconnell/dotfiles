@@ -99,5 +99,9 @@ fi
 # Create .hushlogin to disable the login message
 touch ~/.hushlogin
 
-# Run tests to verify the installation
-if is-executable zunit; then dotfiles test; else echo "Skipped: tests (missing: zunit)"; fi
+# Run tests to verify the installation, in an interactive zsh so they see what the zsh config loads
+if is-executable zunit; then
+    zsh -ic "dotfiles test"
+else
+    echo "Skipped: tests (missing: zunit)"
+fi
