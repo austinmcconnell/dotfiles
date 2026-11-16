@@ -82,6 +82,10 @@ works across fresh macOS installations.
 1. **Platform-specific configs** - Use `.zsh-darwin` or `.zsh-linux` suffixes for OS-specific files
 1. **Regenerate static file** - After changing `.zsh_plugins.txt`, run:
    `antidote bundle <~/.config/zsh/.zsh_plugins.txt >~/.config/zsh/.zsh_plugins.zsh`
+1. **Say which shell a change runs in** - Install scripts run in bash; the interactive shell is zsh
+   under Zephyr. For a PATH or tool-init change (fnm, rbenv, antidote), say which shell it affects
+   and where it fits the loading order, prefer a zsh-native fix, and never write uncommitted lines
+   into a config file
 
 ### When Modifying Install Scripts
 
