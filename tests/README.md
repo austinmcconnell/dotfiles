@@ -18,6 +18,21 @@ Docker harness, `make docker-test` rebuilds the `Dockerfile` image, so it tests 
 and runs `dotfiles test` inside it (see the `Makefile`). Layer caching keeps a rebuild cheap when
 little has changed.
 
+## Idempotency
+
+`make docker-idempotency` rebuilds the image and runs `scripts/check-idempotency.sh` in it. The
+script runs `install.sh` twice and fails if the second run changes anything the first left behind: a
+file, mode, or symlink under the home directory, the repo's git state, `/etc/shells`, or the user's
+`/etc/passwd` entry. File contents appear only as hashes. It skips state that changes on every shell
+start or command, such as caches, Go telemetry, and fnm's per-shell links. A run takes about 3
+minutes. `make docker-idempotency CHECK_ARGS=--self-test` appends a line to `~/.zshenv` before the
+final snapshot and passes only if the check catches it.
+
+The check does not cover two paths. The container cannot clone ai-dotfiles, so its installer never
+runs. The image also pre-sets the `XDG_*` variables that a fresh machine lacks.
+
+## Time limit
+
 `.zunit.yml` sets a 5 second limit per test. zunit kills a test that runs longer and reports an
 Error, which fails the run like any other failure. The kill reaches only the test's own shell: a
 child process the test started (a network call, say) keeps zunit waiting until it exits. The slowest

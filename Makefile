@@ -1,4 +1,4 @@
-.PHONY: docker-build docker-test docker-shell docker-clean docker-prune
+.PHONY: docker-build docker-image docker-test docker-idempotency docker-shell docker-clean docker-prune
 
 # Cap on BuildKit's cache, which every project on this Docker host shares
 BUILD_CACHE_MAX = 4GB
@@ -15,12 +15,21 @@ docker-build-with-ca:
 	@CA_CERT=$$($(CA_CERT_EXTRACT)); \
 	docker build --build-arg CUSTOM_CA_CERT="$$CA_CERT" -t dotfiles-test .
 
-# Uses the CA build arg when the extraction returns one, so the image builds behind WARP
-docker-test:
+# Rebuilds the image from the current tree, using the CA build arg when the extraction returns
+# one so the image builds behind WARP
+docker-image:
 	@CA_CERT=$$($(CA_CERT_EXTRACT)); \
 	docker build $${CA_CERT:+--build-arg CUSTOM_CA_CERT="$$CA_CERT"} -t dotfiles-test . && \
-	$(MAKE) --no-print-directory docker-prune && \
-	docker run --rm -e TERM=xterm dotfiles-test zsh -lc 'eval "$$(fnm env --shell zsh)" && dotfiles test'
+	$(MAKE) --no-print-directory docker-prune
+
+docker-test: docker-image
+	@docker run --rm -e TERM=xterm dotfiles-test zsh -lc 'eval "$$(fnm env --shell zsh)" && dotfiles test'
+
+# Runs install.sh twice in a fresh container and fails if the second run changes anything;
+# CHECK_ARGS=--self-test confirms the check catches an injected change
+docker-idempotency: docker-image
+	@docker run --rm -e TERM=xterm -e GIT_TERMINAL_PROMPT=0 -e HOMEBREW_NO_AUTO_UPDATE=1 \
+		dotfiles-test /home/testuser/.dotfiles/scripts/check-idempotency.sh $(CHECK_ARGS)
 
 # Removes earlier builds of this image (untagged once a rebuild takes the tag), leaving other
 # projects' images alone, then trims the shared build cache to BUILD_CACHE_MAX

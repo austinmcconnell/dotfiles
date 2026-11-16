@@ -1,8 +1,8 @@
 # Scripts
 
 Helper scripts for maintenance, analysis, and one-off automation. Unlike `bin/`, nothing here is on
-`PATH`; scripts are run by path. Most are manual utilities. Only the three scripts in "Wired into
-the repo" are called by other parts of the repo.
+`PATH`; scripts are run by path. Most are manual utilities. Only the four scripts in "Wired into the
+repo" are called by other parts of the repo.
 
 ## Wired into the repo
 
@@ -11,6 +11,7 @@ the repo" are called by other parts of the repo.
 | `sort-git-config.sh`           | The "Sort git config" hook in `.pre-commit-config.yaml`; see `etc/git/README.md`                                                         |
 | `generate-vim-mappings-doc.sh` | The "Regenerate Vim mappings reference" hook, on changes to `etc/vim/.vimrc` or `etc/vim/plugin/*.vim`; writes `etc/vim/vim-mappings.md` |
 | `gem_orphans.rb`               | `dotfiles orphans` (`sub_orphans` in `bin/dotfiles`)                                                                                     |
+| `check-idempotency.sh`         | `make docker-idempotency`, inside the test image; see `tests/README.md`                                                                  |
 
 ## Manual utilities
 
