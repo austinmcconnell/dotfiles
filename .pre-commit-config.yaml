@@ -19,7 +19,7 @@ repos:
         exclude: \.plist$
       - id: trailing-whitespace
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.17.1
+    rev: v0.17.5
     hooks:
       - id: ruff
         name: ruff (linter)
@@ -101,7 +101,7 @@ repos:
           - mdformat-frontmatter
           - mdformat-simple-breaks
   - repo: https://github.com/rvben/rumdl-pre-commit
-    rev: v0.3.0
+    rev: v0.3.4
     hooks:
       - id: rumdl-fmt
   - repo: https://github.com/adrienverge/yamllint
