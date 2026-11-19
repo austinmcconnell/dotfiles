@@ -161,7 +161,7 @@
 }
 
 @test 'accepts a whitespace-only blank line' {
-    printf 'fix: x\n  \nWhy.\n \t \nMore.\n' >"$msg"
+    printf 'fix: x\n  \nWhy.\n \t \n- a\n' >"$msg"
     run "$hook" "$msg"
     assert $state equals 0
 }
@@ -230,6 +230,95 @@
     assert $state equals 0
 }
 
+# --- Body structure --------------------------------------------------------
+
+@test 'rejects a second prose paragraph' {
+    printf 'fix: x\n\nWhy.\n\nMore context.\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 1
+    assert $output contains 'Line 5 starts a second prose paragraph'
+}
+
+@test 'rejects prose containing a colon or hash as a second paragraph' {
+    printf 'fix: x\n\nWhy.\n\nThe cause was simple: a typo\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 1
+    assert $output contains 'second prose paragraph'
+    printf 'fix: x\n\nWhy.\n\nFixed in PR #12 later\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 1
+    assert $output contains 'second prose paragraph'
+}
+
+@test 'accepts several bullet paragraphs after the prose paragraph' {
+    printf 'fix: x\n\nWhy.\n\n- a\n- b\n\n- c: with colon\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 0
+}
+
+@test 'accepts bullets followed by a footer' {
+    printf 'fix: x\n\nWhy.\n\n- a\n  continues\n\nRefs: #1\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 0
+}
+
+@test 'accepts a footer-looking line as the final paragraph' {
+    printf 'fix: x\n\nWhy.\n\nNote: see the docs\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 0
+}
+
+@test 'rejects a footer-looking paragraph that is not the last' {
+    printf 'fix: x\n\nWhy.\n\nNote: see the docs\n\n- a\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 1
+    assert $output contains 'opens a footer before the end'
+}
+
+@test 'rejects two footer paragraphs' {
+    printf 'fix: x\n\nWhy.\n\nRefs: #1\n\nReviewed-by: Z\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 1
+    assert $output contains 'opens a footer before the end'
+}
+
+@test 'accepts a body that is a single footer-looking paragraph' {
+    printf 'fix: x\n\nRefs: #1\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 0
+}
+
+@test 'accepts a multi-line BREAKING CHANGE as the whole body' {
+    printf 'feat!: x\n\nBREAKING CHANGE: api removed and\n  callers must migrate\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 0
+}
+
+@test 'accepts a footer continuation after a blank run before the footer' {
+    printf 'feat!: x\n\n\nBREAKING CHANGE: a\n  b\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 0
+}
+
+@test 'collapses runs of blank lines between paragraphs' {
+    printf 'fix: x\n\n\nWhy.\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 0
+    printf 'fix: x\n\nWhy.\n\n\n- a\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 0
+    printf 'fix: x\n\nWhy.\n\n\nRefs: #1\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 0
+}
+
+@test 'rejects indentation in a body paragraph that is not a footer' {
+    printf 'fix: x\n\n\nWhy.\n  indented\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 1
+    assert $output contains 'Line 5 is indented'
+}
+
 # --- Footers ---------------------------------------------------------------
 
 @test 'accepts hyphenated and hash-separated footers' {
@@ -238,11 +327,18 @@
     assert $state equals 0
 }
 
-@test 'rejects a footer token containing a space' {
+@test 'rejects a footer token containing a space with a hyphen hint' {
     printf 'fix: x\n\nWhy.\n\nReviewed by: Z\n' >"$msg"
     run "$hook" "$msg"
     assert $state equals 1
-    assert $output contains 'Invalid footer format'
+    assert $output contains 'second prose paragraph'
+    assert $output contains 'Reviewed-by'
+}
+
+@test 'accepts footer tokens with digits and underscores' {
+    printf 'fix: x\n\nWhy.\n\nJira-2: PROJ-1\nX_ref #3\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 0
 }
 
 @test 'accepts a final bullet list containing a colon' {

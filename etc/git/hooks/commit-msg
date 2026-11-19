@@ -19,7 +19,7 @@ PREFIX="[commit-msg]"
 MAX_SUBJECT_LENGTH=72
 MAX_BODY_LINE_LENGTH=72
 VALID_TYPES="feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert"
-footer_token="^([A-Za-z-]+|BREAKING CHANGE)(: | #)"
+footer_token="^([A-Za-z0-9_-]+|BREAKING CHANGE)(: | #)"
 
 # Strip comments (lines starting with #) and verbose diff output.
 # With commit.verbose=true, git appends the diff below a scissor line
@@ -48,10 +48,13 @@ if [[ "$subject" =~ $skip_pattern ]]; then
     exit 0
 fi
 
-# The footer block is the final paragraph (after the last blank line past the
-# subject separator). Both the indent check and the footer check use it.
-last_blank=0
-total_lines=$(echo "$message" | wc -l | tr -d ' ')
+# Group the body into paragraphs: runs of non-blank lines after the subject
+# separator. Runs of blank lines collapse, which matters because the commit
+# template leaves them. para_start and para_first hold each paragraph's first
+# line number and text. Both the indent check and the body check use them.
+para_start=()
+para_first=()
+in_para=false
 line_num=0
 while IFS= read -r line; do
     line_num=$((line_num + 1))
@@ -59,18 +62,24 @@ while IFS= read -r line; do
         continue
     fi
     if [[ -z "$line" ]]; then
-        last_blank=$line_num
+        in_para=false
+    elif [[ "$in_para" == false ]]; then
+        para_start+=("$line_num")
+        para_first+=("$line")
+        in_para=true
     fi
 done <<<"$message"
+para_count=${#para_start[@]}
 
 # footer_start is the line a footer block begins on, or 0 when the final
 # paragraph does not open with a footer token. Bullets are body text even
-# when they match the token pattern ("- #42 ...").
+# when they match the token pattern ("- #42 ..."). A body that is only a footer
+# counts, so a multi-line BREAKING CHANGE keeps its indented continuation.
 footer_start=0
-if [[ $last_blank -gt 2 && $last_blank -lt $total_lines ]]; then
-    first_footer_line=$(echo "$message" | sed -n "$((last_blank + 1))p")
-    if [[ "$first_footer_line" != "- "* && "$first_footer_line" =~ $footer_token ]]; then
-        footer_start=$((last_blank + 1))
+if [[ $para_count -gt 0 ]]; then
+    last_para=$((para_count - 1))
+    if [[ "${para_first[$last_para]}" != "- "* && "${para_first[$last_para]}" =~ $footer_token ]]; then
+        footer_start=${para_start[$last_para]}
     fi
 fi
 
@@ -223,56 +232,38 @@ while IFS= read -r line; do
     fi
 done <<<"$message"
 
-# Check: footer structure (conventional commits spec rules 8-9)
-# Footers are the block of lines after the last blank line (excluding subject separator).
-# Valid footer: "Token: value", "Token #value", or "BREAKING CHANGE: value"
-# Token must be a word using - for spaces (exception: BREAKING CHANGE).
-# Lines that continue a multi-line footer value (no token/separator) are allowed.
+# Check: body structure. A body is one prose paragraph, then any number of
+# "- " bullet paragraphs, then an optional footer paragraph. A footer opens with
+# "Token: value" or "Token #value" (conventional commits spec rules 8-9), and a
+# token is one word using - for spaces (exception: BREAKING CHANGE). Any other
+# paragraph is a second prose paragraph. Messages stay short because of this.
+# NOTE: the gitcommit ftplugin mirrors this classifier to highlight violations
+# live. Change one, change both.
 hash_separator=" #"
-
-# If there's a blank line after the body, validate the footer block.
-# Only enter footer mode if the first non-empty line after the blank
-# looks like a footer (contains ": " or " #"). Lines starting with
-# "- " are body bullets, not footers.
-if [[ $last_blank -gt 2 && $last_blank -lt $total_lines ]]; then
-    in_footer=false
-    line_num=0
-    while IFS= read -r line; do
-        line_num=$((line_num + 1))
-        if [[ $line_num -le $last_blank ]]; then
+for ((i = 1; i < para_count; i++)); do
+    first="${para_first[$i]}"
+    if [[ "$first" == "- "* ]]; then
+        continue
+    fi
+    if [[ "$first" =~ $footer_token ]]; then
+        if [[ $i -eq $((para_count - 1)) ]]; then
             continue
         fi
-        # Detect footer start on first non-empty line
-        if [[ "$in_footer" == false ]]; then
-            if [[ -z "$line" ]]; then
-                continue
-            fi
-            # Bullet points are body text, not footers
-            if [[ "$line" == "- "* ]]; then
-                break
-            fi
-            # Must contain a footer separator to be a footer block
-            if [[ "$line" =~ ": " ]] || [[ "$line" =~ $hash_separator ]]; then
-                in_footer=true
-            else
-                break
-            fi
-        fi
-        # Skip empty lines and continuation lines (indented)
-        if [[ -z "$line" ]] || [[ "$line" =~ ^[[:space:]] ]]; then
-            continue
-        fi
-        # If line contains a separator, it should be a valid footer
-        if [[ "$line" =~ ": " ]] || [[ "$line" =~ $hash_separator ]]; then
-            if ! [[ "$line" =~ $footer_token ]]; then
-                echo "$PREFIX Invalid footer format." >&2
-                echo "" >&2
-                echo "  $line" >&2
-                echo "" >&2
-                echo "Expected: Token: value  or  Token${hash_separator}value" >&2
-                echo "Use hyphens in tokens (e.g., Jira-issue, Reviewed-by)" >&2
-                exit 1
-            fi
-        fi
-    done <<<"$message"
-fi
+        echo "$PREFIX Line ${para_start[$i]} opens a footer before the end of the message." >&2
+        echo "" >&2
+        echo "  $first" >&2
+        echo "" >&2
+        echo "Footers are one paragraph at the end, one per line." >&2
+        exit 1
+    fi
+    echo "$PREFIX Line ${para_start[$i]} starts a second prose paragraph." >&2
+    echo "" >&2
+    echo "  $first" >&2
+    echo "" >&2
+    echo "A body is one prose paragraph, then '- ' bullets, then an optional footer." >&2
+    if [[ "$first" =~ ": " ]] || [[ "$first" =~ $hash_separator ]]; then
+        echo "If this line is a footer, its token must be one word or hyphenated" >&2
+        echo "(Reviewed-by: Z, Refs #12) and it must be the last paragraph." >&2
+    fi
+    exit 1
+done

@@ -60,7 +60,7 @@ function! s:BadIndentLines() abort
   let footer_start = 0
   if last_blank > 2 && last_blank < len(rows)
     let first = rows[last_blank][1]
-    if first !~# '^- ' && first =~# '^\%([A-Za-z-]\+\|BREAKING CHANGE\)\%(: \| #\)'
+    if first !~# '^- ' && first =~# '^\%([A-Za-z0-9_-]\+\|BREAKING CHANGE\)\%(: \| #\)'
       let footer_start = last_blank + 1
     endif
   endif
