@@ -45,6 +45,10 @@ message=$(sed '/^#/d; /^diff --git /,$d' "$COMMIT_MSG_FILE")
 # shellcheck disable=SC2001
 message=$(echo "$message" | sed 's/[[:space:]]*$//')
 
+# Drop blank lines above the subject (a pasted message often has them) so the
+# subject is line 1 for every check below and the write-back removes them.
+message=$(echo "$message" | sed '/./,$!d')
+
 # Write cleaned message back so git uses the trimmed version.
 echo "$message" >"$COMMIT_MSG_FILE"
 

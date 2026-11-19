@@ -40,7 +40,7 @@ let s:footer_token = '^\%([A-Za-z0-9_-]\+\|BREAKING CHANGE\)\%(: \| #\)'
 function! s:BadMessageLines() abort
   " Line numbers the commit-msg hook rejects for indentation or body structure.
   " The hook strips comment lines and the verbose-diff region, trims trailing
-  " whitespace (CR included), drops trailing blank lines, and counts lines
+  " whitespace (CR included), drops leading and trailing blank lines, and counts lines
   " after that, so build the same view (kept as [lnum, text] pairs) and index
   " it 1-based like the hook.
   let rows = []
@@ -55,6 +55,9 @@ function! s:BadMessageLines() abort
   endfor
   while !empty(rows) && rows[-1][1] ==# ''
     call remove(rows, -1)
+  endwhile
+  while !empty(rows) && rows[0][1] ==# ''
+    call remove(rows, 0)
   endwhile
 
   " Paragraphs are runs of non-blank lines past the subject separator; runs of

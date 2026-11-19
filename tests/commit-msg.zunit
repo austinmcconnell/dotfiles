@@ -440,6 +440,41 @@
     [[ "$(<$msg)" == $'fix: x\n\nWhy.' ]] || fail "unexpected rewrite: $(<$msg)"
 }
 
+@test 'strips blank lines above the subject and writes the message back' {
+    printf '\n\n  \t\nfix: x\n\nWhy.\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 0
+    [[ "$(<$msg)" == $'fix: x\n\nWhy.' ]] || fail "unexpected rewrite: $(<$msg)"
+}
+
+@test 'strips blank lines left above the subject by template comments' {
+    printf '# Subject:\n\nfix: x\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 0
+    [[ "$(<$msg)" == 'fix: x' ]] || fail "unexpected rewrite: $(<$msg)"
+}
+
+@test 'strips blank lines above a skipped subject' {
+    printf '\nfixup! fix: x\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 0
+    [[ "$(<$msg)" == 'fixup! fix: x' ]] || fail "unexpected rewrite: $(<$msg)"
+}
+
+@test 'numbers lines from the subject after stripping leading blank lines' {
+    printf '\n\nfix: x\n\nWhy.\n\n  indented\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 1
+    assert $output contains 'Line 5 is indented'
+}
+
+@test 'still requires a blank line between subject and body' {
+    printf '\nfix: x\nWhy.\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 1
+    assert $output contains 'blank line between subject and body'
+}
+
 # --- Saved message ---------------------------------------------------------
 
 @test 'saves a rejected editor-commit message for prepare-commit-msg' {
