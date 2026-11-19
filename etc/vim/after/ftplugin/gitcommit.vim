@@ -28,30 +28,38 @@ setlocal autoindent                 " sustain the 2-space bullet hang across wra
 
 highlight default link GitcommitLintError Error
 
-" Subject (line 1) and body (line 3+) chars past column 72. Column-regex
-" matches auto-track as the buffer changes, but they are rebuilt with the rest
-" of the lint (s:RefreshLintMatches) so a skipped subject can drop them. The
-" body rule excludes comment lines (^#...\@! ... \zs anchors the highlight to
-" the overflow): the hook strips comment lines before its length check, so
+" Subject and body (the lines after the separator) chars past column 72.
+" Column-regex matches auto-track as the buffer changes, but they are rebuilt
+" with the rest of the lint (s:RefreshLintMatches) so they can follow the
+" subject's line (blank lines may precede it) and drop for a skipped subject.
+" The body rule excludes comment lines (^#...\@! ... \zs anchors the highlight
+" to the overflow): the hook strips comment lines before its length check, so
 " git's own trailing "# Your branch is up to date..." comments must not be
 " flagged.
 
 let s:skip_pattern = '^\%(Merge \|Squash \|fixup!\|squash!\|amend!\)'
 let s:footer_token = '^\%([A-Za-z0-9_-]\+\|BREAKING CHANGE\)\%(: \| #\)'
 
-function! s:IsSkipped() abort
-  " True when the hook would skip this message: its subject (first line that is
-  " neither a comment nor blank) is a Merge/Squash/fixup!/squash!/amend! one.
+function! s:SubjectLnum() abort
+  " Line number of the subject, as the hook sees it: the first line that is
+  " neither a comment nor blank. 0 when there is none.
   for lnum in range(1, line('$'))
     let line = getline(lnum)
     if line =~# '^diff --git '
       return 0
     endif
     if line !~# '^#' && line !~# '^[ \t\r]*$'
-      return line =~# s:skip_pattern
+      return lnum
     endif
   endfor
   return 0
+endfunction
+
+function! s:IsSkipped() abort
+  " True when the hook would skip this message: its subject is a
+  " Merge/Squash/fixup!/squash!/amend! one.
+  let subject = s:SubjectLnum()
+  return subject > 0 && getline(subject) =~# s:skip_pattern
 endfunction
 
 function! s:BadMessageLines() abort
@@ -158,10 +166,14 @@ function! s:RefreshLintMatches() abort
   if s:IsSkipped()
     return
   endif
-  call add(w:gitcommit_length_matches,
-        \ matchadd('GitcommitLintError', '\%1l\%>72v.\+', 20))
-  call add(w:gitcommit_length_matches,
-        \ matchadd('GitcommitLintError', '\%>2l^#\@!.\{-}\zs\%>72v.\+', 20))
+  let subject = s:SubjectLnum()
+  if subject > 0
+    call add(w:gitcommit_length_matches,
+          \ matchadd('GitcommitLintError', '\%' . subject . 'l\%>72v.\+', 20))
+    call add(w:gitcommit_length_matches,
+          \ matchadd('GitcommitLintError',
+          \ '\%>' . (subject + 1) . 'l^#\@!.\{-}\zs\%>72v.\+', 20))
+  endif
   let bad = s:BadMessageLines()
   if !empty(bad)
     let w:gitcommit_lint_match = matchaddpos('GitcommitLintError', bad, 20)
