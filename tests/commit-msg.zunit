@@ -1,0 +1,225 @@
+#!/usr/bin/env zunit
+
+@setup {
+    hook=${testdir:A:h}/etc/git/hooks/commit-msg
+    # The hook saves rejected messages under .git, so it must not run in this repo.
+    repo=$(mktemp -d)
+    git -C "$repo" init --quiet
+    cd "$repo"
+    msg=$repo/COMMIT_EDITMSG
+}
+
+@teardown {
+    cd /
+    if [[ -n "${repo:-}" ]]; then
+        rm -rf "$repo"
+    fi
+}
+
+# --- Subject ---------------------------------------------------------------
+
+@test 'accepts a conventional subject with scope and body' {
+    printf 'feat(auth): add login\n\nExplain why.\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 0
+}
+
+@test 'accepts a subject with no body' {
+    printf 'fix: correct typo\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 0
+}
+
+@test 'accepts breaking-change bang with and without scope' {
+    printf 'feat!: drop old api\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 0
+    printf 'feat(api)!: drop old api\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 0
+}
+
+@test 'rejects a subject without a type' {
+    printf 'Add login\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 1
+    assert $output contains 'Invalid commit message format'
+}
+
+@test 'rejects an uppercase type' {
+    printf 'Feat: add login\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 1
+    assert $output contains 'Invalid commit message format'
+}
+
+@test 'rejects a scope outside letters, digits and hyphens' {
+    printf 'fix(hooks/git): correct path\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 1
+    assert $output contains 'Invalid commit message format'
+}
+
+@test 'rejects a subject ending in a period' {
+    printf 'fix: correct typo.\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 1
+    assert $output contains 'must not end with a period'
+}
+
+@test 'rejects an uppercase description' {
+    printf 'fix: Correct typo\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 1
+    assert $output contains 'must start with lowercase'
+}
+
+@test 'accepts a 72-char subject and rejects a 73-char one' {
+    printf 'fix: %s\n' "${(l:67::a:)}" >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 0
+    printf 'fix: %s\n' "${(l:68::a:)}" >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 1
+    assert $output contains 'Subject is 73 chars'
+}
+
+# --- Body ------------------------------------------------------------------
+
+@test 'rejects a body without a blank line after the subject' {
+    printf 'fix: correct typo\nBody glued to subject.\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 1
+    assert $output contains 'blank line between subject and body'
+}
+
+@test 'accepts a 72-char body line and rejects a 73-char one' {
+    printf 'fix: correct typo\n\n%s\n' "${(l:72::a:)}" >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 0
+    printf 'fix: correct typo\n\n%s\n' "${(l:73::a:)}" >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 1
+    assert $output contains 'Body line 3 is 73 chars'
+}
+
+@test 'accepts bullet continuations indented exactly 2 spaces' {
+    printf 'fix: x\n\nWhy.\n\n- first bullet\n  continues here\n- second bullet\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 0
+}
+
+@test 'rejects an unindented bullet continuation' {
+    printf 'fix: x\n\nWhy.\n\n- first bullet\ncontinues here\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 1
+    assert $output contains 'indented exactly 2 spaces'
+}
+
+@test 'rejects a bullet continuation indented 3 spaces' {
+    printf 'fix: x\n\nWhy.\n\n- first bullet\n   continues here\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 1
+    assert $output contains 'indented exactly 2 spaces'
+}
+
+# --- Footers ---------------------------------------------------------------
+
+@test 'accepts hyphenated and hash-separated footers' {
+    printf 'fix: x\n\nWhy.\n\nReviewed-by: Z <z@example.com>\nRefs #123\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 0
+}
+
+@test 'rejects a footer token containing a space' {
+    printf 'fix: x\n\nWhy.\n\nReviewed by: Z\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 1
+    assert $output contains 'Invalid footer format'
+}
+
+@test 'accepts a final bullet list containing a colon' {
+    printf 'fix: x\n\nWhy.\n\n- Validate tokens (rules 8-9): must use hyphens\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 0
+}
+
+@test 'accepts BREAKING CHANGE and BREAKING-CHANGE footers' {
+    printf 'feat!: x\n\nWhy.\n\nBREAKING CHANGE: api removed\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 0
+    printf 'feat!: x\n\nWhy.\n\nBREAKING-CHANGE: api removed\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 0
+}
+
+@test 'accepts a multi-line BREAKING CHANGE with an indented continuation' {
+    printf 'feat!: x\n\nWhy.\n\nBREAKING CHANGE: api removed and\n  callers must migrate\nRefs: #1\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 0
+}
+
+@test 'rejects a mixed-case breaking change footer' {
+    printf 'feat!: x\n\nWhy.\n\nBreaking change: api removed\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 1
+    assert $output contains "uppercase 'BREAKING CHANGE:'"
+}
+
+# --- Skips -----------------------------------------------------------------
+
+@test 'skips merge, fixup, squash and amend subjects' {
+    local subject
+    for subject in "Merge branch 'side'" 'fixup! feat: x' 'squash! feat: x' 'amend! feat: x'; do
+        printf '%s\n' "$subject" >"$msg"
+        run "$hook" "$msg"
+        assert $state equals 0
+    done
+}
+
+@test 'accepts a message with only comments' {
+    printf '# Please enter the commit message\n#\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 0
+}
+
+# --- Rewrites --------------------------------------------------------------
+
+@test 'strips template comment lines and writes the message back' {
+    printf 'fix: x\n# Subject:\n# <type>(<scope>): <subject>\n\nWhy.\n# --- COMMIT END ---\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 0
+    [[ "$(<$msg)" == $'fix: x\n\nWhy.' ]] || fail "unexpected rewrite: $(<$msg)"
+}
+
+@test 'strips a verbose diff from the diff --git line on' {
+    printf 'fix: x\n\nWhy.\n# ------------------------ >8 ------------------------\ndiff --git a/f b/f\n+added\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 0
+    [[ "$(<$msg)" == $'fix: x\n\nWhy.' ]] || fail "unexpected rewrite: $(<$msg)"
+}
+
+@test 'trims trailing whitespace and CRLF line endings' {
+    printf 'fix: x  \r\n\r\nWhy. \r\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 0
+    [[ "$(<$msg)" == $'fix: x\n\nWhy.' ]] || fail "unexpected rewrite: $(<$msg)"
+}
+
+# --- Saved message ---------------------------------------------------------
+
+@test 'saves a rejected message for prepare-commit-msg' {
+    printf 'Bad message\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 1
+    assert "$repo/.git/COMMIT_MSG_SAVED" is_file
+    assert "$(<$repo/.git/COMMIT_MSG_SAVED)" same_as 'Bad message'
+}
+
+@test 'clears a saved message after a successful run' {
+    printf 'Old rejected message\n' >"$repo/.git/COMMIT_MSG_SAVED"
+    printf 'fix: x\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 0
+    [[ ! -e "$repo/.git/COMMIT_MSG_SAVED" ]] || fail 'saved message was not cleared'
+}

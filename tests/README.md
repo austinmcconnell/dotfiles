@@ -2,7 +2,9 @@
 
 [zunit](https://zunit.xyz) tests that check an installed dotfiles environment: that tools are
 installed, symlinks resolve, versions match, and a few shell functions and `bin/` commands behave.
-They test the machine after `install.sh`, not the scripts in isolation.
+They test the machine after `install.sh`, not the scripts in isolation. The exception is
+`commit-msg.zunit`, which runs the repo's `etc/git/hooks/commit-msg` directly against messages in a
+throwaway git repo.
 
 ## Running
 
