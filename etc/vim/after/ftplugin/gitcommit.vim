@@ -16,12 +16,14 @@ setlocal autoindent                 " sustain the 2-space bullet hang across wra
 " shows red even where the guard line is. The guard line stays visible
 " everywhere else as the ruler.
 "
-" The indentation rule below MIRRORS the indent and bullet-continuation checks
-" in etc/git/hooks/commit-msg. A stateless single-line regex cannot express it
-" (it would false-positive ordinary prose paragraphs, which cannot be told
-" from bullet continuations or footer values without tracking "inside a bullet
-" block" and "inside the footer block" state). Keep the two in sync: change
-" the hook's indentation logic, change this too.
+" The indentation and body-structure rules below MIRROR the indent,
+" bullet-continuation, and body checks in etc/git/hooks/commit-msg. A
+" stateless single-line regex cannot express them (it would false-positive
+" ordinary prose, which cannot be told from bullet continuations, footer
+" values, or a second paragraph without tracking "inside a bullet block",
+" "inside the footer block", and paragraph position). Keep the two in sync:
+" change the hook's logic, change this too. The hook's skip for Merge/fixup!
+" and similar subjects is not mirrored yet.
 
 highlight default link GitcommitLintError Error
 
@@ -33,11 +35,14 @@ highlight default link GitcommitLintError Error
 call matchadd('GitcommitLintError', '\%1l\%>72v.\+', 20)
 call matchadd('GitcommitLintError', '\%>2l^#\@!.\{-}\zs\%>72v.\+', 20)
 
-function! s:BadIndentLines() abort
-  " Line numbers the commit-msg hook rejects for indentation. The hook strips
-  " comment lines and the verbose-diff region first and counts lines after
-  " that, so build the same view (kept as [lnum, text] pairs) and index it
-  " 1-based like the hook. Whitespace-only lines are blank (the hook trims them).
+let s:footer_token = '^\%([A-Za-z0-9_-]\+\|BREAKING CHANGE\)\%(: \| #\)'
+
+function! s:BadMessageLines() abort
+  " Line numbers the commit-msg hook rejects for indentation or body structure.
+  " The hook strips comment lines and the verbose-diff region, trims trailing
+  " whitespace (CR included), drops trailing blank lines, and counts lines
+  " after that, so build the same view (kept as [lnum, text] pairs) and index
+  " it 1-based like the hook.
   let rows = []
   for lnum in range(1, line('$'))
     let line = getline(lnum)
@@ -45,24 +50,34 @@ function! s:BadIndentLines() abort
       break
     endif
     if line !~# '^#'
-      call add(rows, [lnum, substitute(line, '\s\+$', '', '')])
+      call add(rows, [lnum, substitute(line, '[ \t\r]\+$', '', '')])
     endif
   endfor
+  while !empty(rows) && rows[-1][1] ==# ''
+    call remove(rows, -1)
+  endwhile
 
-  " The footer block is the final paragraph, past the subject separator, and
-  " only when its first line is a footer token (a '- ' bullet never is).
-  let last_blank = 0
-  for idx in range(3, len(rows))
-    if rows[idx - 1][1] ==# ''
-      let last_blank = idx
+  " Paragraphs are runs of non-blank lines past the subject separator; runs of
+  " blank lines collapse. Each is [row index, lnum, first line].
+  let paras = []
+  let in_para = 0
+  let idx = 3
+  while idx <= len(rows)
+    let [lnum, line] = rows[idx - 1]
+    if line ==# ''
+      let in_para = 0
+    elseif !in_para
+      call add(paras, [idx, lnum, line])
+      let in_para = 1
     endif
-  endfor
+    let idx += 1
+  endwhile
+
+  " The footer block is the final paragraph, when its first line is a footer
+  " token (a '- ' bullet never is). A body that is only a footer counts.
   let footer_start = 0
-  if last_blank > 2 && last_blank < len(rows)
-    let first = rows[last_blank][1]
-    if first !~# '^- ' && first =~# '^\%([A-Za-z0-9_-]\+\|BREAKING CHANGE\)\%(: \| #\)'
-      let footer_start = last_blank + 1
-    endif
+  if !empty(paras) && paras[-1][2] !~# '^- ' && paras[-1][2] =~# s:footer_token
+    let footer_start = paras[-1][0]
   endif
 
   " A blank line ends a bullet block and a '- ' line opens one. Inside a bullet
@@ -71,7 +86,8 @@ function! s:BadIndentLines() abort
   " an indented line is allowed only in the footer block.
   let bad = []
   let in_bullet = 0
-  for idx in range(1, len(rows))
+  let idx = 1
+  while idx <= len(rows)
     let [lnum, line] = rows[idx - 1]
     if line ==# ''
       let in_bullet = 0
@@ -84,30 +100,46 @@ function! s:BadIndentLines() abort
     elseif line =~# '^\s' && (footer_start == 0 || idx < footer_start)
       call add(bad, lnum)
     endif
-  endfor
-  return bad
+    let idx += 1
+  endwhile
+
+  " Body structure: one prose paragraph, then bullet paragraphs, then an
+  " optional footer. Flag the first line of a body that opens with bullets and
+  " of any later paragraph that is neither bullets nor the single final footer.
+  if !empty(paras) && paras[0][2] =~# '^- '
+    call add(bad, paras[0][1])
+  endif
+  let i = 1
+  while i < len(paras)
+    let first = paras[i][2]
+    if first !~# '^- ' && (first !~# s:footer_token || i != len(paras) - 1)
+      call add(bad, paras[i][1])
+    endif
+    let i += 1
+  endwhile
+  return uniq(sort(bad, 'n'))
 endfunction
 
-function! s:RefreshIndentMatches() abort
+function! s:RefreshLintMatches() abort
   " matchaddpos is one-shot (positions do not auto-track), so clear and rebuild
-  " this window's indentation match on every change. The id is window-local so
+  " this window's lint match on every change. The id is window-local so
   " multiple gitcommit windows do not clobber each other.
-  if exists('w:gitcommit_indent_match') && w:gitcommit_indent_match != -1
-    silent! call matchdelete(w:gitcommit_indent_match)
+  if exists('w:gitcommit_lint_match') && w:gitcommit_lint_match != -1
+    silent! call matchdelete(w:gitcommit_lint_match)
   endif
-  let w:gitcommit_indent_match = -1
-  let bad = s:BadIndentLines()
+  let w:gitcommit_lint_match = -1
+  let bad = s:BadMessageLines()
   if !empty(bad)
-    let w:gitcommit_indent_match = matchaddpos('GitcommitLintError', bad, 20)
+    let w:gitcommit_lint_match = matchaddpos('GitcommitLintError', bad, 20)
   endif
 endfunction
 
 augroup gitcommit_lint_highlight
   autocmd! * <buffer>
-  autocmd TextChanged,TextChangedI,InsertLeave <buffer> call s:RefreshIndentMatches()
+  autocmd TextChanged,TextChangedI,InsertLeave <buffer> call s:RefreshLintMatches()
 augroup END
 
-call s:RefreshIndentMatches()
+call s:RefreshLintMatches()
 
 " --- Paragraph text object that also stops at comment lines ------------------
 " The template puts '#' lines directly under the body with no blank line, and
