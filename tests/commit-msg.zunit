@@ -168,6 +168,7 @@
 
 @test 'keeps the indentation in a rejected message instead of dedenting it' {
     printf 'fix: x\n\n  Why.\n' >"$msg"
+    touch "$repo/.git/COMMIT_MSG_EDITOR"
     run "$hook" "$msg"
     assert $state equals 1
     [[ "$(<$msg)" == $'fix: x\n\n  Why.' ]] || fail "message was rewritten: $(<$msg)"
@@ -441,12 +442,41 @@
 
 # --- Saved message ---------------------------------------------------------
 
-@test 'saves a rejected message for prepare-commit-msg' {
+@test 'saves a rejected editor-commit message for prepare-commit-msg' {
     printf 'Bad message\n' >"$msg"
+    touch "$repo/.git/COMMIT_MSG_EDITOR"
     run "$hook" "$msg"
     assert $state equals 1
     assert "$repo/.git/COMMIT_MSG_SAVED" is_file
     assert "$(<$repo/.git/COMMIT_MSG_SAVED)" same_as 'Bad message'
+}
+
+@test 'does not save a rejected message when there is no editor marker' {
+    printf 'Bad message\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 1
+    [[ ! -e "$repo/.git/COMMIT_MSG_SAVED" ]] || fail 'a non-editor message was saved'
+}
+
+@test 'keeps an existing save when a non-editor message is rejected' {
+    printf 'Earlier draft\n' >"$repo/.git/COMMIT_MSG_SAVED"
+    printf 'Bad message\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 1
+    assert "$(<$repo/.git/COMMIT_MSG_SAVED)" same_as 'Earlier draft'
+}
+
+@test 'removes the editor marker on rejection and on success' {
+    printf 'Bad message\n' >"$msg"
+    touch "$repo/.git/COMMIT_MSG_EDITOR"
+    run "$hook" "$msg"
+    assert $state equals 1
+    [[ ! -e "$repo/.git/COMMIT_MSG_EDITOR" ]] || fail 'marker survived a rejection'
+    printf 'fix: x\n' >"$msg"
+    touch "$repo/.git/COMMIT_MSG_EDITOR"
+    run "$hook" "$msg"
+    assert $state equals 0
+    [[ ! -e "$repo/.git/COMMIT_MSG_EDITOR" ]] || fail 'marker survived a success'
 }
 
 @test 'clears a saved message after a successful run' {

@@ -4,18 +4,27 @@ set -euo pipefail
 
 # Restores a previously saved commit message after a commit-msg hook failure.
 # Only activates for plain editor-based commits (no -m, merge, amend, etc.).
+# It also marks those commits so commit-msg saves only their rejections. The
+# saved message stays until commit-msg accepts one, so an aborted editor session
+# keeps the draft.
 
 COMMIT_MSG_FILE="$1"
 COMMIT_SOURCE="${2:-}"
-SAVED_MSG="$(git rev-parse --git-dir)/COMMIT_MSG_SAVED"
+GIT_DIR_PATH="$(git rev-parse --git-dir)"
+SAVED_MSG="$GIT_DIR_PATH/COMMIT_MSG_SAVED"
+EDITOR_MARKER="$GIT_DIR_PATH/COMMIT_MSG_EDITOR"
 
-if [[ -z "$COMMIT_SOURCE" || "$COMMIT_SOURCE" == "template" ]] && [[ -f "$SAVED_MSG" ]]; then
-    TEMPLATE=$(git config --path --get commit.template 2>/dev/null || true)
-    {
-        cat "$SAVED_MSG"
-        if [[ -n "$TEMPLATE" ]] && [[ -f "$TEMPLATE" ]]; then
-            cat "$TEMPLATE"
-        fi
-    } >"$COMMIT_MSG_FILE"
-    rm -f "$SAVED_MSG"
+if [[ -z "$COMMIT_SOURCE" || "$COMMIT_SOURCE" == "template" ]]; then
+    touch "$EDITOR_MARKER"
+    if [[ -f "$SAVED_MSG" ]]; then
+        TEMPLATE=$(git config --path --get commit.template 2>/dev/null || true)
+        {
+            cat "$SAVED_MSG"
+            if [[ -n "$TEMPLATE" ]] && [[ -f "$TEMPLATE" ]]; then
+                cat "$TEMPLATE"
+            fi
+        } >"$COMMIT_MSG_FILE"
+    fi
+else
+    rm -f "$EDITOR_MARKER"
 fi

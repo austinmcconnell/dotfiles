@@ -9,10 +9,24 @@ set -euo pipefail
 
 COMMIT_MSG_FILE="$1"
 
-# Save message on failure so prepare-commit-msg can restore it next time.
-SAVED_MSG="$(git rev-parse --git-dir)/COMMIT_MSG_SAVED"
-ec=0
-trap 'ec=$?; if [[ $ec -ne 0 ]]; then cp "$COMMIT_MSG_FILE" "$SAVED_MSG"; else rm -f "$SAVED_MSG"; fi' EXIT
+# Save a rejected message so prepare-commit-msg can restore it next time, but
+# only for editor commits: prepare-commit-msg leaves a marker for those. The
+# marker is removed on every exit so it cannot outlive this commit attempt, and
+# an accepted message clears any pending save.
+GIT_DIR_PATH="$(git rev-parse --git-dir)"
+SAVED_MSG="$GIT_DIR_PATH/COMMIT_MSG_SAVED"
+EDITOR_MARKER="$GIT_DIR_PATH/COMMIT_MSG_EDITOR"
+
+finish() {
+    local ec=$?
+    if [[ $ec -eq 0 ]]; then
+        rm -f "$SAVED_MSG"
+    elif [[ -f "$EDITOR_MARKER" ]]; then
+        cp "$COMMIT_MSG_FILE" "$SAVED_MSG"
+    fi
+    rm -f "$EDITOR_MARKER"
+}
+trap finish EXIT
 
 # Configuration
 PREFIX="[commit-msg]"

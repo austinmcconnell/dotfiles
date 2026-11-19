@@ -1,0 +1,146 @@
+#!/usr/bin/env zunit
+
+@setup {
+    hooks=${testdir:A:h}/etc/git/hooks
+    prepare=$hooks/prepare-commit-msg
+    check=$hooks/commit-msg
+    # The hooks keep state under .git, so they must not run in this repo.
+    repo=$(mktemp -d)
+    git -C "$repo" init --quiet
+    cd "$repo"
+    msg=$repo/COMMIT_EDITMSG
+    saved=$repo/.git/COMMIT_MSG_SAVED
+    marker=$repo/.git/COMMIT_MSG_EDITOR
+    printf '# template line\n' >"$repo/template.txt"
+    git config commit.template "$repo/template.txt"
+}
+
+@teardown {
+    cd /
+    if [[ -n "${repo:-}" ]]; then
+        rm -rf "$repo"
+    fi
+}
+
+# --- Restore ---------------------------------------------------------------
+
+@test 'restores a saved message and the template for an editor commit' {
+    printf 'fix: draft\n' >"$saved"
+    : >"$msg"
+    run "$prepare" "$msg"
+    assert $state equals 0
+    [[ "$(<$msg)" == $'fix: draft\n# template line' ]] || fail "unexpected message: $(<$msg)"
+}
+
+@test 'restores for a template-sourced editor commit' {
+    printf 'fix: draft\n' >"$saved"
+    : >"$msg"
+    run "$prepare" "$msg" template
+    assert $state equals 0
+    [[ "$(<$msg)" == $'fix: draft\n# template line' ]] || fail "unexpected message: $(<$msg)"
+}
+
+@test 'keeps the saved message after restoring it' {
+    printf 'fix: draft\n' >"$saved"
+    : >"$msg"
+    run "$prepare" "$msg"
+    assert $state equals 0
+    assert "$saved" is_file
+}
+
+@test 'leaves the message alone for sources other than an editor commit' {
+    local source
+    for source in message commit merge squash; do
+        printf 'fix: draft\n' >"$saved"
+        printf 'given\n' >"$msg"
+        run "$prepare" "$msg" $source
+        assert $state equals 0
+        [[ "$(<$msg)" == 'given' ]] || fail "$source rewrote the message"
+    done
+}
+
+# --- Marker ----------------------------------------------------------------
+
+@test 'marks an editor commit' {
+    : >"$msg"
+    run "$prepare" "$msg"
+    assert $state equals 0
+    assert "$marker" is_file
+    rm -f "$marker"
+    run "$prepare" "$msg" template
+    assert "$marker" is_file
+}
+
+@test 'removes a stale marker for sources other than an editor commit' {
+    local source
+    for source in message commit merge squash; do
+        touch "$marker"
+        : >"$msg"
+        run "$prepare" "$msg" $source
+        assert $state equals 0
+        [[ ! -e "$marker" ]] || fail "marker survived source $source"
+    done
+}
+
+# --- With the commit-msg hook ----------------------------------------------
+
+@test 'saves a rejected editor message and restores it on the next editor commit' {
+    printf 'Bad message\n' >"$msg"
+    run "$prepare" "$msg"
+    run "$check" "$msg"
+    assert $state equals 1
+    assert "$(<$saved)" same_as 'Bad message'
+    : >"$msg"
+    run "$prepare" "$msg"
+    [[ "$(<$msg)" == $'Bad message\n# template line' ]] || fail "unexpected message: $(<$msg)"
+}
+
+@test 'does not save a rejected message from a non-editor commit' {
+    printf 'wip\n' >"$msg"
+    run "$prepare" "$msg" commit
+    run "$check" "$msg"
+    assert $state equals 1
+    [[ ! -e "$saved" ]] || fail 'a non-editor message was saved'
+    : >"$msg"
+    run "$prepare" "$msg"
+    [[ -z "$(<$msg)" ]] || fail "next editor commit was refilled: $(<$msg)"
+}
+
+@test 'a stale marker from a skipped commit-msg does not save a later -m rejection' {
+    : >"$msg"
+    run "$prepare" "$msg"
+    assert "$marker" is_file
+    printf 'wip\n' >"$msg"
+    run "$prepare" "$msg" message
+    run "$check" "$msg"
+    assert $state equals 1
+    [[ ! -e "$saved" ]] || fail 'a stale marker armed saving for a -m commit'
+}
+
+@test 'keeps the draft when the restored editor session is aborted' {
+    printf 'Bad message\n' >"$saved"
+    : >"$msg"
+    run "$prepare" "$msg"
+    assert "$(<$saved)" same_as 'Bad message'
+    assert "$marker" is_file
+}
+
+@test 'clears the saved message once an editor commit is accepted' {
+    printf 'Bad message\n' >"$saved"
+    : >"$msg"
+    run "$prepare" "$msg"
+    printf 'fix: x\n' >"$msg"
+    run "$check" "$msg"
+    assert $state equals 0
+    [[ ! -e "$saved" ]] || fail 'saved message survived an accepted commit'
+    [[ ! -e "$marker" ]] || fail 'marker survived an accepted commit'
+}
+
+@test 'clears a pending save when a non-editor commit is accepted' {
+    printf 'Bad message\n' >"$saved"
+    printf 'fix: x\n' >"$msg"
+    run "$prepare" "$msg" message
+    run "$check" "$msg"
+    assert $state equals 0
+    [[ ! -e "$saved" ]] || fail 'saved message survived an accepted commit'
+}
