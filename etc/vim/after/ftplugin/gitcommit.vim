@@ -22,20 +22,37 @@ setlocal autoindent                 " sustain the 2-space bullet hang across wra
 " ordinary prose, which cannot be told from bullet continuations, footer
 " values, or a second paragraph without tracking "inside a bullet block",
 " "inside the footer block", and paragraph position). Keep the two in sync:
-" change the hook's logic, change this too. The hook's skip for Merge/fixup!
-" and similar subjects is not mirrored yet.
+" change the hook's logic, change this too. Like the hook, nothing is flagged
+" for Merge/Squash/fixup!/squash!/amend! subjects: git writes those messages
+" itself (the merge text has indented lines and long subjects).
 
 highlight default link GitcommitLintError Error
 
 " Subject (line 1) and body (line 3+) chars past column 72. Column-regex
-" matches auto-track as the buffer changes, so they need no refresh. The body
-" rule excludes comment lines (^#...\@! ... \zs anchors the highlight to the
-" overflow): the hook strips comment lines before its length check, so git's
-" own trailing "# Your branch is up to date..." comments must not be flagged.
-call matchadd('GitcommitLintError', '\%1l\%>72v.\+', 20)
-call matchadd('GitcommitLintError', '\%>2l^#\@!.\{-}\zs\%>72v.\+', 20)
+" matches auto-track as the buffer changes, but they are rebuilt with the rest
+" of the lint (s:RefreshLintMatches) so a skipped subject can drop them. The
+" body rule excludes comment lines (^#...\@! ... \zs anchors the highlight to
+" the overflow): the hook strips comment lines before its length check, so
+" git's own trailing "# Your branch is up to date..." comments must not be
+" flagged.
 
+let s:skip_pattern = '^\%(Merge \|Squash \|fixup!\|squash!\|amend!\)'
 let s:footer_token = '^\%([A-Za-z0-9_-]\+\|BREAKING CHANGE\)\%(: \| #\)'
+
+function! s:IsSkipped() abort
+  " True when the hook would skip this message: its subject (first line that is
+  " neither a comment nor blank) is a Merge/Squash/fixup!/squash!/amend! one.
+  for lnum in range(1, line('$'))
+    let line = getline(lnum)
+    if line =~# '^diff --git '
+      return 0
+    endif
+    if line !~# '^#' && line !~# '^[ \t\r]*$'
+      return line =~# s:skip_pattern
+    endif
+  endfor
+  return 0
+endfunction
 
 function! s:BadMessageLines() abort
   " Line numbers the commit-msg hook rejects for indentation or body structure.
@@ -43,6 +60,9 @@ function! s:BadMessageLines() abort
   " whitespace (CR included), drops leading and trailing blank lines, and counts lines
   " after that, so build the same view (kept as [lnum, text] pairs) and index
   " it 1-based like the hook.
+  if s:IsSkipped()
+    return []
+  endif
   let rows = []
   for lnum in range(1, line('$'))
     let line = getline(lnum)
@@ -125,12 +145,23 @@ endfunction
 
 function! s:RefreshLintMatches() abort
   " matchaddpos is one-shot (positions do not auto-track), so clear and rebuild
-  " this window's lint match on every change. The id is window-local so
+  " this window's lint matches on every change. The ids are window-local so
   " multiple gitcommit windows do not clobber each other.
+  for id in get(w:, 'gitcommit_length_matches', [])
+    silent! call matchdelete(id)
+  endfor
+  let w:gitcommit_length_matches = []
   if exists('w:gitcommit_lint_match') && w:gitcommit_lint_match != -1
     silent! call matchdelete(w:gitcommit_lint_match)
   endif
   let w:gitcommit_lint_match = -1
+  if s:IsSkipped()
+    return
+  endif
+  call add(w:gitcommit_length_matches,
+        \ matchadd('GitcommitLintError', '\%1l\%>72v.\+', 20))
+  call add(w:gitcommit_length_matches,
+        \ matchadd('GitcommitLintError', '\%>2l^#\@!.\{-}\zs\%>72v.\+', 20))
   let bad = s:BadMessageLines()
   if !empty(bad)
     let w:gitcommit_lint_match = matchaddpos('GitcommitLintError', bad, 20)
