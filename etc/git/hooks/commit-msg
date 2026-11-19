@@ -3,7 +3,8 @@
 set -euo pipefail
 
 # Validates commit messages against conventional commits format.
-# Skips validation for merge, squash, fixup, and amend commits.
+# Skips validation for git-generated Merge/Squash subjects and for fixup!,
+# squash!, and amend! subjects. A plain `git commit --amend` is validated.
 # Bypassed with --no-verify (e.g., the wip alias uses this).
 
 COMMIT_MSG_FILE="$1"
@@ -18,36 +19,19 @@ PREFIX="[commit-msg]"
 MAX_SUBJECT_LENGTH=72
 MAX_BODY_LINE_LENGTH=72
 VALID_TYPES="feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert"
+footer_token="^([A-Za-z-]+|BREAKING CHANGE)(: | #)"
 
 # Strip comments (lines starting with #) and verbose diff output.
 # With commit.verbose=true, git appends the diff below a scissor line
 # (# --- >8 ---) or below the comment block. Strip both.
 message=$(sed '/^#/d; /^diff --git /,$d' "$COMMIT_MSG_FILE")
 
-# Dedent: remove common leading whitespace (handles pasted indented text).
-# Find the minimum indent across non-empty lines, then strip that many chars.
-min_indent=""
-min_indent_set=false
-while IFS= read -r line; do
-    [[ -z "$line" ]] && continue
-    indent="${line%%[! ]*}"
-    if [[ "$min_indent_set" == false ]] || [[ ${#indent} -lt ${#min_indent} ]]; then
-        min_indent="$indent"
-        min_indent_set=true
-    fi
-done <<<"$message"
-if [[ -n "$min_indent" ]]; then
-    # ${var//} doesn't support anchored ^
-    # shellcheck disable=SC2001
-    message=$(echo "$message" | sed "s/^${min_indent}//")
-fi
-
 # Trim trailing whitespace from each line.
 # ${var//} doesn't support [[:space:]] or $
 # shellcheck disable=SC2001
 message=$(echo "$message" | sed 's/[[:space:]]*$//')
 
-# Write cleaned message back so git uses the dedented/trimmed version.
+# Write cleaned message back so git uses the trimmed version.
 echo "$message" >"$COMMIT_MSG_FILE"
 
 # Get the subject line (first non-empty line)
@@ -63,6 +47,64 @@ skip_pattern="^(Merge |Squash |fixup!|squash!|amend!)"
 if [[ "$subject" =~ $skip_pattern ]]; then
     exit 0
 fi
+
+# The footer block is the final paragraph (after the last blank line past the
+# subject separator). Both the indent check and the footer check use it.
+last_blank=0
+total_lines=$(echo "$message" | wc -l | tr -d ' ')
+line_num=0
+while IFS= read -r line; do
+    line_num=$((line_num + 1))
+    if [[ $line_num -le 2 ]]; then
+        continue
+    fi
+    if [[ -z "$line" ]]; then
+        last_blank=$line_num
+    fi
+done <<<"$message"
+
+# footer_start is the line a footer block begins on, or 0 when the final
+# paragraph does not open with a footer token. Bullets are body text even
+# when they match the token pattern ("- #42 ...").
+footer_start=0
+if [[ $last_blank -gt 2 && $last_blank -lt $total_lines ]]; then
+    first_footer_line=$(echo "$message" | sed -n "$((last_blank + 1))p")
+    if [[ "$first_footer_line" != "- "* && "$first_footer_line" =~ $footer_token ]]; then
+        footer_start=$((last_blank + 1))
+    fi
+fi
+
+# Check: every line starts at column 0. Indentation is allowed only for bullet
+# continuations (their exact width is checked below) and for the lines of a
+# footer block. Pasted or accidentally indented text is rejected, not fixed.
+in_bullet=false
+line_num=0
+while IFS= read -r line; do
+    line_num=$((line_num + 1))
+    if [[ -z "$line" ]]; then
+        in_bullet=false
+        continue
+    fi
+    if [[ "$line" != [[:space:]]* ]]; then
+        in_bullet=false
+        if [[ "$line" == "- "* ]]; then
+            in_bullet=true
+        fi
+        continue
+    fi
+    if [[ "$in_bullet" == true ]]; then
+        continue
+    fi
+    if [[ $footer_start -gt 0 && $line_num -ge $footer_start ]]; then
+        continue
+    fi
+    echo "$PREFIX Line $line_num is indented; lines must start at column 0." >&2
+    echo "" >&2
+    echo "  $line" >&2
+    echo "" >&2
+    echo "Only bullet continuations (2 spaces) and footer values may be indented." >&2
+    exit 1
+done <<<"$message"
 
 # Pattern: type(scope)!: subject  or  type!: subject  or  type: subject
 # Lowercase types only — spec rule 15 says case-insensitive, but that targets
@@ -155,8 +197,8 @@ while IFS= read -r line; do
     if [[ "$in_bullet" == true ]]; then
         # Require exactly 2 spaces: flag under-indented (<2) and over-indented
         # (3+) continuations alike. A valid continuation starts with "  " and
-        # the third character is not a space.
-        if ! [[ "$line" == "  "* ]] || [[ "$line" == "   "* ]]; then
+        # the third character is not whitespace (so "  <tab>" is rejected).
+        if ! [[ "$line" =~ ^\ \ [^[:space:]] ]]; then
             echo "$PREFIX Bullet continuation must be indented exactly 2 spaces." >&2
             echo "" >&2
             echo "  $line" >&2
@@ -186,22 +228,7 @@ done <<<"$message"
 # Valid footer: "Token: value", "Token #value", or "BREAKING CHANGE: value"
 # Token must be a word using - for spaces (exception: BREAKING CHANGE).
 # Lines that continue a multi-line footer value (no token/separator) are allowed.
-footer_token="^([A-Za-z-]+|BREAKING CHANGE)(: | #)"
 hash_separator=" #"
-last_blank=0
-total_lines=$(echo "$message" | wc -l | tr -d ' ')
-
-# Find the last blank line after the subject separator (line 2)
-line_num=0
-while IFS= read -r line; do
-    line_num=$((line_num + 1))
-    if [[ $line_num -le 2 ]]; then
-        continue
-    fi
-    if [[ -z "$line" ]]; then
-        last_blank=$line_num
-    fi
-done <<<"$message"
 
 # If there's a blank line after the body, validate the footer block.
 # Only enter footer mode if the first non-empty line after the blank

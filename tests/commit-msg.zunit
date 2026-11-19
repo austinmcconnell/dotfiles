@@ -123,6 +123,113 @@
     assert $output contains 'indented exactly 2 spaces'
 }
 
+# --- Indentation -----------------------------------------------------------
+
+@test 'rejects an indented body under an unindented subject' {
+    printf 'fix: x\n\n Why.\n More.\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 1
+    assert $output contains 'Line 3 is indented'
+}
+
+@test 'rejects a wholly indented message' {
+    printf '  fix: x\n\n  Why.\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 1
+    assert $output contains 'Line 1 is indented'
+}
+
+@test 'rejects an indented bullet' {
+    printf 'fix: x\n\nWhy.\n\n - indented bullet\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 1
+    assert $output contains 'Line 5 is indented'
+}
+
+@test 'rejects a tab-indented body line' {
+    printf 'fix: x\n\n\tWhy.\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 1
+    assert $output contains 'Line 3 is indented'
+}
+
+@test 'rejects an indented body line in CRLF input' {
+    printf 'fix: x\r\n\r\n  Why.\r\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 1
+    assert $output contains 'Line 3 is indented'
+}
+
+@test 'accepts a whitespace-only blank line' {
+    printf 'fix: x\n  \nWhy.\n \t \nMore.\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 0
+}
+
+@test 'keeps the indentation in a rejected message instead of dedenting it' {
+    printf 'fix: x\n\n  Why.\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 1
+    [[ "$(<$msg)" == $'fix: x\n\n  Why.' ]] || fail "message was rewritten: $(<$msg)"
+    [[ "$(<$repo/.git/COMMIT_MSG_SAVED)" == $'fix: x\n\n  Why.' ]] || fail 'saved message lost its indentation'
+}
+
+@test 'accepts an indented footer continuation with spaces or a tab' {
+    printf 'feat!: x\n\nWhy.\n\nBREAKING CHANGE: a\n  b\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 0
+    printf 'feat!: x\n\nWhy.\n\nBREAKING CHANGE: a\n\tb\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 0
+}
+
+@test 'rejects an indented line in a paragraph after the footer block' {
+    printf 'feat!: x\n\nWhy.\n\nBREAKING CHANGE: a\n\nMore.\n  indented\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 1
+    assert $output contains 'Line 8 is indented'
+}
+
+@test 'rejects indentation after a footer-looking line in a middle paragraph' {
+    printf 'fix: x\n\nNote: see below\n  indented\n\nMore.\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 1
+    assert $output contains 'Line 4 is indented'
+}
+
+@test 'rejects indentation when the final paragraph does not open with a footer' {
+    printf 'fix: x\n\nWhy.\n\nBody text.\nRefs: #1\n  cont\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 1
+    assert $output contains 'Line 7 is indented'
+}
+
+@test 'rejects a tab after the two-space bullet continuation indent' {
+    printf 'fix: x\n\nWhy.\n\n- a\n  \tcont\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 1
+    assert $output contains 'indented exactly 2 spaces'
+}
+
+@test 'does not treat a bullet that looks like a footer as a footer' {
+    printf 'fix: x\n\nWhy.\n\n- #42 handle x\n\tcont\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 1
+    assert $output contains 'indented exactly 2 spaces'
+}
+
+@test 'still skips indented bodies under merge, fixup and squash subjects' {
+    printf "Merge branch 'x'\n\n* branch 'x':\n  feat: y\n" >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 0
+    printf 'fixup! feat: x\n\n  indented\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 0
+    printf 'Squash commit -- not updating HEAD\n\ncommit abc\nAuthor: A\n\n    msg\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 0
+}
+
 # --- Footers ---------------------------------------------------------------
 
 @test 'accepts hyphenated and hash-separated footers' {
