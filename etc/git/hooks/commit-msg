@@ -177,8 +177,8 @@ done <<<"$message"
 # A continuation is a non-blank line that follows a "- " bullet (or another
 # continuation) and doesn't start a new bullet or footer.
 # NOTE: the gitcommit ftplugin (etc/vim/after/ftplugin/gitcommit.vim) mirrors
-# this in_bullet state machine to highlight violations live. Change one, change
-# both.
+# this in_bullet state machine and the indent check above to highlight
+# violations live. Change one, change both.
 in_bullet=false
 line_num=0
 while IFS= read -r line; do

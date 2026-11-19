@@ -16,11 +16,12 @@ setlocal autoindent                 " sustain the 2-space bullet hang across wra
 " shows red even where the guard line is. The guard line stays visible
 " everywhere else as the ruler.
 "
-" The bullet-continuation rule below MIRRORS the in_bullet state machine in
-" etc/git/hooks/commit-msg. A stateless single-line regex cannot express it
+" The indentation rule below MIRRORS the indent and bullet-continuation checks
+" in etc/git/hooks/commit-msg. A stateless single-line regex cannot express it
 " (it would false-positive ordinary prose paragraphs, which cannot be told
-" from bullet continuations without tracking "inside a bullet block" state).
-" Keep the two in sync: change the hook's bullet logic, change this too.
+" from bullet continuations or footer values without tracking "inside a bullet
+" block" and "inside the footer block" state). Keep the two in sync: change
+" the hook's indentation logic, change this too.
 
 highlight default link GitcommitLintError Error
 
@@ -32,55 +33,81 @@ highlight default link GitcommitLintError Error
 call matchadd('GitcommitLintError', '\%1l\%>72v.\+', 20)
 call matchadd('GitcommitLintError', '\%>2l^#\@!.\{-}\zs\%>72v.\+', 20)
 
-function! s:BadBulletLines() abort
-  " Line numbers whose bullet continuation is not indented exactly 2 spaces,
-  " matching the commit-msg hook: body starts at line 3; a blank line ends a
-  " bullet block; a '- ' line opens one; while inside, a non-blank line that is
-  " not exactly two spaces followed by a non-space is a violation (flags both
-  " under- and over-indented continuations). Comment lines are stripped by the
-  " hook before it checks, and the verbose-diff region is stripped too, so skip
-  " both here to stay in sync.
-  let bad = []
-  let in_bullet = 0
-  for lnum in range(3, line('$'))
+function! s:BadIndentLines() abort
+  " Line numbers the commit-msg hook rejects for indentation. The hook strips
+  " comment lines and the verbose-diff region first and counts lines after
+  " that, so build the same view (kept as [lnum, text] pairs) and index it
+  " 1-based like the hook. Whitespace-only lines are blank (the hook trims them).
+  let rows = []
+  for lnum in range(1, line('$'))
     let line = getline(lnum)
     if line =~# '^diff --git '
       break
     endif
-    if line =~# '^#'
-      continue
+    if line !~# '^#'
+      call add(rows, [lnum, substitute(line, '\s\+$', '', '')])
     endif
+  endfor
+
+  " The footer block is the final paragraph, past the subject separator, and
+  " only when its first line is a footer token (a '- ' bullet never is).
+  let last_blank = 0
+  for idx in range(3, len(rows))
+    if rows[idx - 1][1] ==# ''
+      let last_blank = idx
+    endif
+  endfor
+  let footer_start = 0
+  if last_blank > 2 && last_blank < len(rows)
+    let first = rows[last_blank][1]
+    if first !~# '^- ' && first =~# '^\%([A-Za-z-]\+\|BREAKING CHANGE\)\%(: \| #\)'
+      let footer_start = last_blank + 1
+    endif
+  endif
+
+  " A blank line ends a bullet block and a '- ' line opens one. Inside a bullet
+  " past the separator, a line must be exactly two spaces followed by a
+  " non-space (flags unindented, under- and over-indented alike). Outside one,
+  " an indented line is allowed only in the footer block.
+  let bad = []
+  let in_bullet = 0
+  for idx in range(1, len(rows))
+    let [lnum, line] = rows[idx - 1]
     if line ==# ''
       let in_bullet = 0
     elseif line =~# '^- '
       let in_bullet = 1
-    elseif in_bullet && line !~# '^  [^ ]'
+    elseif in_bullet
+      if idx > 2 && line !~# '^  [^[:space:]]'
+        call add(bad, lnum)
+      endif
+    elseif line =~# '^\s' && (footer_start == 0 || idx < footer_start)
       call add(bad, lnum)
     endif
   endfor
   return bad
 endfunction
 
-function! s:RefreshBulletMatches() abort
+function! s:RefreshIndentMatches() abort
   " matchaddpos is one-shot (positions do not auto-track), so clear and rebuild
-  " this window's bullet match on every change. The id is window-local so
+  " this window's indentation match on every change. The id is window-local so
   " multiple gitcommit windows do not clobber each other.
-  if exists('w:gitcommit_bullet_match') && w:gitcommit_bullet_match != -1
-    silent! call matchdelete(w:gitcommit_bullet_match)
+  if exists('w:gitcommit_indent_match') && w:gitcommit_indent_match != -1
+    silent! call matchdelete(w:gitcommit_indent_match)
   endif
-  let w:gitcommit_bullet_match = -1
-  let bad = s:BadBulletLines()
+  let w:gitcommit_indent_match = -1
+  let bad = s:BadIndentLines()
   if !empty(bad)
-    let w:gitcommit_bullet_match = matchaddpos('GitcommitLintError', bad, 20)
+    let w:gitcommit_indent_match = matchaddpos('GitcommitLintError', bad, 20)
   endif
 endfunction
 
 augroup gitcommit_lint_highlight
   autocmd! * <buffer>
-  autocmd TextChanged,TextChangedI,InsertLeave <buffer> call s:RefreshBulletMatches()
+  autocmd TextChanged,TextChangedI,InsertLeave <buffer> call s:RefreshIndentMatches()
 augroup END
 
-call s:RefreshBulletMatches()
+call s:RefreshIndentMatches()
 
 " --- Paragraph text object that also stops at comment lines ------------------
 " The template puts '#' lines directly under the body with no blank line, and
