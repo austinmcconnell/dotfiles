@@ -262,6 +262,36 @@
     assert $state equals 0
 }
 
+@test 'rejects a body that opens with bullets' {
+    printf 'fix: x\n\n- a\n- b\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 1
+    assert $output contains 'Line 3 starts with bullets'
+}
+
+@test 'rejects a body that opens with bullets after a blank run' {
+    printf 'fix: x\n\n\n- a\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 1
+    assert $output contains 'Line 4 starts with bullets'
+}
+
+@test 'rejects bullets followed by a footer with no prose paragraph' {
+    printf 'fix: x\n\n- a\n\nRefs: #1\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 1
+    assert $output contains 'starts with bullets'
+}
+
+@test 'accepts a footer after the prose paragraph and a subject with a footer only' {
+    printf 'fix: x\n\nWhy.\n\nRefs: #1\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 0
+    printf 'fix: x\n\nRefs: #1\n' >"$msg"
+    run "$hook" "$msg"
+    assert $state equals 0
+}
+
 @test 'accepts a footer-looking line as the final paragraph' {
     printf 'fix: x\n\nWhy.\n\nNote: see the docs\n' >"$msg"
     run "$hook" "$msg"

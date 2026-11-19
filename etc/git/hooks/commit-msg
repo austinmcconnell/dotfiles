@@ -240,6 +240,14 @@ done <<<"$message"
 # NOTE: the gitcommit ftplugin mirrors this classifier to highlight violations
 # live. Change one, change both.
 hash_separator=" #"
+if [[ $para_count -gt 0 && "${para_first[0]}" == "- "* ]]; then
+    echo "$PREFIX Line ${para_start[0]} starts with bullets; open the body with a paragraph." >&2
+    echo "" >&2
+    echo "  ${para_first[0]}" >&2
+    echo "" >&2
+    echo "Explain why the change was made, then list what changed in bullets." >&2
+    exit 1
+fi
 for ((i = 1; i < para_count; i++)); do
     first="${para_first[$i]}"
     if [[ "$first" == "- "* ]]; then
